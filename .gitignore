@@ -10,3 +10,12 @@ Thumbs.db
 
 # Git credentials — DO NOT commit, contains your personal token
 .obsidian/plugins/obsidian-git/data.json
+
+# Réglages propres à chaque appareil (évite les conflits au clone sur mobile)
+.obsidian/app.json
+.obsidian/appearance.json
+.obsidian/community-plugins.json
+.obsidian/core-plugins.json
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/obsidian-git/
