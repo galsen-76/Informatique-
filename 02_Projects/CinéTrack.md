@@ -12,19 +12,24 @@ aliases:
 # 🎬 CinéTrack
 
 > [!abstract] Objectif
-> Application Angular de suivi de films : recherche, fiche détaillée, favoris, notes et critiques. C'est le fil rouge qui sert d'exemple dans la plupart des notes.
+> Application **Angular** de suivi de films basée sur l'**API TMDB** (The Movie Database) : films populaires, recherche, fiche détaillée avec casting et bande-annonce, favoris, notes et critiques. C'est le fil rouge qui sert d'exemple dans la plupart des notes.
 
 **Période :** M04 → M05 de la [[Roadmap-12-mois|Roadmap 12 mois]]  
-**Stack :** Angular (standalone, signals, contrôle de flux), RxJS, HttpClient, Reactive Forms, Vitest, Angular Material/CDK
+**Stack :** Angular (standalone, signals, contrôle de flux), RxJS, HttpClient + intercepteurs, Reactive Forms, PrimeNG + Lucide + Tailwind, Vitest, API TMDB
 
 ---
 
 ## Jalons
 
 ### M04
-- [ ] #task `ng new` + structure par features
-- [ ] #task Recherche de films (API publique TMDB/OMDb) avec debounceTime + switchMap
-- [ ] #task Page détail avec paramètre de route
+- [ ] #task Créer un compte TMDB et récupérer le **jeton d'accès en lecture** (API Read Access Token)
+- [ ] #task `ng new cinetrack` + structure par features (`films`, `favoris`, `core`, `shared`) + PrimeNG
+- [ ] #task Interfaces TypeScript des réponses TMDB (`FilmResume`, `FilmDetail`, `PageTmdb<T>` générique)
+- [ ] #task `TmdbService` + intercepteur qui ajoute `Authorization: Bearer …` et `language=fr-FR`
+- [ ] #task Page d'accueil : films populaires et tendances (grille de cartes, pagination)
+- [ ] #task Recherche de films avec debounceTime + switchMap (ou `toObservable` + `toSignal`)
+- [ ] #task Page détail `/films/:id` : infos, genres, casting (`append_to_response=credits,videos`), bande-annonce
+- [ ] #task Filtre par genre (liste des genres TMDB)
 - [ ] #task Favoris (service + signals, persistés en localStorage)
 - [ ] #task Formulaire réactif « ajouter une critique » avec validation
 - [ ] #task Pipes `duree` et `tronquer`
@@ -39,6 +44,51 @@ aliases:
 
 ---
 
+## API TMDB — aide-mémoire
+
+| Besoin | Endpoint (base `https://api.themoviedb.org/3`) |
+|---|---|
+| Films populaires | `GET /movie/popular?page=1` |
+| Tendances | `GET /trending/movie/week` |
+| Recherche | `GET /search/movie?query=dune&page=1` |
+| Détail + casting + vidéos | `GET /movie/{id}?append_to_response=credits,videos` |
+| Liste des genres | `GET /genre/movie/list` |
+| Découvrir par genre | `GET /discover/movie?with_genres=878&sort_by=popularity.desc` |
+| Films similaires | `GET /movie/{id}/similar` |
+
+- **Authentification** : en-tête `Authorization: Bearer <jeton d'accès en lecture>` (ajouté par un intercepteur)
+- **Langue** : paramètre `language=fr-FR`
+- **Images** : `https://image.tmdb.org/t/p/w500{poster_path}` (tailles : `w185`, `w342`, `w500`, `original`) ; `poster_path` peut être `null` → image de remplacement
+- **Pagination** : réponse `{ page, results, total_pages, total_results }` → type générique `PageTmdb<T>`
+- **Attribution** : afficher le logo TMDB et la mention « This product uses the TMDB API but is not endorsed or certified by TMDB »
+
+```typescript
+export interface PageTmdb<T> { page: number; results: T[]; total_pages: number; total_results: number }
+export interface FilmResume { id: number; title: string; poster_path: string | null; release_date: string; vote_average: number; genre_ids: number[] }
+
+@Injectable({ providedIn: 'root' })
+export class TmdbService {
+  private http = inject(HttpClient);
+  private base = 'https://api.themoviedb.org/3';
+  populaires(page = 1) {
+    return this.http.get<PageTmdb<FilmResume>>(`${this.base}/movie/popular`, { params: { page } });
+  }
+  rechercher(query: string, page = 1) {
+    return this.http.get<PageTmdb<FilmResume>>(`${this.base}/search/movie`, { params: { query, page } });
+  }
+}
+
+export const tmdbInterceptor: HttpInterceptorFn = (req, next) =>
+  req.url.startsWith('https://api.themoviedb.org')
+    ? next(req.clone({ setHeaders: { Authorization: `Bearer ${environment.tmdbToken}` }, setParams: { language: 'fr-FR' } }))
+    : next(req);
+```
+
+> [!warning] Le jeton dans le front
+> Un jeton placé dans le code Angular est **visible par tous** dans le bundle. C'est acceptable pour ce projet d'apprentissage avec un jeton en lecture seule, mais pas pour une vraie application : en M08, l'API [[02_Projects/CinéTrack-API|CinéTrack-API]] servira de **proxy** vers TMDB et gardera le jeton côté serveur (voir [[SEC-10-Gestion-des-Secrets|Gestion des secrets]]).
+
+---
+
 ## Notes à mobiliser
 
 - [[ANG-01-Fondamentaux|Fondamentaux Angular]]
@@ -46,6 +96,7 @@ aliases:
 - [[ANG-24-RxJS-Avance|RxJS Avancé]]
 - [[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]]
 - [[ANG-14-Tests|Tests Angular]]
+- [[ANG-09-HTTP-Communication-Serveur|HTTP Angular]] · [[ANG-21-Guards-Resolvers-Intercepteurs|Intercepteurs]] · [[UI-Librairies-Interfaces-Rapides|Librairies UI]]
 
 ---
 

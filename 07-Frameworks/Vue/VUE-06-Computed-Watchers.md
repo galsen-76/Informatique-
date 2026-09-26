@@ -4,7 +4,7 @@ modified: 2026-09-21
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
-month: M06
+month: M02
 aliases:
   - "Computed & Watchers Vue.js"
 tags:

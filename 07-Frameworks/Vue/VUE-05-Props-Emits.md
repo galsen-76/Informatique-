@@ -4,7 +4,7 @@ modified: 2026-09-21
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
-month: M06
+month: M02
 aliases:
   - "Props & Emits Vue.js (Communication Parent-Enfant)"
 tags:

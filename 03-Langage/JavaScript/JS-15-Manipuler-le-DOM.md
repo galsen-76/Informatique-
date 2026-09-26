@@ -150,7 +150,7 @@ source: "https://developer.mozilla.org/fr/docs/Web/API/Element"
 
 ## Tâches
 
-- [ ] #task Coder la liste de films du Lab TypeScript en manipulant le DOM à la main, puis comparer avec la version Angular
+- [ ] #task Coder une liste de films en TypeScript pur (manipulation du DOM à la main), puis comparer avec la version Vue du Portfolio et la version Angular de CinéTrack
 - [ ] #task Mettre à jour `status` une fois maîtrisé
 
 ---

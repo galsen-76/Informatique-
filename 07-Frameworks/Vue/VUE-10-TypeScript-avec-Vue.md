@@ -4,7 +4,7 @@ modified: 2026-09-24
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
-month: M06
+month: M03
 tags:
   - frameworks/vue/typescript
 aliases:

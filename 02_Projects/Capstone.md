@@ -27,7 +27,7 @@ aliases:
 - [ ] #task Mention « généré par IA », feature flag, limitation d'usage
 - [ ] #task Critiques en temps réel (WebSocket) — optionnel
 - [ ] #task Démo de 10 minutes + article/README vitrine
-- [ ] #task Portfolio en Angular ou Vue avec PrimeNG/PrimeVue (HTML/CSS assistés par l'IA) + mise à jour du CV
+- [ ] #task Ajouter CinéTrack et le Capstone au Portfolio + mise à jour du CV
 
 ---
 

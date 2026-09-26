@@ -29,7 +29,7 @@ gantt
   section 1 · Fondations
   M1 Web, Git, outils, méthodo        :m1, 2026-10, 1M
   M2 JavaScript avancé + algo         :m2, 2026-11, 1M
-  M3 TypeScript + tooling (Lab TS)    :m3, 2026-12, 1M
+  M3 TypeScript + Vue (Portfolio)     :m3, 2026-12, 1M
   section 2 · Front expert
   M4 Angular I (CinéTrack)            :m4, 2027-01, 1M
   M5 Angular II (avancé)              :m5, 2027-02, 1M
@@ -90,20 +90,20 @@ flowchart LR
 - Outils : [[OUT-01-Terminal-Bash|Terminal et Bash]], [[OUT-04-VSCode-Productivite|VS Code et Productivité]], [[IJ-01-Interface-Fondamentaux|Interface & Fondamentaux IntelliJ IDEA]], [[OUT-06-Recherche-Documentation|Chercher et Lire la Documentation]], [[IA-07-IA-Assistee-Dev|IA Assistée au Développement]]
 - Méthodo : [[METH-01-Agile-Manifeste|Agile et Manifeste Agile]], [[METH-02-Scrum|Scrum]], [[METH-03-Kanban|Kanban]], [[METH-05-Resolution-Problemes-Debug|Résolution de Problèmes et Débogage]]
 
-**Livrable :** [[02_Projects/Lab-TypeScript|Lab TypeScript]] — page « Films » (HTML/CSS générés par l'IA) animée en JS : sélection typée des éléments, rendu de la liste, filtre, favoris ; dépôt GitLab avec commits conventionnels.
+**Livrable :** démarrage du [[02_Projects/Portfolio|Portfolio]] en **Vue 3 + TypeScript + PrimeVue** : projet créé, structure comprise, layout généré avec l'IA puis relu, dépôt GitLab avec commits conventionnels. En parallèle, exercices de sélection/manipulation du DOM dans la console.
 **Point de contrôle :** je sélectionne et modifie n'importe quel élément du DOM sans aide, je repère une balise mal choisie dans du HTML généré, et je résous un conflit Git seul.
 
 ### M2 · Novembre — JavaScript en profondeur + premiers algorithmes
 **Notes :** [[JS-03-Fonctions-Scope-Closures|Fonctions Scope et Closures JavaScript]], [[JS-04-this-Prototypes-Classes|this et Prototypes JavaScript]], [[JS-06-Event-Loop|Event Loop JavaScript]], [[JS-07-Promises-Async-Await|Promises et Async Await JavaScript]], [[JS-09-Modules-ESM|Modules ES JavaScript]], [[JS-10-Fetch-JSON-HTTP|Fetch API et JSON]], [[JS-11-Stockage-Navigateur|Stockage Navigateur]], [[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]], [[JS-13-JavaScript-Moderne-ES2015-2025|JavaScript Moderne ES2015+]], [[TG-06-Programmation-Fonctionnelle|Programmation Fonctionnelle]], [[TG-07-Encodage-Unicode-Nombres|Encodage Unicode et Nombres]], [[GIT-05-Annuler-Corriger|Annuler et Corriger dans Git]], [[GIT-06-Workflows-Equipe|Workflows Git en Équipe]]
 Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaines|Tableaux et Chaînes]], [[ALGO-03-Piles-Files-Listes-Chainees|Piles Files et Listes Chaînées]], [[ALGO-04-Tables-de-Hachage-Map-Set|Tables de Hachage Map et Set]]
 
-**Livrable :** Lab TypeScript : utilitaires codés de tête (`debounce`, `groupBy`…), recherche via une API publique (fetch, annulation, erreurs), favoris persistés, mini EventEmitter.
+**Livrable :** Portfolio — composants typés (`ProjetCard`), filtre des projets avec `computed`, mode sombre persisté, composable d'appel API (fetch, annulation, états chargement/erreur), premiers tests. Notes Vue à lire en parallèle : VUE-01 → VUE-07.
 **Point de contrôle :** je prédis l'ordre d'exécution d'un code mêlant `setTimeout`, Promises et `await` ; je code `debounce` de tête.
 
-### M3 · Décembre — TypeScript expert + outillage
+### M3 · Décembre — TypeScript expert + Vue appliqué au Portfolio
 **Notes :** toute la section [[TypeScript]] (TS-01 → TS-19), [[OUT-02-Outillage-Build-Vite-Bundlers|Outils de Build et Bundlers]], [[OUT-03-ESLint-Prettier-Qualite|ESLint Prettier et Hooks]], [[NODE-01-Node-npm|Node.js et npm]] (bases), [[TEST-02-Tests-Unitaires-Vitest-Jest|Tests unitaires Vitest]] ; en survol : [[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]], [[HTML-03-Accessibilite-Web|Accessibilité Web]]
 
-**Livrable :** Lab TypeScript en TS strict (zéro `any`), union discriminée pour les états, dépôt générique `Depot<T>`, validation Zod, 20+ tests Vitest, ESLint/Prettier/husky.
+**Livrable :** Portfolio en TS strict (zéro `any`, `vue-tsc`), Vue Router (détail `/projets/:slug`), formulaire de contact VeeValidate + Zod, 15+ tests Vitest, déploiement GitLab Pages. Notes Vue : VUE-08, VUE-10, VUE-14 → VUE-16.
 **Point de contrôle :** zéro `any` ; je sais expliquer generics, unions discriminées, narrowing, `unknown` vs `any`, `satisfies`, utility types.
 
 ---
@@ -112,7 +112,7 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 
 ### M4 · Janvier — Angular I : les fondations modernes
 **Notes :** ANG-01 → ANG-10, [[UI-Librairies-Interfaces-Rapides|Librairies UI pour interfaces rapides]], [[ANG-18-Cycle-de-Vie|Cycle de vie des composants Angular]], [[ANG-19-Communication-Composants|Communication parent-enfant Angular]], [[ANG-20-Pipes|Pipes Angular]]
-**Livrable :** [[02_Projects/CinéTrack|CinéTrack]] (Angular) : recherche de films via une API publique, fiche détail, favoris en localStorage, formulaire réactif « ajouter une critique ».
+**Livrable :** [[02_Projects/CinéTrack|CinéTrack]] (Angular + **API TMDB** + PrimeNG) : films populaires, recherche, fiche détail avec casting, filtre par genre, favoris en localStorage, formulaire réactif « ajouter une critique ».
 **Point de contrôle :** composants standalone + signals + `@if/@for`, services injectés, routing avec paramètres, HttpClient + gestion d'erreurs, recherche avec `debounceTime` + `switchMap`.
 
 ### M5 · Février — Angular II : niveau confirmé
@@ -120,7 +120,7 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 **Livrable :** CinéTrack refactoré : architecture par features, OnPush partout, store signals, lazy loading + `@defer`, intercepteurs, 20+ tests (Vitest/TestBed).
 **Point de contrôle :** je choisis entre signals et RxJS en le justifiant ; je sais expliquer switchMap/mergeMap/concatMap/exhaustMap et OnPush.
 
-### M6 · Mars — Vue 3 (la 2e stack de l'entreprise)
+### M6 · Mars — Vue 3 en profondeur (la 2e stack de l'entreprise)
 **Notes :** toute la section [[Vue]] (VUE-01 → VUE-21) + [[Angular-vs-Vue|Angular vs Vue Correspondances]]
 **Livrable :** [[02_Projects/CinéTrack-Vue|CinéTrack-Vue]] : mêmes fonctionnalités en Vue 3 + TS + Pinia + Vue Router + Vitest.
 **Point de contrôle :** je passe d'Angular à Vue sans confusion (`.value` vs `()`, composable vs service) ; je sais expliquer `ref`/`reactive`, `computed`/`watch`, props/emits/slots, Pinia.
@@ -160,7 +160,7 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 
 ### M12 · Septembre — IA, entretiens et projet final
 **Notes :** toute la section [[Intelligence Artificielle]], [[ALGO-09-Techniques-Resolution|Techniques de Résolution d'Algorithmes]], révision des notes « Questions d'entretien »
-**Livrable :** [[02_Projects/Capstone|Capstone]] (fonctionnalité IA : résumé de critiques / recherche sémantique pgvector / temps réel), portfolio final **en Angular ou Vue avec une librairie UI** ([[UI-Librairies-Interfaces-Rapides|Librairies UI]]), CV technique, bilan des 12 mois.
+**Livrable :** [[02_Projects/Capstone|Capstone]] (fonctionnalité IA : résumé de critiques / recherche sémantique pgvector / temps réel), portfolio mis à jour avec tous les projets, CV technique, bilan des 12 mois.
 **Point de contrôle :** simulation d'entretien technique (algo + conception + questions Angular/Vue/Nest) ; présentation de CinéTrack en 10 minutes.
 
 ---
