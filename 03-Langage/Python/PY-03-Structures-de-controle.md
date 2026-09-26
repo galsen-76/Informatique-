@@ -1,6 +1,6 @@
 ---
 created: 2026-09-14
-modified: 2026-09-14
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,8 @@ aliases:
 tags:
   - backend/python/controle
 parent: "[[Python]]"
-children: []
 related_theory:
   - "[[PY-01-Fondamentaux|Fondamentaux Python]]"
-related_snippets:
-  - "[[04_Snippets/py-controle]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.python.org/3/tutorial/controlflow.html"
@@ -22,146 +19,67 @@ source: "https://docs.python.org/3/tutorial/controlflow.html"
 
 # Structures de Contrôle Python
 
-> [!abstract] Introduction
-> Les structures de contrôle permettent de faire des choix (conditions) et de répéter des actions (boucles) dans un programme, en utilisant l'indentation pour délimiter chaque bloc.
+> [!abstract] En bref
+> Conditions et boucles fonctionnent comme en JavaScript, avec une syntaxe plus courte : `elif` au lieu de `else if`, et une boucle `for` qui parcourt **directement** les éléments (comme `for…of`). Pas de `for (let i = 0; …)` : on utilise `range()`.
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> Deux grandes familles :
-> 1. **Conditions** (`if` / `elif` / `else`) : exécuter du code seulement si une condition est vraie
-> 2. **Boucles** (`for` / `while`) : répéter du code plusieurs fois
-
-> [!question]- Pourquoi l'utiliser ?
-> Sans structures de contrôle, un programme exécuterait toujours exactement les mêmes instructions, dans le même ordre, sans jamais s'adapter aux données. Les conditions et boucles rendent le code capable de réagir et de traiter des quantités variables de données.
-
-> [!question]- Comment ça marche ?
-> **Condition :**
-> ```python
-> annee = 2010
->
-> if annee > 2015:
->     print("Film récent")
-> elif annee > 2000:
->     print("Film des années 2000")
-> else:
->     print("Film ancien")
-> ```
-> > [!note] `elif` ?
-> > Contraction de "else if" — permet d'enchaîner plusieurs conditions sans emboîter des `if` les uns dans les autres.
->
-> **Boucle `for` — parcourir une collection :**
-> ```python
-> films = ["Inception", "Interstellar"]
-> for film in films:
->     print(film)
-> ```
-> > [!note] Différence avec la boucle `for` en JavaScript
-> > En Python, `for film in films` parcourt DIRECTEMENT les éléments (pas besoin d'index comme `for (let i = 0; i < films.length; i++)`). Si on a besoin de l'index en même temps, on utilise `enumerate()`.
-> ```python
-> for index, film in enumerate(films):
->     print(f"{index}: {film}")
-> ```
->
-> **Boucle `while` — répéter tant qu'une condition est vraie :**
-> ```python
-> compteur = 0
-> while compteur < 3:
->     print(compteur)
->     compteur += 1
-> ```
-> > [!note] `+=` ?
-> > `compteur += 1` est un raccourci pour `compteur = compteur + 1`. Fonctionne comme en JavaScript.
->
-> **Sortir d'une boucle ou passer au tour suivant :**
-> ```python
-> for film in films:
->     if film == "Interstellar":
->         break     # arrête complètement la boucle
->     if film == "Inception":
->         continue  # passe directement au tour suivant
-> ```
-
-> [!question]- Quand l'utiliser ?
-> - `if`/`elif`/`else` : dès qu'un comportement doit dépendre d'une condition
-> - `for` : parcourir une collection connue (liste, dictionnaire, chaîne de caractères)
-> - `while` : répéter tant qu'une condition reste vraie, sans connaître à l'avance le nombre de répétitions
-
----
-
-## Points clés
-
-- Pas d'accolades : l'indentation définit ce qui appartient au bloc `if`/`for`/`while`
-- `elif` remplace la répétition de `else { if (...) }`
-- `for ... in ...` parcourt directement les éléments, pas besoin d'index
-- `enumerate()` donne à la fois l'index ET l'élément dans une boucle `for`
-- `break` arrête la boucle, `continue` passe au tour suivant sans terminer la boucle
-
----
-
-## Paramètres / Configuration
-
-| Mot-clé | Description | Notes |
-|-----------|-------------|-------|
-| `if` / `elif` / `else` | Structure conditionnelle | `elif` = "else if" |
-| `for x in collection` | Boucle sur chaque élément | Pas d'index par défaut |
-| `while condition` | Boucle tant que la condition est vraie | Attention aux boucles infinies |
-| `enumerate(collection)` | Donne index + élément dans une boucle `for` | — |
-| `break` / `continue` | Sortir de la boucle / passer au tour suivant | — |
-
----
-
-## Exemple minimal
+## Les conditions
 
 ```python
-films = [
-    {"titre": "Inception", "annee": 2010},
-    {"titre": "Dunkirk", "annee": 2017},
-    {"titre": "Interstellar", "annee": 2014}
-]
+rating = 4
 
-for index, film in enumerate(films):
-    if film["annee"] < 2015:
-        print(f"{index}: {film['titre']} est sorti avant 2015")
-    else:
-        continue
+if rating >= 4:
+    print("Excellent")
+elif rating >= 2:          # else if
+    print("Correct")
+else:
+    print("À éviter")
+
+# condition sur une ligne (le ternaire)
+label = "Bon" if rating >= 3 else "Mauvais"      # JS : rating >= 3 ? 'Bon' : 'Mauvais'
 ```
 
-> [!note] Ce que j'en retiens
-> `enumerate()` donne à la fois la position (`index`) et le contenu (`film`) à chaque tour de boucle — pratique quand on a besoin des deux informations simultanément, sans gérer un compteur manuellement.
+Valeurs considérées comme fausses : `False`, `None`, `0`, `""`, `[]`, `{}`. Donc `if movies:` = « si la liste n'est pas vide ».
 
----
+## Les boucles
 
-## Connexions
+```python
+movies = ["Dune", "Alien", "Heat"]
 
-**Arbre théorique :**
-- Sujet parent → [[Python]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[JS-01-Fondamentaux|JavaScript - Boucles et conditions]]
+for movie in movies:                    # JS : for (const movie of movies)
+    print(movie)
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/py-controle]]
-- Projet → [[02_Projects/CinéTrack]]
+for i, movie in enumerate(movies):      # avec l'index
+    print(i, movie)
 
----
+for i in range(5):                      # 0, 1, 2, 3, 4
+    print(i)
 
-## Auto-vérification
+for key, value in {"a": 1}.items():     # clé + valeur d'un dictionnaire
+    print(key, value)
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Comment parcourir un dictionnaire avec clés et valeurs ?
+count = 0
+while count < 3:
+    count += 1                          # pas de count++ en Python
+```
 
----
+`break` (sortir de la boucle) et `continue` (passer au suivant) fonctionnent comme en JS.
 
-## Tâches
+## Le `match` (Python 3.10+)
 
-- [ ] #task Écrire une boucle qui filtre une liste de films selon une condition
-- [ ] #task Tester la différence entre `break` et `continue` avec des exemples concrets
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+L'équivalent d'un `switch`, en plus puissant :
 
----
+```python
+match status:
+    case 200:
+        print("OK")
+    case 404:
+        print("Introuvable")
+    case _:                 # default
+        print("Autre")
+```
 
-## Notes brutes
+## Pièges
 
-- ? Existe-t-il un équivalent du `switch` JavaScript en Python ? (piste : `match` depuis Python 3.10)
+- **Écrire `else if`** : c'est `elif`.
+- **`i++`** n'existe pas : `i += 1`.
+- **Oublier les `:`** en fin de `if`, `for`, `while`.

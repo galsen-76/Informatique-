@@ -1,6 +1,6 @@
 ---
 created: 2026-09-14
-modified: 2026-09-14
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,13 +10,8 @@ aliases:
 tags:
   - backend/python/fondamentaux
 parent: "[[Python]]"
-children:
-  - "[[PY-02-Structures-de-donnees|Structures de donnees]]"
-  - "[[PY-03-Structures-de-controle|Structures de controle]]"
 related_theory:
   - "[[TS-01-Fondamentaux|TypeScript - Fondamentaux]]"
-related_snippets:
-  - "[[04_Snippets/py-fondamentaux]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.python.org/3/"
@@ -24,119 +19,61 @@ source: "https://docs.python.org/3/"
 
 # Fondamentaux Python
 
-> [!abstract] Introduction
-> Python est un langage de programmation où le code se lit presque comme de l'anglais simple, sans typage obligatoire, où l'indentation (les espaces en début de ligne) remplace les accolades `{ }` pour délimiter les blocs de code.
+> [!abstract] En bref
+> Python est un langage très lisible, utilisé pour les scripts, la data, l'IA et les back-ends (FastAPI, Django). Tu connais déjà JavaScript : la logique est la même, seule la **syntaxe** change. Les deux grosses différences : **pas d'accolades** (c'est l'**indentation** qui délimite les blocs) et **pas de `let` / `const`**.
 
----
+## JavaScript → Python
 
-## Théorie
+| JavaScript / TypeScript | Python |
+|---|---|
+| `let title = 'Dune';` | `title = "Dune"` |
+| `const MAX = 10;` | `MAX = 10` (convention : majuscules = ne pas modifier) |
+| `// commentaire` | `# commentaire` |
+| `` `Film ${title}` `` | `f"Film {title}"` |
+| `true` / `false` | `True` / `False` |
+| `null` / `undefined` | `None` |
+| `&&`, `\|\|`, `!` | `and`, `or`, `not` |
+| `===` | `==` |
+| `console.log(x)` | `print(x)` |
+| `camelCase` | `snake_case` |
 
-> [!question]- C'est quoi ?
-> > [!note] C'est quoi un "langage interprété" ?
-> > Un langage interprété est exécuté ligne par ligne directement par un programme (l'interpréteur Python), sans étape de compilation préalable comme TypeScript. On écrit le code, on l'exécute directement.
->
-> ```python
-> titre = "Inception"
-> annee = 2010
-> est_favori = True
-> ```
->
-> > [!note] Pas de `: string` comme en TypeScript ?
-> > Par défaut non — Python est "typé dynamiquement" : une variable peut changer de type librement (`titre = "texte"` puis `titre = 5` fonctionne sans erreur). Il existe des "type hints" optionnels pour ajouter des indications de type, vus dans une note dédiée.
+## Les types de base
 
-> [!question]- Pourquoi l'utiliser ?
-> Python a été conçu pour être lisible et rapide à écrire, avec une syntaxe minimaliste. C'est pour ça qu'il est très utilisé en apprentissage, en data science, en scripts d'automatisation, et de plus en plus en backend web (avec des frameworks comme Django ou FastAPI).
+| Type | Exemple | Équivalent JS |
+|---|---|---|
+| `str` | `"Inception"` | `string` |
+| `int` | `2010` | `number` (entier) |
+| `float` | `8.8` | `number` (à virgule) |
+| `bool` | `True` | `boolean` |
+| `None` | `None` | `null` |
 
-> [!question]- Comment ça marche ?
-> > [!note] C'est quoi l'indentation en Python ?
-> > En JavaScript/TypeScript, un bloc de code est délimité par des accolades `{ }`. En Python, il n'y a PAS d'accolades : c'est l'espacement (indentation) en début de ligne qui indique "ce code appartient à ce bloc".
->
-> ```python
-> if annee > 2000:
->     print("Film récent")   # indenté = appartient au if
-> else:
->     print("Film ancien")
-> ```
-> > [!note] Attention
-> > Une erreur d'indentation en Python (mélanger espaces et tabulations, ou mal aligner) provoque une vraie erreur d'exécution — ce n'est pas juste une question de style comme en JavaScript.
->
-> Python utilise aussi des **commentaires** avec `#` (pas `//`) :
-> ```python
-> # Ceci est un commentaire
-> ```
+Contrairement à JavaScript, Python refuse de mélanger les types : `"5" + 1` provoque une **erreur** (voir [[TG-03-Typage-Statique-Dynamique|Typage]]).
 
-> [!question]- Quand l'utiliser ?
-> Python est pertinent pour : scripts d'automatisation, data science / IA, backend web, tests, ou tout projet où la rapidité d'écriture et la lisibilité priment sur la performance brute.
-
----
-
-## Points clés
-
-- Pas d'accolades : l'indentation définit les blocs de code (4 espaces = convention standard)
-- Typage dynamique par défaut : une variable peut changer de type
-- Commentaires avec `#`, pas `//`
-- Pas de point-virgule obligatoire en fin de ligne (contrairement à JS/TS)
-- Types de base : `str` (texte), `int` (entier), `float` (décimal), `bool` (vrai/faux)
-
----
-
-## Paramètres / Configuration
-
-| Type | Description | Exemple |
-|-----------|-------------|---------|
-| `str` | Texte | `"Inception"` |
-| `int` | Nombre entier | `2010` |
-| `float` | Nombre décimal | `3.14` |
-| `bool` | Vrai ou faux | `True`, `False` |
-| `None` | Absence de valeur | Équivalent de `null`/`undefined` |
-
----
-
-## Exemple minimal
+## L'indentation remplace les accolades
 
 ```python
-titre = "Inception"
-annee = 2010
+year = 2010
 
-if annee > 2000:
-    print(f"{titre} est un film récent")
+if year > 2000:
+    print("Film récent")      # 4 espaces = dans le if
 else:
-    print(f"{titre} est un film ancien")
+    print("Film ancien")
+
+print("Fin")                  # plus d'espaces = sorti du if
 ```
 
-> [!note] Ce que j'en retiens
-> `f"{titre} est..."` est une "f-string" : le `f` avant les guillemets permet d'insérer directement des variables dans le texte avec `{ }` — équivalent des templates littéraux JavaScript (`` `${titre}` ``).
+Le `:` ouvre un bloc, les **4 espaces** disent ce qui est dedans. Une mauvaise indentation = une **erreur**, pas juste un problème de style.
 
----
+## Lancer du Python
 
-## Connexions
+```bash
+python3 --version          # vérifier l'installation
+python3 script.py          # exécuter un fichier
+python3                    # console interactive (quit() pour sortir)
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Python]]
-- Sous-sujets → [[PY-02-Structures-de-donnees|Structures de donnees]], [[PY-03-Structures-de-controle|Structures de controle]]
-- À comparer avec → [[TS-01-Fondamentaux|TypeScript - Fondamentaux]]
+## Pièges
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/py-fondamentaux]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi l'indentation est-elle obligatoire en Python ?
-
----
-
-## Tâches
-
-- [ ] #task Écrire un premier script Python simple et volontairement casser l'indentation pour voir l'erreur
-- [ ] #task Comparer les types de base Python avec leurs équivalents TypeScript
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Pourquoi Python a-t-il choisi l'indentation plutôt que des accolades, historiquement ?
+- **Mélanger espaces et tabulations** : configure l'éditeur sur 4 espaces.
+- **Oublier les `:`** après `if`, `for`, `def`, `class`.
+- **Écrire `true`** en minuscules : c'est `True`.
