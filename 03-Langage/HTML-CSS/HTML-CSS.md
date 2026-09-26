@@ -32,10 +32,16 @@ aliases:
 8. [[CSS-08-SCSS-Sass|SCSS Sass]] — Intermédiaire · M03
 9. [[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]] — Intermédiaire · M03
 10. [[CSS-10-Animations-Transitions|Animations et Transitions CSS]] — Intermédiaire · M03
-11. [[HTML-01-Structure-Semantique|Structure HTML et Sémantique]] — Fondamental · M01
-12. [[HTML-02-Formulaires|Formulaires HTML]] — Fondamental · M01
-13. [[HTML-03-Accessibilite-Web|Accessibilité Web]] — Intermédiaire · M03
-14. [[HTML-CSS|🗂️ HTML-CSS]] —  · 
+11. [[CSS-11-Aide-Memoire-Selecteurs|Aide-mémoire des Sélecteurs CSS]] — Fondamental · M01
+12. [[HTML-01-Structure-Semantique|Structure HTML et Sémantique]] — Fondamental · M01
+13. [[HTML-02-Formulaires|Formulaires HTML]] — Fondamental · M01
+14. [[HTML-03-Accessibilite-Web|Accessibilité Web]] — Intermédiaire · M03
+15. [[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]] — Fondamental · M01
+16. [[HTML-05-Attributs-Globaux-Data|Attributs HTML et data]] — Fondamental · M01
+17. [[HTML-06-Head-Meta-Scripts|Head Meta et Chargement des Scripts]] — Fondamental · M01
+18. [[HTML-07-Images-Medias|Images et Médias HTML]] — Fondamental · M01
+19. [[HTML-08-Tableaux-HTML|Tableaux HTML]] — Fondamental · M01
+20. [[HTML-CSS|🗂️ HTML-CSS]] —  · 
 
 ---
 

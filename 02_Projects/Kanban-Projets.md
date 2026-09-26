@@ -5,7 +5,7 @@ tags: [kanban, project]
 
 ## Backlog
 
-- [ ] #task Portfolio : page d'accueil HTML/CSS
+- [ ] #task Lab TypeScript : liste de films en DOM typé
 - [ ] #task CinéTrack : recherche de films
 - [ ] #task CinéTrack-Vue : réécriture Vue
 - [ ] #task CinéTrack-API : schéma Prisma

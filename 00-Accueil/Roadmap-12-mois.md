@@ -29,7 +29,7 @@ gantt
   section 1 · Fondations
   M1 Web, Git, outils, méthodo        :m1, 2026-10, 1M
   M2 JavaScript avancé + algo         :m2, 2026-11, 1M
-  M3 TypeScript + tooling (Portfolio) :m3, 2026-12, 1M
+  M3 TypeScript + tooling (Lab TS)    :m3, 2026-12, 1M
   section 2 · Front expert
   M4 Angular I (CinéTrack)            :m4, 2027-01, 1M
   M5 Angular II (avancé)              :m5, 2027-02, 1M
@@ -83,27 +83,27 @@ flowchart LR
 
 ### M1 · Octobre — Le web, Git et l'environnement de travail
 **Notes :**
-- Web : [[HTML-01-Structure-Semantique|Structure HTML et Sémantique]], [[HTML-02-Formulaires|Formulaires HTML]], [[CSS-01-Selecteurs-Cascade-Specificite|Sélecteurs Cascade et Spécificité CSS]], [[CSS-02-Box-Model|Box Model CSS]], [[CSS-03-Flexbox|Flexbox CSS]], [[CSS-04-Grid|Grid CSS]], [[CSS-05-Responsive-Design|Responsive Design]], [[CSS-06-Positionnement-Z-Index|Positionnement et Z-Index CSS]], [[CSS-07-Variables-Themes|Variables CSS et Thèmes]]
-- JS de base : [[JS-01-Fondamentaux|Fondamentaux JavaScript]], [[JS-02-Types-Coercition-Egalite|Types et Coercition JavaScript]], [[JS-05-Objets-Tableaux-Methodes|Objets et Tableaux JavaScript]], [[JS-08-DOM-Evenements|DOM et Événements JavaScript]]
+- HTML/CSS — **l'essentiel pour lire et corriger ce que l'IA génère** (pas besoin de tout coder à la main) : [[HTML-01-Structure-Semantique|Structure HTML et Sémantique]], [[HTML-04-Aide-Memoire-Balises|Aide-mémoire des balises]], [[HTML-05-Attributs-Globaux-Data|Attributs HTML et data]], [[HTML-02-Formulaires|Formulaires HTML]], [[HTML-06-Head-Meta-Scripts|Head, meta et scripts]], [[HTML-07-Images-Medias|Images et médias]], [[HTML-08-Tableaux-HTML|Tableaux HTML]], [[CSS-01-Selecteurs-Cascade-Specificite|Sélecteurs Cascade et Spécificité CSS]], [[CSS-11-Aide-Memoire-Selecteurs|Aide-mémoire des sélecteurs CSS]], [[CSS-02-Box-Model|Box Model CSS]], [[CSS-03-Flexbox|Flexbox CSS]], [[CSS-04-Grid|Grid CSS]] (à survoler : responsive, positionnement, variables)
+- JS de base : [[JS-01-Fondamentaux|Fondamentaux JavaScript]], [[JS-02-Types-Coercition-Egalite|Types et Coercition JavaScript]], [[JS-05-Objets-Tableaux-Methodes|Objets et Tableaux JavaScript]], [[JS-08-DOM-Evenements|DOM et Événements JavaScript]], [[JS-14-Selectionner-Elements-DOM|Sélectionner des éléments du DOM]], [[JS-15-Manipuler-le-DOM|Manipuler le DOM]]
 - Théorie : [[TG-01-Comment-fonctionne-un-programme|Comment fonctionne un programme]], [[TG-02-Memoire-Valeur-Reference|Mémoire Valeur et Référence]], [[TG-03-Typage-Statique-Dynamique|Typage Statique et Dynamique]], [[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]], [[TG-05-Paradigmes-POO|Programmation Orientée Objet]], [[TG-08-Lisibilite-Nommage|Lisibilité et Nommage du Code]]
 - Git : [[GIT-01-Fondamentaux|Git Fondamentaux]], [[GIT-02-Branches-Merge-Rebase|Branches Merge et Rebase]], [[GIT-03-Depots-Distants|Dépôts Distants]], [[GIT-04-Conflits|Résoudre les Conflits Git]], [[GIT-07-Conventions-Commits-SemVer|Conventions de Commits et SemVer]], [[01-GitLab|Fondamentaux GitLab]], [[02-Merge-Requests|Merge Requests]], [[04-Issues-Boards|Issues et Boards GitLab]]
 - Outils : [[OUT-01-Terminal-Bash|Terminal et Bash]], [[OUT-04-VSCode-Productivite|VS Code et Productivité]], [[IJ-01-Interface-Fondamentaux|Interface & Fondamentaux IntelliJ IDEA]], [[OUT-06-Recherche-Documentation|Chercher et Lire la Documentation]], [[IA-07-IA-Assistee-Dev|IA Assistée au Développement]]
 - Méthodo : [[METH-01-Agile-Manifeste|Agile et Manifeste Agile]], [[METH-02-Scrum|Scrum]], [[METH-03-Kanban|Kanban]], [[METH-05-Resolution-Problemes-Debug|Résolution de Problèmes et Débogage]]
 
-**Livrable :** page d'accueil du [[02_Projects/Portfolio|Portfolio]] en HTML/CSS pur (responsive, accessible), versionnée sur GitLab avec des commits conventionnels.
-**Point de contrôle :** je sais expliquer la cascade CSS, faire un layout Flex/Grid sans tutoriel, et résoudre un conflit Git seul.
+**Livrable :** [[02_Projects/Lab-TypeScript|Lab TypeScript]] — page « Films » (HTML/CSS générés par l'IA) animée en JS : sélection typée des éléments, rendu de la liste, filtre, favoris ; dépôt GitLab avec commits conventionnels.
+**Point de contrôle :** je sélectionne et modifie n'importe quel élément du DOM sans aide, je repère une balise mal choisie dans du HTML généré, et je résous un conflit Git seul.
 
 ### M2 · Novembre — JavaScript en profondeur + premiers algorithmes
 **Notes :** [[JS-03-Fonctions-Scope-Closures|Fonctions Scope et Closures JavaScript]], [[JS-04-this-Prototypes-Classes|this et Prototypes JavaScript]], [[JS-06-Event-Loop|Event Loop JavaScript]], [[JS-07-Promises-Async-Await|Promises et Async Await JavaScript]], [[JS-09-Modules-ESM|Modules ES JavaScript]], [[JS-10-Fetch-JSON-HTTP|Fetch API et JSON]], [[JS-11-Stockage-Navigateur|Stockage Navigateur]], [[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]], [[JS-13-JavaScript-Moderne-ES2015-2025|JavaScript Moderne ES2015+]], [[TG-06-Programmation-Fonctionnelle|Programmation Fonctionnelle]], [[TG-07-Encodage-Unicode-Nombres|Encodage Unicode et Nombres]], [[GIT-05-Annuler-Corriger|Annuler et Corriger dans Git]], [[GIT-06-Workflows-Equipe|Workflows Git en Équipe]]
 Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaines|Tableaux et Chaînes]], [[ALGO-03-Piles-Files-Listes-Chainees|Piles Files et Listes Chaînées]], [[ALGO-04-Tables-de-Hachage-Map-Set|Tables de Hachage Map et Set]]
 
-**Livrable :** Portfolio interactif en JS vanilla : filtre de projets, mode sombre persisté, appel à une API publique (fetch + gestion d'erreurs).
+**Livrable :** Lab TypeScript : utilitaires codés de tête (`debounce`, `groupBy`…), recherche via une API publique (fetch, annulation, erreurs), favoris persistés, mini EventEmitter.
 **Point de contrôle :** je prédis l'ordre d'exécution d'un code mêlant `setTimeout`, Promises et `await` ; je code `debounce` de tête.
 
 ### M3 · Décembre — TypeScript expert + outillage
-**Notes :** toute la section [[TypeScript]] (TS-01 → TS-19), [[OUT-02-Outillage-Build-Vite-Bundlers|Outils de Build et Bundlers]], [[OUT-03-ESLint-Prettier-Qualite|ESLint Prettier et Hooks]], [[NODE-01-Node-npm|Node.js et npm]] (bases), [[CSS-08-SCSS-Sass|SCSS Sass]], [[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]], [[CSS-10-Animations-Transitions|Animations et Transitions CSS]], [[HTML-03-Accessibilite-Web|Accessibilité Web]]
+**Notes :** toute la section [[TypeScript]] (TS-01 → TS-19), [[OUT-02-Outillage-Build-Vite-Bundlers|Outils de Build et Bundlers]], [[OUT-03-ESLint-Prettier-Qualite|ESLint Prettier et Hooks]], [[NODE-01-Node-npm|Node.js et npm]] (bases), [[TEST-02-Tests-Unitaires-Vitest-Jest|Tests unitaires Vitest]] ; en survol : [[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]], [[HTML-03-Accessibilite-Web|Accessibilité Web]]
 
-**Livrable :** Portfolio migré en TypeScript strict + Vite + ESLint/Prettier + husky, déployé sur GitLab Pages.
+**Livrable :** Lab TypeScript en TS strict (zéro `any`), union discriminée pour les états, dépôt générique `Depot<T>`, validation Zod, 20+ tests Vitest, ESLint/Prettier/husky.
 **Point de contrôle :** zéro `any` ; je sais expliquer generics, unions discriminées, narrowing, `unknown` vs `any`, `satisfies`, utility types.
 
 ---
@@ -111,7 +111,7 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 ## Phase 2 — Front-end expert (M4 → M6)
 
 ### M4 · Janvier — Angular I : les fondations modernes
-**Notes :** ANG-01 → ANG-10 et [[ANG-18-Cycle-de-Vie|Cycle de vie des composants Angular]], [[ANG-19-Communication-Composants|Communication parent-enfant Angular]], [[ANG-20-Pipes|Pipes Angular]]
+**Notes :** ANG-01 → ANG-10, [[UI-Librairies-Interfaces-Rapides|Librairies UI pour interfaces rapides]], [[ANG-18-Cycle-de-Vie|Cycle de vie des composants Angular]], [[ANG-19-Communication-Composants|Communication parent-enfant Angular]], [[ANG-20-Pipes|Pipes Angular]]
 **Livrable :** [[02_Projects/CinéTrack|CinéTrack]] (Angular) : recherche de films via une API publique, fiche détail, favoris en localStorage, formulaire réactif « ajouter une critique ».
 **Point de contrôle :** composants standalone + signals + `@if/@for`, services injectés, routing avec paramètres, HttpClient + gestion d'erreurs, recherche avec `debounceTime` + `switchMap`.
 
@@ -160,7 +160,7 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 
 ### M12 · Septembre — IA, entretiens et projet final
 **Notes :** toute la section [[Intelligence Artificielle]], [[ALGO-09-Techniques-Resolution|Techniques de Résolution d'Algorithmes]], révision des notes « Questions d'entretien »
-**Livrable :** [[02_Projects/Capstone|Capstone]] (fonctionnalité IA : résumé de critiques / recherche sémantique pgvector / temps réel), portfolio final, CV technique, bilan des 12 mois.
+**Livrable :** [[02_Projects/Capstone|Capstone]] (fonctionnalité IA : résumé de critiques / recherche sémantique pgvector / temps réel), portfolio final **en Angular ou Vue avec une librairie UI** ([[UI-Librairies-Interfaces-Rapides|Librairies UI]]), CV technique, bilan des 12 mois.
 **Point de contrôle :** simulation d'entretien technique (algo + conception + questions Angular/Vue/Nest) ; présentation de CinéTrack en 10 minutes.
 
 ---

@@ -35,6 +35,8 @@ aliases:
 11. [[JS-11-Stockage-Navigateur|Stockage Navigateur]] — Fondamental · M02
 12. [[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]] — Fondamental · M02
 13. [[JS-13-JavaScript-Moderne-ES2015-2025|JavaScript Moderne ES2015+]] — Intermédiaire · M02
+14. [[JS-14-Selectionner-Elements-DOM|Sélectionner des Éléments du DOM]] — Fondamental · M01
+15. [[JS-15-Manipuler-le-DOM|Manipuler le DOM]] — Fondamental · M01
 
 ---
 

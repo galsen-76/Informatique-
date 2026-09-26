@@ -91,7 +91,7 @@ mindmap
 ## 🛠️ Projets fil rouge
 | Projet | Mois | Stack |
 |---|---|---|
-| [[02_Projects/Portfolio\|Portfolio]] | M1–M3 | HTML, CSS, JS, TS, Vite |
+| [[02_Projects/Lab-TypeScript\|Lab TypeScript]] | M1–M3 | JS puis TS strict sans framework, DOM, Vitest (HTML/CSS générés par l'IA) |
 | [[02_Projects/CinéTrack\|CinéTrack]] | M4–M5 | Angular, signals, RxJS |
 | [[02_Projects/CinéTrack-Vue\|CinéTrack-Vue]] | M6 | Vue 3, Pinia, Vue Router |
 | [[02_Projects/CinéTrack-API\|CinéTrack-API]] | M7–M9 | NestJS, Prisma, PostgreSQL, Redis |
