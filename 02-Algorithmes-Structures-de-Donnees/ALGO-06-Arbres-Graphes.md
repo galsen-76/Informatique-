@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,147 +10,102 @@ tags:
 aliases:
   - "Arbres et Graphes"
 parent: "[[Algorithmes]]"
-children: []
 related_theory:
   - "[[ALGO-05-Recursivite|Récursivité]]"
   - "[[JS-08-DOM-Evenements|DOM et Événements JavaScript]]"
-related_snippets:
-  - "[[04_Snippets/algo-06-arbres-graphes]]"
 related_projects: []
 source: "https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/"
 ---
 
 # Arbres et Graphes
 
-> [!abstract] Introduction
-> Un arbre est une hiérarchie (DOM, arborescence de fichiers, routes) ; un graphe est un réseau de nœuds reliés (réseau social, dépendances npm, itinéraires). Les parcours en profondeur (DFS) et en largeur (BFS) sont les algorithmes de base.
+> [!abstract] En bref
+> Un **arbre** est une **hiérarchie** : un point de départ, des enfants, des petits-enfants (le DOM, les dossiers, les routes, les catégories). Un **graphe** est un **réseau** : des points reliés entre eux, sans hiérarchie (amis d'un réseau social, dépendances npm, stations de métro). On les parcourt de deux façons : **en profondeur** ou **en largeur**.
 
-> [!warning]- Prérequis
-> [[ALGO-05-Recursivite|Récursivité]]
+## Arbre ou graphe
 
----
+```mermaid
+flowchart TB
+  subgraph T["Arbre : une hiérarchie"]
+    R["Films"] --> S["Science-fiction"]
+    R --> C["Comédie"]
+    S --> S1["Space opera"]
+    S --> S2["Cyberpunk"]
+  end
+  subgraph G["Graphe : un réseau"]
+    A["Alice"] --- B["Bob"]
+    B --- D["Dana"]
+    A --- D
+    D --- E["Eve"]
+  end
+```
 
-## Théorie
+| | Arbre | Graphe |
+|---|---|---|
+| Point de départ | une **racine** | aucun en particulier |
+| Boucles | jamais | possibles |
+| Exemples | DOM, dossiers, routes, commentaires | réseau social, dépendances, carte routière |
 
-> [!question]- C'est quoi ?
-> - **Arbre** : un nœud racine, chaque nœud a des enfants, pas de cycle ; **arbre binaire de recherche** (BST) : gauche < nœud < droite → recherche O(log n) si équilibré
-> - **Graphe** : nœuds + arêtes, orienté ou non, pondéré ou non ; représenté par liste d'adjacence (`Map<nœud, voisins[]>`)
-> - **DFS** (profondeur, pile/récursion) ; **BFS** (largeur, file) → plus court chemin en nombre d'étapes
+Vocabulaire : **nœud** (un point), **racine** (le sommet), **feuille** (un nœud sans enfant), **arête** (un lien).
 
-> [!example]- Analogie
-> DFS : explorer un labyrinthe en suivant un couloir jusqu'au bout avant de revenir. BFS : l'onde d'un caillou dans l'eau qui s'étend cercle par cercle.
+## Les deux parcours
 
-> [!question]- Pourquoi l'utiliser ?
-> Le DOM, le graphe de dépendances d'un bundler, le graphe réactif des signals, les index B-tree des bases, la détection de dépendances circulaires : tout est arbre ou graphe.
+| Parcours | Image | Outil | Sert à |
+|---|---|---|---|
+| **En profondeur** (DFS) | suivre un couloir du labyrinthe jusqu'au bout, puis revenir | [[ALGO-05-Recursivite\|récursivité]] ou pile | explorer tout un arbre, trouver un chemin |
+| **En largeur** (BFS) | l'onde d'un caillou dans l'eau, cercle par cercle | file | **le plus court chemin** en nombre d'étapes |
 
-> [!question]- Comment ça marche ?
-> ```mermaid
-> graph TD
->   A[app] --> B[films]
->   A --> C[auth]
->   B --> D[shared]
->   C --> D
->   D --> E[core]
-> ```
-> ```typescript
-> function bfs(graphe: Map<string, string[]>, depart: string): string[] {
->   const vus = new Set([depart]);
->   const file = [depart];
->   const ordre: string[] = [];
->   while (file.length) {
->     const n = file.shift()!;
->     ordre.push(n);
->     for (const v of graphe.get(n) ?? []) if (!vus.has(v)) { vus.add(v); file.push(v); }
->   }
->   return ordre;
-> }
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Hiérarchies (menus, catégories), dépendances, recommandations, chemins.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Sans ensemble « visités », un parcours de graphe avec cycle boucle à l'infini.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Racine | Nœud de départ d'un arbre |
-| Feuille | Nœud sans enfant |
-| Arête | Lien entre deux nœuds |
-| DFS / BFS | Parcours en profondeur / en largeur |
-| Tri topologique | Ordre respectant les dépendances |
-
----
-
-## Points clés
-
-- Arbre = graphe sans cycle avec une racine
-- DFS = pile, BFS = file
-- Toujours marquer les nœuds visités dans un graphe
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier les cycles
-
----
-
-## Exemple minimal
-
-```typescript
-// Construire un arbre depuis une liste plate (parentId), cas très courant côté API
-function construireArbre<T extends { id: number; parentId: number | null }>(items: T[]) {
-  const parId = new Map(items.map(i => [i.id, { ...i, enfants: [] as any[] }]));
-  const racines: any[] = [];
-  for (const n of parId.values()) (n.parentId === null ? racines : parId.get(n.parentId)!.enfants).push(n);
-  return racines;
+```ts
+// En largeur : les amis, puis les amis d'amis…
+function bfs(graph: Map<string, string[]>, start: string): string[] {
+  const seen = new Set([start]);
+  const queue = [start];
+  const order: string[] = [];
+  while (queue.length) {
+    const node = queue.shift()!;
+    order.push(node);
+    for (const next of graph.get(node) ?? []) {
+      if (!seen.has(next)) {
+        seen.add(next);
+        queue.push(next);
+      }
+    }
+  }
+  return order;
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Liste plate → arbre en O(n) grâce à une Map.
+Le `Set` des nœuds **déjà vus** est obligatoire dans un graphe : sans lui, les boucles font tourner à l'infini.
 
----
+## Le cas le plus fréquent : liste plate → arbre
 
-## Pour aller plus loin (niveau senior)
+Une API ou une base renvoie souvent des éléments avec un `parentId`. Il faut reconstruire l'arbre pour l'afficher :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Tri topologique (ordre de build, migrations), Dijkstra pour les chemins pondérés
+```ts
+interface Category { id: number; name: string; parentId: number | null }
+type TreeNode = Category & { children: TreeNode[] };
 
----
+function buildTree(items: Category[]): TreeNode[] {
+  const byId = new Map<number, TreeNode>(items.map((i) => [i.id, { ...i, children: [] }]));
+  const roots: TreeNode[] = [];
+  for (const node of byId.values()) {
+    if (node.parentId === null) roots.push(node);
+    else byId.get(node.parentId)?.children.push(node);
+  }
+  return roots;
+}
+```
 
-## Connexions
+Un seul parcours grâce à la [[ALGO-04-Tables-de-Hachage-Map-Set|Map]].
 
-**Arbre théorique :**
-- Sujet parent → [[Algorithmes]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Où tu les croises
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/algo-06-arbres-graphes]]
+- le **DOM** et l'arbre des composants Angular / Vue ;
+- les **dépendances** de ton projet (npm refuse les boucles impossibles, le bundler suit le graphe des imports) ;
+- les **index** de PostgreSQL (des arbres, voir [[ALGO-08-Recherche-Binaire|Recherche binaire]]) ;
+- l'ordre des **migrations** ou des étapes CI qui dépendent les unes des autres.
 
----
+## Pièges
 
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quand utiliser BFS plutôt que DFS ?
-
----
-
-## Tâches
-
-- [ ] #task Résoudre « Maximum Depth of Binary Tree » et « Number of Islands »
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Oublier les nœuds déjà visités** dans un graphe → boucle infinie.
+- **Supposer qu'il n'y a qu'une racine** : une liste de catégories en a souvent plusieurs.

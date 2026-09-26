@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,128 +10,85 @@ tags:
 aliases:
   - "Tables de Hachage Map et Set"
 parent: "[[Algorithmes]]"
-children: []
 related_theory:
   - "[[ALGO-01-Complexite-Big-O|Complexité Big O]]"
   - "[[BDD-07-Redis-Cle-Valeur|Redis Cache Clé-Valeur]]"
-related_snippets:
-  - "[[04_Snippets/algo-04-tables-de-hachage-map-set]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Map"
 ---
 
 # Tables de Hachage Map et Set
 
-> [!abstract] Introduction
-> Une table de hachage associe des clés à des valeurs avec un accès en temps constant moyen O(1) ; en JS ce sont `Map`, `Set` et les objets — l'outil n°1 pour accélérer un algorithme.
+> [!abstract] En bref
+> Une **table de hachage** fonctionne comme un **vestiaire** : avec ton ticket (la **clé**), on trouve **directement** ton manteau (la **valeur**), sans passer en revue tous les crochets. En JavaScript, ce sont `Map`, `Set` et les objets. C'est l'outil n°1 pour rendre un code rapide : une recherche qui parcourait toute la liste devient **instantanée**.
 
-> [!warning]- Prérequis
-> [[ALGO-01-Complexite-Big-O|Complexité Big O]]
+## Map et Set
 
----
+```ts
+// Map : clé → valeur
+const moviesById = new Map<number, Movie>();
+moviesById.set(438631, dune);
+moviesById.get(438631);    // dune, instantané
+moviesById.has(438631);    // true
+moviesById.delete(438631);
+moviesById.size;
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> const films = new Map<number, Film>();       // id → film
-> films.set(42, dune); films.get(42); films.has(42); films.delete(42);
-> const vus = new Set<number>([1, 2, 3]);      // valeurs uniques
-> vus.has(2);                                  // O(1)
-> ```
-
-> [!example]- Analogie
-> Un vestiaire avec tickets : ton ticket (clé) donne directement le bon crochet (valeur), sans parcourir tous les manteaux.
-
-> [!question]- Pourquoi l'utiliser ?
-> Transformer des recherches O(n) en O(1) : index par id, comptage d'occurrences, dédoublonnage, cache.
-
-> [!question]- Comment ça marche ?
-> Une fonction de hachage transforme la clé en position ; les collisions sont gérées en interne. `Map` vs objet : `Map` accepte n'importe quel type de clé, conserve l'ordre d'insertion, a `.size`, et est plus performante pour des ajouts/suppressions fréquents.
-
-> [!question]- Quand l'utiliser ?
-> Index de données par identifiant, comptages, dédoublonnage, mémoïsation, regroupements.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pas d'ordre de tri ; mémoire supplémentaire ; les objets comme clés d'une `Map` sont comparés par référence.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Hachage | Transformation d'une clé en position |
-| Collision | Deux clés pour la même position |
-| Mémoïsation | Mise en cache de résultats de fonction |
-
----
-
-## Points clés
-
-- Recherche/insert/suppression O(1) en moyenne
-- `Set` pour l'unicité et l'appartenance
-- `Map` quand les clés ne sont pas des chaînes
-- Normaliser l'état (dictionnaire par id) dans les stores
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Utiliser un objet `{}` avec des clés venant de l'utilisateur (`__proto__`) → préférer `Map`
-> - `new Map([[{a:1}, 'x']]).get({a:1})` → undefined (référence différente)
-
----
-
-## Exemple minimal
-
-```typescript
-function compterParGenre(films: Film[]): Map<string, number> {
-  const compte = new Map<string, number>();
-  for (const f of films) compte.set(f.genre, (compte.get(f.genre) ?? 0) + 1);
-  return compte;
-}
+// Set : une collection de valeurs uniques
+const seen = new Set<number>([1, 2, 2, 3]);   // {1, 2, 3}
+seen.has(2);                                  // true, instantané
+seen.add(4);
 ```
 
-> [!note] Ce que j'en retiens
-> Un seul parcours, un compteur par clé : O(n).
+| | `Map` | `Set` | Objet `{}` |
+|---|---|---|---|
+| Contient | des paires clé → valeur | des valeurs uniques | des propriétés |
+| Type des clés | **n'importe lequel** | – | chaînes seulement |
+| Taille | `.size` | `.size` | `Object.keys(o).length` |
+| Idéal pour | index, compteurs, cache | dédoublonner, « déjà vu ? » | données fixes connues d'avance |
 
----
+## Les 4 usages du quotidien
 
-## Pour aller plus loin (niveau senior)
+**1. Indexer par identifiant**
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Normaliser un store (entités par id + liste d'ids) comme NgRx Entity / Pinia
+```ts
+const byId = new Map(movies.map((m) => [m.id, m]));
+const movie = byId.get(reviewMovieId);        // au lieu de movies.find(...)
+```
 
----
+**2. Compter**
 
-## Connexions
+```ts
+const countByGenre = new Map<string, number>();
+for (const m of movies) countByGenre.set(m.genre, (countByGenre.get(m.genre) ?? 0) + 1);
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Algorithmes]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+**3. Dédoublonner**
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/algo-04-tables-de-hachage-map-set]]
+```ts
+const uniqueGenres = [...new Set(movies.map((m) => m.genre))];
+```
 
----
+**4. Vérifier l'appartenance**
 
-## Auto-vérification
+```ts
+const favorites = new Set(favoriteIds);
+movies.map((m) => ({ ...m, favorite: favorites.has(m.id) }));
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `Map.get` est-il O(1) alors que `Array.find` est O(n) ?
+Tous passent de O(n²) à O(n) (voir [[ALGO-01-Complexite-Big-O|Big O]]).
 
----
+## Comment ça marche (juste l'idée)
 
-## Tâches
+Une **fonction de hachage** transforme la clé en numéro de case. On va directement à cette case. Si deux clés tombent sur la même case (collision), le moteur JavaScript s'en occupe.
 
-- [ ] #task Résoudre « Two Sum » avec une Map et « Group Anagrams »
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+C'est aussi le principe de **Redis** (voir [[BDD-07-Redis-Cle-Valeur|Redis]]) : une énorme `Map` en mémoire, partagée par tes serveurs.
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Les objets comme clés** sont comparés par **référence** :
+  ```ts
+  new Map([[{ id: 1 }, 'x']]).get({ id: 1 });   // undefined : ce n'est pas le même objet
+  ```
+  Utilise plutôt l'`id` comme clé.
+- **Un objet `{}` avec des clés venant de l'utilisateur** (`__proto__`…) : préfère `Map`.
+- **`Map` et `Set` ne passent pas en JSON** tels quels : convertis en tableau (`[...map]`) avant `JSON.stringify`.

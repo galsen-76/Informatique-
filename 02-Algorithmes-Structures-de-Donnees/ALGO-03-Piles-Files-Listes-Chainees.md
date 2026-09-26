@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,137 +10,102 @@ tags:
 aliases:
   - "Piles Files et Listes Chaînées"
 parent: "[[Algorithmes]]"
-children: []
 related_theory:
   - "[[ALGO-02-Tableaux-Chaines|Tableaux et Chaînes]]"
   - "[[JS-06-Event-Loop|Event Loop JavaScript]]"
-related_snippets:
-  - "[[04_Snippets/algo-03-piles-files-listes-chainees]]"
 related_projects: []
 source: "https://www.geeksforgeeks.org/stack-data-structure/"
 ---
 
 # Piles Files et Listes Chaînées
 
-> [!abstract] Introduction
-> Une pile (LIFO) retire le dernier élément ajouté, une file (FIFO) le premier ; une liste chaînée relie des nœuds par des pointeurs. On les retrouve partout : pile d'appels, historique, event loop, queues de jobs.
+> [!abstract] En bref
+> Une **pile** : on retire **le dernier** posé (une pile d'assiettes). Une **file** : on retire **le premier** arrivé (la queue à la boulangerie). Tu les utilises sans le savoir : la pile d'appels de tes erreurs, le bouton « Retour » du navigateur, l'annuler / rétablir, les files de tâches de l'event loop. Une **liste chaînée** relie des éléments un par un, surtout utile à comprendre pour les entretiens.
 
-> [!warning]- Prérequis
-> [[ALGO-02-Tableaux-Chaines|Tableaux et Chaînes]]
+## Pile et file
 
----
+| | Pile (*stack*) | File (*queue*) |
+|---|---|---|
+| Règle | **dernier** entré, premier sorti (LIFO) | **premier** entré, premier sorti (FIFO) |
+| Image | pile d'assiettes | file d'attente |
+| En JS | `push` + `pop` | `push` + `shift` (ou un index de tête) |
+| Exemples | pile d'appels, annuler, retour arrière | [[JS-06-Event-Loop\|event loop]], file de jobs (BullMQ), impressions |
 
-## Théorie
+```text
+Pile :  push(A) push(B) push(C)  → pop() donne C
+File :  push(A) push(B) push(C)  → shift() donne A
+```
 
-> [!question]- C'est quoi ?
-> - **Pile (stack, LIFO)** : `push`, `pop` — pile d'assiettes
-> - **File (queue, FIFO)** : `enqueue`, `dequeue` — file d'attente
-> - **Liste chaînée** : chaque nœud contient une valeur et un lien vers le suivant ; insertion O(1) si on a le nœud, accès O(n)
+## Exemple : annuler / rétablir
 
-> [!example]- Analogie
-> Pile : une pile d'assiettes (on prend celle du dessus). File : la queue à la boulangerie (premier arrivé, premier servi).
+Deux piles suffisent :
 
-> [!question]- Pourquoi l'utiliser ?
-> Reconnaître ces structures aide à comprendre la pile d'appels (stack trace), les files de l'event loop, l'historique du navigateur (undo/redo), les files de messages (BullMQ).
+```ts
+class History<T> {
+  private undoStack: T[] = [];
+  private redoStack: T[] = [];
 
-> [!question]- Comment ça marche ?
-> ```typescript
-> // Undo / Redo avec deux piles
-> class Historique<T> {
->   private annuler: T[] = [];
->   private refaire: T[] = [];
->   faire(etat: T) { this.annuler.push(etat); this.refaire = []; }
->   undo(): T | undefined { const e = this.annuler.pop(); if (e !== undefined) this.refaire.push(e); return e; }
->   redo(): T | undefined { const e = this.refaire.pop(); if (e !== undefined) this.annuler.push(e); return e; }
-> }
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Pile : parenthèses équilibrées, undo, parcours en profondeur. File : traitement dans l'ordre, parcours en largeur, tampons.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> En JS, une file basée sur `shift()` est O(n) par retrait → utiliser un index de tête ou une vraie deque pour de gros volumes.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| LIFO | Last In First Out |
-| FIFO | First In First Out |
-| Nœud | Élément d'une liste chaînée |
-| Pointeur | Référence vers un autre nœud |
-
----
-
-## Points clés
-
-- Pile = LIFO, file = FIFO
-- Pile d'appels = pile ; event loop = files
-- Liste chaînée : insertion rapide, accès lent
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier le cas de la pile vide
-
----
-
-## Exemple minimal
-
-```typescript
-function parenthesesEquilibrees(s: string): boolean {
-  const pile: string[] = [];
-  const paires: Record<string, string> = { ')': '(', ']': '[', '}': '{' };
-  for (const c of s) {
-    if ('([{'.includes(c)) pile.push(c);
-    else if (c in paires && pile.pop() !== paires[c]) return false;
+  do(state: T) {
+    this.undoStack.push(state);
+    this.redoStack = [];               // une nouvelle action efface le « rétablir »
   }
-  return pile.length === 0;
+  undo(): T | undefined {
+    const s = this.undoStack.pop();
+    if (s !== undefined) this.redoStack.push(s);
+    return s;
+  }
+  redo(): T | undefined {
+    const s = this.redoStack.pop();
+    if (s !== undefined) this.undoStack.push(s);
+    return s;
+  }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Le dernier ouvert doit être le premier fermé : c'est exactement une pile.
+## Exemple : parenthèses bien fermées
 
----
+Le dernier ouvert doit être le premier fermé : c'est exactement une pile.
 
-## Pour aller plus loin (niveau senior)
+```ts
+function isBalanced(s: string): boolean {
+  const stack: string[] = [];
+  const pairs: Record<string, string> = { ')': '(', ']': '[', '}': '{' };
+  for (const c of s) {
+    if ('([{'.includes(c)) stack.push(c);
+    else if (c in pairs && stack.pop() !== pairs[c]) return false;
+  }
+  return stack.length === 0;
+}
+isBalanced('{ a: [1, 2] }'); // true
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Implémenter une file circulaire ou une deque efficace
+## La pile d'appels, dans tes erreurs
 
----
+Quand une erreur s'affiche avec une liste de fonctions (*stack trace*), c'est la **pile d'appels** : la fonction du haut est la dernière appelée, celle où ça a cassé.
 
-## Connexions
+```text
+TypeError: Cannot read properties of undefined (reading 'title')
+    at MovieCard.render      ← ici
+    at MovieGrid.render
+    at MoviesPage.render
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Algorithmes]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## La liste chaînée
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/algo-03-piles-files-listes-chainees]]
+Chaque élément contient sa valeur **et** un lien vers le suivant.
 
----
+```text
+[Dune] → [Alien] → [Heat] → null
+```
 
-## Auto-vérification
+| | Tableau | Liste chaînée |
+|---|---|---|
+| Aller au 500ᵉ élément | ⚡ immédiat | 🐢 500 sauts |
+| Insérer au début | 🐢 tout décaler | ⚡ changer un lien |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle structure pour un historique « annuler » ?
+En JavaScript, on s'en sert rarement directement, mais c'est un classique d'entretien.
 
----
+## Pièges
 
-## Tâches
-
-- [ ] #task Résoudre « Valid Parentheses » et « Implement Queue using Stacks »
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Oublier le cas vide** : `pop()` sur une pile vide renvoie `undefined`.
+- **Une grosse file avec `shift()`** : chaque retrait décale tout le tableau ; garde plutôt un index de tête.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,136 +10,76 @@ tags:
 aliases:
   - "Tableaux et Chaînes"
 parent: "[[Algorithmes]]"
-children: []
 related_theory:
   - "[[ALGO-01-Complexite-Big-O|Complexité Big O]]"
   - "[[JS-05-Objets-Tableaux-Methodes|Objets et Tableaux JavaScript]]"
-related_snippets:
-  - "[[04_Snippets/algo-02-tableaux-chaines]]"
 related_projects: []
 source: "https://leetcode.com/explore/learn/card/array-and-string/"
 ---
 
 # Tableaux et Chaînes
 
-> [!abstract] Introduction
-> Les tableaux (éléments contigus indexés) et les chaînes de caractères sont les structures les plus utilisées ; connaître le coût de leurs opérations évite des lenteurs cachées.
+> [!abstract] En bref
+> Un **tableau** est une rangée de casiers numérotés : aller au casier 42 est **immédiat**, mais insérer un casier **au début** oblige à décaler tous les autres. Connaître le coût de chaque opération évite des lenteurs cachées dans tes listes de films, de critiques ou de résultats.
 
-> [!warning]- Prérequis
-> [[ALGO-01-Complexite-Big-O|Complexité Big O]]
+## Ce que coûte chaque opération
 
----
+| Opération | Coût | Pourquoi |
+|---|---|---|
+| `tab[i]` | ⚡ O(1) | on va directement au casier |
+| `push` / `pop` (à la fin) | ⚡ O(1) | rien à décaler |
+| `unshift` / `shift` (au début) | 🐢 O(n) | tout est décalé d'une case |
+| `splice` au milieu | 🐢 O(n) | on décale la suite |
+| `includes`, `indexOf`, `find` | 🐢 O(n) | on regarde chaque case |
+| `sort` | O(n log n) | voir [[ALGO-07-Tri\|Tri]] |
 
-## Théorie
+**Règle** : ajouter et retirer **à la fin**, c'est gratuit ; **au début**, c'est cher.
 
-> [!question]- C'est quoi ?
-> | Opération (tableau JS) | Coût |
-> |---|---|
-> | Accès `t[i]` | O(1) |
-> | `push` / `pop` (fin) | O(1) amorti |
-> | `unshift` / `shift` (début) | O(n) |
-> | `splice` au milieu | O(n) |
-> | `includes` / `indexOf` / `find` | O(n) |
-> | `sort` | O(n log n) |
-> Les chaînes sont **immuables** en JS : chaque concaténation crée une nouvelle chaîne.
+## Les chaînes de caractères
 
-> [!example]- Analogie
-> Un tableau est une rangée de casiers numérotés : accéder au casier 42 est immédiat, mais insérer un casier au début oblige à décaler tous les autres.
+Une chaîne est **immuable** : on ne la modifie jamais, chaque opération en crée une **nouvelle**.
 
-> [!question]- Pourquoi l'utiliser ?
-> Les listes affichées, filtrées et triées sont le quotidien d'un développeur front.
-
-> [!question]- Comment ça marche ?
-> Techniques classiques :
-> - **Deux pointeurs** : parcourir depuis les deux extrémités (palindrome, somme de paires triées)
-> - **Fenêtre glissante** : sous-tableau de taille variable (plus longue sous-chaîne sans répétition)
-> - **Préfixes cumulés** : sommes de plages en O(1) après un pré-calcul O(n)
-
-> [!question]- Quand l'utiliser ?
-> Traitement de listes, recherche de texte, validation de formats.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pour des insertions/suppressions fréquentes au début : file (deque) ou liste chaînée.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Index | Position d'un élément |
-| Contigu | Stocké côte à côte en mémoire |
-| Immuable | Qui ne peut être modifié après création |
-| Fenêtre glissante | Sous-ensemble qui avance sur les données |
-
----
-
-## Points clés
-
-- Fin de tableau rapide, début lent
-- Chaînes immuables → `join` pour construire beaucoup de texte
-- Deux pointeurs et fenêtre glissante = patterns de base
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `shift()` dans une boucle de traitement de file
-> - Construire une grosse chaîne par `+=` dans une boucle très longue
-
----
-
-## Exemple minimal
-
-```typescript
-function estPalindrome(s: string): boolean {
-  const t = s.toLowerCase().replace(/[^a-z0-9]/g, '');
-  let g = 0, d = t.length - 1;
-  while (g < d) if (t[g++] !== t[d--]) return false;
-  return true;
-}
-estPalindrome("Engage le jeu que je le gagne"); // true
+```ts
+let s = 'Dune';
+s[0] = 'L';          // ignoré, s vaut toujours 'Dune'
+s = 'L' + s.slice(1); // nouvelle chaîne : 'Lune'
 ```
 
-> [!note] Ce que j'en retiens
-> Deux pointeurs : O(n) en temps, O(1) en mémoire supplémentaire.
+Pour construire un gros texte dans une boucle, remplis un tableau puis fais `join` :
 
----
+```ts
+const lines: string[] = [];
+for (const m of movies) lines.push(`${m.title};${m.year}`);
+const csv = lines.join('\n');
+```
 
-## Pour aller plus loin (niveau senior)
+## Deux techniques classiques
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir choisir la bonne structure selon les opérations dominantes
+**Deux pointeurs** : un curseur au début, un à la fin, qui se rapprochent.
 
----
+```ts
+function isPalindrome(s: string): boolean {
+  const t = s.toLowerCase().replace(/[^a-z0-9]/g, '');
+  let left = 0, right = t.length - 1;
+  while (left < right) {
+    if (t[left++] !== t[right--]) return false;
+  }
+  return true;
+}
+isPalindrome('Engage le jeu que je le gagne'); // true
+```
 
-## Connexions
+**Fenêtre glissante** : une portion du tableau qui avance, sans tout recalculer. Exemple : la meilleure moyenne de notes sur 7 jours consécutifs, en retirant le jour qui sort et en ajoutant celui qui entre.
 
-**Arbre théorique :**
-- Sujet parent → [[Algorithmes]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Ces techniques reviennent souvent en [[ALGO-09-Techniques-Resolution|entretien]].
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/algo-02-tableaux-chaines]]
+## Dans tes projets
 
----
+- Les méthodes à connaître par cœur (`map`, `filter`, `reduce`, `find`, `some`…) : [[JS-05-Objets-Tableaux-Methodes|Objets et tableaux]].
+- Pour chercher souvent dans une liste : transforme-la en `Map` ou `Set` ([[ALGO-04-Tables-de-Hachage-Map-Set|Map et Set]]).
 
-## Auto-vérification
+## Pièges
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `unshift` est-il O(n) ?
-
----
-
-## Tâches
-
-- [ ] #task Résoudre « Two Sum », « Valid Palindrome », « Longest Substring Without Repeating Characters »
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`shift()` pour vider une file** dans une boucle : lent sur de gros volumes.
+- **`+=` sur une chaîne** dans une très longue boucle.
+- **Oublier que `sort`, `reverse`, `splice` modifient** le tableau d'origine (préfère `toSorted`, `toReversed`, `toSpliced`).
