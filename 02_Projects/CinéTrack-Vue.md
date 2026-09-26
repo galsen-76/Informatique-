@@ -28,6 +28,7 @@ aliases:
 - [[VUE-16-Tests-Vitest|Tests Vue.js avec Vitest]]
 
 **Architecture et UI :**
+- [[ARCH-15-Structure-de-Projet|Structure de Projet (modèle général)]]
 - [[VUE-22-Template-Architecture-Vue|Template d'Architecture Vue]]
 - [[VUE-19-Architecture-Projet-Vue|Architecture d'un Projet Vue.js]]
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-14
-modified: 2026-09-14
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,8 @@ aliases:
 tags:
   - frontend/typescript/utility-types
 parent: "[[TypeScript]]"
-children:
-  - "[[TS-13-Types-Avances|Types avancés Mapped Conditional]]"
 related_theory:
   - "[[TS-03-Interfaces-Types|Interfaces et Types]]"
-related_snippets:
-  - "[[04_Snippets/ts-utility-types]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/utility-types.html"
@@ -23,147 +19,62 @@ source: "https://www.typescriptlang.org/docs/handbook/utility-types.html"
 
 # Utility Types
 
-> [!abstract] Introduction
-> Les "utility types" sont des outils prêts à l'emploi, fournis directement par TypeScript, pour transformer un type existant (le rendre optionnel, n'en garder qu'une partie, etc.) sans le réécrire à la main.
+> [!abstract] En bref
+> Des **outils fournis par TypeScript** pour fabriquer un nouveau type à partir d'un type existant, sans le réécrire : le même objet mais avec tous les champs optionnels, ou seulement deux champs, ou sans l'`id`. Très utiles pour les formulaires et les appels API.
 
----
+## Partons d'un type
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> > [!note] Le problème que ça résout
-> > Imagine une interface `Film` avec 5 propriétés. Pour un formulaire de MODIFICATION, on veut peut-être que TOUTES les propriétés soient optionnelles (on ne modifie pas forcément tout). Réécrire une deuxième interface presque identique serait redondant. Les utility types transforment l'interface existante automatiquement.
->
-> Les plus utilisés :
-> - `Partial<T>` : rend TOUTES les propriétés optionnelles
-> - `Required<T>` : rend TOUTES les propriétés obligatoires (inverse de `Partial`)
-> - `Pick<T, K>` : ne garde QUE certaines propriétés choisies
-> - `Omit<T, K>` : garde TOUT SAUF certaines propriétés choisies
-> - `Readonly<T>` : rend TOUTES les propriétés non modifiables
-
-> [!question]- Pourquoi l'utiliser ?
-> Sans utility types, chaque variation d'une interface existante devrait être réécrite à la main, avec le risque que les deux versions se désynchronisent si l'interface d'origine change plus tard. Les utility types dérivent automatiquement une nouvelle forme à partir de l'originale — si l'originale change, les versions dérivées suivent automatiquement.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> interface Film {
->   id: number;
->   titre: string;
->   annee: number;
->   realisateur: string;
-> }
->
-> // Toutes les propriétés deviennent optionnelles — utile pour une modification partielle
-> type FilmModifiable = Partial<Film>;
-> const modification: FilmModifiable = { titre: "Nouveau titre" }; // ✅ valide, le reste est omis
->
-> // Ne garde que "titre" et "annee"
-> type FilmResume = Pick<Film, "titre" | "annee">;
-> const resume: FilmResume = { titre: "Inception", annee: 2010 };
->
-> // Garde tout SAUF "id"
-> type NouveauFilm = Omit<Film, "id">;
-> const nouveauFilm: NouveauFilm = { titre: "Interstellar", annee: 2014, realisateur: "Nolan" };
-> ```
->
-> > [!note] Comment lire `Pick<Film, "titre" | "annee">`
-> > `Pick<Type, Clés>` prend un type source (`Film`) et une liste de noms de propriétés à garder (`"titre" | "annee"`), et retourne un nouveau type contenant UNIQUEMENT ces propriétés-là.
-
-> [!question]- Quand l'utiliser ?
-> - `Partial<T>` : formulaires de modification, mises à jour partielles d'un objet
-> - `Pick<T, K>` : créer un type "résumé" avec seulement certaines infos utiles
-> - `Omit<T, K>` : créer un objet sans une propriété précise (ex : sans l'`id` avant sa création en base de données)
-> - `Readonly<T>` : protéger un objet entier contre toute modification accidentelle
-
----
-
-## Points clés
-
-- Tous les utility types se basent sur un type EXISTANT — ils ne créent rien depuis zéro
-- `Partial` / `Required` / `Readonly` s'appliquent à TOUTES les propriétés d'un coup
-- `Pick` / `Omit` sélectionnent des propriétés précises par leur nom
-- Si le type d'origine change, tous les types dérivés avec ces utility types se mettent à jour automatiquement — pas de duplication à maintenir
-
----
-
-## Paramètres / Configuration
-
-| Utility Type | Description | Notes |
-|-----------|-------------|-------|
-| `Partial<T>` | Toutes les propriétés deviennent optionnelles | — |
-| `Required<T>` | Toutes les propriétés deviennent obligatoires | Inverse de `Partial` |
-| `Readonly<T>` | Toutes les propriétés deviennent non modifiables | — |
-| `Pick<T, K>` | Ne garde que les propriétés listées dans `K` | — |
-| `Omit<T, K>` | Garde tout sauf les propriétés listées dans `K` | — |
-| `Record<K, T>` | Crée un objet avec des clés de type `K` et valeurs de type `T` | Utile pour des dictionnaires |
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `Partial<T>` sur un objet d'entrée d'API → tout devient optionnel, y compris ce qui est obligatoire côté métier
-> - `Omit` avec une clé mal orthographiée ne produit pas d'erreur (clé inexistante ignorée)
-
----
-
-## Exemple minimal
-
-```typescript
+```ts
 interface Film {
   id: number;
   titre: string;
   annee: number;
+  note: number;
 }
-
-function modifierFilm(id: number, changements: Partial<Omit<Film, "id">>) {
-  console.log(`Film ${id} modifié avec :`, changements);
-}
-
-modifierFilm(1, { titre: "Nouveau titre" }); // ✅ valide, annee omise, id impossible à changer
 ```
 
-> [!note] Ce que j'en retiens
-> `Partial<Omit<Film, "id">>` combine deux utility types : `Omit` retire d'abord `id` (qu'on ne devrait jamais pouvoir modifier), puis `Partial` rend le reste optionnel (on peut modifier juste le titre, ou juste l'année, ou les deux).
+## Les 6 à connaître
 
----
+| Outil | Donne | Exemple d'usage |
+|---|---|---|
+| `Partial<Film>` | tous les champs **optionnels** | mise à jour partielle (PATCH) |
+| `Required<Film>` | tous les champs **obligatoires** | après avoir rempli les valeurs par défaut |
+| `Pick<Film, 'id' \| 'titre'>` | **seulement** ces champs | une carte qui n'affiche que le titre |
+| `Omit<Film, 'id'>` | tout **sauf** ces champs | créer un film (l'id est donné par la base) |
+| `Readonly<Film>` | tous les champs en lecture seule | données qu'on ne doit pas modifier |
+| `Record<K, V>` | un objet clé → valeur | `Record<Tech, string>` pour les couleurs par techno |
 
-## Pour aller plus loin (niveau senior)
+```ts
+type NouveauFilm = Omit<Film, 'id'>;              // { titre; annee; note }
+type MiseAJourFilm = Partial<Omit<Film, 'id'>>;    // tout optionnel sauf l'id, qui disparaît
+type ApercuFilm = Pick<Film, 'id' | 'titre'>;
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Connaître aussi `Record`, `Exclude`, `Extract`, `NonNullable`, `ReturnType`, `Parameters`, `Awaited`
-> - `Readonly<T>` n'est pas profond : écrire un `DeepReadonly<T>` si nécessaire
+const couleurs: Record<'vue' | 'angular', string> = {
+  vue: '#42b883',
+  angular: '#dd0031',
+};
 
----
+function modifierFilm(id: number, changements: MiseAJourFilm) { /* … */ }
+modifierFilm(1, { note: 9 });   // ✅ un seul champ suffit
+```
 
-## Connexions
+**L'avantage :** si tu ajoutes un champ à `Film`, tous ces types se mettent à jour tout seuls.
 
-**Arbre théorique :**
-- Sujet parent → [[TypeScript]]
-- Sous-sujets → [[TS-13-Types-Avances|Types avancés Mapped Conditional]]
-- À comparer avec → [[TS-03-Interfaces-Types|Interfaces et Types]]
+## Pour les fonctions
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ts-utility-types]]
-- Projet → [[02_Projects/CinéTrack]]
+| Outil | Donne |
+|---|---|
+| `ReturnType<typeof f>` | le type de ce que renvoie `f` |
+| `Parameters<typeof f>` | le type des paramètres de `f` (un tableau) |
+| `Awaited<Promise<Film>>` | `Film` : ce que donne la Promise |
+| `NonNullable<Film \| null>` | `Film` : sans `null` ni `undefined` |
 
----
+```ts
+const useProjets = () => ({ projets: ref<Project[]>([]), charger: async () => {} });
+type ProjetsApi = ReturnType<typeof useProjets>;
+```
 
-## Auto-vérification
+## Pièges
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Comment créer le type d'un formulaire de modification où l'`id` est interdit et tout le reste optionnel ?
-
----
-
-## Tâches
-
-- [ ] #task Créer un type `FilmModification` avec `Partial` et `Omit` pour le formulaire d'édition de CinéTrack
-- [ ] #task Explorer `Record<K, T>` sur un cas concret (ex : dictionnaire de films par catégorie)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Quels sont les utility types les plus utilisés concrètement en entreprise, au-delà de `Partial`/`Pick`/`Omit` ?
+- **`Partial` partout** « pour être tranquille » : tu perds la garantie que les champs obligatoires sont là.
+- **`Readonly` n'agit qu'au premier niveau** : les objets imbriqués restent modifiables.

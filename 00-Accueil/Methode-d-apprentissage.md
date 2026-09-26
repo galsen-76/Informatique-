@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: guide
 tags:
   - accueil/methode
@@ -10,55 +10,50 @@ aliases:
 
 # 🧠 Méthode d'apprentissage
 
-> [!abstract] En une phrase
-> On n'apprend pas en lisant : on apprend en **se testant**, en **pratiquant** et en **expliquant** — les notes servent de support, les projets de preuve.
+> [!abstract] Le principe
+> **On apprend en construisant des projets.** Les notes ne se lisent pas de A à Z : on ouvre une note **au moment où le projet en a besoin**, on comprend l'essentiel, on l'applique tout de suite.
 
-## Étudier une note (45 à 60 min)
+## La boucle
 
 ```mermaid
 flowchart LR
-  A["1. Lire Introduction<br/>+ Prérequis"] --> B["2. Théorie<br/>(ouvrir les callouts)"]
-  B --> C["3. Taper l'exemple<br/>minimal (pas copier)"]
-  C --> D["4. Modifier l'exemple<br/>et casser exprès"]
-  D --> E["5. Auto-vérification<br/>à voix haute"]
-  E --> F["6. Snippet perso<br/>dans 04_Snippets"]
-  F --> G["7. status → 🟡"]
+  A["🛠️ Une tâche du projet"] --> B{"Je sais faire ?"}
+  B -- Oui --> E["✅ Je code"]
+  B -- Non --> C["📖 J'ouvre la note liée<br/>(10-20 min)"]
+  C --> D["⌨️ J'essaie l'exemple<br/>dans mon projet"]
+  D --> E
+  E --> F["📝 J'écris ce que j'ai compris<br/>dans la note ou un snippet"]
+  F --> A
 ```
 
-1. **Lire** l'introduction et vérifier les prérequis (liens `[!warning]-`)
-2. **Théorie** : ouvrir chaque callout, reformuler avec ses mots dans « Notes brutes »
-3. **Taper** l'exemple minimal à la main (jamais de copier-coller) dans un vrai projet
-4. **Casser** : provoquer volontairement chaque « Piège courant » pour voir l'erreur
-5. **S'auto-évaluer** : répondre à voix haute à l'auto-vérification et aux questions d'entretien (méthode Feynman : expliquer à un enfant de 12 ans)
-6. **Créer le snippet** (clic sur le lien « Extrait de code ») avec TA version commentée
-7. **Mettre `status: 🟡 In Progress`** ; passer à `🟢 Done` seulement après l'avoir utilisé dans un projet ET réussi l'auto-vérification une semaine plus tard
+1. **Pars du projet.** Chaque projet de `02_Projects` liste ses tâches et, pour chacune, les notes utiles.
+2. **Lis juste ce qu'il faut.** Le « En bref » + l'exemple suffisent souvent. Le reste sert quand tu bloques.
+3. **Tape le code toi-même** dans ton projet (jamais de copier-coller aveugle, y compris depuis l'IA).
+4. **Écris avec tes mots** ce que tu as compris : une ligne dans la note ou un snippet dans `04_Snippets`.
+5. **Statut** : `🟡 In Progress` quand tu as commencé, `🟢 Done` quand tu l'as **utilisé dans un projet** et que tu sais l'expliquer sans la note.
 
-## Révision espacée
+## Quand une note ne suffit pas
+
+- Relis l'exemple et **casse-le exprès** : change une ligne, observe l'erreur.
+- Demande à l'IA de t'expliquer **ton** code, pas de l'écrire à ta place (voir [[IA-07-IA-Assistee-Dev|IA Assistée au Développement]]).
+- Bloqué plus de 30-60 min : demande à un collègue avec un résumé de ce que tu as essayé.
+
+## Retenir sur la durée
+
 | Quand | Quoi |
 |---|---|
-| J+1 | Relire les points clés, refaire l'auto-vérification |
-| J+7 | Auto-vérification sans regarder la note + 1 piège de mémoire |
-| J+30 | Questions d'entretien à voix haute |
-| Fin de phase | Quiz généré par l'IA sur toutes les notes de la phase (voir [[IA-07-IA-Assistee-Dev\|IA Assistée au Développement]]) |
-
-> [!tip] Astuce Obsidian
-> Ajouter une tâche de révision dans la daily note : `- [ ] #task Réviser [[JS-06-Event-Loop|Event Loop JavaScript]] [due:: 2026-11-12]` (commande QuickAdd `add_task`).
-
-## Pratiquer
-- **Projet du mois** (voir [[Roadmap-12-mois|Roadmap 12 mois]]) : c'est là que les notes deviennent des compétences
-- **Algorithmes** dès M2 : 2 à 3 problèmes par semaine (LeetCode/NeetCode), annoncer la complexité avant de coder
-- **Au travail** : relier chaque concept au code réel de l'équipe ; lire une MR de senior par semaine
+| Fin de tâche | 1 phrase : « ce que j'ai appris » dans la daily note |
+| Fin de semaine | Relire les notes passées en 🟡 et les expliquer à voix haute |
+| Fin de projet | Rédiger l'étude de cas du projet (ce qui sert aussi au Portfolio) |
 
 ## Règles d'or
-1. Comprendre avant de commiter (surtout le code généré par IA)
-2. Documentation officielle d'abord, vérifier la version
-3. Petites étapes, commits fréquents, MR petites
-4. Un bug corrigé = un test ajouté
-5. Régularité > intensité : 1 h par jour vaut mieux que 7 h le dimanche
-6. Demander de l'aide après 30-60 min bloqué, avec un résumé clair de ce qui a été essayé
 
-## Bilan hebdomadaire (dimanche, dans la daily note)
-- Qu'ai-je appris ? (3 points)
-- Qu'est-ce qui reste flou ? → questions dans « Notes brutes »
-- Qu'ai-je livré dans le projet ?
-- Objectif de la semaine prochaine
+1. **Comprendre avant de commiter**, surtout le code généré par l'IA.
+2. **La documentation officielle d'abord** (lien `source` en haut de chaque note).
+3. **Petits pas** : petites tâches, commits fréquents.
+4. **Un bug corrigé = un test ajouté.**
+5. **Régularité > intensité** : 1 h par jour vaut mieux que 7 h le dimanche.
+
+## Au travail
+
+Chaque semaine : repère dans le code de l'équipe un concept que tu viens d'utiliser dans ton projet, et lis une merge request d'un collègue plus expérimenté.

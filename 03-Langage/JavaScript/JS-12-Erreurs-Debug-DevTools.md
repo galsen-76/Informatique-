@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Gestion des Erreurs et DevTools"
 parent: "[[JavaScript]]"
-children: []
 related_theory:
   - "[[METH-05-Resolution-Problemes-Debug|Résolution de Problèmes et Débogage]]"
-related_snippets:
-  - "[[04_Snippets/js-12-erreurs-debug-devtools]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://developer.chrome.com/docs/devtools"
@@ -22,145 +19,93 @@ source: "https://developer.chrome.com/docs/devtools"
 
 # Gestion des Erreurs et DevTools
 
-> [!abstract] Introduction
-> Savoir lever, attraper et tracer les erreurs, et maîtriser les DevTools du navigateur (Console, Sources, Network, Performance) est ce qui fait gagner le plus de temps à un développeur.
+> [!abstract] En bref
+> Deux compétences qui font gagner des heures : **gérer les erreurs** proprement dans ton code, et **enquêter** avec les outils du navigateur (F12) au lieu de deviner.
 
-> [!warning]- Prérequis
-> [[JS-01-Fondamentaux|Fondamentaux JavaScript]]
+## Lever et attraper une erreur
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```javascript
-> try {
->   const data = JSON.parse(texte);
-> } catch (erreur) {
->   console.error("JSON invalide", erreur);
-> } finally {
->   chargement = false;
-> }
-> throw new Error("Film introuvable");
-> ```
-> Types natifs : `Error`, `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
-
-> [!example]- Analogie
-> Les DevTools sont le tableau de bord et la boîte noire de l'avion : Console = voyants, Network = radio avec la tour de contrôle, Sources = pilote automatique qu'on peut mettre en pause, Performance = enregistreur de vol.
-
-> [!question]- Pourquoi l'utiliser ?
-> Un dev expérimenté ne devine pas : il observe (points d'arrêt, réseau, stack trace) et formule des hypothèses vérifiables.
-
-> [!question]- Comment ça marche ?
-> Onglets essentiels :
-> - **Console** : logs, erreurs, exécution de code, `$0` (élément sélectionné)
-> - **Elements** : DOM et CSS en direct
-> - **Sources** : points d'arrêt, pas à pas, watch, `debugger;`
-> - **Network** : requêtes, statuts, payloads, timing, throttling (3G)
-> - **Application** : localStorage, cookies, service workers
-> - **Performance / Lighthouse** : lenteurs, Core Web Vitals
-> - Extensions : **Angular DevTools**, **Vue DevTools**
-
-> [!question]- Quand l'utiliser ?
-> À chaque bug. Réflexe : 1) lire le message et la stack trace, 2) reproduire, 3) Network si données, 4) breakpoint si logique.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `console.log` partout ralentit et pollue ; un point d'arrêt conditionnel est souvent plus efficace. Les erreurs async non attrapées n'apparaissent pas toujours au bon endroit.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Stack trace | Liste des appels menant à l'erreur |
-| Breakpoint | Pause de l'exécution à une ligne |
-| Source map | Lien entre le JS compilé et le TS source |
-| `debugger` | Instruction qui déclenche un point d'arrêt |
-
----
-
-## Points clés
-
-- Toujours lire la stack trace jusqu'à ton propre code
-- Les source maps permettent de déboguer le TS dans le navigateur
-- Créer des erreurs métier explicites (`class NotFoundError extends Error`)
-- `console.table`, `console.group`, `console.time` sont sous-utilisés
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `catch (e) {}` vide qui avale les erreurs
-> - Lancer des chaînes (`throw "erreur"`) au lieu d'objets Error (pas de stack)
-> - Laisser des `console.log` en production
-
----
-
-## Exemple minimal
-
-```javascript
-class ErreurApi extends Error {
-  constructor(message, status) {
-    super(message);
-    this.name = "ErreurApi";
-    this.status = status;
-  }
+```ts
+function trouverFilm(id: number) {
+  const film = films.find(f => f.id === id);
+  if (!film) throw new Error(`Film ${id} introuvable`);   // on signale le problème
+  return film;
 }
+
 try {
-  throw new ErreurApi("Non autorisé", 401);
-} catch (e) {
-  if (e instanceof ErreurApi && e.status === 401) redirigerVersLogin();
-  else throw e;                     // ne pas avaler ce qu'on ne sait pas traiter
+  const film = trouverFilm(99);
+} catch (erreur) {
+  console.error(erreur);          // on le traite
+} finally {
+  chargement = false;             // exécuté dans tous les cas
 }
 ```
 
-> [!note] Ce que j'en retiens
-> On n'attrape que ce qu'on sait traiter ; le reste est relancé.
+**Règle :** n'attrape que ce que tu sais traiter. Le reste, laisse-le remonter : une erreur cachée est pire qu'une erreur visible.
 
----
+### Tes propres erreurs
 
-## Pour aller plus loin (niveau senior)
+```ts
+class ErreurApi extends Error {
+  constructor(message: string, public status: number) {
+    super(message);
+    this.name = 'ErreurApi';
+  }
+}
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Centraliser les erreurs (ErrorHandler Angular, `app.config.errorHandler` Vue) et les envoyer à Sentry
-> - Déboguer Node avec `--inspect` et Chrome
-> - Utiliser les logpoints et breakpoints conditionnels
+try {
+  await chargerProfil();
+} catch (e) {
+  if (e instanceof ErreurApi && e.status === 401) redirigerVersConnexion();
+  else throw e;   // pas pour moi → je relance
+}
+```
 
----
+## Lire un message d'erreur
 
-## Connexions
+```
+TypeError: Cannot read properties of undefined (reading 'titre')
+    at FilmCardComponent.afficher (film-card.component.ts:14:22)
+    at …
+```
 
-**Arbre théorique :**
-- Sujet parent → [[JavaScript]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[IJ-05-Debogage|Débogage IntelliJ]], [[PY-07-Exceptions|Exceptions Python]]
+1. **Le type** (`TypeError`) et **le message** : ici, tu as lu `.titre` sur quelque chose de vide.
+2. **La pile d'appels** (stack trace) : descends jusqu'à la première ligne qui vient de **ton** fichier (`film-card.component.ts:14`). C'est là qu'il faut regarder.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/js-12-erreurs-debug-devtools]]
-- Projet → [[02_Projects/CinéTrack]]
+| Erreur | Veut souvent dire |
+|---|---|
+| `TypeError: … of undefined` | la donnée n'est pas encore arrivée, ou le nom du champ est faux |
+| `ReferenceError: x is not defined` | faute de frappe, ou oubli d'import |
+| `SyntaxError` | parenthèse ou accolade manquante, JSON mal formé |
 
----
+## Les DevTools (F12)
 
-## Auto-vérification
+| Onglet | Tu t'en sers pour |
+|---|---|
+| **Console** | voir les erreurs, tester une ligne de code |
+| **Elements** | voir le HTML réel et modifier le CSS en direct |
+| **Network** (Réseau) | voir chaque appel API : URL, statut, données envoyées et reçues |
+| **Sources** | mettre le code **en pause** sur une ligne (point d'arrêt) et avancer pas à pas |
+| **Application** | voir le localStorage et les cookies |
+| **Lighthouse** | mesurer performance et accessibilité |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle est la différence entre une erreur réseau et une erreur HTTP dans l'onglet Network ?
+Ajoute les extensions **Angular DevTools** et **Vue DevTools** : elles montrent tes composants et leur état.
 
-> [!faq]- Questions d'entretien
-> - Comment déboguez-vous un bug que vous n'arrivez pas à reproduire ?
+### Le point d'arrêt
 
----
+Au lieu de mettre des `console.log` partout : dans **Sources**, clique sur un numéro de ligne (ou écris `debugger;` dans ton code). L'exécution s'arrête là, et tu vois la valeur de toutes les variables à cet instant.
 
-## Tâches
+## La méthode d'enquête
 
-- [ ] #task Faire le tutoriel officiel Chrome DevTools « Debug JavaScript »
-- [ ] #task Installer Angular DevTools et Vue DevTools
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+1. **Lire** le message et la pile d'appels.
+2. **Reproduire** le bug à coup sûr.
+3. Problème de **données** ? → onglet Network.
+4. Problème de **logique** ? → point d'arrêt.
+5. Une hypothèse à la fois, vérifiée avant de passer à la suivante.
 
----
+Voir aussi [[METH-05-Resolution-Problemes-Debug|Résolution de problèmes]].
 
-## Notes brutes
+## Pièges
 
-- ?
+- **`catch (e) {}` vide** : l'erreur disparaît, le bug devient introuvable.
+- **`throw 'erreur'`** (un texte) : pas de pile d'appels. Lance toujours `new Error(…)`.
+- **Des `console.log` oubliés** en production.

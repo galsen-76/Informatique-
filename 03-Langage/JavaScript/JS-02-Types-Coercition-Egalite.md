@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,8 @@ tags:
 aliases:
   - "Types et Coercition JavaScript"
 parent: "[[JavaScript]]"
-children:
-  - "[[TS-09-Type-Narrowing|Type Narrowing]]"
 related_theory:
   - "[[JS-01-Fondamentaux|Fondamentaux JavaScript]]"
-related_snippets:
-  - "[[04_Snippets/js-02-types-coercition-egalite]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Data_structures"
@@ -23,149 +19,81 @@ source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Data_structures"
 
 # Types et Coercition JavaScript
 
-> [!abstract] Introduction
-> JavaScript a 7 types primitifs + les objets, et convertit parfois les valeurs automatiquement (coercition) — source de bugs célèbres que TypeScript aide à éviter.
+> [!abstract] En bref
+> Chaque valeur a un **type** (texte, nombre, booléen…). JavaScript convertit parfois les types tout seul, sans prévenir : c'est la **coercition**, source de bugs célèbres. Deux réflexes suffisent à les éviter : `===` et `??`.
 
-> [!warning]- Prérequis
-> [[JS-01-Fondamentaux|Fondamentaux JavaScript]]
+## Les types
 
----
+| Type | Exemple | À savoir |
+|---|---|---|
+| `string` | `'Inception'` | du texte |
+| `number` | `42`, `3.14` | entiers et décimaux, un seul type |
+| `boolean` | `true`, `false` | |
+| `undefined` | | « pas encore de valeur » |
+| `null` | | « volontairement vide » |
+| objet | `{ titre: 'Dune' }`, `[1, 2]`, fonctions, `Date` | tout le reste |
 
-## Théorie
+(`bigint` et `symbol` existent aussi, mais tu les croiseras rarement.)
 
-> [!question]- C'est quoi ?
-> **Primitifs** (immuables, copiés par valeur) : `string`, `number`, `bigint`, `boolean`, `undefined`, `null`, `symbol`.
-> **Objets** (copiés par référence) : `{}`, tableaux, fonctions, `Date`, `Map`…
-> ```javascript
-> typeof "a"        // "string"
-> typeof 42         // "number"
-> typeof null       // "object"  ← bug historique du langage !
-> typeof []         // "object"  → utiliser Array.isArray()
-> typeof (() => {}) // "function"
-> ```
+### Valeur vs référence
 
-> [!example]- Analogie
-> La coercition, c'est un traducteur trop zélé : tu lui donnes `"5" + 1` et au lieu de te signaler que tu mélanges des langues, il invente une traduction (`"51"`).
+```js
+let a = 5;
+let b = a;   // b reçoit une COPIE de 5
+b = 10;      // a vaut toujours 5
 
-> [!question]- Pourquoi l'utiliser ?
-> Comprendre les types et la coercition évite des bugs silencieux (`"10" > "9"` est `false` car comparaison de texte) et explique les décisions de TypeScript (`strictNullChecks`, `unknown`…).
-
-> [!question]- Comment ça marche ?
-> **Coercition implicite** :
-> ```javascript
-> "5" + 1    // "51"  (+ avec une string → concaténation)
-> "5" - 1    // 4     (- force la conversion en nombre)
-> [] + {}    // "[object Object]"
-> ```
-> **Valeurs « falsy »** (fausses dans un `if`) : `false`, `0`, `-0`, `0n`, `""`, `null`, `undefined`, `NaN`. Tout le reste est « truthy » (y compris `"0"`, `[]`, `{}`).
->
-> **Égalité** :
-> - `===` stricte : même type ET même valeur → **toujours l'utiliser**
-> - `==` lâche : convertit avant de comparer (`0 == ""` → `true`)
->
-> **Opérateurs modernes** :
-> - `??` (nullish) : valeur par défaut seulement si `null`/`undefined`
-> - `?.` (optional chaining) : accès sûr `film?.realisateur?.nom`
-
-> [!question]- Quand l'utiliser ?
-> À chaque condition, comparaison ou valeur par défaut. Préférer `??` à `||` quand `0` ou `""` sont des valeurs valides.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pour les objets, `===` compare les RÉFÉRENCES, pas le contenu : `{a:1} === {a:1}` est `false`. Pour comparer un contenu il faut une comparaison profonde (ou comparer des identifiants).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Primitif | Valeur simple, immuable, copiée par valeur |
-| Référence | Adresse d'un objet en mémoire ; copier un objet copie l'adresse |
-| Coercition | Conversion automatique d'un type vers un autre |
-| Falsy | Valeur considérée comme fausse dans un test |
-| Nullish | `null` ou `undefined` |
-
----
-
-## Points clés
-
-- 7 primitifs : string, number, bigint, boolean, undefined, null, symbol
-- Toujours `===` / `!==`
-- `typeof null === "object"` est un bug historique — tester `x === null`
-- `??` ne remplace que `null`/`undefined`, `||` remplace toute valeur falsy
-- Les objets sont comparés par référence
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `const quantite = saisie || 10` → si l'utilisateur saisit `0`, on obtient 10 (utiliser `??`)
-> - `0.1 + 0.2 === 0.3` est `false` (flottants IEEE 754) → arrondir ou travailler en centimes
-> - `NaN === NaN` est `false` → utiliser `Number.isNaN()`
-> - `parseInt("08abc")` renvoie 8 sans erreur → valider les entrées
-
----
-
-## Exemple minimal
-
-```javascript
-function prixTTC(prixHT, tva) {
-  const taux = tva ?? 0.2;           // 0 reste 0, seul null/undefined → 0.2
-  return Math.round(prixHT * (1 + taux) * 100) / 100;
-}
-prixTTC(100, 0);    // 100  (avec || on aurait 120 !)
-prixTTC(100);       // 120
+const film1 = { titre: 'Dune' };
+const film2 = film1;      // film2 pointe vers LE MÊME objet
+film2.titre = 'Heat';     // film1.titre vaut aussi 'Heat' !
 ```
 
-> [!note] Ce que j'en retiens
-> `??` respecte les valeurs « fausses mais valides » comme `0`. C'est un réflexe à avoir pour tous les paramètres numériques.
+Les nombres, textes et booléens sont **copiés**. Les objets et tableaux sont **partagés** : les deux variables désignent le même objet. C'est pour ça que `{ a: 1 } === { a: 1 }` vaut `false` : ce sont deux objets différents, même s'ils se ressemblent.
 
----
+## La coercition : JavaScript traduit à ta place
 
-## Pour aller plus loin (niveau senior)
+Image : un traducteur trop zélé. Tu mélanges deux langues, et au lieu de te prévenir, il invente une traduction.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Connaître `Object.is()` (gère `NaN` et `-0`)
-> - Savoir pourquoi on stocke les montants en entiers (centimes) ou avec une lib décimale
-> - Comprendre `structuredClone()` pour la copie profonde
+```js
+'5' + 1   // '51'  → + avec du texte = on colle les textes
+'5' - 1   // 4     → - force la conversion en nombre
+```
 
----
+### Vrai ou faux dans un `if`
 
-## Connexions
+Ces valeurs sont considérées comme **fausses** (« falsy ») : `false`, `0`, `''` (texte vide), `null`, `undefined`, `NaN`.
+**Tout le reste est vrai**, y compris `'0'`, `[]` et `{}`.
 
-**Arbre théorique :**
-- Sujet parent → [[JavaScript]]
-- Sous-sujets → [[TS-09-Type-Narrowing|Type Narrowing]]
-- À comparer avec → [[TS-02-Types-Primitifs-Litteraux|Types Primitifs et Littéraux]]
+## Les deux réflexes
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/js-02-types-coercition-egalite]]
-- Projet → [[02_Projects/CinéTrack]]
+### 1. Toujours `===`
 
----
+```js
+0 == ''    // true  😱 (== convertit avant de comparer)
+0 === ''   // false ✅ (=== compare aussi le type)
+```
 
-## Auto-vérification
+Utilise toujours `===` et `!==`. Oublie `==`.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `[] == false` est `true` mais `if ([])` entre dans le bloc ?
-> - Quelle différence entre `??` et `||` ?
+### 2. `??` pour les valeurs par défaut
 
-> [!faq]- Questions d'entretien
-> - Quelle différence entre `==` et `===` ?
-> - Citez les valeurs falsy.
-> - Différence entre `null` et `undefined` ?
+```js
+const quantite = saisie || 1;   // si saisie vaut 0 → 1 😱
+const quantite = saisie ?? 1;   // si saisie vaut 0 → 0 ✅
+```
 
----
+- `||` remplace **toute valeur fausse** (0, '', false…).
+- `??` remplace **seulement** `null` et `undefined`.
 
-## Tâches
+Et son cousin `?.` pour lire une propriété sans planter si l'objet est vide :
 
-- [ ] #task Tester dans la console 10 coercitions surprenantes et les expliquer
-- [ ] #task Remplacer les `||` par `??` là où c'est pertinent dans un projet
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+```js
+film?.realisateur?.nom   // undefined au lieu d'une erreur si realisateur n'existe pas
+```
 
----
+## Pièges
 
-## Notes brutes
+- `typeof null` renvoie `'object'` (vieux bug du langage) : teste `x === null`.
+- `0.1 + 0.2 === 0.3` est `false` (les décimaux sont approximatifs) : pour de l'argent, compte en **centimes**.
+- `NaN === NaN` est `false` : utilise `Number.isNaN(x)`.
 
-- ?
+TypeScript attrape la plupart de ces erreurs avant même l'exécution : voir [[TS-01-Fondamentaux|Fondamentaux TypeScript]].

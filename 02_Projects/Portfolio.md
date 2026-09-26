@@ -43,6 +43,7 @@ aliases:
 - [[VUE-16-Tests-Vitest|Tests Vue.js avec Vitest]]
 
 **Architecture et UI :**
+- [[ARCH-15-Structure-de-Projet|Structure de Projet (modèle général)]]
 - [[VUE-22-Template-Architecture-Vue|Template d'Architecture Vue]]
 - [[UI-Librairies-Interfaces-Rapides|Librairies UI pour Interfaces Rapides]]
 - [[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]]

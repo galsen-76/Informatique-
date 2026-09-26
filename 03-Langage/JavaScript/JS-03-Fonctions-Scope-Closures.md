@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,8 @@ tags:
 aliases:
   - "Fonctions Scope et Closures JavaScript"
 parent: "[[JavaScript]]"
-children:
-  - "[[JS-04-this-Prototypes-Classes|this et Prototypes JavaScript]]"
 related_theory:
   - "[[JS-01-Fondamentaux|Fondamentaux JavaScript]]"
-related_snippets:
-  - "[[04_Snippets/js-03-fonctions-scope-closures]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Closures"
@@ -23,156 +19,111 @@ source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Closures"
 
 # Fonctions Scope et Closures JavaScript
 
-> [!abstract] Introduction
-> En JavaScript les fonctions sont des valeurs comme les autres ; une closure est une fonction qui « se souvient » des variables de l'endroit où elle a été créée — la base des callbacks, des hooks Vue et de RxJS.
+> [!abstract] En bref
+> En JavaScript, une fonction est **une valeur** : on peut la ranger dans une variable, la passer à une autre fonction ou la renvoyer. Une **closure**, c'est une fonction qui se souvient des variables de l'endroit où elle a été créée. Les deux idées sont partout : événements, `map`, composables Vue, RxJS.
 
-> [!warning]- Prérequis
-> [[JS-01-Fondamentaux|Fondamentaux JavaScript]]
+## 1. Une fonction est une valeur
 
----
+Une fonction, c'est une **recette** écrite sur une fiche. On peut ranger la fiche dans une boîte (une variable), comme un nombre :
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> Trois façons de créer une fonction :
-> ```javascript
-> function additionner(a, b) { return a + b; }          // déclaration (hoistée)
-> const multiplier = function (a, b) { return a * b; }; // expression
-> const diviser = (a, b) => a / b;                       // fléchée (arrow)
-> ```
-> Une **closure** = une fonction + l'environnement (les variables) dans lequel elle a été créée.
-
-> [!example]- Analogie
-> Une closure, c'est un sac à dos : quand une fonction quitte l'endroit où elle est née, elle emporte avec elle les variables dont elle a besoin, et peut les réutiliser plus tard.
-
-> [!question]- Pourquoi l'utiliser ?
-> - Les fonctions « de première classe » permettent de passer du comportement en paramètre (callbacks, `map`, `filter`, gestionnaires d'événements).
-> - Les closures permettent d'encapsuler un état privé sans classe (c'est exactement ce que font les composables Vue `useXxx()`).
-
-> [!question]- Comment ça marche ?
-> **Portée lexicale** : une fonction voit les variables de l'endroit où elle est ÉCRITE, pas de l'endroit où elle est appelée.
-> ```javascript
-> function creerCompteur() {
->   let compte = 0;                 // variable privée
->   return () => ++compte;          // la fonction fléchée « capture » compte
-> }
-> const suivant = creerCompteur();
-> suivant(); // 1
-> suivant(); // 2  → compte survit entre les appels
-> ```
-> **Paramètres** : valeurs par défaut `(a = 1)`, rest `(...args)`, déstructuration `({ titre, annee })`.
-> **Fonctions d'ordre supérieur** : qui prennent ou renvoient une fonction (`map`, `debounce`, `creerCompteur`).
-
-> [!question]- Quand l'utiliser ?
-> - Fléchées : callbacks courts, méthodes de tableau, quand on veut garder le `this` extérieur.
-> - Déclarations `function` : fonctions utilitaires nommées de haut niveau.
-> - Closures : état privé, factories, mémoïsation, debounce/throttle.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Une closure garde en vie toutes les variables capturées : capturer un gros objet dans un callback jamais détruit (listener, setInterval) = fuite mémoire.
-
-### Schéma
-
-```mermaid
-flowchart TB
-  G["Portée globale<br/>creerCompteur"] --> F["Portée de creerCompteur<br/>let compte = 0"]
-  F --> A["Fonction retournée<br/>() => ++compte"]
-  A -. "garde une référence (closure)" .-> F
+```js
+function doubler(n) { return n * 2; }          // déclaration classique
+const doubler = function (n) { return n * 2; }; // même chose, rangée dans une variable
+const doubler = (n) => n * 2;                   // même chose, en fonction fléchée
 ```
 
----
+### Avec ou sans parenthèses : LA clé
 
-## Vocabulaire
+```js
+doubler      // la recette elle-même (la fonction), rien n'est exécuté
+doubler(5)   // on suit la recette → 10
+```
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Fonction de première classe | Fonction manipulable comme une valeur |
-| Callback | Fonction passée en paramètre, appelée plus tard |
-| Closure | Fonction qui garde l'accès à sa portée de création |
-| Portée lexicale | La portée dépend de l'endroit où le code est écrit |
-| Fonction pure | Même entrée → même sortie, sans effet de bord |
+C'est ce qui permet de **donner une fonction à une autre** :
 
----
+```js
+[1, 2, 3].map(doubler);                        // [2, 4, 6]
+bouton.addEventListener('click', ouvrirMenu);  // ✅ on donne la recette, exécutée au clic
+bouton.addEventListener('click', ouvrirMenu()); // ❌ exécutée TOUT DE SUITE
+```
 
-## Points clés
+Une fonction passée à une autre s'appelle un **callback** (« rappelle-moi plus tard »).
 
-- Les fonctions sont des valeurs : on peut les stocker, passer, retourner
-- Portée lexicale : ce qui compte est l'endroit d'écriture
-- Une closure capture des variables (pas des copies de valeurs)
-- Les fléchées n'ont pas leur propre `this` ni `arguments`
+## 2. La portée (scope)
 
----
+Une variable n'existe que dans le bloc `{ }` où elle est déclarée. Une fonction voit les variables **autour de l'endroit où elle est écrite**.
 
-## Pièges courants
+```js
+const prenom = 'Awa';
+function saluer() {
+  console.log(prenom);   // ✅ voit prenom, déclarée autour
+  const message = 'Hi';
+}
+console.log(message);    // ❌ message n'existe que dans saluer
+```
 
-> [!bug]- Erreurs fréquentes
-> - Utiliser une fonction fléchée comme méthode d'objet qui a besoin de `this`
-> - Créer des closures dans une boucle `var` → toutes partagent la même variable
-> - Oublier de retirer un listener → la closure et tout ce qu'elle capture restent en mémoire
+## 3. La closure
 
----
+Image : chaque fonction part avec un **sac à dos** qui contient les variables présentes autour d'elle au moment de sa création. Elle le garde toute sa vie.
 
-## Exemple minimal
+```js
+function creerCompteur() {
+  let total = 0;
+  return () => {          // on renvoie une fonction
+    total = total + 1;    // elle garde accès à total
+    return total;
+  };
+}
 
-```javascript
+const compteur = creerCompteur();  // creerCompteur a fini de s'exécuter…
+compteur();  // 1
+compteur();  // 2  … mais total existe encore, dans le sac à dos
+```
+
+- Chaque appel à `creerCompteur()` crée un **nouveau** `total` : deux compteurs sont indépendants.
+- C'est un **lien vivant**, pas une copie : la fonction lit toujours la valeur actuelle.
+
+```mermaid
+flowchart LR
+  C["creerCompteur()<br/>let total = 0"] -->|renvoie| F["() => total + 1"]
+  F -. "garde accès à total<br/>(closure)" .-> C
+```
+
+## Où tu t'en sers
+
+- **Les écouteurs d'événements** : la fonction du `click` se souvient des variables autour d'elle quand le clic arrive, bien plus tard.
+- **Les composables Vue** : `useCompteur()` est exactement `creerCompteur()` avec un `ref`.
+- **Une variable privée** : impossible de modifier `total` depuis l'extérieur, seulement via la fonction.
+- **Un `debounce`** (attendre que l'utilisateur ait fini de taper avant de chercher) :
+
+```js
 function debounce(fn, delai) {
-  let timer;                          // capturé par la closure
+  let timer;                              // gardé dans le sac à dos
   return (...args) => {
-    clearTimeout(timer);
+    clearTimeout(timer);                  // annule l'appel précédent
     timer = setTimeout(() => fn(...args), delai);
   };
 }
-const rechercher = debounce((texte) => console.log("API:", texte), 300);
-rechercher("inc"); rechercher("ince"); rechercher("incep"); // 1 seul appel : "incep"
+const rechercher = debounce((texte) => console.log('API :', texte), 300);
+rechercher('inc'); rechercher('ince'); rechercher('incep');  // 1 seul appel : 'incep'
 ```
 
-> [!note] Ce que j'en retiens
-> `debounce` est une closure classique : `timer` survit entre les appels. C'est exactement ce que fait `debounceTime` en RxJS.
+C'est ce que fait `debounceTime` en RxJS : voir [[ANG-08-RxJS|RxJS]].
 
----
+## Pièges
 
-## Pour aller plus loin (niveau senior)
+- **`var` dans une boucle** : toutes les fonctions partagent le même `i`.
+  ```js
+  for (var i = 1; i <= 3; i++) setTimeout(() => console.log(i));  // 4, 4, 4
+  for (let i = 1; i <= 3; i++) setTimeout(() => console.log(i));  // 1, 2, 3
+  ```
+- **Un écouteur jamais retiré** garde en mémoire tout ce que contient son sac à dos (fuite mémoire).
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir implémenter `debounce`, `throttle`, `memoize`, `once` de tête
-> - Comprendre la curryfication et la composition de fonctions
-> - Identifier les fuites mémoire dues aux closures avec l'onglet Memory des DevTools
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[JavaScript]]
-- Sous-sujets → [[JS-04-this-Prototypes-Classes|this et Prototypes JavaScript]]
-- À comparer avec → [[TS-04-Fonctions|Fonctions Typées]], [[PY-04-Fonctions|Fonctions Python]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/js-03-fonctions-scope-closures]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `compte` n'est-il pas remis à 0 à chaque appel de `suivant()` ?
-> - Qu'est-ce qu'une portée lexicale ?
-
-> [!faq]- Questions d'entretien
-> - Qu'est-ce qu'une closure ? Donnez un cas d'usage réel.
-> - Différences entre fonction fléchée et fonction classique ?
-
----
-
-## Tâches
-
-- [ ] #task Coder `debounce` et `throttle` sans regarder
-- [ ] #task Réécrire un compteur avec closure puis avec classe, comparer
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+> [!check] Tu as compris si…
+> ```js
+> const a = creerCompteur();
+> const b = creerCompteur();
+> a(); a();
+> b();   // ?
+> ```
+> Réponse : `1`, car `b` a son propre `total`.

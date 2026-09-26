@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,8 @@ tags:
 aliases:
   - "Objets et Tableaux JavaScript"
 parent: "[[JavaScript]]"
-children:
-  - "[[TG-06-Programmation-Fonctionnelle|Programmation Fonctionnelle]]"
 related_theory:
   - "[[JS-02-Types-Coercition-Egalite|Types et Coercition JavaScript]]"
-related_snippets:
-  - "[[04_Snippets/js-05-objets-tableaux-methodes]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array"
@@ -23,142 +19,80 @@ source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_O
 
 # Objets et Tableaux JavaScript
 
-> [!abstract] Introduction
-> Objets et tableaux sont les structures de données de base de JS ; leurs méthodes (`map`, `filter`, `reduce`…) et la déstructuration/spread sont utilisées dans CHAQUE composant Angular ou Vue.
+> [!abstract] En bref
+> Les objets (une fiche avec des champs) et les tableaux (une liste) sont les données de toutes tes applications. Tu passeras ton temps à les **transformer** pour l'affichage : filtrer une liste de films, calculer une moyenne, trier. Cette note est ton aide-mémoire.
 
-> [!warning]- Prérequis
-> [[JS-02-Types-Coercition-Egalite|Types et Coercition JavaScript]]
+## Objets et tableaux
 
----
+```js
+const film = { id: 1, titre: 'Inception', annee: 2010 };   // un objet
+const films = [film, { id: 2, titre: 'Dune', annee: 2021 }]; // un tableau d'objets
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```javascript
-> const film = { id: 1, titre: "Inception", genres: ["SF", "Thriller"] };
-> const films = [film, { id: 2, titre: "Dune", genres: ["SF"] }];
-> ```
-> Outils modernes :
-> - **Déstructuration** : `const { titre, annee = 2010 } = film;` / `const [premier, ...reste] = films;`
-> - **Spread** `...` : copie superficielle `const copie = { ...film, titre: "Autre" };`
-> - **Méthodes de tableau** : `map`, `filter`, `find`, `some`, `every`, `reduce`, `sort`, `includes`, `flatMap`
-
-> [!example]- Analogie
-> `map` est une chaîne de montage (chaque pièce entre, une pièce transformée sort), `filter` un tamis, `reduce` un entonnoir qui combine tout en un seul résultat.
-
-> [!question]- Pourquoi l'utiliser ?
-> Les frameworks réactifs demandent de créer de NOUVELLES données plutôt que de modifier les anciennes (immutabilité) : `map`/`filter`/spread le font naturellement, alors que `push`/`splice` modifient l'original.
-
-> [!question]- Comment ça marche ?
-> | Méthode | Retourne | Modifie l'original ? |
-> |---|---|---|
-> | `map(fn)` | Nouveau tableau transformé | Non |
-> | `filter(fn)` | Nouveau tableau filtré | Non |
-> | `find(fn)` | Premier élément ou `undefined` | Non |
-> | `reduce(fn, init)` | Une valeur accumulée | Non |
-> | `sort(fn)` | Le même tableau trié | **Oui** → préférer `toSorted()` (ES2023) |
-> | `push/pop/splice` | … | **Oui** |
-
-> [!question]- Quand l'utiliser ?
-> Dès qu'on transforme une liste pour l'affichage (liste de films filtrés, total d'un panier, regroupement par catégorie).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Le spread fait une copie **superficielle** : les objets imbriqués restent partagés. Pour une copie profonde : `structuredClone(obj)`.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Déstructuration | Extraire des propriétés dans des variables |
-| Spread | Étaler un tableau/objet dans un autre |
-| Immutabilité | Ne jamais modifier une donnée, en créer une nouvelle |
-| Copie superficielle | Copie du premier niveau seulement |
-
----
-
-## Points clés
-
-- `map`/`filter`/`reduce` ne modifient pas l'original
-- `sort`, `reverse`, `splice`, `push` MODIFIENT l'original
-- Spread = copie superficielle ; `structuredClone` = profonde
-- `Object.keys/values/entries` pour parcourir un objet
-- `Map`/`Set` quand les clés ne sont pas des chaînes ou pour l'unicité
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `films.sort()` dans un getter/computed → modifie l'état source (utiliser `[...films].sort()` ou `toSorted()`)
-> - `sort()` sans comparateur trie en texte : `[10, 9, 1].sort()` → `[1, 10, 9]`
-> - Oublier la valeur initiale de `reduce` sur un tableau vide → TypeError
-> - Modifier un objet imbriqué d'une copie spread et changer l'original sans le savoir
-
----
-
-## Exemple minimal
-
-```javascript
-const films = [
-  { titre: "Inception", genre: "SF", note: 9 },
-  { titre: "Dune", genre: "SF", note: 8 },
-  { titre: "Heat", genre: "Polar", note: 8 },
-];
-const titresSF = films.filter(f => f.genre === "SF").map(f => f.titre);
-const moyenne = films.reduce((s, f) => s + f.note, 0) / films.length;
-const parGenre = Object.groupBy(films, f => f.genre); // ES2024
-const trie = films.toSorted((a, b) => b.note - a.note);
+film.titre        // 'Inception'
+films[0]          // le premier film
+films.length      // 2
 ```
 
-> [!note] Ce que j'en retiens
-> Chaîner `filter` puis `map` est lisible et ne touche jamais aux données d'origine — parfait pour un `computed()`.
+## Les méthodes de tableau à connaître
 
----
+Image : `map` est une **chaîne de montage** (chaque pièce entre, une pièce transformée sort), `filter` un **tamis**, `reduce` un **entonnoir** qui combine tout en un résultat.
 
-## Pour aller plus loin (niveau senior)
+| Méthode | Sert à | Exemple | Résultat |
+|---|---|---|---|
+| `map` | transformer chaque élément | `films.map(f => f.titre)` | `['Inception', 'Dune']` |
+| `filter` | garder certains éléments | `films.filter(f => f.annee > 2015)` | `[Dune]` |
+| `find` | trouver le premier qui correspond | `films.find(f => f.id === 2)` | `Dune` ou `undefined` |
+| `some` | « au moins un ? » | `films.some(f => f.annee < 2000)` | `false` |
+| `every` | « tous ? » | `films.every(f => f.annee > 2000)` | `true` |
+| `includes` | contient cette valeur ? | `['vue','angular'].includes('vue')` | `true` |
+| `reduce` | combiner en une valeur | `notes.reduce((s, n) => s + n, 0)` | la somme |
+| `toSorted` | trier (copie) | `films.toSorted((a, b) => a.annee - b.annee)` | nouveau tableau trié |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Connaître la complexité : `find`/`includes` = O(n), `Set.has` = O(1) → voir [[ALGO-01-Complexite-Big-O|Complexité Big O]]
-> - Utiliser `Object.groupBy`, `toSorted`, `toSpliced`, `with`, `at` (API immuables récentes)
-> - Savoir quand une boucle `for...of` simple est plus lisible qu'un `reduce` illisible
+On les enchaîne :
 
----
+```js
+const titresRecents = films
+  .filter(f => f.annee > 2015)
+  .map(f => f.titre);            // ['Dune']
+```
 
-## Connexions
+## Ne pas modifier l'original
 
-**Arbre théorique :**
-- Sujet parent → [[JavaScript]]
-- Sous-sujets → [[TG-06-Programmation-Fonctionnelle|Programmation Fonctionnelle]]
-- À comparer avec → [[PY-02-Structures-de-donnees|Structures de données Python]], [[PY-09-Comprehensions|Comprehensions Python]]
+Vue et Angular détectent les changements plus facilement quand on **crée une nouvelle liste** au lieu de modifier l'ancienne.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/js-05-objets-tableaux-methodes]]
-- Projet → [[02_Projects/CinéTrack]]
+| Ne modifie pas l'original ✅ | Modifie l'original ⚠️ |
+|---|---|
+| `map`, `filter`, `find`, `reduce`, `toSorted`, `concat`, `slice` | `push`, `pop`, `splice`, `sort`, `reverse` |
 
----
+```js
+const avecNouveau = [...films, nouveauFilm];            // ajouter sans modifier
+const sansDune = films.filter(f => f.id !== 2);          // supprimer sans modifier
+const renomme = films.map(f => f.id === 1 ? { ...f, titre: 'Inception (VO)' } : f); // modifier un élément
+```
 
-## Auto-vérification
+## Déstructuration et spread
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelles méthodes de tableau modifient l'original ?
-> - Pourquoi le spread ne suffit-il pas pour un objet imbriqué ?
+```js
+// Déstructuration : sortir des champs dans des variables
+const { titre, annee } = film;
+const [premier, ...autres] = films;
 
-> [!faq]- Questions d'entretien
-> - Différence entre `map` et `forEach` ?
-> - Comment copier profondément un objet ?
+// Spread (...) : étaler dans un nouvel objet / tableau
+const copie = { ...film, annee: 2011 };   // copie + un champ changé
+const tous = [...films, ...autresFilms];
+```
 
----
+## Parcourir un objet
 
-## Tâches
+```js
+Object.keys(film)     // ['id', 'titre', 'annee']
+Object.values(film)   // [1, 'Inception', 2010]
+Object.entries(film)  // [['id', 1], ['titre', 'Inception'], …]
+```
 
-- [ ] #task Réécrire 5 boucles `for` d'un projet avec `map`/`filter`/`reduce`
-- [ ] #task Implémenter `groupBy` avec `reduce`
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ?
+- **`sort()` sans fonction trie comme du texte** : `[10, 9, 1].sort()` donne `[1, 10, 9]`. Écris `sort((a, b) => a - b)`, ou mieux `toSorted`.
+- **`sort()` modifie le tableau d'origine** : dans un `computed`, utilise `toSorted()`.
+- **La copie avec `...` est superficielle** : les objets imbriqués restent partagés. Pour une copie complète : `structuredClone(obj)`.
+- **`reduce` sans valeur de départ** plante sur un tableau vide : mets toujours le `0` (ou `[]`) final.

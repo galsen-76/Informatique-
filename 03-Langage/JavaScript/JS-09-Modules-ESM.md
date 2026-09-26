@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,8 @@ tags:
 aliases:
   - "Modules ES JavaScript"
 parent: "[[JavaScript]]"
-children:
-  - "[[TS-11-Modules|Modules TypeScript]]"
 related_theory:
   - "[[NODE-01-Node-npm|Node.js et npm]]"
-related_snippets:
-  - "[[04_Snippets/js-09-modules-esm]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Modules"
@@ -23,134 +19,58 @@ source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Modules"
 
 # Modules ES JavaScript
 
-> [!abstract] Introduction
-> Les modules ES (`import`/`export`) découpent le code en fichiers isolés ; c'est le standard du navigateur, de Node moderne, de TypeScript, Angular et Vue — l'ancien système CommonJS (`require`) subsiste dans Node.
+> [!abstract] En bref
+> Un **module** est un fichier qui choisit ce qu'il partage (`export`) et ce qu'il utilise des autres (`import`). C'est comme ça qu'on découpe un projet en fichiers. Tous tes projets Angular, Vue et NestJS fonctionnent ainsi.
 
-> [!warning]- Prérequis
-> [[JS-01-Fondamentaux|Fondamentaux JavaScript]]
+## L'image
 
----
+Chaque fichier est une **pièce fermée**. `export` ouvre une fenêtre sur ce que tu veux montrer. `import` va regarder par ces fenêtres. Rien d'autre ne sort de la pièce.
 
-## Théorie
+## Exporter et importer
 
-> [!question]- C'est quoi ?
-> ```javascript
-> // math.js
-> export const PI = 3.14159;
-> export function aire(r) { return PI * r * r; }
-> export default class Cercle {}
-> // app.js
-> import Cercle, { aire, PI as pi } from "./math.js";
-> ```
-> Deux systèmes :
-> - **ESM** (ECMAScript Modules) : `import`/`export`, statique, standard
-> - **CommonJS** (CJS) : `require()`/`module.exports`, historique de Node
+```ts
+// film.utils.ts
+export const NOTE_MAX = 10;
+export function formaterNote(note: number) {
+  return `${note}/${NOTE_MAX}`;
+}
+```
 
-> [!example]- Analogie
-> Chaque module est une pièce fermée à clé ; `export` perce une fenêtre sur ce qu'on veut montrer, `import` va regarder par ces fenêtres. Rien d'autre ne fuit.
+```ts
+// app.ts
+import { formaterNote, NOTE_MAX } from './film.utils';
+formaterNote(8);   // '8/10'
+```
 
-> [!question]- Pourquoi l'utiliser ?
-> Isolation (pas de variables globales), réutilisation, et surtout **tree-shaking** : comme les imports ESM sont statiques, le bundler (Vite, esbuild) retire le code jamais importé.
+| Syntaxe | Usage |
+|---|---|
+| `export function x` / `import { x }` | **export nommé** : à privilégier |
+| `export default x` / `import x` | export par défaut : un seul par fichier |
+| `import { x as y }` | renommer à l'import |
+| `import * as utils` | tout importer dans un objet |
 
-> [!question]- Comment ça marche ?
-> - Chaque fichier module a sa propre portée et est en mode strict
-> - Un module n'est évalué qu'UNE fois, même importé 10 fois (singleton de fait)
-> - `import()` dynamique renvoie une Promise → base du lazy loading (`loadComponent` Angular, routes Vue)
-> - Dans `package.json`, `"type": "module"` rend les `.js` ESM dans Node
+Préfère les exports nommés : l'éditeur les renomme et les retrouve mieux.
 
-> [!question]- Quand l'utiliser ?
-> Toujours ESM pour du nouveau code. CommonJS seulement pour de vieux outils/configs Node.
+## Charger un module à la demande
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Mélanger ESM et CJS dans Node crée des erreurs (`ERR_REQUIRE_ESM`, `__dirname is not defined`). Les imports circulaires (A importe B qui importe A) donnent des valeurs `undefined` au démarrage.
+`import()` avec des parenthèses charge un fichier **seulement quand on en a besoin** :
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| ESM | Système de modules standard `import`/`export` |
-| CommonJS | Ancien système Node `require` |
-| Tree-shaking | Suppression du code non utilisé au build |
-| Import dynamique | `import()` qui charge un module à la demande |
-| Barrel file | Fichier `index.ts` qui ré-exporte d'autres modules |
-
----
-
-## Points clés
-
-- Exports nommés recommandés (meilleur refactoring et autocomplétion)
-- Un module est exécuté une seule fois
-- `import()` dynamique = lazy loading
-- ESM est statique → tree-shaking possible
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Imports circulaires entre services/modèles
-> - Barrel files géants (`index.ts` qui ré-exporte tout) → casse le tree-shaking et ralentit les builds/tests
-> - Oublier l'extension `.js` dans les imports ESM natifs Node
-
----
-
-## Exemple minimal
-
-```javascript
-// Chargement à la demande d'une librairie lourde
-bouton.addEventListener("click", async () => {
-  const { jsPDF } = await import("jspdf");   // téléchargée uniquement au clic
-  new jsPDF().text("Rapport", 10, 10).save("rapport.pdf");
+```ts
+bouton.addEventListener('click', async () => {
+  const { jsPDF } = await import('jspdf');   // téléchargé seulement au clic
+  new jsPDF().text('Rapport', 10, 10).save('rapport.pdf');
 });
 ```
 
-> [!note] Ce que j'en retiens
-> `import()` dynamique permet de ne pas alourdir le chargement initial : c'est le même mécanisme que le lazy loading des routes.
+C'est le même mécanisme que le **lazy loading** des routes Angular (`loadComponent`) et Vue (`component: () => import(…)`) : la page d'accueil se charge vite parce que le reste attend.
 
----
+## Ce qu'il faut savoir
 
-## Pour aller plus loin (niveau senior)
+- Un module n'est exécuté **qu'une fois**, même s'il est importé dans dix fichiers.
+- Les outils de build (Vite) **suppriment le code jamais importé** : c'est le *tree-shaking*.
+- Tu croiseras l'ancienne syntaxe de Node : `const x = require('x')` et `module.exports = …` (CommonJS). Pour du code neuf, utilise `import` / `export`.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Comprendre la résolution de modules (`moduleResolution: bundler` dans tsconfig)
-> - Configurer les `exports` d'un `package.json` de librairie (dual ESM/CJS)
-> - Détecter les imports circulaires (madge, ESLint `import/no-cycle`)
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[JavaScript]]
-- Sous-sujets → [[TS-11-Modules|Modules TypeScript]]
-- À comparer avec → [[PY-06-Modules-Packages|Modules et Packages Python]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/js-09-modules-esm]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi le tree-shaking nécessite-t-il des imports statiques ?
-> - Que se passe-t-il si deux fichiers importent le même module ?
-
-> [!faq]- Questions d'entretien
-> - Différence entre ESM et CommonJS ?
-
----
-
-## Tâches
-
-- [ ] #task Créer un mini-projet Node en `"type": "module"` avec 3 modules
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Imports circulaires** : A importe B qui importe A. Résultat : des valeurs `undefined` au démarrage. Déplace le code commun dans un troisième fichier.
+- **Chemins à rallonge** (`../../../shared/utils`) : utilise les alias `@/` ou `@shared/` (voir [[ARCH-15-Structure-de-Projet|Structure de projet]]).

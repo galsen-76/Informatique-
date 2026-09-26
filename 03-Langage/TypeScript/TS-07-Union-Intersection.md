@@ -1,6 +1,6 @@
 ---
 created: 2026-09-14
-modified: 2026-09-14
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,8 @@ aliases:
 tags:
   - frontend/typescript/union-intersection
 parent: "[[TypeScript]]"
-children:
-  - "[[TS-09-Type-Narrowing|Type Narrowing]]"
 related_theory:
   - "[[TS-02-Types-Primitifs-Litteraux|Types Primitifs et Littéraux]]"
-related_snippets:
-  - "[[04_Snippets/ts-union-intersection]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types"
@@ -23,155 +19,71 @@ source: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#unio
 
 # Union & Intersection Types
 
-> [!abstract] Introduction
-> Un type "union" dit qu'une valeur peut être de PLUSIEURS types possibles (l'un OU l'autre), tandis qu'un type "intersection" combine PLUSIEURS types en un seul qui doit respecter TOUTES leurs conditions à la fois.
+> [!abstract] En bref
+> Une **union** (`A | B`) veut dire « ceci **ou** cela ». Une **intersection** (`A & B`) veut dire « ceci **et** cela à la fois ». L'union est l'outil le plus utile de TypeScript pour décrire les différents états d'une donnée.
 
----
+## Union : l'un ou l'autre
 
-## Théorie
+```ts
+let id: string | number;
+id = 'abc';   // ✅
+id = 42;      // ✅
+id = true;    // ❌
+```
 
-> [!question]- C'est quoi ?
-> **Union (`|`)** : "ceci OU cela"
-> ```typescript
-> let identifiant: string | number;
-> identifiant = "abc123"; // ✅ valide
-> identifiant = 123;      // ✅ valide aussi
-> identifiant = true;     // ❌ Erreur : ni string ni number
-> ```
->
-> **Intersection (`&`)** : "ceci ET cela en même temps"
-> ```typescript
-> type Personne = { nom: string };
-> type Employe = { salaire: number };
->
-> type PersonneEmployee = Personne & Employe;
->
-> const p: PersonneEmployee = { nom: "Ali", salaire: 3000 }; // doit avoir TOUTES les propriétés
-> ```
->
-> > [!note] Comment se souvenir de la différence
-> > `|` (pipe) ressemble à un choix entre deux chemins → "l'un OU l'autre". `&` (esperluette) veut dire "et" en langage courant → combine tout ensemble.
+Avec une union, TypeScript ne te laisse utiliser que ce qui est **commun** aux deux, tant que tu n'as pas vérifié lequel c'est :
 
-> [!question]- Pourquoi l'utiliser ?
-> - Union : utile quand une donnée peut légitimement prendre plusieurs formes différentes (un identifiant peut être un texte OU un nombre selon la source de données)
-> - Intersection : utile pour combiner plusieurs "briques" de type réutilisables en un seul type complet, sans tout réécrire
-
-> [!question]- Comment ça marche ?
-> **Union avec des objets différents :**
-> ```typescript
-> interface FilmLocal {
->   titre: string;
->   cheminFichier: string;
-> }
->
-> interface FilmStreaming {
->   titre: string;
->   urlStreaming: string;
-> }
->
-> type Film = FilmLocal | FilmStreaming;
->
-> function lire(film: Film) {
->   console.log(film.titre); // ✅ accessible, présent dans les 2 cas
->
->   if ("cheminFichier" in film) {
->     console.log(film.cheminFichier); // ✅ TypeScript sait qu'on est dans le cas FilmLocal
->   }
-> }
-> ```
-> > [!note] Pourquoi le `if ("cheminFichier" in film)` ?
-> > Comme `film` peut être l'un OU l'autre type, TypeScript ne sait pas à l'avance lequel des deux c'est réellement. Ce test (voir [[TS-09-Type-Narrowing|Type Narrowing]]) permet de "prouver" à TypeScript qu'on est dans un cas précis, avant d'accéder à une propriété spécifique à ce cas.
-
-> [!question]- Quand l'utiliser ?
-> - Union : une variable qui peut légitimement représenter plusieurs formes de données différentes selon le contexte
-> - Intersection : combiner des types réutilisables (mixins, propriétés communes) en un type complet
-
----
-
-## Points clés
-
-- `A | B` = union, la valeur doit correspondre à AU MOINS l'un des deux types
-- `A & B` = intersection, la valeur doit respecter TOUTES les conditions des deux types combinés
-- Avec une union, on ne peut accéder qu'aux propriétés COMMUNES aux deux types, sauf après une vérification (voir [[TS-09-Type-Narrowing|Type Narrowing]])
-- Avec une intersection, l'objet doit posséder TOUTES les propriétés des types combinés
-
----
-
-## Paramètres / Configuration
-
-| Syntaxe | Description | Notes |
-|-----------|-------------|-------|
-| `A \| B` | Union — l'un ou l'autre type | Accès limité aux propriétés communes sans vérification |
-| `A & B` | Intersection — combinaison des deux types | L'objet doit tout avoir |
-| `"x" in objet` | Vérifie la présence d'une propriété | Utilisé pour distinguer les cas d'une union |
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Accéder à une propriété qui n'existe que dans un membre de l'union sans narrowing
-> - Intersection de types incompatibles (`string & number`) → `never`
-
----
-
-## Exemple minimal
-
-```typescript
-interface Chat { type: "chat"; ronronne: boolean; }
-interface Chien { type: "chien"; aboie: boolean; }
-
-type Animal = Chat | Chien;
-
-function decrire(animal: Animal) {
-  if (animal.type === "chat") {
-    console.log("Ronronne :", animal.ronronne); // TypeScript sait que c'est un Chat ici
-  } else {
-    console.log("Aboie :", animal.aboie); // et un Chien ici
+```ts
+function afficher(id: string | number) {
+  id.toUpperCase();                   // ❌ n'existe pas sur number
+  if (typeof id === 'string') {
+    id.toUpperCase();                 // ✅ ici c'est forcément un string
   }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> La propriété commune `type` (appelée "discriminant") permet à TypeScript de savoir EXACTEMENT quel type on manipule dans chaque branche du `if`, sans risque d'erreur. C'est un pattern très courant appelé "union discriminée".
+Cette vérification s'appelle le **narrowing** : voir [[TS-09-Type-Narrowing|Type Narrowing]].
 
----
+## L'union « avec étiquette » : l'outil star
 
-## Pour aller plus loin (niveau senior)
+On donne à chaque cas un champ commun (souvent `status` ou `type`) qui dit de quel cas il s'agit :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Modéliser les états d'UI par unions discriminées (voir [[TS-18-Patterns-TypeScript-Pro|Patterns TypeScript Professionnels]])
+```ts
+type LoadState =
+  | { status: 'loading' }
+  | { status: 'error'; message: string }
+  | { status: 'success'; films: Film[] };
 
----
+function afficher(etat: LoadState) {
+  switch (etat.status) {
+    case 'loading': return 'Chargement…';
+    case 'error':   return `Erreur : ${etat.message}`;       // message existe ici
+    case 'success': return `${etat.films.length} films`;     // films existe ici
+  }
+}
+```
 
-## Connexions
+**Pourquoi c'est génial :** impossible d'avoir `films` pendant le chargement, ou d'oublier le cas d'erreur. Avec trois booléens séparés (`loading`, `error`, `data`), rien n'empêche des combinaisons absurdes comme « en chargement ET en erreur ».
 
-**Arbre théorique :**
-- Sujet parent → [[TypeScript]]
-- Sous-sujets → [[TS-09-Type-Narrowing|Type Narrowing]]
-- À comparer avec → [[TS-03-Interfaces-Types|Interfaces et Types]]
+Tu utiliseras ce modèle pour chaque appel API de tes projets.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ts-union-intersection]]
-- Projet → [[02_Projects/CinéTrack]]
+## Intersection : tout à la fois
 
----
+```ts
+type AvecId = { id: number };
+type AvecDates = { createdAt: Date; updatedAt: Date };
 
-## Auto-vérification
+type FilmEnBase = Film & AvecId & AvecDates;   // doit avoir TOUS les champs
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi ne peut-on accéder qu'aux propriétés communes d'une union ?
+Utile pour assembler des morceaux réutilisables. Pour un objet simple, `interface … extends` fait la même chose.
 
----
+## Pour s'en souvenir
 
-## Tâches
+- `|` ressemble à un **aiguillage** : un chemin **ou** l'autre.
+- `&` se lit « **et** » : tout ensemble.
 
-- [ ] #task Créer une union discriminée pour représenter différentes sources de films dans CinéTrack (local vs API)
-- [ ] #task Trouver un cas concret où une intersection de types simplifie le code du projet
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ? Une union discriminée est-elle toujours préférable à une simple interface avec des propriétés optionnelles ?
+- **Lire un champ qui n'existe que dans un cas** sans avoir vérifié le cas : erreur TypeScript (et c'est tant mieux).
+- **Intersection impossible** (`string & number`) : donne le type `never`, qui ne peut contenir aucune valeur.

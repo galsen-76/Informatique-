@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: guide
 tags:
   - accueil/conventions
@@ -36,7 +36,6 @@ month: M03                   # mois de la roadmap (M01…M12, Optionnel)
 tags: [frontend/typescript/generics]
 aliases: ["Generics"]
 parent: "[[TypeScript]]"
-children: []
 related_theory: []
 related_snippets: ["[[04_Snippets/ts-06-generics]]"]
 related_projects: ["[[02_Projects/CinéTrack]]"]
@@ -46,16 +45,24 @@ source: "https://…"          # documentation officielle
 > Les clés restent en anglais car les plugins en dépendent (`modified` pour frontmatter-modified-date, `status`/`type` pour Dataview, `#task` pour le plugin Tasks). Le contenu, lui, est en français.
 
 ## Structure d'une note de connaissance
-1. `# Titre` + `[!abstract] Introduction` (une phrase) + `[!warning]- Prérequis`
-2. **Théorie** : callouts repliables — C'est quoi ? · Analogie · Pourquoi ? · Comment ? · Quand ? · Limites (+ Schéma Mermaid si utile)
-3. **Vocabulaire** (tableau) · **Points clés** · **Pièges courants** (`[!bug]-`)
-4. **Paramètres / Configuration** (si pertinent) · **Exemple minimal** + « Ce que j'en retiens »
-5. **Pour aller plus loin (niveau senior)** (`[!tip]-`)
-6. **Connexions** (parent, sous-sujets, comparaisons, snippet, projet)
-7. **Auto-vérification** (`[!check]-`) + **Questions d'entretien** (`[!faq]-`)
-8. **Tâches** (`- [ ] #task …`) · **Notes brutes** (`- ? question ouverte`)
 
-Modèle : `_Templates/TPL_Base-Knowledge.md`.
+Il n'y a **pas de plan unique** : la forme suit le sujet. Chaque note commence par un titre et un encadré **En bref** (une ou deux phrases simples), puis prend le format le plus utile :
+
+| Format | Pour | Sections typiques |
+|---|---|---|
+| 🧠 Concept | comprendre une idée (closures, HTTP, index SQL) | L'idée (avec une image) · Comment ça marche (exemple) · Pièges |
+| 🛠️ Outil / pratique | savoir faire (Git, terminal, Docker) | Commandes utiles (tableau) · Déroulé type · Si ça casse |
+| 🧩 Fonctionnalité | utiliser une API de framework (signals, props, guards) | Exemple d'abord · Ce qu'il faut savoir · Pièges |
+| ⚖️ Choix / comparaison | décider (Angular vs Vue, SQL vs NoSQL) | Tableau comparatif · Mon choix |
+| 📋 Aide-mémoire | retrouver vite (balises HTML, sélecteurs) | Tableaux |
+
+**Règles d'écriture :**
+- **Vulgariser** : phrases courtes, chaque mot technique expliqué la première fois qu'il apparaît.
+- **Seulement l'utile** : ce qui sert dans les projets ou ce qui aide à comprendre le reste. Pas de section vide ou « pour remplir ».
+- **Exemples réels** en TypeScript, tirés des projets (Portfolio, CinéTrack…) quand c'est possible.
+- Les liens vers les autres notes sont **dans le texte**, là où ils servent, et dans le frontmatter (`parent`, `related_theory`, `related_projects`).
+
+Modèle : `_Templates/TPL_Base-Knowledge.md` (Templater propose de choisir le format à la création).
 
 ## Tags
 - Hiérarchiques par domaine : `frontend/…`, `frameworks/angular/…`, `backend/…`, `outils/…`, `securite/…`, `reseaux/…`, `infra/…`, `ia/…`, `theorie/…`, `conception/…`, `methodologie/…`, `algo/…`, `tests/…`, `architecture/…`

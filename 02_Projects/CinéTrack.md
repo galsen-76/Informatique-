@@ -41,6 +41,7 @@ aliases:
 - [[ANG-20-Pipes|Pipes Angular]]
 
 **Architecture et UI :**
+- [[ARCH-15-Structure-de-Projet|Structure de Projet (modèle général)]]
 - [[ANG-30-Template-Architecture-Angular|Template d'Architecture Angular]]
 - [[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]]
 - [[UI-Librairies-Interfaces-Rapides|Librairies UI pour Interfaces Rapides]]
@@ -63,7 +64,7 @@ aliases:
 ### M04
 - [ ] #task Créer un compte TMDB et récupérer le **jeton d'accès en lecture** (API Read Access Token)
 - [ ] #task `ng new cinetrack` + structure par features (`films`, `favoris`, `core`, `shared`) + PrimeNG
-- [ ] #task Créer le squelette du [[ANG-30-Template-Architecture-Angular|template d'architecture Angular]] (core, shared, features/films, alias `@core`, `@shared`, `@features`)
+- [ ] #task Créer le squelette du [[ANG-30-Template-Architecture-Angular|template d'architecture Angular]] (core, shared, features/movies, alias `@core`, `@shared`, `@features`)
 - [ ] #task Interfaces TypeScript des réponses TMDB (DTO) + mapper vers le modèle `Film`, et (`FilmResume`, `FilmDetail`, `PageTmdb<T>` générique)
 - [ ] #task `TmdbService` + intercepteur qui ajoute `Authorization: Bearer …` et `language=fr-FR`
 - [ ] #task Page d'accueil : films populaires et tendances (grille de cartes, pagination)

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: roadmap
 tags:
   - accueil/roadmap
@@ -15,7 +15,7 @@ aliases:
 > En 12 mois, passer de « je connais les bases » à **développeur full stack solide avec une vision 360°** : excellent en **TypeScript**, **Angular** et **Vue** (la stack de l'entreprise), capable de construire et déployer une **API NestJS + PostgreSQL**, et de raisonner en architecture, sécurité, tests et DevOps.
 
 > [!tip] Le principe
-> **Comprendre → Pratiquer → Construire → Expliquer.** Chaque mois = des notes à étudier + un livrable concret dans un projet + un point de contrôle. On ne passe au mois suivant que si le point de contrôle est validé (même en retard : la régularité compte plus que la vitesse).
+> **On apprend en faisant des projets.** Chaque mois a un projet et un livrable ; les notes du mois sont celles dont le projet a besoin. On ouvre une note au moment où une tâche l'exige (voir [[Methode-d-apprentissage|Méthode d'apprentissage]]). On passe au mois suivant quand le livrable fonctionne, même en retard : la régularité compte plus que la vitesse.
 
 ---
 
@@ -67,12 +67,12 @@ flowchart LR
 
 | Jour | Durée | Activité |
 |---|---|---|
-| Lundi | 1 h | Lire 1-2 notes du mois (théorie), compléter les « Notes brutes » |
-| Mardi | 1 h 30 | Pratique : exemples des notes, snippets dans `04_Snippets` |
-| Mercredi | 1 h | Révision espacée (voir [[Methode-d-apprentissage\|Méthode d'apprentissage]]) + 1 exercice d'algo à partir de M2 |
-| Jeudi | 1 h 30 | Projet du mois |
-| Samedi | 3 h | Projet du mois (bloc long) + MR/commit propre |
-| Dimanche | 30 min | Bilan hebdo dans la daily note, mise à jour des `status` |
+| Lundi | 1 h | Choisir les tâches de la semaine dans le projet, ouvrir les notes liées |
+| Mardi | 1 h 30 | Projet : coder une tâche |
+| Mercredi | 1 h | Projet + 1 exercice d'algo à partir de M02 |
+| Jeudi | 1 h 30 | Projet : coder une tâche |
+| Samedi | 3 h | Projet (bloc long) + commit propre |
+| Dimanche | 30 min | Bilan : ce que j'ai appris, notes passées en 🟡 / 🟢 |
 
 > [!warning] Au travail
 > Chaque semaine, relier ce que tu apprends au code de l'entreprise : lire une MR d'un senior, repérer dans le projet réel le concept de la semaine, poser UNE bonne question à l'équipe. C'est l'accélérateur n°1.
