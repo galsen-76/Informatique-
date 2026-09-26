@@ -22,13 +22,13 @@ aliases:
 
 ## Ordre de lecture
 
-1. [[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL SELECT]] — Fondamental · M07
-2. [[SQL-02-Filtrer-Trier-Paginer|Filtrer Trier et Paginer en SQL]] — Fondamental · M07
+1. [[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL et SELECT]] — Fondamental · M07
+2. [[SQL-02-Filtrer-Trier-Paginer|Filtrer Trier et Paginer]] — Fondamental · M07
 3. [[SQL-03-Jointures|Jointures SQL]] — Fondamental · M07
 4. [[SQL-04-Agregation-GROUP-BY|Agrégation et GROUP BY]] — Fondamental · M07
 5. [[SQL-05-Sous-requetes-CTE|Sous-requêtes et CTE]] — Intermédiaire · M07
 6. [[SQL-06-INSERT-UPDATE-DELETE|INSERT UPDATE DELETE]] — Fondamental · M07
-7. [[SQL-07-DDL-Contraintes-Types|DDL Contraintes et Types SQL]] — Fondamental · M07
+7. [[SQL-07-DDL-Contraintes-Types|DDL Contraintes et Types]] — Fondamental · M07
 8. [[SQL-08-Window-Functions|Window Functions SQL]] — Avancé · M10
 
 ---

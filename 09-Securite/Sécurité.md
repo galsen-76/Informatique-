@@ -23,16 +23,16 @@ aliases:
 ## Ordre de lecture
 
 1. [[SEC-01-Fondamentaux-Securite|Fondamentaux de la Sécurité]] — Fondamental · M09
-2. [[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]] — Intermédiaire · M09
-3. [[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]] — Intermédiaire · M09
+2. [[SEC-02-OWASP-Top-10|OWASP Top 10]] — Intermédiaire · M09
+3. [[SEC-03-Authentification-Sessions-JWT|Authentification Sessions et JWT]] — Intermédiaire · M09
 4. [[SEC-04-OAuth2-OpenID-Connect|OAuth2 et OpenID Connect]] — Avancé · M09
 5. [[SEC-05-Hachage-Mots-de-Passe|Hachage des Mots de Passe]] — Intermédiaire · M09
 6. [[SEC-06-XSS-CSRF|XSS et CSRF]] — Intermédiaire · M09
 7. [[SEC-07-CORS-Same-Origin|CORS et Same-Origin Policy]] — Intermédiaire · M07
-8. [[SEC-08-Injection-SQL-Validation|Injection SQL et Validation des Entrées]] — Intermédiaire · M09
+8. [[SEC-08-Injection-SQL-Validation|Injection SQL et Validation]] — Intermédiaire · M09
 9. [[SEC-09-HTTPS-TLS|HTTPS et TLS]] — Intermédiaire · M07
 10. [[SEC-10-Gestion-des-Secrets|Gestion des Secrets]] — Intermédiaire · M11
-11. [[SEC-11-Autorisation-RBAC|Autorisation RBAC]] — Intermédiaire · M09
+11. [[SEC-11-Autorisation-RBAC|Autorisation et RBAC]] — Intermédiaire · M09
 
 ---
 

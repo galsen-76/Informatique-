@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: guide
 tags:
   - accueil/corrections
@@ -11,7 +11,9 @@ aliases:
 # 🔧 Corrections apportées au coffre
 
 > [!abstract] Résumé
-> Les 91 notes d'origine ont été conservées. Elles sont harmonisées au format le plus complet (celui des notes Angular), corrigées là où elles étaient erronées ou datées, et enrichies (pièges, niveau senior, auto-vérification, questions d'entretien). Plus de 190 notes ont été ajoutées pour couvrir tout le plan.
+> Les 91 notes d'origine ont été conservées, corrigées là où elles étaient erronées ou datées, et plus de 190 notes ont été ajoutées pour couvrir tout le plan.
+>
+> **Mise à jour (26/09/2026)** : les ~300 notes ont été réécrites en langage simple, avec **une structure adaptée à chaque sujet** au lieu d'un modèle unique répétitif (voir [[Conventions-du-coffre|Conventions]]). Les sections vides ou génériques (Notes brutes, Auto-vérification, Questions d'entretien, niveau senior…) ont été retirées ; les exemples s'appuient sur les projets (CinéTrack, Portfolio). La méthode est désormais centrée sur les projets ([[Methode-d-apprentissage|Méthode d'apprentissage]]) et une architecture générale, avec des dossiers en anglais, est proposée dans [[ARCH-15-Structure-de-Projet|Structure de projet]].
 
 ## Corrections de structure (tout le coffre)
 | Problème | Correction |

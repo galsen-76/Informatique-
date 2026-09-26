@@ -23,11 +23,11 @@ aliases:
 ## Ordre de lecture
 
 1. [[OUT-01-Terminal-Bash|Terminal et Bash]] — Fondamental · M01
-2. [[OUT-02-Outillage-Build-Vite-Bundlers|Outils de Build et Bundlers]] — Intermédiaire · M03
-3. [[OUT-03-ESLint-Prettier-Qualite|ESLint Prettier et Hooks]] — Fondamental · M03
-4. [[OUT-04-VSCode-Productivite|VS Code et Productivité]] — Fondamental · M01
-5. [[OUT-05-Clients-API-Postman-Bruno|Clients API Postman Bruno curl]] — Fondamental · M07
-6. [[OUT-06-Recherche-Documentation|Chercher et Lire la Documentation]] — Fondamental · M01
+2. [[OUT-02-Outillage-Build-Vite-Bundlers|Outillage de Build Vite et Bundlers]] — Intermédiaire · M03
+3. [[OUT-03-ESLint-Prettier-Qualite|ESLint Prettier et Qualité]] — Fondamental · M03
+4. [[OUT-04-VSCode-Productivite|VS Code Productivité]] — Fondamental · M01
+5. [[OUT-05-Clients-API-Postman-Bruno|Clients API Postman et Bruno]] — Fondamental · M07
+6. [[OUT-06-Recherche-Documentation|Recherche et Documentation]] — Fondamental · M01
 
 ---
 

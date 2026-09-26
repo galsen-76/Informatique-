@@ -26,15 +26,15 @@ aliases:
 2. [[NEST-02-Modules|Modules NestJS]] — Fondamental · M08
 3. [[NEST-03-Controllers|Controllers NestJS]] — Fondamental · M08
 4. [[NEST-04-Providers-DI|Providers et Injection de Dépendances NestJS]] — Intermédiaire · M08
-5. [[NEST-05-DTO-Validation-Pipes|DTO et Validation NestJS]] — Fondamental · M08
+5. [[NEST-05-DTO-Validation-Pipes|DTO Validation et Pipes NestJS]] — Fondamental · M08
 6. [[NEST-06-Middleware-Guards-Interceptors|Middleware Guards et Interceptors NestJS]] — Intermédiaire · M09
 7. [[NEST-07-Exceptions-Gestion-Erreurs|Exceptions et Gestion des Erreurs NestJS]] — Intermédiaire · M09
 8. [[NEST-08-Configuration-Environnements|Configuration et Environnements NestJS]] — Fondamental · M08
-9. [[NEST-09-Prisma-Base-de-Donnees|Prisma avec NestJS]] — Intermédiaire · M08
+9. [[NEST-09-Prisma-Base-de-Donnees|Prisma et Base de Données NestJS]] — Intermédiaire · M08
 10. [[NEST-10-Authentification-JWT|Authentification JWT NestJS]] — Avancé · M09
 11. [[NEST-11-Tests-NestJS|Tests NestJS]] — Intermédiaire · M09
 12. [[NEST-12-OpenAPI-Swagger|OpenAPI et Swagger NestJS]] — Intermédiaire · M09
-13. [[NEST-13-Cache-Queues-Taches|Cache Queues et Tâches Planifiées NestJS]] — Avancé · M09
+13. [[NEST-13-Cache-Queues-Taches|Cache Queues et Tâches NestJS]] — Avancé · M09
 14. [[NEST-14-WebSockets-Temps-Reel|WebSockets et Temps Réel NestJS]] — Avancé · M09
 
 ---

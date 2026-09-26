@@ -14,7 +14,7 @@ aliases:
 > [!abstract] Objectif
 > _Quel problème ce projet résout-il, pour qui ?_
 
-**Période :** _M.. de la [[Roadmap 12 mois]]_  
+**Période :** _M.. de la [[Roadmap-12-mois|Roadmap 12 mois]]_  
 **Stack :** _…_
 
 ---

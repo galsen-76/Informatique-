@@ -24,8 +24,8 @@ aliases:
 
 1. [[01-GitLab|Fondamentaux GitLab]] — Fondamental · M01
 2. [[02-Merge-Requests|Merge Requests]] — Fondamental · M01
-3. [[03-CI-CD|CI/CD GitLab]] — Intermédiaire · M11
-4. [[04-Issues-Boards|Issues et Boards GitLab]] — Fondamental · M01
+3. [[03-CI-CD|GitLab CI/CD]] — Intermédiaire · M11
+4. [[04-Issues-Boards|Issues et Boards]] — Fondamental · M01
 5. [[05-GitLab-Avance|GitLab Avancé]] — Avancé · M11
 
 ---

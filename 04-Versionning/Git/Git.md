@@ -25,8 +25,8 @@ aliases:
 1. [[GIT-01-Fondamentaux|Git Fondamentaux]] — Fondamental · M01
 2. [[GIT-02-Branches-Merge-Rebase|Branches Merge et Rebase]] — Fondamental · M01
 3. [[GIT-03-Depots-Distants|Dépôts Distants]] — Fondamental · M01
-4. [[GIT-04-Conflits|Résoudre les Conflits Git]] — Fondamental · M01
-5. [[GIT-05-Annuler-Corriger|Annuler et Corriger dans Git]] — Intermédiaire · M02
+4. [[GIT-04-Conflits|Conflits Git]] — Fondamental · M01
+5. [[GIT-05-Annuler-Corriger|Annuler et Corriger avec Git]] — Intermédiaire · M02
 6. [[GIT-06-Workflows-Equipe|Workflows Git en Équipe]] — Intermédiaire · M02
 7. [[GIT-07-Conventions-Commits-SemVer|Conventions de Commits et SemVer]] — Fondamental · M01
 8. [[GIT-08-Git-Avance|Git Avancé]] — Avancé · M10

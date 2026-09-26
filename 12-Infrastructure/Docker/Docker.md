@@ -22,14 +22,14 @@ aliases:
 
 ## Ordre de lecture
 
-1. [[DK-01-Fondamentaux|Fondamentaux Docker]] — Fondamental · M11
+1. [[DK-01-Fondamentaux|Docker Fondamentaux]] — Fondamental · M11
 2. [[DK-02-Dockerfile|Dockerfile]] — Fondamental · M11
 3. [[DK-03-Docker-Compose|Docker Compose]] — Fondamental · M11
-4. [[DK-04-Volumes|Volumes & Persistance des Données Docker]] — Fondamental · M11
+4. [[DK-04-Volumes|Volumes Docker]] — Fondamental · M11
 5. [[DK-05-Reseaux|Réseaux Docker]] — Intermédiaire · M11
-6. [[DK-06-Registry-Docker-Hub|Registry & Docker Hub]] — Intermédiaire · M11
-7. [[DK-07-Commandes-CLI|Commandes CLI Essentielles Docker]] — Intermédiaire · M11
-8. [[DK-08-Multi-stage-Builds|Multi-stage Builds Docker]] — Intermédiaire · M11
+6. [[DK-06-Registry-Docker-Hub|Registry et Docker Hub]] — Intermédiaire · M11
+7. [[DK-07-Commandes-CLI|Commandes Docker CLI]] — Intermédiaire · M11
+8. [[DK-08-Multi-stage-Builds|Multi-stage Builds]] — Intermédiaire · M11
 
 ---
 

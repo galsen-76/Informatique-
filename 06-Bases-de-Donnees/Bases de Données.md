@@ -22,13 +22,13 @@ aliases:
 
 ## Ordre de lecture
 
-1. [[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]] — Fondamental · M07
-2. [[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]] — Intermédiaire · M07
+1. [[BDD-01-Fondamentaux-SGBD|Fondamentaux des SGBD]] — Fondamental · M07
+2. [[BDD-02-Modelisation-Normalisation|Modélisation et Normalisation]] — Intermédiaire · M07
 3. [[BDD-03-Transactions-ACID|Transactions et ACID]] — Intermédiaire · M08
-4. [[BDD-04-Indexation-Performance|Indexation et Performance SQL]] — Intermédiaire · M08
-5. [[BDD-05-Migrations|Migrations de Base de Données]] — Intermédiaire · M08
+4. [[BDD-04-Indexation-Performance|Indexation et Performance]] — Intermédiaire · M08
+5. [[BDD-05-Migrations|Migrations]] — Intermédiaire · M08
 6. [[BDD-06-NoSQL-MongoDB|NoSQL et MongoDB]] — Intermédiaire · M08
-7. [[BDD-07-Redis-Cle-Valeur|Redis Cache Clé-Valeur]] — Intermédiaire · M09
+7. [[BDD-07-Redis-Cle-Valeur|Redis Clé-Valeur]] — Intermédiaire · M09
 8. [[BDD-08-ORM-Concepts-N-plus-1|ORM Concepts et Problème N+1]] — Intermédiaire · M08
 9. [[BDD-09-PostgreSQL-Pratique|PostgreSQL en Pratique]] — Intermédiaire · M08
 

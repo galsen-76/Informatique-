@@ -23,8 +23,8 @@ aliases:
 ## Ordre de lecture
 
 1. [[LNX-01-Linux-Essentiels|Linux Essentiels]] — Fondamental · M11
-2. [[LNX-02-Permissions-Processus-Services|Permissions Processus et Services Linux]] — Intermédiaire · M11
-3. [[CICD-01-Fondamentaux|Fondamentaux CI/CD]] — Fondamental · M11
+2. [[LNX-02-Permissions-Processus-Services|Permissions Processus et Services]] — Intermédiaire · M11
+3. [[CICD-01-Fondamentaux|CI/CD Fondamentaux]] — Fondamental · M11
 4. [[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]] — Avancé · M11
 5. [[CICD-03-Strategies-Deploiement|Stratégies de Déploiement]] — Avancé · M11
 6. [[CLOUD-01-Fondamentaux-Cloud|Fondamentaux du Cloud]] — Fondamental · M11
@@ -34,7 +34,7 @@ aliases:
 10. [[CLOUD-05-Infrastructure-as-Code|Infrastructure as Code]] — Avancé · M11
 11. [[MON-01-Logs|Logs]] — Intermédiaire · M11
 12. [[MON-02-Metriques-Alerting|Métriques et Alerting]] — Avancé · M11
-13. [[MON-03-Tracing-Sentry-OpenTelemetry|Tracing et Monitoring d'Erreurs]] — Avancé · M11
+13. [[MON-03-Tracing-Sentry-OpenTelemetry|Tracing Sentry et OpenTelemetry]] — Avancé · M11
 
 Voir aussi : [[Docker]]
 
