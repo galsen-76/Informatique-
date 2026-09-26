@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,133 +10,79 @@ tags:
 aliases:
   - "Résolution de Problèmes et Débogage"
 parent: "[[Méthodologie]]"
-children: []
 related_theory:
   - "[[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]]"
   - "[[OUT-06-Recherche-Documentation|Chercher et Lire la Documentation]]"
-related_snippets:
-  - "[[04_Snippets/meth-05-resolution-problemes-debug]]"
 related_projects: []
 source: "https://jvns.ca/blog/2022/12/08/a-debugging-manifesto/"
 ---
 
 # Résolution de Problèmes et Débogage
 
-> [!abstract] Introduction
-> Déboguer est une démarche scientifique : observer, formuler une hypothèse, tester, conclure — plutôt que modifier du code au hasard jusqu'à ce que « ça marche ».
+> [!abstract] En bref
+> Tu vas passer beaucoup de temps à chercher pourquoi « ça ne marche pas ». Changer le code au hasard jusqu'à ce que ça passe fait perdre des heures. La bonne méthode ressemble à celle d'un **médecin** : observer, faire une hypothèse, vérifier, puis traiter **la cause** (pas le symptôme). C'est une compétence qui se muscle à chaque projet.
 
----
+## La méthode en 6 étapes
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> Méthode :
-> 1. **Reproduire** le bug de façon fiable (étapes, données, environnement)
-> 2. **Lire** le message d'erreur et la stack trace en entier
-> 3. **Réduire** : isoler la plus petite zone en cause (front ou back ? quel composant ? quelle donnée ?)
-> 4. **Hypothèse** puis **expérience** (log, breakpoint, test)
-> 5. **Corriger** la cause racine, pas le symptôme
-> 6. **Protéger** : écrire un test qui reproduit le bug
-
-> [!example]- Analogie
-> Un médecin ne prescrit pas au hasard : il interroge, examine, fait des analyses, puis traite la cause.
-
-> [!question]- Pourquoi l'utiliser ?
-> Un développeur passe une grande partie de son temps à comprendre des problèmes ; une méthode rigoureuse divise ce temps.
-
-> [!question]- Comment ça marche ?
-> Outils : DevTools (Network, Console, Sources), débogueur IDE, logs, `git bisect`, reproduction minimale, « rubber duck debugging » (expliquer le problème à voix haute).
-> Questions clés : Qu'est-ce qui a changé récemment ? Ça marche où / pour qui ? Quelle est la plus petite entrée qui casse ?
-> Règle du timebox : bloqué plus de 30-60 min → demander de l'aide avec un résumé clair de ce qui a été essayé.
-
-> [!question]- Quand l'utiliser ?
-> À chaque bug, et pour comprendre du code inconnu.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les bugs non reproductibles (concurrence, environnement) demandent des logs et de l'observabilité en amont.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Cause racine | Origine réelle du problème |
-| Reproduction minimale | Plus petit cas qui montre le bug |
-| Rubber duck | Expliquer le problème pour le comprendre |
-| Régression | Fonctionnalité qui marchait et ne marche plus |
-
----
-
-## Points clés
-
-- Reproduire → isoler → hypothèse → vérifier
-- Lire l'erreur complète
-- Test de non-régression après correction
-- Savoir demander de l'aide au bon moment
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Changer plusieurs choses à la fois
-> - « Corriger » en ajoutant un `try/catch` qui masque l'erreur
-
----
-
-## Exemple minimal
-
-```text
-Bug : la liste des favoris est vide en recette mais pas en local
-1. Network : GET /api/favoris → 200 mais []   → le front n'est pas en cause
-2. Hypothèse : l'utilisateur de recette n'a pas de favoris ? → vérifié en BDD : il en a
-3. Hypothèse : le filtre userId est faux → log côté API : userId = undefined
-4. Cause : le JWT de recette utilise « id » au lieu de « sub »
-5. Correction + test e2e qui vérifie le claim sub
+```mermaid
+flowchart LR
+  A["1. Reproduire"] --> B["2. Lire l'erreur<br/>en entier"] --> C["3. Isoler<br/>où ça casse"]
+  C --> D["4. Hypothèse<br/>+ vérification"] --> E["5. Corriger<br/>la cause"] --> F["6. Test pour que<br/>ça ne revienne pas"]
+  D -->|"hypothèse fausse"| C
 ```
 
-> [!note] Ce que j'en retiens
-> Chaque étape élimine une moitié du problème.
+1. **Reproduire** : quelles étapes exactes provoquent le bug ? Toujours, ou parfois ?
+2. **Lire le message d'erreur en entier** : la cause est souvent écrite, avec le fichier et la ligne.
+3. **Isoler** : front ou back ? Quel composant ? Quelle donnée ? Coupe le problème en deux à chaque étape.
+4. **Faire une hypothèse et la vérifier** (log, point d'arrêt, test), **une seule** modification à la fois.
+5. **Corriger la cause**, pas le symptôme.
+6. **Écrire un test** qui reproduit le bug : il ne reviendra pas.
 
----
+## Exemple réel
 
-## Pour aller plus loin (niveau senior)
+```text
+Bug : la page « Mes favoris » est vide en recette, mais pas en local.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Rédiger un post-mortem sans blâme après un incident
+Onglet Network : GET /api/favorites → 200 mais []   → le front affiche bien ce qu'il reçoit
+Hypothèse 1 : l'utilisateur n'a pas de favoris ?     → vérifié en base : il en a 3  ❌
+Hypothèse 2 : l'API filtre avec un mauvais userId    → log côté API : userId = undefined  ✅
+Cause : le JWT de recette met l'identifiant dans « id » au lieu de « sub »
+Correction + test e2e qui vérifie le contenu du JWT
+```
 
----
+Chaque étape **élimine la moitié** des causes possibles.
 
-## Connexions
+## Les questions qui débloquent
 
-**Arbre théorique :**
-- Sujet parent → [[Méthodologie]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+- **Qu'est-ce qui a changé** depuis que ça marchait ? (`git diff`, `git log`)
+- Ça marche **où** ? Pour **qui** ? (local / recette, un utilisateur / tous)
+- Quelle est la **plus petite** situation qui provoque le bug ?
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/meth-05-resolution-problemes-debug]]
+## Les outils
 
----
+| Outil | Pour |
+|---|---|
+| DevTools : Console, **Network** | erreurs JS, requêtes, statuts, réponses ([[JS-12-Erreurs-Debug-DevTools\|DevTools]]) |
+| Points d'arrêt (IDE ou navigateur) | voir les valeurs pas à pas ([[IJ-05-Debogage\|Débogueur IntelliJ]]) |
+| Logs | comprendre ce qui se passe côté serveur |
+| `git bisect` | trouver le commit qui a cassé ([[GIT-08-Git-Avance\|Git]]) |
+| Le « canard en plastique » | expliquer le problème à voix haute : on trouve souvent en l'expliquant |
 
-## Auto-vérification
+## Demander de l'aide
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi écrire un test après avoir corrigé un bug ?
+Bloqué plus de **30 à 60 minutes** ? Demande, avec un message clair :
 
-> [!faq]- Questions d'entretien
-> - Racontez un bug difficile que vous avez résolu et votre démarche.
+```text
+Je veux : afficher les favoris de l'utilisateur.
+Il se passe : la liste est vide en recette (OK en local).
+J'ai vérifié : la requête renvoie 200 avec [], l'utilisateur a bien 3 favoris en base.
+Je pense que : le userId est mal lu dans le JWT.
+```
 
----
+Rien qu'en écrivant ce message, tu trouves souvent la solution.
 
-## Tâches
+## Pièges
 
-- [ ] #task Tenir un journal de bugs (cause, symptôme, résolution) dans le daily note
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Changer plusieurs choses à la fois** : impossible de savoir laquelle a réglé le problème.
+- **Masquer l'erreur** avec un `try/catch` vide ou un `?.` ajouté au hasard.
+- **Lire seulement la première ligne** de l'erreur.

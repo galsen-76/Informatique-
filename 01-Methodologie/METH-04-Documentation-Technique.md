@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,140 +10,90 @@ tags:
 aliases:
   - "Documentation Technique"
 parent: "[[Méthodologie]]"
-children: []
 related_theory:
   - "[[CONC-08-ADR-Architecture-Decision-Records|Architecture Decision Records ADR]]"
   - "[[NEST-12-OpenAPI-Swagger|OpenAPI et Swagger NestJS]]"
-related_snippets:
-  - "[[04_Snippets/meth-04-documentation-technique]]"
 related_projects: []
 source: "https://diataxis.fr/"
 ---
 
 # Documentation Technique
 
-> [!abstract] Introduction
-> La bonne documentation technique aide quelqu'un à utiliser, installer ou faire évoluer un logiciel : README, docs d'API (OpenAPI), commentaires TSDoc, ADR, guides — au bon endroit et à jour.
+> [!abstract] En bref
+> Une bonne documentation permet à quelqu'un (toi dans 6 mois, un collègue, un recruteur) de **lancer, comprendre et modifier** ton projet sans te poser de question. Pas besoin d'écrire beaucoup : un **bon README**, une doc d'API générée, quelques commentaires sur le **pourquoi**. Pour un projet de portfolio, le README est ta **vitrine**.
 
----
+## Le README : la pièce maîtresse
 
-## Théorie
+Test simple : quelqu'un qui découvre ton dépôt peut-il lancer le projet **en 5 minutes** ?
 
-> [!question]- C'est quoi ?
-> Cadre **Diátaxis** — 4 types de documentation :
-> | Type | Répond à | Exemple |
-> |---|---|---|
-> | Tutoriel | « Apprends-moi » | Premier projet pas à pas |
-> | Guide pratique | « Comment faire X ? » | Ajouter une migration |
-> | Référence | « Quels sont les détails ? » | Doc API OpenAPI, TSDoc |
-> | Explication | « Pourquoi ? » | ADR, architecture |
+```markdown
+# CinéTrack API
 
-> [!example]- Analogie
-> Une bonne documentation est un panneau indicateur au bon carrefour ; une mauvaise est un livre de 300 pages rangé dans une autre ville.
+API de critiques de films : recherche (via TMDB), favoris, notes et critiques.
 
-> [!question]- Pourquoi l'utiliser ?
-> Onboarding rapide, moins d'interruptions pour l'équipe, maintenance possible après ton départ.
+![Capture d'écran](docs/screenshot.png)
 
-> [!question]- Comment ça marche ?
-> README minimal d'un projet :
-> ```markdown
-> # CinéTrack API
-> Objectif en une phrase.
-> ## Prérequis — Node 22, Docker
-> ## Démarrer — `cp .env.example .env && docker compose up -d && npm run dev`
-> ## Scripts — dev, test, lint, build
-> ## Architecture — lien vers docs/ et ADR
-> ## Contribuer — conventions de branches et commits
-> ```
-> TSDoc pour les fonctions publiques non évidentes :
-> ```typescript
-> /**
->  * Calcule la note moyenne pondérée d'un film.
->  * @param notes - notes de 1 à 5
->  * @returns moyenne arrondie au dixième, 0 si aucune note
->  */
-> ```
+## Stack
+NestJS · Prisma · PostgreSQL · Redis · Docker
 
-> [!question]- Quand l'utiliser ?
-> En même temps que le code (dans la Definition of Done).
+## Démarrer
+cp .env.example .env
+docker compose up -d
+npm install
+npm run start:dev          # → http://localhost:3000/api/docs
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Une doc fausse est pire que pas de doc : la garder proche du code (dans le dépôt) et la générer quand possible.
+## Scripts
+| Commande        | Rôle                    |
+| npm run test    | tests unitaires         |
+| npm run test:e2e| tests d'intégration     |
+| npm run lint    | vérification du code    |
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| README | Point d'entrée d'un dépôt |
-| TSDoc/JSDoc | Commentaires structurés de documentation |
-| Diátaxis | Cadre des 4 types de documentation |
-| Docs as code | Documentation versionnée avec le code |
-
----
-
-## Points clés
-
-- README qui permet de démarrer en 5 minutes
-- Docs dans le dépôt, relues en MR
-- Générer ce qui peut l'être (OpenAPI, TypeDoc)
-- Commenter le pourquoi, pas le quoi
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Wiki externe jamais mis à jour
-> - Commentaires qui paraphrasent le code
-
----
-
-## Exemple minimal
-
-```text
-Test du README : un nouveau venu démarre-t-il le projet sans poser de question ?
+## Architecture
+Voir docs/architecture.md et les décisions dans docs/adr/.
 ```
 
-> [!note] Ce que j'en retiens
-> Le README se teste comme du code : par un utilisateur réel.
+Pour un projet de portfolio, ajoute : une **capture d'écran**, le **lien de la démo** en ligne, et ce que tu as appris ou trouvé difficile.
 
----
+## Les autres documentations
 
-## Pour aller plus loin (niveau senior)
+| Quoi | Pour qui | Comment |
+|---|---|---|
+| **README** | tout le monde | écrit à la main, dans le dépôt |
+| **Doc de l'API** | les développeurs front | générée par [[NEST-12-OpenAPI-Swagger\|Swagger]] depuis le code |
+| **Décisions** | l'équipe future | [[CONC-08-ADR-Architecture-Decision-Records\|ADR]] |
+| **Schémas** | tout le monde | Mermaid dans les fichiers Markdown |
+| **Commentaires** | qui lit le code | seulement pour le **pourquoi** |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Mettre en place une documentation vivante (Storybook, OpenAPI, ADR, diagrammes Mermaid)
+## Les commentaires utiles
 
----
+```ts
+// ❌ Paraphrase le code
+// incrémente i
+i++;
 
-## Connexions
+// ✅ Explique le pourquoi
+// TMDB limite à 40 requêtes / 10 s : on met en cache 24 h pour rester sous la limite
+await this.cache.set(key, movie, 86_400);
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Méthodologie]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Pour une fonction publique pas évidente, un commentaire **TSDoc** s'affiche au survol dans l'éditeur :
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/meth-04-documentation-technique]]
+```ts
+/**
+ * Calcule la note moyenne d'un film.
+ * @returns la moyenne arrondie au dixième, ou 0 si aucune note
+ */
+averageRating(ratings: number[]): number { … }
+```
 
----
+## Les règles
 
-## Auto-vérification
+- **Dans le dépôt**, à côté du code (pas dans un wiki que personne n'ouvre).
+- **Mise à jour dans la même MR** que le code qu'elle décrit.
+- **Générée** quand c'est possible (Swagger, types).
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quels sont les 4 types de documentation selon Diátaxis ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Écrire les README de CinéTrack front et API
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Un README vide** ou resté celui généré par le CLI.
+- **Une doc fausse** : pire que pas de doc.
+- **Des commentaires qui répètent le code.**
