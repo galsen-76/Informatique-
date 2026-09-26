@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Controllers NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[ARCH-04-API-REST-Design|API REST Design]]"
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
-related_snippets:
-  - "[[04_Snippets/nest-03-controllers]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/controllers"
@@ -23,136 +20,94 @@ source: "https://docs.nestjs.com/controllers"
 
 # Controllers NestJS
 
-> [!abstract] Introduction
-> Un controller associe des routes HTTP (méthode + chemin) à des méthodes de classe, extrait les données de la requête (params, query, body) et délègue au service.
+> [!abstract] En bref
+> Un **controller** relie une route HTTP (`GET /movies/42`) à une méthode de ta classe. Il récupère ce qu'il faut dans la requête (paramètre d'URL, corps, utilisateur connecté), appelle le service, et renvoie le résultat. Il ne contient **pas** de logique métier.
 
-> [!warning]- Prérequis
-> [[NEST-02-Modules|Modules NestJS]], [[ARCH-04-API-REST-Design|API REST Design]]
+## Les routes de CinéTrack-API
 
----
+```ts
+@Controller('reviews')
+export class ReviewsController {
+  constructor(private readonly reviews: ReviewsService) {}
 
-## Théorie
+  @Get()                                               // GET /reviews?movieId=42&page=1
+  findAll(@Query() query: ListReviewsQuery) {
+    return this.reviews.findAll(query);
+  }
 
-> [!question]- C'est quoi ?
-> ```typescript
-> @Controller('films')
-> export class FilmsController {
->   constructor(private readonly films: FilmsService) {}
->
->   @Get()
->   lister(@Query() filtres: FiltresFilmsDto) { return this.films.lister(filtres); }
->
->   @Get(':id')
->   obtenir(@Param('id', ParseIntPipe) id: number) { return this.films.obtenir(id); }
->
->   @Post()
->   creer(@Body() dto: CreateFilmDto) { return this.films.creer(dto); }        // 201 par défaut
->
->   @Patch(':id')
->   modifier(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateFilmDto) { return this.films.modifier(id, dto); }
->
->   @Delete(':id') @HttpCode(204)
->   supprimer(@Param('id', ParseIntPipe) id: number) { return this.films.supprimer(id); }
-> }
-> ```
+  @Get(':id')                                          // GET /reviews/7
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.reviews.findOne(id);
+  }
 
-> [!example]- Analogie
-> Le controller est le réceptionniste d'un hôtel : il reçoit la demande, vérifie qu'elle est lisible, la transmet au bon service, et rend la réponse — il ne fait pas le ménage lui-même.
+  @Post()                                              // POST /reviews
+  @HttpCode(201)
+  create(@Body() dto: CreateReviewDto, @CurrentUser() user: AuthUser) {
+    return this.reviews.create(dto, user.id);
+  }
 
-> [!question]- Pourquoi l'utiliser ?
-> Séparer la couche HTTP (routes, statuts, format) de la logique métier réutilisable et testable.
+  @Patch(':id')                                        // PATCH /reviews/7
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateReviewDto, @CurrentUser() user: AuthUser) {
+    return this.reviews.update(id, dto, user.id);
+  }
 
-> [!question]- Comment ça marche ?
-> Décorateurs : `@Get @Post @Put @Patch @Delete`, `@Param`, `@Query`, `@Body`, `@Headers`, `@Req` (à éviter), `@HttpCode`, `@Header`. La valeur retournée est sérialisée en JSON automatiquement ; une Promise/Observable est attendue.
-> Erreurs : lever `NotFoundException`, `BadRequestException`, `ConflictException`… → réponse HTTP adaptée.
-
-> [!question]- Quand l'utiliser ?
-> Un controller par ressource REST.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Utiliser `@Res()` désactive la gestion automatique des réponses par Nest (intercepteurs, sérialisation) : à éviter sauf streaming/fichiers.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Route | Couple méthode HTTP + chemin |
-| Handler | Méthode qui traite une route |
-| Paramètre de route | Partie variable de l'URL (`:id`) |
-| Query string | Paramètres après `?` |
-
----
-
-## Points clés
-
-- Controllers fins, services épais
-- Pipes de conversion (`ParseIntPipe`, `ParseUUIDPipe`)
-- Exceptions HTTP intégrées
-- Retourner des données, pas manipuler `res`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Logique métier ou accès BDD dans le controller
-> - Oublier `ParseIntPipe` → `id` est une string
-> - Renvoyer l'entité complète avec le hash du mot de passe
-
----
-
-## Exemple minimal
-
-```typescript
-async obtenir(id: number) {
-  const film = await this.prisma.film.findUnique({ where: { id } });
-  if (!film) throw new NotFoundException(`Film ${id} introuvable`);
-  return film;
+  @Delete(':id')                                       // DELETE /reviews/7
+  @HttpCode(204)
+  remove(@Param('id', ParseIntPipe) id: number, @CurrentUser() user: AuthUser) {
+    return this.reviews.remove(id, user.id);
+  }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Le service lève une exception métier ; Nest la transforme en réponse 404 JSON propre.
+## Aide-mémoire
 
----
+| Décorateur | Récupère | Exemple |
+|---|---|---|
+| `@Get()`, `@Post()`, `@Put()`, `@Patch()`, `@Delete()` | la méthode HTTP | `@Get(':id')` |
+| `@Param('id')` | une partie de l'URL | `/reviews/7` → `'7'` |
+| `@Query()` | les paramètres après `?` | `?page=2` |
+| `@Body()` | le corps JSON | le formulaire envoyé |
+| `@Headers('x')` | un en-tête | |
+| `@HttpCode(201)` | le code de réponse | |
+| `@CurrentUser()` | l'utilisateur connecté (décorateur maison, voir [[NEST-10-Authentification-JWT\|JWT]]) | |
 
-## Pour aller plus loin (niveau senior)
+`ParseIntPipe` convertit `'7'` en `7` et répond 400 si ce n'est pas un nombre.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Versionner l'API (`/v1`), documenter chaque route avec Swagger
-> - Pagination, tri et filtres standardisés
+## Les bons codes de réponse
 
----
+| Action | Code |
+|---|---|
+| lire | 200 |
+| créer | 201 (+ l'objet créé) |
+| supprimer | 204 (sans contenu) |
+| données invalides | 400 |
+| pas connecté / pas le droit | 401 / 403 |
+| introuvable | 404 |
 
-## Connexions
+Conception des routes (noms, pluriels, pagination) : [[ARCH-04-API-REST-Design|Design d'API REST]].
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[NODE-02-Express-Middleware|Express et Middleware]]
+## Un controller « fin »
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-03-controllers]]
-- Projet → [[02_Projects/CinéTrack]]
+```ts
+// ❌ logique métier dans le controller
+@Post()
+async create(@Body() dto: CreateReviewDto) {
+  const movie = await this.prisma.movie.findUnique({ where: { id: dto.movieId } });
+  if (!movie) throw new NotFoundException();
+  const existing = await this.prisma.review.findFirst({ … });
+  if (existing) throw new ConflictException();
+  return this.prisma.review.create({ data: dto });
+}
 
----
+// ✅ le controller délègue
+@Post()
+create(@Body() dto: CreateReviewDto, @CurrentUser() user: AuthUser) {
+  return this.reviews.create(dto, user.id);
+}
+```
 
-## Auto-vérification
+## Pièges
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi le controller ne doit-il pas contenir de requêtes Prisma ?
-
----
-
-## Tâches
-
-- [ ] #task Écrire le CRUD complet `/api/films`
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Oublier `ParseIntPipe`** : `id` est un texte, et `findUnique({ where: { id } })` échoue.
+- **Accepter `@Body() body: any`** : aucune validation. Toujours un DTO (voir [[NEST-05-DTO-Validation-Pipes|DTO]]).
+- **Prendre l'`userId` dans le corps de la requête** : un utilisateur pourrait se faire passer pour un autre. Il vient toujours du jeton.

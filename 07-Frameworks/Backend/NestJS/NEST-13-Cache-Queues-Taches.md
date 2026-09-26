@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,145 +10,111 @@ tags:
 aliases:
   - "Cache Queues et Tâches Planifiées NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[ARCH-09-Cache-Performance|Cache et Performance]]"
   - "[[BDD-07-Redis-Cle-Valeur|Redis Cache Clé-Valeur]]"
   - "[[ARCH-08-Architecture-Evenementielle|Architecture Événementielle]]"
-related_snippets:
-  - "[[04_Snippets/nest-13-cache-queues-taches]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/techniques/queues"
 ---
 
-# Cache Queues et Tâches Planifiées NestJS
+# Cache Queues et Tâches NestJS
 
-> [!abstract] Introduction
-> Pour rester rapide et fiable, une API met en cache les lectures coûteuses (Redis), déporte les traitements longs dans des files de tâches (BullMQ) et exécute des tâches planifiées (cron).
+> [!abstract] En bref
+> Trois outils pour qu'une API reste **rapide** et **fiable** sous la charge. Le **cache** garde un résultat coûteux pour le resservir (les films populaires de TMDB). Une **file de tâches** (queue) fait les traitements longs en arrière-plan (envoyer un e-mail). Les **tâches planifiées** s'exécutent à heure fixe (nettoyage nocturne).
 
-> [!warning]- Prérequis
-> [[BDD-07-Redis-Cle-Valeur|Redis Cache Clé-Valeur]]
+## 1. Le cache (avec Redis)
 
----
+Les films populaires de TMDB changent peu : inutile d'appeler TMDB à chaque visite.
 
-## Théorie
+```mermaid
+flowchart LR
+  R["GET /movies/popular"] --> C{"En cache ?"}
+  C -- oui --> Rep["Réponse immédiate"]
+  C -- non --> T["Appel TMDB"] --> S["Mise en cache 10 min"] --> Rep
+```
 
-> [!question]- C'est quoi ?
-> ```typescript
-> // Cache
-> @UseInterceptors(CacheInterceptor) @CacheTTL(60_000)
-> @Get('populaires') populaires() { return this.films.populaires(); }
-> // Queue (BullMQ)
-> await this.emailsQueue.add('bienvenue', { userId }, { attempts: 3, backoff: { type: 'exponential', delay: 5000 } });
-> @Processor('emails') export class EmailsProcessor extends WorkerHost {
->   async process(job: Job<{ userId: number }>) { await this.mailer.bienvenue(job.data.userId); }
-> }
-> // Cron
-> @Cron('0 3 * * *') async nettoyer() { await this.tokens.supprimerExpires(); }
-> ```
+```bash
+npm i @nestjs/cache-manager cache-manager @keyv/redis
+```
 
-> [!example]- Analogie
-> Le cache est un pense-bête sur le comptoir (pas besoin de retourner à l'entrepôt) ; la queue est une corbeille « à traiter » vidée par des collègues en arrière-boutique pendant que tu continues de servir les clients.
+```ts
+// app.module.ts
+CacheModule.registerAsync({
+  isGlobal: true,
+  inject: [ConfigService],
+  useFactory: (c: ConfigService) => ({ stores: [new KeyvRedis(c.getOrThrow('REDIS_URL'))], ttl: 600_000 }),
+})
+```
 
-> [!question]- Pourquoi l'utiliser ?
-> Réponses rapides (l'utilisateur n'attend pas l'envoi d'un email), résilience (retry), lissage de charge, tâches de maintenance automatiques.
+```ts
+@Injectable()
+export class MoviesService {
+  constructor(@Inject(CACHE_MANAGER) private cache: Cache, private tmdb: TmdbClient) {}
 
-> [!question]- Comment ça marche ?
-> - Cache : `@nestjs/cache-manager` avec store Redis ; stratégie cache-aside ; invalidation à l'écriture
-> - Queues : `@nestjs/bullmq` + Redis ; workers éventuellement dans un process séparé
-> - Cron : `@nestjs/schedule` (attention : chaque instance exécute le cron → verrou distribué ou instance dédiée)
+  async popular(page: number) {
+    const key = `popular:${page}`;
+    const cached = await this.cache.get<Movie[]>(key);
+    if (cached) return cached;
 
-> [!question]- Quand l'utiliser ?
-> Cache : lectures fréquentes et coûteuses. Queue : emails, génération de PDF, appels à des API lentes, traitements lourds. Cron : purge, rapports.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> « Il n'y a que deux choses difficiles en informatique : l'invalidation de cache et nommer les choses. » Un cache mal invalidé sert des données fausses.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Cache-aside | Lire le cache, sinon la BDD puis remplir le cache |
-| TTL | Durée de vie d'une entrée de cache |
-| Job | Tâche placée dans une file |
-| Worker | Process qui consomme les jobs |
-| Idempotence | Rejouer une tâche ne change pas le résultat |
-
----
-
-## Points clés
-
-- Cache pour les lectures, invalider sur écriture
-- Jobs idempotents car ils peuvent être rejoués
-- Retry avec backoff exponentiel
-- Cron + plusieurs instances = attention aux doublons
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Mettre en cache des données personnalisées avec une clé commune → fuite de données entre utilisateurs
-> - Job non idempotent rejoué → email envoyé 3 fois
-
----
-
-## Exemple minimal
-
-```typescript
-async populaires(): Promise<Film[]> {
-  const cle = 'films:populaires';
-  const enCache = await this.cache.get<Film[]>(cle);
-  if (enCache) return enCache;
-  const films = await this.prisma.film.findMany({ orderBy: { vues: 'desc' }, take: 20 });
-  await this.cache.set(cle, films, 60_000);
-  return films;
+    const movies = await this.tmdb.popular(page);
+    await this.cache.set(key, movies, 10 * 60_000);   // 10 minutes
+    return movies;
+  }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Le pattern cache-aside en 6 lignes.
+**Le plus difficile** avec un cache : savoir quand le **vider**. Quand un utilisateur publie une critique, supprime le cache de la note moyenne du film. Voir [[ARCH-09-Cache-Performance|Cache]] et [[BDD-07-Redis-Cle-Valeur|Redis]].
 
----
+## 2. Les files de tâches (BullMQ)
 
-## Pour aller plus loin (niveau senior)
+Envoyer un e-mail de bienvenue prend 1 à 2 secondes. L'utilisateur ne doit pas attendre : on **met la tâche dans une file**, on répond tout de suite, et un « travailleur » l'exécute à côté.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Stratégies d'invalidation (TTL, événements), stampede protection
-> - Observabilité des files (Bull Board), dead-letter queue
+```ts
+// à l'inscription
+await this.emailQueue.add('welcome', { userId: user.id });   // quelques millisecondes
 
----
+// le travailleur
+@Processor('emails')
+export class EmailProcessor extends WorkerHost {
+  async process(job: Job<{ userId: number }>) {
+    await this.mailer.sendWelcome(job.data.userId);          // réessayé automatiquement en cas d'échec
+  }
+}
+```
 
-## Connexions
+Usages : e-mails, génération de PDF, traitement d'images, appels à une IA.
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## 3. Les tâches planifiées
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-13-cache-queues-taches]]
-- Projet → [[02_Projects/CinéTrack]]
+```bash
+npm i @nestjs/schedule
+```
 
----
+```ts
+@Injectable()
+export class CleanupService {
+  @Cron('0 3 * * *')          // tous les jours à 3 h du matin
+  async purgeExpiredTokens() {
+    await this.prisma.refreshToken.deleteMany({ where: { expiresAt: { lt: new Date() } } });
+  }
+}
+```
 
-## Auto-vérification
+Le format cron : minute, heure, jour du mois, mois, jour de la semaine.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un job doit-il être idempotent ?
+## Quand s'en servir ?
 
----
+| Symptôme | Outil |
+|---|---|
+| la même donnée coûteuse est demandée souvent | cache |
+| une action fait attendre l'utilisateur plusieurs secondes | file de tâches |
+| il faut faire quelque chose régulièrement | tâche planifiée |
 
-## Tâches
+Pour CinéTrack-API : le **cache** pour TMDB est utile tout de suite, le reste à ajouter si le besoin apparaît.
 
-- [ ] #task Envoyer l'email de bienvenue via une queue
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ?
+- **Mettre en cache des données propres à un utilisateur** avec une clé commune : un utilisateur voit les favoris d'un autre. Mets l'id de l'utilisateur dans la clé.
+- **Une tâche cron sur plusieurs serveurs** : elle s'exécute autant de fois qu'il y a de serveurs. Il faut un verrou, ou une file de tâches.

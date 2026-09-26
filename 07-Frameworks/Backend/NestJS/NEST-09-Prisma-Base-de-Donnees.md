@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,149 +10,101 @@ tags:
 aliases:
   - "Prisma avec NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]"
   - "[[ORM-02-Prisma-Client-Requetes-Relations|Prisma Client Requêtes et Relations]]"
-related_snippets:
-  - "[[04_Snippets/nest-09-prisma-base-de-donnees]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/recipes/prisma"
 ---
 
-# Prisma avec NestJS
+# Prisma et Base de Données NestJS
 
-> [!abstract] Introduction
-> Brancher Prisma dans NestJS : un `PrismaService` injectable, utilisé par les services métier (ou des repositories) pour lire et écrire en base PostgreSQL de façon typée.
+> [!abstract] En bref
+> Comment brancher **Prisma** (l'outil qui parle à PostgreSQL) dans NestJS : un `PrismaService` injectable, utilisé par tes services pour lire et écrire. Le schéma et les requêtes Prisma sont détaillés dans [[ORM-01-Prisma-Schema-Migrations|Schéma et migrations]] et [[ORM-02-Prisma-Client-Requetes-Relations|Requêtes]].
 
-> [!warning]- Prérequis
-> [[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]], [[NEST-04-Providers-DI|Providers et Injection de Dépendances NestJS]]
+## Le service Prisma
 
----
+```ts
+// database/prisma.service.ts
+import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> @Injectable()
-> export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
->   async onModuleInit() { await this.$connect(); }
->   async onModuleDestroy() { await this.$disconnect(); }
-> }
-> @Injectable()
-> export class FilmsService {
->   constructor(private prisma: PrismaService) {}
->   lister({ q, page, taille }: FiltresFilmsDto) {
->     return this.prisma.film.findMany({
->       where: q ? { titre: { contains: q, mode: 'insensitive' } } : undefined,
->       orderBy: { annee: 'desc' },
->       skip: (page - 1) * taille, take: taille,
->       select: { id: true, titre: true, annee: true },
->     });
->   }
-> }
-> ```
-
-> [!example]- Analogie
-> PrismaService est l'unique guichet vers les archives (la BDD) ; les services métier y déposent leurs demandes au lieu d'aller fouiller eux-mêmes dans les rayonnages.
-
-> [!question]- Pourquoi l'utiliser ?
-> Requêtes typées à partir du schéma, une seule connexion (pool) partagée, services testables (on mocke PrismaService ou on utilise une BDD de test).
-
-> [!question]- Comment ça marche ?
-> - `PrismaModule` global exportant `PrismaService`
-> - Transactions : `this.prisma.$transaction([...])` ou interactive `$transaction(async tx => {...})`
-> - Option « repository » : `FilmsRepository` qui encapsule Prisma → le service ne dépend plus de l'ORM (architecture hexagonale)
-
-> [!question]- Quand l'utiliser ?
-> Toute API Nest + base relationnelle. Alternatives : TypeORM, MikroORM, Drizzle (voir [[ORM-03-Comparatif-ORM-TypeScript|Comparatif ORM TypeScript]]).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Requêtes très complexes (reporting, window functions) → `$queryRaw` avec paramètres (jamais de concaténation).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Pool de connexions | Ensemble de connexions BDD réutilisées |
-| Repository | Classe qui encapsule l'accès aux données d'un agrégat |
-| Transaction | Groupe d'opérations tout-ou-rien |
-
----
-
-## Points clés
-
-- Un seul PrismaClient pour toute l'app
-- `select` pour ne renvoyer que le nécessaire
-- Pagination systématique
-- Transactions pour les écritures multiples liées
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Instancier `new PrismaClient()` dans chaque service → épuisement des connexions
-> - Problème N+1 : boucles de requêtes au lieu d'`include`
-> - Oublier les index sur les colonnes filtrées
-
----
-
-## Exemple minimal
-
-```typescript
-async ajouterFavori(userId: number, filmId: number) {
-  return this.prisma.$transaction(async (tx) => {
-    const film = await tx.film.findUniqueOrThrow({ where: { id: filmId } });
-    await tx.favori.create({ data: { userId, filmId: film.id } });
-    return tx.user.update({ where: { id: userId }, data: { nbFavoris: { increment: 1 } } });
-  });
+@Injectable()
+export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+  async onModuleInit() { await this.$connect(); }       // connexion au démarrage
+  async onModuleDestroy() { await this.$disconnect(); } // fermeture propre
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Tout ou rien : si une étape échoue, rien n'est écrit.
+```ts
+// database/prisma.module.ts
+@Global()
+@Module({ providers: [PrismaService], exports: [PrismaService] })
+export class PrismaModule {}
+```
 
----
+Importé une fois dans `AppModule`, il est disponible partout.
 
-## Pour aller plus loin (niveau senior)
+## L'utiliser dans un service
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Tests d'intégration sur une vraie BDD (Testcontainers)
-> - Surveiller les requêtes lentes (logs Prisma, `EXPLAIN`)
+```ts
+@Injectable()
+export class FavoritesService {
+  constructor(private readonly prisma: PrismaService) {}
 
----
+  list(userId: number) {
+    return this.prisma.favorite.findMany({
+      where: { userId },
+      include: { movie: true },            // avec les infos du film
+      orderBy: { createdAt: 'desc' },
+    });
+  }
 
-## Connexions
+  add(userId: number, movieId: number) {
+    return this.prisma.favorite.upsert({   // pas de doublon
+      where: { userId_movieId: { userId, movieId } },
+      create: { userId, movieId },
+      update: {},
+    });
+  }
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ARCH-03-Architecture-en-Couches|Architecture en Couches]]
+  remove(userId: number, movieId: number) {
+    return this.prisma.favorite.delete({ where: { userId_movieId: { userId, movieId } } });
+  }
+}
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-09-prisma-base-de-donnees]]
-- Projet → [[02_Projects/CinéTrack]]
+## Plusieurs écritures qui doivent réussir ensemble : la transaction
 
----
+```ts
+await this.prisma.$transaction(async (tx) => {
+  const review = await tx.review.create({ data: { userId, movieId, rating, comment } });
+  await tx.movie.update({
+    where: { id: movieId },
+    data: { reviewCount: { increment: 1 } },
+  });
+  return review;
+});
+```
 
-## Auto-vérification
+Si la deuxième écriture échoue, la première est **annulée**. Voir [[BDD-03-Transactions-ACID|Transactions]].
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un seul PrismaClient ?
+## Un repository : quand ?
 
----
+Au début, les services utilisent Prisma directement : c'est simple. Quand un service devient gros, ou que tu veux pouvoir tester sans base, tu déplaces les requêtes dans un `movies.repository.ts`. Voir [[ARCH-03-Architecture-en-Couches|Architecture en couches]].
 
-## Tâches
+## Lancer une base en local
 
-- [ ] #task Brancher Prisma sur l'API CinéTrack avec PostgreSQL en Docker
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+```bash
+docker run --name cinetrack-db -e POSTGRES_USER=cinetrack -e POSTGRES_PASSWORD=motdepasse \
+  -e POSTGRES_DB=cinetrack -p 5432:5432 -d postgres:17
+```
 
----
+Puis `npx prisma migrate dev` pour créer les tables.
 
-## Notes brutes
+## Pièges
 
-- ?
+- **Créer un `new PrismaClient()` dans chaque service** : trop de connexions ouvertes. Un seul `PrismaService`.
+- **Renvoyer directement l'utilisateur de la base** : son mot de passe haché part dans la réponse. Utilise `select` / `omit`.
+- **Requêtes dans une boucle** (`for (const f of favs) await prisma.movie.findUnique(…)`) : le problème « N+1 », voir [[BDD-08-ORM-Concepts-N-plus-1|N+1]]. Utilise `include`.

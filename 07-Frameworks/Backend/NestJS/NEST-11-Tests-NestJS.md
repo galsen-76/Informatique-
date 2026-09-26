@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Tests NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[TEST-04-Tests-Integration-API|Tests d'Intégration d'API]]"
   - "[[TEST-03-Mocks-Stubs-Spies|Mocks Stubs et Spies]]"
-related_snippets:
-  - "[[04_Snippets/nest-11-tests-nestjs]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/fundamentals/testing"
@@ -23,129 +20,97 @@ source: "https://docs.nestjs.com/fundamentals/testing"
 
 # Tests NestJS
 
-> [!abstract] Introduction
-> Tester une API Nest à trois niveaux : services en unitaire (dépendances mockées), controllers/modules en intégration, et endpoints de bout en bout avec Supertest sur une vraie base de test.
+> [!abstract] En bref
+> Une API se teste à deux niveaux principaux : les **services** en test unitaire (avec une fausse base de données), et les **routes** de bout en bout avec **Supertest** (une vraie requête HTTP sur l'API, avec une vraie base de test). Les deux ensemble te permettent de modifier le code sans peur.
 
-> [!warning]- Prérequis
-> [[NEST-04-Providers-DI|Providers et Injection de Dépendances NestJS]], [[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]
+## 1. Test unitaire d'un service
 
----
+On remplace Prisma par un **faux** qui renvoie ce qu'on veut :
 
-## Théorie
+```ts
+describe('ReviewsService', () => {
+  let service: ReviewsService;
+  const prisma = {
+    review: { findUnique: vi.fn(), update: vi.fn() },
+  };
 
-> [!question]- C'est quoi ?
-> ```typescript
-> describe('FilmsService', () => {
->   let service: FilmsService;
->   const prisma = { film: { findUnique: vi.fn() } };
->   beforeEach(async () => {
->     const module = await Test.createTestingModule({
->       providers: [FilmsService, { provide: PrismaService, useValue: prisma }],
->     }).compile();
->     service = module.get(FilmsService);
->   });
->   it('lève NotFound si le film est absent', async () => {
->     prisma.film.findUnique.mockResolvedValue(null);
->     await expect(service.obtenir(42)).rejects.toThrow(NotFoundException);
->   });
-> });
-> ```
+  beforeEach(async () => {
+    const moduleRef = await Test.createTestingModule({
+      providers: [ReviewsService, { provide: PrismaService, useValue: prisma }],
+    }).compile();
+    service = moduleRef.get(ReviewsService);
+    vi.clearAllMocks();
+  });
 
-> [!example]- Analogie
-> Test unitaire : tester le moteur sur un banc. Test e2e : faire un vrai tour de piste avec la voiture complète.
+  it('refuse de modifier la critique d\'un autre utilisateur', async () => {
+    prisma.review.findUnique.mockResolvedValue({ id: 1, userId: 99 });
 
-> [!question]- Pourquoi l'utiliser ?
-> L'API est le contrat des fronts : une régression casse Angular ET Vue.
+    await expect(service.update(1, { rating: 5 }, 42)).rejects.toThrow(ForbiddenException);
+    expect(prisma.review.update).not.toHaveBeenCalled();
+  });
 
-> [!question]- Comment ça marche ?
-> - Unitaire : `Test.createTestingModule` + mocks (`useValue`), Jest (par défaut) ou Vitest
-> - E2E : `app = module.createNestApplication()` puis `request(app.getHttpServer()).get('/api/films').expect(200)`
-> - BDD de test : conteneur PostgreSQL (docker compose / Testcontainers), migrations appliquées, données réinitialisées entre tests
-> - Tester statuts, validation (400), autorisations (401/403), cas limites
-
-> [!question]- Quand l'utiliser ?
-> Services : logique métier. E2E : chaque endpoint critique (auth, création, droits).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Mocker Prisma de façon trop fine teste l'implémentation ; pour l'accès données, préférer des tests d'intégration sur vraie BDD.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Supertest | Librairie pour tester des requêtes HTTP |
-| Testcontainers | Démarre des conteneurs Docker pour les tests |
-| Fixture | Données de test préparées |
-
----
-
-## Points clés
-
-- Unitaire pour le métier, e2e pour le contrat HTTP
-- Vraie BDD pour tester les requêtes
-- Tester les cas d'erreur et d'autorisation
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Tests e2e qui dépendent de l'ordre d'exécution (données partagées)
-> - Tester uniquement le « happy path »
-
----
-
-## Exemple minimal
-
-```typescript
-it('POST /api/films refuse un titre vide', () =>
-  request(app.getHttpServer())
-    .post('/api/films').set('Authorization', `Bearer ${tokenAdmin}`)
-    .send({ titre: '', annee: 2010 })
-    .expect(400));
+  it('renvoie 404 si la critique n\'existe pas', async () => {
+    prisma.review.findUnique.mockResolvedValue(null);
+    await expect(service.update(1, {}, 42)).rejects.toThrow(NotFoundException);
+  });
+});
 ```
 
-> [!note] Ce que j'en retiens
-> Un test e2e vérifie en une fois routing, guard, validation et format d'erreur.
+Rapide (quelques millisecondes), idéal pour les **règles métier** : droits, calculs, cas limites.
 
----
+## 2. Test de bout en bout (e2e)
 
-## Pour aller plus loin (niveau senior)
+Une vraie requête HTTP sur l'API complète :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Tests de contrat (Pact) entre fronts et API
+```ts
+describe('Reviews (e2e)', () => {
+  let app: INestApplication;
+  let token: string;
 
----
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
+    app = moduleRef.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+    await app.init();
 
-## Connexions
+    const res = await request(app.getHttpServer())
+      .post('/auth/login').send({ email: 'test@cinetrack.fr', password: 'Motdepasse123!' });
+    token = res.body.accessToken;
+  });
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-14-Tests|Tests Angular]]
+  afterAll(() => app.close());
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-11-tests-nestjs]]
-- Projet → [[02_Projects/CinéTrack]]
+  it('POST /reviews refuse une note de 11', () =>
+    request(app.getHttpServer())
+      .post('/reviews')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ movieId: 1, rating: 11, comment: 'Superbe film vraiment' })
+      .expect(400));
 
----
+  it('POST /reviews sans jeton renvoie 401', () =>
+    request(app.getHttpServer()).post('/reviews').send({}).expect(401));
+});
+```
 
-## Auto-vérification
+Ces tests vérifient que **tout est bien branché** : validation, guard, base de données.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi préférer une vraie BDD pour tester la couche données ?
+## La base de test
 
----
+- Une base **séparée** (`cinetrack_test`), jamais celle de développement.
+- Remise à zéro avant les tests (`prisma migrate reset --force`) et données de départ (seed).
+- En CI : un service PostgreSQL dans le pipeline (voir [[CICD-02-Pipeline-Full-Stack|Pipeline full stack]]), ou des Testcontainers.
 
-## Tâches
+## Quoi tester
 
-- [ ] #task Écrire les tests e2e de /auth et /films
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+| Niveau | Quoi | Combien |
+|---|---|---|
+| Unitaire | règles métier des services, fonctions utilitaires | beaucoup |
+| E2E | chaque route importante : cas normal, données invalides, pas connecté, pas le droit | un peu pour chaque route |
 
----
+Méthode générale : [[TEST-01-Pyramide-des-Tests|Pyramide des tests]].
 
-## Notes brutes
+## Pièges
 
-- ?
+- **Tester avec la base de développement** : tu effaces tes données.
+- **Oublier les cas d'erreur** : ce sont eux qui cassent en production (400, 401, 403, 404).
+- **Oublier `ValidationPipe`** dans l'app de test : les tests passent alors qu'en vrai la validation est active (ou l'inverse).

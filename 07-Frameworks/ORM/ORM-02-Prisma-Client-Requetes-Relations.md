@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,13 +10,10 @@ tags:
 aliases:
   - "Prisma Client Requêtes et Relations"
 parent: "[[ORM]]"
-children: []
 related_theory:
   - "[[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]"
   - "[[SQL-03-Jointures|Jointures SQL]]"
   - "[[BDD-08-ORM-Concepts-N-plus-1|ORM Concepts et Problème N+1]]"
-related_snippets:
-  - "[[04_Snippets/orm-02-prisma-client-requetes-relations]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://www.prisma.io/docs/orm/prisma-client/queries"
@@ -24,126 +21,113 @@ source: "https://www.prisma.io/docs/orm/prisma-client/queries"
 
 # Prisma Client Requêtes et Relations
 
-> [!abstract] Introduction
-> Prisma Client offre une API typée pour lire, filtrer, paginer, écrire et charger des relations — en générant le SQL à ta place.
+> [!abstract] En bref
+> Prisma Client est l'objet avec lequel tu interroges la base en TypeScript : `prisma.review.findMany({ where: { movieId: 42 } })`. Il écrit le SQL pour toi, et l'éditeur te propose les champs et relations disponibles. Voici les requêtes dont CinéTrack-API a besoin.
 
-> [!warning]- Prérequis
-> [[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]
+## Lire
 
----
+```ts
+// Un seul, par clé unique
+prisma.user.findUnique({ where: { email } });
 
-## Théorie
+// Plusieurs, avec filtre, tri et pagination
+prisma.review.findMany({
+  where: { movieId: 42, rating: { gte: 7 } },          // note ≥ 7
+  orderBy: { createdAt: 'desc' },
+  skip: (page - 1) * 20,
+  take: 20,
+});
 
-> [!question]- C'est quoi ?
-> ```typescript
-> await prisma.film.findMany({
->   where: { annee: { gte: 2000 }, titre: { contains: 'star', mode: 'insensitive' } },
->   include: { _count: { select: { favoris: true } } },
->   orderBy: [{ annee: 'desc' }, { titre: 'asc' }],
->   take: 20, skip: 0,
-> });
-> await prisma.film.create({ data: { titre: 'Dune', annee: 2021 } });
-> await prisma.film.update({ where: { id: 1 }, data: { titre: 'Dune : Première partie' } });
-> await prisma.film.delete({ where: { id: 1 } });
-> await prisma.user.findUnique({ where: { id: 1 }, include: { favoris: { include: { film: true } } } });
-> ```
+// Compter
+prisma.review.count({ where: { movieId: 42 } });
 
-> [!example]- Analogie
-> Prisma Client est un traducteur : tu formules ta demande en TypeScript, il la traduit en SQL correct et te rend des objets typés.
+// Premier trouvé
+prisma.review.findFirst({ where: { userId, movieId } });
+```
 
-> [!question]- Pourquoi l'utiliser ?
-> Autocomplétion et vérification des requêtes à la compilation, protection contre l'injection SQL, relations faciles.
+| Filtre | Sens |
+|---|---|
+| `{ rating: 8 }` | égal |
+| `{ rating: { gte: 7, lte: 9 } }` | entre 7 et 9 |
+| `{ title: { contains: 'dune', mode: 'insensitive' } }` | contient (sans tenir compte des majuscules) |
+| `{ id: { in: [1, 2, 3] } }` | dans la liste |
+| `{ OR: [{…}, {…}] }`, `{ NOT: {…} }` | ou / sauf |
+| `{ posterPath: null }` | vide |
 
-> [!question]- Comment ça marche ?
-> Correspondances SQL : `where` = WHERE, `orderBy` = ORDER BY, `take/skip` = LIMIT/OFFSET, `include` = JOIN (requêtes séparées ou jointure selon la stratégie), `select` = colonnes, `groupBy`/`aggregate` = GROUP BY.
-> Écritures imbriquées : `create: { favoris: { create: [...] } }`, `connect`, `upsert`.
-> Pagination par curseur (`cursor`) pour les grandes tables.
+## Choisir les champs : `select`
 
-> [!question]- Quand l'utiliser ?
-> 99 % des requêtes CRUD. SQL brut (`$queryRaw` paramétré) pour le reporting complexe.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pas de contrôle fin du SQL généré ; attention aux `include` en cascade qui chargent énormément de données.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `include` | Charge une relation |
-| `select` | Choisit les champs |
-| `connect` | Lie à un enregistrement existant |
-| `upsert` | Crée ou met à jour |
-| Pagination curseur | Reprend après un identifiant plutôt qu'un offset |
-
----
-
-## Points clés
-
-- `select` ciblé pour les listes
-- `include` au lieu de boucles (N+1)
-- Pagination par curseur pour de gros volumes
-- `$queryRaw` toujours avec template tag (paramètres)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `$queryRawUnsafe` avec concaténation → injection SQL
-> - Charger toute une table sans `take`
-
----
-
-## Exemple minimal
-
-```typescript
-const filmsPopulaires = await prisma.favori.groupBy({
-  by: ['filmId'], _count: { filmId: true },
-  orderBy: { _count: { filmId: 'desc' } }, take: 10,
+```ts
+prisma.user.findUnique({
+  where: { id },
+  select: { id: true, email: true, role: true },      // PAS le passwordHash
 });
 ```
 
-> [!note] Ce que j'en retiens
-> Un GROUP BY + ORDER BY + LIMIT typé, sans écrire de SQL.
+## Charger les relations : `include`
 
----
+```ts
+// La critique avec son auteur (seulement l'e-mail) et son film
+prisma.review.findMany({
+  where: { movieId: 42 },
+  include: {
+    user: { select: { id: true, email: true } },
+    movie: true,
+  },
+});
 
-## Pour aller plus loin (niveau senior)
+// Un film avec ses 5 dernières critiques et le nombre total
+prisma.movie.findUnique({
+  where: { id: 42 },
+  include: {
+    reviews: { take: 5, orderBy: { createdAt: 'desc' } },
+    _count: { select: { reviews: true } },
+  },
+});
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Activer les logs de requêtes et analyser le SQL généré avec EXPLAIN
+## Écrire
 
----
+```ts
+prisma.review.create({ data: { rating: 8, comment: '…', userId, movieId } });
 
-## Connexions
+prisma.review.update({ where: { id }, data: { rating: 9 } });
 
-**Arbre théorique :**
-- Sujet parent → [[ORM]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+prisma.review.delete({ where: { id } });
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/orm-02-prisma-client-requetes-relations]]
-- Projet → [[02_Projects/CinéTrack]]
+// Créer ou mettre à jour (le film vient de TMDB, on le garde en base)
+prisma.movie.upsert({
+  where: { id: tmdbMovie.id },
+  create: { id: tmdbMovie.id, title: tmdbMovie.title },
+  update: { title: tmdbMovie.title },
+});
 
----
+prisma.movie.update({ where: { id }, data: { viewCount: { increment: 1 } } });
+```
 
-## Auto-vérification
+## Calculer : la note moyenne d'un film
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Comment Prisma évite-t-il l'injection SQL ?
+```ts
+const stats = await prisma.review.aggregate({
+  where: { movieId: 42 },
+  _avg: { rating: true },
+  _count: true,
+});
+// stats._avg.rating → 7.8
+```
 
----
+## Le type des résultats
 
-## Tâches
+Prisma **devine** le type exact selon ton `select` / `include` :
 
-- [ ] #task Écrire l'endpoint « top 10 des films favoris »
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+```ts
+const r = await prisma.review.findFirst({ include: { user: { select: { email: true } } } });
+r?.user.email;        // ✅ typé
+r?.user.passwordHash; // ❌ n'existe pas dans ce résultat
+```
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Requête dans une boucle** (charger l'auteur de chaque critique une par une) : 1 + N requêtes. Utilise `include`. Voir [[BDD-08-ORM-Concepts-N-plus-1|N+1]].
+- **`findMany` sans `take`** : sur une grosse table, tu ramènes tout. Pagine toujours.
+- **`findUnique` sur un champ non unique** : refusé, utilise `findFirst`.
+- **Oublier `select`** sur l'utilisateur : le mot de passe haché part dans la réponse.

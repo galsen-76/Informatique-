@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,13 +10,10 @@ tags:
 aliases:
   - "Authentification JWT NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]"
   - "[[SEC-05-Hachage-Mots-de-Passe|Hachage des Mots de Passe]]"
   - "[[SEC-04-OAuth2-OpenID-Connect|OAuth2 et OpenID Connect]]"
-related_snippets:
-  - "[[04_Snippets/nest-10-authentification-jwt]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/security/authentication"
@@ -24,155 +21,121 @@ source: "https://docs.nestjs.com/security/authentication"
 
 # Authentification JWT NestJS
 
-> [!abstract] Introduction
-> Mettre en place l'inscription, la connexion et la protection des routes : mots de passe hachés (argon2/bcrypt), tokens JWT signés (access court + refresh), guard global et décorateur `@Public()`.
+> [!abstract] En bref
+> L'**authentification**, c'est vérifier **qui** est l'utilisateur. Le déroulé : il s'inscrit (mot de passe **haché**), il se connecte, l'API lui donne un **jeton** (JWT) ; ensuite il présente ce jeton à chaque requête. Un **guard** vérifie le jeton sur toutes les routes, sauf celles marquées publiques.
 
-> [!warning]- Prérequis
-> [[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]], [[SEC-05-Hachage-Mots-de-Passe|Hachage des Mots de Passe]], [[NEST-06-Middleware-Guards-Interceptors|Middleware Guards et Interceptors NestJS]]
+## Le déroulé
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> @Injectable()
-> export class AuthService {
->   constructor(private users: UsersService, private jwt: JwtService) {}
->   async connexion(email: string, mdp: string) {
->     const user = await this.users.parEmail(email);
->     if (!user || !(await argon2.verify(user.hash, mdp))) throw new UnauthorizedException('Identifiants invalides');
->     const payload = { sub: user.id, role: user.role };
->     return { accessToken: await this.jwt.signAsync(payload, { expiresIn: '15m' }) };
->   }
-> }
-> @Injectable()
-> export class JwtAuthGuard implements CanActivate {
->   constructor(private jwt: JwtService, private reflector: Reflector) {}
->   async canActivate(ctx: ExecutionContext) {
->     if (this.reflector.getAllAndOverride<boolean>(IS_PUBLIC, [ctx.getHandler(), ctx.getClass()])) return true;
->     const req = ctx.switchToHttp().getRequest();
->     const token = req.headers.authorization?.replace('Bearer ', '');
->     if (!token) throw new UnauthorizedException();
->     try { req.user = await this.jwt.verifyAsync(token); return true; }
->     catch { throw new UnauthorizedException(); }
->   }
-> }
-> ```
-
-> [!example]- Analogie
-> Le JWT est un bracelet de festival : délivré à l'entrée après contrôle d'identité, il est vérifiable par n'importe quel agent (signature) sans rappeler la billetterie, mais il expire et ne peut pas être « désactivé » facilement.
-
-> [!question]- Pourquoi l'utiliser ?
-> Protéger les routes, identifier l'utilisateur, autoriser selon son rôle ; les fronts Angular/Vue envoient le token via un intercepteur.
-
-> [!question]- Comment ça marche ?
-> ```mermaid
-> sequenceDiagram
->   participant F as Front (Angular/Vue)
->   participant A as API Nest
->   F->>A: POST /auth/login {email, mdp}
->   A->>A: argon2.verify + signer JWT (15 min)
->   A-->>F: accessToken (+ refresh en cookie HttpOnly)
->   F->>A: GET /favoris  Authorization: Bearer <token>
->   A->>A: guard vérifie signature + expiration
->   A-->>F: 200 données
->   F->>A: POST /auth/refresh (cookie)
->   A-->>F: nouvel accessToken
-> ```
-> - Access token court (5-15 min) ; refresh token long, stocké en cookie `HttpOnly; Secure; SameSite`, rotaté et révocable (stocké haché en BDD)
-> - Passport (`@nestjs/passport`) est une alternative classique aux guards écrits à la main
-
-> [!question]- Quand l'utiliser ?
-> API consommée par une SPA ou une app mobile. Pour une app d'entreprise avec SSO : OAuth2/OIDC (Keycloak, Entra ID) — le back valide alors des tokens émis par le fournisseur d'identité.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Un JWT émis reste valide jusqu'à expiration (révocation difficile) → durée courte + refresh. Ne jamais mettre de données sensibles dans le payload (il est lisible, seulement signé).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| JWT | Jeton signé contenant des « claims » |
-| Claim | Information du payload (`sub`, `exp`, `role`) |
-| Access / refresh token | Jeton court d'accès / jeton long de renouvellement |
-| argon2 / bcrypt | Algorithmes de hachage de mots de passe |
-
----
-
-## Points clés
-
-- Hacher les mots de passe (argon2id ou bcrypt), jamais chiffrer ni stocker en clair
-- Access token court, refresh token rotaté en cookie HttpOnly
-- Message d'erreur identique pour email inconnu / mauvais mot de passe
-- Limiter les tentatives de connexion (rate limiting)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Secret JWT faible ou commité
-> - Accepter l'algorithme `none` ou ne pas vérifier l'expiration
-> - Stocker le refresh token dans localStorage
-> - Renvoyer le hash du mot de passe dans `/me`
-
----
-
-## Exemple minimal
-
-```typescript
-@Public() @Post('login') @Throttle({ default: { limit: 5, ttl: 60_000 } })
-login(@Body() dto: LoginDto) { return this.auth.connexion(dto.email, dto.motDePasse); }
-
-@Get('me') moi(@Req() req) { return this.users.profilPublic(req.user.sub); }
+```mermaid
+sequenceDiagram
+  participant F as Front
+  participant A as API NestJS
+  participant DB as PostgreSQL
+  F->>A: POST /auth/login { email, password }
+  A->>DB: cherche l'utilisateur
+  A->>A: compare le mot de passe (argon2)
+  A-->>F: { accessToken } (valable 15 min)
+  F->>A: GET /favorites  Authorization: Bearer <jeton>
+  A->>A: guard : signature valide ? pas expiré ?
+  A-->>F: 200 [ …favoris ]
 ```
 
-> [!note] Ce que j'en retiens
-> Route publique limitée en débit ; toutes les autres sont protégées par défaut par le guard global.
+Un **JWT** est un texte signé qui contient l'identifiant de l'utilisateur. L'API peut vérifier qu'elle l'a bien fabriqué (grâce à la signature) **sans consulter la base**. Détails : [[SEC-03-Authentification-Sessions-JWT|Sessions et JWT]].
 
----
+## 1. Inscription : hacher le mot de passe
 
-## Pour aller plus loin (niveau senior)
+```bash
+npm i @nestjs/jwt argon2
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Rotation des refresh tokens avec détection de réutilisation
-> - Intégrer un IdP OIDC (Keycloak) plutôt que gérer soi-même les mots de passe
+```ts
+async register(dto: RegisterDto) {
+  const exists = await this.prisma.user.findUnique({ where: { email: dto.email } });
+  if (exists) throw new ConflictException('E-mail déjà utilisé');
 
----
+  const passwordHash = await argon2.hash(dto.password);   // JAMAIS le mot de passe en clair
+  const user = await this.prisma.user.create({ data: { email: dto.email, passwordHash } });
+  return this.signToken(user.id, user.role);
+}
+```
 
-## Connexions
+Pourquoi hacher : voir [[SEC-05-Hachage-Mots-de-Passe|Hachage des mots de passe]].
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-21-Guards-Resolvers-Intercepteurs|Guards Resolvers et Intercepteurs Angular]]
+## 2. Connexion : vérifier et donner un jeton
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-10-authentification-jwt]]
-- Projet → [[02_Projects/CinéTrack]]
+```ts
+async login(dto: LoginDto) {
+  const user = await this.prisma.user.findUnique({ where: { email: dto.email } });
+  const ok = user && await argon2.verify(user.passwordHash, dto.password);
+  if (!ok) throw new UnauthorizedException('Identifiants invalides');   // même message dans les 2 cas
+  return this.signToken(user.id, user.role);
+}
 
----
+private async signToken(userId: number, role: string) {
+  return { accessToken: await this.jwt.signAsync({ sub: userId, role }) };
+}
+```
 
-## Auto-vérification
+```ts
+// auth.module.ts
+JwtModule.registerAsync({
+  inject: [ConfigService],
+  useFactory: (c: ConfigService) => ({ secret: c.getOrThrow('JWT_SECRET'), signOptions: { expiresIn: '15m' } }),
+})
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un JWT est-il difficile à révoquer ?
+## 3. Protéger toutes les routes par défaut
 
-> [!faq]- Questions d'entretien
-> - Décrivez un flux d'authentification sécurisé pour une SPA.
+```ts
+export const IS_PUBLIC = 'isPublic';
+export const Public = () => SetMetadata(IS_PUBLIC, true);
 
----
+@Injectable()
+export class JwtAuthGuard implements CanActivate {
+  constructor(private jwt: JwtService, private reflector: Reflector) {}
 
-## Tâches
+  async canActivate(ctx: ExecutionContext) {
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC, [ctx.getHandler(), ctx.getClass()]);
+    if (isPublic) return true;
 
-- [ ] #task Implémenter register/login/me + intercepteur Angular et Vue côté front
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+    const req = ctx.switchToHttp().getRequest();
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    if (!token) throw new UnauthorizedException();
+    try {
+      req.user = await this.jwt.verifyAsync(token);     // { sub, role }
+      return true;
+    } catch {
+      throw new UnauthorizedException('Session expirée');
+    }
+  }
+}
 
----
+// app.module.ts : guard global
+providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }]
+```
 
-## Notes brutes
+```ts
+@Public() @Post('login') login(@Body() dto: LoginDto) {}
+@Public() @Get('movies') findAll() {}
+@Get('favorites') list(@CurrentUser() user: AuthUser) {}   // protégée par défaut
+```
 
-- ?
+## 4. Récupérer l'utilisateur connecté
+
+```ts
+export const CurrentUser = createParamDecorator(
+  (_: unknown, ctx: ExecutionContext) => ctx.switchToHttp().getRequest().user,
+);
+```
+
+## Le jeton de rafraîchissement
+
+Un jeton court (15 min) limite les dégâts s'il est volé. Pour ne pas redemander le mot de passe toutes les 15 minutes, on ajoute un **refresh token** (plus long, stocké en cookie `HttpOnly`) qui permet d'obtenir un nouveau jeton. À ajouter une fois la base en place.
+
+## Pièges
+
+- **Stocker le mot de passe en clair** ou avec un simple SHA-256 : utilise argon2 (ou bcrypt).
+- **Messages différents** pour « e-mail inconnu » et « mauvais mot de passe » : un attaquant découvre quels e-mails existent.
+- **Un secret JWT court ou commité** : n'importe qui peut fabriquer des jetons.
+- **Mettre des données sensibles dans le JWT** : son contenu est **lisible** par tous (il est signé, pas chiffré).
+- **Oublier de limiter les tentatives** de connexion : ajoute `@nestjs/throttler`.

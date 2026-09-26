@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Providers et Injection de Dépendances NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[TG-05-Paradigmes-POO|Programmation Orientée Objet]]"
   - "[[ARCH-11-SOLID|SOLID]]"
-related_snippets:
-  - "[[04_Snippets/nest-04-providers-di]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/providers"
@@ -23,135 +20,77 @@ source: "https://docs.nestjs.com/providers"
 
 # Providers et Injection de Dépendances NestJS
 
-> [!abstract] Introduction
-> Les providers (services, repositories, factories) sont des classes que Nest instancie et injecte automatiquement là où elles sont demandées ; l'injection de dépendances rend le code découplé et testable.
+> [!abstract] En bref
+> Un **provider** est une classe que NestJS crée et fournit automatiquement à ceux qui en ont besoin : un service, un repository, un client externe. Tu écris `constructor(private readonly movies: MoviesService)`, et NestJS s'occupe du reste. C'est exactement l'injection de dépendances d'Angular.
 
-> [!warning]- Prérequis
-> [[NEST-02-Modules|Modules NestJS]], [[TG-05-Paradigmes-POO|Programmation Orientée Objet]]
+## Le principe
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> @Injectable()
-> export class FilmsService {
->   constructor(private readonly prisma: PrismaService, private readonly logger: Logger) {}
-> }
-> ```
-> Formes avancées de providers :
-> ```typescript
-> providers: [
->   FilmsService,                                                  // classe
->   { provide: 'CONFIG_TMDB', useValue: { baseUrl: '…' } },        // valeur
->   { provide: PaiementGateway, useClass: StripeGateway },          // implémentation interchangeable
->   { provide: 'REDIS', useFactory: (c: ConfigService) => new Redis(c.get('REDIS_URL')), inject: [ConfigService] },
-> ]
-> ```
-
-> [!example]- Analogie
-> Au lieu que chaque employé achète ses propres outils (new), l'entreprise (le conteneur) les distribue à qui en a besoin — et peut remplacer un outil par un autre (mock en test) sans que l'employé ne change quoi que ce soit.
-
-> [!question]- Pourquoi l'utiliser ?
-> Découplage (dépendre d'abstractions), testabilité (remplacer par des mocks), cycle de vie géré (singletons, init/destroy).
-
-> [!question]- Comment ça marche ?
-> - Injection par le constructeur (type = jeton) ou `@Inject('TOKEN')` pour les jetons chaîne/symbol
-> - Scopes : `DEFAULT` (singleton), `REQUEST` (une instance par requête), `TRANSIENT`
-> - Hooks : `onModuleInit`, `onApplicationShutdown`
-> - Classes abstraites comme jetons pour l'inversion de dépendance
-
-> [!question]- Quand l'utiliser ?
-> Toute logique métier, accès données, clients externes (API, cache, mail).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Le scope REQUEST se propage à toute la chaîne de dépendances et coûte en performance.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Provider | Élément injectable enregistré dans un module |
-| Jeton (token) | Identifiant d'un provider |
-| `useClass` / `useValue` / `useFactory` | Façons de fournir une valeur |
-| Scope | Durée de vie d'une instance |
-
----
-
-## Points clés
-
-- Singletons par défaut
-- Dépendre d'abstractions pour pouvoir changer d'implémentation
-- `useFactory` pour les clients configurés
-- Tests : `Test.createTestingModule` + `overrideProvider`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `new FilmsService()` à la main → dépendances non injectées
-> - Dépendances circulaires entre services
-
----
-
-## Exemple minimal
-
-```typescript
-export abstract class StockageFichiers { abstract enregistrer(nom: string, data: Buffer): Promise<string>; }
-@Injectable() export class StockageLocal implements StockageFichiers { /* disque */ }
-@Injectable() export class StockageS3 implements StockageFichiers { /* S3 */ }
-// module
-{ provide: StockageFichiers, useClass: process.env.NODE_ENV === 'production' ? StockageS3 : StockageLocal }
-// service
-constructor(private stockage: StockageFichiers) {}
+```ts
+@Injectable()
+export class ReviewsService {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly movies: MoviesService,
+  ) {}
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Le service ne sait pas où sont stockés les fichiers : on change d'implémentation sans le modifier (principe DIP).
+NestJS voit que `ReviewsService` a besoin de `PrismaService` et `MoviesService`, les crée (une seule fois) et les lui donne.
 
----
+**Pourquoi c'est utile :**
+- tu ne crées jamais les objets à la main (`new MoviesService(new PrismaService(…))`) ;
+- **un seul exemplaire** partagé par défaut ;
+- dans les tests, tu remplaces un service par un **faux** en une ligne (voir [[NEST-11-Tests-NestJS|Tests]]).
 
-## Pour aller plus loin (niveau senior)
+## Fournir autre chose qu'une classe
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Relier DI, DIP (SOLID) et architecture hexagonale (ports & adapters)
+```ts
+@Module({
+  providers: [
+    MoviesService,                                            // cas normal
 
----
+    { provide: 'TMDB_BASE_URL', useValue: 'https://api.themoviedb.org/3' },   // une valeur
 
-## Connexions
+    {                                                          // un objet construit à partir de la config
+      provide: TmdbClient,
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => new TmdbClient(config.getOrThrow('TMDB_TOKEN')),
+    },
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-05-Services-DI|Services & Injection de Dépendances (DI) Angular]]
+    { provide: MailSender, useClass: process.env.NODE_ENV === 'test' ? FakeMailSender : SmtpMailSender },
+  ],
+})
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-04-providers-di]]
-- Projet → [[02_Projects/CinéTrack]]
+| Forme | Sert à |
+|---|---|
+| `useValue` | fournir une valeur fixe |
+| `useFactory` | construire l'objet avec une fonction (souvent à partir de la config) |
+| `useClass` | choisir quelle classe fournir |
 
----
+Pour injecter une valeur fournie par un nom : `constructor(@Inject('TMDB_BASE_URL') private baseUrl: string)`.
 
-## Auto-vérification
+## Dépendre d'un « contrat » plutôt que d'une classe
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Comment remplacer un service par un mock dans un test Nest ?
+```ts
+export abstract class MailSender {
+  abstract send(to: string, subject: string, body: string): Promise<void>;
+}
 
-> [!faq]- Questions d'entretien
-> - Qu'est-ce que l'injection de dépendances et quels problèmes résout-elle ?
+@Injectable()
+export class SmtpMailSender extends MailSender { /* envoi réel */ }
 
----
+// dans le module
+{ provide: MailSender, useClass: SmtpMailSender }
 
-## Tâches
+// dans un service
+constructor(private readonly mail: MailSender) {}   // ne sait pas quelle implémentation il reçoit
+```
 
-- [ ] #task Créer une abstraction `TmdbClient` avec une implémentation réelle et une fausse
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Changer de prestataire d'e-mail = changer **une ligne** dans le module. C'est le « D » de [[ARCH-11-SOLID|SOLID]].
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **« Nest can't resolve dependencies »** : le provider n'est pas dans `providers` du module, ou pas exporté par son module d'origine (voir [[NEST-02-Modules|Modules]]).
+- **Créer un service avec `new`** : il ne reçoit pas ses dépendances, et les tests ne peuvent plus le remplacer.
+- **Dépendance circulaire** (A a besoin de B qui a besoin de A) : signe qu'un morceau devrait être extrait dans un troisième service.

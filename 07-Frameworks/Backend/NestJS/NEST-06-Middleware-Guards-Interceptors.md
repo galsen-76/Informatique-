@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Middleware Guards et Interceptors NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[ANG-21-Guards-Resolvers-Intercepteurs|Guards Resolvers et Intercepteurs Angular]]"
   - "[[SEC-11-Autorisation-RBAC|Autorisation RBAC]]"
-related_snippets:
-  - "[[04_Snippets/nest-06-middleware-guards-interceptors]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/guards"
@@ -23,136 +20,91 @@ source: "https://docs.nestjs.com/guards"
 
 # Middleware Guards et Interceptors NestJS
 
-> [!abstract] Introduction
-> Nest découpe le traitement transverse d'une requête en briques spécialisées : middleware (bas niveau), guards (autoriser ?), interceptors (avant/après : logs, cache, transformation).
+> [!abstract] En bref
+> Certaines choses doivent se faire pour **beaucoup de routes** : noter chaque requête dans les logs, vérifier que l'utilisateur est connecté, mesurer le temps de réponse. NestJS propose des briques spécialisées pour ça, qui s'exécutent **autour** de tes controllers, dans un ordre précis.
 
-> [!warning]- Prérequis
-> [[NEST-03-Controllers|Controllers NestJS]]
+## L'ordre de passage
 
----
+```mermaid
+flowchart LR
+  R["Requête"] --> M["Middleware<br/>logs bruts"]
+  M --> G["Guard<br/>a-t-il le droit ?"]
+  G --> I1["Interceptor (avant)<br/>chrono"]
+  I1 --> P["Pipe<br/>valide / convertit"]
+  P --> C["Controller"]
+  C --> I2["Interceptor (après)<br/>transforme la réponse"]
+  I2 --> Rep["Réponse"]
+  G -- "non" --> E["403"]
+```
 
-## Théorie
+| Brique | Question | Usage typique |
+|---|---|---|
+| **Middleware** | — | log de chaque requête, en-têtes de sécurité (helmet), CORS |
+| **Guard** | « a-t-il le droit de passer ? » | connecté ? admin ? |
+| **Interceptor** | « que faire avant / après ? » | mesurer le temps, mettre en cache, reformater la réponse |
+| **Pipe** | « les données sont-elles valides ? » | validation des DTO (voir [[NEST-05-DTO-Validation-Pipes\|DTO]]) |
+| **Exception filter** | « comment présenter l'erreur ? » | format d'erreur uniforme (voir [[NEST-07-Exceptions-Gestion-Erreurs\|Exceptions]]) |
 
-> [!question]- C'est quoi ?
-> ```typescript
-> @Injectable()
-> export class RolesGuard implements CanActivate {
->   constructor(private reflector: Reflector) {}
->   canActivate(ctx: ExecutionContext): boolean {
->     const roles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [ctx.getHandler(), ctx.getClass()]);
->     if (!roles) return true;
->     const { user } = ctx.switchToHttp().getRequest();
->     return roles.includes(user?.role);
->   }
-> }
-> export const Roles = (...roles: Role[]) => SetMetadata(ROLES_KEY, roles);
-> // @Roles('admin') @Delete(':id') supprimer() {}
-> ```
+## Guard : autoriser ou refuser
 
-> [!example]- Analogie
-> Middleware = portique de sécurité à l'entrée du bâtiment ; guard = badge qui ouvre (ou non) une porte précise ; interceptor = secrétaire qui note l'heure d'arrivée et de départ et met en forme le courrier sortant.
-
-> [!question]- Pourquoi l'utiliser ?
-> Ne pas répéter dans chaque handler : vérification des droits, logs, mesure de temps, format de réponse, cache, timeouts.
-
-> [!question]- Comment ça marche ?
-> | Brique | Rôle | Accès au handler ? |
-> |---|---|---|
-> | Middleware | Bas niveau (logs bruts, cookies, CORS) | Non |
-> | Guard | Autoriser ou refuser (`true`/`false` → 403) | Oui (métadonnées) |
-> | Interceptor | Avant/après (RxJS), transformer la réponse | Oui |
-> | Pipe | Valider/transformer les arguments | Oui |
-> | Exception filter | Formater les erreurs | Oui |
-> Portée : globale (`app.useGlobal…` ou `APP_GUARD`), controller (`@UseGuards` sur la classe), route.
-
-> [!question]- Quand l'utiliser ?
-> Guards : authentification/autorisation. Interceptors : logging, cache, timeout, enveloppe de réponse, sérialisation.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Trop de magie transverse rend le flux difficile à suivre ; documenter les briques globales.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `ExecutionContext` | Contexte d'exécution (requête, handler, classe) |
-| `Reflector` | Lit les métadonnées posées par décorateur |
-| `SetMetadata` | Attache une métadonnée à une route |
-
----
-
-## Points clés
-
-- Guard = décision oui/non
-- Interceptor = avant/après, basé sur RxJS
-- Décorateurs custom + Reflector pour des règles déclaratives
-- Enregistrer les guards globaux via `APP_GUARD` (DI disponible)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Faire de l'autorisation dans un middleware (pas d'accès aux métadonnées de la route)
-> - Guard global d'auth qui bloque aussi `/login` → prévoir un décorateur `@Public()`
-
----
-
-## Exemple minimal
-
-```typescript
+```ts
 @Injectable()
-export class DureeInterceptor implements NestInterceptor {
+export class RolesGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
+
+  canActivate(ctx: ExecutionContext): boolean {
+    const roles = this.reflector.get<string[]>('roles', ctx.getHandler());
+    if (!roles) return true;                                   // route sans rôle exigé
+    const user = ctx.switchToHttp().getRequest().user;         // ajouté par le guard JWT
+    return roles.includes(user?.role);
+  }
+}
+
+// un décorateur pour marquer les routes
+export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
+
+@Delete(':id')
+@Roles('admin')
+remove(@Param('id', ParseIntPipe) id: number) {}
+```
+
+Le guard d'authentification JWT : [[NEST-10-Authentification-JWT|Authentification JWT]]. Les rôles et permissions : [[SEC-11-Autorisation-RBAC|Autorisation]].
+
+## Interceptor : avant et après
+
+```ts
+@Injectable()
+export class TimingInterceptor implements NestInterceptor {
   private logger = new Logger('HTTP');
+
   intercept(ctx: ExecutionContext, next: CallHandler) {
     const req = ctx.switchToHttp().getRequest();
-    const debut = Date.now();
-    return next.handle().pipe(tap(() => this.logger.log(`${req.method} ${req.url} ${Date.now() - debut}ms`)));
+    const start = Date.now();
+    return next.handle().pipe(                                  // next.handle() = le controller
+      tap(() => this.logger.log(`${req.method} ${req.url} ${Date.now() - start} ms`)),
+    );
   }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> `next.handle()` renvoie un Observable : on agit après la réponse avec des opérateurs RxJS, comme en Angular.
+## Middleware
 
----
+```ts
+// main.ts
+app.use(helmet());                        // en-têtes de sécurité
+app.enableCors({ origin: ['http://localhost:4200', 'https://cinetrack.fr'] });
+```
 
-## Pour aller plus loin (niveau senior)
+## Où les brancher
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Composer auth globale + `@Public()` + `@Roles()` + politiques par ressource (propriétaire)
+| Portée | Comment |
+|---|---|
+| toute l'API | `app.useGlobalGuards(…)` dans `main.ts`, ou `{ provide: APP_GUARD, useClass: … }` dans un module (permet l'injection) |
+| un controller | `@UseGuards(RolesGuard)` sur la classe |
+| une route | `@UseGuards(…)` / `@UseInterceptors(…)` sur la méthode |
 
----
+## Pièges
 
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[NODE-02-Express-Middleware|Express et Middleware]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-06-middleware-guards-interceptors]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi l'autorisation se fait-elle dans un guard et pas un middleware ?
-
----
-
-## Tâches
-
-- [ ] #task Créer `@Public()`, un guard JWT global et un guard de rôles
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Mettre la vérification des droits dans un middleware** : il ne sait pas quelle route va être appelée. Utilise un guard.
+- **L'ordre d'exécution** : un guard passe **avant** les pipes, donc les données ne sont pas encore validées dans un guard.
+- **Oublier une route** : protège **tout par défaut** (guard global) et marque les exceptions comme publiques.

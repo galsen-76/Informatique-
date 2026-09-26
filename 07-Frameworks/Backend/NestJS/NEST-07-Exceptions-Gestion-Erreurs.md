@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Exceptions et Gestion des Erreurs NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]]"
   - "[[MON-01-Logs|Logs]]"
-related_snippets:
-  - "[[04_Snippets/nest-07-exceptions-gestion-erreurs]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/exception-filters"
@@ -23,121 +20,71 @@ source: "https://docs.nestjs.com/exception-filters"
 
 # Exceptions et Gestion des Erreurs NestJS
 
-> [!abstract] Introduction
-> Nest transforme les exceptions en réponses HTTP ; les exception filters personnalisent le format des erreurs et permettent de convertir les erreurs techniques (Prisma, réseau) en erreurs métier cohérentes.
+> [!abstract] En bref
+> Dans NestJS, pour renvoyer une erreur au client, tu **lances une exception** : `throw new NotFoundException('Film introuvable')` devient automatiquement une réponse 404 en JSON. Un **filtre d'exception** permet de donner le même format à toutes les erreurs et de traduire les erreurs techniques (base de données) en messages compréhensibles.
 
-> [!warning]- Prérequis
-> [[NEST-03-Controllers|Controllers NestJS]]
+## Les exceptions prêtes à l'emploi
 
----
+| Exception | Code | Quand |
+|---|---|---|
+| `BadRequestException` | 400 | données incohérentes |
+| `UnauthorizedException` | 401 | pas connecté, jeton invalide |
+| `ForbiddenException` | 403 | connecté mais pas le droit |
+| `NotFoundException` | 404 | ressource introuvable |
+| `ConflictException` | 409 | déjà existant (e-mail déjà utilisé, critique déjà écrite) |
+| `UnprocessableEntityException` | 422 | règle métier non respectée |
+| `InternalServerErrorException` | 500 | erreur inattendue |
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> Exceptions intégrées : `BadRequestException` (400), `UnauthorizedException` (401), `ForbiddenException` (403), `NotFoundException` (404), `ConflictException` (409), `UnprocessableEntityException` (422), `InternalServerErrorException` (500).
-> ```typescript
-> @Catch(Prisma.PrismaClientKnownRequestError)
-> export class PrismaExceptionFilter implements ExceptionFilter {
->   catch(e: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
->     const res = host.switchToHttp().getResponse<Response>();
->     const map: Record<string, number> = { P2002: 409, P2025: 404 };
->     res.status(map[e.code] ?? 500).json({ statusCode: map[e.code] ?? 500, message: e.code === 'P2002' ? 'Valeur déjà utilisée' : 'Erreur base de données' });
->   }
-> }
-> ```
-
-> [!example]- Analogie
-> Le filtre d'exception est le service client : quelle que soit la panne en coulisse, il répond au client avec un message clair et poli, sans lui montrer l'atelier.
-
-> [!question]- Pourquoi l'utiliser ?
-> Réponses d'erreur homogènes pour le front, pas de fuite d'informations (stack traces, requêtes SQL), codes de statut justes.
-
-> [!question]- Comment ça marche ?
-> - Lever des exceptions explicites dans les services
-> - Filtre global pour les erreurs inattendues : logger avec contexte, renvoyer 500 générique
-> - Distinguer erreurs attendues (4xx, métier) et inattendues (5xx, bug/infra)
-
-> [!question]- Quand l'utiliser ?
-> Toujours : un filtre global + filtres ciblés (Prisma, librairies externes).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Attraper toutes les erreurs et répondre 200 masque les bugs.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Exception filter | Intercepte les exceptions et formate la réponse |
-| Erreur métier | Règle fonctionnelle violée (4xx) |
-| Erreur technique | Panne/bug (5xx) |
-
----
-
-## Points clés
-
-- Services lèvent des exceptions HTTP ou métier
-- Jamais de stack trace dans la réponse en production
-- Logger les 5xx avec un identifiant de corrélation
-- Format d'erreur unique pour tous les fronts
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Renvoyer `err.message` brut d'une erreur SQL au client
-> - Oublier de logger les erreurs 500
-
----
-
-## Exemple minimal
-
-```typescript
-app.useGlobalFilters(new PrismaExceptionFilter());
-// Réponse côté front : { statusCode: 409, message: "Valeur déjà utilisée" }
+```ts
+async update(id: number, dto: UpdateReviewDto, userId: number) {
+  const review = await this.prisma.review.findUnique({ where: { id } });
+  if (!review) throw new NotFoundException(`Critique ${id} introuvable`);
+  if (review.userId !== userId) throw new ForbiddenException('Ce n\'est pas ta critique');
+  return this.prisma.review.update({ where: { id }, data: dto });
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Un email déjà pris devient un 409 compréhensible au lieu d'un 500 obscur.
+Réponse reçue par le front :
 
----
+```json
+{ "statusCode": 403, "message": "Ce n'est pas ta critique", "error": "Forbidden" }
+```
 
-## Pour aller plus loin (niveau senior)
+## Traduire les erreurs de la base
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Adopter le format Problem Details (RFC 9457) et un `traceId` renvoyé au client
+Sans rien faire, une contrainte d'unicité violée dans PostgreSQL donne une **erreur 500** incompréhensible. Un filtre la transforme :
 
----
+```ts
+@Catch(Prisma.PrismaClientKnownRequestError)
+export class PrismaExceptionFilter implements ExceptionFilter {
+  catch(e: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
+    const res = host.switchToHttp().getResponse();
+    const map: Record<string, [number, string]> = {
+      P2002: [409, 'Cette ressource existe déjà'],          // unicité
+      P2025: [404, 'Ressource introuvable'],                // enregistrement absent
+      P2003: [400, 'Référence invalide'],                   // clé étrangère
+    };
+    const [status, message] = map[e.code] ?? [500, 'Erreur interne'];
+    res.status(status).json({ statusCode: status, message });
+  }
+}
 
-## Connexions
+// main.ts
+app.useGlobalFilters(new PrismaExceptionFilter());
+```
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Les règles d'or
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-07-exceptions-gestion-erreurs]]
-- Projet → [[02_Projects/CinéTrack]]
+1. **Ne jamais renvoyer le détail technique au client** (message SQL, pile d'appels) : ça aide les attaquants. Écris-le dans les **logs**, pas dans la réponse.
+2. **Un format d'erreur identique partout**, pour que le front puisse les afficher simplement.
+3. **Les erreurs 500 doivent être rares** : chacune est un bug à corriger. Envoie-les dans un outil de suivi (voir [[MON-03-Tracing-Sentry-OpenTelemetry|Sentry]]).
 
----
+## Côté front
 
-## Auto-vérification
+L'intercepteur d'erreurs d'Angular (voir [[ANG-21-Guards-Resolvers-Intercepteurs|Intercepteurs]]) ou le client HTTP de Vue lit `statusCode` et `message` pour afficher le bon message.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle différence entre une 400 et une 500 du point de vue de la responsabilité ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Créer le filtre Prisma et un filtre global de logs
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Renvoyer un objet d'erreur** (`return { error: '…' }`) au lieu de lancer une exception : le code HTTP reste 200.
+- **Attraper une erreur et l'ignorer** : le client croit que tout s'est bien passé.
+- **401 et 403 confondus** : 401 = « je ne sais pas qui tu es », 403 = « je sais qui tu es, mais tu n'as pas le droit ».

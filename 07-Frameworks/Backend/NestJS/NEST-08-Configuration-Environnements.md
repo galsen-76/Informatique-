@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Configuration et Environnements NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
   - "[[ANG-17-Deploiement-Build|Déploiement & Build Angular]]"
-related_snippets:
-  - "[[04_Snippets/nest-08-configuration-environnements]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/techniques/configuration"
@@ -23,128 +20,80 @@ source: "https://docs.nestjs.com/techniques/configuration"
 
 # Configuration et Environnements NestJS
 
-> [!abstract] Introduction
-> La configuration (URL de BDD, secrets JWT, ports) vient de variables d'environnement validées au démarrage via `@nestjs/config`, jamais du code source — principe « 12-factor app ».
+> [!abstract] En bref
+> L'adresse de la base de données, le secret des jetons, le port : ces réglages changent entre ton ordinateur, la CI et la production, et certains sont **secrets**. On ne les écrit donc **jamais dans le code** : ils viennent de **variables d'environnement**, vérifiées au démarrage.
 
-> [!warning]- Prérequis
-> [[NEST-04-Providers-DI|Providers et Injection de Dépendances NestJS]]
+## Le fichier `.env`
 
----
+```bash
+# .env  (JAMAIS commité)
+NODE_ENV=development
+PORT=3000
+DATABASE_URL=postgresql://cinetrack:motdepasse@localhost:5432/cinetrack
+JWT_SECRET=une-longue-chaine-aleatoire-de-64-caracteres
+JWT_EXPIRES_IN=15m
+TMDB_TOKEN=eyJhbGciOi…
+CORS_ORIGINS=http://localhost:4200
+```
 
-## Théorie
+```bash
+# .env.example  (commité : sert de modèle, SANS les vraies valeurs)
+DATABASE_URL=postgresql://user:password@localhost:5432/cinetrack
+JWT_SECRET=
+TMDB_TOKEN=
+```
 
-> [!question]- C'est quoi ?
-> ```bash
-> # .env (NON commité) — un .env.example documente les clés
-> DATABASE_URL=postgresql://cine:secret@localhost:5432/cinetrack
-> JWT_SECRET=change-moi
-> PORT=3000
-> ```
-> ```typescript
-> ConfigModule.forRoot({
->   isGlobal: true,
->   validate: (env) => z.object({
->     DATABASE_URL: z.string().url(),
->     JWT_SECRET: z.string().min(32),
->     PORT: z.coerce.number().default(3000),
->   }).parse(env),
-> });
-> ```
+Et dans `.gitignore` : `.env`.
 
-> [!example]- Analogie
-> Le code est une recette ; la configuration est la liste des ingrédients qui change selon la cuisine (dev, test, prod) sans réécrire la recette.
+## Vérifier la configuration au démarrage
 
-> [!question]- Pourquoi l'utiliser ?
-> Même image Docker déployée partout, secrets hors du dépôt Git, échec immédiat si une variable manque.
+Mieux vaut que l'API **refuse de démarrer** avec un message clair plutôt que de planter plus tard sur une variable manquante.
 
-> [!question]- Comment ça marche ?
-> - `ConfigService.get<string>('JWT_SECRET')` / `getOrThrow`
-> - Config typée par namespace (`registerAs('db', () => ({...}))`)
-> - `.env` en local, variables injectées par la plateforme (CI/CD, Kubernetes secrets, vault) en production
+```bash
+npm i @nestjs/config zod
+```
 
-> [!question]- Quand l'utiliser ?
-> Toute valeur qui change selon l'environnement ou qui est secrète.
+```ts
+// config/env.schema.ts
+export const EnvSchema = z.object({
+  NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+  PORT: z.coerce.number().default(3000),
+  DATABASE_URL: z.string().url(),
+  JWT_SECRET: z.string().min(32),
+  JWT_EXPIRES_IN: z.string().default('15m'),
+  TMDB_TOKEN: z.string().min(1),
+  CORS_ORIGINS: z.string().transform(s => s.split(',')),
+});
+export type Env = z.infer<typeof EnvSchema>;
+```
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les variables d'environnement sont des chaînes : valider et convertir. Un `.env` commité par erreur = secret à révoquer immédiatement.
+```ts
+// app.module.ts
+ConfigModule.forRoot({
+  isGlobal: true,
+  validate: (config) => EnvSchema.parse(config),   // plante au démarrage si invalide
+})
+```
 
----
+## Lire la configuration
 
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| 12-factor | Principes d'applications cloud, dont la config par environnement |
-| `.env.example` | Modèle des variables, sans valeurs secrètes |
-| Secret | Donnée sensible (mot de passe, clé API) |
-
----
-
-## Points clés
-
-- `.env` dans `.gitignore`, `.env.example` commité
-- Valider la config au démarrage
-- Aucune valeur par défaut pour les secrets
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Secrets en dur dans le code ou dans l'image Docker
-> - Oublier une variable en production → crash au premier appel au lieu du démarrage
-
----
-
-## Exemple minimal
-
-```typescript
+```ts
 @Injectable()
-export class TmdbService {
-  private readonly cle: string;
-  constructor(config: ConfigService) { this.cle = config.getOrThrow('TMDB_API_KEY'); }
+export class TmdbClient {
+  constructor(private readonly config: ConfigService<Env, true>) {}
+
+  private token = this.config.get('TMDB_TOKEN', { infer: true });   // typé
 }
 ```
 
-> [!note] Ce que j'en retiens
-> `getOrThrow` fait échouer tôt et clairement.
+Jamais `process.env.X` dispersé dans le code : tout passe par `ConfigService`.
 
----
+## En production
 
-## Pour aller plus loin (niveau senior)
+Les variables ne viennent pas d'un fichier `.env` mais de l'**hébergeur** ou de la **CI** (variables GitLab CI masquées, secrets de la plateforme). Voir [[SEC-10-Gestion-des-Secrets|Gestion des secrets]].
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Rotation des secrets, gestionnaires (Vault, AWS Secrets Manager, GitLab CI variables masquées)
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-08-configuration-environnements]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi valider la configuration au démarrage ?
-
----
-
-## Tâches
-
-- [ ] #task Mettre en place ConfigModule validé + `.env.example`
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Commiter `.env`** : les secrets sont dans l'historique Git pour toujours. S'il a été poussé, **change les secrets**.
+- **Une valeur par défaut pour un secret** (`JWT_SECRET ?? 'secret'`) : en production, si la variable manque, tout le monde peut fabriquer des jetons valides.
+- **Oublier `z.coerce.number()`** : les variables d'environnement sont toujours du **texte**.

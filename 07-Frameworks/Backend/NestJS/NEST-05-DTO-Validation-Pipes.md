@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,145 +10,110 @@ tags:
 aliases:
   - "DTO et Validation NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[TS-19-Validation-Runtime-Zod|Validation runtime avec Zod]]"
   - "[[SEC-08-Injection-SQL-Validation|Injection SQL et Validation des Entrées]]"
-related_snippets:
-  - "[[04_Snippets/nest-05-dto-validation-pipes]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/techniques/validation"
 ---
 
-# DTO et Validation NestJS
+# DTO Validation et Pipes NestJS
 
-> [!abstract] Introduction
-> Les DTO (Data Transfer Objects) décrivent la forme des données reçues ; combinés à `ValidationPipe` et class-validator, ils rejettent automatiquement toute requête invalide avant qu'elle n'atteigne le métier.
+> [!abstract] En bref
+> Un **DTO** (*Data Transfer Object*) décrit la forme des données que l'API accepte : « une critique a une note entre 1 et 10 et un commentaire d'au moins 10 caractères ». Avec `ValidationPipe`, NestJS **rejette automatiquement** toute requête qui ne respecte pas ces règles, avant même qu'elle n'atteigne ton code.
 
-> [!warning]- Prérequis
-> [[NEST-03-Controllers|Controllers NestJS]]
+## Règle n°1 du back-end
 
----
+> **Ne jamais faire confiance à ce qu'envoie le client.** Le front valide pour aider l'utilisateur ; le back valide pour **se protéger**.
 
-## Théorie
+N'importe qui peut envoyer une requête à ton API avec Postman ou `curl`, sans passer par ton formulaire.
 
-> [!question]- C'est quoi ?
-> ```typescript
-> export class CreateFilmDto {
->   @IsString() @Length(1, 200)
->   titre: string;
->
->   @IsInt() @Min(1888) @Max(2100)
->   annee: number;
->
->   @IsOptional() @IsArray() @IsString({ each: true })
->   genres?: string[];
-> }
-> export class UpdateFilmDto extends PartialType(CreateFilmDto) {}
-> ```
+## Écrire un DTO
 
-> [!example]- Analogie
-> Le DTO est le formulaire officiel à remplir ; le ValidationPipe est l'agent au guichet qui refuse le dossier incomplet avant qu'il n'arrive au service instructeur.
+```bash
+npm i class-validator class-transformer
+```
 
-> [!question]- Pourquoi l'utiliser ?
-> Ne JAMAIS faire confiance aux données client : types, bornes, champs inattendus (mass assignment : un utilisateur qui envoie `role: "admin"`).
+```ts
+// reviews/dto/create-review.dto.ts
+import { IsInt, Min, Max, IsString, MinLength, MaxLength, IsBoolean, IsOptional } from 'class-validator';
 
-> [!question]- Comment ça marche ?
-> `ValidationPipe` global avec :
-> - `whitelist: true` : retire les propriétés non décorées
-> - `forbidNonWhitelisted: true` : rejette la requête s'il y en a
-> - `transform: true` : convertit les types (query string → number) et instancie le DTO
-> Réponse automatique : 400 avec la liste des erreurs.
-> Pipes intégrés : `ParseIntPipe`, `ParseUUIDPipe`, `ParseEnumPipe`, `DefaultValuePipe`.
+export class CreateReviewDto {
+  @IsInt()
+  movieId!: number;
 
-> [!question]- Quand l'utiliser ?
-> Tout body, query et param. DTO de sortie (ou sérialisation) pour ne pas exposer de champs sensibles.
+  @IsInt() @Min(1) @Max(10)
+  rating!: number;
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> class-validator repose sur les décorateurs et les classes ; pour partager les règles avec le front, certains préfèrent Zod (nestjs-zod).
+  @IsString() @MinLength(10) @MaxLength(2000)
+  comment!: string;
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| DTO | Objet de transfert décrivant un payload |
-| Pipe | Transforme/valide une entrée avant le handler |
-| Mass assignment | Injection de champs non prévus dans un objet |
-| `PartialType` | DTO dont tous les champs sont optionnels |
-
----
-
-## Points clés
-
-- `ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true })`
-- Un DTO par cas d'usage (create, update, query)
-- `PartialType`, `PickType`, `OmitType` (≈ utility types TS)
-- DTO de sortie : ne jamais renvoyer le mot de passe
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `transform` → `@Query() page` reste une chaîne
-> - Valider côté front uniquement
-> - Utiliser l'entité Prisma comme DTO d'entrée
-
----
-
-## Exemple minimal
-
-```typescript
-export class FiltresFilmsDto {
-  @IsOptional() @IsString() q?: string;
-  @IsOptional() @Type(() => Number) @IsInt() @Min(1) page = 1;
-  @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(100) taille = 20;
+  @IsOptional() @IsBoolean()
+  spoiler?: boolean;
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Pagination validée et bornée : impossible de demander 1 million de lignes.
+```ts
+// update-review.dto.ts : tous les champs deviennent optionnels
+export class UpdateReviewDto extends PartialType(CreateReviewDto) {}
+```
 
----
+## Activer la validation pour toute l'API
 
-## Pour aller plus loin (niveau senior)
+```ts
+// main.ts
+app.useGlobalPipes(new ValidationPipe({
+  whitelist: true,              // supprime les champs non déclarés dans le DTO
+  forbidNonWhitelisted: true,   // …ou refuse la requête s'il y en a
+  transform: true,              // convertit en instance du DTO et les types ('5' → 5)
+}));
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Uniformiser le format d'erreur (RFC 9457 « Problem Details »)
-> - Partager des contrats front/back (OpenAPI → client généré)
+Si la requête est invalide, le client reçoit automatiquement :
 
----
+```json
+{
+  "statusCode": 400,
+  "message": ["rating must not be greater than 10", "comment must be longer than or equal to 10 characters"],
+  "error": "Bad Request"
+}
+```
 
-## Connexions
+**`whitelist: true` est une protection importante** : sans lui, un utilisateur pourrait envoyer `{ "role": "admin" }` et, si ton code recopie le corps en base, devenir administrateur.
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-07-Formulaires|Formulaires Angular]]
+## Les validateurs courants
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-05-dto-validation-pipes]]
-- Projet → [[02_Projects/CinéTrack]]
+| Décorateur | Règle |
+|---|---|
+| `@IsString()`, `@IsInt()`, `@IsNumber()`, `@IsBoolean()` | type |
+| `@IsEmail()`, `@IsUrl()`, `@IsUUID()` | format |
+| `@MinLength(n)`, `@MaxLength(n)` | longueur |
+| `@Min(n)`, `@Max(n)` | valeur |
+| `@IsIn(['a-voir', 'vu'])` / `@IsEnum(Status)` | valeur dans une liste |
+| `@IsOptional()` | peut être absent |
+| `@IsArray()`, `@ValidateNested()` + `@Type(() => X)` | liste, objet imbriqué |
 
----
+## Les pipes : transformer et valider un paramètre
 
-## Auto-vérification
+| Pipe | Effet |
+|---|---|
+| `ParseIntPipe` | `'42'` → `42`, sinon 400 |
+| `ParseUUIDPipe` | vérifie un UUID |
+| `ParseBoolPipe` | `'true'` → `true` |
+| `DefaultValuePipe(1)` | valeur par défaut |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - À quoi sert `whitelist: true` ?
+```ts
+@Get()
+findAll(@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number) {}
+```
 
----
+## DTO de réponse
 
-## Tâches
+Contrôle aussi ce que tu **renvoies** : ne renvoie jamais le mot de passe haché, les champs internes, etc. Soit tu choisis les champs dans la requête Prisma (`select`), soit tu construis un objet de réponse.
 
-- [ ] #task Créer les DTO create/update/filtres de films avec tests des cas invalides
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ?
+- **Oublier `ValidationPipe` global** : les décorateurs ne servent à rien.
+- **Oublier `!` ou `?`** sur les propriétés : erreur TypeScript en mode strict.
+- **Un DTO copié-collé du modèle Prisma** : le DTO décrit ce que le **client** a le droit d'envoyer, souvent bien moins (pas d'`id`, pas de `userId`, pas de `createdAt`).

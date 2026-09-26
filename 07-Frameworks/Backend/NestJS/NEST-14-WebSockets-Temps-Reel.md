@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "WebSockets et Temps Réel NestJS"
 parent: "[[NestJS]]"
-children: []
 related_theory:
   - "[[NET-10-WebSockets-SSE|WebSockets et Server-Sent Events]]"
-related_snippets:
-  - "[[04_Snippets/nest-14-websockets-temps-reel]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/websockets/gateways"
@@ -22,133 +19,68 @@ source: "https://docs.nestjs.com/websockets/gateways"
 
 # WebSockets et Temps Réel NestJS
 
-> [!abstract] Introduction
-> Les gateways Nest (Socket.IO ou ws) permettent une communication bidirectionnelle en temps réel entre serveur et navigateurs : notifications, chat, suivi collaboratif.
+> [!abstract] En bref
+> En HTTP classique, c'est toujours le navigateur qui **demande**. Avec un **WebSocket**, la connexion reste **ouverte** et le serveur peut **envoyer** des messages quand il veut : notifications, chat, réponse d'une IA mot par mot. NestJS gère ça avec des **gateways**. Utile pour le Capstone (assistant IA en temps réel).
 
-> [!warning]- Prérequis
-> [[NET-10-WebSockets-SSE|WebSockets et Server-Sent Events]]
+## HTTP ou WebSocket ?
 
----
+| | HTTP | WebSocket |
+|---|---|---|
+| Qui parle en premier | toujours le client | les deux, à tout moment |
+| Connexion | ouverte et fermée à chaque requête | reste ouverte |
+| Pour | lire et écrire des données (99 % des cas) | notifications, chat, collaboration en direct |
 
-## Théorie
+Image : HTTP, c'est **envoyer une lettre** et attendre la réponse. WebSocket, c'est un **appel téléphonique** : la ligne reste ouverte et chacun parle quand il veut.
 
-> [!question]- C'est quoi ?
-> ```typescript
-> @WebSocketGateway({ cors: { origin: ['http://localhost:4200'] } })
-> export class NotificationsGateway {
->   @WebSocketServer() server: Server;
->   @SubscribeMessage('rejoindre')
->   rejoindre(@ConnectedSocket() client: Socket, @MessageBody() filmId: number) {
->     client.join(`film:${filmId}`);
->   }
->   notifierNouvelleCritique(filmId: number, critique: Critique) {
->     this.server.to(`film:${filmId}`).emit('critique', critique);
->   }
-> }
-> ```
+Alternative plus simple si seul le serveur envoie : **SSE** (*Server-Sent Events*). Voir [[NET-10-WebSockets-SSE|WebSockets et SSE]].
 
-> [!example]- Analogie
-> HTTP est un échange de lettres (on écrit, on attend la réponse) ; WebSocket est un appel téléphonique : la ligne reste ouverte et chacun peut parler quand il veut.
+## Une gateway NestJS (Socket.IO)
 
-> [!question]- Pourquoi l'utiliser ?
-> Mises à jour instantanées sans polling : nouvelles critiques, statut d'une commande, présence d'utilisateurs.
+```bash
+npm i @nestjs/websockets @nestjs/platform-socket.io socket.io
+```
 
-> [!question]- Comment ça marche ?
-> - Connexion : handshake HTTP puis upgrade en WebSocket
-> - Rooms pour cibler un groupe
-> - Authentifier à la connexion (token dans `auth` du handshake), guards WS
-> - Côté Angular : service qui expose les événements en Observable (`fromEvent`) ; côté Vue : composable
-> - Plusieurs instances de l'API → adaptateur Redis pour diffuser entre instances
+```ts
+@WebSocketGateway({ cors: { origin: ['http://localhost:4200'] } })
+export class NotificationsGateway {
+  @WebSocketServer() server!: Server;
 
-> [!question]- Quand l'utiliser ?
-> Interactions bidirectionnelles fréquentes. Pour du serveur → client uniquement (flux de notifications), les SSE sont plus simples.
+  // un client rejoint la « salle » d'un film pour suivre ses nouvelles critiques
+  @SubscribeMessage('follow-movie')
+  follow(@MessageBody() movieId: number, @ConnectedSocket() client: Socket) {
+    client.join(`movie:${movieId}`);
+  }
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Connexions persistantes = état côté serveur, montée en charge plus complexe (sticky sessions, adaptateur Redis), proxies à configurer.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Gateway | Classe Nest gérant les WebSockets |
-| Room | Groupe de connexions |
-| Handshake | Négociation initiale de connexion |
-| Socket.IO | Librairie au-dessus de WebSocket (reconnexion, rooms) |
-
----
-
-## Points clés
-
-- Authentifier au handshake
-- Rooms pour cibler
-- Adaptateur Redis en multi-instances
-- SSE si unidirectionnel
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier la reconnexion côté client
-> - Diffuser à tous des données privées
-
----
-
-## Exemple minimal
-
-```typescript
-// Angular
-@Injectable({ providedIn: 'root' })
-export class CritiquesTempsReel {
-  private socket = io(environment.wsUrl, { auth: { token: inject(AuthService).token() } });
-  critiques$(filmId: number) {
-    this.socket.emit('rejoindre', filmId);
-    return fromEvent<Critique>(this.socket, 'critique');
+  // appelé par ReviewsService après la création d'une critique
+  notifyNewReview(movieId: number, review: ReviewDto) {
+    this.server.to(`movie:${movieId}`).emit('new-review', review);
   }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Côté front, un flux WebSocket devient un simple Observable.
+## Côté front
 
----
+```ts
+import { io } from 'socket.io-client';
 
-## Pour aller plus loin (niveau senior)
+const socket = io('http://localhost:3000', { auth: { token } });
+socket.emit('follow-movie', 27205);
+socket.on('new-review', (review) => {
+  // Angular : this.reviews.update(list => [review, ...list]);
+});
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Dimensionner le temps réel (connexions simultanées, backpressure, heartbeats)
+## Ce qu'il faut penser à gérer
 
----
+| Sujet | Comment |
+|---|---|
+| **Authentification** | envoyer le jeton à la connexion (`auth: { token }`) et le vérifier dans la gateway |
+| **Reconnexion** | Socket.IO se reconnecte tout seul ; prévois de recharger ce qui a été manqué |
+| **Plusieurs serveurs** | un client connecté au serveur A ne reçoit pas un message émis par B : il faut un adaptateur Redis |
+| **Fermeture** | se déconnecter quand le composant est détruit |
 
-## Connexions
+## Pièges
 
-**Arbre théorique :**
-- Sujet parent → [[NestJS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-24-RxJS-Avance|RxJS Avancé]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/nest-14-websockets-temps-reel]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quand préférer SSE à WebSocket ?
-
----
-
-## Tâches
-
-- [ ] #task Afficher en direct les nouvelles critiques d'un film
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **WebSocket pour tout** : pour lire une liste, une requête HTTP est plus simple et se met en cache.
+- **Oublier l'authentification** de la connexion : n'importe qui peut écouter.
+- **Faire confiance aux messages reçus** : valide-les comme un corps de requête HTTP.

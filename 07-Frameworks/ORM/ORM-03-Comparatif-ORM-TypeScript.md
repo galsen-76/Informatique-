@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Comparatif ORM TypeScript"
 parent: "[[ORM]]"
-children: []
 related_theory:
   - "[[BDD-08-ORM-Concepts-N-plus-1|ORM Concepts et Problème N+1]]"
-related_snippets:
-  - "[[04_Snippets/orm-03-comparatif-orm-typescript]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://orm.drizzle.team"
@@ -22,116 +19,45 @@ source: "https://orm.drizzle.team"
 
 # Comparatif ORM TypeScript
 
-> [!abstract] Introduction
-> Panorama des outils d'accès aux données en TypeScript (Prisma, TypeORM, Drizzle, MikroORM, Kysely) pour savoir lire un projet existant et argumenter un choix.
+> [!abstract] En bref
+> Un **ORM** fait le lien entre ta base SQL et ton code TypeScript : tu manipules des objets, il écrit le SQL. Prisma est ton choix principal, mais tu croiseras d'autres outils dans les projets existants. Cette note t'aide à les **reconnaître** et à **justifier** un choix.
 
-> [!warning]- Prérequis
-> [[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]
+## Les principaux
 
----
+| Outil | Style | Le reconnaître | Points forts | Points faibles |
+|---|---|---|---|---|
+| **Prisma** | schéma dans un fichier `.prisma` | `prisma.user.findMany()` | typage excellent, simple, migrations incluses | SQL très avancé moins naturel |
+| **TypeORM** | classes décorées | `@Entity()`, `@Column()`, `repository.find()` | ressemble à Java / Spring, très répandu avec NestJS | typage moins sûr, pièges connus |
+| **Drizzle** | schéma en TypeScript, proche du SQL | `db.select().from(users).where(eq(users.id, 1))` | léger, rapide, proche du SQL | plus jeune |
+| **MikroORM** | classes décorées | `em.find(User, …)` | modèle riche, unité de travail | plus complexe |
+| **Kysely** | générateur de requêtes typé | `db.selectFrom('user').selectAll()` | SQL typé, aucune magie | pas un ORM complet |
+| SQL brut (`pg`) | requêtes écrites à la main | `pool.query('SELECT …')` | contrôle total | pas de typage, tout à la main |
 
-## Théorie
+## Le même besoin, trois écritures
 
-> [!question]- C'est quoi ?
-> | Outil | Style | Points forts | Points faibles |
-> |---|---|---|---|
-> | Prisma | Schéma dédié + client généré | DX, types, migrations | SQL moins contrôlable |
-> | TypeORM | Entités décorées (≈ JPA/Hibernate) | Historique Nest, familier Java | Bugs/typage plus faibles |
-> | Drizzle | Schéma en TS, proche du SQL | Léger, SQL-like, performant | Plus bas niveau |
-> | MikroORM | Unit of Work, Data Mapper | Modèle DDD riche | Moins répandu |
-> | Kysely | Query builder typé | Contrôle total du SQL | Pas d'ORM (pas de relations auto) |
+```ts
+// Prisma
+await prisma.review.findMany({ where: { movieId: 42 }, include: { user: true } });
 
-> [!example]- Analogie
-> ORM = boîte automatique (confort), query builder = boîte manuelle (contrôle), SQL brut = conduire la moto sans aides.
+// TypeORM
+await reviewRepo.find({ where: { movieId: 42 }, relations: { user: true } });
 
-> [!question]- Pourquoi l'utiliser ?
-> En entreprise, tu hériteras souvent d'un choix existant (TypeORM est très présent dans les vieux projets Nest).
-
-> [!question]- Comment ça marche ?
-> Critères : typage, migrations, performance, contrôle du SQL, écosystème, compétence de l'équipe.
-> Patterns : **Active Record** (l'entité se sauvegarde elle-même : `film.save()`) vs **Data Mapper** (un repository sauvegarde l'entité).
-
-> [!question]- Quand l'utiliser ?
-> Nouveau projet Nest : Prisma ou Drizzle. Équipe venant de Java : TypeORM/MikroORM paraîtront familiers.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Aucun ORM ne dispense de connaître SQL, les index et les transactions.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Active Record | L'objet porte ses propres méthodes de persistance |
-| Data Mapper | Un repository persiste des objets simples |
-| Query builder | API pour construire du SQL typé |
-| Unit of Work | Regroupe les changements et les écrit en une transaction |
-
----
-
-## Points clés
-
-- Connaître SQL avant l'ORM
-- Choisir selon l'équipe et l'existant
-- Savoir lire le SQL généré
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Changer d'ORM en cours de projet sans raison forte
-
----
-
-## Exemple minimal
-
-```typescript
-// Drizzle : très proche du SQL
-const res = await db.select({ id: films.id, titre: films.titre })
-  .from(films).where(gte(films.annee, 2000)).orderBy(desc(films.annee)).limit(20);
+// Drizzle
+await db.select().from(reviews).innerJoin(users, eq(reviews.userId, users.id)).where(eq(reviews.movieId, 42));
 ```
 
-> [!note] Ce que j'en retiens
-> Même requête qu'en Prisma, style plus proche du SQL.
+## Comment choisir
 
----
+| Situation | Choix |
+|---|---|
+| nouveau projet, priorité à la simplicité et au typage | **Prisma** |
+| tu veux rester proche du SQL, projet léger | Drizzle |
+| projet NestJS existant en TypeORM | TypeORM (suis l'existant) |
+| requêtes SQL très complexes (rapports, statistiques) | SQL brut ou Kysely, **en plus** de l'ORM |
 
-## Pour aller plus loin (niveau senior)
+**Quel que soit l'ORM, connaître le SQL reste indispensable** : pour comprendre ce qui est exécuté, écrire les requêtes complexes et déboguer les lenteurs. Voir [[SQL-01-Fondamentaux-SELECT|SQL]].
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Argumenter Active Record vs Data Mapper selon la complexité du domaine
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[ORM]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/orm-03-comparatif-orm-typescript]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Différence entre Active Record et Data Mapper ?
-
----
-
-## Tâches
-
-- [ ] #task Refaire une requête CinéTrack en Drizzle pour comparer
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Changer d'ORM en cours de projet** « parce qu'un autre est à la mode » : coût énorme, gain faible.
+- **Croire que l'ORM dispense de réfléchir aux index et aux jointures** : les lenteurs viennent de la base, pas de l'ORM.
