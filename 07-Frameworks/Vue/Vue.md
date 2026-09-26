@@ -43,6 +43,7 @@ aliases:
 19. [[VUE-19-Architecture-Projet-Vue|Architecture d'un Projet Vue.js]] — Avancé · M06
 20. [[VUE-20-Composants-Integres-Avances|Composants Intégrés et Directives Custom Vue.js]] — Intermédiaire · M06
 21. [[VUE-21-Ecosysteme-UI-Vue|Écosystème UI Vue.js]] — Fondamental · M06
+22. [[VUE-22-Template-Architecture-Vue|Template d'Architecture Vue]] — Intermédiaire · M02
 
 ---
 

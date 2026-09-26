@@ -9,6 +9,44 @@ aliases:
   - "CinéTrack-API"
 ---
 
+## Prérequis
+
+> [!warning] Avant de démarrer
+> Comprendre le web côté serveur : HTTP, bases de données, SQL.
+
+**À maîtriser avant de commencer :**
+- [[NET-05-HTTP-Approfondi|HTTP Approfondi]]
+- [[ARCH-04-API-REST-Design|Conception d'API REST]]
+- [[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL SELECT]]
+- [[SQL-03-Jointures|Jointures SQL]]
+- [[SQL-04-Agregation-GROUP-BY|Agrégation et GROUP BY]]
+- [[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]
+- [[CONC-07-Modelisation-Donnees-MCD-MLD|Modélisation des Données MCD MLD]]
+- [[TS-14-Decorators|Decorators]]
+- [[ANG-05-Services-DI|Services & Injection de Dépendances (DI) Angular]]
+
+**À apprendre pendant le projet :**
+- [[BACK-00-Choisir-son-Backend|Choisir son Backend]]
+- [[NODE-01-Node-npm|Node.js et npm]]
+- [[NODE-02-Express-Middleware|Express et Middleware]]
+- [[NEST-01-Fondamentaux|Fondamentaux NestJS]]
+- [[NEST-02-Modules|Modules NestJS]]
+- [[NEST-03-Controllers|Controllers NestJS]]
+- [[NEST-04-Providers-DI|Providers et Injection de Dépendances NestJS]]
+- [[NEST-05-DTO-Validation-Pipes|DTO et Validation NestJS]]
+- [[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]
+- [[NEST-09-Prisma-Base-de-Donnees|Prisma avec NestJS]]
+- [[NEST-10-Authentification-JWT|Authentification JWT NestJS]]
+- [[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]]
+- [[NEST-11-Tests-NestJS|Tests NestJS]]
+
+**Architecture :**
+- [[ARCH-03-Architecture-en-Couches|Architecture en Couches (Layered)]]
+- [[BDD-03-Transactions-ACID|Transactions et ACID]]
+- [[BDD-04-Indexation-Performance|Indexation et Performance SQL]]
+
+---
+
 # 🎬 CinéTrack-API
 
 > [!abstract] Objectif

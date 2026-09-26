@@ -9,6 +9,48 @@ aliases:
   - "Portfolio"
 ---
 
+## Prérequis
+
+> [!warning] Avant de démarrer
+> Bases JS/TS du M01, Git et l'installation de l'environnement. Les notes Vue s'apprennent PENDANT le projet.
+
+**À maîtriser avant de commencer :**
+- [[GIT-01-Fondamentaux|Git Fondamentaux]]
+- [[GIT-02-Branches-Merge-Rebase|Branches Merge et Rebase]]
+- [[GIT-03-Depots-Distants|Dépôts Distants]]
+- [[GIT-07-Conventions-Commits-SemVer|Conventions de Commits et SemVer]]
+- [[OUT-01-Terminal-Bash|Terminal et Bash]]
+- [[NODE-01-Node-npm|Node.js et npm]]
+- [[JS-01-Fondamentaux|Fondamentaux JavaScript]]
+- [[JS-02-Types-Coercition-Egalite|Types et Coercition JavaScript]]
+- [[JS-05-Objets-Tableaux-Methodes|Objets et Tableaux JavaScript]]
+- [[TS-01-Fondamentaux|Fondamentaux TypeScript]]
+- [[TS-03-Interfaces-Types|Interfaces & Types (Type Aliases)]]
+
+**À apprendre pendant le projet :**
+- [[VUE-01-Fondamentaux|Fondamentaux Vue.js]]
+- [[VUE-02-Reactivite|Réactivité Vue.js]]
+- [[VUE-03-Composants-SFC|Composants & SFC Vue.js]]
+- [[VUE-05-Props-Emits|Props & Emits Vue.js (Communication Parent-Enfant)]]
+- [[VUE-06-Computed-Watchers|Computed & Watchers Vue.js]]
+- [[VUE-07-Composition-API|Composition API & Composables Vue.js]]
+- [[VUE-08-Vue-Router|Vue Router]]
+- [[VUE-10-TypeScript-avec-Vue|TypeScript avec Vue.js]]
+- [[JS-07-Promises-Async-Await|Promises et Async Await JavaScript]]
+- [[JS-10-Fetch-JSON-HTTP|Fetch API et JSON]]
+- [[TS-07-Union-Intersection|Union & Intersection Types]]
+- [[VUE-14-Formulaires-Validation|Formulaires et Validation Vue.js]]
+- [[VUE-16-Tests-Vitest|Tests Vue.js avec Vitest]]
+
+**Architecture et UI :**
+- [[VUE-22-Template-Architecture-Vue|Template d'Architecture Vue]]
+- [[UI-Librairies-Interfaces-Rapides|Librairies UI pour Interfaces Rapides]]
+- [[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]]
+- [[CSS-03-Flexbox|Flexbox CSS]]
+- [[CSS-04-Grid|Grid CSS]]
+
+---
+
 # 🛠️ Portfolio
 
 > [!abstract] Objectif
@@ -36,6 +78,7 @@ aliases:
 ### M01 — Mise en place (en parallèle des bases JS/TS)
 - [ ] #task `npm create vue@latest portfolio` → TypeScript, Router, Vitest, ESLint, Prettier
 - [ ] #task Lire la structure générée (`main.ts`, `App.vue`, `router/`, `env.d.ts`, `tsconfig`) et la documenter dans le README
+- [ ] #task Créer le squelette `core/`, `shared/`, `features/` du [[VUE-22-Template-Architecture-Vue|template d'architecture Vue]] + alias `@/`
 - [ ] #task Installer PrimeVue + thème Aura + PrimeIcons, lucide-vue-next, Tailwind (voir [[UI-Librairies-Interfaces-Rapides|Librairies UI]])
 - [ ] #task Layout (en-tête, menu, pied de page) généré avec l'IA à partir des composants PrimeVue — relire et corriger la sémantique HTML
 - [ ] #task Dépôt GitLab, commits conventionnels

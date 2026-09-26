@@ -51,6 +51,7 @@ aliases:
 27. [[ANG-27-Defer-Vues-Differees|Vues différées @defer Angular]] — Intermédiaire · M05
 28. [[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]] — Avancé · M05
 29. [[ANG-29-Angular-Material-CDK|Angular Material et CDK]] — Intermédiaire · M05
+30. [[ANG-30-Template-Architecture-Angular|Template d'Architecture Angular]] — Intermédiaire · M04
 
 ---
 

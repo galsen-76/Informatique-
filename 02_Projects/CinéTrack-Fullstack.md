@@ -9,6 +9,38 @@ aliases:
   - "CinéTrack-Fullstack"
 ---
 
+## Prérequis
+
+> [!warning] Avant de démarrer
+> Les trois projets précédents terminés + bases Linux et Git avancé.
+
+**À maîtriser avant de commencer :**
+- [[CinéTrack]]
+- [[CinéTrack-API]]
+- [[GIT-06-Workflows-Equipe|Workflows Git en Équipe]]
+- [[LNX-01-Linux-Essentiels|Linux Essentiels]]
+- [[DK-01-Fondamentaux|Fondamentaux Docker]]
+
+**À apprendre pendant le projet :**
+- [[DK-02-Dockerfile|Dockerfile]]
+- [[DK-03-Docker-Compose|Docker Compose]]
+- [[DK-08-Multi-stage-Builds|Multi-stage Builds Docker]]
+- [[CICD-01-Fondamentaux|Fondamentaux CI/CD]]
+- [[03-CI-CD|CI/CD GitLab]]
+- [[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]
+- [[CLOUD-02-Heberger-Front|Héberger un Front]]
+- [[CLOUD-03-Heberger-API-BDD|Héberger une API et une Base de Données]]
+- [[MON-01-Logs|Logs]]
+- [[TEST-05-Tests-E2E-Playwright|Tests End-to-End Playwright et Cypress]]
+- [[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]
+
+**Architecture :**
+- [[ARCH-12-Clean-Architecture-Hexagonale|Architecture Hexagonale et Clean Architecture]]
+- [[CONC-08-ADR-Architecture-Decision-Records|Architecture Decision Records ADR]]
+- [[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]
+
+---
+
 # 🎬 CinéTrack-Fullstack
 
 > [!abstract] Objectif

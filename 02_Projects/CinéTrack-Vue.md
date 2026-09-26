@@ -9,6 +9,30 @@ aliases:
   - "CinéTrack-Vue"
 ---
 
+## Prérequis
+
+> [!warning] Avant de démarrer
+> Portfolio et CinéTrack terminés : il s'agit d'approfondir Vue en réécrivant une application connue.
+
+**À maîtriser avant de commencer :**
+- [[Portfolio]]
+- [[CinéTrack]]
+- [[Angular-vs-Vue|Angular vs Vue Correspondances]]
+
+**À apprendre pendant le projet :**
+- [[VUE-09-Pinia-State-Management|Pinia (State Management Vue.js)]]
+- [[VUE-13-Provide-Inject|Provide Inject Vue.js]]
+- [[VUE-12-Slots|Slots Vue.js]]
+- [[VUE-15-Appels-API|Appels API Vue.js]]
+- [[VUE-17-Performance-Bonnes-Pratiques|Performance et Bonnes Pratiques Vue.js]]
+- [[VUE-16-Tests-Vitest|Tests Vue.js avec Vitest]]
+
+**Architecture et UI :**
+- [[VUE-22-Template-Architecture-Vue|Template d'Architecture Vue]]
+- [[VUE-19-Architecture-Projet-Vue|Architecture d'un Projet Vue.js]]
+
+---
+
 # 🎬 CinéTrack-Vue
 
 > [!abstract] Objectif

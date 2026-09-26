@@ -9,6 +9,31 @@ aliases:
   - "Capstone"
 ---
 
+## Prérequis
+
+> [!warning] Avant de démarrer
+> Tout le parcours ; la fonctionnalité finale mobilise front, back, données, sécurité et IA.
+
+**À maîtriser avant de commencer :**
+- [[CinéTrack-Fullstack]]
+- [[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]
+- [[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]
+
+**À apprendre pendant le projet :**
+- [[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]
+- [[IA-03-Prompt-Engineering|Prompt Engineering]]
+- [[IA-04-RAG-Embeddings|RAG et Embeddings]]
+- [[IA-05-APIs-LLM|APIs de LLM]]
+- [[NET-10-WebSockets-SSE|WebSockets et Server-Sent Events]]
+- [[BDD-09-PostgreSQL-Pratique|PostgreSQL en Pratique]]
+- [[IA-08-Ethique-Limites-IA|Éthique et Limites de l'IA]]
+
+**Conception :**
+- [[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]
+- [[CONC-08-ADR-Architecture-Decision-Records|Architecture Decision Records ADR]]
+
+---
+
 # 🛠️ Capstone
 
 > [!abstract] Objectif

@@ -9,6 +9,45 @@ aliases:
   - "CinéTrack"
 ---
 
+## Prérequis
+
+> [!warning] Avant de démarrer
+> Le Portfolio terminé (tu sais déjà structurer un projet front typé) + les bases HTTP et asynchrones.
+
+**À maîtriser avant de commencer :**
+- [[Portfolio]]
+- [[TS-06-Generics|Generics]]
+- [[TS-09-Type-Narrowing|Type Narrowing]]
+- [[TS-10-Utility-Types|Utility Types]]
+- [[JS-06-Event-Loop|Event Loop JavaScript]]
+- [[JS-07-Promises-Async-Await|Promises et Async Await JavaScript]]
+- [[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]]
+- [[NET-05-HTTP-Approfondi|HTTP Approfondi]]
+- [[SEC-07-CORS-Same-Origin|CORS et Same-Origin Policy]]
+
+**À apprendre pendant le projet :**
+- [[ANG-01-Fondamentaux|Fondamentaux Angular]]
+- [[ANG-02-Composants|Composants Angular]]
+- [[ANG-03-Templates-Data-Binding|Templates & Data Binding Angular]]
+- [[ANG-04-Directives|Directives Angular]]
+- [[ANG-05-Services-DI|Services & Injection de Dépendances (DI) Angular]]
+- [[ANG-06-Routing|Routing Angular]]
+- [[ANG-07-Formulaires|Formulaires Angular]]
+- [[ANG-08-RxJS|Programmation Réactive (RxJS) Angular]]
+- [[ANG-09-HTTP-Communication-Serveur|HTTP & Communication Serveur Angular]]
+- [[ANG-10-Signals|Signals Angular]]
+- [[ANG-19-Communication-Composants|Communication parent-enfant Angular]]
+- [[ANG-21-Guards-Resolvers-Intercepteurs|Guards Resolvers et Intercepteurs Angular]]
+- [[ANG-20-Pipes|Pipes Angular]]
+
+**Architecture et UI :**
+- [[ANG-30-Template-Architecture-Angular|Template d'Architecture Angular]]
+- [[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]]
+- [[UI-Librairies-Interfaces-Rapides|Librairies UI pour Interfaces Rapides]]
+- [[Angular-vs-Vue|Angular vs Vue Correspondances]]
+
+---
+
 # 🎬 CinéTrack
 
 > [!abstract] Objectif
@@ -24,7 +63,8 @@ aliases:
 ### M04
 - [ ] #task Créer un compte TMDB et récupérer le **jeton d'accès en lecture** (API Read Access Token)
 - [ ] #task `ng new cinetrack` + structure par features (`films`, `favoris`, `core`, `shared`) + PrimeNG
-- [ ] #task Interfaces TypeScript des réponses TMDB (`FilmResume`, `FilmDetail`, `PageTmdb<T>` générique)
+- [ ] #task Créer le squelette du [[ANG-30-Template-Architecture-Angular|template d'architecture Angular]] (core, shared, features/films, alias `@core`, `@shared`, `@features`)
+- [ ] #task Interfaces TypeScript des réponses TMDB (DTO) + mapper vers le modèle `Film`, et (`FilmResume`, `FilmDetail`, `PageTmdb<T>` générique)
 - [ ] #task `TmdbService` + intercepteur qui ajoute `Authorization: Bearer …` et `language=fr-FR`
 - [ ] #task Page d'accueil : films populaires et tendances (grille de cartes, pagination)
 - [ ] #task Recherche de films avec debounceTime + switchMap (ou `toObservable` + `toSignal`)
