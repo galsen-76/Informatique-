@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Nuxt et SSR Vue.js"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[VUE-08-Vue-Router|Vue Router]]"
   - "[[VUE-15-Appels-API|Appels API Vue.js]]"
-related_snippets:
-  - "[[04_Snippets/vue-18-nuxt-ssr]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://nuxt.com/docs/getting-started/introduction"
@@ -23,133 +20,45 @@ source: "https://nuxt.com/docs/getting-started/introduction"
 
 # Nuxt et SSR Vue.js
 
-> [!abstract] Introduction
-> Nuxt est le méta-framework de Vue : routing par fichiers, SSR/SSG, auto-imports, data fetching serveur et même des routes API — l'équivalent de Next.js pour React ou d'Angular SSR.
+> [!abstract] En bref
+> **Nuxt** est une surcouche de Vue qui ajoute le rendu **côté serveur** (SSR) : la page arrive déjà remplie dans le navigateur, ce qui est meilleur pour Google et pour la vitesse d'affichage. Il ajoute aussi des pages créées automatiquement à partir des fichiers. À connaître, pas à maîtriser tout de suite : ton Portfolio fonctionne très bien sans.
 
-> [!warning]- Prérequis
-> [[VUE-08-Vue-Router|Vue Router]], [[VUE-09-Pinia-State-Management|Pinia (State Management Vue.js)]]
+## Rendu côté client ou côté serveur
 
----
+| | Vue classique (SPA) | Nuxt (SSR / SSG) |
+|---|---|---|
+| Le serveur envoie | une page vide + du JavaScript | une page **déjà remplie** |
+| Premier affichage | après le chargement du JS | immédiat |
+| Référencement Google | correct | excellent |
+| Hébergement | fichiers statiques (simple) | serveur Node, ou fichiers statiques en SSG |
 
-## Théorie
+- **SSR** (*Server-Side Rendering*) : le serveur construit la page à chaque visite.
+- **SSG** (*Static Site Generation*) : les pages sont construites **une fois**, au build. Idéal pour un site vitrine.
 
-> [!question]- C'est quoi ?
-> ```text
-> pages/
-> ├── index.vue            → /
-> ├── films/
-> │   ├── index.vue        → /films
-> │   └── [id].vue         → /films/:id
-> server/api/films.get.ts  → GET /api/films
-> ```
-> ```vue
-> <script setup lang="ts">
-> const route = useRoute();
-> const { data: film, status, error } = await useFetch(`/api/films/${route.params.id}`);
-> useSeoMeta({ title: () => film.value?.titre ?? 'Film' });
-> </script>
-> ```
+## Ce que Nuxt change
 
-> [!example]- Analogie
-> Vue est un moteur ; Nuxt est la voiture complète autour (châssis, tableau de bord, GPS) avec des conventions qui évitent de tout assembler.
-
-> [!question]- Pourquoi l'utiliser ?
-> SEO, performance du premier affichage, conventions (routing, layouts, middleware), productivité (auto-imports).
-
-> [!question]- Comment ça marche ?
-> - Modes : SSR universel (défaut), SSG (`nuxi generate`), SPA, rendu hybride par route (`routeRules`)
-> - `useFetch` / `useAsyncData` : données chargées côté serveur puis transférées au client (pas de double requête)
-> - `layouts/`, `middleware/` (≈ guards), `plugins/`, `composables/` auto-importés
-> - Serveur Nitro : routes API, déploiement sur Node, serverless ou edge
-
-> [!question]- Quand l'utiliser ?
-> Site public avec SEO, e-commerce, contenu. Pour une application métier derrière login, une SPA Vue + Vite suffit souvent.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Complexité SSR (code navigateur-only, hydratation), conventions magiques (auto-imports) qui surprennent au début.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Méta-framework | Framework construit au-dessus d'un framework UI |
-| File-based routing | Routes déduites de l'arborescence de fichiers |
-| Nitro | Moteur serveur de Nuxt |
-| `routeRules` | Stratégie de rendu/cache par route |
-
----
-
-## Points clés
-
-- Routing par fichiers dans `pages/`
-- `useFetch` pour les données SSR-safe
-- `routeRules` pour mixer SSR, SSG, SPA
-- Code navigateur dans `onMounted` ou `<ClientOnly>`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `fetch` classique dans le setup → requête exécutée deux fois (serveur puis client)
-> - Accéder à `window` pendant le rendu serveur
-
----
-
-## Exemple minimal
-
-```typescript
-// nuxt.config.ts
-export default defineNuxtConfig({
-  routeRules: {
-    '/': { prerender: true },
-    '/films/**': { swr: 3600 },       // SSR + cache 1 h
-    '/compte/**': { ssr: false },     // SPA
-  },
-});
+```text
+pages/
+├── index.vue            → /
+├── projects/
+│   ├── index.vue        → /projects
+│   └── [slug].vue       → /projects/:slug
+└── contact.vue          → /contact
 ```
 
-> [!note] Ce que j'en retiens
-> Une seule application, trois stratégies de rendu selon la page.
+- **Les routes viennent des fichiers** : plus de `router/index.ts`.
+- **Imports automatiques** : `ref`, `computed` et tes composants s'utilisent sans `import`.
+- **Chargement de données côté serveur** : `const { data } = await useFetch('/api/projects')`.
+- **SEO facile** : `useHead({ title: 'Projets' })`.
 
----
+## Quand choisir Nuxt ?
 
-## Pour aller plus loin (niveau senior)
+- **Oui** : site public qui doit être bien référencé (blog, vitrine, e-commerce).
+- **Non nécessaire** : application derrière une connexion (tableau de bord, outil interne), ou le Portfolio en version simple.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Comparer Nuxt et Angular SSR sur un même besoin (SEO, déploiement, coût)
+Pour ton Portfolio, tu peux envisager une version Nuxt **plus tard**, comme exercice, une fois la version Vue terminée.
 
----
+## Pièges
 
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-26-SSR-Hydratation|SSR et Hydratation Angular]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-18-nuxt-ssr]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `useFetch` évite-t-il la double requête ?
-
----
-
-## Tâches
-
-- [ ] #task Créer un mini-projet Nuxt avec une page liste et une page détail
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`window` ou `localStorage` dans le code exécuté côté serveur** : ils n'existent pas. À utiliser seulement dans `onMounted` ou avec `import.meta.client`.
+- **L'équivalent Angular** existe aussi : [[ANG-26-SSR-Hydratation|Angular SSR]].

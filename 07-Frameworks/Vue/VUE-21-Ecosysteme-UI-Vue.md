@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Écosystème UI Vue.js"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]]"
-related_snippets:
-  - "[[04_Snippets/vue-21-ecosysteme-ui-vue]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/ecosystem/"
@@ -22,121 +19,45 @@ source: "https://vuejs.org/ecosystem/"
 
 # Écosystème UI Vue.js
 
-> [!abstract] Introduction
-> Tour de l'écosystème Vue utile en entreprise : librairies de composants (PrimeVue, Vuetify, Quasar), utilitaires (VueUse), outils (Vite, Vitest, Vue DevTools) et méta-framework (Nuxt).
+> [!abstract] En bref
+> Les outils de l'écosystème Vue qui te feront gagner du temps en entreprise et dans tes projets. Pas besoin de tout connaître : voici **ce que je te conseille** d'utiliser, et ce qui existe à côté.
 
-> [!warning]- Prérequis
-> [[VUE-01-Fondamentaux|Fondamentaux Vue.js]]
+## Ta boîte à outils
 
----
+| Besoin | Mon choix | Alternatives |
+|---|---|---|
+| Créer le projet | `npm create vue@latest` (Vite) | Nuxt si SEO important |
+| Composants (boutons, tableaux, menus, formulaires) | **PrimeVue** (thème Aura) | Vuetify, Quasar, Naive UI |
+| Mise en page, ajustements | **Tailwind CSS** | CSS du composant |
+| Icônes | **Lucide** (`lucide-vue-next`) | PrimeIcons, Iconify |
+| Utilitaires (mode sombre, localStorage, debounce…) | **VueUse** | |
+| État partagé | **Pinia** | |
+| Routes | **Vue Router** | |
+| Formulaires | **VeeValidate + Zod** | FormKit |
+| Appels API avec cache | TanStack Query (`@tanstack/vue-query`) | un composable maison |
+| Graphiques | PrimeVue Chart (Chart.js) | ECharts (`vue-echarts`) |
+| Tests | **Vitest** + Vue Test Utils, **Playwright** | Cypress |
+| Débogage | **Vue DevTools** (extension navigateur) | |
+| Éditeur | extension **Vue - Official** (VS Code) | WebStorm |
 
-## Théorie
+## La stack du Portfolio
 
-> [!question]- C'est quoi ?
-> | Besoin | Outils courants |
-> |---|---|
-> | Build | Vite |
-> | Routing / état | Vue Router, Pinia |
-> | Composants UI | PrimeVue, Vuetify (Material), Quasar, Naive UI, Element Plus, shadcn-vue |
-> | Utilitaires | VueUse (>200 composables) |
-> | Formulaires | VeeValidate, FormKit |
-> | Données serveur | TanStack Query, axios |
-> | i18n | vue-i18n |
-> | Tests | Vitest, Vue Test Utils, Playwright |
-> | SSR | Nuxt |
-
-> [!example]- Analogie
-> Vue est le cœur ; l'écosystème est la boîte à outils officielle et communautaire qu'on ajoute pièce par pièce selon le chantier.
-
-> [!question]- Pourquoi l'utiliser ?
-> Ne pas réinventer ce qui existe (useDebounce, useLocalStorage, datepicker accessible) et savoir lire le `package.json` d'un projet existant.
-
-> [!question]- Comment ça marche ?
-> Critères de choix d'une librairie : maintenance (dernière release, issues), compatibilité Vue 3 + TS, accessibilité, taille, thème, licence, usage par l'équipe.
-
-> [!question]- Quand l'utiliser ?
-> Au démarrage d'un projet (choix d'équipe) et en arrivant sur un projet (lire les dépendances).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Chaque dépendance est une dette (mises à jour, failles, abandon) : n'ajouter que ce qui apporte vraiment.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| VueUse | Collection de composables utilitaires |
-| i18n | Internationalisation |
-| Dépendance | Paquet externe utilisé par le projet |
-
----
-
-## Points clés
-
-- Vite + Pinia + Vue Router = socle officiel
-- VueUse avant d'écrire un utilitaire maison
-- Choisir une lib UI selon l'a11y et la maintenance
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Mélanger deux librairies UI dans le même projet
-> - Installer une lib pour une fonction de 5 lignes
-
----
-
-## Exemple minimal
-
-```typescript
-import { useLocalStorage, useDebounce, useDark } from '@vueuse/core';
-const favoris = useLocalStorage<number[]>('favoris', []);
-const recherche = ref('');
-const rechercheDebounce = useDebounce(recherche, 300);
-const estSombre = useDark();
+```bash
+npm create vue@latest portfolio        # TypeScript, Router, Vitest, ESLint, Prettier
+npm i primevue @primeuix/themes primeicons lucide-vue-next @vueuse/core
+npm i vee-validate zod @vee-validate/zod
+npm i -D tailwindcss @tailwindcss/vite
 ```
 
-> [!note] Ce que j'en retiens
-> Trois besoins courants, zéro code maison.
+Installation et configuration pas à pas : [[UI-Librairies-Interfaces-Rapides|Librairies UI pour interfaces rapides]].
 
----
+## Pourquoi ces choix
 
-## Pour aller plus loin (niveau senior)
+- **PrimeVue** : existe aussi en version Angular (**PrimeNG**) avec les mêmes composants. Ce que tu apprends dans le Portfolio sert directement dans CinéTrack.
+- **VueUse** : évite de réécrire 200 petites fonctions courantes.
+- **Vitest** : même configuration que Vite, très rapide.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Auditer les dépendances (`npm audit`, Renovate/Dependabot)
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-29-Angular-Material-CDK|Angular Material et CDK]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-21-ecosysteme-ui-vue]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quels critères pour choisir une librairie UI ?
-
----
-
-## Tâches
-
-- [ ] #task Lister les dépendances du projet Vue au travail et le rôle de chacune
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Empiler les librairies** de composants (PrimeVue + Vuetify) : incohérence visuelle et poids en plus. Une seule.
+- **Installer une librairie pour 10 lignes de code** : vérifie qu'elle est maintenue (dernière mise à jour, nombre de téléchargements) et qu'elle en vaut la peine.

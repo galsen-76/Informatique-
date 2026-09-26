@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Responsive Design"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[CSS-03-Flexbox|Flexbox CSS]]"
   - "[[CSS-04-Grid|Grid CSS]]"
-related_snippets:
-  - "[[04_Snippets/css-05-responsive-design]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://web.dev/learn/design"
@@ -23,123 +20,77 @@ source: "https://web.dev/learn/design"
 
 # Responsive Design
 
-> [!abstract] Introduction
-> Le responsive design adapte une interface à toutes les tailles d'écran (mobile, tablette, desktop) avec des mises en page fluides, des media queries et des container queries.
+> [!abstract] En bref
+> Un site **responsive** s'adapte à toutes les tailles d'écran : téléphone, tablette, ordinateur. La méthode : des mises en page qui s'étirent toutes seules (Flex, Grid, pourcentages), et des **media queries** pour les quelques changements nécessaires. Plus de la moitié des visites se font sur mobile.
 
-> [!warning]- Prérequis
-> [[CSS-03-Flexbox|Flexbox CSS]], [[CSS-04-Grid|Grid CSS]]
+## La base obligatoire
 
----
+Dans le `<head>`, sinon le téléphone affiche une version miniature du site :
 
-## Théorie
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
 
-> [!question]- C'est quoi ?
-> ```css
-> .grille { display: grid; grid-template-columns: 1fr; }
-> @media (min-width: 768px) { .grille { grid-template-columns: 1fr 1fr; } }
-> @media (min-width: 1200px) { .grille { grid-template-columns: repeat(3, 1fr); } }
-> ```
+## Les media queries
 
-> [!example]- Analogie
-> Un liquide prend la forme du récipient ; une interface responsive prend la forme de l'écran.
-
-> [!question]- Pourquoi l'utiliser ?
-> Plus de la moitié du trafic web est mobile ; Google indexe en « mobile first ».
-
-> [!question]- Comment ça marche ?
-> - **Mobile first** : styles de base pour mobile, puis `min-width` pour agrandir
-> - Tailles fluides : `%`, `fr`, `clamp(1rem, 2.5vw, 2rem)`
-> - Images : `max-width: 100%`, `srcset`/`sizes`, `<picture>`
-> - **Container queries** : un composant s'adapte à la taille de SON conteneur, pas de l'écran → idéal pour des composants réutilisables Angular/Vue
-> - `prefers-color-scheme`, `prefers-reduced-motion`
-
-> [!question]- Quand l'utiliser ?
-> Toujours. Définir 2-3 points de rupture selon le contenu, pas selon des appareils précis.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les media queries répondent à la taille de l'écran, pas à l'espace réel d'un composant (→ container queries).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Breakpoint | Largeur où la mise en page change |
-| Mobile first | Styles de base pour petits écrans |
-| Container query | Règle basée sur la taille du conteneur |
-| Viewport | Zone visible de la page |
-
----
-
-## Points clés
-
-- `<meta name="viewport">` indispensable
-- Mobile first + `min-width`
-- Container queries pour les composants
-- Tester dans le mode appareil des DevTools ET sur un vrai téléphone
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Largeurs fixes en px qui débordent sur mobile
-> - Zones cliquables trop petites (< 44px)
-> - Oublier le mode paysage
-
----
-
-## Exemple minimal
+« Si l'écran fait moins de 900 px, applique ces règles » :
 
 ```css
-.carte-wrapper { container-type: inline-size; }
-.film-card { display: grid; gap: .5rem; }
-@container (min-width: 400px) {
-  .film-card { grid-template-columns: 120px 1fr; }
+.projets { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 900px) {
+  .projets { grid-template-columns: 1fr; }   /* une colonne sur petit écran */
+  nav ul { display: none; }                  /* on cache le menu, on affiche le bouton ☰ */
 }
 ```
 
-> [!note] Ce que j'en retiens
-> La carte passe en horizontal dès que SON conteneur fait 400px, qu'elle soit dans une sidebar ou en plein écran.
+Les points de rupture du Portfolio : **900 px** (tablette → une colonne) et **520 px** (petit téléphone).
 
----
+## Penser mobile d'abord (mobile first)
 
-## Pour aller plus loin (niveau senior)
+Écrire d'abord le style pour mobile (le plus simple), puis **ajouter** pour les grands écrans :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Images responsives optimisées (AVIF/WebP, `NgOptimizedImage`)
-> - Typographie fluide avec `clamp()`
+```css
+.projets { display: grid; gap: 16px; }                 /* mobile : 1 colonne */
 
----
+@media (min-width: 900px) {
+  .projets { grid-template-columns: repeat(3, 1fr); }  /* grand écran : 3 colonnes */
+}
+```
 
-## Connexions
+C'est l'approche de Tailwind (`md:grid-cols-3`).
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Des tailles qui s'adaptent toutes seules
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/css-05-responsive-design]]
-- Projet → [[02_Projects/CinéTrack]]
+| Outil | Exemple | Effet |
+|---|---|---|
+| `%` | `width: 100%` | relatif au parent |
+| `max-width` | `max-width: 1100px; margin: 0 auto;` | contenu centré, jamais trop large |
+| `rem` | `font-size: 1.15rem` | relatif à la taille de texte de l'utilisateur (1 rem ≈ 16 px) |
+| `vw` / `vh` | `height: 100vh` | % de la largeur / hauteur de l'écran |
+| `clamp()` | `font-size: clamp(2.2rem, 5vw, 3.4rem)` | grandit avec l'écran, entre un minimum et un maximum |
+| `minmax()` + `auto-fill` | voir [[CSS-04-Grid\|Grid]] | colonnes automatiques |
 
----
+Le titre du Portfolio utilise `clamp()` : 35 px sur mobile, 54 px sur grand écran, sans media query.
 
-## Auto-vérification
+## Container queries : s'adapter à son conteneur
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle différence entre media query et container query ?
+Une carte qui change de disposition selon **la place qu'elle a**, pas selon la taille de l'écran :
 
----
+```css
+.zone-cartes { container-type: inline-size; }
 
-## Tâches
+@container (min-width: 400px) {
+  .carte { display: flex; }   /* image à côté du texte s'il y a de la place */
+}
+```
 
-- [ ] #task Rendre le portfolio parfaitement utilisable de 320px à 1920px
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Tester
 
----
+F12 → icône téléphone/tablette (**mode appareil**) → choisis un modèle ou redimensionne. Teste aussi sur un vrai téléphone.
 
-## Notes brutes
+## Pièges
 
-- ?
+- **Largeurs fixes en px** (`width: 1200px`) : scroll horizontal sur mobile.
+- **Cibles trop petites** : un bouton doit faire au moins 44 × 44 px pour un doigt.
+- **Texte trop petit** : 16 px minimum pour le texte courant.

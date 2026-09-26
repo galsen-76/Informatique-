@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Grid CSS"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[CSS-02-Box-Model|Box Model CSS]]"
-related_snippets:
-  - "[[04_Snippets/css-04-grid]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://css-tricks.com/snippets/css/complete-guide-grid/"
@@ -22,132 +19,92 @@ source: "https://css-tricks.com/snippets/css/complete-guide-grid/"
 
 # Grid CSS
 
-> [!abstract] Introduction
-> CSS Grid crée des mises en page en DEUX dimensions (lignes et colonnes) : layouts de page, galeries responsives, tableaux de bord.
+> [!abstract] En bref
+> Grid organise des éléments en **lignes et colonnes à la fois**, comme un tableau invisible. C'est l'outil pour une grille de cartes (tes projets, les affiches de films) ou la mise en page générale d'un écran.
 
-> [!warning]- Prérequis
-> [[CSS-02-Box-Model|Box Model CSS]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```css
-> .galerie {
->   display: grid;
->   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
->   gap: 1rem;
-> }
-> ```
-
-> [!example]- Analogie
-> Un tableur : on définit les colonnes et les lignes, puis on place chaque élément dans ses cases (en pouvant fusionner des cellules).
-
-> [!question]- Pourquoi l'utiliser ?
-> Une galerie responsive sans aucune media query, un layout de page lisible avec des zones nommées.
-
-> [!question]- Comment ça marche ?
-> - `grid-template-columns/rows` : taille des pistes (`1fr`, `auto`, `minmax()`, `repeat()`)
-> - `fr` : fraction de l'espace restant
-> - `grid-template-areas` : zones nommées
-> - `grid-column: 1 / -1` : s'étendre sur toutes les colonnes
-> - `auto-fill` vs `auto-fit` : garder les colonnes vides ou étirer les éléments
-
-> [!question]- Quand l'utiliser ?
-> Layout global (header / sidebar / contenu / footer), grilles de cartes, formulaires alignés.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pour une simple rangée d'éléments de tailles variables, Flexbox est plus simple.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Piste (track) | Une ligne ou une colonne de la grille |
-| fr | Fraction de l'espace disponible |
-| Zone (area) | Région nommée de la grille |
-| subgrid | Enfant qui réutilise les pistes du parent |
-
----
-
-## Points clés
-
-- `repeat(auto-fill, minmax(X, 1fr))` = grille responsive sans media query
-- `grid-template-areas` rend le layout lisible
-- `gap` fonctionne en grid et flex
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Confondre `auto-fill` et `auto-fit`
-> - Oublier `min-width: 0` / `minmax(0, 1fr)` → débordement de contenu long
-
----
-
-## Exemple minimal
+## Une grille de cartes
 
 ```css
-.page {
+.projets {
   display: grid;
-  grid-template-areas: "header header" "nav main" "footer footer";
-  grid-template-columns: 240px 1fr;
-  min-height: 100dvh;
-}
-.page > header { grid-area: header; }
-.page > nav { grid-area: nav; }
-.page > main { grid-area: main; }
-.page > footer { grid-area: footer; }
-@media (width < 768px) {
-  .page { grid-template-areas: "header" "main" "footer"; grid-template-columns: 1fr; }
-  .page > nav { display: none; }
+  grid-template-columns: repeat(3, 1fr);   /* 3 colonnes de même largeur */
+  gap: 18px;
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Changer le layout sur mobile = redéfinir les zones, sans toucher au HTML.
+`1fr` = « une part de l'espace disponible ». `repeat(3, 1fr)` = trois parts égales.
 
----
+## LA recette responsive (sans media query)
 
-## Pour aller plus loin (niveau senior)
+```css
+.affiches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Utiliser `subgrid` pour aligner des cartes de hauteurs différentes
+Se lit : « mets autant de colonnes que possible, chacune d'au moins 160 px, et partage le reste ». Sur mobile : 2 colonnes. Sur grand écran : 7. **Aucune media query.** Parfait pour la grille d'affiches de CinéTrack.
 
----
+## Mise en page avec contenu + barre latérale
 
-## Connexions
+```css
+.page-detail {
+  display: grid;
+  grid-template-columns: 1fr 300px;   /* contenu flexible + colonne fixe */
+  gap: 40px;
+}
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[CSS-03-Flexbox|Flexbox CSS]]
+@media (max-width: 900px) {
+  .page-detail { grid-template-columns: 1fr; }   /* une seule colonne sur mobile */
+}
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/css-04-grid]]
-- Projet → [[02_Projects/CinéTrack]]
+## Aide-mémoire
 
----
+| Propriété (parent) | Exemple | Effet |
+|---|---|---|
+| `grid-template-columns` | `200px 1fr` | colonnes : 200 px fixe + le reste |
+| `grid-template-rows` | `auto 1fr auto` | lignes : en-tête, contenu, pied |
+| `gap` | `16px` | espace entre les cases |
+| `place-items` | `center` | centre le contenu de chaque case |
 
-## Auto-vérification
+| Propriété (enfant) | Exemple | Effet |
+|---|---|---|
+| `grid-column` | `1 / -1` | s'étend sur toute la largeur |
+| `grid-column` | `span 2` | occupe 2 colonnes |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quand choisir Grid plutôt que Flexbox ?
+## Nommer les zones (lisible pour une mise en page)
 
----
+```css
+.layout {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "menu   main"
+    "footer footer";
+  grid-template-columns: 240px 1fr;
+}
+header { grid-area: header; }
+nav    { grid-area: menu; }
+main   { grid-area: main; }
+footer { grid-area: footer; }
+```
 
-## Tâches
+## Flexbox ou Grid ?
 
-- [ ] #task Finir le jeu Grid Garden
-- [ ] #task Faire le layout de CinéTrack avec grid-template-areas
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+| Besoin | Outil |
+|---|---|
+| Une rangée de boutons, une barre de menu | Flexbox |
+| Une grille de cartes | Grid |
+| La mise en page d'un écran | Grid |
+| Centrer un élément | les deux (`place-items: center` en Grid) |
 
----
+On les combine souvent : une grille de cartes (Grid), et dans chaque carte, un pied avec des boutons (Flexbox).
 
-## Notes brutes
+Jeu pour s'entraîner : [Grid Garden](https://cssgridgarden.com/#fr).
 
-- ?
+## Pièges
+
+- **`auto-fill` vs `auto-fit`** : avec peu d'éléments, `auto-fit` les étire pour remplir la ligne, `auto-fill` garde des cases vides. Pour une grille de cartes, `auto-fill` donne des cartes de taille régulière.
+- **Un contenu très large** (code, URL longue) casse la grille : `min-width: 0` sur l'enfant.

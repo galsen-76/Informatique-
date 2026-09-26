@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Appels API Vue.js"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[JS-10-Fetch-JSON-HTTP|Fetch API et JSON]]"
   - "[[VUE-07-Composition-API|Composition API & Composables Vue.js]]"
-related_snippets:
-  - "[[04_Snippets/vue-15-appels-api]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/reusability/composables.html#async-state-example"
@@ -23,149 +20,120 @@ source: "https://vuejs.org/guide/reusability/composables.html#async-state-exampl
 
 # Appels API Vue.js
 
-> [!abstract] Introduction
-> Vue n'impose pas de client HTTP : on utilise `fetch` ou axios, encapsulé dans une couche de services et des composables qui exposent `data`, `loading`, `error` — ou une librairie comme TanStack Query.
+> [!abstract] En bref
+> Vue ne fournit pas d'outil pour appeler une API : on utilise `fetch`. La bonne organisation : un fichier **api** qui fait les appels, un **composable** ou un **store** qui gère le chargement et les erreurs, et le composant qui affiche. Ton exemple concret : le bloc « Activité GitHub / GitLab » du Portfolio.
 
-> [!warning]- Prérequis
-> [[VUE-07-Composition-API|Composition API & Composables Vue.js]], [[JS-10-Fetch-JSON-HTTP|Fetch API et JSON]]
+## Les 3 couches
 
----
+```mermaid
+flowchart LR
+  C["🖥️ Composant<br/>affiche"] --> U["🔁 Composable / store<br/>loading, error, data"]
+  U --> A["🌐 github.api.ts<br/>fetch + conversion"]
+  A --> X["API GitHub"]
+```
 
-## Théorie
+## 1. Le fichier API : seulement les appels
 
-> [!question]- C'est quoi ?
-> ```typescript
-> // services/http.ts
-> export const http = axios.create({ baseURL: import.meta.env.VITE_API_URL, timeout: 10_000 });
-> http.interceptors.request.use(cfg => {
->   const token = useAuthStore().token;
->   if (token) cfg.headers.Authorization = `Bearer ${token}`;
->   return cfg;
-> });
-> // services/films.ts
-> export const filmsApi = {
->   liste: (q?: string) => http.get<Film[]>('/films', { params: { q } }).then(r => r.data),
-> };
-> ```
+```ts
+// features/activity/data/github.api.ts
+const BASE = 'https://api.github.com';
 
-> [!example]- Analogie
-> Les composants ne téléphonent jamais directement au fournisseur : ils passent par le standard (service API) qui connaît le numéro, les identifiants et gère les erreurs.
+interface RepoDto { name: string; html_url: string; pushed_at: string; language: string | null }
+export interface Repo { name: string; url: string; updatedAt: Date; language: string }
 
-> [!question]- Pourquoi l'utiliser ?
-> Centraliser URL, token, erreurs et timeouts ; garder des composants simples ; pouvoir mocker l'API en test.
+const toRepo = (d: RepoDto): Repo => ({
+  name: d.name,
+  url: d.html_url,
+  updatedAt: new Date(d.pushed_at),
+  language: d.language ?? '—',
+});
 
-> [!question]- Comment ça marche ?
-> ```typescript
-> export function useFilms(recherche: Ref<string>) {
->   const data = ref<Film[]>([]);
->   const loading = ref(false);
->   const error = ref<string | null>(null);
->   let controleur: AbortController | undefined;
->   watch(recherche, async (q) => {
->     controleur?.abort();                       // annule la requête précédente (≈ switchMap)
->     controleur = new AbortController();
->     loading.value = true; error.value = null;
->     try { data.value = (await http.get<Film[]>('/films', { params: { q }, signal: controleur.signal })).data; }
->     catch (e) { if (!axios.isCancel(e)) error.value = 'Chargement impossible'; }
->     finally { loading.value = false; }
->   }, { immediate: true });
->   return { data, loading, error };
-> }
-> ```
-> TanStack Query (vue-query) ajoute cache, déduplication, retry, rafraîchissement en arrière-plan.
+export const githubApi = {
+  async lastRepos(user: string, signal?: AbortSignal): Promise<Repo[]> {
+    const r = await fetch(`${BASE}/users/${user}/repos?sort=pushed&per_page=5`, { signal });
+    if (!r.ok) throw new Error(`GitHub : erreur ${r.status}`);
+    const data: RepoDto[] = await r.json();
+    return data.map(toRepo);
+  },
+};
+```
 
-> [!question]- Quand l'utiliser ?
-> Toujours via une couche service. Composable pour l'état async d'un écran ; TanStack Query dès qu'il y a du cache/partage de données serveur.
+La conversion (`toRepo`) isole ton application du format de l'API : si GitHub change un nom de champ, tu ne modifies qu'ici.
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Réécrire à la main cache, retry et invalidation devient vite complexe → librairie.
+## 2. Le composable : les états
 
----
+```ts
+// features/activity/composables/useRepos.ts
+export function useRepos(user: string) {
+  const repos = ref<Repo[]>([]);
+  const loading = ref(false);
+  const error = ref<string | null>(null);
+  let controller: AbortController | undefined;
 
-## Vocabulaire
+  async function load() {
+    controller?.abort();                 // annule l'appel précédent s'il est en cours
+    controller = new AbortController();
+    loading.value = true;
+    error.value = null;
+    try {
+      repos.value = await githubApi.lastRepos(user, controller.signal);
+    } catch (e) {
+      if ((e as Error).name !== 'AbortError') error.value = 'Impossible de charger l\'activité';
+    } finally {
+      loading.value = false;
+    }
+  }
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| axios | Client HTTP populaire avec intercepteurs |
-| Intercepteur | Code exécuté sur chaque requête/réponse |
-| TanStack Query | Gestion du « server state » (cache, sync) |
-| Server state | Données appartenant au serveur, mises en cache côté client |
+  onMounted(load);
+  onUnmounted(() => controller?.abort());
+  return { repos, loading, error, reload: load };
+}
+```
 
----
-
-## Points clés
-
-- Service API centralisé + composables
-- Toujours gérer loading / error / vide
-- Annuler les requêtes obsolètes
-- Base URL via variables d'environnement Vite (`VITE_`)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Appeler l'API directement dans chaque composant avec des URLs en dur
-> - Conditions de course : une réponse ancienne écrase une récente
-> - Stocker dans Pinia des données serveur qui devraient être en cache de requêtes
-
----
-
-## Exemple minimal
+## 3. Le composant : affiche chaque état
 
 ```vue
 <script setup lang="ts">
-const q = ref('');
-const { data: films, loading, error } = useFilms(useDebounce(q, 300));
+const { repos, loading, error, reload } = useRepos('ton-nom');
 </script>
+
 <template>
-  <input v-model="q" placeholder="Rechercher">
-  <p v-if="loading">Chargement…</p>
-  <p v-else-if="error" role="alert">{{ error }}</p>
-  <FilmCard v-for="f in films" :key="f.id" :film="f" />
+  <BaseLoader v-if="loading" />
+  <div v-else-if="error">
+    {{ error }} <button type="button" @click="reload">Réessayer</button>
+  </div>
+  <p v-else-if="repos.length === 0">Aucun dépôt public.</p>
+  <ul v-else>
+    <li v-for="r in repos" :key="r.name">
+      <a :href="r.url">{{ r.name }}</a> · {{ r.language }}
+    </li>
+  </ul>
 </template>
 ```
 
-> [!note] Ce que j'en retiens
-> Le composant ne connaît ni axios ni l'URL : il consomme un état prêt à afficher.
+**Les 4 états à toujours prévoir :** chargement, erreur, vide, données.
 
----
+## L'URL de l'API selon l'environnement
 
-## Pour aller plus loin (niveau senior)
+```bash
+# .env.development
+VITE_API_URL=http://localhost:3000
+# .env.production
+VITE_API_URL=https://api.ton-site.fr
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Distinguer server state (TanStack Query) et client state (Pinia)
-> - Générer le client API depuis la spec OpenAPI du back
+```ts
+const API = import.meta.env.VITE_API_URL;
+```
 
----
+Seules les variables qui commencent par `VITE_` sont accessibles dans le front, et **elles sont visibles par tout le monde** : n'y mets jamais de secret.
 
-## Connexions
+## Pour aller plus loin
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-09-HTTP-Communication-Serveur|HTTP & Communication Serveur Angular]]
+Sur un projet avec beaucoup d'appels (CinéTrack-Vue), **TanStack Query** (`@tanstack/vue-query`) gère le cache, le rechargement et les états pour toi.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-15-appels-api]]
-- Projet → [[02_Projects/CinéTrack]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Comment éviter qu'une ancienne réponse écrase la plus récente ?
-
----
-
-## Tâches
-
-- [ ] #task Créer `services/http.ts` et `useFilms` pour CinéTrack Vue
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Appeler l'API directement dans un composant d'affichage** : impossible à réutiliser et à tester.
+- **Oublier l'état d'erreur** : l'écran reste vide sans explication.
+- **Une clé d'API secrète dans une variable `VITE_`** : elle finit dans le JavaScript envoyé au navigateur.

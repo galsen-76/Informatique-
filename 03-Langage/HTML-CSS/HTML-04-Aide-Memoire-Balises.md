@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,147 +10,72 @@ tags:
 aliases:
   - "Aide-mémoire des Balises HTML"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[HTML-01-Structure-Semantique|Structure HTML et Sémantique]]"
   - "[[HTML-05-Attributs-Globaux-Data|Attributs HTML et data]]"
-related_snippets:
-  - "[[04_Snippets/html-04-aide-memoire-balises]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/HTML/Element"
 ---
 
 # Aide-mémoire des Balises HTML
 
-> [!abstract] Introduction
-> Les balises HTML qu'on utilise vraiment au quotidien, classées par usage, avec la bonne balise pour chaque besoin — pour lire, corriger et demander à l'IA le bon HTML.
+> [!abstract] En bref
+> Les balises vraiment utilisées au quotidien, classées par besoin. Sers-t'en pour **relire le HTML généré par l'IA** : c'est toi qui repères le `<div>` cliquable ou le champ sans étiquette.
 
----
+## Choisir la bonne balise en 5 questions
 
-## Théorie
+1. C'est une **zone** de la page ? → `header`, `nav`, `main`, `section`, `article`, `aside`, `footer`
+2. C'est une **action** ? → `button`. Une **navigation** vers une autre page ? → `a`
+3. C'est une **saisie** ? → `input` / `select` / `textarea` + `label`
+4. C'est une **liste** ou un **tableau de données** ? → `ul` / `ol` / `table`
+5. Rien de tout ça ? → `div` (bloc) ou `span` (dans une ligne)
 
-> [!question]- C'est quoi ?
-> | Besoin | Balise(s) | À retenir |
-> |---|---|---|
-> | Structure de page | `header`, `nav`, `main`, `section`, `article`, `aside`, `footer` | Un seul `main` |
-> | Titres | `h1` … `h6` | Un `h1`, pas de saut de niveau |
-> | Texte | `p`, `span`, `strong`, `em`, `small`, `br`, `hr` | `strong` = importance, `b` = juste gras |
-> | Listes | `ul`/`ol` + `li`, `dl`/`dt`/`dd` | Menus = `ul` dans `nav` |
-> | Liens | `a href` | `target="_blank"` + `rel="noopener"` |
-> | Actions | `button type="button"` | Jamais de `div` cliquable |
-> | Images | `img src alt`, `figure` + `figcaption`, `picture` | `alt` toujours |
-> | Médias | `video`, `audio`, `iframe`, `svg` | `controls`, `loading="lazy"` |
-> | Formulaires | `form`, `label`, `input`, `select`, `option`, `textarea`, `fieldset`, `legend` | Chaque champ a un `label` |
-> | Tableaux | `table`, `thead`, `tbody`, `tr`, `th`, `td`, `caption` | Données tabulaires uniquement |
-> | Interactifs natifs | `details`/`summary`, `dialog`, attribut `popover` | Accessibles sans JS maison |
-> | Génériques | `div` (bloc), `span` (en ligne) | Quand aucune balise n'a de sens |
-> | Données | `time datetime`, `data value`, `meter`, `progress`, `output` | Lisibles par les machines |
-> | Modèles | `template`, `slot` | Base des Web Components |
+## Les balises par usage
 
-> [!example]- Analogie
-> Les balises sont les pièces d'une boîte à outils : on peut tout visser avec un couteau (`div`), mais le tournevis adapté (`button`, `nav`, `label`) fait le travail mieux et plus vite.
+| Besoin | Balises | À retenir |
+|---|---|---|
+| Structure | `header` `nav` `main` `section` `article` `aside` `footer` | un seul `main` |
+| Titres | `h1` … `h6` | un `h1`, pas de niveau sauté |
+| Texte | `p` `strong` `em` `small` `br` | `strong` = important ; l'espacement, c'est le CSS |
+| Listes | `ul` / `ol` + `li` | un menu = `ul` dans `nav` |
+| Lien | `a href="…"` | vers un autre site : `target="_blank" rel="noopener"` |
+| Action | `button type="button"` | jamais de `div` cliquable |
+| Image | `img src alt`, `figure` + `figcaption` | `alt` toujours (voir [[HTML-07-Images-Medias\|Images]]) |
+| Médias | `video` `audio` `iframe` `svg` | |
+| Formulaire | `form` `label` `input` `select` `option` `textarea` `fieldset` `legend` | voir [[HTML-02-Formulaires\|Formulaires]] |
+| Tableau | `table` `thead` `tbody` `tr` `th` `td` `caption` | pour des données, pas la mise en page (voir [[HTML-08-Tableaux-HTML\|Tableaux]]) |
+| Dépliable | `details` + `summary` | accordéon sans JavaScript |
+| Fenêtre | `dialog` | modale native, gère le focus |
+| Date, progression | `time datetime="2026-09-26"`, `progress`, `meter` | |
+| Générique | `div`, `span` | en dernier recours |
 
-> [!question]- Pourquoi l'utiliser ?
-> Même si l'IA génère le HTML, c'est toi qui dois repérer une mauvaise balise (un `div` cliquable, un `input` sans `label`, un tableau utilisé pour la mise en page) et le corriger. Et tes templates Angular/Vue SONT du HTML.
-
-> [!question]- Comment ça marche ?
-> Réflexe de choix :
-> 1. Est-ce une zone de la page ? → balise de structure
-> 2. Est-ce une action ? → `button` ; une navigation ? → `a`
-> 3. Est-ce une saisie ? → élément de formulaire + `label`
-> 4. Est-ce une liste/un tableau de données ? → `ul`/`table`
-> 5. Sinon → `div`/`span` + classes
-
-> [!question]- Quand l'utiliser ?
-> À chaque template, et à chaque relecture de code généré.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Retenir le « bon réflexe », pas les 110 balises existantes : MDN reste la référence pour le reste.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Élément bloc | Prend toute la largeur, commence à la ligne (`div`, `p`) |
-| Élément en ligne | S'insère dans le texte (`span`, `a`, `strong`) |
-| Élément vide | Sans contenu ni balise fermante (`img`, `input`, `br`) |
-
----
-
-## Points clés
-
-- `button` pour agir, `a` pour naviguer
-- `label` pour chaque champ
-- `alt` pour chaque image
-- `div`/`span` en dernier recours
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `<a href="#" (click)="...">` au lieu d'un `button`
-> - `<br><br>` pour espacer (c'est le rôle du CSS)
-> - `<img>` sans dimensions → la page « saute » au chargement (CLS)
-
----
-
-## Exemple minimal
+## Deux exemples utiles
 
 ```html
-<nav aria-label="Principale">
+<!-- Un menu accessible -->
+<nav aria-label="Navigation principale">
   <ul>
-    <li><a href="/films" aria-current="page">Films</a></li>
-    <li><a href="/favoris">Favoris</a></li>
+    <li><a href="/" aria-current="page">Accueil</a></li>
+    <li><a href="/projets">Projets</a></li>
   </ul>
 </nav>
+
+<!-- Un bloc dépliable, sans JavaScript -->
 <details>
   <summary>Voir le synopsis</summary>
   <p>Un voleur s'infiltre dans les rêves…</p>
 </details>
 ```
 
-> [!note] Ce que j'en retiens
-> Un menu accessible et un bloc dépliable sans une ligne de JavaScript.
+## Ce qu'on corrige le plus souvent dans du HTML généré
 
----
+| ❌ | ✅ |
+|---|---|
+| `<div class="btn" onclick="…">` | `<button type="button">` |
+| `<a href="#" (click)="…">` | `<button type="button" (click)="…">` |
+| `<input placeholder="Email">` seul | `<label for="email">E-mail</label><input id="email">` |
+| `<br><br>` pour espacer | une marge en CSS |
+| `<img src="…">` | `<img src="…" alt="…" width="…" height="…">` |
+| `<b>` pour un texte important | `<strong>` |
 
-## Pour aller plus loin (niveau senior)
-
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Repérer en revue de code les erreurs de sémantique générées par l'IA
-> - Utiliser `dialog` et `popover` natifs avant d'installer une librairie
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/html-04-aide-memoire-balises]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle balise pour un bouton « Supprimer » ? pour un lien « Voir la fiche » ?
-
----
-
-## Tâches
-
-- [ ] #task Relire un template Angular du travail et lister 3 balises qui pourraient être plus sémantiques
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+La référence complète : [MDN – Éléments HTML](https://developer.mozilla.org/fr/docs/Web/HTML/Element).

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "SCSS Sass"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[CSS-07-Variables-Themes|Variables CSS et Thèmes]]"
-related_snippets:
-  - "[[04_Snippets/css-08-scss-sass]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://sass-lang.com/documentation/"
@@ -22,126 +19,69 @@ source: "https://sass-lang.com/documentation/"
 
 # SCSS Sass
 
-> [!abstract] Introduction
-> SCSS est un préprocesseur CSS (utilisé par défaut dans beaucoup de projets Angular) qui ajoute imbrication, variables, mixins, fonctions et modules, compilés en CSS standard.
+> [!abstract] En bref
+> **SCSS** est du CSS avec quelques super-pouvoirs (imbrication, variables, mixins), transformé en CSS normal au moment du build. Beaucoup de projets **Angular** l'utilisent par défaut (fichiers `.scss`). Tu dois savoir le lire et en écrire un peu ; inutile d'aller loin.
 
-> [!warning]- Prérequis
-> [[CSS-07-Variables-Themes|Variables CSS et Thèmes]]
+## Les 4 fonctionnalités utiles
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```scss
-> @use 'sass:math';
-> $breakpoint-md: 768px;
-> @mixin md { @media (min-width: $breakpoint-md) { @content; } }
-> .film-card {
->   padding: 1rem;
->   &__titre { font-weight: 600; }
->   &:hover { box-shadow: 0 2px 8px rgba(0,0,0,.1); }
->   @include md { padding: 2rem; }
-> }
-> ```
-
-> [!example]- Analogie
-> SCSS est un traitement de texte avec des macros : tu écris plus court, il génère le document long à ta place.
-
-> [!question]- Pourquoi l'utiliser ?
-> Organiser de gros projets (partials, modules), éviter la répétition (mixins), générer des classes (boucles).
-
-> [!question]- Comment ça marche ?
-> - `&` : référence au sélecteur parent
-> - `@use` / `@forward` : système de modules (remplace `@import`, déprécié)
-> - `@mixin` / `@include` : blocs réutilisables
-> - `%placeholder` + `@extend` : héritage (à utiliser avec parcimonie)
-> - Fichiers partiels `_variables.scss`
-
-> [!question]- Quand l'utiliser ?
-> Projets Angular existants (souvent en SCSS), design systems. En Vue : `<style lang="scss" scoped>`.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Le CSS natif a rattrapé une partie de SCSS (variables, imbrication native, `@layer`). Imbriquer trop profondément génère des sélecteurs trop spécifiques.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Préprocesseur | Outil qui compile un langage vers du CSS |
-| Mixin | Bloc de styles paramétrable réutilisable |
-| Partial | Fichier SCSS importé, préfixé par `_` |
-
----
-
-## Points clés
-
-- `@use` au lieu de `@import`
-- Max 3 niveaux d'imbrication
-- Variables SCSS pour le build, variables CSS pour l'exécution
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `@import` déprécié (Dart Sass 3 le supprime)
-> - `@extend` qui génère des sélecteurs énormes
-
----
-
-## Exemple minimal
+### 1. L'imbrication
 
 ```scss
-// _tokens.scss
-$espaces: (xs: .25rem, sm: .5rem, md: 1rem, lg: 2rem);
-@each $nom, $valeur in $espaces {
-  .p-#{$nom} { padding: $valeur; }
+.carte {
+  padding: 20px;
+
+  h3 { margin: 0; }              // = .carte h3
+
+  &:hover { border-color: $primaire; }   // & = le sélecteur parent → .carte:hover
+
+  &__titre { font-weight: 700; }  // = .carte__titre (pratique avec BEM)
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Une boucle SCSS génère toute une famille de classes utilitaires.
+### 2. Les variables
 
----
+```scss
+$primaire: #10b981;
+$rayon: 14px;
 
-## Pour aller plus loin (niveau senior)
+.btn { background: $primaire; border-radius: $rayon; }
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Configurer `stylePreprocessorOptions.includePaths` dans `angular.json`
-> - Exposer les tokens SCSS en variables CSS pour le thème dynamique
+Pour les couleurs de thème, préfère les **variables CSS** (`--primaire`), modifiables en direct pour le mode sombre (voir [[CSS-07-Variables-Themes|Variables CSS]]). Les variables SCSS servent aux constantes fixes, comme les points de rupture.
 
----
+### 3. Les mixins (des morceaux de CSS réutilisables)
 
-## Connexions
+```scss
+@mixin mobile {
+  @media (max-width: 900px) { @content; }
+}
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]]
+.projets {
+  grid-template-columns: repeat(3, 1fr);
+  @include mobile { grid-template-columns: 1fr; }
+}
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/css-08-scss-sass]]
-- Projet → [[02_Projects/CinéTrack]]
+### 4. Les modules
 
----
+```scss
+// styles/_breakpoints.scss
+$mobile: 900px;
 
-## Auto-vérification
+// dans un composant
+@use 'styles/breakpoints' as bp;
+@media (max-width: bp.$mobile) { … }
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `@use` remplace-t-il `@import` ?
+Utilise `@use`. L'ancien `@import` est abandonné.
 
----
+## Où tu le rencontres
 
-## Tâches
+- **Angular** : `ng new` propose SCSS ; chaque composant a son `.scss`.
+- **Vue** : `<style lang="scss" scoped>` après `npm i -D sass`.
 
-- [ ] #task Convertir le CSS du portfolio en SCSS avec partials
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ?
+- **Imbriquer sur 5 niveaux** : le CSS généré devient trop spécifique et difficile à surcharger. 2 ou 3 niveaux maximum.
+- **`@import`** au lieu de `@use` : obsolète.
+- **Tout mettre en SCSS** alors que le CSS moderne sait déjà faire les variables (`--x`) et même l'imbrication (dans les navigateurs récents).

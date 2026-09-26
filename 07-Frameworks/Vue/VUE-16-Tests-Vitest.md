@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Tests Vue.js avec Vitest"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[TEST-02-Tests-Unitaires-Vitest-Jest|Tests Unitaires avec Vitest et Jest]]"
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]"
-related_snippets:
-  - "[[04_Snippets/vue-16-tests-vitest]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://test-utils.vuejs.org/guide/"
@@ -23,129 +20,104 @@ source: "https://test-utils.vuejs.org/guide/"
 
 # Tests Vue.js avec Vitest
 
-> [!abstract] Introduction
-> On teste un projet Vue avec Vitest (runner compatible Vite) et Vue Test Utils ou Testing Library pour monter les composants, et Playwright/Cypress pour le bout-en-bout.
+> [!abstract] En bref
+> Un test est un petit programme qui vérifie que ton code fait ce qu'il doit, **automatiquement**, à chaque modification. En Vue, on utilise **Vitest** (déjà installé par `npm create vue@latest`). On commence par tester les **fonctions** et les **composables**, puis quelques **composants**.
 
-> [!warning]- Prérequis
-> [[TEST-02-Tests-Unitaires-Vitest-Jest|Tests Unitaires avec Vitest et Jest]]
+## Lancer les tests
 
----
+```bash
+npm run test:unit          # lance Vitest en mode surveillance
+npx vitest run             # une seule fois (pour la CI)
+```
 
-## Théorie
+Les fichiers de test s'appellent `xxx.spec.ts` et sont posés **à côté** du fichier testé.
 
-> [!question]- C'est quoi ?
-> ```typescript
-> import { mount } from '@vue/test-utils';
-> import FilmCard from './FilmCard.vue';
->
-> it('émet favori au clic', async () => {
->   const wrapper = mount(FilmCard, { props: { film: { id: 1, titre: 'Dune' } } });
->   expect(wrapper.text()).toContain('Dune');
->   await wrapper.get('button').trigger('click');
->   expect(wrapper.emitted('favori')?.[0]).toEqual([1]);
-> });
-> ```
+## 1. Tester une fonction (le plus simple, le plus utile)
 
-> [!example]- Analogie
-> Monter un composant en test, c'est poser une pièce sur un banc d'essai : on l'alimente (props), on appuie sur ses boutons, on mesure ce qui sort (DOM, événements).
+```ts
+// project.filters.ts
+export const filterProjects = (projects: Project[], tech: Tech | null, search: string) =>
+  projects.filter(p =>
+    (!tech || p.techs.includes(tech)) &&
+    p.title.toLowerCase().includes(search.toLowerCase()),
+  );
+```
 
-> [!question]- Pourquoi l'utiliser ?
-> Refactorer sans peur, documenter le comportement attendu, éviter les régressions.
+```ts
+// project.filters.spec.ts
+import { describe, it, expect } from 'vitest';
+import { filterProjects } from './project.filters';
 
-> [!question]- Comment ça marche ?
-> - **Composables** : fonctions → test unitaire simple
-> - **Stores Pinia** : `setActivePinia(createPinia())` puis appels directs ; `createTestingPinia()` pour les composants
-> - **Composants** : `mount`, `props`, `trigger`, `await nextTick()`, `emitted()`
-> - **Réseau** : mocker le service (`vi.mock`) ou MSW
-> - Tester le comportement visible (texte, rôles), pas l'implémentation interne
+const projects = [
+  { slug: 'a', title: 'Portfolio', techs: ['vue'] },
+  { slug: 'b', title: 'CinéTrack', techs: ['angular'] },
+] as Project[];
 
-> [!question]- Quand l'utiliser ?
-> Composables et stores : toujours. Composants : ceux qui ont de la logique. E2E : parcours critiques (login, achat).
+describe('filterProjects', () => {
+  it('garde tout sans filtre', () => {
+    expect(filterProjects(projects, null, '')).toHaveLength(2);
+  });
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Tester des détails internes (noms de variables, appels de méthodes privées) rend les tests fragiles.
+  it('filtre par techno', () => {
+    expect(filterProjects(projects, 'vue', '')).toEqual([projects[0]]);
+  });
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Vitest | Runner de tests rapide basé sur Vite |
-| Vue Test Utils | Librairie officielle pour monter des composants |
-| `nextTick` | Attendre la mise à jour du DOM |
-| MSW | Mock Service Worker, simule l'API réseau |
-
----
-
-## Points clés
-
-- `await` sur `trigger` et `setValue`
-- Tester par le texte et les rôles
-- Stores et composables : tests unitaires purs
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `await` → DOM pas encore mis à jour
-> - Snapshots géants qui cassent au moindre changement
-
----
-
-## Exemple minimal
-
-```typescript
-import { setActivePinia, createPinia } from 'pinia';
-beforeEach(() => setActivePinia(createPinia()));
-it('ajoute un favori une seule fois', () => {
-  const store = useFavorisStore();
-  store.ajouter(1); store.ajouter(1);
-  expect(store.favoris).toEqual([1]);
+  it('cherche sans tenir compte des majuscules', () => {
+    expect(filterProjects(projects, null, 'CINÉ')).toHaveLength(1);
+  });
 });
 ```
 
-> [!note] Ce que j'en retiens
-> Un store se teste comme une simple classe, sans rien monter.
+Structure d'un test : **préparer** les données → **agir** (appeler la fonction) → **vérifier** (`expect`).
 
----
+## 2. Tester un composable
 
-## Pour aller plus loin (niveau senior)
+```ts
+it('useProjectFilters réagit au changement de techno', () => {
+  const list = ref(projects);
+  const { tech, filtered } = useProjectFilters(list);
+  tech.value = 'angular';
+  expect(filtered.value).toHaveLength(1);
+});
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Mettre en place la couverture et un seuil minimal en CI
-> - Tests de composants dans un vrai navigateur (Vitest browser mode)
+## 3. Tester un composant
 
----
+```ts
+import { mount } from '@vue/test-utils';
 
-## Connexions
+it('ProjectCard affiche le titre et émet open', async () => {
+  const wrapper = mount(ProjectCard, { props: { project: projects[0] } });
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-14-Tests|Tests Angular]]
+  expect(wrapper.text()).toContain('Portfolio');
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-16-tests-vitest]]
-- Projet → [[02_Projects/CinéTrack]]
+  await wrapper.get('button').trigger('click');
+  expect(wrapper.emitted('open')?.[0]).toEqual(['a']);
+});
+```
 
----
+## Simuler une API
 
-## Auto-vérification
+```ts
+import { vi } from 'vitest';
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi faut-il `await` après `trigger('click')` ?
+vi.spyOn(githubApi, 'lastRepos').mockResolvedValue([{ name: 'portfolio' } as Repo]);
+```
 
----
+Voir [[TEST-03-Mocks-Stubs-Spies|Mocks]].
 
-## Tâches
+## Quoi tester en priorité
 
-- [ ] #task Écrire 3 tests : un composable, un store, un composant
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+| Priorité | Quoi |
+|---|---|
+| ⭐⭐⭐ | fonctions de calcul, filtres, mappers, composables |
+| ⭐⭐ | composants avec de la logique (formulaire, filtre) |
+| ⭐ | composants qui ne font qu'afficher |
+| E2E | le parcours principal (voir [[TEST-05-Tests-E2E-Playwright\|Playwright]]) |
 
----
+Objectif du Portfolio : **15 tests** qui passent dans le pipeline.
 
-## Notes brutes
+## Pièges
 
-- ?
+- **Tester les détails internes** (le nom d'une variable) : le test casse au moindre refactoring. Teste ce que l'utilisateur voit et ce que la fonction renvoie.
+- **Oublier `await`** après `trigger` : la vérification a lieu avant la mise à jour.

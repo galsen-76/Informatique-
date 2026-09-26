@@ -1,6 +1,6 @@
 ---
 created: 2026-09-21
-modified: 2026-09-21
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,10 +10,7 @@ aliases:
 tags:
   - frameworks/vue/props-emits
 parent: "[[Vue]]"
-children: []
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/vue-props-emits]]"
 related_projects:
   - "[[02_Projects/CinéTrack-Vue]]"
 source: "https://vuejs.org/guide/components/props.html"
@@ -21,153 +18,98 @@ source: "https://vuejs.org/guide/components/props.html"
 
 # Props & Emits Vue.js (Communication Parent-Enfant)
 
-> [!abstract] Introduction
-> Les `props` font descendre des données d'un composant parent vers un enfant ; les `emits` font remonter des événements de l'enfant vers le parent — exactement le même principe que `@Input`/`@Output` en Angular.
+> [!abstract] En bref
+> Un parent **donne des données** à son enfant avec les **props**. L'enfant **prévient** son parent qu'il s'est passé quelque chose avec les **emits** (événements). Les données descendent, les événements remontent : c'est tout le secret de la communication entre composants.
 
-> [!warning]- Prérequis
-> [[VUE-03-Composants-SFC|Composants et SFC Vue.js]], [[ANG-19-Communication-Composants|Communication parent-enfant Angular]] (pour la comparaison directe).
+## Le schéma
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```vue
-> <!-- Enfant : FilmCard.vue -->
-> <script setup>
-> defineProps(['titre']);
-> const emit = defineEmits(['favori']);
-> </script>
-> <template>
->   <button @click="emit('favori')">{{ titre }}</button>
-> </template>
-> ```
-
-> [!example]- Analogie
-> Les props sont comme une enveloppe qu'un parent glisse dans la boîte aux lettres de l'enfant (données descendantes, à sens unique). Les emits sont comme l'enfant qui sonne à la porte du parent pour annoncer quelque chose (événement remontant) — jamais l'inverse dans les deux cas.
-
-> [!question]- Pourquoi l'utiliser ?
-> Garder une communication PRÉVISIBLE et à sens unique entre composants — le parent contrôle les données descendantes, l'enfant ne peut que signaler des événements, jamais modifier directement l'état du parent.
-
-> [!question]- Comment ça marche ?
-> ```vue
-> <!-- Parent -->
-> <script setup>
-> function surFavori() { console.log('Film ajouté aux favoris'); }
-> </script>
-> <template>
->   <FilmCard titre="Inception" @favori="surFavori" />
-> </template>
-> ```
-> `defineEmits(['favori'])` déclare explicitement quels événements ce composant peut émettre — Vue avertit si un événement non déclaré est émis.
-
-> [!question]- Quand l'utiliser ?
-> Systématiquement pour toute communication entre un composant parent et son enfant direct.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pour communiquer entre deux composants SANS lien parent-enfant direct (frères, ou éloignés dans l'arbre), props/emits deviennent vite lourds à faire remonter/redescendre à travers plusieurs niveaux — Pinia (voir [[VUE-09-Pinia-State-Management|Pinia State Management]]) est alors plus adapté.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Props | Données descendantes, du parent vers l'enfant |
-| Emit | Événement remontant, de l'enfant vers le parent |
-| `defineProps`/`defineEmits` | Déclarations explicites en `<script setup>` |
-
----
-
-## Points clés
-
-- Props descendent (parent → enfant), emits remontent (enfant → parent)
-- `defineProps`/`defineEmits` déclarent explicitement ce qu'un composant accepte/émet
-- Communication à sens unique, jamais l'enfant qui modifie directement le parent
-- Équivalent exact de `@Input`/`@Output` Angular
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Essayer de modifier directement une prop reçue depuis l'enfant (Vue avertit, car les props sont en lecture seule côté enfant)
-> - Oublier de déclarer un emit avec `defineEmits`, provoquant un avertissement dans la console
-> - Utiliser props/emits pour une communication entre composants éloignés, alourdissant inutilement le code
-
----
-
-## Paramètres / Configuration
-
-| Élément | Direction | Description |
-|-----------|-------------|---------|
-| `defineProps` | Parent → Enfant | Données reçues |
-| `defineEmits` | Enfant → Parent | Événements émis |
-
----
-
-## Exemple minimal
-
-```vue
-<!-- Parent.vue -->
-<template>
-  <FilmCard titre="Inception" @favori="() => console.log('Favori !')" />
-</template>
+```mermaid
+flowchart TB
+  P["ProjectGrid (parent)"] -->|"props : project ⬇"| E["ProjectCard (enfant)"]
+  E -->|"emit : open(slug) ⬆"| P
 ```
+
+Image : le parent est un **chef** qui donne une fiche de mission (props) ; l'enfant **ne modifie pas la fiche**, il **rend compte** (emit), et c'est le chef qui décide quoi faire.
+
+## Côté enfant
+
 ```vue
-<!-- FilmCard.vue -->
-<script setup>
-defineProps(['titre']);
-const emit = defineEmits(['favori']);
+<!-- ProjectCard.vue -->
+<script setup lang="ts">
+import type { Project } from '../data/project.model';
+
+const props = defineProps<{
+  project: Project;          // obligatoire
+  highlighted?: boolean;     // optionnel
+}>();
+
+const emit = defineEmits<{
+  open: [slug: string];      // événement "open" qui transporte un slug
+}>();
 </script>
+
 <template>
-  <button @click="emit('favori')">{{ titre }}</button>
+  <article :class="{ highlighted }">
+    <h3>{{ project.title }}</h3>
+    <button type="button" @click="emit('open', project.slug)">Étude de cas</button>
+  </article>
 </template>
 ```
 
-> [!note] Ce que j'en retiens
-> Le composant enfant ne sait RIEN de ce que fait le parent avec l'événement `favori` — il se contente de le signaler, exactement comme `@Output()` en Angular.
+## Côté parent
 
----
+```vue
+<!-- ProjectGrid.vue -->
+<script setup lang="ts">
+const router = useRouter();
+const ouvrir = (slug: string) => router.push(`/projects/${slug}`);
+</script>
 
-## Pour aller plus loin (niveau senior)
+<template>
+  <ProjectCard
+    v-for="p in projects"
+    :key="p.slug"
+    :project="p"
+    :highlighted="p.slug === 'cinetrack'"
+    @open="ouvrir"
+  />
+</template>
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Props et emits typés (`defineProps<…>()`, `defineEmits<…>()`) et `defineModel()` pour le v-model de composant (voir [[VUE-10-TypeScript-avec-Vue|TypeScript avec Vue.js]])
-> - Composants éloignés : [[VUE-13-Provide-Inject|Provide Inject Vue.js]] ou [[VUE-09-Pinia-State-Management|Pinia (State Management Vue.js)]]
+- `:project="p"` → passe une **donnée** (avec les `:`).
+- `@open="ouvrir"` → écoute l'**événement**.
 
----
+## Valeurs par défaut
 
-## Connexions
+```ts
+const { size = 'md', highlighted = false } = defineProps<{
+  size?: 'sm' | 'md' | 'lg';
+  highlighted?: boolean;
+}>();
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[ANG-19-Communication-Composants|Communication parent-enfant Angular]]
+## `v-model` sur un composant
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-props-emits]]
-- Projet → [[02_Projects/CinéTrack-Vue]]
+Pour un composant qui modifie une valeur du parent (un champ de recherche, un filtre) :
 
----
+```vue
+<!-- TechFilter.vue -->
+<script setup lang="ts">
+const tech = defineModel<Tech | null>();   // prop + événement de mise à jour en une ligne
+</script>
 
-## Auto-vérification
+<template>
+  <button type="button" @click="tech = 'vue'">Vue</button>
+</template>
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi un enfant ne devrait jamais modifier directement une prop reçue ?
+```vue
+<!-- parent -->
+<TechFilter v-model="selectedTech" />
+```
 
-> [!faq]- Questions d'entretien
-> - Comment un composant enfant communique-t-il avec son parent en Vue ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Créer un couple parent/enfant avec props descendantes et emit remontant
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Comment typer précisément les props et emits en TypeScript avec Vue (au-delà de la simple liste de noms) ?
+- **Modifier une prop dans l'enfant** (`props.project.title = …`) : interdit. L'enfant émet, le parent modifie.
+- **Passer une prop à travers 4 niveaux** de composants : utilise un [[VUE-09-Pinia-State-Management|store Pinia]] ou [[VUE-13-Provide-Inject|provide/inject]].
+- **Oublier les `:`** : `project="p"` passe le texte « p ».

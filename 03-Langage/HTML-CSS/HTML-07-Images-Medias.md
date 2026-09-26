@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,132 +10,82 @@ tags:
 aliases:
   - "Images et Médias HTML"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]]"
   - "[[CSS-05-Responsive-Design|Responsive Design]]"
-related_snippets:
-  - "[[04_Snippets/html-07-images-medias]]"
 related_projects: []
 source: "https://web.dev/learn/images"
 ---
 
 # Images et Médias HTML
 
-> [!abstract] Introduction
-> Afficher images, icônes SVG, vidéos et contenus intégrés correctement : texte alternatif, tailles, chargement différé et formats modernes — c'est souvent ce qui pèse le plus dans une page.
+> [!abstract] En bref
+> Les images sont souvent ce qui **pèse le plus** dans une page. Bien les intégrer, c'est : un texte alternatif, des dimensions, le bon format et un chargement différé. Pour CinéTrack (des dizaines d'affiches), ça fait toute la différence.
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```html
-> <img src="dune.webp" alt="Affiche de Dune" width="300" height="450" loading="lazy" decoding="async">
-> <picture>
->   <source srcset="dune.avif" type="image/avif">
->   <img src="dune.jpg" alt="Affiche de Dune" width="300" height="450">
-> </picture>
-> <img src="petite.jpg" srcset="petite.jpg 400w, grande.jpg 1200w" sizes="(max-width: 600px) 100vw, 400px" alt="…">
-> <video src="bande-annonce.mp4" controls preload="metadata" poster="poster.jpg"></video>
-> <svg aria-hidden="true" width="24" height="24"><use href="/icons.svg#coeur"></use></svg>
-> ```
-
-> [!example]- Analogie
-> Envoyer une affiche en taille réelle à un téléphone, c'est livrer un canapé pour quelqu'un qui voulait un tabouret : `srcset` choisit la bonne taille selon l'écran.
-
-> [!question]- Pourquoi l'utiliser ?
-> Les images sont souvent 50 % du poids d'une page ; sans `width`/`height` elles font « sauter » la mise en page ; sans `alt` elles sont invisibles pour les lecteurs d'écran.
-
-> [!question]- Comment ça marche ?
-> - `alt` descriptif pour une image informative, `alt=""` pour une image décorative
-> - `width`/`height` pour réserver la place (évite le CLS)
-> - `loading="lazy"` sous la ligne de flottaison, jamais sur l'image principale (LCP)
-> - Formats : AVIF/WebP pour les photos, SVG pour les icônes et logos
-> - Angular : `NgOptimizedImage` (`<img ngSrc="…" width height priority>`) applique ces bonnes pratiques automatiquement
-
-> [!question]- Quand l'utiliser ?
-> Toute image de contenu ; icônes : préférer une librairie d'icônes SVG (voir [[UI-Librairies-Interfaces-Rapides|Librairies UI pour Interfaces Rapides]]).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Le HTML ne compresse pas les images : il faut les optimiser en amont (build, CDN d'images).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `srcset` | Liste d'images de tailles différentes |
-| `sizes` | Largeur d'affichage prévue selon l'écran |
-| Lazy loading | Chargement quand l'image approche de l'écran |
-| LCP / CLS | Vitesse d'affichage / stabilité de la mise en page |
-
----
-
-## Points clés
-
-- `alt` toujours, vide si décoratif
-- `width` + `height` toujours
-- Lazy sauf l'image principale
-- SVG pour les icônes
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `loading="lazy"` sur l'image du haut de page → LCP dégradé
-> - Icône seule dans un bouton sans `aria-label`
-
----
-
-## Exemple minimal
+## Une image bien intégrée
 
 ```html
-<button type="button" aria-label="Ajouter aux favoris">
-  <svg aria-hidden="true" width="20" height="20"><use href="/icons.svg#coeur"></use></svg>
-</button>
+<img
+  src="/affiches/dune.webp"
+  alt="Affiche du film Dune"
+  width="300" height="450"
+  loading="lazy"
+>
 ```
 
-> [!note] Ce que j'en retiens
-> L'icône est cachée aux lecteurs d'écran, le bouton est décrit par `aria-label`.
+| Attribut | Pourquoi |
+|---|---|
+| `alt` | lu par les lecteurs d'écran, affiché si l'image ne charge pas. `alt=""` si l'image est purement décorative |
+| `width` / `height` | le navigateur réserve la place : **la page ne « saute » pas** pendant le chargement |
+| `loading="lazy"` | l'image se charge seulement quand on s'en approche en faisant défiler |
 
----
+**Exception :** l'image principale en haut de page (ta photo dans le hero) ne doit **pas** être en `lazy`, pour s'afficher le plus vite possible.
 
-## Pour aller plus loin (niveau senior)
+## Écrire un bon `alt`
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Mesurer le poids des images avec Lighthouse et mettre en place un CDN d'images
+- Décris **ce que l'image apporte**, pas « image de… ».
+- Affiche de film : `alt="Affiche du film Dune"`.
+- Ta photo : `alt="Portrait de Ton Nom"`.
+- Icône décorative à côté d'un texte : `alt=""`.
+- Bouton avec seulement une icône : pas d'`alt` sur l'icône, mais `aria-label` sur le bouton.
 
----
+## Les formats
 
-## Connexions
+| Format | Pour |
+|---|---|
+| **WebP** / AVIF | photos et captures (beaucoup plus léger que JPG / PNG) |
+| **SVG** | logos et icônes (net à toutes les tailles, très léger) |
+| PNG | image avec transparence, si WebP impossible |
+| JPG | photos, si WebP impossible |
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Une image adaptée à l'écran
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/html-07-images-medias]]
+```html
+<img
+  src="capture-800.webp"
+  srcset="capture-400.webp 400w, capture-800.webp 800w, capture-1600.webp 1600w"
+  sizes="(max-width: 900px) 100vw, 33vw"
+  alt="Page d'accueil de CinéTrack"
+  width="800" height="500"
+>
+```
 
----
+Le navigateur choisit la plus petite image suffisante : un mobile ne télécharge pas la version 1600 px.
 
-## Auto-vérification
+## Vidéo et contenu intégré
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi préciser `width` et `height` sur une image ?
+```html
+<video src="demo.mp4" controls muted playsinline poster="demo.webp"></video>
 
----
+<iframe src="https://www.youtube.com/embed/…" title="Démo de CinéTrack" loading="lazy"></iframe>
+```
 
-## Tâches
+## Icônes
 
-- [ ] #task Passer une page d'un projet dans Lighthouse et corriger les images signalées
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Dans tes projets, utilise une librairie d'icônes (Lucide, PrimeIcons) plutôt que des images : voir [[UI-Librairies-Interfaces-Rapides|Librairies UI]].
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Images sans dimensions** : le contenu saute pendant le chargement (mauvais score Lighthouse « CLS »).
+- **Une photo de 4 Mo** : compresse et convertis en WebP (squoosh.app).
+- **Du texte dans une image** : illisible pour Google et les lecteurs d'écran.

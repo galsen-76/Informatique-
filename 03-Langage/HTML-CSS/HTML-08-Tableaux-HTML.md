@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,139 +10,81 @@ tags:
 aliases:
   - "Tableaux HTML"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]]"
   - "[[UI-Librairies-Interfaces-Rapides|Librairies UI pour Interfaces Rapides]]"
-related_snippets:
-  - "[[04_Snippets/html-08-tableaux-html]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Learn/HTML/Tables"
 ---
 
 # Tableaux HTML
 
-> [!abstract] Introduction
-> Les tableaux affichent des données en lignes et colonnes (listes d'utilisateurs, commandes, statistiques) — l'écran le plus fréquent des applications métier et des dashboards.
+> [!abstract] En bref
+> Un tableau affiche des **données en lignes et colonnes** : liste d'utilisateurs, commandes, statistiques. C'est l'écran le plus fréquent des applications métier. En pratique, tu utiliseras souvent le composant tableau d'une librairie (PrimeVue / PrimeNG), mais il produit ce même HTML.
 
----
+## Un tableau correct
 
-## Théorie
+```html
+<table>
+  <caption>Mes films vus en 2026</caption>
+  <thead>
+    <tr>
+      <th scope="col">Titre</th>
+      <th scope="col">Année</th>
+      <th scope="col">Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dune</td>
+      <td>2021</td>
+      <td>9/10</td>
+    </tr>
+  </tbody>
+</table>
+```
 
-> [!question]- C'est quoi ?
-> ```html
-> <table>
->   <caption>Films les mieux notés</caption>
->   <thead>
->     <tr><th scope="col">Titre</th><th scope="col">Année</th><th scope="col">Note</th></tr>
->   </thead>
->   <tbody>
->     <tr><th scope="row">Dune</th><td>2021</td><td>8,1</td></tr>
->     <tr><th scope="row">Heat</th><td>1995</td><td>8,3</td></tr>
->   </tbody>
-> </table>
-> ```
+| Balise | Rôle |
+|---|---|
+| `table` | le tableau |
+| `caption` | son titre (lu par les lecteurs d'écran) |
+| `thead` / `tbody` / `tfoot` | en-tête / corps / pied (totaux) |
+| `tr` | une ligne |
+| `th` | une cellule d'**en-tête** (avec `scope="col"` ou `scope="row"`) |
+| `td` | une cellule de donnée |
 
-> [!example]- Analogie
-> Un tableau HTML, c'est une feuille Excel : en-têtes de colonnes (`th`), lignes (`tr`) et cellules (`td`).
+Les `th` avec `scope` permettent au lecteur d'écran d'annoncer « Note : 9/10 » au lieu de « 9/10 » seul.
 
-> [!question]- Pourquoi l'utiliser ?
-> Structure lisible par les lecteurs d'écran (qui annoncent l'en-tête de chaque cellule), tri et export faciles, base de tous les composants « data table ».
-
-> [!question]- Comment ça marche ?
-> - `thead` / `tbody` / `tfoot` : parties du tableau
-> - `th scope="col|row"` : en-têtes de colonne ou de ligne
-> - `caption` : titre du tableau
-> - `colspan` / `rowspan` : fusion de cellules
-> - Responsive : conteneur `overflow-x: auto` ou affichage en cartes sur mobile
-> - Dans les frameworks : boucle `@for` / `v-for` sur les lignes ; pour tri, pagination, filtres → composant de librairie (Material Table, PrimeNG/PrimeVue DataTable, AG Grid)
-
-> [!question]- Quand l'utiliser ?
-> Données tabulaires uniquement (jamais pour la mise en page).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Au-delà de quelques centaines de lignes : pagination serveur ou virtualisation.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `th` | Cellule d'en-tête |
-| `td` | Cellule de données |
-| `scope` | Indique à quelles cellules s'applique un en-tête |
-| `colspan` | Fusion horizontale de cellules |
-
----
-
-## Points clés
-
-- `th` + `scope` pour l'accessibilité
-- `caption` pour décrire le tableau
-- Librairie de data table pour tri/pagination/filtre
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Tableau utilisé pour aligner un formulaire
-> - Tableau de 5000 lignes rendu d'un coup
-
----
-
-## Exemple minimal
+## Avec Angular ou Vue
 
 ```html
 <!-- Angular -->
-<tbody>
-  @for (f of films(); track f.id) {
-    <tr><th scope="row">{{ f.titre }}</th><td>{{ f.annee }}</td><td>{{ f.note | number:'1.1-1' }}</td></tr>
-  } @empty {
-    <tr><td colspan="3">Aucun film</td></tr>
-  }
-</tbody>
+@for (f of films(); track f.id) {
+  <tr><td>{{ f.titre }}</td><td>{{ f.annee }}</td></tr>
+} @empty {
+  <tr><td colspan="2">Aucun film</td></tr>
+}
+
+<!-- Vue -->
+<tr v-for="f in films" :key="f.id">
+  <td>{{ f.titre }}</td><td>{{ f.annee }}</td>
+</tr>
 ```
 
-> [!note] Ce que j'en retiens
-> `@empty` gère le cas « liste vide » directement dans le tableau.
+Pour le tri, la pagination et les filtres, prends le composant `DataTable` de PrimeVue ou `p-table` de PrimeNG plutôt que de tout recoder.
 
----
+## Sur mobile
 
-## Pour aller plus loin (niveau senior)
+Un tableau large déborde. Solution simple : l'envelopper dans un conteneur qui défile horizontalement.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Choisir entre table maison, composant UI et AG Grid selon volume et besoins (édition, export)
+```html
+<div style="overflow-x: auto">
+  <table>…</table>
+</div>
+```
 
----
+## Pièges
 
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/html-08-tableaux-html]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - À quoi sert `scope="col"` ?
-
----
-
-## Tâches
-
-- [ ] #task Afficher la liste des films en tableau dans CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Utiliser un tableau pour la mise en page** : c'est le rôle de Flexbox et Grid.
+- **Pas de `th`** : le lecteur d'écran lit une suite de valeurs sans savoir à quelle colonne elles appartiennent.
+- **Des milliers de lignes d'un coup** : pagine, ou utilise un tableau « virtualisé ».

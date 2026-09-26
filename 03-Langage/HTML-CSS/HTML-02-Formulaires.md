@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,13 +10,8 @@ tags:
 aliases:
   - "Formulaires HTML"
 parent: "[[HTML-CSS]]"
-children:
-  - "[[ANG-07-Formulaires|Formulaires Angular]]"
-  - "[[VUE-14-Formulaires-Validation|Formulaires et Validation Vue.js]]"
 related_theory:
   - "[[HTML-01-Structure-Semantique|Structure HTML et Sémantique]]"
-related_snippets:
-  - "[[04_Snippets/html-02-formulaires]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Learn/Forms"
@@ -24,125 +19,71 @@ source: "https://developer.mozilla.org/fr/docs/Learn/Forms"
 
 # Formulaires HTML
 
-> [!abstract] Introduction
-> Les formulaires HTML natifs (`form`, `label`, `input`…) collectent les saisies utilisateur avec validation et accessibilité intégrées — la base sur laquelle reposent les formulaires Angular et Vue.
+> [!abstract] En bref
+> Un formulaire collecte ce que tape l'utilisateur. Bien écrit en HTML, il est déjà **accessible** (chaque champ a son étiquette) et **pratique** (bon clavier sur mobile, remplissage automatique). Les formulaires Angular et Vue reposent sur ces mêmes balises.
 
-> [!warning]- Prérequis
-> [[HTML-01-Structure-Semantique|Structure HTML et Sémantique]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```html
-> <form action="/inscription" method="post">
->   <label for="email">E-mail</label>
->   <input id="email" name="email" type="email" required autocomplete="email">
->   <label for="mdp">Mot de passe</label>
->   <input id="mdp" name="mdp" type="password" minlength="12" required>
->   <button type="submit">Créer mon compte</button>
-> </form>
-> ```
-
-> [!example]- Analogie
-> Un formulaire papier bien conçu : chaque case a son intitulé (label), un format attendu (date, e-mail) et des champs obligatoires signalés.
-
-> [!question]- Pourquoi l'utiliser ?
-> Le bon `type` affiche le bon clavier mobile, `label` agrandit la zone cliquable et est lu par les lecteurs d'écran, `autocomplete` permet le remplissage automatique.
-
-> [!question]- Comment ça marche ?
-> Types utiles : `text`, `email`, `password`, `number`, `tel`, `url`, `date`, `checkbox`, `radio`, `file`, `search`. Autres : `select/option`, `textarea`, `fieldset/legend` (groupes).
-> Validation native : `required`, `min/max`, `minlength/maxlength`, `pattern`. Pseudo-classes CSS `:invalid`, `:user-invalid`.
-> L'événement `submit` du formulaire (et non `click` du bouton) capte aussi la touche Entrée.
-
-> [!question]- Quand l'utiliser ?
-> Toujours comme base. Angular (`novalidate` ajouté automatiquement) et Vue prennent ensuite la main sur la validation pour des messages personnalisés.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> La validation côté client est un confort UX, JAMAIS une sécurité : le serveur doit TOUJOURS revalider (voir [[NEST-05-DTO-Validation-Pipes|DTO et Validation NestJS]]).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `label[for]` | Associe un libellé à un champ via son `id` |
-| `name` | Clé du champ envoyée au serveur |
-| `autocomplete` | Indique au navigateur quoi préremplir |
-| `fieldset` | Groupe de champs liés |
-
----
-
-## Points clés
-
-- Chaque champ a un `label` associé
-- `type` adapté = bon clavier + validation gratuite
-- Écouter `submit`, pas `click`
-- Revalider côté serveur, toujours
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Placeholder utilisé à la place du label (disparaît à la saisie, mauvais contraste)
-> - Bouton sans `type` dans un formulaire → soumission involontaire
-> - Désactiver le copier-coller du mot de passe (nuit aux gestionnaires de mots de passe)
-
----
-
-## Exemple minimal
+## Un formulaire propre
 
 ```html
-<fieldset>
-  <legend>Statut du film</legend>
-  <label><input type="radio" name="statut" value="a-voir" checked> À voir</label>
-  <label><input type="radio" name="statut" value="vu"> Vu</label>
-</fieldset>
+<form>
+  <label for="email">E-mail</label>
+  <input id="email" name="email" type="email" autocomplete="email" required>
+
+  <label for="sujet">Sujet</label>
+  <select id="sujet" name="sujet" required>
+    <option value="">Choisir…</option>
+    <option value="job">Opportunité</option>
+  </select>
+
+  <label for="message">Message</label>
+  <textarea id="message" name="message" minlength="20" required></textarea>
+
+  <label>
+    <input type="checkbox" name="rgpd" required>
+    J'accepte que mes données servent à me répondre
+  </label>
+
+  <button type="submit">Envoyer</button>
+</form>
 ```
 
-> [!note] Ce que j'en retiens
-> `fieldset` + `legend` donnent un titre au groupe de boutons radio, lu par les lecteurs d'écran.
+## Les règles d'or
 
----
+1. **Chaque champ a un `<label>`** relié par `for` = `id`. Cliquer sur l'étiquette active le champ, et le lecteur d'écran lit l'étiquette. Un `placeholder` **ne remplace pas** un label (il disparaît quand on tape).
+2. **Le bon `type`** : il affiche le bon clavier sur mobile et active une validation de base.
+3. **`autocomplete`** : le navigateur peut remplir le champ tout seul.
+4. **Les boutons ont un `type`** : `submit` envoie le formulaire, `button` ne fait rien par défaut. Sans `type`, un bouton dans un formulaire **envoie** le formulaire.
 
-## Pour aller plus loin (niveau senior)
+## Les types de champs
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Gérer l'accessibilité des erreurs (`aria-invalid`, `aria-describedby`, focus sur le premier champ en erreur)
-> - Connaître l'API Constraint Validation (`setCustomValidity`)
+| `type` | Pour | Bonus |
+|---|---|---|
+| `text` | texte court | |
+| `email` | e-mail | clavier avec @, vérifie le format |
+| `password` | mot de passe | caché |
+| `number` | nombre | flèches +/- |
+| `tel` | téléphone | clavier numérique |
+| `url` | adresse web | |
+| `search` | recherche | croix pour effacer |
+| `date` | date | calendrier natif |
+| `checkbox` | oui / non, choix multiples | |
+| `radio` | un choix parmi plusieurs (même `name`) | |
+| `file` | envoi de fichier | `accept="image/*"` |
 
----
+## Validation intégrée
 
-## Connexions
+| Attribut | Règle |
+|---|---|
+| `required` | obligatoire |
+| `minlength` / `maxlength` | longueur du texte |
+| `min` / `max` | valeur d'un nombre ou d'une date |
+| `pattern="[0-9]{5}"` | forme imposée (expression régulière) |
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → [[ANG-07-Formulaires|Formulaires Angular]], [[VUE-14-Formulaires-Validation|Formulaires et Validation Vue.js]]
-- À comparer avec → (—)
+C'est un premier filet. Dans tes projets, la vraie validation se fait en TypeScript (Angular Reactive Forms, ou VeeValidate + Zod en Vue) **et** côté serveur, car la validation du navigateur se contourne facilement.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/html-02-formulaires]]
-- Projet → [[02_Projects/CinéTrack]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi la validation HTML ne protège-t-elle pas le serveur ?
-
----
-
-## Tâches
-
-- [ ] #task Créer le formulaire « Ajouter un film » en HTML pur, puis en reactive forms Angular
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Un bouton sans `type`** qui envoie le formulaire par surprise.
+- **Pas de `label`**, seulement un `placeholder`.
+- **Oublier `event.preventDefault()`** quand tu gères l'envoi en JavaScript : la page se recharge. (Angular et Vue le gèrent avec `(ngSubmit)` et `@submit.prevent`.)
+- **Faire confiance à la validation HTML** pour la sécurité : le serveur doit toujours revérifier.

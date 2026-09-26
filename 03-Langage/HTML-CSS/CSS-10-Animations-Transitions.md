@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Animations et Transitions CSS"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[ANG-15-Performance-Bonnes-Pratiques|Performance & Bonnes Pratiques Angular]]"
-related_snippets:
-  - "[[04_Snippets/css-10-animations-transitions]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://web.dev/learn/css/animations"
@@ -22,118 +19,78 @@ source: "https://web.dev/learn/css/animations"
 
 # Animations et Transitions CSS
 
-> [!abstract] Introduction
-> Les transitions animent le passage d'un état à un autre, les keyframes décrivent des animations complètes ; bien utilisées (transform/opacity), elles restent fluides à 60 images/seconde.
+> [!abstract] En bref
+> Une **transition** anime le passage d'un état à un autre (survol d'un bouton). Une **animation** (`@keyframes`) décrit un mouvement complet (un chargement qui tourne). Règle d'or pour qu'elles restent fluides : n'animer que `transform` et `opacity`.
 
-> [!warning]- Prérequis
-> [[CSS-02-Box-Model|Box Model CSS]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```css
-> .btn { transition: transform 150ms ease-out, background-color 150ms; }
-> .btn:hover { transform: translateY(-2px); }
-> @keyframes apparition { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-> .toast { animation: apparition 200ms ease-out; }
-> ```
-
-> [!example]- Analogie
-> Une transition est un fondu enchaîné entre deux diapositives ; une animation keyframes est un petit film avec plusieurs images clés.
-
-> [!question]- Pourquoi l'utiliser ?
-> Feedback visuel (survol, chargement), continuité (apparition d'une modale) — l'interface paraît plus réactive.
-
-> [!question]- Comment ça marche ?
-> Performance : animer `transform` et `opacity` (gérés par le GPU, pas de reflow). Éviter d'animer `width`, `height`, `top`, `left`.
-> Accessibilité : respecter `prefers-reduced-motion`.
-> Frameworks : `<Transition>` Vue, animations Angular (`@angular/animations`, ou classes CSS `animate.enter/leave` dans les versions récentes), View Transitions API.
-
-> [!question]- Quand l'utiliser ?
-> Micro-interactions de 100 à 300 ms ; pas d'animation décorative longue sur des actions fréquentes.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Trop d'animations fatiguent et ralentissent sur mobile bas de gamme.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Transition | Animation entre deux états |
-| Keyframes | Étapes d'une animation |
-| Easing | Courbe d'accélération |
-| Reflow | Recalcul de layout coûteux |
-
----
-
-## Points clés
-
-- Animer `transform`/`opacity` uniquement si possible
-- 100–300 ms pour l'UI
-- Toujours gérer `prefers-reduced-motion`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `transition: all` → anime des propriétés inattendues, coûteux
-> - Animer `height: auto` (impossible directement)
-
----
-
-## Exemple minimal
+## La transition : le cas le plus courant
 
 ```css
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+.carte {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.carte:hover {
+  transform: translateY(-4px);   /* la carte se soulève légèrement */
+  border-color: var(--primaire);
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Une règle globale rend l'app confortable pour les personnes sensibles aux mouvements.
+Se lit : « quand `transform` ou `border-color` change, fais-le en douceur sur 0,2 seconde ».
 
----
+| Partie | Valeurs |
+|---|---|
+| propriété | celle(s) qui changent |
+| durée | `0.15s` à `0.3s` pour une interface (au-delà, ça paraît lent) |
+| courbe | `ease` (naturel), `ease-out` (rapide puis ralentit), `linear` |
 
-## Pour aller plus loin (niveau senior)
+## L'animation : un mouvement complet
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Utiliser la View Transitions API pour les changements de route
-> - Profiler une animation dans l'onglet Performance
+```css
+@keyframes tourner {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
 
----
+.loader {
+  animation: tourner 1s linear infinite;
+}
 
-## Connexions
+@keyframes apparaitre {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+.toast { animation: apparaitre 0.25s ease-out; }
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/css-10-animations-transitions]]
-- Projet → [[02_Projects/CinéTrack]]
+## Pourquoi seulement `transform` et `opacity` ?
 
----
+| Animer… | Coût pour le navigateur |
+|---|---|
+| `transform` (déplacer, agrandir, tourner), `opacity` | **faible** : fluide |
+| `width`, `height`, `top`, `margin` | **élevé** : recalcul de toute la mise en page à chaque image → saccades |
 
-## Auto-vérification
+Pour déplacer : `transform: translateX(…)`, pas `left`. Pour agrandir : `transform: scale(1.05)`, pas `width`.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi animer `transform` est-il plus performant qu'animer `left` ?
+## Respecter les réglages de l'utilisateur
 
----
+Certaines personnes ont le mal des transports avec les animations et l'ont désactivé dans leur système :
 
-## Tâches
+```css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
 
-- [ ] #task Ajouter une transition d'apparition aux cartes de films
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Dans les frameworks
 
----
+- **Vue** : `<Transition name="fade">` ajoute et retire automatiquement des classes quand un élément apparaît ou disparaît (`v-if`).
+- **Angular** : `animate.enter` / `animate.leave` (versions récentes) ou le module `@angular/animations`.
+- PrimeVue et PrimeNG animent déjà leurs composants.
 
-## Notes brutes
+## Pièges
 
-- ?
+- **`transition: all`** : anime aussi ce que tu ne voulais pas, et coûte plus cher. Liste les propriétés.
+- **Trop d'animations** : une interface pro reste sobre. Survol, apparition, chargement : c'est suffisant.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Formulaires et Validation Vue.js"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[VUE-04-Directives-Templates|Directives & Templates Vue.js]]"
   - "[[TS-19-Validation-Runtime-Zod|Validation runtime avec Zod]]"
-related_snippets:
-  - "[[04_Snippets/vue-14-formulaires-validation]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://vee-validate.logaretm.com/v4/"
@@ -23,134 +20,112 @@ source: "https://vee-validate.logaretm.com/v4/"
 
 # Formulaires et Validation Vue.js
 
-> [!abstract] Introduction
-> En Vue, les formulaires reposent sur `v-model` ; la validation se fait à la main pour les cas simples ou avec une librairie (VeeValidate + Zod/Yup) pour les formulaires métier.
+> [!abstract] En bref
+> `v-model` relie un champ de formulaire à une donnée : ce que tape l'utilisateur arrive directement dans ta `ref`. Pour vérifier les saisies, un formulaire simple se valide à la main ; un vrai formulaire (le Contact du Portfolio) se valide avec **VeeValidate + Zod**.
 
-> [!warning]- Prérequis
-> [[VUE-04-Directives-Templates|Directives & Templates Vue.js]], [[HTML-02-Formulaires|Formulaires HTML]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```vue
-> <script setup lang="ts">
-> const form = reactive({ titre: '', annee: 2024 });
-> const erreurs = computed(() => ({
->   titre: form.titre.trim().length < 2 ? 'Titre trop court' : null,
-> }));
-> </script>
-> <template>
->   <form @submit.prevent="enregistrer">
->     <input v-model.trim="form.titre" aria-describedby="err-titre">
->     <p id="err-titre" v-if="erreurs.titre">{{ erreurs.titre }}</p>
->     <input v-model.number="form.annee" type="number">
->     <button :disabled="!!erreurs.titre">Enregistrer</button>
->   </form>
-> </template>
-> ```
-
-> [!example]- Analogie
-> `v-model` est un fil tendu entre la case du formulaire et ta variable ; la validation est le contrôleur qui relit la fiche avant de l'envoyer.
-
-> [!question]- Pourquoi l'utiliser ?
-> Contrairement à Angular (Reactive Forms intégrés), Vue ne fournit pas de système de validation : il faut choisir une approche d'équipe.
-
-> [!question]- Comment ça marche ?
-> Modificateurs : `v-model.trim`, `.number`, `.lazy` (à la sortie du champ). `@submit.prevent` évite le rechargement.
-> Avec VeeValidate + Zod :
-> ```typescript
-> const { handleSubmit, errors, defineField } = useForm({
->   validationSchema: toTypedSchema(z.object({ titre: z.string().min(2), annee: z.number().min(1888) })),
-> });
-> const [titre, titreAttrs] = defineField('titre');
-> const envoyer = handleSubmit(valeurs => api.creer(valeurs));
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Validation manuelle : 2-3 champs. Librairie : formulaires métier, champs dynamiques, messages d'erreur cohérents.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> La validation client est une aide UX : le serveur doit revalider.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `v-model` | Liaison bidirectionnelle champ ↔ donnée |
-| Modificateur | Suffixe qui ajuste le comportement (`.trim`) |
-| Touched / dirty | Champ visité / modifié |
-| Schéma | Règles de validation déclaratives |
-
----
-
-## Points clés
-
-- `@submit.prevent` sur le formulaire
-- `.number` pour les champs numériques
-- Afficher les erreurs après interaction (touched) ou à la soumission
-- Partager le schéma Zod avec le back si possible
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `.number` → la valeur est une chaîne
-> - Valider uniquement au clic du bouton sans gérer la touche Entrée (utiliser submit)
-
----
-
-## Exemple minimal
+## `v-model` : le lien dans les deux sens
 
 ```vue
-<input v-model="titre" v-bind="titreAttrs">
-<span v-if="errors.titre">{{ errors.titre }}</span>
-<button @click="envoyer">Créer</button>
+<script setup lang="ts">
+const email = ref('');
+const sujet = ref('');
+const accepte = ref(false);
+</script>
+
+<template>
+  <input v-model.trim="email" type="email">
+  <select v-model="sujet">
+    <option value="">Choisir…</option>
+    <option value="job">Opportunité</option>
+  </select>
+  <input v-model="accepte" type="checkbox">
+  <p>Tu as tapé : {{ email }}</p>
+</template>
 ```
 
-> [!note] Ce que j'en retiens
-> VeeValidate gère l'état (erreurs, touched, soumission) et Zod les règles.
+Modificateurs : `.trim` (retire les espaces), `.number` (convertit en nombre), `.lazy` (met à jour quand on quitte le champ).
 
----
+## Valider à la main (petit formulaire)
 
-## Pour aller plus loin (niveau senior)
+```ts
+const email = ref('');
+const erreur = computed(() =>
+  !email.value ? 'Obligatoire' :
+  !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value) ? 'E-mail invalide' : null,
+);
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Composants de champ réutilisables (`BaseInput`) avec `defineModel` et accessibilité des erreurs
+## Valider avec VeeValidate + Zod (formulaire de contact)
 
----
+```bash
+npm i vee-validate zod @vee-validate/zod
+```
 
-## Connexions
+```ts
+// features/contact/data/contact.schema.ts
+import { z } from 'zod';
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-07-Formulaires|Formulaires Angular]]
+export const ContactSchema = z.object({
+  name: z.string().min(2, 'Au moins 2 caractères'),
+  email: z.string().email('E-mail invalide'),
+  subject: z.string().min(1, 'Choisis un sujet'),
+  message: z.string().min(20, 'Au moins 20 caractères'),
+});
+export type ContactForm = z.infer<typeof ContactSchema>;
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-14-formulaires-validation]]
-- Projet → [[02_Projects/CinéTrack]]
+```vue
+<!-- ContactForm.vue -->
+<script setup lang="ts">
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod';
 
----
+const { defineField, errors, handleSubmit, isSubmitting, resetForm } = useForm({
+  validationSchema: toTypedSchema(ContactSchema),
+});
 
-## Auto-vérification
+const [name, nameAttrs] = defineField('name');
+const [email, emailAttrs] = defineField('email');
+const [message, messageAttrs] = defineField('message');
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `v-model.number` est-il nécessaire sur un input numérique ?
+const sent = ref(false);
+const onSubmit = handleSubmit(async (values) => {   // values est typé ContactForm
+  await contactApi.send(values);
+  sent.value = true;
+  resetForm();
+});
+</script>
 
----
+<template>
+  <form novalidate @submit="onSubmit">
+    <label for="name">Nom</label>
+    <input id="name" v-model="name" v-bind="nameAttrs">
+    <p v-if="errors.name" class="error">{{ errors.name }}</p>
 
-## Tâches
+    <label for="email">E-mail</label>
+    <input id="email" v-model="email" v-bind="emailAttrs" type="email">
+    <p v-if="errors.email" class="error">{{ errors.email }}</p>
 
-- [ ] #task Créer le formulaire « ajouter un film » en Vue avec VeeValidate + Zod
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+    <label for="message">Message</label>
+    <textarea id="message" v-model="message" v-bind="messageAttrs" />
+    <p v-if="errors.message" class="error">{{ errors.message }}</p>
 
----
+    <button type="submit" :disabled="isSubmitting">Envoyer</button>
+    <p v-if="sent" role="status">Message envoyé, merci !</p>
+  </form>
+</template>
+```
 
-## Notes brutes
+**L'avantage :** une seule règle (le schéma Zod) sert à la validation **et** au type TypeScript. Voir [[TS-19-Validation-Runtime-Zod|Zod]].
 
-- ?
+## Les bons réflexes
+
+- Afficher l'erreur **sous le champ**, après que l'utilisateur l'a quitté (pas à la première lettre).
+- Désactiver le bouton pendant l'envoi (`isSubmitting`), pour éviter les doubles envois.
+- Afficher un message de **succès** et un message si l'envoi **échoue**.
+- Garder les bases HTML : `label`, bon `type`, `autocomplete` (voir [[HTML-02-Formulaires|Formulaires HTML]]).
+
+## Pièges
+
+- **Oublier `.prevent`** en écriture manuelle (`@submit.prevent`) : la page se recharge. (`handleSubmit` le gère.)
+- **Faire confiance à la validation du front** : le serveur doit revalider.

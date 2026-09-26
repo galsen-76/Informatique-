@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Slots Vue.js"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[VUE-03-Composants-SFC|Composants & SFC Vue.js]]"
-related_snippets:
-  - "[[04_Snippets/vue-12-slots]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/components/slots.html"
@@ -22,133 +19,95 @@ source: "https://vuejs.org/guide/components/slots.html"
 
 # Slots Vue.js
 
-> [!abstract] Introduction
-> Les slots permettent à un parent d'injecter du contenu dans un composant enfant (équivalent de `<ng-content>`) ; les scoped slots permettent en plus à l'enfant de passer des données au contenu injecté.
+> [!abstract] En bref
+> Un **slot** est un **trou** laissé dans un composant, que le parent remplit avec le contenu de son choix. Parfait pour les composants « cadres » : une carte, une fenêtre modale, une mise en page. Le composant fournit le cadre, le parent fournit l'intérieur.
 
-> [!warning]- Prérequis
-> [[VUE-05-Props-Emits|Props & Emits Vue.js (Communication Parent-Enfant)]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```vue
-> <!-- Carte.vue -->
-> <template>
->   <article class="carte">
->     <header><slot name="titre" /></header>
->     <slot>Contenu par défaut</slot>
->     <footer><slot name="actions" /></footer>
->   </article>
-> </template>
-> <!-- Parent -->
-> <Carte>
->   <template #titre><h2>Inception</h2></template>
->   <p>Un voleur de rêves…</p>
->   <template #actions><button>Voir</button></template>
-> </Carte>
-> ```
-
-> [!example]- Analogie
-> Un gâteau d'anniversaire avec des emplacements pour les bougies : le pâtissier (composant) fait le gâteau, le client (parent) choisit les bougies.
-
-> [!question]- Pourquoi l'utiliser ?
-> Des composants de mise en page génériques (cartes, modales, tableaux, layouts) sans multiplier les props.
-
-> [!question]- Comment ça marche ?
-> - Slot par défaut `<slot />`, slots nommés `<slot name="x" />` + `<template #x>`
-> - **Scoped slot** : l'enfant expose des données : `<slot :item="film" />` → `<template #default="{ item }">`
-> - Contenu de secours entre les balises `<slot>`
-> - `$slots` / `useSlots()` pour savoir si un slot est fourni
-
-> [!question]- Quand l'utiliser ?
-> Design system, listes/tableaux dont le rendu des lignes est personnalisable.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Trop de slots rend l'API du composant difficile à comprendre ; documenter chaque slot.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Slot | Emplacement de contenu fourni par le parent |
-| Slot nommé | Emplacement identifié par un nom |
-| Scoped slot | Slot recevant des données de l'enfant |
-| `#` | Raccourci de `v-slot:` |
-
----
-
-## Points clés
-
-- `#nom` = `v-slot:nom`
-- Scoped slots = rendu personnalisable avec données de l'enfant
-- Équivalent Angular : `ng-content` + `ngTemplateOutlet`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `<template #nom>` pour un slot nommé
-> - Confondre props du slot et props du composant
-
----
-
-## Exemple minimal
+## Le slot simple
 
 ```vue
-<!-- TableFilms.vue -->
+<!-- BaseCard.vue : le cadre -->
 <template>
-  <table><tr v-for="f in films" :key="f.id"><slot name="ligne" :film="f" /></tr></table>
+  <article class="card">
+    <slot />            <!-- ici viendra le contenu du parent -->
+  </article>
 </template>
-<!-- Parent -->
-<TableFilms :films="films">
-  <template #ligne="{ film }"><td>{{ film.titre }}</td><td>{{ film.annee }}</td></template>
-</TableFilms>
 ```
 
-> [!note] Ce que j'en retiens
-> La table gère la boucle, le parent choisit les colonnes.
+```vue
+<!-- utilisation -->
+<BaseCard>
+  <h3>Sécurité</h3>
+  <p>Authentification JWT, contrôle des accès…</p>
+</BaseCard>
+```
 
----
+Image : un **cadre photo**. Le cadre est toujours le même, tu choisis la photo.
 
-## Pour aller plus loin (niveau senior)
+## Plusieurs trous : les slots nommés
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Composants « renderless » (logique pure exposée via scoped slot)
+```vue
+<!-- BaseModal.vue -->
+<template>
+  <div class="modal">
+    <header><slot name="title" /></header>
+    <div class="body"><slot /></div>
+    <footer><slot name="actions">
+      <button type="button">Fermer</button>   <!-- contenu par défaut -->
+    </slot></footer>
+  </div>
+</template>
+```
 
----
+```vue
+<BaseModal>
+  <template #title>Supprimer le projet ?</template>
+  Cette action est définitive.
+  <template #actions>
+    <button type="button">Annuler</button>
+    <button type="button" class="danger">Supprimer</button>
+  </template>
+</BaseModal>
+```
 
-## Connexions
+`#title` est le raccourci de `v-slot:title`.
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-22-Content-Projection-Queries|Content Projection et View Queries Angular]]
+## Le slot qui donne des données au parent (scoped slot)
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-12-slots]]
-- Projet → [[02_Projects/CinéTrack]]
+Le composant boucle sur une liste, mais laisse le parent décider **comment afficher chaque élément** :
 
----
+```vue
+<!-- BaseList.vue -->
+<script setup lang="ts" generic="T">
+defineProps<{ items: T[] }>();
+</script>
 
-## Auto-vérification
+<template>
+  <ul>
+    <li v-for="(item, i) in items" :key="i">
+      <slot :item="item" />      <!-- on passe l'élément au parent -->
+    </li>
+  </ul>
+</template>
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle est la différence entre slot et scoped slot ?
+```vue
+<BaseList :items="projects">
+  <template #default="{ item }">
+    <strong>{{ item.title }}</strong> — {{ item.techs.join(', ') }}
+  </template>
+</BaseList>
+```
 
----
+C'est le fonctionnement des colonnes du `DataTable` de PrimeVue.
 
-## Tâches
+## Quand utiliser des slots ou des props ?
 
-- [ ] #task Créer une `Modale.vue` avec slots titre/contenu/actions
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+| Le parent veut passer… | Utilise |
+|---|---|
+| une **donnée** (un titre, un nombre) | une prop |
+| du **HTML** ou d'autres composants | un slot |
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Un composant avec 15 props** pour tout personnaliser (`titleColor`, `showIcon`…) : un slot est souvent plus simple.
+- **Oublier `<template #nom>`** pour un slot nommé : le contenu part dans le slot par défaut.

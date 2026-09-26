@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Cycle de Vie Vue.js"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[VUE-03-Composants-SFC|Composants & SFC Vue.js]]"
-related_snippets:
-  - "[[04_Snippets/vue-11-cycle-de-vie]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/essentials/lifecycle.html"
@@ -22,127 +19,69 @@ source: "https://vuejs.org/guide/essentials/lifecycle.html"
 
 # Cycle de Vie Vue.js
 
-> [!abstract] Introduction
-> Les hooks de cycle de vie (`onMounted`, `onUnmounted`…) exécutent du code à la création, au montage dans le DOM, à la mise à jour et à la destruction d'un composant.
+> [!abstract] En bref
+> Un composant **naît** (il est créé), **apparaît** dans la page, **se met à jour**, puis **disparaît**. Vue te permet d'exécuter du code à ces moments-là avec des fonctions comme `onMounted` et `onUnmounted`. Dans la pratique, deux suffisent presque toujours.
 
-> [!warning]- Prérequis
-> [[VUE-03-Composants-SFC|Composants & SFC Vue.js]]
+## Les moments de la vie d'un composant
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> | Hook (Composition API) | Moment | Équivalent Angular |
-> |---|---|---|
-> | `<script setup>` lui-même | création | constructor + ngOnInit |
-> | `onBeforeMount` / `onMounted` | avant / après insertion dans le DOM | ngAfterViewInit |
-> | `onBeforeUpdate` / `onUpdated` | autour d'un re-rendu | ngAfterViewChecked |
-> | `onBeforeUnmount` / `onUnmounted` | avant / après destruction | ngOnDestroy |
-> | `onActivated` / `onDeactivated` | composant en `<KeepAlive>` | — |
-> | `onErrorCaptured` | erreur d'un descendant | ErrorHandler |
-
-> [!example]- Analogie
-> Emménager (setup), ouvrir les volets (mounted), réaménager (updated), rendre les clés (unmounted).
-
-> [!question]- Pourquoi l'utiliser ?
-> Accéder au DOM seulement quand il existe et nettoyer ce qu'on a démarré (timers, listeners, abonnements).
-
-> [!question]- Comment ça marche ?
-> ```vue
-> <script setup lang="ts">
-> import { onMounted, onUnmounted, ref } from 'vue';
-> const largeur = ref(window.innerWidth);
-> const maj = () => (largeur.value = window.innerWidth);
-> onMounted(() => window.addEventListener('resize', maj));
-> onUnmounted(() => window.removeEventListener('resize', maj));
-> </script>
-> ```
-> Le code de `setup` s'exécute AVANT le montage : les refs de template sont encore `null`.
-
-> [!question]- Quand l'utiliser ?
-> `onMounted` : DOM, libs tierces. `onUnmounted` : nettoyage. Les chargements de données peuvent partir directement dans `setup`.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> En SSR (Nuxt), `onMounted` n'est pas exécuté côté serveur : parfait pour le code navigateur-only.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Montage | Insertion du composant dans le DOM |
-| Démontage | Retrait et destruction du composant |
-| KeepAlive | Garde un composant en cache au lieu de le détruire |
-
----
-
-## Points clés
-
-- Le setup = initialisation
-- onMounted pour le DOM
-- Toujours nettoyer dans onUnmounted (ou `onScopeDispose` dans un composable)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Lire une ref de template dans setup → null
-> - Oublier de retirer un listener global
-
----
-
-## Exemple minimal
-
-```typescript
-// composable réutilisable avec nettoyage automatique
-export function useEvenementFenetre<K extends keyof WindowEventMap>(nom: K, fn: (e: WindowEventMap[K]) => void) {
-  onMounted(() => window.addEventListener(nom, fn));
-  onUnmounted(() => window.removeEventListener(nom, fn));
-}
+```mermaid
+flowchart LR
+  A["setup<br/>(le script s'exécute)"] --> B["onMounted<br/>affiché dans la page"]
+  B --> C["onUpdated<br/>après une mise à jour"]
+  C --> C
+  C --> D["onUnmounted<br/>retiré de la page"]
 ```
 
-> [!note] Ce que j'en retiens
-> Encapsuler écouteur + nettoyage dans un composable évite de l'oublier.
+## Les deux à connaître
 
----
+### `onMounted` : le composant est affiché
 
-## Pour aller plus loin (niveau senior)
+C'est le moment où les éléments HTML existent vraiment. Utile pour :
+- lancer un chargement de données ;
+- donner le focus à un champ ;
+- mesurer un élément ou démarrer une librairie externe (graphique, carte).
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Utiliser VueUse (`useEventListener`, `useResizeObserver`) plutôt que réécrire ces utilitaires
+```ts
+import { onMounted, useTemplateRef } from 'vue';
 
----
+const search = useTemplateRef<HTMLInputElement>('search');
 
-## Connexions
+onMounted(() => {
+  search.value?.focus();
+  store.load();
+});
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-18-Cycle-de-Vie|Cycle de vie des composants Angular]]
+### `onUnmounted` : le composant disparaît
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-11-cycle-de-vie]]
-- Projet → [[02_Projects/CinéTrack]]
+Pour **nettoyer** ce que tu as ouvert : un minuteur, un écouteur sur `window`, un abonnement.
 
----
+```ts
+onMounted(() => window.addEventListener('resize', onResize));
+onUnmounted(() => window.removeEventListener('resize', onResize));
 
-## Auto-vérification
+const timer = setInterval(rafraichir, 30_000);
+onUnmounted(() => clearInterval(timer));
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi une ref de template est-elle null dans le setup ?
+Sans ce nettoyage, les écouteurs continuent de tourner après le départ de la page : fuite de mémoire et bugs étranges.
 
----
+## Et les autres ?
 
-## Tâches
+| Hook | Usage |
+|---|---|
+| `onBeforeMount`, `onBeforeUnmount` | juste avant ; rarement utile |
+| `onUpdated` | après chaque mise à jour de l'affichage ; à éviter (un `watch` est plus précis) |
+| `onErrorCaptured` | attraper les erreurs des composants enfants |
 
-- [ ] #task Comparer l'ordre des hooks Angular et Vue sur un même composant
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Astuce : VueUse nettoie pour toi
 
----
+```ts
+useEventListener(window, 'resize', onResize);   // retiré automatiquement
+useIntervalFn(rafraichir, 30_000);               // arrêté automatiquement
+```
 
-## Notes brutes
+## Pièges
 
-- ?
+- **Chercher un élément du template dans le `setup`** (avant `onMounted`) : il n'existe pas encore → `null`.
+- **Oublier de nettoyer** un `setInterval` ou un `addEventListener` sur `window`.

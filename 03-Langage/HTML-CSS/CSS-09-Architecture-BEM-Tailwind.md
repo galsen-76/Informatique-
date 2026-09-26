@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Architecture CSS BEM et Tailwind"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[CSS-08-SCSS-Sass|SCSS Sass]]"
-related_snippets:
-  - "[[04_Snippets/css-09-architecture-bem-tailwind]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://tailwindcss.com/docs"
@@ -22,121 +19,74 @@ source: "https://tailwindcss.com/docs"
 
 # Architecture CSS BEM et Tailwind
 
-> [!abstract] Introduction
-> Sur un gros projet, il faut une stratégie pour nommer et organiser le CSS : conventions (BEM), encapsulation des composants (Angular/Vue), ou CSS utilitaire (Tailwind).
+> [!abstract] En bref
+> Sur un gros projet, le CSS devient vite ingérable : on ne sait plus quelle règle agit où, et modifier un style en casse un autre. Trois stratégies existent : une convention de nommage (**BEM**), le **CSS limité au composant** (Angular / Vue), et le **CSS utilitaire** (**Tailwind**). Dans tes projets, tu combineras surtout les deux dernières.
 
-> [!warning]- Prérequis
-> [[CSS-01-Selecteurs-Cascade-Specificite|Sélecteurs Cascade et Spécificité CSS]]
+## Le problème
 
----
+```css
+.titre { color: red; }   /* écrit pour la page Contact… */
+```
 
-## Théorie
+… et tous les `.titre` du site deviennent rouges. Le CSS est **global** par défaut.
 
-> [!question]- C'est quoi ?
-> **BEM** (Block, Element, Modifier) : `.film-card`, `.film-card__titre`, `.film-card--favori`.
-> **Utility-first (Tailwind)** : `<div class="flex gap-4 p-4 rounded-lg shadow">`.
-> **Encapsulation composant** : Angular `ViewEncapsulation.Emulated`, Vue `<style scoped>` → styles limités au composant.
+## Solution 1 : BEM, une convention de nommage
 
-> [!example]- Analogie
-> BEM, c'est étiqueter chaque boîte d'un déménagement « cuisine / assiettes / fragile » ; Tailwind, c'est avoir un kit de pièces standard qu'on assemble directement sur place.
-
-> [!question]- Pourquoi l'utiliser ?
-> Éviter les conflits de noms, le CSS mort qui s'accumule et la peur de modifier une règle.
-
-> [!question]- Comment ça marche ?
-> | Approche | + | − |
-> |---|---|---|
-> | BEM + SCSS | Lisible, sémantique | Verbeux, discipline requise |
-> | Styles scopés | Isolation automatique | Styles globaux à gérer à part |
-> | Tailwind | Rapide, pas de CSS mort, cohérent | HTML chargé, apprentissage des classes |
-> | Composants UI (Material, PrimeVue) | Productivité | Personnalisation parfois difficile |
-
-> [!question]- Quand l'utiliser ?
-> Suivre la convention de l'équipe. Encapsulation de composant + tokens CSS est un bon socle ; Tailwind est très répandu dans les projets Vue/Nuxt récents.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Mélanger 3 stratégies dans un même projet = chaos. Les surcharges de librairie (Material) nécessitent leurs propres APIs de thème.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| BEM | Convention Bloc__Élément--Modificateur |
-| Utility-first | Classes à usage unique combinées dans le HTML |
-| CSS mort | Règles qui ne s'appliquent plus à rien |
-
----
-
-## Points clés
-
-- Une seule stratégie par projet
-- Styles de composant scopés + tokens globaux
-- Tailwind : purge automatique du CSS inutilisé
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `::ng-deep` / `:deep()` utilisé partout pour « forcer » des styles
-> - Classes Tailwind construites dynamiquement par concaténation (non détectées au build)
-
----
-
-## Exemple minimal
+**B**loc, **E**lément, **M**odificateur :
 
 ```html
-<!-- BEM -->
-<article class="film-card film-card--favori">
-  <h2 class="film-card__titre">Dune</h2>
-</article>
-<!-- Tailwind -->
-<article class="rounded-lg border p-4 shadow-sm data-[favori=true]:border-amber-400">
-  <h2 class="text-lg font-semibold">Dune</h2>
+<article class="carte carte--favori">
+  <h3 class="carte__titre">Dune</h3>
+  <button class="carte__bouton">Voir</button>
 </article>
 ```
 
-> [!note] Ce que j'en retiens
-> Deux philosophies pour le même résultat ; l'important est la cohérence d'équipe.
+| Partie | Écriture | Sens |
+|---|---|---|
+| Bloc | `carte` | le composant |
+| Élément | `carte__titre` | une partie du bloc |
+| Modificateur | `carte--favori` | une variante |
 
----
+Chaque classe est unique et plate : pas de conflit, pas de sélecteurs imbriqués.
 
-## Pour aller plus loin (niveau senior)
+## Solution 2 : le CSS du composant (ce que tu fais déjà)
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Construire un design system (tokens + composants) documenté dans Storybook
+Angular et Vue **limitent** le CSS d'un composant à ce composant :
 
----
+```vue
+<style scoped>
+.titre { color: red; }   /* ne touche QUE les .titre de ce composant */
+</style>
+```
 
-## Connexions
+En Angular, c'est automatique pour le CSS de chaque composant. Plus besoin de noms à rallonge : `.titre` suffit à l'intérieur d'un composant.
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Solution 3 : Tailwind, des classes utilitaires
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/css-09-architecture-bem-tailwind]]
-- Projet → [[02_Projects/CinéTrack]]
+Chaque classe fait **une seule chose**, et on les combine directement dans le HTML :
 
----
+```html
+<article class="rounded-xl border border-slate-800 bg-slate-900 p-5 hover:border-emerald-500">
+  <h3 class="text-lg font-bold">Dune</h3>
+  <p class="text-sm text-slate-400">2021 · SF</p>
+</article>
+```
 
-## Auto-vérification
+| Avantages | Inconvénients |
+|---|---|
+| on ne quitte pas le HTML | HTML chargé |
+| aucun conflit, aucun CSS mort | il faut apprendre les noms de classes |
+| cohérent (espacements et couleurs d'une échelle fixe) | |
+| responsive facile : `md:grid-cols-3` | |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi le CSS scopé réduit-il le besoin de BEM ?
+## Ce que tu utilises dans tes projets
 
----
+| Besoin | Outil |
+|---|---|
+| Les composants tout faits (boutons, tableaux, menus) | PrimeVue / PrimeNG |
+| La mise en page et les ajustements | Tailwind ou CSS du composant |
+| Les couleurs, rayons, ombres | variables CSS de la charte |
 
-## Tâches
+Voir [[UI-Librairies-Interfaces-Rapides|Librairies UI]].
 
-- [ ] #task Demander au travail quelle convention CSS est utilisée et pourquoi
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+**Au travail**, suis la convention déjà en place dans le projet.

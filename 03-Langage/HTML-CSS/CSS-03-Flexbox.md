@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Flexbox CSS"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[CSS-02-Box-Model|Box Model CSS]]"
-related_snippets:
-  - "[[04_Snippets/css-03-flexbox]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
@@ -22,123 +19,89 @@ source: "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
 
 # Flexbox CSS
 
-> [!abstract] Introduction
-> Flexbox dispose des éléments sur UN axe (ligne ou colonne) en gérant l'alignement, l'espacement et la répartition de l'espace disponible — l'outil n°1 des barres de navigation, cartes et boutons.
+> [!abstract] En bref
+> Flexbox aligne des éléments **sur une seule ligne ou une seule colonne** et répartit l'espace entre eux. C'est l'outil n°1 pour une barre de navigation, une rangée de boutons, ou centrer quelque chose.
 
-> [!warning]- Prérequis
-> [[CSS-02-Box-Model|Box Model CSS]]
+## Le principe
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```css
-> .barre { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-> ```
-
-> [!example]- Analogie
-> Des livres sur une étagère : on choisit l'axe (horizontal), leur répartition (serrés à gauche, espacés…) et leur alignement vertical (alignés en haut, centrés…).
-
-> [!question]- Pourquoi l'utiliser ?
-> Centrer, aligner, répartir en quelques lignes — ce qui était un casse-tête avec `float`.
-
-> [!question]- Comment ça marche ?
-> Sur le **conteneur** :
-> - `flex-direction` : `row` | `column` (définit l'axe principal)
-> - `justify-content` : alignement sur l'axe principal
-> - `align-items` : alignement sur l'axe secondaire
-> - `flex-wrap: wrap` : passage à la ligne
-> - `gap` : espacement
-> Sur les **enfants** :
-> - `flex: 1` (= grow 1, shrink 1, basis 0) : prend l'espace restant
-> - `flex-shrink: 0` : ne rétrécit jamais
-> - `align-self`, `order`
-
-> [!question]- Quand l'utiliser ?
-> Mise en page à une dimension : navbar, rangée de boutons, carte (image + texte), centrage.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pour une vraie grille à 2 dimensions (lignes ET colonnes alignées), Grid est plus adapté.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Axe principal | Direction de `flex-direction` |
-| Axe secondaire | Perpendiculaire à l'axe principal |
-| flex-basis | Taille de départ avant répartition |
-| flex-grow / shrink | Capacité à grandir / rétrécir |
-
----
-
-## Points clés
-
-- `justify-*` = axe principal, `align-*` = axe secondaire
-- `gap` plutôt que des marges
-- `min-width: 0` sur un enfant flex pour permettre le texte tronqué
-- Centrage parfait : `display:flex; place-items` (ou justify+align center)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Texte long qui déborde car les enfants flex ont `min-width: auto` → ajouter `min-width: 0`
-> - Confondre `justify-content` et `align-items` après un passage en `column`
-
----
-
-## Exemple minimal
+On active Flexbox sur le **parent**, et ce sont ses **enfants directs** qui s'alignent :
 
 ```css
-.film-card { display: flex; gap: 1rem; align-items: flex-start; }
-.film-card img { flex-shrink: 0; width: 120px; }
-.film-card .infos { flex: 1; min-width: 0; }
-.film-card .titre { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.barre {
+  display: flex;
+  justify-content: space-between;  /* répartition sur l'axe principal */
+  align-items: center;             /* alignement sur l'autre axe */
+  gap: 16px;                       /* espace entre les enfants */
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Image à taille fixe, texte qui prend le reste et se tronque proprement : le pattern « media object ».
+```html
+<header class="barre">
+  <a class="logo">TN</a>
+  <nav>…</nav>
+  <button>Contact</button>
+</header>
+```
 
----
+Résultat : logo à gauche, bouton à droite, nav au milieu, tout centré verticalement.
 
-## Pour aller plus loin (niveau senior)
+## Les 2 axes
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir quand combiner Flex (composants) et Grid (layout de page)
+```mermaid
+flowchart LR
+  A["flex-direction: row (défaut)"] --> B["axe principal : horizontal →<br/>justify-content"]
+  A --> C["axe secondaire : vertical ↓<br/>align-items"]
+```
 
----
+Avec `flex-direction: column`, les axes s'inversent : `justify-content` agit à la verticale.
 
-## Connexions
+## Aide-mémoire
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[CSS-04-Grid|Grid CSS]]
+**Sur le parent**
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/css-03-flexbox]]
-- Projet → [[02_Projects/CinéTrack]]
+| Propriété | Valeurs utiles |
+|---|---|
+| `flex-direction` | `row` (en ligne), `column` (en colonne) |
+| `justify-content` | `flex-start`, `center`, `space-between`, `flex-end` |
+| `align-items` | `stretch` (défaut), `center`, `flex-start`, `flex-end` |
+| `flex-wrap` | `wrap` : passe à la ligne s'il n'y a plus de place |
+| `gap` | espace entre les enfants |
 
----
+**Sur un enfant**
 
-## Auto-vérification
+| Propriété | Effet |
+|---|---|
+| `flex: 1` | prend toute la place restante |
+| `flex-shrink: 0` | refuse de rétrécir (une icône, un logo) |
+| `margin-left: auto` | se pousse tout à droite |
+| `align-self: center` | s'aligne autrement que les autres |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Que fait `flex: 1` exactement ?
+## Les recettes
 
----
+```css
+/* Centrer parfaitement */
+.centre { display: flex; justify-content: center; align-items: center; }
 
-## Tâches
+/* Des tags qui passent à la ligne */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
-- [ ] #task Finir le jeu Flexbox Froggy
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+/* Un champ qui prend la place, un bouton à côté */
+.recherche { display: flex; gap: 8px; }
+.recherche input { flex: 1; }
 
----
+/* Le pied d'une carte toujours en bas */
+.carte { display: flex; flex-direction: column; }
+.carte .pied { margin-top: auto; }
+```
 
-## Notes brutes
+## Flexbox ou Grid ?
 
-- ?
+- **Une dimension** (une ligne OU une colonne) → Flexbox.
+- **Deux dimensions** (lignes ET colonnes : grille de cartes, mise en page) → [[CSS-04-Grid|Grid]].
+
+Jeu pour s'entraîner : [Flexbox Froggy](https://flexboxfroggy.com/#fr).
+
+## Pièges
+
+- **`display: flex` sur l'enfant** au lieu du parent.
+- **Un texte long qui déborde** d'un élément flex : ajoute `min-width: 0` sur cet élément.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Provide Inject Vue.js"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[VUE-07-Composition-API|Composition API & Composables Vue.js]]"
-related_snippets:
-  - "[[04_Snippets/vue-13-provide-inject]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/components/provide-inject.html"
@@ -22,123 +19,56 @@ source: "https://vuejs.org/guide/components/provide-inject.html"
 
 # Provide Inject Vue.js
 
-> [!abstract] Introduction
-> `provide`/`inject` transmet une valeur d'un ancêtre à n'importe quel descendant sans passer par chaque niveau (évite le prop drilling) — la forme d'injection de dépendances de Vue.
+> [!abstract] En bref
+> `provide` / `inject` permet à un composant de **mettre une valeur à disposition de tous ses descendants**, sans la faire passer en prop à chaque niveau. Utile pour un contexte partagé par un groupe de composants (un formulaire, des onglets). Pour des données partagées par toute l'application, préfère Pinia.
 
-> [!warning]- Prérequis
-> [[VUE-05-Props-Emits|Props & Emits Vue.js (Communication Parent-Enfant)]]
+## Le problème : le « prop drilling »
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> // keys.ts
-> export const ThemeKey: InjectionKey<Ref<'clair' | 'sombre'>> = Symbol('theme');
-> // Ancêtre
-> const theme = ref<'clair' | 'sombre'>('clair');
-> provide(ThemeKey, theme);
-> // Descendant (n'importe quelle profondeur)
-> const theme = inject(ThemeKey)!;
-> ```
-
-> [!example]- Analogie
-> Le wifi de la maison : le routeur (ancêtre) diffuse, n'importe quelle pièce (descendant) capte, sans tirer de câble à travers chaque pièce.
-
-> [!question]- Pourquoi l'utiliser ?
-> Partager un contexte dans un sous-arbre (thème, formulaire parent/champs, onglets/onglet) ; `app.provide()` pour une valeur globale (config, client API).
-
-> [!question]- Comment ça marche ?
-> - Fournir une `ref` pour que la valeur reste réactive
-> - `readonly(ref)` pour empêcher les descendants de la modifier, et fournir une fonction de mise à jour
-> - Valeur par défaut : `inject(Key, valeurParDefaut)`
-> - Plugins : `app.provide('api', client)`
-
-> [!question]- Quand l'utiliser ?
-> Composants composés (Tabs/Tab, Form/Field), contexte de sous-arbre. Pour un état global de l'application, Pinia est plus lisible et outillé (DevTools).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les dépendances deviennent implicites : difficile de savoir d'où vient une valeur. Ne fonctionne que du haut vers le bas de l'arbre.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Provide | Rendre une valeur disponible aux descendants |
-| Inject | Récupérer une valeur fournie par un ancêtre |
-| InjectionKey | Clé typée (Symbol) pour provide/inject |
-| Prop drilling | Passer une prop à travers des niveaux qui n'en ont pas besoin |
-
----
-
-## Points clés
-
-- Fournir des refs pour la réactivité
-- Clés `Symbol` typées avec `InjectionKey`
-- Pinia pour l'état global, provide/inject pour un contexte local
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Fournir une valeur brute (non réactive) et s'étonner qu'elle ne se mette pas à jour
-> - Appeler `inject` en dehors de `setup`
-
----
-
-## Exemple minimal
-
-```typescript
-// Onglets.vue
-const actif = ref(0);
-provide(OngletsKey, { actif: readonly(actif), activer: (i: number) => (actif.value = i) });
-// Onglet.vue
-const { actif, activer } = inject(OngletsKey)!;
+```mermaid
+flowchart TB
+  A["Page (a la donnée)"] -->|prop| B["Section"]
+  B -->|prop| C["Liste"]
+  C -->|prop| D["Carte (en a besoin)"]
 ```
 
-> [!note] Ce que j'en retiens
-> Lecture seule + fonction dédiée : les enfants ne peuvent pas casser l'état du parent.
+`Section` et `Liste` ne font que transmettre une donnée dont elles n'ont pas besoin. Avec `provide` / `inject`, la page la **dépose**, et la carte la **prend** directement.
 
----
+## Utilisation
 
-## Pour aller plus loin (niveau senior)
+```ts
+// keys.ts : une clé typée, pour éviter les fautes de frappe
+import type { InjectionKey, Ref } from 'vue';
+export const THEME_KEY: InjectionKey<Ref<'light' | 'dark'>> = Symbol('theme');
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Comparer au système hiérarchique d'injecteurs Angular
+```vue
+<!-- composant parent -->
+<script setup lang="ts">
+const theme = ref<'light' | 'dark'>('dark');
+provide(THEME_KEY, theme);
+</script>
+```
 
----
+```vue
+<!-- n'importe quel descendant, à n'importe quelle profondeur -->
+<script setup lang="ts">
+const theme = inject(THEME_KEY);                       // peut être undefined
+const theme = inject(THEME_KEY, ref('dark'));          // avec une valeur par défaut
+</script>
+```
 
-## Connexions
+## Quand l'utiliser ?
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-05-Services-DI|Services & Injection de Dépendances (DI) Angular]]
+| Situation | Outil |
+|---|---|
+| parent → enfant direct | props |
+| un groupe de composants qui travaillent ensemble (`Tabs` + `Tab`, `Form` + `Field`) | provide / inject |
+| donnée partagée par toute l'application | [[VUE-09-Pinia-State-Management\|Pinia]] |
+| un plugin ou une configuration globale | `app.provide(…)` dans `main.ts` |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-13-provide-inject]]
-- Projet → [[02_Projects/CinéTrack]]
+Dans une application, tu t'en serviras peu. Les librairies (PrimeVue, VeeValidate, Vue Router) l'utilisent beaucoup en interne : c'est comme ça que `useRouter()` retrouve le routeur.
 
----
+## Pièges
 
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi fournir une ref plutôt qu'une valeur simple ?
-
----
-
-## Tâches
-
-- [ ] #task Créer un couple `Onglets`/`Onglet` avec provide/inject
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Fournir une valeur simple** (`provide(KEY, 'dark')`) : les descendants ne verront jamais les changements. Fournis une `ref`.
+- **Les descendants qui modifient la valeur** : difficile de savoir qui a changé quoi. Fournis plutôt une valeur en lecture seule (`readonly(theme)`) et une fonction pour la modifier.

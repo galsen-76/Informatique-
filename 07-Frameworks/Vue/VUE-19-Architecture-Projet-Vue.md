@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Architecture d'un Projet Vue.js"
 parent: "[[Vue]]"
-children: []
 related_theory:
   - "[[ARCH-14-Architecture-Frontend|Architecture Frontend]]"
   - "[[VUE-09-Pinia-State-Management|Pinia (State Management Vue.js)]]"
-related_snippets:
-  - "[[04_Snippets/vue-19-architecture-projet-vue]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/style-guide/"
@@ -23,129 +20,60 @@ source: "https://vuejs.org/style-guide/"
 
 # Architecture d'un Projet Vue.js
 
-> [!abstract] Introduction
-> Vue laisse beaucoup de liberté : une structure par fonctionnalités, des conventions de nommage et une séparation claire vues / composants / composables / services / stores rendent un projet maintenable.
+> [!abstract] En bref
+> Vue ne t'impose aucune organisation : c'est à toi de choisir. Cette note explique **les principes** qui rendent un projet facile à faire évoluer. L'arborescence concrète à copier est dans [[VUE-22-Template-Architecture-Vue|Template d'architecture Vue]], et le modèle général dans [[ARCH-15-Structure-de-Projet|Structure de projet]].
 
-> [!warning]- Prérequis
-> [[VUE-07-Composition-API|Composition API & Composables Vue.js]], [[VUE-09-Pinia-State-Management|Pinia (State Management Vue.js)]]
+## Les 5 principes
 
----
+### 1. Ranger par fonctionnalité, pas par type de fichier
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```text
-> src/
-> ├── app/                 # main.ts, router, plugins, layouts
-> ├── shared/              # ui/ (BaseButton, BaseInput), composables/, utils/
-> ├── features/
-> │   ├── films/
-> │   │   ├── api/         # filmsApi.ts
-> │   │   ├── stores/      # useFilmsStore.ts
-> │   │   ├── composables/ # useRechercheFilms.ts
-> │   │   ├── components/  # FilmCard.vue, FilmListe.vue
-> │   │   └── views/       # FilmsView.vue, FilmDetailView.vue
-> │   └── auth/
-> └── assets/
-> ```
-
-> [!example]- Analogie
-> Comme en Angular : des départements (features) avec leurs propres bureaux, et des services communs — Vue ne l'impose pas, c'est à l'équipe de le décider.
-
-> [!question]- Pourquoi l'utiliser ?
-> La flexibilité de Vue est un piège en équipe : sans conventions écrites, chaque développeur organise différemment.
-
-> [!question]- Comment ça marche ?
-> Conventions du style guide Vue :
-> - Noms de composants multi-mots en PascalCase (`FilmCard.vue`)
-> - Composants de base préfixés (`BaseButton`, `AppHeader`)
-> - Composables `useXxx`, stores `useXxxStore`
-> - Vues (routées) = conteneurs ; composants = présentation (props/emits)
-> - ESLint `eslint-plugin-vue` + Prettier, `vue-tsc` en CI
-
-> [!question]- Quand l'utiliser ?
-> Dès le premier jour d'un projet d'équipe ; documenter les choix (README, ADR).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Adapter la profondeur au projet : pas besoin de 5 sous-dossiers pour une feature d'un seul écran.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| View | Composant associé à une route |
-| Composant de base | Brique UI générique sans logique métier |
-| Feature | Domaine fonctionnel |
-
----
-
-## Points clés
-
-- Structure par feature
-- Vues = orchestration, composants = affichage
-- API → store/composable → vue → composants
-- Conventions écrites + lint
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Tout mettre dans `components/` à plat
-> - Stores Pinia qui appellent directement des composants/DOM
-
----
-
-## Exemple minimal
-
-```typescript
-// features/films/views/FilmsView.vue
-const store = useFilmsStore();
-onMounted(() => store.charger());
-// template : <FilmListe :films="store.filmsFiltres" @favori="store.basculerFavori" />
+```text
+❌ par type                     ✅ par fonctionnalité
+components/ (80 fichiers)       features/projects/…
+composables/ (30 fichiers)      features/contact/…
+stores/ (15 fichiers)           features/activity/…
 ```
 
-> [!note] Ce que j'en retiens
-> La vue branche le store sur des composants de présentation, exactement comme une page conteneur Angular.
+Quand tu travailles sur les projets, tout est au même endroit.
 
----
+### 2. Séparer ce qui affiche de ce qui charge
 
-## Pour aller plus loin (niveau senior)
+| Type | Rôle | Fait des appels API ? |
+|---|---|---|
+| `pages/` | assemble l'écran, récupère les données | oui (via composable / store) |
+| `components/` | affiche ce qu'on lui donne | **non** |
+| `data/` | appels API, conversion, store | c'est son rôle |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Monorepo (pnpm workspaces / Nx) avec un design system partagé entre apps Vue
+### 3. Isoler l'API
 
----
+Le reste de l'app ne connaît pas la forme brute des réponses : une fonction de conversion (`toProject`) transforme le DTO en modèle. Si l'API change, un seul fichier bouge.
 
-## Connexions
+### 4. Choisir le bon endroit pour l'état
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]]
+| L'état sert à… | Il vit dans |
+|---|---|
+| un seul composant | le composant (`ref`) |
+| une logique réutilisée | un composable |
+| plusieurs pages | un store Pinia |
+| l'URL (filtres partageables, page) | la route (`?tech=vue`) |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-19-architecture-projet-vue]]
-- Projet → [[02_Projects/CinéTrack]]
+### 5. Nommer de façon prévisible
 
----
+| Quoi | Convention |
+|---|---|
+| Composants | `PascalCase` en plusieurs mots : `ProjectCard.vue` |
+| Génériques | `Base…` : `BaseButton.vue` |
+| Uniques (layout) | `App…` : `AppHeader.vue` |
+| Pages | `…Page.vue` : `ProjectsPage.vue` |
+| Composables | `use…` : `useProjectFilters.ts` |
+| Stores | `use…Store` : `useFavoritesStore` |
 
-## Auto-vérification
+## Adapter à la taille
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi Vue nécessite-t-il plus de conventions d'équipe qu'Angular ?
+- **Portfolio** : quelques features, pas de store au début, un fichier de données.
+- **CinéTrack-Vue** : structure complète, Pinia pour les favoris et l'utilisateur.
 
----
+## Pièges
 
-## Tâches
-
-- [ ] #task Lire la structure du projet Vue au travail et la comparer à ce modèle
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Tout dans `App.vue`** ou dans une page de 500 lignes : découpe dès que ça devient long.
+- **Des dossiers vides « pour plus tard »** : crée-les le jour où tu en as besoin.

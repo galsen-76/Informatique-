@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Variables CSS et Thèmes"
 parent: "[[HTML-CSS]]"
-children: []
 related_theory:
   - "[[CSS-08-SCSS-Sass|SCSS Sass]]"
-related_snippets:
-  - "[[04_Snippets/css-07-variables-themes]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties"
@@ -22,119 +19,88 @@ source: "https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properti
 
 # Variables CSS et Thèmes
 
-> [!abstract] Introduction
-> Les propriétés personnalisées (`--ma-couleur`) sont des variables CSS natives, dynamiques et héritées : la base des design systems et du mode sombre.
+> [!abstract] En bref
+> Les **variables CSS** (`--primaire: #10b981`) stockent une valeur réutilisée partout. On change la valeur à un seul endroit, tout le site suit. C'est la base d'une **charte graphique** et du **mode sombre**. Le Portfolio est entièrement construit comme ça.
 
-> [!warning]- Prérequis
-> [[CSS-01-Selecteurs-Cascade-Specificite|Sélecteurs Cascade et Spécificité CSS]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```css
-> :root { --couleur-primaire: #4f46e5; --espace: 1rem; --rayon: 8px; }
-> .btn { background: var(--couleur-primaire); padding: var(--espace); border-radius: var(--rayon); }
-> ```
-
-> [!example]- Analogie
-> Un nuancier d'entreprise : on change la couleur officielle UNE fois dans le nuancier et tous les documents se mettent à jour.
-
-> [!question]- Pourquoi l'utiliser ?
-> Cohérence visuelle (design tokens), thèmes (clair/sombre/marque blanche) modifiables à l'exécution, contrairement aux variables SCSS qui disparaissent à la compilation.
-
-> [!question]- Comment ça marche ?
-> - Déclarées sur un sélecteur, héritées par les descendants
-> - `var(--x, valeurDeSecours)`
-> - Modifiables en JS : `el.style.setProperty('--x', 'red')`
-> - Thème sombre : redéfinir les variables sous `@media (prefers-color-scheme: dark)` ou `[data-theme="dark"]`
-
-> [!question]- Quand l'utiliser ?
-> Couleurs, espacements, rayons, ombres, typographie : tout ce qui constitue le design system.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pas de logique (boucles, fonctions) → SCSS reste utile pour générer du CSS ; les deux se combinent très bien.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Custom property | Variable CSS native `--nom` |
-| Design token | Valeur de design nommée et réutilisable |
-| Thème | Jeu de valeurs de tokens |
-
----
-
-## Points clés
-
-- Variables CSS = dynamiques à l'exécution, héritées
-- Variables SCSS = statiques, résolues au build
-- Nommer par rôle (`--couleur-danger`) plutôt que par valeur (`--rouge`)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Nommer `--bleu` puis la marque passe au vert
-> - Oublier la valeur de secours pour une variable optionnelle
-
----
-
-## Exemple minimal
+## Déclarer et utiliser
 
 ```css
-:root { --fond: #ffffff; --texte: #111827; }
-[data-theme="dark"] { --fond: #0f172a; --texte: #e5e7eb; }
-body { background: var(--fond); color: var(--texte); }
+:root {                       /* :root = toute la page */
+  --fond: #f8fafc;
+  --texte: #0f172a;
+  --primaire: #10b981;
+  --rayon: 14px;
+}
+
+.btn-primaire {
+  background: var(--primaire);
+  border-radius: var(--rayon);
+}
+
+.badge {
+  color: var(--accent, #6366f1);   /* valeur de secours si --accent n'existe pas */
+}
 ```
-```typescript
-document.documentElement.dataset.theme = 'dark';
+
+## Le mode sombre en 3 étapes
+
+**1. Redéfinir les variables pour le thème sombre**
+
+```css
+[data-theme="dark"] {
+  --fond: #05080f;
+  --surface: #0c111c;
+  --texte: #e5e7eb;
+}
+body {
+  background: var(--fond);
+  color: var(--texte);
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Changer un seul attribut sur `<html>` bascule tout le thème.
+**2. Basculer l'attribut en JavaScript**
 
----
+```ts
+document.documentElement.dataset.theme = 'dark';   // <html data-theme="dark">
+```
 
-## Pour aller plus loin (niveau senior)
+**3. Retenir le choix** : dans le Portfolio, `useDark()` de VueUse fait le basculement et le sauvegarde dans le `localStorage`.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Structurer des tokens à 2 niveaux (primitifs → sémantiques)
-> - Utiliser `color-mix()` et `light-dark()`
+Tous les composants qui utilisent `var(--fond)` changent **en même temps**, sans toucher à leur CSS.
 
----
+## Suivre le réglage du système
 
-## Connexions
+```css
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond: #05080f;
+    --texte: #e5e7eb;
+  }
+}
+```
 
-**Arbre théorique :**
-- Sujet parent → [[HTML-CSS]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Nommer par rôle, pas par couleur
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/css-07-variables-themes]]
-- Projet → [[02_Projects/CinéTrack]]
+| ❌ | ✅ |
+|---|---|
+| `--vert` | `--primaire` |
+| `--gris-fonce` | `--texte-doux` |
+| `--blanc` | `--surface` |
 
----
+Si demain le vert devient bleu, `--vert: blue` n'a plus de sens. `--primaire: blue` si.
 
-## Auto-vérification
+Toute la charte du Portfolio : [[Portfolio-Maquette|Maquette du Portfolio]].
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi une variable SCSS ne permet-elle pas de changer de thème au clic ?
+## Variables CSS ou SCSS ?
 
----
+| | Variables CSS `--x` | Variables SCSS `$x` |
+|---|---|---|
+| Existent dans le navigateur | oui | non (remplacées au build) |
+| Modifiables en direct (mode sombre, JavaScript) | **oui** | non |
 
-## Tâches
+Pour tout ce qui peut changer (thème, couleurs), utilise les variables CSS.
 
-- [ ] #task Ajouter un mode sombre à CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ?
+- **Oublier `var()`** : `color: --primaire` ne marche pas.
+- **Faute de frappe dans le nom** : pas d'erreur, la propriété est simplement ignorée. Vérifie dans F12 → Styles.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-21
-modified: 2026-09-21
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,10 +10,7 @@ aliases:
 tags:
   - frameworks/vue/composants
 parent: "[[Vue]]"
-children: []
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/vue-composant-basique]]"
 related_projects:
   - "[[02_Projects/CinéTrack-Vue]]"
 source: "https://vuejs.org/guide/essentials/component-basics.html"
@@ -21,152 +18,87 @@ source: "https://vuejs.org/guide/essentials/component-basics.html"
 
 # Composants & SFC Vue.js
 
-> [!abstract] Introduction
-> Un composant Vue est un fichier `.vue` (Single File Component) regroupant template, logique et style, importable et réutilisable ailleurs dans l'application.
+> [!abstract] En bref
+> Un **composant** est un morceau d'interface réutilisable : un bouton, une carte projet, un en-tête. En Vue, chaque composant est un fichier `.vue` (*Single File Component*) qui contient son HTML, son TypeScript et son CSS. Une page = un assemblage de composants.
 
-> [!warning]- Prérequis
-> [[VUE-01-Fondamentaux|Fondamentaux Vue.js]], [[ANG-02-Composants|Composants Angular]] (pour la comparaison).
+## Découper un écran
 
----
+La page d'accueil du Portfolio :
 
-## Théorie
+```mermaid
+flowchart TB
+  A["App.vue"] --> H["AppHeader"]
+  A --> P["HomePage"]
+  A --> F["AppFooter"]
+  P --> HE["HeroSection"]
+  P --> G["ProjectGrid"]
+  G --> C1["ProjectCard"]
+  G --> C2["ProjectCard"]
+  G --> C3["ProjectCard"]
+```
 
-> [!question]- C'est quoi ?
-> ```vue
-> <!-- FilmCard.vue -->
-> <script setup>
-> const props = defineProps(['titre']);
-> </script>
-> <template>
->   <h2>{{ titre }}</h2>
-> </template>
-> <style scoped>
-> h2 { color: blue; }
-> </style>
-> ```
+**Quand créer un composant ?** Quand un morceau est **répété** (la carte projet), ou quand un fichier devient **trop long** (plus de 150-200 lignes), ou quand un bloc a un **rôle clair** (l'en-tête).
 
-> [!example]- Analogie
-> Un composant Vue est une carte à jouer complète, imprimée recto-verso avec ses illustrations (style) et son texte (template et logique) sur UNE SEULE carte physique — contrairement à Angular où l'illustration, le texte et les règles seraient sur trois cartes séparées à assembler mentalement.
-
-> [!question]- Pourquoi l'utiliser ?
-> Réutiliser un bloc d'interface à plusieurs endroits, avec tout son code au même endroit (moins de va-et-vient entre fichiers qu'en Angular).
-
-> [!question]- Comment ça marche ?
-> ```vue
-> <!-- ListeFilms.vue -->
-> <script setup>
-> import FilmCard from './FilmCard.vue';
-> </script>
-> <template>
->   <FilmCard titre="Inception" />
-> </template>
-> ```
-> `<style scoped>` isole automatiquement le CSS à CE composant uniquement, sans fuite vers le reste de l'application.
-
-> [!question]- Quand l'utiliser ?
-> Chaque fois qu'un morceau d'interface a une responsabilité claire et pourrait être réutilisé — même logique qu'en Angular.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Oublier `scoped` sur le `<style>` fait fuiter le CSS globalement dans toute l'application, risquant des conflits de style imprévus avec d'autres composants.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| SFC | Single File Component, fichier `.vue` tout-en-un |
-| `scoped` | Isole le CSS d'un composant, sans fuite vers le reste de l'app |
-| `defineProps` | Déclare les données reçues depuis un composant parent |
-
----
-
-## Points clés
-
-- Un composant `.vue` = template + script + style en un seul fichier
-- `<style scoped>` isole le CSS, à ne jamais oublier
-- Import direct d'un composant dans un autre (pas de déclaration dans un module comme Angular)
-- Composant importable et réutilisable, comme en Angular
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `scoped` sur `<style>`, provoquant des fuites de CSS non désirées
-> - Nommer un fichier composant en minuscules alors que la convention Vue recommande PascalCase (`FilmCard.vue`, pas `film-card.vue`)
-> - Oublier d'importer explicitement un composant utilisé dans le template
-
----
-
-## Paramètres / Configuration
-
-| Section SFC | Rôle |
-|-----------|-------|
-| `<script setup>` | Logique du composant |
-| `<template>` | Structure HTML affichée |
-| `<style scoped>` | CSS isolé à ce composant |
-
----
-
-## Exemple minimal
+## Anatomie d'un fichier `.vue`
 
 ```vue
-<!-- FilmCard.vue -->
-<script setup>
-defineProps(['titre']);
+<!-- ProjectCard.vue -->
+<script setup lang="ts">
+import type { Project } from '../data/project.model';
+
+defineProps<{ project: Project }>();   // les données reçues du parent
 </script>
+
 <template>
-  <h2>{{ titre }}</h2>
+  <article class="card">
+    <h3>{{ project.title }}</h3>
+    <p>{{ project.summary }}</p>
+  </article>
 </template>
+
 <style scoped>
-h2 { color: blue; }
+.card { padding: 20px; border-radius: 14px; }
 </style>
 ```
 
-> [!note] Ce que j'en retiens
-> `scoped` garantit que `h2 { color: blue }` ne s'applique QU'À ce composant, jamais aux autres `<h2>` de l'application.
+## Utiliser un composant
 
----
+```vue
+<!-- ProjectGrid.vue -->
+<script setup lang="ts">
+import ProjectCard from './ProjectCard.vue';   // importé = utilisable, rien d'autre à déclarer
+defineProps<{ projects: Project[] }>();
+</script>
 
-## Pour aller plus loin (niveau senior)
+<template>
+  <div class="grid">
+    <ProjectCard v-for="p in projects" :key="p.slug" :project="p" />
+  </div>
+</template>
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Version TypeScript : `defineProps<{ titre: string }>()` (voir [[VUE-10-TypeScript-avec-Vue|TypeScript avec Vue.js]])
-> - Alternatives à `scoped` : CSS Modules (`<style module>`), Tailwind ; `:deep()` pour cibler un enfant avec parcimonie
+## Conventions
 
----
+| Règle | Exemple |
+|---|---|
+| Nom en **PascalCase**, en plusieurs mots | `ProjectCard.vue`, pas `Card.vue` |
+| Composants génériques préfixés | `BaseButton.vue`, `BaseLoader.vue` |
+| Composants d'une seule instance préfixés | `AppHeader.vue`, `AppFooter.vue` |
+| Une page (liée à une route) | `ProjectsPage.vue` dans `pages/` |
 
-## Connexions
+## `<style scoped>`
 
-**Arbre théorique :**
-- Sujet parent → [[Vue]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[ANG-02-Composants|Composants Angular]]
+`scoped` limite le CSS **à ce composant** : `.card` ici n'affecte pas les `.card` des autres composants. Mets-le presque toujours.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/vue-composant-basique]]
-- Projet → [[02_Projects/CinéTrack-Vue]]
+## Deux types de composants
 
----
+| | Composant **d'affichage** | **Page** |
+|---|---|---|
+| Rôle | afficher ce qu'on lui donne | récupérer les données et assembler |
+| Reçoit | des props | rien (ou un paramètre de route) |
+| Appels API | **jamais** | oui (via un composable ou un store) |
+| Exemple | `ProjectCard` | `ProjectsPage` |
 
-## Auto-vérification
+Garder les composants d'affichage « bêtes » les rend faciles à réutiliser et à tester.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `scoped` est important, avec un exemple concret de conflit de style qu'il évite ?
-
-> [!faq]- Questions d'entretien
-> - À quoi sert `<style scoped>` et comment fonctionne-t-il ?
-
----
-
-## Tâches
-
-- [ ] #task Créer un composant réutilisable avec style scoped
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Existe-t-il une alternative à `scoped` (CSS Modules, ou autre) pour isoler le style en Vue ?
+La suite : comment un parent parle à ses enfants → [[VUE-05-Props-Emits|Props & Emits]].

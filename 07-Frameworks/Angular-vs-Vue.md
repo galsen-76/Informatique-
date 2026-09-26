@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Angular vs Vue Correspondances"
 parent: "[[Frameworks]]"
-children: []
 related_theory:
   - "[[ANG-01-Fondamentaux|Fondamentaux Angular]]"
   - "[[VUE-01-Fondamentaux|Fondamentaux Vue.js]]"
-related_snippets:
-  - "[[04_Snippets/angular-vs-vue]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/introduction.html"
@@ -23,154 +20,72 @@ source: "https://vuejs.org/guide/introduction.html"
 
 # Angular vs Vue Correspondances
 
-> [!abstract] Introduction
-> Table de correspondance complète entre Angular et Vue : ton entreprise utilise les deux, raisonner par équivalences permet de passer de l'un à l'autre sans réapprendre les concepts.
+> [!abstract] En bref
+> Ton entreprise utilise les deux. Bonne nouvelle : **les idées sont les mêmes**, seule l'écriture change. Cette table te permet de passer de l'un à l'autre en pensant « c'est comme… ». Relis-la à chaque changement de projet.
 
-> [!warning]- Prérequis
-> [[ANG-01-Fondamentaux|Fondamentaux Angular]], [[VUE-01-Fondamentaux|Fondamentaux Vue.js]]
+## La même chose, deux écritures
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> | Concept | Angular | Vue 3 |
-> |---|---|---|
-> | Création projet | `ng new` | `npm create vue@latest` |
-> | Build | Angular CLI (esbuild/Vite) | Vite |
-> | Composant | Classe `@Component` + template | SFC `.vue` + `<script setup>` |
-> | État local | `signal()` | `ref()` / `reactive()` |
-> | Dérivé | `computed()` | `computed()` |
-> | Effet | `effect()` | `watch()` / `watchEffect()` |
-> | Entrée | `input()` / `@Input` | `defineProps` |
-> | Sortie | `output()` / `@Output` | `defineEmits` |
-> | Two-way composant | `model()` + `[( )]` | `defineModel()` + `v-model` |
-> | Condition | `@if` | `v-if` / `v-show` |
-> | Boucle | `@for (x of l; track x.id)` | `v-for="x in l" :key="x.id"` |
-> | Binding attribut | `[src]="url"` | `:src="url"` |
-> | Événement | `(click)="f()"` | `@click="f"` |
-> | Projection | `<ng-content>` | `<slot>` |
-> | Logique réutilisable | Service / fonction `inject` | Composable `useXxx()` |
-> | DI | Injecteurs hiérarchiques, `inject()` | `provide` / `inject` |
-> | État global | Service + signals, NgRx | Pinia |
-> | Routing | `@angular/router` (intégré) | Vue Router (officiel, séparé) |
-> | Lien | `routerLink` | `<router-link>` |
-> | Zone de rendu | `<router-outlet>` | `<router-view>` |
-> | Protection route | Guards (`CanActivateFn`) | `beforeEach` / `beforeEnter` |
-> | HTTP | `HttpClient` + intercepteurs | fetch/axios + intercepteurs |
-> | Asynchrone | RxJS (+ signals) | Promises + watch (+ VueUse) |
-> | Formulaires | Reactive Forms (intégré) | `v-model` + VeeValidate |
-> | Pipes | `{{ x \| date }}` | fonctions / computed |
-> | Cycle de vie | `ngOnInit`, `ngOnDestroy` | `onMounted`, `onUnmounted` |
-> | Styles isolés | ViewEncapsulation | `<style scoped>` |
-> | Lazy loading | `loadComponent`, `@defer` | `() => import()`, `defineAsyncComponent` |
-> | Tests | Vitest/Karma + TestBed | Vitest + Vue Test Utils |
-> | SSR | `@angular/ssr` | Nuxt |
-> | DevTools | Angular DevTools | Vue DevTools |
-
-> [!example]- Analogie
-> Deux langues romanes : le vocabulaire diffère (`@if` / `v-if`), la grammaire (composants, réactivité, flux de données descendant) est la même.
-
-> [!question]- Pourquoi l'utiliser ?
-> Éviter de mélanger les réflexes (chercher 3 fichiers en Vue, oublier `.value`, oublier `()` sur un signal) et être productif sur les deux bases de code.
-
-> [!question]- Comment ça marche ?
-> Différences de philosophie :
-> - Angular : framework complet et opiniâtre, DI hiérarchique, RxJS natif, conventions imposées → homogénéité dans les grandes équipes
-> - Vue : progressif, minimaliste, liberté d'organisation, courbe d'apprentissage douce → conventions à définir soi-même
-> - Réactivité : Angular lit un signal par appel `x()`, Vue via `.value` (déballé dans le template)
-
-> [!question]- Quand l'utiliser ?
-> À relire à chaque passage d'un projet à l'autre.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les correspondances ne sont pas parfaites : un composable n'est pas un singleton (contrairement à un service `providedIn: 'root'`), un pipe pur n'a pas d'équivalent exact.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Opiniâtre | Qui impose une façon de faire |
-| Progressif | Adoptable par morceaux |
-
----
-
-## Points clés
-
-- Mêmes concepts, syntaxes différentes
-- Service root = singleton ; composable = nouvelle instance par appel ; store Pinia = singleton
-- `x()` en Angular, `x.value` en Vue (sauf template)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `.value` en passant d'Angular à Vue
-> - Oublier les parenthèses d'un signal en passant de Vue à Angular
-> - Chercher un équivalent Vue à RxJS partout (souvent un simple watch suffit)
-
----
-
-## Exemple minimal
-
-```typescript
+```ts
 // Angular
-compteur = signal(0);
-double = computed(() => this.compteur() * 2);
-incrementer() { this.compteur.update(v => v + 1); }
+count = signal(0);
+double = computed(() => this.count() * 2);
+increment() { this.count.update(v => v + 1); }
 ```
-```typescript
+
+```ts
 // Vue
-const compteur = ref(0);
-const double = computed(() => compteur.value * 2);
-const incrementer = () => compteur.value++;
+const count = ref(0);
+const double = computed(() => count.value * 2);
+const increment = () => count.value++;
 ```
 
-> [!note] Ce que j'en retiens
-> Même logique, seule la façon de lire/écrire la valeur change.
+La différence principale : on **lit** une valeur avec `count()` en Angular, et `count.value` en Vue (sauf dans le template).
 
----
+## La table de correspondance
 
-## Pour aller plus loin (niveau senior)
+| Concept | Angular | Vue |
+|---|---|---|
+| Créer un projet | `ng new` | `npm create vue@latest` |
+| Composant | classe `@Component` + template | fichier `.vue` + `<script setup>` |
+| Donnée réactive | `signal()` | `ref()` |
+| Valeur calculée | `computed()` | `computed()` |
+| Réagir à un changement | `effect()` | `watch()` |
+| Entrée d'un composant | `input()` | `defineProps` |
+| Sortie (événement) | `output()` | `defineEmits` |
+| Liaison dans les deux sens | `model()` + `[(x)]` | `defineModel()` + `v-model` |
+| Condition | `@if` | `v-if` |
+| Boucle | `@for (x of list; track x.id)` | `v-for="x in list" :key="x.id"` |
+| Attribut dynamique | `[src]="url"` | `:src="url"` |
+| Événement | `(click)="f()"` | `@click="f"` |
+| Contenu injecté | `<ng-content>` | `<slot>` |
+| Logique réutilisable | service injectable | composable `useXxx()` |
+| Injection | `inject()` | `provide` / `inject` |
+| État partagé | service + signals (ou NgRx Signal Store) | Pinia |
+| Routes | `@angular/router` (intégré) | Vue Router |
+| Lien | `routerLink` | `<RouterLink>` |
+| Zone d'affichage de la page | `<router-outlet>` | `<RouterView>` |
+| Protéger une route | guard `CanActivateFn` | `router.beforeEach` |
+| Appels HTTP | `HttpClient` (intégré) | `fetch` |
+| Asynchrone | RxJS (Observables) | Promises + `async/await` |
+| Formulaires | Reactive Forms (intégré) | `v-model` + VeeValidate |
+| Formater dans le template | pipes `{{ x \| date }}` | fonctions / `computed` |
+| Au montage / démontage | `ngOnInit` / `ngOnDestroy` | `onMounted` / `onUnmounted` |
+| CSS limité au composant | par défaut | `<style scoped>` |
+| Charger à la demande | `loadComponent`, `@defer` | `() => import()` |
+| Composants UI | PrimeNG | PrimeVue |
+| Rendu serveur | `@angular/ssr` | Nuxt |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir argumenter le choix Angular ou Vue pour un nouveau projet (taille d'équipe, SEO, existant, recrutement)
+## Les différences de philosophie
 
----
+| | Angular | Vue |
+|---|---|---|
+| Style | **tout est fourni** et imposé (routes, HTTP, formulaires, tests) | **minimal**, tu choisis tes outils |
+| Organisation | conventions fortes, projets homogènes | libre : c'est à toi de fixer des règles |
+| Courbe d'apprentissage | plus raide (injection, RxJS, décorateurs) | plus douce |
+| Idéal pour | grosses équipes, applications métier | projets de toutes tailles, adoption progressive |
 
-## Connexions
+## Les réflexes qui se mélangent
 
-**Arbre théorique :**
-- Sujet parent → [[Frameworks]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-vs-vue]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Réécrire de tête un composant « liste de films filtrée » dans les deux frameworks.
-
-> [!faq]- Questions d'entretien
-> - Quelles différences principales entre Angular et Vue ?
-
----
-
-## Tâches
-
-- [ ] #task Coder la même fonctionnalité (favoris) dans CinéTrack Angular et CinéTrack Vue
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- Passer d'Angular à Vue : **oublier `.value`** dans le script.
+- Passer de Vue à Angular : **oublier les `()`** pour lire un signal.
+- **Un service Angular `providedIn: 'root'` existe en un seul exemplaire.** Un composable Vue crée un nouvel état **à chaque appel** ; l'équivalent d'un service unique, c'est un store Pinia.
