@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,143 +10,79 @@ tags:
 aliases:
   - "Modélisation Relationnelle et Normalisation"
 parent: "[[Bases de Données]]"
-children: []
 related_theory:
   - "[[CONC-07-Modelisation-Donnees-MCD-MLD|Modélisation des Données MCD MLD]]"
   - "[[SQL-07-DDL-Contraintes-Types|DDL Contraintes et Types SQL]]"
-related_snippets:
-  - "[[04_Snippets/bdd-02-modelisation-normalisation]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://fr.wikipedia.org/wiki/Forme_normale_(bases_de_donn%C3%A9es_relationnelles)"
 ---
 
-# Modélisation Relationnelle et Normalisation
+# Modélisation et Normalisation
 
-> [!abstract] Introduction
-> Modéliser, c'est traduire le métier en tables et relations (1-1, 1-N, N-N) ; normaliser, c'est éliminer la redondance pour éviter les incohérences.
+> [!abstract] En bref
+> **Modéliser**, c'est décider **quelles tables** créer et **comment les relier**, avant d'écrire la moindre ligne de code. La **normalisation** est un ensemble de règles pour éviter de stocker la même information à plusieurs endroits (source d'incohérences). Un bon modèle rend tout le reste facile.
 
-> [!warning]- Prérequis
-> [[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]
+## La méthode en 4 étapes
 
----
+1. **Lister les « choses »** du métier (les noms) : utilisateur, film, critique, favori. → des tables.
+2. **Lister leurs informations** : un film a un titre, une année. → des colonnes.
+3. **Trouver les liens** : un utilisateur écrit des critiques. → des relations.
+4. **Préciser les cardinalités** : combien de l'un pour combien de l'autre ?
 
-## Théorie
+## Les 3 types de relations
 
-> [!question]- C'est quoi ?
-> Relations :
-> - **1-N** : un utilisateur a plusieurs critiques → FK `user_id` dans `critiques`
-> - **N-N** : utilisateurs ↔ films favoris → table d'association `favoris(user_id, film_id)`
-> - **1-1** : utilisateur ↔ profil → FK unique
-> Formes normales (les 3 premières suffisent en pratique) :
-> - **1FN** : valeurs atomiques (pas de liste « SF,Thriller » dans une colonne)
-> - **2FN** : tout attribut dépend de TOUTE la clé
-> - **3FN** : pas de dépendance entre attributs non-clés (le nom du réalisateur dans `realisateurs`, pas dans `films`)
+| Relation | Exemple | Comment on la construit |
+|---|---|---|
+| **1 – N** (un à plusieurs) | un utilisateur → plusieurs critiques | une clé étrangère `user_id` dans `reviews` |
+| **N – N** (plusieurs à plusieurs) | des utilisateurs ↔ des films favoris | une **table de liaison** `favorites (user_id, movie_id)` |
+| **1 – 1** | un utilisateur → un profil | une clé étrangère **unique** |
 
-> [!example]- Analogie
-> Normaliser, c'est ne noter l'adresse d'un client qu'à UN endroit (sa fiche) plutôt que sur chaque facture : s'il déménage, une seule correction.
-
-> [!question]- Pourquoi l'utiliser ?
-> Éviter les anomalies de mise à jour (même info modifiée à un endroit et pas à l'autre), économiser l'espace, garantir la cohérence.
-
-> [!question]- Comment ça marche ?
-> ```mermaid
-> erDiagram
->   USERS ||--o{ CRITIQUES : ecrit
->   FILMS ||--o{ CRITIQUES : recoit
->   USERS }o--o{ FILMS : "favoris (table d'association)"
->   REALISATEURS ||--o{ FILMS : realise
->   FILMS }o--o{ GENRES : "films_genres"
-> ```
-
-> [!question]- Quand l'utiliser ?
-> À la conception (depuis le MCD, voir [[CONC-07-Modelisation-Donnees-MCD-MLD|Modélisation des Données MCD MLD]]). Dénormaliser ensuite volontairement pour la performance, en le documentant.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Sur-normaliser multiplie les jointures ; une dénormalisation maîtrisée (compteur `nb_favoris`) est parfois préférable.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Cardinalité | Nombre d'occurrences liées (1, N) |
-| Table d'association | Table qui matérialise un lien N-N |
-| Redondance | Même information stockée plusieurs fois |
-| Dénormalisation | Redondance volontaire pour la performance |
-
----
-
-## Points clés
-
-- N-N = table d'association
-- Viser la 3FN, dénormaliser consciemment
-- Une information = un seul endroit
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Colonnes `genre1`, `genre2`, `genre3`
-> - Stocker des listes séparées par des virgules
-
----
-
-## Exemple minimal
-
-```sql
-CREATE TABLE genres (id SERIAL PRIMARY KEY, nom TEXT UNIQUE NOT NULL);
-CREATE TABLE films_genres (
-  film_id INT REFERENCES films(id) ON DELETE CASCADE,
-  genre_id INT REFERENCES genres(id),
-  PRIMARY KEY (film_id, genre_id)
-);
+```mermaid
+erDiagram
+  USER ||--o{ REVIEW : ecrit
+  MOVIE ||--o{ REVIEW : recoit
+  USER ||--o{ FAVORITE : ajoute
+  MOVIE ||--o{ FAVORITE : est
+  USER ||--o| PROFILE : possede
 ```
 
-> [!note] Ce que j'en retiens
-> Un film peut avoir autant de genres que nécessaire, sans colonne vide.
+Lecture : `||--o{` = « un … vers zéro ou plusieurs ».
 
----
+## La normalisation : une information à un seul endroit
 
-## Pour aller plus loin (niveau senior)
+```text
+❌ Table reviews
+| id | user_email       | movie_title | movie_year | rating |
+| 1  | awa@mail.fr      | Dune        | 2021       | 9      |
+| 2  | awa@mail.fr      | Heat        | 1995       | 8      |
+| 3  | moussa@mail.fr   | Dune        | 2012 😱    | 7      |
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir quand utiliser JSONB (données semi-structurées) plutôt que des tables
+Problèmes : si Awa change d'e-mail, il faut modifier plusieurs lignes ; l'année de Dune est incohérente.
 
----
+```text
+✅ Chaque chose dans sa table, reliée par des identifiants
+users   (id, email)
+movies  (id, title, year)
+reviews (id, user_id → users, movie_id → movies, rating)
+```
 
-## Connexions
+Les règles de base, en clair :
+1. **Une valeur par case** : pas de liste `"SF, Thriller"` dans une colonne → une table `movie_genres`.
+2. **Chaque colonne dépend de la clé de sa table** : le titre du film dépend du film, pas de la critique.
+3. **Pas d'information qui se déduit d'une autre colonne** : l'âge se calcule à partir de la date de naissance.
 
-**Arbre théorique :**
-- Sujet parent → [[Bases de Données]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Dénormaliser, parfois
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/bdd-02-modelisation-normalisation]]
-- Projet → [[02_Projects/CinéTrack-API]]
+Recopier volontairement une info pour aller plus vite : par exemple garder `review_count` dans `movies` pour ne pas recompter à chaque affichage. Acceptable si on **sait** le maintenir à jour (transaction). À faire seulement quand un besoin de performance est mesuré.
 
----
+## Dans tes projets
 
-## Auto-vérification
+Tu dessines le modèle (sur papier ou Mermaid) **avant** d'écrire le `schema.prisma`. Voir [[CONC-07-Modelisation-Donnees-MCD-MLD|MCD / MLD]] et [[ORM-01-Prisma-Schema-Migrations|Schéma Prisma]].
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Comment modéliser « un film a plusieurs genres, un genre a plusieurs films » ?
+## Pièges
 
-> [!faq]- Questions d'entretien
-> - Qu'est-ce que la normalisation et pourquoi dénormaliser parfois ?
-
----
-
-## Tâches
-
-- [ ] #task Dessiner le schéma entité-relation complet de CinéTrack (Mermaid erDiagram)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Une table « fourre-tout »** avec 40 colonnes dont la moitié vides.
+- **Des listes dans une colonne texte** (`"12,45,78"`) : impossible à filtrer ou relier proprement.
+- **Oublier les contraintes d'unicité** métier : deux critiques du même utilisateur sur le même film.

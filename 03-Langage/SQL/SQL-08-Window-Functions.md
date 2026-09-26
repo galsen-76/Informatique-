@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Window Functions SQL"
 parent: "[[SQL]]"
-children: []
 related_theory:
   - "[[SQL-04-Agregation-GROUP-BY|Agrégation et GROUP BY]]"
-related_snippets:
-  - "[[04_Snippets/sql-08-window-functions]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/tutorial-window.html"
@@ -22,116 +19,83 @@ source: "https://www.postgresql.org/docs/current/tutorial-window.html"
 
 # Window Functions SQL
 
-> [!abstract] Introduction
-> Les fonctions de fenêtre calculent des valeurs sur un ensemble de lignes liées (classement, cumul, comparaison avec la ligne précédente) SANS regrouper les lignes comme le fait GROUP BY.
+> [!abstract] En bref
+> Une **fonction de fenêtre** calcule quelque chose **par rapport aux autres lignes** (un classement, un cumul, la valeur précédente) **sans regrouper** les lignes comme `GROUP BY`. Chaque ligne reste visible, avec en plus son rang ou son total. Idéal pour les classements et statistiques.
 
-> [!warning]- Prérequis
-> [[SQL-04-Agregation-GROUP-BY|Agrégation et GROUP BY]]
+## La différence avec `GROUP BY`
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```sql
-> SELECT titre, genre, note,
->        RANK() OVER (PARTITION BY genre ORDER BY note DESC) AS rang_dans_genre,
->        AVG(note) OVER (PARTITION BY genre) AS moyenne_genre
-> FROM films;
-> ```
-
-> [!example]- Analogie
-> GROUP BY fusionne les élèves d'une classe en une seule ligne « moyenne » ; une window function garde chaque élève et écrit à côté son rang et la moyenne de sa classe.
-
-> [!question]- Pourquoi l'utiliser ?
-> Classements (top 3 par catégorie), cumuls, évolutions (vs mois précédent) : impossibles ou très lourds autrement.
-
-> [!question]- Comment ça marche ?
-> `fonction() OVER (PARTITION BY … ORDER BY … ROWS BETWEEN …)`
-> Fonctions : `ROW_NUMBER`, `RANK`, `DENSE_RANK`, `LAG`, `LEAD`, `SUM() OVER`, `NTILE`.
-
-> [!question]- Quand l'utiliser ?
-> Reporting, tableaux de bord, dédoublonnage (garder la dernière version par clé).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Non accessible dans le WHERE directement → CTE puis filtre.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Fenêtre | Ensemble de lignes considérées pour le calcul |
-| PARTITION BY | Découpe en groupes sans fusionner |
-| LAG / LEAD | Valeur de la ligne précédente / suivante |
-
----
-
-## Points clés
-
-- Les lignes sont conservées
-- PARTITION BY ≈ GROUP BY sans fusion
-- Filtrer via CTE
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Confondre RANK (trous) et DENSE_RANK (sans trou)
-
----
-
-## Exemple minimal
+- `GROUP BY` : **une ligne par groupe** (la moyenne de chaque film).
+- Fenêtre : **toutes les lignes**, chacune avec une info calculée sur son groupe (chaque critique + la moyenne de son film à côté).
 
 ```sql
-WITH classes AS (
-  SELECT titre, genre, note, ROW_NUMBER() OVER (PARTITION BY genre ORDER BY note DESC) AS rn
-  FROM films
-)
-SELECT * FROM classes WHERE rn <= 3;
+SELECT
+  movie_id,
+  user_id,
+  rating,
+  ROUND(AVG(rating) OVER (PARTITION BY movie_id), 1) AS moyenne_du_film
+FROM reviews;
 ```
 
-> [!note] Ce que j'en retiens
-> Le top 3 de chaque genre en une requête.
+`OVER (PARTITION BY movie_id)` = « calcule sur les lignes du même film ».
 
----
+## Classer : le top 3 par genre
 
-## Pour aller plus loin (niveau senior)
+```sql
+WITH classement AS (
+  SELECT
+    title,
+    genre,
+    rating,
+    ROW_NUMBER() OVER (PARTITION BY genre ORDER BY rating DESC) AS rang
+  FROM movies
+)
+SELECT genre, rang, title, rating
+FROM classement
+WHERE rang <= 3
+ORDER BY genre, rang;
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Optimiser les fenêtres avec des index adaptés à l'ORDER BY
+| Fonction | En cas d'égalité |
+|---|---|
+| `ROW_NUMBER()` | 1, 2, 3, 4 (numéros uniques) |
+| `RANK()` | 1, 2, 2, 4 (saute un rang) |
+| `DENSE_RANK()` | 1, 2, 2, 3 (ne saute pas) |
 
----
+## Cumul : le nombre de critiques au fil du temps
 
-## Connexions
+```sql
+SELECT
+  DATE_TRUNC('month', created_at) AS mois,
+  COUNT(*) AS critiques_du_mois,
+  SUM(COUNT(*)) OVER (ORDER BY DATE_TRUNC('month', created_at)) AS total_cumule
+FROM reviews
+GROUP BY mois
+ORDER BY mois;
+```
 
-**Arbre théorique :**
-- Sujet parent → [[SQL]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Parfait pour un graphique d'évolution.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sql-08-window-functions]]
-- Projet → [[02_Projects/CinéTrack-API]]
+## Comparer à la ligne précédente
 
----
+```sql
+SELECT
+  mois,
+  inscriptions,
+  inscriptions - LAG(inscriptions) OVER (ORDER BY mois) AS evolution
+FROM stats_mensuelles;
+```
 
-## Auto-vérification
+| Fonction | Donne |
+|---|---|
+| `LAG(x)` | la valeur de la ligne **précédente** |
+| `LEAD(x)` | la valeur de la ligne **suivante** |
+| `FIRST_VALUE(x)` | la première valeur de la fenêtre |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Différence entre ROW_NUMBER, RANK et DENSE_RANK ?
+## Quand t'en servir
 
----
+Tableaux de bord, classements, évolutions : les écrans de statistiques d'une application métier. Avec Prisma, ces requêtes s'écrivent en SQL brut (`$queryRaw`).
 
-## Tâches
+## Pièges
 
-- [ ] #task Top 3 des films par genre dans l'API (via `$queryRaw`)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Filtrer sur le résultat d'une fonction de fenêtre dans le `WHERE`** : impossible (elle est calculée après). Passe par une CTE, comme dans l'exemple du top 3.
+- **Oublier `ORDER BY` dans `OVER`** pour un classement ou un cumul : le résultat n'a pas de sens.

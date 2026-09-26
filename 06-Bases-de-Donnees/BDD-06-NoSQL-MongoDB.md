@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "NoSQL et MongoDB"
 parent: "[[Bases de Données]]"
-children: []
 related_theory:
   - "[[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]"
-related_snippets:
-  - "[[04_Snippets/bdd-06-nosql-mongodb]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.mongodb.com/docs/manual/"
@@ -22,122 +19,62 @@ source: "https://www.mongodb.com/docs/manual/"
 
 # NoSQL et MongoDB
 
-> [!abstract] Introduction
-> Les bases NoSQL abandonnent le modèle tabulaire strict ; MongoDB stocke des documents JSON (BSON) flexibles, pratiques quand la structure varie ou que les données sont lues d'un bloc.
+> [!abstract] En bref
+> **NoSQL** regroupe les bases qui ne rangent pas les données en tables liées. La plus connue, **MongoDB**, stocke des **documents** JSON dont la forme peut varier. Utile dans certains cas précis, mais pour une application classique (utilisateurs, films, critiques), **PostgreSQL reste le meilleur choix**. À connaître pour le lire et savoir quand le choisir.
 
-> [!warning]- Prérequis
-> [[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]
+## Un document MongoDB
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```javascript
-> db.films.insertOne({
->   titre: "Dune", annee: 2021,
->   genres: ["SF"],
->   casting: [{ nom: "Timothée Chalamet", role: "Paul" }],
-> });
-> db.films.find({ annee: { $gte: 2000 }, genres: "SF" }).sort({ annee: -1 }).limit(20);
-> ```
-
-> [!example]- Analogie
-> Une base relationnelle range les pièces d'un meuble dans des tiroirs séparés à réassembler ; MongoDB range le meuble monté dans un carton.
-
-> [!question]- Pourquoi l'utiliser ?
-> Schéma flexible, lecture d'un agrégat en une requête, scalabilité horizontale native (sharding).
-
-> [!question]- Comment ça marche ?
-> Modélisation guidée par les requêtes : **imbriquer** ce qui est lu ensemble et borné (casting d'un film), **référencer** ce qui est partagé ou illimité (utilisateurs, critiques).
-> Théorème CAP : en cas de partition réseau, un système distribué choisit entre cohérence et disponibilité.
-
-> [!question]- Quand l'utiliser ?
-> Catalogues à attributs variables, logs, contenus, prototypes rapides. PostgreSQL + JSONB couvre souvent ces besoins tout en gardant le relationnel.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Jointures limitées (`$lookup`), risques de duplication et d'incohérence, transactions multi-documents plus coûteuses.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Document | Objet JSON stocké |
-| Collection | Ensemble de documents (≈ table) |
-| Embedding | Imbriquer des sous-documents |
-| Sharding | Répartition des données sur plusieurs serveurs |
-| CAP | Cohérence, Disponibilité, Tolérance au partitionnement |
-
----
-
-## Points clés
-
-- Modéliser selon les accès
-- Imbriquer le borné, référencer le partagé
-- PostgreSQL JSONB = alternative sérieuse
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Tableaux imbriqués qui grossissent sans limite (limite 16 Mo par document)
-> - Choisir Mongo pour éviter d'apprendre SQL
-
----
-
-## Exemple minimal
-
-```sql
--- L'équivalent « documents » dans PostgreSQL
-ALTER TABLE films ADD COLUMN meta JSONB;
-SELECT titre FROM films WHERE meta @> '{"langue": "fr"}';
+```json
+{
+  "_id": "66f5a1…",
+  "title": "Inception",
+  "year": 2010,
+  "genres": ["SF", "Thriller"],
+  "cast": [
+    { "name": "Leonardo DiCaprio", "role": "Cobb" },
+    { "name": "Elliot Page", "role": "Ariadne" }
+  ]
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Le meilleur des deux mondes est souvent un relationnel avec une colonne JSONB.
+Les listes et objets imbriqués sont **dans** le document : pas besoin de jointure pour les lire.
 
----
+```js
+db.movies.find({ genres: 'SF', year: { $gte: 2000 } }).sort({ year: -1 }).limit(10);
+db.movies.insertOne({ title: 'Dune', year: 2021 });
+db.movies.updateOne({ _id: id }, { $set: { rating: 7.8 } });
+```
 
-## Pour aller plus loin (niveau senior)
+## SQL ou NoSQL ?
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Argumenter SQL vs NoSQL selon cohérence, requêtes et volume
+| | PostgreSQL (relationnel) | MongoDB (document) |
+|---|---|---|
+| Structure | tables et colonnes strictes | documents libres |
+| Liens entre données | jointures, clés étrangères | données imbriquées ou références manuelles |
+| Cohérence | forte (contraintes, transactions) | à gérer davantage dans le code |
+| Idéal pour | données **liées** : utilisateurs, commandes, critiques | données **variables** ou lues d'un bloc : catalogue aux attributs divers, logs, événements |
 
----
+## Quand MongoDB a du sens
 
-## Connexions
+- Des fiches produits avec des attributs **très différents** selon la catégorie.
+- Des **journaux d'événements** qu'on écrit en masse et lit rarement.
+- Des données qu'on lit **toujours d'un bloc** (un document complet).
 
-**Arbre théorique :**
-- Sujet parent → [[Bases de Données]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]]
+Et même dans ces cas, PostgreSQL sait stocker du JSON avec une colonne **`JSONB`** interrogeable :
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/bdd-06-nosql-mongodb]]
-- Projet → [[02_Projects/CinéTrack-API]]
+```sql
+SELECT title FROM movies WHERE details->>'studio' = 'Warner';
+```
 
----
+## Les autres familles NoSQL
 
-## Auto-vérification
+| Type | Exemple | Pour |
+|---|---|---|
+| Clé-valeur | [[BDD-07-Redis-Cle-Valeur\|Redis]] | cache, sessions |
+| Colonnes larges | Cassandra | énormes volumes d'écriture |
+| Graphe | Neo4j | réseaux de relations (amis d'amis) |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quand imbriquer et quand référencer dans MongoDB ?
+## Pièges
 
-> [!faq]- Questions d'entretien
-> - SQL ou NoSQL pour un projet donné : comment choisissez-vous ?
-
----
-
-## Tâches
-
-- [ ] #task Modéliser CinéTrack en documents et comparer avec le modèle relationnel
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Choisir MongoDB pour éviter d'apprendre le SQL** : les données liées deviennent un casse-tête (recopies, incohérences).
+- **Tout imbriquer** (les critiques dans le film) : un document qui grossit sans limite, difficile à mettre à jour.

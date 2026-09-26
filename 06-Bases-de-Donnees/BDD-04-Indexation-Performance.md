@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,137 +10,94 @@ tags:
 aliases:
   - "Indexation et Performance SQL"
 parent: "[[Bases de Données]]"
-children: []
 related_theory:
   - "[[ARCH-09-Cache-Performance|Cache et Performance]]"
   - "[[SQL-02-Filtrer-Trier-Paginer|Filtrer Trier et Paginer en SQL]]"
-related_snippets:
-  - "[[04_Snippets/bdd-04-indexation-performance]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://use-the-index-luke.com/fr"
 ---
 
-# Indexation et Performance SQL
+# Indexation et Performance
 
-> [!abstract] Introduction
-> Un index est une structure (souvent un arbre B) qui permet de retrouver des lignes sans parcourir toute la table ; `EXPLAIN ANALYZE` montre comment la base exécute réellement une requête.
+> [!abstract] En bref
+> Un **index** est le **sommaire** d'une table : au lieu de lire toutes les lignes pour trouver les critiques du film 27205, la base va directement au bon endroit. C'est le levier n°1 pour accélérer une application. Et `EXPLAIN` te dit si la base utilise un index ou lit tout.
 
-> [!warning]- Prérequis
-> [[SQL-02-Filtrer-Trier-Paginer|Filtrer Trier et Paginer en SQL]]
+## L'image
 
----
+Chercher « Inception » dans un livre de 1 000 pages :
+- **sans index** : tu lis toutes les pages (*Seq Scan*, parcours complet) ;
+- **avec index** : tu ouvres le sommaire à la lettre I et vas à la bonne page (*Index Scan*).
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```sql
-> CREATE INDEX idx_films_annee ON films (annee);
-> CREATE INDEX idx_favoris_film ON favoris (film_id);
-> CREATE INDEX idx_films_genre_annee ON films (genre, annee DESC);   -- composite
-> EXPLAIN ANALYZE SELECT * FROM films WHERE genre = 'SF' ORDER BY annee DESC LIMIT 20;
-> ```
-
-> [!example]- Analogie
-> L'index d'un livre : pour trouver « transaction », tu vas à l'index plutôt que de lire les 800 pages.
-
-> [!question]- Pourquoi l'utiliser ?
-> La différence entre 2 ms et 20 secondes sur une table de plusieurs millions de lignes.
-
-> [!question]- Comment ça marche ?
-> - Index B-tree (défaut) : égalité, plages, tri
-> - Composite : l'ordre des colonnes compte (règle du préfixe gauche)
-> - GIN : JSONB, tableaux, plein texte ; trigram (`pg_trgm`) pour `ILIKE '%x%'`
-> - Unique, partiel (`WHERE deleted_at IS NULL`)
-> - Lire EXPLAIN : `Seq Scan` (parcours complet) vs `Index Scan`, coût estimé vs réel, lignes
-
-> [!question]- Quand l'utiliser ?
-> Colonnes de FK, de filtre fréquent, de tri et de jointure. Mesurer avant/après.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Chaque index ralentit les écritures et consomme de l'espace ; un index inutilisé est un coût pur.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| B-tree | Arbre équilibré, index par défaut |
-| Seq Scan | Lecture de toute la table |
-| Index composite | Index sur plusieurs colonnes |
-| Sélectivité | Proportion de lignes filtrées |
-| Plan d'exécution | Stratégie choisie par le moteur |
-
----
-
-## Points clés
-
-- Indexer les clés étrangères
-- L'ordre des colonnes d'un index composite compte
-- EXPLAIN ANALYZE avant d'optimiser
-- Une fonction sur la colonne (`lower(email)`) empêche l'index sauf index d'expression
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Indexer toutes les colonnes « au cas où »
-> - `WHERE lower(email) = …` sans index sur `lower(email)`
-> - Problème N+1 côté ORM confondu avec un manque d'index
-
----
-
-## Exemple minimal
+## Créer un index
 
 ```sql
-CREATE INDEX idx_users_email_lower ON users (lower(email));
-SELECT * FROM users WHERE lower(email) = lower('Ali@Mail.com');   -- utilise l'index
+CREATE INDEX idx_reviews_movie_id ON reviews (movie_id);
 ```
 
-> [!note] Ce que j'en retiens
-> Un index d'expression rend la recherche insensible à la casse rapide.
+En Prisma :
 
----
+```prisma
+model Review {
+  …
+  @@index([movieId])
+  @@index([userId, createdAt])
+}
+```
 
-## Pour aller plus loin (niveau senior)
+## Où mettre des index
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Surveiller `pg_stat_statements`, index inutilisés, bloat
+| Colonne | Index ? |
+|---|---|
+| clé primaire, colonne `UNIQUE` | déjà indexée automatiquement |
+| **clé étrangère** (`movie_id`, `user_id`) | **oui** (PostgreSQL ne le fait pas tout seul) |
+| colonnes souvent dans `WHERE` ou `ORDER BY` | oui |
+| colonnes rarement utilisées pour chercher | non |
+| colonne avec 2 valeurs (`spoiler` vrai / faux) | rarement utile |
 
----
+### Index sur plusieurs colonnes
 
-## Connexions
+```sql
+CREATE INDEX idx_reviews_user_date ON reviews (user_id, created_at DESC);
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Bases de Données]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Sert pour `WHERE user_id = 42 ORDER BY created_at DESC`. L'**ordre des colonnes compte** : il sert aussi pour `WHERE user_id = 42` seul, mais pas pour `WHERE created_at > …` seul.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/bdd-04-indexation-performance]]
-- Projet → [[02_Projects/CinéTrack-API]]
+## Diagnostiquer : `EXPLAIN ANALYZE`
 
----
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM reviews WHERE movie_id = 27205;
+```
 
-## Auto-vérification
+```text
+Seq Scan on reviews  (… rows=48) (actual time=0.02..35.1 ms)        ← lit toute la table 😬
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un index composite (genre, annee) n'aide-t-il pas un filtre sur annee seule ?
+Après l'index :
 
-> [!faq]- Questions d'entretien
-> - Comment diagnostiquez-vous une requête lente ?
+```text
+Index Scan using idx_reviews_movie_id on reviews (actual time=0.03..0.09 ms)   ← ✅
+```
 
----
+| Ce que tu vois | Signification |
+|---|---|
+| `Seq Scan` sur une grosse table | pas d'index utilisable |
+| `Index Scan` / `Index Only Scan` | l'index est utilisé |
+| `actual time` | le temps réel |
 
-## Tâches
+## Le prix d'un index
 
-- [ ] #task Générer 1 million de films factices et comparer EXPLAIN avec/sans index
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Chaque index **accélère les lectures** mais **ralentit un peu les écritures** (il faut mettre le sommaire à jour) et prend de la place. N'en crée pas « au cas où » : crée-le quand une requête est lente.
 
----
+## Les autres causes de lenteur
 
-## Notes brutes
+- **Le problème N+1** : une requête par élément d'une liste → voir [[BDD-08-ORM-Concepts-N-plus-1|N+1]].
+- **Ramener trop de données** : `SELECT *` et pas de pagination.
+- **`LIKE '%texte%'`** : ne peut pas utiliser un index classique.
+- **Une fonction sur la colonne** (`WHERE LOWER(email) = …`) : l'index sur `email` n'est pas utilisé (sauf index sur `LOWER(email)`).
 
-- ?
+## Pièges
+
+- **Optimiser sans mesurer** : lance `EXPLAIN ANALYZE` d'abord.
+- **Tester sur 10 lignes** : tout est rapide. Les problèmes apparaissent avec des milliers de lignes ; génère des données de test (seed).

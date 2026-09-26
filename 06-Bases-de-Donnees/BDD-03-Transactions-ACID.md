@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Transactions et ACID"
 parent: "[[Bases de Données]]"
-children: []
 related_theory:
   - "[[SQL-06-INSERT-UPDATE-DELETE|INSERT UPDATE DELETE]]"
   - "[[NEST-09-Prisma-Base-de-Donnees|Prisma avec NestJS]]"
-related_snippets:
-  - "[[04_Snippets/bdd-03-transactions-acid]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/tutorial-transactions.html"
@@ -23,127 +20,64 @@ source: "https://www.postgresql.org/docs/current/tutorial-transactions.html"
 
 # Transactions et ACID
 
-> [!abstract] Introduction
-> Une transaction regroupe plusieurs opérations qui réussissent ou échouent ensemble ; les propriétés ACID garantissent la fiabilité même en cas de panne ou d'accès concurrents.
+> [!abstract] En bref
+> Une **transaction** regroupe plusieurs opérations en **tout ou rien** : soit elles réussissent toutes, soit aucune n'est appliquée. L'exemple classique : un virement bancaire (débiter un compte ET créditer l'autre). Sans transaction, un plantage au milieu laisse les données incohérentes.
 
-> [!warning]- Prérequis
-> [[SQL-06-INSERT-UPDATE-DELETE|INSERT UPDATE DELETE]]
+## L'exemple
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```sql
-> BEGIN;
-> UPDATE comptes SET solde = solde - 100 WHERE id = 1;
-> UPDATE comptes SET solde = solde + 100 WHERE id = 2;
-> COMMIT;   -- ou ROLLBACK : aucune des deux modifications
-> ```
-> ACID :
-> - **Atomicité** : tout ou rien
-> - **Cohérence** : les contraintes sont respectées avant et après
-> - **Isolation** : les transactions concurrentes ne se voient pas à moitié
-> - **Durabilité** : une fois commitée, la donnée survit à une panne
-
-> [!example]- Analogie
-> Un virement bancaire : impossible que l'argent quitte ton compte sans arriver chez le destinataire.
-
-> [!question]- Pourquoi l'utiliser ?
-> Toute opération métier en plusieurs écritures (commande + stock + paiement) doit être atomique.
-
-> [!question]- Comment ça marche ?
-> Niveaux d'isolation : `READ COMMITTED` (défaut PostgreSQL), `REPEATABLE READ`, `SERIALIZABLE`.
-> Anomalies de concurrence : lecture sale, lecture non répétable, lecture fantôme, **lost update**.
-> Solutions : `SELECT … FOR UPDATE` (verrou pessimiste), colonne `version` (verrou optimiste), mises à jour atomiques (`SET stock = stock - 1 WHERE stock > 0`).
-
-> [!question]- Quand l'utiliser ?
-> Dès que plusieurs écritures doivent rester cohérentes entre elles.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Transactions longues = verrous prolongés = contention. Ne jamais appeler une API externe au milieu d'une transaction.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| COMMIT / ROLLBACK | Valider / annuler la transaction |
-| Isolation | Degré de séparation entre transactions concurrentes |
-| Lost update | Une mise à jour écrase une autre |
-| Verrou optimiste | Détecte les conflits via une version |
-| Deadlock | Deux transactions s'attendent mutuellement |
-
----
-
-## Points clés
-
-- ACID = fiabilité
-- Transactions courtes
-- Mises à jour atomiques plutôt que lire-puis-écrire
-- Verrou optimiste pour les éditions concurrentes
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Lire une valeur, la modifier en JS, la réécrire → lost update
-> - Appel HTTP externe dans une transaction
-
----
-
-## Exemple minimal
+Publier une critique et mettre à jour le compteur du film :
 
 ```sql
-UPDATE seances SET places_restantes = places_restantes - 1
-WHERE id = 42 AND places_restantes > 0
-RETURNING places_restantes;   -- 0 ligne = complet, sans survente possible
+BEGIN;
+INSERT INTO reviews (user_id, movie_id, rating, comment) VALUES (42, 27205, 9, '…');
+UPDATE movies SET review_count = review_count + 1 WHERE id = 27205;
+COMMIT;      -- tout est validé d'un coup
+-- en cas d'erreur : ROLLBACK;  tout est annulé
 ```
 
-> [!note] Ce que j'en retiens
-> Une seule instruction atomique évite la survente, sans verrou explicite.
+En Prisma :
 
----
+```ts
+await prisma.$transaction(async (tx) => {
+  await tx.review.create({ data: { userId, movieId, rating, comment } });
+  await tx.movie.update({ where: { id: movieId }, data: { reviewCount: { increment: 1 } } });
+});   // si une erreur est lancée dans la fonction, tout est annulé
+```
 
-## Pour aller plus loin (niveau senior)
+## Les 4 garanties : ACID
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Pattern Saga / outbox pour la cohérence entre plusieurs services (pas de transaction distribuée)
+| Lettre | Garantie | En clair |
+|---|---|---|
+| **A**tomicité | tout ou rien | pas de critique sans compteur mis à jour |
+| **C**ohérence | les règles restent vraies | les contraintes (clés, `CHECK`) sont respectées à la fin |
+| **I**solation | les transactions ne se gênent pas | deux utilisateurs en même temps ne voient pas le travail à moitié fait de l'autre |
+| **D**urabilité | ce qui est validé reste | même si le serveur plante juste après le `COMMIT` |
 
----
+## Le problème des écritures simultanées
 
-## Connexions
+Deux personnes réservent la **dernière place** au même moment :
 
-**Arbre théorique :**
-- Sujet parent → [[Bases de Données]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+```mermaid
+sequenceDiagram
+  participant A as Utilisateur A
+  participant DB as Base
+  participant B as Utilisateur B
+  A->>DB: lit places = 1
+  B->>DB: lit places = 1
+  A->>DB: écrit places = 0 (réservé)
+  B->>DB: écrit places = 0 (réservé aussi !) 😱
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/bdd-03-transactions-acid]]
-- Projet → [[02_Projects/CinéTrack-API]]
+Solutions :
+- **Faire le calcul dans la base** en une seule instruction : `UPDATE … SET places = places - 1 WHERE id = 5 AND places > 0` (et vérifier qu'une ligne a été modifiée).
+- **Verrouiller la ligne** : `SELECT … FOR UPDATE` dans la transaction.
+- **Une contrainte** qui rend l'état impossible (`CHECK (places >= 0)`, `UNIQUE`).
 
----
+## Quand utiliser une transaction
 
-## Auto-vérification
+Dès que **plusieurs écritures** doivent rester cohérentes entre elles : créer une commande et ses lignes, déplacer de l'argent, publier une critique et mettre à jour une statistique.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Qu'est-ce qu'un lost update et comment l'éviter ?
+## Pièges
 
-> [!faq]- Questions d'entretien
-> - Expliquez ACID.
-
----
-
-## Tâches
-
-- [ ] #task Reproduire un lost update avec deux terminaux psql
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Une transaction longue** (appeler une API externe ou envoyer un e-mail au milieu) : elle bloque des lignes pendant tout ce temps. Garde-la courte, fais les appels externes avant ou après.
+- **Lire puis écrire en deux étapes** sans protection : le problème de la dernière place.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Agrégation et GROUP BY"
 parent: "[[SQL]]"
-children: []
 related_theory:
   - "[[SQL-03-Jointures|Jointures SQL]]"
-related_snippets:
-  - "[[04_Snippets/sql-04-agregation-group-by]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/tutorial-agg.html"
@@ -22,120 +19,77 @@ source: "https://www.postgresql.org/docs/current/tutorial-agg.html"
 
 # Agrégation et GROUP BY
 
-> [!abstract] Introduction
-> Les fonctions d'agrégation (`COUNT`, `SUM`, `AVG`, `MIN`, `MAX`) calculent une valeur sur un groupe de lignes ; `GROUP BY` définit les groupes, `HAVING` filtre les groupes.
+> [!abstract] En bref
+> **Agréger**, c'est résumer plusieurs lignes en une seule valeur : compter, faire une moyenne, trouver le maximum. Avec `GROUP BY`, on le fait **par groupe** : la note moyenne **de chaque film**, le nombre de critiques **par utilisateur**. C'est la base de toute page de statistiques.
 
-> [!warning]- Prérequis
-> [[SQL-03-Jointures|Jointures SQL]]
+## Les fonctions d'agrégation
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```sql
-> SELECT genre, COUNT(*) AS nb, ROUND(AVG(note), 1) AS moyenne
-> FROM films
-> GROUP BY genre
-> HAVING COUNT(*) >= 5
-> ORDER BY moyenne DESC;
-> ```
-
-> [!example]- Analogie
-> Trier des copies d'examen par classe (GROUP BY), calculer la moyenne de chaque classe (AVG), ne garder que les classes de plus de 5 élèves (HAVING).
-
-> [!question]- Pourquoi l'utiliser ?
-> Statistiques, tableaux de bord, compteurs (nombre de favoris, notes moyennes).
-
-> [!question]- Comment ça marche ?
-> - Chaque colonne du SELECT doit être agrégée OU présente dans le GROUP BY
-> - `WHERE` filtre les lignes AVANT regroupement, `HAVING` filtre les groupes APRÈS
-> - `COUNT(*)` compte les lignes, `COUNT(col)` ignore les NULL, `COUNT(DISTINCT col)`
-> - PostgreSQL : `FILTER (WHERE …)` pour des agrégats conditionnels
-
-> [!question]- Quand l'utiliser ?
-> Reporting, compteurs, classements.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Calculer des agrégats à chaque affichage sur des tables énormes coûte cher → vues matérialisées ou compteurs dénormalisés.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Agrégat | Fonction qui résume plusieurs lignes |
-| Groupe | Ensemble de lignes partageant les mêmes valeurs de regroupement |
-| HAVING | Filtre sur les groupes |
-
----
-
-## Points clés
-
-- WHERE avant, HAVING après
-- Colonnes non agrégées dans le GROUP BY
-- `COUNT(col)` ignore NULL
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Mettre une condition sur agrégat dans le WHERE (erreur)
-> - AVG sur des entiers dans certains SGBD → division entière
-
----
-
-## Exemple minimal
+| Fonction | Donne |
+|---|---|
+| `COUNT(*)` | le nombre de lignes |
+| `COUNT(colonne)` | le nombre de valeurs non vides |
+| `SUM(x)` | la somme |
+| `AVG(x)` | la moyenne |
+| `MIN(x)` / `MAX(x)` | le minimum / maximum |
 
 ```sql
-SELECT date_trunc('month', created_at) AS mois,
-       COUNT(*) AS inscriptions,
-       COUNT(*) FILTER (WHERE role = 'ADMIN') AS admins
-FROM users
-GROUP BY mois ORDER BY mois;
+SELECT COUNT(*) AS total, AVG(rating) AS moyenne, MAX(rating) AS meilleure
+FROM reviews
+WHERE movie_id = 27205;
 ```
 
-> [!note] Ce que j'en retiens
-> Un tableau de bord mensuel en une requête.
+## `GROUP BY` : un résultat par groupe
 
----
+Image : trier des copies en **piles par classe**, puis calculer la moyenne de chaque pile.
 
-## Pour aller plus loin (niveau senior)
+```sql
+SELECT movie_id, COUNT(*) AS nb, ROUND(AVG(rating), 1) AS moyenne
+FROM reviews
+GROUP BY movie_id
+ORDER BY moyenne DESC;
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - GROUPING SETS / ROLLUP pour les sous-totaux
+| movie_id | nb | moyenne |
+|---|---|---|
+| 27205 | 48 | 8.6 |
+| 438631 | 31 | 7.9 |
 
----
+**Règle :** chaque colonne du `SELECT` doit être soit **dans le `GROUP BY`**, soit **dans une fonction d'agrégation**.
 
-## Connexions
+## `HAVING` : filtrer les groupes
 
-**Arbre théorique :**
-- Sujet parent → [[SQL]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+`WHERE` filtre les **lignes** avant le regroupement, `HAVING` filtre les **groupes** après.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sql-04-agregation-group-by]]
-- Projet → [[02_Projects/CinéTrack-API]]
+Les films qui ont **au moins 10 critiques**, classés par moyenne :
 
----
+```sql
+SELECT m.title, COUNT(r.id) AS nb, ROUND(AVG(r.rating), 1) AS moyenne
+FROM movies m
+JOIN reviews r ON r.movie_id = m.id
+WHERE r.created_at >= NOW() - INTERVAL '1 year'   -- lignes : critiques de l'année
+GROUP BY m.id, m.title
+HAVING COUNT(r.id) >= 10                          -- groupes : au moins 10 critiques
+ORDER BY moyenne DESC
+LIMIT 10;
+```
 
-## Auto-vérification
+C'est le « top 10 de l'année » de CinéTrack.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `WHERE COUNT(*) > 5` est-il invalide ?
+## Compter selon une condition
 
----
+```sql
+SELECT
+  movie_id,
+  COUNT(*) FILTER (WHERE rating >= 8) AS avis_positifs,
+  COUNT(*) FILTER (WHERE rating <= 4) AS avis_negatifs
+FROM reviews
+GROUP BY movie_id;
+```
 
-## Tâches
+(`FILTER` est une écriture PostgreSQL ; ailleurs : `SUM(CASE WHEN rating >= 8 THEN 1 ELSE 0 END)`.)
 
-- [ ] #task Écrire les requêtes du futur tableau de bord admin de CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ?
+- **Colonne dans le `SELECT` absente du `GROUP BY`** : erreur « must appear in the GROUP BY clause ».
+- **Filtrer un résultat d'agrégation dans le `WHERE`** (`WHERE COUNT(*) > 10`) : impossible, c'est le rôle de `HAVING`.
+- **`AVG` sur des entiers** peut donner beaucoup de décimales : arrondis avec `ROUND`.

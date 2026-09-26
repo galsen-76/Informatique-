@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Sous-requêtes et CTE"
 parent: "[[SQL]]"
-children: []
 related_theory:
   - "[[SQL-04-Agregation-GROUP-BY|Agrégation et GROUP BY]]"
-related_snippets:
-  - "[[04_Snippets/sql-05-sous-requetes-cte]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/queries-with.html"
@@ -22,120 +19,72 @@ source: "https://www.postgresql.org/docs/current/queries-with.html"
 
 # Sous-requêtes et CTE
 
-> [!abstract] Introduction
-> Une sous-requête est une requête imbriquée dans une autre ; une CTE (`WITH`) nomme une sous-requête pour rendre les requêtes complexes lisibles, étape par étape.
+> [!abstract] En bref
+> Une **sous-requête** est une requête à l'intérieur d'une autre. Une **CTE** (`WITH …`) fait la même chose, mais en donnant un **nom** à chaque étape, ce qui rend les requêtes complexes lisibles de haut en bas, comme des variables en TypeScript.
 
-> [!warning]- Prérequis
-> [[SQL-04-Agregation-GROUP-BY|Agrégation et GROUP BY]]
+## La sous-requête
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```sql
-> -- sous-requête
-> SELECT titre FROM films WHERE note > (SELECT AVG(note) FROM films);
-> -- CTE
-> WITH moyennes AS (
->   SELECT genre, AVG(note) AS moy FROM films GROUP BY genre
-> )
-> SELECT f.titre, f.genre, f.note
-> FROM films f JOIN moyennes m ON m.genre = f.genre
-> WHERE f.note > m.moy;
-> ```
-
-> [!example]- Analogie
-> Une CTE, c'est poser un calcul intermédiaire sur un brouillon et lui donner un nom, avant de l'utiliser dans le calcul final.
-
-> [!question]- Pourquoi l'utiliser ?
-> Lisibilité, réutilisation d'un résultat intermédiaire, requêtes récursives (arborescences : catégories, commentaires imbriqués).
-
-> [!question]- Comment ça marche ?
-> - Sous-requête scalaire (1 valeur), de liste (`IN (...)`), corrélée (dépend de la ligne externe), `EXISTS`
-> - `WITH RECURSIVE` pour parcourir des hiérarchies
-> - `EXISTS` est souvent plus efficace que `IN` sur de gros volumes
-
-> [!question]- Quand l'utiliser ?
-> Requêtes de reporting à plusieurs étapes, hiérarchies.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Sous-requêtes corrélées exécutées par ligne → potentiellement lentes (vérifier EXPLAIN).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Sous-requête | Requête imbriquée |
-| CTE | Common Table Expression, sous-requête nommée |
-| Corrélée | Qui référence la requête externe |
-| `EXISTS` | Vrai si la sous-requête renvoie au moins une ligne |
-
----
-
-## Points clés
-
-- CTE pour découper une requête complexe
-- `NOT EXISTS` pour « ceux qui n'ont pas »
-- `WITH RECURSIVE` pour les arbres
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `NOT IN` avec une sous-requête contenant NULL → aucun résultat
-
----
-
-## Exemple minimal
+Les films mieux notés que la moyenne générale :
 
 ```sql
-SELECT u.email FROM users u
-WHERE NOT EXISTS (SELECT 1 FROM favoris fav WHERE fav.user_id = u.id);
+SELECT title, rating
+FROM movies
+WHERE rating > (SELECT AVG(rating) FROM movies);   -- calculée d'abord
 ```
 
-> [!note] Ce que j'en retiens
-> Les utilisateurs sans favori, sans piège des NULL.
+Les utilisateurs qui ont écrit au moins une critique :
 
----
+```sql
+SELECT email FROM users u
+WHERE EXISTS (SELECT 1 FROM reviews r WHERE r.user_id = u.id);
+```
 
-## Pour aller plus loin (niveau senior)
+| Écriture | Usage |
+|---|---|
+| `x > (SELECT …)` | comparer à une valeur calculée |
+| `x IN (SELECT …)` | appartenir à une liste calculée |
+| `EXISTS (SELECT …)` | « il en existe au moins un » (souvent le plus rapide) |
+| `FROM (SELECT …) AS t` | utiliser un résultat comme une table |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir réécrire une sous-requête corrélée en jointure pour la performance
+## La CTE : nommer les étapes
 
----
+Les 5 utilisateurs les plus actifs, avec leur note moyenne :
 
-## Connexions
+```sql
+WITH stats AS (                                  -- étape 1 : statistiques par utilisateur
+  SELECT user_id, COUNT(*) AS nb, AVG(rating) AS moyenne
+  FROM reviews
+  GROUP BY user_id
+),
+top AS (                                         -- étape 2 : les 5 plus actifs
+  SELECT * FROM stats ORDER BY nb DESC LIMIT 5
+)
+SELECT u.email, top.nb, ROUND(top.moyenne, 1) AS moyenne   -- étape 3 : avec leur e-mail
+FROM top
+JOIN users u ON u.id = top.user_id;
+```
 
-**Arbre théorique :**
-- Sujet parent → [[SQL]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Image : une **recette en étapes** (« préparer la pâte », « préparer la garniture », « assembler ») plutôt qu'une seule phrase interminable.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sql-05-sous-requetes-cte]]
-- Projet → [[02_Projects/CinéTrack-API]]
+## Quand l'utiliser
 
----
+- Une requête devient longue et imbriquée → découpe-la en CTE.
+- Tu calcules la même chose deux fois → une CTE, utilisée deux fois.
+- Données hiérarchiques (catégories et sous-catégories, commentaires et réponses) → `WITH RECURSIVE`.
 
-## Auto-vérification
+Avec Prisma, ce genre de requête s'écrit en SQL brut :
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `NOT IN` peut-il renvoyer 0 ligne de façon inattendue ?
+```ts
+const top = await prisma.$queryRaw<{ email: string; nb: bigint }[]>`
+  WITH stats AS (SELECT user_id, COUNT(*) AS nb FROM "Review" GROUP BY user_id)
+  SELECT u.email, s.nb FROM stats s JOIN "User" u ON u.id = s.user_id
+  ORDER BY s.nb DESC LIMIT ${limit}
+`;
+```
 
----
+Les valeurs passées avec `${…}` dans `$queryRaw` sont **protégées** contre l'injection SQL.
 
-## Tâches
+## Pièges
 
-- [ ] #task Écrire une requête récursive pour des commentaires imbriqués
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`NOT IN (SELECT …)`** quand la sous-requête peut contenir `NULL` : ne renvoie rien. Préfère `NOT EXISTS`.
+- **Une sous-requête exécutée pour chaque ligne** (qui dépend de la ligne courante) sur une grosse table : peut être lent. Vérifie avec `EXPLAIN` (voir [[BDD-04-Indexation-Performance|Index]]).

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,134 +10,86 @@ tags:
 aliases:
   - "Filtrer Trier et Paginer en SQL"
 parent: "[[SQL]]"
-children: []
 related_theory:
   - "[[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL SELECT]]"
-related_snippets:
-  - "[[04_Snippets/sql-02-filtrer-trier-paginer]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/functions-comparison.html"
 ---
 
-# Filtrer Trier et Paginer en SQL
+# Filtrer Trier et Paginer
 
-> [!abstract] Introduction
-> `WHERE` filtre les lignes avec des conditions, `ORDER BY` les trie, `LIMIT/OFFSET` (ou la pagination par curseur) les découpe en pages.
+> [!abstract] En bref
+> Trois besoins que tu retrouveras dans chaque écran de liste : **filtrer** (`WHERE`), **trier** (`ORDER BY`) et **paginer** (`LIMIT` / `OFFSET`). C'est ce que fait la page de CinéTrack quand on choisit un genre, trie par note et passe à la page 2.
 
-> [!warning]- Prérequis
-> [[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL SELECT]]
+## Filtrer : `WHERE`
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```sql
-> SELECT * FROM films
-> WHERE annee BETWEEN 2000 AND 2020
->   AND genre IN ('SF', 'Thriller')
->   AND titre ILIKE '%star%'          -- ILIKE : insensible à la casse (PostgreSQL)
-> ORDER BY note DESC NULLS LAST, titre
-> LIMIT 20 OFFSET 40;                 -- page 3 de 20
-> ```
-
-> [!example]- Analogie
-> WHERE est un tamis, ORDER BY un classement, LIMIT le nombre d'éléments que tu prends dans le panier.
-
-> [!question]- Pourquoi l'utiliser ?
-> Toutes les listes d'une application (recherche, filtres, pagination) se traduisent en ces clauses.
-
-> [!question]- Comment ça marche ?
-> Opérateurs : `= <> < > <= >=`, `AND OR NOT`, `IN`, `BETWEEN`, `LIKE` (`%` n'importe quoi, `_` un caractère), `IS NULL`, `COALESCE(x, défaut)`.
-> Pagination :
-> - **Offset** : simple mais lente sur des pages lointaines et instable si des lignes sont insérées
-> - **Curseur (keyset)** : `WHERE (annee, id) < (2010, 523) ORDER BY annee DESC, id DESC LIMIT 20` → rapide et stable
-
-> [!question]- Quand l'utiliser ?
-> Offset pour de petites tables/back-offices ; curseur pour du scroll infini ou de gros volumes.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `LIKE '%texte%'` ne peut pas utiliser un index B-tree classique → recherche plein texte (`tsvector`) ou index trigram.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Prédicat | Condition booléenne |
-| Pagination offset | Sauter N lignes |
-| Pagination curseur | Reprendre après la dernière valeur vue |
-| `COALESCE` | Première valeur non nulle |
-
----
-
-## Points clés
-
-- Trier de façon déterministe (ajouter `id` en dernier critère)
-- Paginer toujours les listes
-- Préférer le curseur pour les grands volumes
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `OR` sans parenthèses avec `AND` (priorité)
-> - Pagination sans ORDER BY → ordre non garanti
-
----
-
-## Exemple minimal
+| Opérateur | Exemple |
+|---|---|
+| `=`, `<>` (différent) | `release_year = 2021` |
+| `<`, `<=`, `>`, `>=` | `rating >= 7` |
+| `BETWEEN a AND b` | `release_year BETWEEN 2000 AND 2010` |
+| `IN (…)` | `genre IN ('action', 'sf')` |
+| `LIKE` / `ILIKE` | `title ILIKE '%dune%'` (ILIKE : sans tenir compte des majuscules, PostgreSQL) |
+| `IS NULL` / `IS NOT NULL` | `poster_path IS NULL` |
+| `AND`, `OR`, `NOT` | combiner |
 
 ```sql
--- page suivante après le dernier film affiché (annee=2012, id=87)
-SELECT id, titre, annee FROM films
-WHERE (annee, id) < (2012, 87)
-ORDER BY annee DESC, id DESC
+SELECT title, rating
+FROM movies
+WHERE (genre = 'sf' OR genre = 'thriller')
+  AND rating >= 7.5
+  AND poster_path IS NOT NULL;
+```
+
+Dans `LIKE`, `%` = « n'importe quels caractères » : `'%dune%'` = contient « dune ».
+
+## Trier : `ORDER BY`
+
+```sql
+ORDER BY rating DESC, title ASC     -- d'abord par note décroissante, puis par titre
+ORDER BY release_year DESC NULLS LAST
+```
+
+`ASC` = croissant (par défaut), `DESC` = décroissant.
+
+## Paginer : `LIMIT` et `OFFSET`
+
+```sql
+-- page 3, 20 films par page
+SELECT id, title FROM movies
+ORDER BY rating DESC, id          -- un ordre stable est obligatoire pour paginer
+LIMIT 20 OFFSET 40;               -- sauter 2 pages de 20
+```
+
+Formule : `OFFSET = (page - 1) × taille`. C'est exactement `skip` / `take` en Prisma.
+
+### Sur de très grandes tables : la pagination par curseur
+
+Avec un `OFFSET` énorme, la base doit quand même parcourir toutes les lignes sautées. On reprend plutôt **après le dernier élément vu** :
+
+```sql
+SELECT id, title FROM reviews
+WHERE id < 15230                  -- le dernier id de la page précédente
+ORDER BY id DESC
 LIMIT 20;
 ```
 
-> [!note] Ce que j'en retiens
-> La page suivante ne dépend plus de l'offset : même vitesse à la page 1 ou 1000.
+Idéal pour un défilement infini.
 
----
+## Le piège de `NULL`
 
-## Pour aller plus loin (niveau senior)
+`NULL` veut dire « valeur inconnue ». On ne peut **pas** le comparer avec `=` :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Recherche plein texte PostgreSQL (`to_tsvector`, index GIN)
+```sql
+WHERE poster_path = NULL        -- ❌ ne renvoie jamais rien
+WHERE poster_path IS NULL       -- ✅
+```
 
----
+Et `rating <> 5` **exclut** les lignes où `rating` est `NULL`.
 
-## Connexions
+## Pièges
 
-**Arbre théorique :**
-- Sujet parent → [[SQL]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/sql-02-filtrer-trier-paginer]]
-- Projet → [[02_Projects/CinéTrack-API]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi ajouter `id` dans l'ORDER BY ?
-
----
-
-## Tâches
-
-- [ ] #task Implémenter la recherche + pagination curseur dans l'API
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Paginer sans `ORDER BY`** : l'ordre n'est pas garanti, des lignes apparaissent sur deux pages ou jamais.
+- **`LIKE '%texte%'` sur une grosse table** : ne peut pas utiliser un index classique, donc lent. Pour une vraie recherche : recherche plein texte de PostgreSQL.
+- **Construire le `WHERE` en collant du texte venant de l'utilisateur** : injection SQL. Voir [[SEC-08-Injection-SQL-Validation|Injection SQL]].

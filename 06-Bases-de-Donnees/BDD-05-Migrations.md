@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,130 +10,83 @@ tags:
 aliases:
   - "Migrations de Base de Données"
 parent: "[[Bases de Données]]"
-children: []
 related_theory:
   - "[[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]"
   - "[[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]"
-related_snippets:
-  - "[[04_Snippets/bdd-05-migrations]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://martinfowler.com/articles/evodb.html"
 ---
 
-# Migrations de Base de Données
+# Migrations
 
-> [!abstract] Introduction
-> Les migrations sont des scripts versionnés qui font évoluer la structure (et parfois les données) de la base de façon reproductible, dans le même dépôt Git que le code.
+> [!abstract] En bref
+> Une **migration** est un fichier qui décrit **une modification de la structure** de la base (ajouter une table, une colonne, un index). Les migrations sont versionnées avec le code : chaque développeur, la CI et la production appliquent **les mêmes changements, dans le même ordre**. C'est Git, mais pour ta base de données.
 
-> [!warning]- Prérequis
-> [[SQL-07-DDL-Contraintes-Types|DDL Contraintes et Types SQL]]
+## Le problème sans migrations
 
----
+Tu ajoutes une colonne `runtime` à la main dans ta base locale. Ton code marche. Tu pousses. Chez ton collègue et en production, la colonne n'existe pas → tout plante.
 
-## Théorie
+## Le principe
 
-> [!question]- C'est quoi ?
-> Outils : Prisma Migrate, TypeORM migrations, Flyway/Liquibase (Java), Alembic (Python), Knex.
-> ```text
-> prisma/migrations/
-> ├── 20260901120000_init/migration.sql
-> ├── 20260915093000_ajout_favoris/migration.sql
-> └── migration_lock.toml
-> ```
-
-> [!example]- Analogie
-> Le carnet d'entretien d'une voiture : chaque intervention est datée et numérotée ; un mécanicien peut remettre n'importe quelle voiture au même niveau en suivant le carnet.
-
-> [!question]- Pourquoi l'utiliser ?
-> Tous les environnements (dev de chaque développeur, CI, recette, prod) ont exactement la même structure ; historique et relecture en revue de code.
-
-> [!question]- Comment ça marche ?
-> - Une table technique enregistre les migrations appliquées
-> - Appliquées automatiquement au déploiement (job CI ou démarrage) avant la nouvelle version du code
-> - **Expand / contract** pour ne rien casser : 1) ajouter la nouvelle colonne (compatible), 2) déployer le code qui écrit les deux, 3) migrer les données, 4) basculer la lecture, 5) supprimer l'ancienne colonne
-
-> [!question]- Quand l'utiliser ?
-> Tout changement de schéma, sans exception.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Un rollback de migration destructive peut être impossible → sauvegarde avant, migrations compatibles avant/arrière.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Migration | Changement versionné de schéma |
-| Expand/contract | Migration en plusieurs étapes compatibles |
-| Seed | Données de base |
-| Drift | Écart entre la base réelle et les migrations |
-
----
-
-## Points clés
-
-- Jamais de modification manuelle du schéma en prod
-- Migrations relues en code review
-- Compatibilité ascendante pour les déploiements sans interruption
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Renommer une colonne en une étape alors que l'ancienne version du code tourne encore
-> - Migration qui verrouille une grosse table (ajout d'index sans `CONCURRENTLY`)
-
----
-
-## Exemple minimal
-
-```sql
--- sans bloquer les écritures (PostgreSQL)
-CREATE INDEX CONCURRENTLY idx_critiques_film ON critiques (film_id);
+```mermaid
+flowchart LR
+  S["Tu modifies<br/>schema.prisma"] --> M["prisma migrate dev<br/>crée 20260926_add_runtime/migration.sql"]
+  M --> G["git commit<br/>schéma + migration"]
+  G --> CI["CI / production<br/>prisma migrate deploy"]
+  CI --> DB[("Base à jour")]
 ```
 
-> [!note] Ce que j'en retiens
-> Sur une table en production, certaines opérations doivent être faites « en ligne ».
+```text
+prisma/migrations/
+├── 20260901120000_init/migration.sql
+├── 20260915093000_add_reviews/migration.sql
+└── 20260926101500_add_movie_runtime/migration.sql
+```
 
----
+La base garde une table interne qui note **quelles migrations ont déjà été appliquées**. `migrate deploy` applique seulement les nouvelles.
 
-## Pour aller plus loin (niveau senior)
+## Les commandes Prisma
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Planifier des migrations de données volumineuses par lots
+| Commande | Où | Effet |
+|---|---|---|
+| `prisma migrate dev --name xxx` | ta machine | crée la migration et l'applique |
+| `prisma migrate deploy` | CI / production | applique les migrations en attente |
+| `prisma migrate reset` | ta machine | efface la base et rejoue tout (+ seed) |
+| `prisma migrate status` | partout | liste ce qui est appliqué ou non |
 
----
+## Les règles d'or
 
-## Connexions
+1. **Une migration appliquée ne se modifie jamais.** Pour corriger, crée une nouvelle migration.
+2. **Relis le SQL généré** avant de commiter : Prisma peut proposer de supprimer une colonne (et ses données) quand tu la renommes.
+3. **Commite le schéma ET la migration** ensemble.
+4. **Les migrations tournent dans la CI**, jamais à la main en production.
 
-**Arbre théorique :**
-- Sujet parent → [[Bases de Données]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Modifier sans casser (production avec des données)
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/bdd-05-migrations]]
-- Projet → [[02_Projects/CinéTrack-API]]
+Renommer `title` en `name` en une seule migration supprime les données. La méthode sûre, en plusieurs déploiements :
 
----
+1. ajouter la nouvelle colonne `name` ;
+2. copier les données (`UPDATE movies SET name = title`) ;
+3. faire lire et écrire le code dans `name` ;
+4. plus tard, supprimer `title`.
 
-## Auto-vérification
+Pareil pour une colonne obligatoire : l'ajouter d'abord optionnelle (ou avec une valeur par défaut), la remplir, puis la rendre obligatoire.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi renommer une colonne en une seule migration est-il risqué ?
+## Le seed : les données de départ
 
----
+```ts
+// prisma/seed.ts
+await prisma.user.upsert({
+  where: { email: 'admin@cinetrack.fr' },
+  create: { email: 'admin@cinetrack.fr', passwordHash: await argon2.hash('…'), role: 'ADMIN' },
+  update: {},
+});
+```
 
-## Tâches
+Utile pour les tests et pour démarrer une base de développement avec des données réalistes.
 
-- [ ] #task Appliquer les migrations dans le pipeline CI de CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ?
+- **`migrate dev` ou `migrate reset` en production** : risque d'effacer les données.
+- **Des migrations en conflit** entre deux branches : après le merge, régénère une migration propre en local.

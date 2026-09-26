@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,132 +10,66 @@ tags:
 aliases:
   - "Redis Cache Clé-Valeur"
 parent: "[[Bases de Données]]"
-children: []
 related_theory:
   - "[[ARCH-09-Cache-Performance|Cache et Performance]]"
   - "[[NEST-13-Cache-Queues-Taches|Cache Queues et Tâches Planifiées NestJS]]"
-related_snippets:
-  - "[[04_Snippets/bdd-07-redis-cle-valeur]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://redis.io/docs/latest/"
 ---
 
-# Redis Cache Clé-Valeur
+# Redis Clé-Valeur
 
-> [!abstract] Introduction
-> Redis est une base clé-valeur en mémoire, ultra rapide, utilisée comme cache, stockage de sessions, file de messages, compteur ou limiteur de débit.
+> [!abstract] En bref
+> **Redis** est une base de données **en mémoire** ultra-rapide : on range une valeur sous une clé (`popular:page:1` → la liste des films), et on la récupère en moins d'une milliseconde. On l'utilise **à côté** de PostgreSQL, surtout comme **cache**, et aussi pour les sessions, les compteurs et les files de tâches.
 
-> [!warning]- Prérequis
-> [[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]
+## L'image
 
----
+PostgreSQL est l'**entrepôt** : tout y est rangé de façon sûre, mais il faut un peu de temps pour aller chercher. Redis est le **comptoir** à côté de la caisse : peu de place, mais ce qu'on demande souvent est à portée de main.
 
-## Théorie
+## Les commandes de base
 
-> [!question]- C'est quoi ?
-> ```bash
-> SET film:42 '{"titre":"Dune"}' EX 3600   # expire dans 1 h
-> GET film:42
-> INCR vues:film:42
-> LPUSH file:emails '{"to":"a@b.fr"}'
-> ZADD top:films 150 "42"                   # sorted set : classement
-> ```
-
-> [!example]- Analogie
-> Redis est le post-it collé sur ton écran : instantané à lire, mais pas fait pour archiver des documents.
-
-> [!question]- Pourquoi l'utiliser ?
-> Réduire la charge sur la BDD, partager un état entre plusieurs instances de l'API (sessions, rate limiting, WebSocket), files de jobs (BullMQ).
-
-> [!question]- Comment ça marche ?
-> Structures : strings, hashes, lists, sets, sorted sets, streams. TTL par clé. Persistance optionnelle (RDB/AOF). Pub/Sub.
-> Nommage des clés : `domaine:id:attribut`.
-
-> [!question]- Quand l'utiliser ?
-> Cache, sessions, compteurs, classements, rate limiting, queues.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Données en RAM (coût, taille) ; ce n'est pas la source de vérité : tout doit pouvoir être reconstruit depuis la BDD.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| TTL | Durée de vie d'une clé |
-| Éviction | Suppression automatique quand la mémoire est pleine |
-| Pub/Sub | Publication/abonnement de messages |
-| Sorted set | Ensemble trié par score |
-
----
-
-## Points clés
-
-- Toujours un TTL sur le cache
-- Redis n'est pas la source de vérité
-- Clés nommées et préfixées
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Clés sans TTL qui remplissent la mémoire
-> - `KEYS *` en production (bloquant) → `SCAN`
-
----
-
-## Exemple minimal
-
-```typescript
-// Rate limiting simple : 100 requêtes / minute / IP
-const cle = `rl:${ip}:${Math.floor(Date.now() / 60000)}`;
-const n = await redis.incr(cle);
-if (n === 1) await redis.expire(cle, 60);
-if (n > 100) throw new HttpException('Trop de requêtes', 429);
+```bash
+docker run -d --name redis -p 6379:6379 redis:7
+docker exec -it redis redis-cli
 ```
 
-> [!note] Ce que j'en retiens
-> INCR + EXPIRE = compteur par fenêtre de temps, partagé entre toutes les instances.
+```text
+SET popular:1 "[…json…]" EX 600     # stocke pendant 600 secondes
+GET popular:1                        # récupère (nil si expiré)
+DEL popular:1                        # supprime
+INCR views:movie:27205               # compteur +1 (atomique)
+TTL popular:1                        # temps restant
+KEYS popular:*                       # ⚠️ jamais en production (bloque Redis)
+```
 
----
+`EX 600` = **expiration** : la clé disparaît toute seule après 10 minutes. Presque toutes les clés de cache ont une expiration.
 
-## Pour aller plus loin (niveau senior)
+## Les usages
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Stratégies d'éviction, Redis Cluster/Sentinel
+| Usage | Comment | CinéTrack |
+|---|---|---|
+| **Cache** | garder un résultat coûteux quelques minutes | films populaires de TMDB (voir [[NEST-13-Cache-Queues-Taches\|Cache NestJS]]) |
+| **Compteurs** | `INCR`, atomique même avec plusieurs serveurs | nombre de vues d'une fiche |
+| **Limitation de débit** | compter les requêtes par IP et par minute | max 5 tentatives de connexion |
+| **Sessions / jetons** | stocker la session ou la liste des jetons révoqués | déconnexion |
+| **Files de tâches** | BullMQ s'appuie sur Redis | e-mails en arrière-plan |
+| **Temps réel** | publication / abonnement entre serveurs | WebSockets sur plusieurs serveurs |
 
----
+## Nommer les clés
 
-## Connexions
+Convention : `type:identifiant:détail`, séparé par `:`.
 
-**Arbre théorique :**
-- Sujet parent → [[Bases de Données]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+```text
+movie:27205
+movie:27205:reviews:page:1
+user:42:favorites
+ratelimit:login:203.0.113.5
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/bdd-07-redis-cle-valeur]]
-- Projet → [[02_Projects/CinéTrack-API]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi Redis ne doit-il pas être la source de vérité ?
-
----
-
-## Tâches
-
-- [ ] #task Ajouter Redis au docker-compose et mettre en cache les films populaires
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Utiliser Redis comme base principale** : les données sont en mémoire ; selon la configuration, un redémarrage peut les perdre. La vérité reste dans PostgreSQL.
+- **Oublier l'expiration** : la mémoire se remplit et les données en cache deviennent obsolètes.
+- **Oublier de vider le cache** quand la donnée change : l'utilisateur voit une ancienne version.
+- **Une clé de cache sans l'identifiant de l'utilisateur** pour des données personnelles : un utilisateur voit celles d'un autre.

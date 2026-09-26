@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "PostgreSQL en Pratique"
 parent: "[[Bases de Données]]"
-children: []
 related_theory:
   - "[[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]"
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
-related_snippets:
-  - "[[04_Snippets/bdd-09-postgresql-pratique]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/"
@@ -23,119 +20,73 @@ source: "https://www.postgresql.org/docs/current/"
 
 # PostgreSQL en Pratique
 
-> [!abstract] Introduction
-> Les commandes et réflexes du quotidien avec PostgreSQL : psql, rôles et droits, sauvegarde/restauration, extensions utiles.
+> [!abstract] En bref
+> Les gestes du quotidien avec PostgreSQL : le lancer en local avec Docker, s'y connecter, explorer les tables, sauvegarder et restaurer. De quoi être autonome sur CinéTrack-API.
 
-> [!warning]- Prérequis
-> [[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]
+## Lancer PostgreSQL en local
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```bash
-> psql -h localhost -U cine -d cinetrack
-> \l        # bases        \dt   # tables      \d films   # structure d'une table
-> \du       # rôles        \x    # affichage étendu   \q  # quitter
-> pg_dump -Fc -U cine cinetrack > cinetrack.dump      # sauvegarde
-> pg_restore -U cine -d cinetrack_restore cinetrack.dump
-> ```
-
-> [!example]- Analogie
-> psql est le tableau de bord moteur ouvert : moins joli qu'une interface graphique, mais tu vois et contrôles tout.
-
-> [!question]- Pourquoi l'utiliser ?
-> Déboguer en direct, inspecter une base de recette, restaurer une sauvegarde, créer des accès en lecture seule.
-
-> [!question]- Comment ça marche ?
-> Sécurité : un rôle applicatif avec les droits minimaux (pas superuser), un rôle lecture seule pour l'analyse.
-> ```sql
-> CREATE ROLE app_cinetrack LOGIN PASSWORD '…';
-> GRANT CONNECT ON DATABASE cinetrack TO app_cinetrack;
-> GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO app_cinetrack;
-> ```
-> Extensions : `pg_trgm` (recherche floue), `pgcrypto`, `uuid-ossp`, `pg_stat_statements`, `pgvector` (IA).
-
-> [!question]- Quand l'utiliser ?
-> Au quotidien en dev, et pour tout diagnostic en recette/production (avec prudence et accès lecture seule).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Travailler directement en production sans transaction ni sauvegarde est la cause de nombreux incidents.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| psql | Client en ligne de commande |
-| Rôle | Utilisateur ou groupe PostgreSQL |
-| pg_dump | Outil de sauvegarde logique |
-| Extension | Module ajoutant des fonctionnalités |
-
----
-
-## Points clés
-
-- Moindre privilège pour l'application
-- Sauvegardes automatiques ET tests de restauration
-- `\d table` pour lire une structure rapidement
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Connexion en superuser depuis l'application
-
----
-
-## Exemple minimal
-
-```sql
-SELECT query, calls, mean_exec_time FROM pg_stat_statements ORDER BY mean_exec_time DESC LIMIT 5;
+```bash
+docker run -d --name cinetrack-db \
+  -e POSTGRES_USER=cinetrack -e POSTGRES_PASSWORD=motdepasse -e POSTGRES_DB=cinetrack \
+  -p 5432:5432 -v cinetrack-data:/var/lib/postgresql/data \
+  postgres:17
 ```
 
-> [!note] Ce que j'en retiens
-> Les 5 requêtes les plus lentes en moyenne : point de départ de toute optimisation.
+- `-v cinetrack-data:…` : les données survivent à la suppression du conteneur (voir [[DK-04-Volumes|Volumes]]).
+- L'URL de connexion pour Prisma : `postgresql://cinetrack:motdepasse@localhost:5432/cinetrack`.
 
----
+Plus tard, tout ça ira dans un `docker-compose.yml` avec l'API (voir [[DK-03-Docker-Compose|Docker Compose]]).
 
-## Pour aller plus loin (niveau senior)
+## Se connecter
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Paramétrage (shared_buffers, work_mem), VACUUM/autovacuum, réplication
+| Outil | Pour |
+|---|---|
+| `psql` (terminal) | rapide, partout |
+| **Outil Database d'IntelliJ** / **DBeaver** | explorer, écrire des requêtes avec autocomplétion |
+| `npx prisma studio` | voir et modifier les données dans le navigateur |
 
----
+```bash
+docker exec -it cinetrack-db psql -U cinetrack -d cinetrack
+```
 
-## Connexions
+## Les commandes `psql` utiles
 
-**Arbre théorique :**
-- Sujet parent → [[Bases de Données]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+| Commande | Rôle |
+|---|---|
+| `\l` | lister les bases |
+| `\c cinetrack` | se connecter à une base |
+| `\dt` | lister les tables |
+| `\d "Review"` | voir la structure d'une table (colonnes, index, contraintes) |
+| `\x` | affichage vertical (lignes larges) |
+| `\timing` | afficher le temps de chaque requête |
+| `\q` | quitter |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/bdd-09-postgresql-pratique]]
-- Projet → [[02_Projects/CinéTrack-API]]
+Les noms créés par Prisma sont en `PascalCase` : il faut des guillemets (`SELECT * FROM "Review";`), sauf si tu utilises `@@map("reviews")` dans le schéma.
 
----
+## Sauvegarder et restaurer
 
-## Auto-vérification
+```bash
+# sauvegarde
+docker exec cinetrack-db pg_dump -U cinetrack -Fc cinetrack > sauvegarde.dump
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi l'application ne doit-elle pas utiliser le rôle superuser ?
+# restauration
+docker exec -i cinetrack-db pg_restore -U cinetrack -d cinetrack --clean < sauvegarde.dump
+```
 
----
+En production, les sauvegardes sont **automatiques** (hébergeur ou tâche planifiée) et **testées** régulièrement : une sauvegarde qu'on n'a jamais restaurée n'est pas une sauvegarde.
 
-## Tâches
+## Les bonnes pratiques
 
-- [ ] #task Faire une sauvegarde puis une restauration de la base CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+| Pratique | Pourquoi |
+|---|---|
+| un utilisateur dédié par application, avec seulement les droits nécessaires | limiter les dégâts en cas de faille |
+| la base jamais exposée sur Internet | seule l'API s'y connecte |
+| un **pool** de connexions (Prisma le gère) | ouvrir une connexion coûte cher |
+| `EXPLAIN ANALYZE` sur les requêtes lentes | voir [[BDD-04-Indexation-Performance\|Index]] |
+| extensions utiles : `pg_trgm` (recherche approximative), `pgvector` (IA) | fonctionnalités en plus sans autre base |
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Oublier le volume Docker** : `docker rm` et toutes tes données disparaissent.
+- **Le port 5432 déjà utilisé** (un PostgreSQL installé sur la machine) : change le port (`-p 5433:5432`).
+- **Travailler directement sur la base de production** : jamais sans sauvegarde et transaction.

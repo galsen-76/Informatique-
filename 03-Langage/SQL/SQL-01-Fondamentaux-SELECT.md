@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,148 +10,76 @@ tags:
 aliases:
   - "Fondamentaux SQL SELECT"
 parent: "[[SQL]]"
-children:
-  - "[[SQL-02-Filtrer-Trier-Paginer|Filtrer Trier et Paginer en SQL]]"
-  - "[[SQL-03-Jointures|Jointures SQL]]"
 related_theory:
   - "[[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]"
-related_snippets:
-  - "[[04_Snippets/sql-01-fondamentaux-select]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/tutorial-select.html"
 ---
 
-# Fondamentaux SQL SELECT
+# Fondamentaux SQL et SELECT
 
-> [!abstract] Introduction
-> SQL est le langage standard pour interroger les bases relationnelles ; `SELECT` lit des données dans des tables organisées en lignes et colonnes.
+> [!abstract] En bref
+> **SQL** est le langage pour parler à une base de données relationnelle (PostgreSQL). Les données sont rangées dans des **tables** (comme des feuilles de tableur), et on les lit avec `SELECT`. Même avec Prisma, tu dois savoir lire et écrire du SQL : pour déboguer, pour comprendre ce que Prisma exécute, et pour les requêtes complexes.
 
-> [!warning]- Prérequis
-> [[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]
+## Une table = un tableau
 
----
+Table `movies` :
 
-## Théorie
+| id | title | release_year | rating |
+|---|---|---|---|
+| 27205 | Inception | 2010 | 8.4 |
+| 438631 | Dune | 2021 | 7.8 |
+| 949 | Heat | 1995 | 7.9 |
 
-> [!question]- C'est quoi ?
-> ```sql
-> SELECT titre, annee
-> FROM films
-> WHERE annee >= 2010
-> ORDER BY annee DESC;
-> ```
+- Une **ligne** = un enregistrement (un film).
+- Une **colonne** = une information (le titre).
+- La **clé primaire** (`id`) identifie chaque ligne de façon unique.
 
-> [!example]- Analogie
-> Une table est un tableur ; `SELECT` est une demande précise au documentaliste : « donne-moi ces colonnes, de ces lignes, dans cet ordre ».
+## Lire avec `SELECT`
 
-> [!question]- Pourquoi l'utiliser ?
-> Même avec un ORM, tu devras lire le SQL généré, déboguer une requête lente, écrire un reporting ou analyser des données en production.
+```sql
+SELECT title, release_year      -- quelles colonnes
+FROM movies                     -- quelle table
+WHERE release_year >= 2000      -- quelles lignes
+ORDER BY rating DESC            -- dans quel ordre
+LIMIT 10;                       -- combien
+```
 
-> [!question]- Comment ça marche ?
-> Ordre d'ÉCRITURE : `SELECT … FROM … WHERE … GROUP BY … HAVING … ORDER BY … LIMIT`.
-> Ordre d'EXÉCUTION logique : `FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT` (d'où l'impossibilité d'utiliser un alias du SELECT dans le WHERE).
-> - `SELECT *` : toutes les colonnes (à éviter dans le code)
-> - Alias : `SELECT titre AS nom`
-> - `DISTINCT` : dédoublonner
-> - Expressions : `SELECT prix * 1.2 AS prix_ttc`
+Résultat : les titres et années des films sortis depuis 2000, du mieux noté au moins bien noté, 10 maximum.
 
-> [!question]- Quand l'utiliser ?
-> Toute lecture de données relationnelles.
+```sql
+SELECT * FROM movies;                              -- toutes les colonnes (à éviter dans le code)
+SELECT title AS titre FROM movies;                 -- renommer une colonne
+SELECT DISTINCT release_year FROM movies;          -- sans doublons
+SELECT title, rating * 10 AS note_sur_100 FROM movies;   -- calculer
+```
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> SQL est déclaratif : on dit QUOI, le moteur choisit COMMENT (plan d'exécution). Sans index, une requête simple peut devenir lente sur des millions de lignes.
+## L'ordre d'écriture et l'ordre d'exécution
 
-### Schéma
+On écrit dans cet ordre : `SELECT … FROM … WHERE … GROUP BY … HAVING … ORDER BY … LIMIT`.
+
+Mais la base **exécute** dans cet ordre :
 
 ```mermaid
 flowchart LR
-  F[FROM] --> W[WHERE] --> G[GROUP BY] --> H[HAVING] --> S[SELECT] --> O[ORDER BY] --> L[LIMIT]
+  F["FROM<br/>quelle table"] --> W["WHERE<br/>filtrer les lignes"] --> G["GROUP BY<br/>regrouper"] --> H["HAVING<br/>filtrer les groupes"] --> S["SELECT<br/>choisir les colonnes"] --> O["ORDER BY<br/>trier"] --> L["LIMIT<br/>couper"]
 ```
 
----
+C'est pour ça qu'on ne peut pas utiliser dans le `WHERE` un alias créé dans le `SELECT` : il n'existe pas encore.
 
-## Vocabulaire
+## S'entraîner
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Table | Ensemble de lignes de même structure |
-| Ligne (tuple) | Un enregistrement |
-| Colonne | Un attribut typé |
-| Requête | Instruction SQL |
-| SGBD | Logiciel de gestion de base de données |
+- **pgexercises.com** : exercices progressifs en PostgreSQL.
+- **`npx prisma studio`** ou **DBeaver** / l'outil base de données d'IntelliJ : pour voir tes tables et lancer des requêtes.
+- En local : `docker run -p 5432:5432 -e POSTGRES_PASSWORD=pg -d postgres:17` puis `psql`.
 
----
+## La suite
 
-## Points clés
+[[SQL-02-Filtrer-Trier-Paginer|Filtrer, trier, paginer]] → [[SQL-03-Jointures|Jointures]] → [[SQL-04-Agregation-GROUP-BY|Regroupements]] → [[SQL-06-INSERT-UPDATE-DELETE|Modifier les données]].
 
-- SQL est déclaratif
-- Ordre d'exécution ≠ ordre d'écriture
-- Éviter `SELECT *` en production
-- `NULL` n'est égal à rien, même pas à `NULL`
+## Pièges
 
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `WHERE colonne = NULL` → toujours faux, utiliser `IS NULL`
-> - Utiliser un alias du SELECT dans le WHERE
-
----
-
-## Exemple minimal
-
-```sql
-SELECT id, titre, annee, duree / 60 AS heures
-FROM films
-WHERE realisateur IS NOT NULL
-ORDER BY titre
-LIMIT 10;
-```
-
-> [!note] Ce que j'en retiens
-> Colonnes explicites, filtre NULL correct, tri et limite : une requête propre.
-
----
-
-## Pour aller plus loin (niveau senior)
-
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Lire un plan d'exécution (`EXPLAIN ANALYZE`)
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[SQL]]
-- Sous-sujets → [[SQL-02-Filtrer-Trier-Paginer|Filtrer Trier et Paginer en SQL]], [[SQL-03-Jointures|Jointures SQL]]
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/sql-01-fondamentaux-select]]
-- Projet → [[02_Projects/CinéTrack-API]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi ne peut-on pas utiliser un alias du SELECT dans le WHERE ?
-
-> [!faq]- Questions d'entretien
-> - Quel est l'ordre d'exécution logique d'une requête SQL ?
-
----
-
-## Tâches
-
-- [ ] #task Installer PostgreSQL en Docker et faire les exercices de pgexercises.com (section Basic)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`SELECT *` dans le code** : tu ramènes des colonnes inutiles (et parfois sensibles). Liste les colonnes.
+- **Oublier le `;`** en fin de requête dans `psql`.
+- **Les textes entre apostrophes simples** : `'Dune'`. Les guillemets doubles `"…"` servent aux **noms** de colonnes ou de tables.

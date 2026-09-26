@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,135 +10,74 @@ tags:
 aliases:
   - "Fondamentaux des Bases de Données"
 parent: "[[Bases de Données]]"
-children:
-  - "[[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL SELECT]]"
-  - "[[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]]"
-  - "[[BDD-06-NoSQL-MongoDB|NoSQL et MongoDB]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/bdd-01-fondamentaux-sgbd]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/tutorial-concepts.html"
 ---
 
-# Fondamentaux des Bases de Données
+# Fondamentaux des SGBD
 
-> [!abstract] Introduction
-> Une base de données stocke durablement les données d'une application et permet de les interroger de façon fiable et concurrente ; on distingue bases relationnelles (SQL) et non relationnelles (NoSQL).
+> [!abstract] En bref
+> Un **SGBD** (Système de Gestion de Base de Données) est le logiciel qui stocke tes données de façon **fiable** : PostgreSQL, MySQL, MongoDB, Redis… Il garantit que rien ne se perd, que plusieurs utilisateurs peuvent écrire en même temps sans tout casser, et qu'on retrouve vite ce qu'on cherche. Pour tes projets : **PostgreSQL**.
 
----
+## Pourquoi pas un simple fichier JSON ?
 
-## Théorie
+| Besoin | Fichier JSON | SGBD |
+|---|---|---|
+| 2 utilisateurs écrivent en même temps | l'un écrase l'autre | géré |
+| le serveur plante pendant une écriture | fichier corrompu | rien n'est perdu |
+| chercher parmi 1 million de lignes | tout relire | quelques millisecondes (index) |
+| empêcher une note de 15 | à coder partout | une contrainte |
+| qui a le droit de lire quoi | à coder | géré |
 
-> [!question]- C'est quoi ?
-> - **Relationnelles (SGBDR)** : PostgreSQL, MySQL/MariaDB, Oracle, SQL Server — tables, schéma strict, SQL, transactions ACID
-> - **NoSQL** : documents (MongoDB), clé-valeur (Redis), colonnes (Cassandra), graphes (Neo4j)
-> - **Autres** : moteurs de recherche (Elasticsearch/OpenSearch), séries temporelles, vectorielles (pgvector, pour l'IA)
+## Les grandes familles
 
-> [!example]- Analogie
-> Un SGBD relationnel est une bibliothèque avec un catalogue rigoureux (chaque livre a sa fiche normalisée) ; une base documents est une armoire de dossiers où chaque dossier peut avoir sa propre forme.
+| Famille | Exemples | Principe | Pour |
+|---|---|---|---|
+| **Relationnelle (SQL)** | **PostgreSQL**, MySQL, SQL Server, Oracle | tables liées entre elles, schéma strict | la plupart des applications |
+| Document | MongoDB | documents JSON, schéma souple | données très variables |
+| Clé-valeur | **Redis** | une clé → une valeur, en mémoire | cache, sessions, compteurs |
+| Recherche | Elasticsearch, Meilisearch | index plein texte | moteur de recherche |
+| Vectorielle | pgvector, Qdrant | recherche par sens (IA) | RAG, recommandations |
 
-> [!question]- Pourquoi l'utiliser ?
-> Les fichiers ne suffisent pas : accès concurrent, intégrité, recherche rapide, sauvegarde, sécurité.
+Voir [[BDD-06-NoSQL-MongoDB|NoSQL]] et [[BDD-07-Redis-Cle-Valeur|Redis]].
 
-> [!question]- Comment ça marche ?
-> Architecture typique : l'API se connecte au SGBD (via un pool de connexions) ; le front ne parle JAMAIS directement à la base.
+## Pourquoi PostgreSQL
 
-> [!question]- Quand l'utiliser ?
-> PostgreSQL par défaut pour une application métier (robuste, standard, riche : JSONB, plein texte, extensions).
+- Gratuit, open source, très fiable.
+- Le plus complet des SGBD libres : JSON (`JSONB`), recherche plein texte, et même les vecteurs pour l'IA (extension `pgvector`).
+- Très demandé en entreprise.
+- Parfaitement supporté par Prisma.
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Choisir NoSQL « pour la scalabilité » sans besoin réel fait perdre les garanties relationnelles.
+Pratique au quotidien : [[BDD-09-PostgreSQL-Pratique|PostgreSQL en pratique]].
 
-### Schéma
+## Le vocabulaire
+
+| Mot | Sens |
+|---|---|
+| Base de données | l'ensemble des tables d'une application |
+| Table | un type de donnée (users, movies) |
+| Ligne / enregistrement | un élément (un film) |
+| Colonne / champ | une information (le titre) |
+| Clé primaire | identifiant unique d'une ligne |
+| Clé étrangère | colonne qui pointe vers une autre table |
+| Index | « sommaire » pour chercher vite |
+| Requête | une question posée en SQL |
+| Transaction | un groupe d'opérations tout-ou-rien |
+
+## Comment ton application parle à la base
 
 ```mermaid
 flowchart LR
-  F["Front Angular/Vue"] -->|HTTP| API["API NestJS"]
-  API -->|"SQL via pool"| PG[(PostgreSQL)]
-  API --> R[(Redis cache)]
-  F -. "jamais directement" .-x PG
+  A["API NestJS"] -->|"prisma.movie.findMany()"| P["Prisma"]
+  P -->|"SQL"| DB[("PostgreSQL")]
+  DB -->|"lignes"| P -->|"objets typés"| A
 ```
 
----
+Le front **ne parle jamais directement** à la base : il passe toujours par l'API, qui vérifie les droits.
 
-## Vocabulaire
+## Pièges
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| SGBD | Système de gestion de base de données |
-| Schéma | Structure des tables |
-| Pool | Connexions réutilisées |
-| Réplication | Copie de la base sur plusieurs serveurs |
-| Sauvegarde | Copie restaurable des données |
-
----
-
-## Points clés
-
-- PostgreSQL par défaut
-- Le front ne touche jamais la BDD
-- Sauvegardes testées (une sauvegarde non restaurée n'existe pas)
-- Relationnel pour les données structurées et liées
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Exposer le port de la BDD sur Internet
-> - Utiliser le compte superuser pour l'application
-
----
-
-## Exemple minimal
-
-```bash
-docker run -d --name pg -e POSTGRES_USER=cine -e POSTGRES_PASSWORD=secret \
-  -e POSTGRES_DB=cinetrack -p 5432:5432 -v pgdata:/var/lib/postgresql/data postgres:17
-docker exec -it pg psql -U cine -d cinetrack
-```
-
-> [!note] Ce que j'en retiens
-> Une vraie base PostgreSQL persistante en une commande.
-
----
-
-## Pour aller plus loin (niveau senior)
-
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Réplication, haute disponibilité, sauvegardes PITR
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Bases de Données]]
-- Sous-sujets → [[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL SELECT]], [[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]], [[BDD-06-NoSQL-MongoDB|NoSQL et MongoDB]]
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/bdd-01-fondamentaux-sgbd]]
-- Projet → [[02_Projects/CinéTrack-API]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi le front ne doit-il jamais se connecter directement à la BDD ?
-
----
-
-## Tâches
-
-- [ ] #task Lancer PostgreSQL en Docker et s'y connecter avec psql et un client graphique (DBeaver, IntelliJ Database)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Choisir MongoDB « parce que c'est du JSON comme en JavaScript »** : pour des données liées (utilisateurs, films, critiques), le relationnel est plus simple et plus sûr.
+- **Exposer la base sur Internet** (port 5432 ouvert) : seul le serveur de l'API doit pouvoir s'y connecter.

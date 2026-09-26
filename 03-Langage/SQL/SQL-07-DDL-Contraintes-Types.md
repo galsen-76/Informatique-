@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,137 +10,83 @@ tags:
 aliases:
   - "DDL Contraintes et Types SQL"
 parent: "[[SQL]]"
-children: []
 related_theory:
   - "[[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]]"
   - "[[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]"
-related_snippets:
-  - "[[04_Snippets/sql-07-ddl-contraintes-types]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/ddl-constraints.html"
 ---
 
-# DDL Contraintes et Types SQL
+# DDL Contraintes et Types
 
-> [!abstract] Introduction
-> Le DDL (`CREATE`, `ALTER`, `DROP`) définit la structure des tables ; types et contraintes (PK, FK, UNIQUE, NOT NULL, CHECK) garantissent l'intégrité des données au niveau de la base elle-même.
+> [!abstract] En bref
+> Le **DDL** (*Data Definition Language*) crée et modifie la **structure** de la base : les tables, leurs colonnes, leurs types et leurs **contraintes** (règles que la base fait respecter elle-même). Avec Prisma, c'est le schéma qui génère ce SQL, mais tu dois savoir le lire dans les fichiers de migration.
 
-> [!warning]- Prérequis
-> [[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL SELECT]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```sql
-> CREATE TABLE films (
->   id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
->   titre       TEXT NOT NULL CHECK (length(titre) > 0),
->   annee       INT  NOT NULL CHECK (annee >= 1888),
->   budget      NUMERIC(12,2),
->   created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
-> );
-> CREATE TABLE favoris (
->   user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
->   film_id BIGINT REFERENCES films(id) ON DELETE RESTRICT,
->   PRIMARY KEY (user_id, film_id)
-> );
-> ```
-
-> [!example]- Analogie
-> Les contraintes sont les règles du cadastre : on ne peut pas enregistrer une maison sans adresse ni la rattacher à une rue qui n'existe pas.
-
-> [!question]- Pourquoi l'utiliser ?
-> La base est la dernière ligne de défense : même si le code a un bug, elle refuse les données incohérentes.
-
-> [!question]- Comment ça marche ?
-> Types PostgreSQL courants : `INT/BIGINT`, `NUMERIC` (argent), `TEXT/VARCHAR(n)`, `BOOLEAN`, `TIMESTAMPTZ` (toujours avec fuseau), `DATE`, `UUID`, `JSONB`, `ENUM`.
-> Contraintes : `PRIMARY KEY`, `FOREIGN KEY ... ON DELETE CASCADE|RESTRICT|SET NULL`, `UNIQUE`, `NOT NULL`, `CHECK`, `DEFAULT`.
-
-> [!question]- Quand l'utiliser ?
-> À la conception, puis via migrations (jamais de modif manuelle en prod).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Trop de logique métier dans des CHECK/triggers devient difficile à tester et à faire évoluer.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| DDL | Data Definition Language |
-| Contrainte | Règle d'intégrité vérifiée par le SGBD |
-| IDENTITY | Colonne auto-incrémentée standard |
-| TIMESTAMPTZ | Horodatage avec fuseau horaire |
-
----
-
-## Points clés
-
-- `NOT NULL` par défaut sauf raison
-- `TIMESTAMPTZ` pour les dates-heures
-- `NUMERIC` pour l'argent
-- Choisir `ON DELETE` consciemment
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `FLOAT` pour des montants
-> - `TIMESTAMP` sans fuseau → bugs d'heure d'été et de fuseau
-> - Unicité vérifiée seulement dans le code (race condition) → contrainte UNIQUE
-
----
-
-## Exemple minimal
+## Créer une table
 
 ```sql
-ALTER TABLE users ADD CONSTRAINT users_email_unique UNIQUE (email);
+CREATE TABLE reviews (
+  id          SERIAL PRIMARY KEY,                               -- numéro auto, identifiant
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  movie_id    INTEGER NOT NULL REFERENCES movies(id),
+  rating      SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 10),
+  comment     TEXT NOT NULL,
+  spoiler     BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (user_id, movie_id)                                    -- une critique par film et par utilisateur
+);
 ```
 
-> [!note] Ce que j'en retiens
-> Même si deux requêtes s'inscrivent en même temps, la base garantit l'unicité.
+## Les contraintes : la base te protège
 
----
+| Contrainte | Garantit |
+|---|---|
+| `PRIMARY KEY` | chaque ligne a un identifiant unique et non vide |
+| `NOT NULL` | la valeur est obligatoire |
+| `UNIQUE` | pas de doublon (e-mail, couple utilisateur-film) |
+| `REFERENCES autre(id)` (clé étrangère) | la valeur existe dans l'autre table |
+| `CHECK (…)` | une règle (note entre 1 et 10) |
+| `DEFAULT …` | une valeur si rien n'est fourni |
 
-## Pour aller plus loin (niveau senior)
+**Pourquoi les mettre en base, alors que l'API valide déjà ?** Parce que la base est le **dernier rempart** : un bug, un script, un autre service qui écrit directement… Même dans ce cas, une note de 15 ou une critique orpheline sont refusées.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Contraintes d'exclusion, index partiels uniques (`WHERE deleted_at IS NULL`)
+### Que faire à la suppression du parent ?
 
----
+| Option | Si on supprime l'utilisateur… |
+|---|---|
+| `ON DELETE CASCADE` | ses critiques sont supprimées aussi |
+| `ON DELETE SET NULL` | la colonne passe à `NULL` (critique « anonyme ») |
+| `ON DELETE RESTRICT` (défaut) | la suppression est refusée |
 
-## Connexions
+## Les types PostgreSQL utiles
 
-**Arbre théorique :**
-- Sujet parent → [[SQL]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+| Type | Pour |
+|---|---|
+| `INTEGER`, `BIGINT` | nombres entiers |
+| `SERIAL` / `GENERATED ALWAYS AS IDENTITY` | identifiant auto-incrémenté |
+| `UUID` | identifiant aléatoire non devinable |
+| `NUMERIC(10, 2)` | montants (exact, pas d'erreur d'arrondi) |
+| `TEXT`, `VARCHAR(n)` | texte (en PostgreSQL, `TEXT` convient presque toujours) |
+| `BOOLEAN` | vrai / faux |
+| `TIMESTAMPTZ` | date et heure **avec fuseau** (à préférer) |
+| `DATE` | une date sans heure |
+| `JSONB` | données JSON, interrogeables |
+| `TEXT[]` | un tableau de textes |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sql-07-ddl-contraintes-types]]
-- Projet → [[02_Projects/CinéTrack-API]]
+## Modifier une table
 
----
+```sql
+ALTER TABLE movies ADD COLUMN runtime INTEGER;
+ALTER TABLE movies ALTER COLUMN title SET NOT NULL;
+ALTER TABLE movies DROP COLUMN old_field;
+CREATE INDEX idx_reviews_movie ON reviews (movie_id);
+```
 
-## Auto-vérification
+Ces modifications passent par des **migrations** versionnées, jamais à la main en production. Voir [[BDD-05-Migrations|Migrations]].
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi une vérification d'unicité dans le code ne suffit-elle pas ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Écrire le DDL complet de CinéTrack à la main avant de le faire avec Prisma
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`FLOAT` pour de l'argent** : erreurs d'arrondi. Utilise `NUMERIC` ou des centimes en entier.
+- **`TIMESTAMP` sans fuseau** : les heures deviennent fausses dès qu'il y a plusieurs fuseaux ou un changement d'heure. Utilise `TIMESTAMPTZ`.
+- **Pas de contrainte parce que « l'API vérifie »** : un jour, quelque chose passera à côté de l'API.
