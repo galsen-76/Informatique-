@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projets — Ton Nom, développeur full stack</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header data-composant="AppHeader.vue">
+  <div class="conteneur barre">
+    <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="projets.html" aria-current="page">Projets</a></li>
+        <li><a href="index.html#experience">Expérience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="actions-barre">
+      <a class="btn-icone" href="#" aria-label="GitLab">GL</a>
+      <a class="btn-icone" href="#" aria-label="LinkedIn">in</a>
+      <button class="btn-icone" type="button" aria-label="Changer de thème" onclick="basculerTheme()">☀️</button>
+      <button class="btn-icone burger" type="button" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main data-composant="views/ProjetsView.vue">
+  <section class="conteneur page-titre">
+    <nav class="fil" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> / <span>Projets</span></nav>
+    <h1>Projets</h1>
+    <p>Des applications complètes, du front-end au déploiement. Chaque projet a son étude de cas : problème, choix techniques, difficultés et résultats.</p>
+  </section>
+
+  <section class="conteneur bloc" style="padding-top:18px">
+    <div class="outils">
+      <div class="filtres" role="group" aria-label="Filtrer par technologie" data-composant="FiltreTechnos.vue">
+      <button class="filtre actif" type="button" data-techno="">Tous</button>
+      <button class="filtre" type="button" data-techno="angular">Angular</button>
+      <button class="filtre" type="button" data-techno="vue">Vue</button>
+      <button class="filtre" type="button" data-techno="nestjs">NestJS</button>
+    </div>
+      <div class="outils-droite">
+        <label class="recherche" data-composant="RechercheProjets.vue"><span class="sr" hidden>Rechercher</span><input id="recherche" class="saisie" type="search" placeholder="Rechercher un projet, une techno…"></label>
+        <select class="saisie" aria-label="Trier">
+          <option>Plus récents</option><option>Nom (A → Z)</option>
+        </select>
+      </div>
+    </div>
+    <p class="compteur" id="compteur">6 projets</p>
+    <div class="projets" data-composant="ProjetGrid.vue">
+      <article class="carte projet" data-technos="angular" data-composant="ProjetCard.vue">
+        <div class="capture v2" aria-hidden="true" data-composant="ProjetCapture.vue"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Front-end · Angular</span>
+          <h3>CinéTrack</h3>
+          <p class="probleme"><b>Problème :</b> retrouver ses films vus, à voir et ses avis au même endroit.</p>
+          <div class="tags"><span class="tag">Angular</span><span class="tag">Signals</span><span class="tag">RxJS</span><span class="tag">PrimeNG</span><span class="tag">API TMDB</span></div>
+          <div class="qualite" data-composant="BadgesQualite.vue"><span class="badge"><span>tests</span><b>64 ✓</b></span><span class="badge"><span>lighthouse</span><b>93</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+      <article class="carte projet" data-technos="nestjs">
+        <div class="capture v3" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="code-mini">GET  /api/films/:id
+POST /api/auth/login
+POST /api/critiques
+GET  /api/favoris
+<span style="color:#10b981">200 OK · 42 ms</span></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Back-end · NestJS</span>
+          <h3>CinéTrack API</h3>
+          <p class="probleme"><b>Problème :</b> stocker comptes, favoris et critiques de façon fiable et sécurisée.</p>
+          <div class="tags"><span class="tag">NestJS</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">JWT</span></div>
+          <div class="qualite"><span class="badge"><span>tests</span><b>82 ✓</b></span><span class="badge"><span>swagger</span><b>OK</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+      <article class="carte projet" data-technos="vue">
+        <div class="capture v1" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:40%"></div><div class="l" style="width:75%;height:12px"></div><div class="grille-mini"><i></i><i></i><i></i><i></i></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Front-end · Vue</span>
+          <h3>Portfolio</h3>
+          <p class="probleme"><b>Problème :</b> présenter mes projets de façon claire, rapide et accessible.</p>
+          <div class="tags"><span class="tag">Vue 3</span><span class="tag">TypeScript</span><span class="tag">PrimeVue</span><span class="tag">Vitest</span></div>
+          <div class="qualite"><span class="badge"><span>tests</span><b>18 ✓</b></span><span class="badge"><span>lighthouse</span><b>96</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+      <article class="carte projet" data-technos="vue">
+        <div class="capture v5" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Front-end · Vue</span>
+          <h3>CinéTrack Vue</h3>
+          <p class="probleme"><b>Problème :</b> comparer Angular et Vue sur un même cahier des charges.</p>
+          <div class="tags"><span class="tag">Vue 3</span><span class="tag">Pinia</span><span class="tag">Vue Router</span><span class="tag">PrimeVue</span></div>
+          <div class="qualite"><span class="badge"><span>tests</span><b>40 ✓</b></span><span class="badge"><span>lighthouse</span><b>94</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+      <article class="carte projet" data-technos="angular,nestjs">
+        <div class="capture v4" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:30%"></div><div class="grille-mini"><i style="height:26px"></i><i style="height:26px"></i><i style="height:26px"></i><i style="height:26px"></i></div><div class="l" style="height:40px;background:linear-gradient(90deg,#f59e0b55,#10b98155)"></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Full stack · DevOps</span>
+          <h3>CinéTrack Full Stack</h3>
+          <p class="probleme"><b>Problème :</b> livrer une application complète, reproductible et déployée automatiquement.</p>
+          <div class="tags"><span class="tag">Monorepo</span><span class="tag">Docker</span><span class="tag">GitLab CI</span><span class="tag">Nginx</span></div>
+          <div class="qualite"><span class="badge"><span>docker</span><b>OK</b></span><span class="badge"><span>e2e</span><b>12 ✓</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+      <article class="carte projet" data-technos="angular,nestjs">
+        <div class="capture v6" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:55%;height:14px;margin-left:auto;background:#6366f188"></div><div class="l" style="width:80%;height:22px"></div><div class="l" style="width:45%;height:14px;margin-left:auto;background:#6366f188"></div><div class="l" style="width:70%;height:14px"></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Full stack · IA</span>
+          <h3>Assistant IA</h3>
+          <p class="probleme"><b>Problème :</b> trouver rapidement une réponse fiable dans une documentation volumineuse.</p>
+          <div class="tags"><span class="tag">NestJS</span><span class="tag">Angular</span><span class="tag">RAG</span><span class="tag">WebSocket</span><span class="tag">pgvector</span></div>
+          <div class="qualite"><span class="badge"><span>tests</span><b>55 ✓</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+    </div>
+    <div class="vide" id="vide" hidden data-composant="EtatVide.vue">Aucun projet ne correspond à ta recherche.<br><button class="btn btn-contour" type="button" style="margin-top:12px" onclick="location.reload()">Réinitialiser les filtres</button></div>
+  </section>
+</main>
+
+<footer data-composant="AppFooter.vue">
+  <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
+</footer>
+
+<div class="revue" aria-label="Outils de revue de la maquette">
+  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

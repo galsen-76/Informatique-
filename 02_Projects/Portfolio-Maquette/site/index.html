@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accueil — Ton Nom, développeur full stack</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header data-composant="AppHeader.vue">
+  <div class="conteneur barre">
+    <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html" aria-current="page">Accueil</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="index.html#experience">Expérience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="actions-barre">
+      <a class="btn-icone" href="#" aria-label="GitLab">GL</a>
+      <a class="btn-icone" href="#" aria-label="LinkedIn">in</a>
+      <button class="btn-icone" type="button" aria-label="Changer de thème" onclick="basculerTheme()">☀️</button>
+      <button class="btn-icone burger" type="button" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main data-composant="views/AccueilView.vue">
+  <section class="conteneur hero" data-composant="HeroSection.vue">
+    <div>
+      <span class="pastille"><i></i> Développeur full stack · TypeScript</span>
+      <h1>Je conçois des applications web <em>sécurisées, performantes et maintenables</em>.</h1>
+      <p class="lead">Interfaces <strong>Angular</strong> et <strong>Vue</strong>, API <strong>NestJS</strong>, bases <strong>PostgreSQL</strong> : je prends en charge une fonctionnalité de la conception jusqu'au déploiement.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primaire" href="projets.html">Voir mes projets →</a>
+        <a class="btn btn-contour" href="#">⬇ Télécharger mon CV</a>
+      </div>
+      <div class="reseaux" data-composant="LiensSociaux.vue">
+        <a class="reseau" href="#"><b style="background:#fc6d26">GL</b> GitLab</a>
+        <a class="reseau" href="#"><b style="background:#24292f">GH</b> GitHub</a>
+        <a class="reseau" href="#"><b style="background:#0a66c2">in</b> LinkedIn</a>
+      </div>
+    </div>
+    <div class="photo" data-composant="PhotoProfil.vue">
+      <div class="cadre"><div class="img">
+        <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><circle cx="50" cy="36" r="20"/><path d="M8 100c2-24 20-38 42-38s40 14 42 38z"/></svg>
+      </div></div>
+      <span class="legende-photo">ta photo ici</span>
+      <span class="dispo"><i></i> Ouvert aux opportunités</span>
+    </div>
+  </section>
+
+  <section class="conteneur bloc" data-composant="ServicesSection.vue">
+    <div class="titre-section"><div><h2>Ce que je fais</h2><p>Une vision complète d'une application, pas seulement de l'écran.</p></div></div>
+    <div class="valeurs">
+      <article class="carte valeur" data-composant="ServiceCard.vue"><div class="ico">🖥️</div><h3>Interfaces</h3>
+        <p>Applications Angular et Vue typées, accessibles et rapides, avec une architecture qui tient dans la durée.</p>
+        <div class="tags"><span class="tag">Angular</span><span class="tag">Vue 3</span><span class="tag">RxJS</span></div></article>
+      <article class="carte valeur"><div class="ico">⚙️</div><h3>API &amp; données</h3>
+        <p>API REST NestJS documentées, modèles de données PostgreSQL, cache Redis et requêtes optimisées.</p>
+        <div class="tags"><span class="tag">NestJS</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span></div></article>
+      <article class="carte valeur"><div class="ico">🔒</div><h3>Sécurité</h3>
+        <p>Authentification JWT, contrôle des accès, validation des entrées et protection contre les failles OWASP.</p>
+        <div class="tags"><span class="tag">JWT</span><span class="tag">OWASP</span><span class="tag">argon2</span></div></article>
+      <article class="carte valeur"><div class="ico">🚀</div><h3>Qualité &amp; déploiement</h3>
+        <p>Tests automatisés, revues de code, conteneurs Docker et pipelines CI/CD jusqu'à la mise en production.</p>
+        <div class="tags"><span class="tag">Vitest</span><span class="tag">Docker</span><span class="tag">GitLab CI</span></div></article>
+    </div>
+  </section>
+
+  <section class="conteneur bloc" id="projets" data-composant="ProjetsMisEnAvant.vue">
+    <div class="titre-section">
+      <div><h2>Projets à la une</h2><p>Conçus, testés et déployés de bout en bout.</p></div>
+      <a class="lien-voir" href="projets.html">Tous les projets →</a>
+    </div>
+    <div class="filtres" role="group" aria-label="Filtrer par technologie" data-composant="FiltreTechnos.vue">
+      <button class="filtre actif" type="button" data-techno="">Tous</button>
+      <button class="filtre" type="button" data-techno="angular">Angular</button>
+      <button class="filtre" type="button" data-techno="vue">Vue</button>
+      <button class="filtre" type="button" data-techno="nestjs">NestJS</button>
+    </div>
+    <div class="projets" data-composant="ProjetGrid.vue">
+      <article class="carte projet" data-technos="angular" data-composant="ProjetCard.vue">
+        <div class="capture v2" aria-hidden="true" data-composant="ProjetCapture.vue"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Front-end · Angular</span>
+          <h3>CinéTrack</h3>
+          <p class="probleme"><b>Problème :</b> retrouver ses films vus, à voir et ses avis au même endroit.</p>
+          <div class="tags"><span class="tag">Angular</span><span class="tag">Signals</span><span class="tag">RxJS</span><span class="tag">PrimeNG</span><span class="tag">API TMDB</span></div>
+          <div class="qualite" data-composant="BadgesQualite.vue"><span class="badge"><span>tests</span><b>64 ✓</b></span><span class="badge"><span>lighthouse</span><b>93</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+      <article class="carte projet" data-technos="nestjs">
+        <div class="capture v3" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="code-mini">GET  /api/films/:id
+POST /api/auth/login
+POST /api/critiques
+GET  /api/favoris
+<span style="color:#10b981">200 OK · 42 ms</span></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Back-end · NestJS</span>
+          <h3>CinéTrack API</h3>
+          <p class="probleme"><b>Problème :</b> stocker comptes, favoris et critiques de façon fiable et sécurisée.</p>
+          <div class="tags"><span class="tag">NestJS</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">JWT</span></div>
+          <div class="qualite"><span class="badge"><span>tests</span><b>82 ✓</b></span><span class="badge"><span>swagger</span><b>OK</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+      <article class="carte projet" data-technos="vue">
+        <div class="capture v1" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:40%"></div><div class="l" style="width:75%;height:12px"></div><div class="grille-mini"><i></i><i></i><i></i><i></i></div></div></div></div>
+        <div class="corps">
+          <span class="cat">Front-end · Vue</span>
+          <h3>Portfolio</h3>
+          <p class="probleme"><b>Problème :</b> présenter mes projets de façon claire, rapide et accessible.</p>
+          <div class="tags"><span class="tag">Vue 3</span><span class="tag">TypeScript</span><span class="tag">PrimeVue</span><span class="tag">Vitest</span></div>
+          <div class="qualite"><span class="badge"><span>tests</span><b>18 ✓</b></span><span class="badge"><span>lighthouse</span><b>96</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="conteneur bloc" id="experience" data-composant="ExperienceSection.vue">
+    <div class="titre-section"><div><h2>Expérience</h2><p>Ce que je fais au quotidien en entreprise.</p></div></div>
+    <div class="experience">
+      <article class="carte" data-composant="PosteCard.vue">
+        <div class="poste">
+          <div class="logo-ent" aria-hidden="true">🏢</div>
+          <div>
+            <h3>Développeur full stack</h3>
+            <div class="meta">Nom de l'entreprise · 2025 → aujourd'hui</div>
+          </div>
+        </div>
+        <div class="tags" style="margin-top:16px"><span class="tag">Angular</span><span class="tag">Vue 3</span><span class="tag">TypeScript</span><span class="tag">GitLab CI</span><span class="tag">Scrum</span></div>
+      </article>
+      <article class="carte">
+        <ul class="realisations">
+          <li><span>Conception de <strong>composants Angular</strong> réutilisables pour une application métier.</span></li>
+          <li><span>Écrans <strong>Vue 3</strong> connectés à des API REST : formulaires validés, gestion des erreurs et du chargement.</span></li>
+          <li><span>Travail en équipe <strong>Scrum</strong> : merge requests, revues de code, pipelines GitLab CI.</span></li>
+        </ul>
+        <p class="note-confid">Détails volontairement généraux : les projets de l'entreprise sont confidentiels.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="conteneur bloc" data-composant="StackTechnos.vue">
+    <div class="titre-section"><div><h2>Stack</h2><p>Chaque techno renvoie aux projets qui l'utilisent.</p></div></div>
+    <div class="stack">
+      <a class="techno pro" href="projets.html">TypeScript <small>pro · 6 projets</small></a>
+      <a class="techno pro" href="projets.html">Angular <small>pro · 3 projets</small></a>
+      <a class="techno pro" href="projets.html">Vue 3 <small>pro · 2 projets</small></a>
+      <a class="techno" href="projets.html">RxJS <small>2 projets</small></a>
+      <a class="techno" href="projets.html">NestJS <small>3 projets</small></a>
+      <a class="techno" href="projets.html">PostgreSQL <small>3 projets</small></a>
+      <a class="techno" href="projets.html">Redis <small>1 projet</small></a>
+      <a class="techno" href="projets.html">Docker <small>2 projets</small></a>
+      <a class="techno pro" href="projets.html">GitLab CI <small>pro · 6 projets</small></a>
+      <a class="techno" href="projets.html">Vitest <small>3 projets</small></a>
+    </div>
+    <p class="legende"><strong>pro</strong> = utilisé aussi en entreprise.</p>
+  </section>
+
+  <section class="conteneur bloc" id="contact" data-composant="ContactCta.vue">
+    <div class="cta">
+      <h2>Un projet, une question, une opportunité ?</h2>
+      <p>Je réponds en général sous 48 h.</p>
+      <div class="actions">
+        <a class="btn" href="contact.html">Écrire un message</a>
+        <a class="btn transp" href="#">⬇ Mon CV</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer data-composant="AppFooter.vue">
+  <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
+</footer>
+
+<div class="revue" aria-label="Outils de revue de la maquette">
+  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

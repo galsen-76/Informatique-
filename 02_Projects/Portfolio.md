@@ -61,13 +61,16 @@ aliases:
 
 ---
 
+> [!success] Maquette validée
+> Les 5 pages sont dessinées dans [[Portfolio-Maquette|Maquette du Portfolio]] (captures, maquette cliquable, découpage en composants Vue).
+
 ## Pages
 
 | Page | Contenu | Concepts travaillés |
 |---|---|---|
-| Accueil | Présentation, compétences, CTA | Composants, props typées |
-| Projets | Grille de cartes + filtre par techno | `v-for`/`:key`, `computed`, filtre typé |
-| Détail projet | Description, stack, liens, captures | Vue Router, paramètre `:slug` |
+| Accueil | Hero + photo, Ce que je fais, projets à la une, expérience, stack, CTA | Composants, props typées |
+| Projets | Grille de cartes + filtre par techno + recherche + tri | `v-for`/`:key`, `computed`, filtre typé |
+| Détail projet | Étude de cas : contexte, architecture, choix, difficultés, sécurité, résultats | Vue Router, paramètre `:slug` |
 | Contact | Formulaire validé | `v-model`, VeeValidate + Zod |
 | (bonus) Activité | Derniers dépôts via l'API GitLab/GitHub | `fetch`, composable, états chargement/erreur |
 
@@ -123,6 +126,7 @@ aliases:
 
 - 2026-09-24 : projet créé
 - 2026-09-26 : passage en Vue 3 + TypeScript + PrimeVue (HTML/CSS assistés par l'IA)
+- 2026-09-26 : maquette des 5 pages validée ([[Portfolio-Maquette|Maquette du Portfolio]])
 
 ## Notes libres
 

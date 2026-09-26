@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CinéTrack — Ton Nom, développeur full stack</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header data-composant="AppHeader.vue">
+  <div class="conteneur barre">
+    <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="projets.html" aria-current="page">Projets</a></li>
+        <li><a href="index.html#experience">Expérience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="actions-barre">
+      <a class="btn-icone" href="#" aria-label="GitLab">GL</a>
+      <a class="btn-icone" href="#" aria-label="LinkedIn">in</a>
+      <button class="btn-icone" type="button" aria-label="Changer de thème" onclick="basculerTheme()">☀️</button>
+      <button class="btn-icone burger" type="button" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main data-composant="views/ProjetDetailView.vue">
+  <section class="conteneur detail-entete" data-composant="ProjetEntete.vue">
+    <div>
+      <nav class="fil" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> / <a href="projets.html">Projets</a> / <span>CinéTrack</span></nav>
+      <h1>CinéTrack</h1>
+      <p class="lead">Application de suivi de films : recherche, fiches détaillées, listes « vus » et « à voir », critiques.</p>
+      <div class="tags"><span class="tag">Angular</span><span class="tag">Signals</span><span class="tag">RxJS</span><span class="tag">PrimeNG</span><span class="tag">API TMDB</span></div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primaire" href="#">Voir la démo ↗</a>
+      <a class="btn btn-contour" href="#">Code source</a>
+    </div>
+  </section>
+
+  <div class="conteneur">
+    <div class="grande-capture v2" aria-hidden="true" data-composant="ProjetCapture.vue"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div>
+  </div>
+
+  <div class="conteneur detail-grid">
+    <article class="etude" data-composant="EtudeDeCas.vue">
+      <h2 id="contexte"><span>01</span>Contexte et problème</h2>
+      <p>Entre les plateformes de streaming, les recommandations d'amis et les notes éparpillées, il est difficile de <strong>savoir ce qu'on a déjà vu</strong> et ce qu'on veut voir. CinéTrack centralise tout : on cherche un film, on l'ajoute à une liste, on laisse un avis.</p>
+      <p><strong>Objectif :</strong> une application rapide, utilisable au clavier et sur mobile, qui reste fluide même avec des centaines de films.</p>
+
+      <h2 id="fonctionnalites"><span>02</span>Fonctionnalités</h2>
+      <div class="fonctionnalites">
+        <div><b>🔎 Recherche instantanée</b><span>Résultats pendant la frappe, sans requêtes inutiles.</span></div>
+        <div><b>🎬 Fiches détaillées</b><span>Casting, bande-annonce, films similaires.</span></div>
+        <div><b>📋 Listes personnelles</b><span>« Vus », « À voir », favoris, persistés.</span></div>
+        <div><b>⭐ Critiques</b><span>Note et avis, avec validation des champs.</span></div>
+      </div>
+
+      <h2 id="architecture"><span>03</span>Architecture</h2>
+      <div class="archi" data-composant="SchemaArchitecture.vue">
+        <div class="noeud"><b>Navigateur</b><small>Angular 20</small></div>
+        <span class="fleche">→</span>
+        <div class="pile">
+          <div class="noeud cle"><b>features/films</b><small>data-access · ui · pages</small></div>
+          <div class="noeud"><b>core</b><small>intercepteurs · erreurs</small></div>
+        </div>
+        <span class="fleche">→</span>
+        <div class="noeud"><b>API TMDB</b><small>REST · JSON</small></div>
+      </div>
+      <p>Organisation <strong>core / shared / features</strong> : chaque fonctionnalité contient sa couche d'accès aux données (DTO → mapper → modèle), son store et ses composants d'affichage. Les pages ne parlent jamais directement à l'API.</p>
+
+      <h2 id="choix"><span>04</span>Choix techniques</h2>
+      <table class="choix">
+        <thead><tr><th>Choix</th><th>Pourquoi</th></tr></thead>
+        <tbody>
+          <tr><td>Signals + OnPush</td><td>Rendu ciblé : seuls les composants concernés se mettent à jour.</td></tr>
+          <tr><td>RxJS (switchMap, debounce)</td><td>Recherche pendant la frappe sans requêtes en double ni résultats dans le désordre.</td></tr>
+          <tr><td>Mapper DTO → modèle</td><td>Le reste de l'app ne dépend pas du format de l'API TMDB.</td></tr>
+          <tr><td>PrimeNG</td><td>Composants accessibles prêts à l'emploi, pour me concentrer sur la logique.</td></tr>
+          <tr><td>@defer</td><td>Les blocs lourds (bande-annonce, similaires) ne se chargent qu'à l'affichage.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="difficultes"><span>05</span>Difficultés et solutions</h2>
+      <div class="carte defi"><h3>Résultats de recherche dans le désordre</h3>
+        <p>Une réponse lente pouvait écraser une réponse plus récente.</p>
+        <p class="sol"><code>switchMap</code> annule la requête précédente : seule la dernière frappe compte.</p></div>
+      <div class="carte defi"><h3>Limite de requêtes de l'API</h3>
+        <p>Des appels répétés sur les mêmes fiches consommaient le quota.</p>
+        <p class="sol">Cache en mémoire par identifiant et <code>debounceTime(300)</code> sur la recherche.</p></div>
+      <div class="carte defi"><h3>Clé d'API exposée</h3>
+        <p>Une clé présente dans le code front est visible par tout le monde.</p>
+        <p class="sol">Appels via un proxy côté serveur (CinéTrack API) : la clé ne quitte jamais le serveur.</p></div>
+
+      <h2 id="securite"><span>06</span>Sécurité et qualité</h2>
+      <ul class="securite">
+        <li>Aucune clé secrète dans le front : proxy côté serveur.</li>
+        <li>Contenu externe affiché sans <code>innerHTML</code> : pas de faille XSS.</li>
+        <li>Intercepteur HTTP central pour les erreurs et les jetons.</li>
+        <li>Tests unitaires des stores et mappers, tests E2E du parcours principal, pipeline CI obligatoire avant fusion.</li>
+      </ul>
+
+      <h2 id="resultats"><span>07</span>Résultats</h2>
+      <div class="metriques" data-composant="Metriques.vue">
+        <div class="carte metrique"><b>93</b><span>Lighthouse performance</span></div>
+        <div class="carte metrique"><b>100</b><span>Lighthouse accessibilité</span></div>
+        <div class="carte metrique"><b>64</b><span>tests automatisés</span></div>
+        <div class="carte metrique"><b>&lt; 1 s</b><span>premier affichage</span></div>
+      </div>
+
+      <h2 id="appris"><span>08</span>Ce que j'en retiens</h2>
+      <ul>
+        <li>Séparer <strong>données</strong> et <strong>affichage</strong> rend les changements d'API presque indolores.</li>
+        <li>Les signals simplifient l'état local ; RxJS reste le bon outil pour les flux asynchrones.</li>
+        <li>Mesurer (Lighthouse, tests) avant d'optimiser évite de travailler à l'aveugle.</li>
+      </ul>
+
+      <h2 id="captures"><span>09</span>Captures</h2>
+      <div class="galerie">
+        <figure><div class="capture v2" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i></div></div></div></div><figcaption>Recherche</figcaption></figure>
+        <figure><div class="capture v2" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:40%"></div><div class="l" style="width:75%;height:12px"></div><div class="grille-mini"><i></i><i></i><i></i><i></i></div></div></div></div><figcaption>Fiche film</figcaption></figure>
+        <figure><div class="capture v2" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:30%"></div><div class="grille-mini"><i style="height:26px"></i><i style="height:26px"></i><i style="height:26px"></i><i style="height:26px"></i></div><div class="l" style="height:40px;background:linear-gradient(90deg,#f59e0b55,#10b98155)"></div></div></div></div><figcaption>Mes listes</figcaption></figure>
+      </div>
+    </article>
+
+    <aside>
+      <div class="carte fiche" data-composant="FicheProjet.vue">
+        <dl>
+          <div><dt>Rôle</dt><dd>Conception, développement, tests, déploiement</dd></div>
+          <div><dt>Durée</dt><dd>8 semaines</dd></div>
+          <div><dt>Type</dt><dd>Projet personnel</dd></div>
+          <div><dt>Stack</dt><dd>Angular 20, TypeScript, RxJS, PrimeNG</dd></div>
+          <div><dt>Qualité</dt><dd class="qualite"><span class="badge"><span>tests</span><b>64 ✓</b></span><span class="badge"><span>CI</span><b>passing</b></span></dd></div>
+        </dl>
+      </div>
+      <nav class="carte sommaire" aria-label="Sommaire" data-composant="Sommaire.vue">
+        <a href="#contexte" class="actif">Contexte</a><a href="#fonctionnalites">Fonctionnalités</a><a href="#architecture">Architecture</a>
+        <a href="#choix">Choix techniques</a><a href="#difficultes">Difficultés</a><a href="#securite">Sécurité</a>
+        <a href="#resultats">Résultats</a><a href="#appris">Ce que j'en retiens</a>
+      </nav>
+    </aside>
+  </div>
+
+  <nav class="conteneur nav-projets" aria-label="Autres projets" data-composant="NavProjets.vue">
+    <a class="carte" href="projet-cinetrack.html"><small>← Projet précédent</small><br><b>Portfolio</b></a>
+    <a class="carte suiv" href="projet-cinetrack.html"><small>Projet suivant →</small><br><b>CinéTrack API</b></a>
+  </nav>
+</main>
+
+<footer data-composant="AppFooter.vue">
+  <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
+</footer>
+
+<div class="revue" aria-label="Outils de revue de la maquette">
+  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

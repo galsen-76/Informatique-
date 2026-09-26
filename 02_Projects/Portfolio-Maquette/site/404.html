@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page introuvable — Ton Nom, développeur full stack</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header data-composant="AppHeader.vue">
+  <div class="conteneur barre">
+    <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="index.html#experience">Expérience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="actions-barre">
+      <a class="btn-icone" href="#" aria-label="GitLab">GL</a>
+      <a class="btn-icone" href="#" aria-label="LinkedIn">in</a>
+      <button class="btn-icone" type="button" aria-label="Changer de thème" onclick="basculerTheme()">☀️</button>
+      <button class="btn-icone burger" type="button" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main data-composant="views/NotFoundView.vue">
+  <section class="conteneur page-404">
+    <div>
+      <div class="code">404</div>
+      <h1>Page introuvable</h1>
+      <p>Cette page n'existe pas ou a été déplacée.</p>
+      <div class="carte-code"><span class="k">throw new</span> <span class="p">NotFoundException</span>(<span class="s">'Page introuvable'</span>);</div>
+      <div class="actions">
+        <a class="btn btn-primaire" href="index.html">← Retour à l'accueil</a>
+        <a class="btn btn-contour" href="projets.html">Voir les projets</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer data-composant="AppFooter.vue">
+  <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
+</footer>
+
+<div class="revue" aria-label="Outils de revue de la maquette">
+  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
