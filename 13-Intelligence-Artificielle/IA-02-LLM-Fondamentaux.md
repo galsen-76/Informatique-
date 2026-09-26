@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,131 +10,65 @@ tags:
 aliases:
   - "Fondamentaux des LLM"
 parent: "[[Intelligence Artificielle]]"
-children:
-  - "[[IA-03-Prompt-Engineering|Prompt Engineering]]"
-  - "[[IA-04-RAG-Embeddings|RAG et Embeddings]]"
-  - "[[IA-05-APIs-LLM|APIs de LLM]]"
 related_theory:
   - "[[IA-01-Fondamentaux-IA-ML|Fondamentaux IA et Machine Learning]]"
-related_snippets:
-  - "[[04_Snippets/ia-02-llm-fondamentaux]]"
 related_projects: []
 source: "https://docs.anthropic.com/fr/docs/intro-to-claude"
 ---
 
 # Fondamentaux des LLM
 
-> [!abstract] Introduction
-> Un LLM (Large Language Model : Claude, GPT, Gemini, Mistral, Llama) est un réseau de neurones entraîné sur d'énormes quantités de texte pour prédire la suite d'un texte ; il sait ainsi répondre, résumer, traduire, coder — sans « comprendre » ni garantir la vérité.
+> [!abstract] En bref
+> Un **LLM** (*Large Language Model* : Claude, GPT, Gemini, Mistral) a lu une quantité gigantesque de texte et a appris à **prédire la suite la plus probable**. C'est ce qui lui permet de répondre, résumer, traduire ou coder. Mais il **ne vérifie rien** : il peut inventer avec assurance. La règle d'or : **tout ce qu'il doit savoir doit être dans ce que tu lui envoies**.
 
-> [!warning]- Prérequis
-> [[IA-01-Fondamentaux-IA-ML|Fondamentaux IA et Machine Learning]]
+## Comment il écrit
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> Concepts :
-> - **Token** : morceau de texte (~¾ de mot en anglais, un peu moins en français) — unité de facturation et de limite
-> - **Fenêtre de contexte** : quantité de tokens que le modèle « voit » à la fois (prompt + historique + documents + réponse)
-> - **Prompt système** : instructions de cadrage ; **messages** : l'échange utilisateur / assistant
-> - **Température / effort / raisonnement** : réglages de créativité ou de profondeur de réflexion (selon les modèles)
-> - **Hallucination** : réponse plausible mais fausse
-> - **Sans mémoire** : chaque appel API est indépendant ; l'application renvoie l'historique
-
-> [!example]- Analogie
-> Un LLM est un stagiaire qui a lu toute la bibliothèque : brillant pour rédiger et synthétiser, mais qui peut inventer une référence avec aplomb s'il ne la connaît pas — il faut lui donner les documents et relire son travail.
-
-> [!question]- Pourquoi l'utiliser ?
-> Savoir ce qu'un LLM peut et ne peut pas faire pour concevoir des fonctionnalités fiables (et utiliser correctement les assistants de code).
-
-> [!question]- Comment ça marche ?
-> Entraînement : pré-entraînement (prédire le prochain token sur des milliards de textes) → ajustement (instructions, retours humains) → modèle « assistant ».
-> Génération : token par token, chaque token prédit selon tout ce qui précède (d'où le streaming).
-
-> [!question]- Quand l'utiliser ?
-> Langage naturel : résumé, extraction, classification, rédaction, reformulation, assistance au code, chatbots sur documents.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Hallucinations, connaissances figées à une date, coût et latence, non-déterminisme, sensibilité à la formulation, risques de fuite de données et d'injection de prompt.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Token | Unité de texte traitée par le modèle |
-| Contexte | Texte fourni au modèle pour un appel |
-| Hallucination | Affirmation inventée |
-| Prompt système | Instructions de comportement |
-| Streaming | Réception de la réponse au fil de l'eau |
-
----
-
-## Points clés
-
-- Un LLM prédit du texte, il ne vérifie pas les faits
-- Tout ce qu'il doit savoir doit être dans le contexte
-- Coût et limites en tokens
-- Toujours valider ses sorties
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Envoyer des données personnelles ou confidentielles sans accord de l'entreprise
-> - Faire confiance à une réponse sans vérification
-
----
-
-## Exemple minimal
+Il génère sa réponse **morceau par morceau** (*token* par token), chaque morceau choisi selon tout ce qui précède. C'est pour ça que les réponses s'affichent au fil de l'eau (*streaming*).
 
 ```text
-« Résume cette critique en 1 phrase et donne une note de 1 à 5 au format JSON »
-→ {"resume": "Une fresque visuelle impressionnante au rythme lent.", "note": 4}
+« Le film Inception est réalisé par » → « Christopher » → « Nolan » → « . »
 ```
 
-> [!note] Ce que j'en retiens
-> Des consignes précises et un format de sortie défini rendent le LLM exploitable par le code.
+## Les 5 notions à connaître
 
----
+| Notion | En clair | Pourquoi ça compte pour toi |
+|---|---|---|
+| **Token** | un morceau de mot (environ 3 à 4 caractères) | tu **paies** au token, et les limites sont en tokens |
+| **Fenêtre de contexte** | tout ce que le modèle « voit » en un appel : consignes + historique + documents + réponse | ce qui n'y est pas **n'existe pas** pour lui |
+| **Prompt système** | les consignes générales (« tu es l'assistant de CinéTrack… ») | fixe le rôle et les règles |
+| **Sans mémoire** | chaque appel est indépendant | pour une conversation, **ton application** renvoie tout l'historique à chaque fois |
+| **Hallucination** | une réponse plausible mais fausse | il faut **vérifier** et lui fournir les bonnes sources |
 
-## Pour aller plus loin (niveau senior)
+## Comment il a été fabriqué
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Comprendre les compromis modèle / coût / latence / qualité et mesurer avec des évaluations
+1. **Pré-entraînement** : prédire le mot suivant sur des milliards de textes → il apprend la langue, les faits, le code.
+2. **Affinage** : on lui apprend à suivre des instructions et à être utile, avec des retours humains → il devient un « assistant ».
 
----
+Conséquence : ses connaissances s'arrêtent à une **date**. Il ne connaît pas les films sortis après, ni ta base de données.
 
-## Connexions
+## Ce qu'il fait bien, ce qu'il fait mal
 
-**Arbre théorique :**
-- Sujet parent → [[Intelligence Artificielle]]
-- Sous-sujets → [[IA-03-Prompt-Engineering|Prompt Engineering]], [[IA-04-RAG-Embeddings|RAG et Embeddings]], [[IA-05-APIs-LLM|APIs de LLM]]
-- À comparer avec → (—)
+| ✅ Bien | ⚠️ Attention |
+|---|---|
+| résumer, reformuler, traduire | les faits précis (dates, chiffres, références) |
+| extraire des infos d'un texte | les calculs exacts |
+| classer (ton d'une critique, catégorie) | l'actualité après sa date de connaissances |
+| écrire et expliquer du code | les API récentes (il peut proposer une ancienne syntaxe) |
+| répondre à partir de documents fournis | répondre de mémoire sur **tes** données |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ia-02-llm-fondamentaux]]
+## Exemple
 
----
+```text
+Consigne : « Résume cette critique en une phrase et donne une note de 1 à 5, en JSON. »
+Réponse  : {"resume": "Une fresque visuelle impressionnante au rythme lent.", "note": 4}
+```
 
-## Auto-vérification
+Une consigne précise + un format de sortie défini = une réponse **exploitable par ton code**.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un LLM « oublie »-t-il la conversation si on ne renvoie pas l'historique ?
+## Pièges
 
----
+- **Lui faire confiance sans vérifier** : relis, teste, valide.
+- **Lui envoyer des données confidentielles** (code client, données personnelles) sans l'accord de l'entreprise.
+- **Croire qu'il se souvient** de la conversation d'hier : c'est l'application qui garde l'historique.
 
-## Tâches
-
-- [ ] #task Lire la politique de l'entreprise sur l'usage de l'IA et des données
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+La suite : bien lui parler avec [[IA-03-Prompt-Engineering|le prompt engineering]].

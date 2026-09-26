@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,138 +10,89 @@ tags:
 aliases:
   - "RAG et Embeddings"
 parent: "[[Intelligence Artificielle]]"
-children: []
 related_theory:
   - "[[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]"
   - "[[BDD-09-PostgreSQL-Pratique|PostgreSQL en Pratique]]"
-related_snippets:
-  - "[[04_Snippets/ia-04-rag-embeddings]]"
 related_projects: []
 source: "https://docs.anthropic.com/fr/docs/build-with-claude/embeddings"
 ---
 
 # RAG et Embeddings
 
-> [!abstract] Introduction
-> Le RAG (Retrieval-Augmented Generation) consiste à rechercher les documents pertinents puis à les donner au LLM pour qu'il réponde à partir d'eux ; les embeddings (vecteurs de sens) permettent cette recherche sémantique.
+> [!abstract] En bref
+> Un LLM ne connaît pas **tes** données (ton catalogue de films, ta documentation). Le **RAG** (*Retrieval-Augmented Generation*) règle ça comme un **examen à livre ouvert** : on **cherche** d'abord les passages utiles, puis on les **donne** au modèle avec la question. Pour chercher par le **sens** (et pas seulement par mots-clés), on utilise des **embeddings**.
 
-> [!warning]- Prérequis
-> [[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]
+## Les embeddings : le sens en nombres
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> - **Embedding** : vecteur de nombres représentant le sens d'un texte ; deux textes proches ont des vecteurs proches
-> - **Base vectorielle** : stocke et recherche par similarité (pgvector dans PostgreSQL, Qdrant, Pinecone…)
-> - **RAG** : question → recherche des passages pertinents → prompt « réponds à partir de ces passages » → réponse sourcée
-
-> [!example]- Analogie
-> Un examen à livre ouvert : au lieu de répondre de mémoire (risque d'invention), l'étudiant cherche d'abord les bonnes pages puis rédige à partir d'elles.
-
-> [!question]- Pourquoi l'utiliser ?
-> Répondre sur TES données (documentation interne, catalogue, tickets) à jour, en limitant les hallucinations et en citant les sources.
-
-> [!question]- Comment ça marche ?
-> ```mermaid
-> flowchart LR
->   subgraph Indexation
->     D[Documents] --> C[Découpage en passages] --> E[Embeddings] --> V[(Base vectorielle)]
->   end
->   subgraph Question
->     Q[Question] --> EQ[Embedding de la question] --> S[Recherche des k passages proches]
->     V --> S
->     S --> P["Prompt : question + passages"] --> L[LLM] --> R[Réponse + sources]
->   end
-> ```
-> ```sql
-> CREATE EXTENSION vector;
-> CREATE TABLE passages (id serial PRIMARY KEY, contenu text, embedding vector(1024));
-> SELECT contenu FROM passages ORDER BY embedding <=> $1 LIMIT 5;   -- distance cosinus
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Chatbot sur documentation, recherche sémantique (« films sur la solitude dans l'espace »), support client.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> La qualité dépend du découpage et de la recherche ; les documents injectés peuvent contenir des injections de prompt ; contrôler les droits d'accès aux documents récupérés.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Embedding | Représentation vectorielle du sens |
-| Similarité cosinus | Mesure de proximité entre vecteurs |
-| Chunking | Découpage des documents en passages |
-| Recherche hybride | Mots-clés + sémantique combinés |
-
----
-
-## Points clés
-
-- Récupérer puis générer
-- Citer les sources
-- Respecter les droits d'accès des documents
-- Évaluer la qualité de la recherche séparément de la génération
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Passages trop longs ou trop courts
-> - Indexer des documents confidentiels accessibles à tous via le chatbot
-
----
-
-## Exemple minimal
+Un **embedding** transforme un texte en une liste de nombres (un **vecteur**). Deux textes au sens proche donnent des vecteurs proches.
 
 ```text
-Question : « Quels films parlent de solitude dans l'espace ? »
-Recherche sémantique → synopsis de Gravity, Moon, Seul sur Mars → le LLM répond en citant ces 3 fiches
+« astronaute abandonné sur Mars »   → [0.12, -0.83, 0.44, …]
+« seul survivant sur une planète »  → [0.10, -0.80, 0.47, …]   ← proche
+« comédie romantique à Paris »      → [-0.65, 0.21, -0.09, …]  ← loin
 ```
 
-> [!note] Ce que j'en retiens
-> La recherche trouve par le sens, même sans le mot « solitude » dans le synopsis.
+Résultat : la recherche « films sur la solitude dans l'espace » trouve *Seul sur Mars*, même si le mot « solitude » n'apparaît pas dans le synopsis.
 
----
+## Le RAG en 2 temps
 
-## Pour aller plus loin (niveau senior)
+```mermaid
+flowchart LR
+  subgraph IDX["1. Préparation (une fois)"]
+    D["Synopsis des films"] --> C["découpage en passages"] --> E["embeddings"] --> V[("base vectorielle")]
+  end
+  subgraph ASK["2. À chaque question"]
+    Q["question"] --> EQ["embedding de la question"] --> S["les 5 passages les plus proches"]
+    V --> S
+    S --> P["prompt : question + passages"] --> L["LLM"] --> R["réponse + sources"]
+  end
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Recherche hybride, re-ranking, évaluation (précision de récupération, fidélité aux sources)
+## Avec PostgreSQL (pgvector)
 
----
+Pas besoin d'une nouvelle base : l'extension **pgvector** ajoute les vecteurs à PostgreSQL.
 
-## Connexions
+```sql
+CREATE EXTENSION vector;
 
-**Arbre théorique :**
-- Sujet parent → [[Intelligence Artificielle]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+CREATE TABLE passages (
+  id        serial PRIMARY KEY,
+  movie_id  int,
+  content   text,
+  embedding vector(1024)          -- la taille dépend du modèle d'embedding
+);
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ia-04-rag-embeddings]]
+-- les 5 passages les plus proches de la question ($1 = son embedding)
+SELECT movie_id, content FROM passages ORDER BY embedding <=> $1 LIMIT 5;
+```
 
----
+`<=>` = distance cosinus : plus elle est petite, plus les sens sont proches.
 
-## Auto-vérification
+Autres bases vectorielles : Qdrant, Pinecone, Weaviate.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi le RAG réduit-il les hallucinations sans les supprimer ?
+## Le prompt final
 
----
+```text
+Réponds à la question en t'appuyant UNIQUEMENT sur les fiches ci-dessous.
+Cite les films utilisés. Si la réponse n'y est pas, dis-le.
 
-## Tâches
+<fiches>
+  <fiche id="286217">Seul sur Mars : un astronaute se retrouve seul sur Mars…</fiche>
+  <fiche id="49047">Gravity : deux astronautes dérivent dans l'espace…</fiche>
+</fiches>
 
-- [ ] #task Ajouter pgvector à CinéTrack et une recherche sémantique sur les synopsis
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+<question>Quels films parlent de solitude dans l'espace ?</question>
+```
 
----
+## Ce qui fait un bon RAG
 
-## Notes brutes
+- **Le découpage** : des passages ni trop longs (bruit) ni trop courts (sans contexte).
+- **La recherche** : souvent on combine mots-clés et sens (*recherche hybride*).
+- **Les sources** : la réponse cite ses passages, l'utilisateur peut vérifier.
+- **Les droits** : l'utilisateur ne doit récupérer que les documents **qu'il a le droit de voir**.
 
-- ?
+## Pièges
+
+- **Indexer des documents confidentiels** accessibles à tous via le chatbot.
+- **Juger seulement la réponse finale** : si la recherche ramène les mauvais passages, le meilleur LLM ne peut rien faire.
+- **Oublier** que les documents récupérés peuvent contenir des injections de prompt.

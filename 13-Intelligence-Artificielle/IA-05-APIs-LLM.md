@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,13 +10,10 @@ tags:
 aliases:
   - "APIs de LLM"
 parent: "[[Intelligence Artificielle]]"
-children: []
 related_theory:
   - "[[IA-03-Prompt-Engineering|Prompt Engineering]]"
   - "[[NET-10-WebSockets-SSE|WebSockets et Server-Sent Events]]"
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
-related_snippets:
-  - "[[04_Snippets/ia-05-apis-llm]]"
 related_projects:
   - "[[02_Projects/CinéTrack-API]]"
 source: "https://docs.anthropic.com/fr/api/messages"
@@ -24,145 +21,105 @@ source: "https://docs.anthropic.com/fr/api/messages"
 
 # APIs de LLM
 
-> [!abstract] Introduction
-> Intégrer un LLM dans une application se fait côté BACKEND via l'API du fournisseur (clé secrète), avec streaming vers le front, gestion des erreurs, des coûts et validation des sorties.
+> [!abstract] En bref
+> Pour ajouter de l'IA à ton application, ton **back-end** appelle l'API d'un fournisseur (Anthropic, OpenAI, Mistral…) avec une **clé secrète**. Le front ne parle **jamais** directement au LLM : il passe par ton API, qui contrôle ce qui est envoyé, limite les coûts et vérifie la réponse.
 
-> [!warning]- Prérequis
-> [[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]], [[NEST-01-Fondamentaux|Fondamentaux NestJS]]
+## Qui parle à qui
 
----
+```mermaid
+flowchart LR
+  F["Front Angular / Vue"] -->|"POST /reviews/42/summary<br/>(JWT de l'utilisateur)"| B["API NestJS"]
+  B -->|"clé ANTHROPIC_API_KEY"| L["API du LLM"]
+  L -->|"réponse (en streaming)"| B
+  B -->|"texte au fil de l'eau (SSE)"| F
+```
 
-## Théorie
+La clé reste dans le `.env` du serveur. Une clé dans `environment.ts` ou une variable `VITE_…` est **publique** : n'importe qui peut la lire et faire exploser ta facture.
 
-> [!question]- C'est quoi ?
-> Exemple avec le SDK officiel d'Anthropic en TypeScript (NestJS). Le nom du modèle évolue : vérifier la documentation au moment de l'implémentation (`claude-opus-5` au moment de la rédaction).
-> ```typescript
-> import Anthropic from '@anthropic-ai/sdk';
->
-> @Injectable()
-> export class ResumeService {
->   private client = new Anthropic();          // lit ANTHROPIC_API_KEY depuis l'environnement
->
->   async resumerCritique(texte: string): Promise<string> {
->     const stream = this.client.messages.stream({
->       model: 'claude-opus-5',
->       max_tokens: 1024,
->       system: 'Tu résumes des critiques de films en une phrase neutre, en français.',
->       messages: [{ role: 'user', content: `<critique>${texte}</critique>` }],
->     });
->     const message = await stream.finalMessage();
->     if (message.stop_reason === 'refusal') throw new UnprocessableEntityException('Contenu refusé');
->     return message.content
->       .filter((b): b is Anthropic.TextBlock => b.type === 'text')
->       .map(b => b.text).join('');
->   }
-> }
-> ```
+## Un appel simple (NestJS + SDK officiel Anthropic)
 
-> [!example]- Analogie
-> L'API LLM est un fournisseur externe très compétent mais facturé à la ligne : on passe par un seul guichet (le back), on contrôle ce qu'on lui envoie et on vérifie ce qu'il renvoie.
+```bash
+npm install @anthropic-ai/sdk
+```
 
-> [!question]- Pourquoi l'utiliser ?
-> La clé d'API ne doit JAMAIS être dans le front ; le back contrôle coûts, droits, journalisation et données envoyées.
+```ts
+import Anthropic from '@anthropic-ai/sdk';
 
-> [!question]- Comment ça marche ?
-> - **Streaming** vers le front : l'API envoie des événements (SSE) ; le back peut les relayer via un endpoint `@Sse()` NestJS et le front les afficher au fil de l'eau
-> - **Erreurs** : rate limit (429), surcharge, timeouts → les SDK officiels réessaient déjà certaines erreurs ; utiliser leurs classes d'erreur typées
-> - **Sorties structurées** : demander un JSON conforme à un schéma plutôt que parser du texte libre
-> - **Coûts** : compter les tokens, limiter `max_tokens`, mise en cache des prompts (prompt caching), rate limiting par utilisateur
-> - Autres fournisseurs (OpenAI, Mistral, Gemini) : même principe, SDK différents
+@Injectable()
+export class SummaryService {
+  private readonly client = new Anthropic();   // lit ANTHROPIC_API_KEY dans l'environnement
 
-> [!question]- Quand l'utiliser ?
-> Fonctionnalités de résumé, classification, assistant, recherche sémantique (avec RAG).
+  async summarize(review: string): Promise<string> {
+    const message = await this.client.messages.create({
+      model: 'claude-opus-5',        // le nom du modèle évolue : vérifie la doc
+      max_tokens: 1024,              // longueur maximale de la réponse
+      system: 'Tu résumes des critiques de films en une phrase neutre, en français.',
+      messages: [{ role: 'user', content: `<critique>${review}</critique>` }],
+    });
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Latence (secondes), coût variable, non-déterminisme, dépendance à un fournisseur, contraintes RGPD sur les données envoyées.
+    if (message.stop_reason === 'refusal') {
+      throw new UnprocessableEntityException('Contenu refusé');
+    }
+    return message.content
+      .filter((block) => block.type === 'text')
+      .map((block) => block.text)
+      .join('');
+  }
+}
+```
 
----
+À retenir :
+- `system` = les consignes, `messages` = la conversation (rôles `user` / `assistant`).
+- La réponse est une **liste de blocs** : on garde les blocs de texte.
+- **`stop_reason`** dit pourquoi le modèle s'est arrêté : `end_turn` (fini), `max_tokens` (coupé, réponse incomplète), `refusal` (refus).
 
-## Vocabulaire
+## Le streaming vers le front
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| SDK | Librairie officielle d'accès à l'API |
-| `max_tokens` | Limite de longueur de la réponse |
-| `stop_reason` | Raison de fin de génération |
-| Rate limit | Limite de requêtes/tokens par minute |
-| Prompt caching | Réutilisation d'un préfixe de prompt identique pour réduire coût et latence |
+Une réponse longue prend plusieurs secondes. Avec le **streaming**, l'utilisateur voit le texte s'écrire au fur et à mesure.
 
----
-
-## Points clés
-
-- Appels uniquement côté serveur
-- Streaming pour l'UX
-- Vérifier `stop_reason` et valider la sortie
-- Surveiller coûts et quotas
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Clé API dans une variable `VITE_…` ou `environment.ts`
-> - Envoyer des données personnelles sans analyse RGPD
-> - Ne pas limiter l'usage par utilisateur (facture qui explose)
-
----
-
-## Exemple minimal
-
-```typescript
-// NestJS : relayer le streaming au front en SSE
-@Sse('critiques/:id/resume')
-resume(@Param('id', ParseIntPipe) id: number): Observable<MessageEvent> {
-  return new Observable((obs) => {
-    const stream = this.client.messages.stream({ model: 'claude-opus-5', max_tokens: 1024, messages: [/* … */] });
-    stream.on('text', (t) => obs.next({ data: t } as MessageEvent));
-    stream.finalMessage().then(() => obs.complete(), (e) => obs.error(e));
+```ts
+@Sse('reviews/:id/summary')
+summary(@Param('id', ParseIntPipe) id: number): Observable<MessageEvent> {
+  return new Observable((subscriber) => {
+    const stream = this.client.messages.stream({
+      model: 'claude-opus-5',
+      max_tokens: 1024,
+      messages: [{ role: 'user', content: '…' }],
+    });
+    stream.on('text', (text) => subscriber.next({ data: text } as MessageEvent));
+    stream.finalMessage().then(() => subscriber.complete(), (err) => subscriber.error(err));
   });
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Le front affiche la réponse mot à mot, sans jamais connaître la clé d'API.
+Côté front : `new EventSource('/api/reviews/42/summary')` et on ajoute chaque morceau reçu au texte affiché.
 
----
+## Obtenir du JSON fiable
 
-## Pour aller plus loin (niveau senior)
+Pour que ton code exploite la réponse (catégorie, note…), demande un **format structuré** plutôt que du texte libre, puis **valide-le** avec un schéma ([[TS-19-Validation-Runtime-Zod|Zod]]). Les API proposent aussi des « sorties structurées » qui imposent un schéma JSON à la réponse.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Évaluations automatiques de la qualité, observabilité (tokens, coûts, latence), abstraction multi-fournisseurs
+## Maîtriser les coûts
 
----
+| Levier | Effet |
+|---|---|
+| `max_tokens` raisonnable | limite la longueur (et le prix) de chaque réponse |
+| limite par utilisateur (rate limiting) | un utilisateur ne peut pas lancer 1 000 résumés |
+| cache Redis ([[NEST-13-Cache-Queues-Taches\|Cache et queues]]) | un résumé déjà calculé n'est pas redemandé |
+| envoyer le strict nécessaire | moins de tokens en entrée |
+| suivre la consommation | le tableau de bord du fournisseur montre tokens et coûts |
 
-## Connexions
+## Les erreurs à gérer
 
-**Arbre théorique :**
-- Sujet parent → [[Intelligence Artificielle]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+| Erreur | Cause | Réaction |
+|---|---|---|
+| 401 | clé invalide | vérifier la configuration |
+| 429 | trop de requêtes | le SDK réessaie déjà ; sinon, ralentir |
+| 500 / surcharge | problème côté fournisseur | réessai, puis message clair à l'utilisateur |
+| timeout | réponse trop longue | utiliser le streaming |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ia-05-apis-llm]]
-- Projet → [[02_Projects/CinéTrack-API]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi l'appel au LLM doit-il passer par le backend ?
-
----
-
-## Tâches
-
-- [ ] #task Ajouter un résumé IA des critiques dans CinéTrack (derrière un feature flag)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **La clé d'API dans le front** : elle sera volée.
+- **Pas de limite par utilisateur** : la facture explose.
+- **Ignorer `stop_reason`** : une réponse coupée par `max_tokens` est traitée comme complète.
+- **Envoyer des données personnelles** sans vérifier ce que l'entreprise autorise (RGPD).

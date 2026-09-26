@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,128 +10,62 @@ tags:
 aliases:
   - "Éthique et Limites de l'IA"
 parent: "[[Intelligence Artificielle]]"
-children: []
 related_theory:
   - "[[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]"
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
-related_snippets:
-  - "[[04_Snippets/ia-08-ethique-limites-ia]]"
 related_projects: []
 source: "https://artificialintelligenceact.eu/fr/"
 ---
 
 # Éthique et Limites de l'IA
 
-> [!abstract] Introduction
-> Utiliser l'IA de façon responsable : biais, hallucinations, confidentialité (RGPD), propriété intellectuelle, sécurité (injection de prompt), impact environnemental et cadre légal européen (AI Act).
+> [!abstract] En bref
+> Quand tu mets une fonctionnalité d'IA en production, **tu es responsable** de ce qu'elle produit. Les risques principaux : réponses fausses, biais, fuite de données, détournement par injection de prompt. Le cadre légal européen (**RGPD**, **AI Act**) encadre ces usages. En pratique, une petite check-list suffit à éviter l'essentiel.
 
----
+## Les risques
 
-## Théorie
+| Risque | Exemple sur CinéTrack |
+|---|---|
+| **Réponse fausse** (hallucination) | le résumé attribue le film au mauvais réalisateur |
+| **Biais** | la modération signale plus souvent certaines façons d'écrire |
+| **Fuite de données** | on envoie e-mail et historique de l'utilisateur au fournisseur sans raison |
+| **Injection de prompt** | une critique contient « ignore tes consignes » et détourne l'assistant |
+| **Propriété intellectuelle** | du code ou du texte généré reprend un contenu protégé |
+| **Sur-confiance** | l'utilisateur prend la réponse de l'IA pour une vérité |
 
-> [!question]- C'est quoi ?
-> Enjeux :
-> - **Biais** : discrimination reproduite depuis les données
-> - **Fiabilité** : hallucinations, sur-confiance des utilisateurs
-> - **Confidentialité** : données personnelles ou confidentielles envoyées à un tiers
-> - **Propriété intellectuelle** : licences du code généré, contenus protégés
-> - **Sécurité** : injection de prompt, fuite de données via les outils d'un agent
-> - **Transparence** : informer l'utilisateur qu'il interagit avec une IA
-> - **Cadre légal** : AI Act européen (approche par niveaux de risque), RGPD
+## Le cadre légal (l'essentiel)
 
-> [!example]- Analogie
-> Comme un médicament puissant : très utile, mais avec une notice, des contre-indications et une prescription encadrée.
+- **RGPD** : les données personnelles envoyées à un fournisseur d'IA restent soumises au RGPD. Minimiser, justifier, informer.
+- **AI Act** (règlement européen) : classe les usages de l'IA par **niveau de risque**. Un chatbot doit indiquer qu'il est une IA ; les usages à haut risque (recrutement, crédit…) sont fortement encadrés.
+- **En entreprise** : suis la politique interne et demande au DPO ou à la sécurité en cas de doute.
 
-> [!question]- Pourquoi l'utiliser ?
-> Un développeur est responsable de ce qu'il met en production, y compris des fonctionnalités d'IA ; les entreprises (et leurs clients) encadrent strictement ces usages.
+## La check-list d'une fonctionnalité IA
 
-> [!question]- Comment ça marche ?
-> Checklist pour une fonctionnalité IA :
-> - Données envoyées : minimales, anonymisées si possible, base légale RGPD
-> - Sorties : validées, affichées comme générées par IA, possibilité de signaler
-> - Humain dans la boucle pour les décisions importantes
-> - Journalisation et évaluation continue (biais, qualité)
-> - Protection contre l'injection de prompt
+- [ ] J'envoie le **minimum** de données, sans données personnelles inutiles.
+- [ ] L'utilisateur **sait** que le contenu est généré par une IA.
+- [ ] Il peut **signaler** une erreur.
+- [ ] La sortie est **validée** par le code (format, valeurs autorisées).
+- [ ] Un **humain** décide pour tout ce qui est important (suppression, sanction).
+- [ ] Le texte utilisateur est **délimité** dans le prompt (anti-injection).
+- [ ] L'usage est **limité** par utilisateur et **journalisé**.
 
-> [!question]- Quand l'utiliser ?
-> À la conception de toute fonctionnalité utilisant l'IA.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les règles évoluent vite : suivre la politique de l'entreprise et le juridique.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Biais | Distorsion systématique des résultats |
-| AI Act | Règlement européen sur l'IA |
-| RGPD | Règlement européen sur les données personnelles |
-| Transparence | Informer de l'usage de l'IA |
-
----
-
-## Points clés
-
-- Minimiser les données envoyées
-- Informer l'utilisateur
-- Valider et surveiller les sorties
-- Respecter la politique interne
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Décision automatisée importante sans recours humain
-
----
-
-## Exemple minimal
+## En pratique
 
 ```text
-CinéTrack : « Résumé généré par IA — peut contenir des erreurs. [Signaler] »
+✨ Résumé généré par IA — peut contenir des erreurs.  [Signaler]
 ```
 
-> [!note] Ce que j'en retiens
-> Transparence et possibilité de correction : deux lignes qui changent la confiance.
+Deux lignes dans l'interface : l'utilisateur est informé et peut corriger. La confiance change complètement.
 
----
+## Les limites à garder en tête
 
-## Pour aller plus loin (niveau senior)
+- L'IA **se trompe avec assurance** : ne jamais l'utiliser seule pour une décision importante.
+- Ses connaissances ont une **date** limite.
+- Elle **consomme** beaucoup d'énergie : l'utiliser quand elle apporte vraiment quelque chose.
+- Les règles évoluent vite : ce qui est autorisé aujourd'hui peut changer.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Participer à l'évaluation des risques (DPO, sécurité) des projets IA
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Intelligence Artificielle]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/ia-08-ethique-limites-ia]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Cite 3 risques d'une fonctionnalité de chatbot sur des données clients.
-
----
-
-## Tâches
-
-- [ ] #task Lire la charte IA de l'entreprise
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Une décision automatique sans recours humain** (bannir un utilisateur sur l'avis de l'IA).
+- **Présenter du contenu généré comme écrit par un humain.**
+- **Envoyer plus de données que nécessaire** « pour que ce soit plus précis ».

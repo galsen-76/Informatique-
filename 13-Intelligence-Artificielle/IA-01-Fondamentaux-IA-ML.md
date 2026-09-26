@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,128 +10,58 @@ tags:
 aliases:
   - "Fondamentaux IA et Machine Learning"
 parent: "[[Intelligence Artificielle]]"
-children:
-  - "[[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/ia-01-fondamentaux-ia-ml]]"
 related_projects: []
 source: "https://developers.google.com/machine-learning/crash-course?hl=fr"
 ---
 
 # Fondamentaux IA et Machine Learning
 
-> [!abstract] Introduction
-> L'intelligence artificielle regroupe les techniques qui permettent à une machine d'accomplir des tâches « intelligentes » ; le machine learning apprend à partir de données plutôt que de règles écrites à la main, et le deep learning utilise des réseaux de neurones profonds.
+> [!abstract] En bref
+> En programmation classique, **tu écris les règles**. En **machine learning**, tu montres des milliers d'exemples et la machine **déduit les règles elle-même**. Les LLM (Claude, GPT…) sont l'aboutissement de cette idée. En tant que développeur, tu **utilises** surtout des modèles déjà entraînés via une API : pas besoin d'être data scientist, mais il faut comprendre ce qu'ils savent faire et où ils se trompent.
 
----
+## Les poupées russes
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```mermaid
-> flowchart TB
->   IA["IA : tâches intelligentes"] --> ML["Machine Learning : apprendre des données"]
->   ML --> DL["Deep Learning : réseaux de neurones profonds"]
->   DL --> GEN["IA générative : LLM, images"]
-> ```
-> Types d'apprentissage :
-> - **Supervisé** : données étiquetées (spam / pas spam) → classification, régression
-> - **Non supervisé** : trouver des structures (regroupement de clients)
-> - **Par renforcement** : essais / récompenses (jeux, robotique, alignement des LLM)
-
-> [!example]- Analogie
-> Programmation classique : tu écris la recette. Machine learning : tu montres 10 000 gâteaux réussis et ratés, et la machine déduit elle-même la recette.
-
-> [!question]- Pourquoi l'utiliser ?
-> Un développeur full stack intègre de plus en plus des fonctionnalités d'IA (recherche sémantique, assistants, classification) ; comprendre les bases évite les attentes irréalistes.
-
-> [!question]- Comment ça marche ?
-> Cycle : collecter des données → les nettoyer → entraîner un modèle → l'évaluer sur des données jamais vues → le déployer → surveiller sa qualité.
-> Notions : jeu d'entraînement / de test, **surapprentissage** (apprend par cœur au lieu de généraliser), métriques (précision, rappel).
-
-> [!question]- Quand l'utiliser ?
-> Problèmes où les règles sont trop nombreuses ou floues (langage, images, recommandations).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Un modèle reproduit les biais de ses données, se trompe avec assurance et coûte à entraîner/faire tourner ; une règle simple (`if`) reste parfois la meilleure solution.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Modèle | Fonction apprise à partir de données |
-| Entraînement | Ajustement des paramètres du modèle |
-| Inférence | Utilisation du modèle pour prédire |
-| Surapprentissage | Apprentissage par cœur, mauvaise généralisation |
-| Jeu de test | Données réservées à l'évaluation |
-
----
-
-## Points clés
-
-- IA ⊃ ML ⊃ Deep Learning ⊃ IA générative
-- Les données font la qualité du modèle
-- Évaluer sur des données jamais vues
-- En tant que dev, on UTILISE surtout des modèles via des API
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Croire qu'un modèle est « intelligent » au sens humain
-
----
-
-## Exemple minimal
-
-```text
-Tâche : classer des critiques de films en positives / négatives
-Supervisé : 10 000 critiques étiquetées → modèle → nouvelle critique → « positive (0,93) »
-Aujourd'hui : un LLM via API fait ce travail sans entraînement spécifique (zero-shot)
+```mermaid
+flowchart TB
+  IA["Intelligence artificielle<br/>machines qui font des tâches « intelligentes »"] --> ML["Machine learning<br/>apprendre à partir d'exemples"]
+  ML --> DL["Deep learning<br/>réseaux de neurones à nombreuses couches"]
+  DL --> GEN["IA générative<br/>produire du texte, des images (LLM)"]
 ```
 
-> [!note] Ce que j'en retiens
-> Les LLM ont rendu accessibles des tâches qui demandaient avant un projet ML complet.
+## Règles écrites vs règles apprises
 
----
+| | Programmation classique | Machine learning |
+|---|---|---|
+| Entrée | données + **règles** écrites par toi | données + **réponses** attendues |
+| Sortie | réponses | **règles** (le modèle) |
+| Exemple | `if (note >= 4) positif` | 10 000 critiques étiquetées → le modèle devine le ton d'une nouvelle critique |
+| Quand | règles claires et peu nombreuses | règles floues ou innombrables (langage, images) |
 
-## Pour aller plus loin (niveau senior)
+## Les 3 façons d'apprendre
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir quand une solution ML classique (plus petite, moins chère) bat un LLM
+| Type | Principe | Exemple |
+|---|---|---|
+| **Supervisé** | exemples avec la bonne réponse | critique → « positive / négative » |
+| **Non supervisé** | trouver des groupes tout seul | regrouper les utilisateurs aux goûts proches |
+| **Par renforcement** | essais, récompenses, punitions | jeux, et affinage des LLM avec des retours humains |
 
----
+## Le vocabulaire utile
 
-## Connexions
+- **Modèle** : le « programme » obtenu après l'apprentissage.
+- **Entraînement** : la phase où le modèle apprend (long, cher, fait par les fournisseurs).
+- **Inférence** : utiliser le modèle pour répondre (ce que **tu** fais quand tu appelles une API).
+- **Surapprentissage** : le modèle apprend par cœur les exemples au lieu de comprendre ; il échoue sur des cas nouveaux. D'où l'évaluation sur des données **jamais vues**.
 
-**Arbre théorique :**
-- Sujet parent → [[Intelligence Artificielle]]
-- Sous-sujets → [[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]
-- À comparer avec → (—)
+## Ce qui a changé avec les LLM
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ia-01-fondamentaux-ia-ml]]
+Avant : classer des critiques demandait de collecter des données, entraîner, évaluer, déployer un modèle.
+Aujourd'hui : un appel d'API avec une consigne claire suffit souvent (« classe cette critique : positive, négative ou neutre »).
 
----
+## Pièges
 
-## Auto-vérification
+- **Croire que le modèle « comprend »** : il reproduit des régularités statistiques, il peut se tromper avec aplomb.
+- **Oublier les biais** : un modèle reproduit ceux de ses données d'entraînement.
+- **Utiliser l'IA là où un `if` suffit** : plus lent, plus cher, moins prévisible.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Qu'est-ce que le surapprentissage ?
-
----
-
-## Tâches
-
-- [ ] #task Suivre le « Machine Learning Crash Course » de Google (modules 1 à 3)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+La suite : [[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]].

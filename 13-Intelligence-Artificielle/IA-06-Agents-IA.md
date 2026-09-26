@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,134 +10,91 @@ tags:
 aliases:
   - "Agents IA et Tool Use"
 parent: "[[Intelligence Artificielle]]"
-children: []
 related_theory:
   - "[[IA-05-APIs-LLM|APIs de LLM]]"
   - "[[IA-04-RAG-Embeddings|RAG et Embeddings]]"
-related_snippets:
-  - "[[04_Snippets/ia-06-agents-ia]]"
 related_projects: []
 source: "https://www.anthropic.com/engineering/building-effective-agents"
 ---
 
 # Agents IA et Tool Use
 
-> [!abstract] Introduction
-> Un agent est un LLM qui utilise des outils (fonctions, API, recherche, code) en boucle pour accomplir une tâche en plusieurs étapes ; le « tool use » (function calling) et le protocole MCP en sont les briques.
+> [!abstract] En bref
+> Seul, un LLM ne peut que **produire du texte**. Avec le **tool use**, tu lui donnes une liste de **fonctions** qu'il peut demander à appeler (chercher un film, lire une fiche…). Ton code exécute la fonction et lui renvoie le résultat. Un **agent**, c'est un LLM qui enchaîne ces appels **en boucle** jusqu'à avoir fini sa tâche.
 
-> [!warning]- Prérequis
-> [[IA-05-APIs-LLM|APIs de LLM]]
+## Le tool use pas à pas
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> - **Tool use** : on décrit des fonctions (nom, description, schéma JSON) ; le modèle décide de les appeler, ton code les exécute et renvoie le résultat
-> - **Workflow** : enchaînement d'étapes contrôlé par le code (le plus fiable)
-> - **Agent** : le modèle décide lui-même des étapes et des outils (plus flexible, moins prévisible)
-> - **MCP** (Model Context Protocol) : standard pour exposer outils et données aux assistants/agents
-
-> [!example]- Analogie
-> Un workflow est une recette suivie à la lettre ; un agent est un cuisinier à qui l'on donne un objectif et un accès au garde-manger, et qui décide lui-même des étapes.
-
-> [!question]- Pourquoi l'utiliser ?
-> Automatiser des tâches multi-étapes : assistant qui consulte l'API de l'application, recherche puis synthétise, agents de code.
-
-> [!question]- Comment ça marche ?
-> ```mermaid
-> sequenceDiagram
->   participant App
->   participant LLM
->   participant Outil as Outil (API CinéTrack)
->   App->>LLM: question + description des outils
->   LLM-->>App: appel d'outil rechercherFilms({genre:"SF"})
->   App->>Outil: exécute
->   Outil-->>App: résultats
->   App->>LLM: résultat de l'outil
->   LLM-->>App: réponse finale
-> ```
-> Règle : commencer par le plus simple (un appel, puis un workflow) et ne passer à un agent autonome que si la tâche l'exige vraiment.
-
-> [!question]- Quand l'utiliser ?
-> Tâches ouvertes et multi-étapes où l'erreur est rattrapable (tests, validation humaine).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Coût, latence, erreurs en cascade, sécurité : un agent qui peut appeler des outils peut faire des dégâts → droits minimaux, confirmation humaine pour les actions sensibles, journalisation.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Tool use | Appel de fonction décidé par le modèle |
-| Agent | LLM + outils + boucle |
-| MCP | Protocole standard d'accès aux outils/données |
-| Human-in-the-loop | Validation humaine d'une action |
-
----
-
-## Points clés
-
-- Workflow avant agent
-- Outils bien décrits et à droits minimaux
-- Validation humaine des actions irréversibles
-- Tout journaliser
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Donner à un agent un outil de suppression sans garde-fou
-
----
-
-## Exemple minimal
-
-```text
-Outils exposés à l'assistant CinéTrack : rechercherFilms (lecture), ajouterFavori (écriture, confirmation requise)
+```mermaid
+sequenceDiagram
+  participant App as API NestJS
+  participant LLM
+  participant Tool as searchMovies()
+  App->>LLM: « Trouve-moi un bon film de SF récent »<br/>+ description des outils
+  LLM-->>App: je veux appeler searchMovies({ genre: "SF", year: 2024 })
+  App->>Tool: exécute la fonction
+  Tool-->>App: [Dune 2, …]
+  App->>LLM: voici le résultat
+  LLM-->>App: « Je te conseille Dune : deuxième partie… »
 ```
 
-> [!note] Ce que j'en retiens
-> Séparer lecture et écriture, et faire confirmer les écritures.
+Le modèle **n'exécute rien lui-même** : il **demande**, ton code **décide** et exécute.
 
----
+## Décrire un outil
 
-## Pour aller plus loin (niveau senior)
+Un outil = un **nom**, une **description** (le modèle la lit pour savoir quand l'utiliser) et un **schéma** des paramètres. Avec le SDK Anthropic et Zod, le *tool runner* gère la boucle pour toi :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Concevoir les outils (noms, descriptions, erreurs explicites) et évaluer les agents sur des scénarios
+```ts
+import Anthropic from '@anthropic-ai/sdk';
+import { betaZodTool } from '@anthropic-ai/sdk/helpers/beta/zod';
+import { z } from 'zod';
 
----
+const client = new Anthropic();
 
-## Connexions
+const searchMovies = betaZodTool({
+  name: 'search_movies',
+  description: 'Cherche des films dans le catalogue CinéTrack par genre et année.',
+  inputSchema: z.object({
+    genre: z.string().describe('Genre, par exemple "SF" ou "comédie"'),
+    year: z.number().optional(),
+  }),
+  run: async (input) => JSON.stringify(await moviesService.search(input)),
+});
 
-**Arbre théorique :**
-- Sujet parent → [[Intelligence Artificielle]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+const answer = await client.beta.messages.toolRunner({
+  model: 'claude-opus-5',
+  max_tokens: 4096,
+  tools: [searchMovies],
+  messages: [{ role: 'user', content: 'Trouve-moi un bon film de SF récent' }],
+});
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ia-06-agents-ia]]
+Les paramètres envoyés par le modèle sont **vérifiés par le schéma Zod** avant d'appeler `run`.
 
----
+## Workflow ou agent ?
 
-## Auto-vérification
+| | Workflow | Agent |
+|---|---|---|
+| Qui décide des étapes | **ton code** | **le modèle** |
+| Exemple | résumer → classer → enregistrer | « organise ma soirée cinéma » |
+| Fiabilité | élevée, prévisible | variable |
+| Coût | maîtrisé | plusieurs appels, difficile à prévoir |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle différence entre un workflow et un agent ?
+**Règle** : commence par **un seul appel**, puis un **workflow**. Passe à un agent seulement si la tâche l'exige vraiment.
 
----
+## MCP
 
-## Tâches
+**MCP** (*Model Context Protocol*) est un **standard** pour brancher des outils et des données sur les assistants IA. Tu écris un **serveur MCP** une fois (par exemple « accès au catalogue CinéTrack ») et n'importe quel assistant compatible peut l'utiliser.
 
-- [ ] #task Lire « Building effective agents » (Anthropic)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## La sécurité d'abord
 
----
+Un agent qui peut appeler des outils peut **faire des dégâts** :
+- **séparer lecture et écriture** : `search_movies` librement, `delete_review` jamais sans contrôle ;
+- **confirmation humaine** pour toute action irréversible (supprimer, payer, envoyer) ;
+- **droits minimaux** : l'outil agit avec les droits de l'utilisateur, pas en administrateur ;
+- **tout journaliser** : quels outils, quels paramètres, quel résultat.
 
-## Notes brutes
+## Pièges
 
-- ?
+- **Des descriptions d'outils vagues** : le modèle ne sait pas quand les utiliser.
+- **Des erreurs muettes** : renvoie un message d'erreur clair au modèle (« film introuvable »), il pourra corriger.
+- **Un agent là où un appel suffisait** : plus lent, plus cher, moins fiable.
