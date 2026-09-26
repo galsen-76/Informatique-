@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,14 +10,9 @@ tags:
 aliases:
   - "Programmation Orientée Objet"
 parent: "[[Théorie Générale]]"
-children:
-  - "[[TS-05-Classes|Classes TypeScript]]"
-  - "[[ARCH-11-SOLID|SOLID]]"
 related_theory:
   - "[[PY-05-POO-Classes|POO Classes Python]]"
   - "[[ARCH-07-Design-Patterns-Fondamentaux|Design Patterns Fondamentaux]]"
-related_snippets:
-  - "[[04_Snippets/tg-05-paradigmes-poo]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_objet"
@@ -25,121 +20,93 @@ source: "https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_objet"
 
 # Programmation Orientée Objet
 
-> [!abstract] Introduction
-> La POO organise le code en objets qui regroupent données et comportements ; ses 4 piliers (encapsulation, abstraction, héritage, polymorphisme) structurent Angular, NestJS, Java et la plupart des backends.
+> [!abstract] En bref
+> La **POO** range le code en **objets** qui regroupent des **données** et les **actions** qui vont avec. Un `MoviesService` contient la liste des films **et** les méthodes pour les charger. Angular, NestJS et Java sont construits ainsi : comprendre les 4 idées de base de la POO, c'est comprendre pourquoi ces frameworks s'organisent en classes, services et injection de dépendances.
 
----
+## Classe et objet
 
-## Théorie
+Une **classe** est un **moule**, un **objet** (ou *instance*) est ce qui sort du moule.
 
-> [!question]- C'est quoi ?
-> - **Encapsulation** : cacher l'état interne, exposer des méthodes (`private`)
-> - **Abstraction** : exposer le « quoi » et cacher le « comment » (interfaces)
-> - **Héritage** : une classe réutilise une autre (`extends`)
-> - **Polymorphisme** : un même appel, des comportements différents selon l'objet
+```ts
+class Movie {
+  constructor(
+    public title: string,
+    private ratings: number[] = [],
+  ) {}
 
-> [!example]- Analogie
-> Une voiture : tu utilises volant et pédales (abstraction) sans voir le moteur (encapsulation) ; une voiture électrique est une voiture (héritage) ; « accélérer » fonctionne sur toutes, mais différemment (polymorphisme).
+  addRating(value: number) {
+    if (value < 1 || value > 5) throw new Error('Note entre 1 et 5');
+    this.ratings.push(value);
+  }
 
-> [!question]- Pourquoi l'utiliser ?
-> Modéliser le métier, isoler les responsabilités, permettre l'injection de dépendances et les tests (on remplace une implémentation par une autre via une interface).
+  get average(): number {
+    return this.ratings.length ? this.ratings.reduce((a, b) => a + b) / this.ratings.length : 0;
+  }
+}
 
-> [!question]- Comment ça marche ?
-> ```typescript
-> interface Notifieur { envoyer(msg: string): Promise<void> }
-> class EmailNotifieur implements Notifieur { async envoyer(m: string) { /* SMTP */ } }
-> class SmsNotifieur implements Notifieur { async envoyer(m: string) { /* API SMS */ } }
->
-> class CommandeService {
->   constructor(private notifieur: Notifieur) {}          // dépend d'une abstraction
->   async valider() { await this.notifieur.envoyer("Commande validée"); }
-> }
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Services, entités métier, backends (NestJS, Spring). En front moderne, on combine POO (services, classes) et style fonctionnel (signals, fonctions pures, composables).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les hiérarchies d'héritage profondes deviennent rigides : **préférer la composition à l'héritage**.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Classe | Plan de construction d'objets |
-| Instance | Objet créé depuis une classe |
-| Interface | Contrat de méthodes |
-| Composition | Construire un objet à partir d'autres objets |
-
----
-
-## Points clés
-
-- 4 piliers : encapsulation, abstraction, héritage, polymorphisme
-- Composition > héritage
-- Dépendre d'interfaces facilite tests et évolutions (DIP)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Classes « Dieu » qui font tout
-> - Héritage juste pour réutiliser du code
-
----
-
-## Exemple minimal
-
-```typescript
-const service = new CommandeService(new SmsNotifieur());   // on change le comportement sans toucher au service
+const dune = new Movie('Dune');   // un objet créé depuis la classe
+dune.addRating(5);
+dune.average;                     // 5
 ```
 
-> [!note] Ce que j'en retiens
-> Le service ne connaît que le contrat `Notifieur` : c'est la base de l'injection de dépendances.
+## Les 4 idées de la POO
 
----
+Avec l'image d'une **voiture** :
 
-## Pour aller plus loin (niveau senior)
+| Idée | Voiture | Code |
+|---|---|---|
+| **Encapsulation** | le moteur est caché sous le capot | `private ratings` : on ne peut pas y toucher directement, seulement via `addRating` qui vérifie la note |
+| **Abstraction** | tu utilises volant et pédales sans savoir comment ça marche | une interface `Notifier` dit **quoi** faire, pas **comment** |
+| **Héritage** | une voiture électrique **est une** voiture | `class Admin extends User` |
+| **Polymorphisme** | « accélérer » marche sur toutes les voitures, différemment | `notifier.send()` envoie un e-mail **ou** un SMS selon l'objet |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Relier POO, SOLID et DI (Angular, NestJS)
-> - Savoir quand une fonction pure suffit plutôt qu'une classe
+## L'idée qui compte le plus : dépendre d'un contrat
 
----
+```ts
+interface Notifier {
+  send(message: string): Promise<void>;
+}
 
-## Connexions
+class EmailNotifier implements Notifier {
+  async send(message: string) { /* envoi d'e-mail */ }
+}
 
-**Arbre théorique :**
-- Sujet parent → [[Théorie Générale]]
-- Sous-sujets → [[TS-05-Classes|Classes TypeScript]], [[ARCH-11-SOLID|SOLID]]
-- À comparer avec → [[TG-06-Programmation-Fonctionnelle|Programmation Fonctionnelle]]
+class SmsNotifier implements Notifier {
+  async send(message: string) { /* envoi de SMS */ }
+}
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/tg-05-paradigmes-poo]]
-- Projet → [[02_Projects/CinéTrack]]
+class ReviewsService {
+  constructor(private notifier: Notifier) {}   // n'importe quel Notifier convient
 
----
+  async publish() {
+    await this.notifier.send('Nouvelle critique publiée');
+  }
+}
 
-## Auto-vérification
+new ReviewsService(new EmailNotifier());
+new ReviewsService(new SmsNotifier());   // on change le comportement sans toucher au service
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi préfère-t-on la composition à l'héritage ?
+C'est exactement le principe de l'**injection de dépendances** d'Angular et NestJS (voir [[NEST-04-Providers-DI|Providers et DI]]) : on donne au service ce dont il a besoin, et en test on lui donne une fausse version (voir [[TEST-03-Mocks-Stubs-Spies|Mocks]]).
 
-> [!faq]- Questions d'entretien
-> - Expliquez les 4 piliers de la POO avec un exemple.
+## Composition plutôt qu'héritage
 
----
+L'héritage paraît pratique mais crée des chaînes rigides (`Animal > Mammifère > Chien > ChienDeGarde…`). On préfère **assembler** des objets :
 
-## Tâches
+```ts
+// ❌ class ReviewsService extends LoggerService  (un service de critiques n'EST PAS un logger)
+// ✅ il A un logger
+class ReviewsService {
+  constructor(private logger: Logger, private notifier: Notifier) {}
+}
+```
 
-- [ ] #task Modéliser le domaine CinéTrack (Film, Utilisateur, Liste) en classes
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## POO et front moderne
 
----
+Le front actuel **mélange** : des classes pour les services, et un style plus fonctionnel pour le reste (signals, `computed`, composables Vue, fonctions pures). Voir [[TG-06-Programmation-Fonctionnelle|Programmation fonctionnelle]].
 
-## Notes brutes
+## Pièges
 
-- ?
+- **La classe qui fait tout** (300 lignes, 20 méthodes) : découpe par responsabilité.
+- **Hériter juste pour réutiliser du code** : préfère la composition.
+- **Tout mettre en `public`** : l'encapsulation protège tes règles (une note entre 1 et 5).

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Lisibilité et Nommage du Code"
 parent: "[[Théorie Générale]]"
-children: []
 related_theory:
   - "[[ARCH-10-Clean-Code|Clean Code]]"
   - "[[TEST-07-Code-Review|Code Review]]"
-related_snippets:
-  - "[[04_Snippets/tg-08-lisibilite-nommage]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://martinfowler.com/bliki/TwoHardThings.html"
@@ -23,111 +20,84 @@ source: "https://martinfowler.com/bliki/TwoHardThings.html"
 
 # Lisibilité et Nommage du Code
 
-> [!abstract] Introduction
-> Le code est lu 10 fois plus qu'il n'est écrit : bien nommer, garder des fonctions courtes et éviter la complexité accidentelle est la première compétence d'un développeur professionnel.
+> [!abstract] En bref
+> Un code est **lu bien plus souvent qu'il n'est écrit** : par tes collègues, par le relecteur de ta MR, et par toi dans 3 mois. Bien nommer et garder un code simple est la première compétence d'un développeur pro. Un bon nom vaut mieux qu'un commentaire : un code bien nommé ressemble à une cuisine où chaque bocal porte une étiquette.
 
----
+## Avant / après
 
-## Théorie
+```ts
+// ❌ Que fait cette fonction ?
+function f(u) {
+  if (u) {
+    if (u.a) {
+      return u.r === 'admin';
+    }
+  }
+  return false;
+}
 
-> [!question]- C'est quoi ?
-> Deux types de complexité :
-> - **Essentielle** : celle du problème métier (inévitable)
-> - **Accidentelle** : celle qu'on ajoute (mauvais noms, duplication, abstractions inutiles)
-
-> [!example]- Analogie
-> Un code bien nommé est une cuisine rangée avec des étiquettes sur chaque bocal ; un code mal nommé oblige à ouvrir chaque bocal pour savoir ce qu'il contient.
-
-> [!question]- Pourquoi l'utiliser ?
-> En entreprise, tu passeras plus de temps à LIRE et MODIFIER du code existant qu'à en écrire du nouveau.
-
-> [!question]- Comment ça marche ?
-> - Noms révélant l'intention : `filmsNonVus` plutôt que `data2`
-> - Booléens en question : `estFavori`, `peutEditer`
-> - Fonctions qui font UNE chose, verbes d'action : `chargerFilms()`
-> - Retour anticipé (guard clauses) plutôt qu'imbrication
-> - Pas de nombres magiques : `const DELAI_RECHERCHE_MS = 300`
-> - Commenter le POURQUOI, pas le QUOI
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Complexité accidentelle | Difficulté ajoutée par la solution |
-| Nombre magique | Valeur littérale inexpliquée |
-| Guard clause | Retour anticipé qui évite l'imbrication |
-
----
-
-## Points clés
-
-- Lisible > astucieux
-- Un nom juste vaut mieux qu'un commentaire
-- Suivre les conventions de l'équipe et du framework
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Abréviations obscures (`flmSvc`)
-> - Commentaires qui paraphrasent le code et deviennent faux
-
----
-
-## Exemple minimal
-
-```typescript
-// ❌
-function f(u) { if (u) { if (u.a) { return u.r === 'admin'; } } return false; }
-// ✅
-function estAdministrateurActif(utilisateur?: Utilisateur): boolean {
-  if (!utilisateur?.actif) return false;
-  return utilisateur.role === 'admin';
+// ✅ Le nom raconte l'intention, pas d'imbrication
+function isActiveAdmin(user?: User): boolean {
+  if (!user?.active) return false;
+  return user.role === 'admin';
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Le nom de la fonction raconte l'intention ; le guard clause supprime l'imbrication.
+## Les règles de nommage
 
----
+| Élément | Règle | ✅ | ❌ |
+|---|---|---|---|
+| Variable | ce qu'elle **contient** | `unseenMovies` | `data2`, `tmp`, `list` |
+| Booléen | une **question** | `isFavorite`, `canEdit`, `hasError` | `favorite`, `flag` |
+| Fonction | un **verbe** d'action | `loadMovies()`, `toggleFavorite()` | `movies()`, `handle()` |
+| Tableau | au **pluriel** | `movies` | `movieList`, `arr` |
+| Constante | ce que vaut le nombre | `SEARCH_DELAY_MS = 300` | `300` perdu dans le code |
 
-## Pour aller plus loin (niveau senior)
+Pas d'abréviation obscure : `movieService`, pas `mvSvc`. Et une **seule langue** dans le code (l'anglais, comme les frameworks).
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir justifier un refactoring par son coût/bénéfice
+## Les règles de structure
 
----
+**Sortir tôt plutôt qu'imbriquer** (*guard clauses*) :
 
-## Connexions
+```ts
+// ❌ pyramide
+if (user) {
+  if (movie) {
+    if (!alreadyFavorite) {
+      addFavorite();
+    }
+  }
+}
 
-**Arbre théorique :**
-- Sujet parent → [[Théorie Générale]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+// ✅ on élimine les cas un par un
+if (!user || !movie) return;
+if (alreadyFavorite) return;
+addFavorite();
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/tg-08-lisibilite-nommage]]
-- Projet → [[02_Projects/CinéTrack]]
+**Une fonction fait une seule chose** : si son nom contient « et » (`loadAndDisplayAndSave`), découpe-la.
 
----
+**Pas de nombre magique** :
 
-## Auto-vérification
+```ts
+// ❌ debounceTime(300)          pourquoi 300 ?
+// ✅ debounceTime(SEARCH_DELAY_MS)
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle est la différence entre complexité essentielle et accidentelle ?
+## Les commentaires
 
----
+- Commente le **pourquoi**, pas le **quoi** (le code dit déjà quoi).
+- Un commentaire qui explique un nom obscur → **renomme** plutôt.
+- Voir [[METH-04-Documentation-Technique|Documentation technique]].
 
-## Tâches
+## Les outils qui aident
 
-- [ ] #task Renommer 10 variables/fonctions d'un ancien projet
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+- **ESLint** et **Prettier** : style et erreurs courantes corrigés automatiquement (voir [[TEST-08-Qualite-Lint-SonarQube|Qualité et lint]]).
+- **Renommer** avec l'IDE (`Maj + F6` dans IntelliJ) : tous les usages sont mis à jour (voir [[IJ-04-Refactoring|Refactoring]]).
+- **La relecture** de MR : si le relecteur pose une question, le code n'était pas assez clair (voir [[TEST-07-Code-Review|Code review]]).
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Être astucieux** : une ligne géniale mais illisible coûte plus cher que trois lignes claires.
+- **Des noms qui mentent** : `getMovies()` qui modifie aussi la base.
+- **Mélanger français et anglais** dans les noms.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,14 +10,9 @@ tags:
 aliases:
   - "Synchrone vs Asynchrone"
 parent: "[[Théorie Générale]]"
-children:
-  - "[[JS-06-Event-Loop|Event Loop JavaScript]]"
-  - "[[JS-07-Promises-Async-Await|Promises et Async Await JavaScript]]"
 related_theory:
   - "[[ANG-08-RxJS|Programmation Réactive RxJS Angular]]"
   - "[[PY-15-Async-Asyncio|Async en Python (asyncio)]]"
-related_snippets:
-  - "[[04_Snippets/tg-04-synchrone-vs-asynchrone]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Introducing"
@@ -25,126 +20,73 @@ source: "https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Int
 
 # Synchrone vs Asynchrone
 
-> [!abstract] Introduction
-> Synchrone : chaque instruction attend la fin de la précédente. Asynchrone : on lance une opération longue (réseau, disque, timer) et on continue, le résultat arrivera plus tard — la base de toute application web.
+> [!abstract] En bref
+> **Synchrone** : chaque ligne attend que la précédente soit finie. **Asynchrone** : on lance une opération longue (appel réseau, lecture de fichier, minuteur) et on **continue**, le résultat arrivera plus tard. C'est comme au restaurant : tu passes commande, puis tu discutes en attendant le plat, au lieu de fixer la cuisine sans bouger. Toute application web repose là-dessus.
 
----
+## Voir la différence
 
-## Théorie
+```ts
+console.log('1 : je commande');
+setTimeout(() => console.log('3 : le plat arrive'), 1000);
+console.log('2 : je discute en attendant');
+```
 
-> [!question]- C'est quoi ?
-> ```javascript
-> console.log("1 : je commande");
-> setTimeout(() => console.log("3 : la commande arrive"), 1000);
-> console.log("2 : je continue ma vie");
-> ```
-> Concepts voisins à ne pas confondre :
-> - **Concurrence** : gérer plusieurs tâches qui avancent en alternance (event loop JS)
-> - **Parallélisme** : exécuter réellement plusieurs tâches en même temps sur plusieurs cœurs (threads, workers)
+Affiche `1`, `2`, puis `3` une seconde plus tard. Le programme n'a **pas attendu**.
 
-> [!example]- Analogie
-> Synchrone : faire la queue au guichet sans rien faire d'autre. Asynchrone : prendre un ticket, aller boire un café, revenir quand son numéro s'affiche.
+## Pourquoi c'est indispensable
 
-> [!question]- Pourquoi l'utiliser ?
-> Les opérations d'entrée/sortie (I/O) sont des milliers de fois plus lentes que le CPU : les attendre en bloquant gaspillerait tout. Une UI bloquée = application figée.
+Un appel réseau prend 100 à 1 000 ms. Le processeur, lui, fait des millions d'opérations pendant ce temps.
 
-> [!question]- Comment ça marche ?
-> Évolution en JS : callbacks → Promises → async/await → Observables (flux). Côté serveur, Node gère des milliers de connexions sur un seul thread grâce à l'I/O non bloquante ; Java/Spring utilise classiquement un thread par requête (ou threads virtuels).
-
-### Schéma
+Si le navigateur **attendait** la réponse, la page serait **figée** : impossible de cliquer, de défiler, de taper. Avec l'asynchrone, l'interface reste fluide pendant le chargement.
 
 ```mermaid
 sequenceDiagram
-  participant App
-  participant API
-  App->>API: requête (non bloquante)
-  Note over App: continue : clics, rendu…
-  API-->>App: réponse (callback / Promise)
-  App->>App: met à jour l'écran
+  participant App as Front
+  participant API as API
+  App->>API: GET /movies
+  Note over App: l'interface reste utilisable<br/>(spinner, clics, défilement)
+  API-->>App: réponse
+  App->>App: affiche les films
 ```
 
----
+## Comment on écrit de l'asynchrone
 
-## Vocabulaire
+| Outil | Pour | Note |
+|---|---|---|
+| **callback** | ancienne façon | à éviter aujourd'hui |
+| **Promise** + `async` / `await` | **une** valeur qui arrivera plus tard | [[JS-07-Promises-Async-Await\|Promises et async/await]] |
+| **Observable** (RxJS) | un **flux** de valeurs (saisie, WebSocket) | [[ANG-08-RxJS\|RxJS]] |
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| I/O | Entrées/sorties (réseau, disque) |
-| Bloquant | Qui empêche la suite de s'exécuter |
-| Callback | Fonction appelée quand le résultat arrive |
-| Concurrence | Alternance de tâches |
-| Parallélisme | Exécution simultanée réelle |
-
----
-
-## Points clés
-
-- Asynchrone ≠ parallèle en JavaScript
-- Toute I/O est asynchrone dans le navigateur
-- Promise = une valeur future ; Observable = un flux de valeurs
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Utiliser une valeur asynchrone avant qu'elle soit arrivée (`undefined`)
-> - Enchaîner séquentiellement des appels indépendants
-
----
-
-## Exemple minimal
-
-```typescript
-// Séquentiel : ~2 s
-const a = await chargerFilms();
-const b = await chargerGenres();
-// Concurrent : ~1 s
-const [films, genres] = await Promise.all([chargerFilms(), chargerGenres()]);
+```ts
+async function loadMovie(id: number) {
+  const response = await fetch(`/api/movies/${id}`);   // on attend ici, sans bloquer la page
+  return response.json();
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Lancer d'abord, attendre ensuite : les deux requêtes voyagent en même temps.
+## Lancer en parallèle quand c'est possible
 
----
+```ts
+// ❌ l'un après l'autre : ~2 s
+const movies = await loadMovies();
+const genres = await loadGenres();
 
-## Pour aller plus loin (niveau senior)
+// ✅ les deux en même temps : ~1 s
+const [movies, genres] = await Promise.all([loadMovies(), loadGenres()]);
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Comprendre backpressure, annulation, race conditions (switchMap)
+Si les deux appels ne dépendent pas l'un de l'autre, lance-les **ensemble**.
 
----
+## Concurrence et parallélisme
 
-## Connexions
+- **Concurrence** : plusieurs tâches **avancent en alternance** sur un seul fil. C'est ce que fait JavaScript avec l'[[JS-06-Event-Loop|event loop]] : pendant qu'une requête attend le réseau, il s'occupe d'autre chose.
+- **Parallélisme** : plusieurs tâches tournent **vraiment en même temps** sur plusieurs cœurs (threads, Web Workers).
 
-**Arbre théorique :**
-- Sujet parent → [[Théorie Générale]]
-- Sous-sujets → [[JS-06-Event-Loop|Event Loop JavaScript]], [[JS-07-Promises-Async-Await|Promises et Async Await JavaScript]]
-- À comparer avec → (—)
+JavaScript est asynchrone mais **pas parallèle** : un gros calcul bloque quand même la page.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/tg-04-synchrone-vs-asynchrone]]
-- Projet → [[02_Projects/CinéTrack]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle différence entre concurrence et parallélisme ?
-
-> [!faq]- Questions d'entretien
-> - JavaScript est mono-thread : comment gère-t-il plusieurs requêtes ?
-
----
-
-## Tâches
-
-- [ ] #task Mesurer séquentiel vs Promise.all sur deux fetch
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Utiliser la donnée avant qu'elle arrive** : elle vaut `undefined`.
+- **Oublier `await`** : tu obtiens une Promise au lieu de la valeur.
+- **Enchaîner des appels indépendants** au lieu de les lancer ensemble.
+- **Un calcul très lourd** dans le navigateur : l'asynchrone ne l'empêche pas de figer la page.

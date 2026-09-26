@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Typage Statique et Dynamique"
 parent: "[[Théorie Générale]]"
-children: []
 related_theory:
   - "[[TS-01-Fondamentaux|Fondamentaux TypeScript]]"
   - "[[PY-16-Typage-Type-Hints|Typage et Type Hints Python]]"
-related_snippets:
-  - "[[04_Snippets/tg-03-typage-statique-dynamique]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://fr.wikipedia.org/wiki/Typage_(informatique)"
@@ -23,110 +20,73 @@ source: "https://fr.wikipedia.org/wiki/Typage_(informatique)"
 
 # Typage Statique et Dynamique
 
-> [!abstract] Introduction
-> Un langage est typé statiquement (types vérifiés avant exécution) ou dynamiquement (à l'exécution), et fortement ou faiblement (conversions implicites ou non) — deux axes indépendants.
+> [!abstract] En bref
+> Un **type** dit ce qu'une variable contient (un nombre, un texte, un film…). Avec un typage **statique** (TypeScript, Java), les erreurs de type sont repérées **avant** de lancer le programme, dans l'éditeur. Avec un typage **dynamique** (JavaScript, Python), on les découvre **en l'exécutant**, parfois chez l'utilisateur. C'est comme vérifier les bagages à l'enregistrement plutôt qu'à l'arrivée.
 
----
+## Statique ou dynamique
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> | | Fort | Faible |
-> |---|---|---|
-> | **Statique** | Java, C#, Rust, TypeScript (≈) | C |
-> | **Dynamique** | Python, Ruby | JavaScript, PHP |
-> TypeScript ajoute un typage statique **structurel** (compatibilité par forme) à JavaScript.
-
-> [!example]- Analogie
-> Statique : on vérifie les bagages à l'enregistrement. Dynamique : on découvre le problème en ouvrant la valise à destination.
-
-> [!question]- Pourquoi l'utiliser ?
-> Comprendre ce que TS apporte, pourquoi Java et TS ne se comportent pas pareil (nominal vs structurel), et choisir un backend.
-
-> [!question]- Comment ça marche ?
-> - **Nominal** (Java, C#) : deux classes identiques mais de noms différents sont incompatibles
-> - **Structurel** (TypeScript, Go) : si la forme correspond, c'est compatible (« duck typing » vérifié)
-> - **Inférence** : le compilateur devine le type
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Statique | Types vérifiés avant exécution |
-| Dynamique | Types vérifiés à l'exécution |
-| Structurel | Compatibilité selon la forme |
-| Nominal | Compatibilité selon le nom déclaré |
-| Inférence | Déduction automatique du type |
-
----
-
-## Points clés
-
-- Statique/dynamique et fort/faible sont deux axes différents
-- TypeScript est structurel : un objet littéral peut satisfaire une interface sans `implements`
-- Les types statiques sont une documentation vérifiée
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Croire qu'un objet « est » une instance de l'interface (les interfaces n'existent pas au runtime, `instanceof Interface` impossible)
-
----
-
-## Exemple minimal
-
-```typescript
-interface AvecTitre { titre: string }
-class Livre { constructor(public titre: string, public auteur: string) {} }
-const x: AvecTitre = new Livre("Dune", "Herbert");  // ✅ structurel : la forme suffit
+```js
+// JavaScript : aucune alerte, ça plante à l'exécution
+function price(movie) {
+  return movie.price.toFixed(2);
+}
+price({ title: 'Dune' });   // 💥 TypeError: Cannot read properties of undefined
 ```
 
-> [!note] Ce que j'en retiens
-> En TS, c'est la forme qui compte, pas le nom de la classe.
+```ts
+// TypeScript : l'éditeur souligne l'erreur avant même de lancer
+function price(movie: { price: number }) {
+  return movie.price.toFixed(2);
+}
+price({ title: 'Dune' });   // ❌ erreur : la propriété 'price' est manquante
+```
 
----
+| | Statique | Dynamique |
+|---|---|---|
+| Erreurs de type trouvées | **en écrivant le code** | **en l'exécutant** |
+| Autocomplétion | précise | approximative |
+| Exemples | TypeScript, Java, C#, Go | JavaScript, Python, PHP |
 
-## Pour aller plus loin (niveau senior)
+## Fort ou faible : un autre axe
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir argumenter les compromis statique/dynamique pour un choix de stack
+Un langage **faible** convertit tout seul les types quand ils ne collent pas. Un langage **fort** refuse.
 
----
+```js
+'5' + 1    // JavaScript : '51' (le nombre devient du texte)
+'5' * 2    // JavaScript : 10  (le texte devient un nombre)
+```
 
-## Connexions
+```python
+'5' + 1    # Python : erreur, on ne mélange pas texte et nombre
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Théorie Générale]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+JavaScript est **dynamique et faible**, d'où ses surprises (voir [[JS-02-Types-Coercition-Egalite|Types et coercition]]). TypeScript ajoute la vérification statique par-dessus.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/tg-03-typage-statique-dynamique]]
-- Projet → [[02_Projects/CinéTrack]]
+## TypeScript regarde la forme, pas le nom
 
----
+En Java, deux classes identiques mais de noms différents sont incompatibles (typage **nominal**). En TypeScript, si la **forme** correspond, c'est bon (typage **structurel**) :
 
-## Auto-vérification
+```ts
+interface HasTitle { title: string }
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `instanceof MonInterface` est-il impossible en TS ?
+class Book {
+  constructor(public title: string, public author: string) {}
+}
 
-> [!faq]- Questions d'entretien
-> - TypeScript est-il nominal ou structurel ?
+const item: HasTitle = new Book('Dune', 'Herbert');   // ✅ il a un title : ça suffit
+const other: HasTitle = { title: 'Alien' };           // ✅ un simple objet aussi
+```
 
----
+## L'inférence : pas besoin de tout annoter
 
-## Tâches
+```ts
+const year = 2024;                       // TypeScript sait que c'est un number
+const titles = movies.map((m) => m.title); // il sait que c'est un string[]
+```
 
-- [ ] #task Comparer le même code en Python annoté, TypeScript et Java
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Annote surtout les **paramètres** de fonctions et les données qui viennent de l'**extérieur**.
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Croire que les types existent à l'exécution** : ils sont effacés (voir [[TG-01-Comment-fonctionne-un-programme|Comment fonctionne un programme]]). `instanceof MonInterface` est impossible.
+- **Mettre `any` partout** : tu retombes en JavaScript sans filet. Préfère `unknown` puis vérifie.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Programmation Fonctionnelle"
 parent: "[[Théorie Générale]]"
-children: []
 related_theory:
   - "[[PY-12-Fonctionnel-Lambda|Programmation Fonctionnelle Lambda Python]]"
   - "[[JS-05-Objets-Tableaux-Methodes|Objets et Tableaux JavaScript]]"
-related_snippets:
-  - "[[04_Snippets/tg-06-programmation-fonctionnelle]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"
@@ -23,118 +20,83 @@ source: "https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"
 
 # Programmation Fonctionnelle
 
-> [!abstract] Introduction
-> La programmation fonctionnelle construit des programmes en composant des fonctions pures sur des données immuables — l'esprit de RxJS, des signals `computed`, des reducers et de `map/filter/reduce`.
+> [!abstract] En bref
+> La programmation **fonctionnelle**, c'est construire son code avec des **fonctions simples et prévisibles** qu'on enchaîne, sans modifier les données existantes. Tu en fais déjà : `map`, `filter`, `reduce`, les `computed`, les opérateurs RxJS. Trois idées suffisent : les **fonctions pures**, l'**immutabilité**, et les **fonctions traitées comme des valeurs**.
 
-> [!warning]- Prérequis
-> [[JS-03-Fonctions-Scope-Closures|Fonctions Scope et Closures JavaScript]]
+## 1. Les fonctions pures
 
----
+Une fonction **pure** est comme une calculatrice : **même entrée → même résultat**, et elle ne touche à **rien d'autre**.
 
-## Théorie
+```ts
+// ✅ Pure : dépend seulement de ses paramètres, ne modifie rien
+const filterByTitle = (movies: Movie[], text: string) =>
+  movies.filter((m) => m.title.toLowerCase().includes(text.toLowerCase()));
 
-> [!question]- C'est quoi ?
-> Principes :
-> - **Fonctions pures** : même entrée → même sortie, aucun effet de bord
-> - **Immutabilité** : on ne modifie pas, on crée
-> - **Fonctions d'ordre supérieur** et **composition**
-> - **Déclaratif** : dire QUOI obtenir plutôt que COMMENT boucler
-
-> [!example]- Analogie
-> Une fonction pure est une calculatrice : 2 + 2 donne toujours 4, sans rien changer ailleurs. Un effet de bord, c'est une calculatrice qui enverrait aussi un SMS à chaque calcul.
-
-> [!question]- Pourquoi l'utiliser ?
-> Code prévisible, facile à tester (pas de mock), parallélisable, et compatible avec la détection de changements par référence.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> const total = (lignes: Ligne[]) => lignes.reduce((s, l) => s + l.prix * l.qte, 0);  // pure
-> const pipe = <T>(...fns: Array<(x: T) => T>) => (x: T) => fns.reduce((v, f) => f(v), x);
-> const normaliser = pipe<string>(s => s.trim(), s => s.toLowerCase());
-> ```
-> Les effets de bord (HTTP, DOM, logs) sont repoussés aux bords du programme (services, `effect()`, `tap()`).
-
-> [!question]- Quand l'utiliser ?
-> Logique métier et calculs dérivés : toujours viser la pureté. Isoler les effets de bord.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Tout en immuable peut coûter en performance sur de très grosses structures ; le « tout fonctionnel » dogmatique nuit à la lisibilité en équipe.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Fonction pure | Sans effet de bord, déterministe |
-| Effet de bord | Action qui modifie l'extérieur |
-| Composition | Enchaîner des fonctions |
-| Déclaratif | Décrire le résultat plutôt que les étapes |
-
----
-
-## Points clés
-
-- Calculs purs, effets isolés
-- `computed()` doit être pur, `effect()` sert aux effets
-- Opérateurs RxJS = composition de fonctions
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Mettre un appel HTTP dans un `computed`/`map`
-
----
-
-## Exemple minimal
-
-```typescript
-// Pur, testable sans rien mocker
-export const filtrerFilms = (films: Film[], texte: string) =>
-  films.filter(f => f.titre.toLowerCase().includes(texte.toLowerCase()));
+// ❌ Impure : dépend d'une variable extérieure et modifie l'extérieur
+let count = 0;
+function filterAndCount(movies: Movie[]) {
+  count++;                                        // effet de bord
+  return movies.filter((m) => m.year > minYear);  // dépend de minYear, défini ailleurs
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Une fonction pure se teste avec une simple assertion.
+Pourquoi c'est bien : une fonction pure se **teste** en une ligne, sans rien simuler, et ne crée **jamais** de surprise.
 
----
+Un **effet de bord**, c'est tout ce qui touche l'extérieur : appel HTTP, modification du DOM, `console.log`, écriture en base. On en a besoin, mais on les **regroupe** à des endroits précis (services, `effect()`, `tap()`).
 
-## Pour aller plus loin (niveau senior)
+## 2. L'immutabilité
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Reconnaître les concepts fonctionnels dans RxJS (map, flatMap = monades simplifiées)
+On ne **modifie** pas une donnée : on en crée une **nouvelle** version.
 
----
+```ts
+const updated = { ...movie, rating: 5 };           // nouvel objet
+const withNew = [...movies, newMovie];             // nouveau tableau
+const without = movies.filter((m) => m.id !== id); // nouveau tableau
+```
 
-## Connexions
+C'est ce qui permet aux frameworks de détecter les changements (voir [[TG-02-Memoire-Valeur-Reference|Valeur et référence]]).
 
-**Arbre théorique :**
-- Sujet parent → [[Théorie Générale]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[TG-05-Paradigmes-POO|Programmation Orientée Objet]]
+## 3. Les fonctions sont des valeurs
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/tg-06-programmation-fonctionnelle]]
-- Projet → [[02_Projects/CinéTrack]]
+Une fonction peut être rangée dans une variable, passée en paramètre ou renvoyée par une autre fonction, **comme un nombre ou un texte**.
 
----
+```ts
+const double = (n: number) => n * 2;    // une fonction rangée dans une variable
+[1, 2, 3].map(double);                  // passée en paramètre → [2, 4, 6]
 
-## Auto-vérification
+const greaterThan = (min: number) => (n: number) => n > min;  // renvoie une fonction
+const isRecent = greaterThan(2020);
+isRecent(2024);                          // true
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Qu'est-ce qu'un effet de bord ? Donne 3 exemples en front.
+Une fonction qui reçoit ou renvoie une fonction s'appelle une fonction **d'ordre supérieur** (`map`, `filter`, `setTimeout`…). `greaterThan` garde `min` en mémoire : c'est une [[JS-03-Fonctions-Scope-Closures|closure]].
 
----
+## Déclaratif plutôt qu'impératif
 
-## Tâches
+```ts
+// Impératif : on décrit COMMENT faire, étape par étape
+const titles: string[] = [];
+for (const m of movies) {
+  if (m.year >= 2020) titles.push(m.title.toUpperCase());
+}
 
-- [ ] #task Extraire la logique de filtrage d'un composant en fonctions pures testées
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+// Déclaratif : on décrit CE QU'ON VEUT
+const titles2 = movies
+  .filter((m) => m.year >= 2020)
+  .map((m) => m.title.toUpperCase());
+```
 
----
+## Où tu la retrouves
 
-## Notes brutes
+| Outil | Règle fonctionnelle |
+|---|---|
+| `computed()` (Angular, Vue) | doit être **pur** : un calcul, pas d'appel HTTP |
+| `effect()`, `watch` | l'endroit prévu pour les **effets de bord** |
+| opérateurs RxJS (`map`, `filter`) | des fonctions enchaînées dans un `pipe` |
+| reducers, stores | renvoient un **nouvel** état |
 
-- ?
+## Pièges
+
+- **Un appel HTTP ou une modification dans un `computed` ou un `map`.**
+- **Modifier le tableau reçu** en paramètre (`sort`, `push`) au lieu d'en créer un nouveau.
+- **Tout vouloir en fonctionnel** au point de rendre le code illisible pour l'équipe.

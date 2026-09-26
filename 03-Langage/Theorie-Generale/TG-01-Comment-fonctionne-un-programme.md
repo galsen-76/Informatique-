@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,7 @@ tags:
 aliases:
   - "Comment fonctionne un programme"
 parent: "[[Théorie Générale]]"
-children:
-  - "[[TG-02-Memoire-Valeur-Reference|Mémoire Valeur et Référence]]"
-  - "[[TG-03-Typage-Statique-Dynamique|Typage Statique et Dynamique]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/tg-01-comment-fonctionne-un-programme]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://fr.wikipedia.org/wiki/Compilateur"
@@ -23,120 +18,74 @@ source: "https://fr.wikipedia.org/wiki/Compilateur"
 
 # Comment fonctionne un programme
 
-> [!abstract] Introduction
-> Un programme est une suite d'instructions qu'un processeur exécute ; entre le code que tu écris et ce que la machine comprend, il y a un compilateur, un interpréteur ou un moteur JIT.
+> [!abstract] En bref
+> Le processeur ne comprend que des instructions très simples en binaire. Entre le code que tu écris et ce qu'il exécute, des outils **traduisent**. Comprendre cette chaîne explique beaucoup de choses du quotidien : pourquoi TypeScript a une étape de build, pourquoi les types **disparaissent** à l'exécution, ce que fait vraiment `ng build` ou `npm run build`.
 
----
+## Les façons de traduire
 
-## Théorie
+| Méthode | Image | Langages |
+|---|---|---|
+| **Compilé** | traduire tout le livre avant de le publier | C, Rust, Go |
+| **Interprété** | un interprète traduit phrase par phrase pendant le discours | Bash, Python |
+| **Machine virtuelle** | traduit vers une langue intermédiaire, lue par une machine virtuelle | Java (JVM), C# |
+| **JIT** (*just in time*) | l'interprète prépare à l'avance la traduction des phrases qui reviennent souvent | JavaScript (moteur V8) |
+| **Transpilé** | traduit vers un autre langage du même niveau | **TypeScript → JavaScript** |
 
-> [!question]- C'est quoi ?
-> - **Compilé** (C, Rust, Go) : traduit entièrement en code machine avant exécution
-> - **Interprété** (Python historique, Bash) : lu et exécuté ligne par ligne
-> - **Bytecode + VM** (Java, C#) : compilé vers un code intermédiaire exécuté par une machine virtuelle (JVM, CLR)
-> - **JIT** (JavaScript V8, Java HotSpot) : compile à la volée les parties souvent exécutées
-> - **Transpilé** (TypeScript → JavaScript) : traduit vers un autre langage de même niveau
-
-> [!example]- Analogie
-> Compiler, c'est traduire un livre entier avant de le publier ; interpréter, c'est un interprète qui traduit phrase par phrase pendant un discours ; le JIT, c'est un interprète qui, remarquant qu'une phrase revient souvent, en prépare une traduction toute faite.
-
-> [!question]- Pourquoi l'utiliser ?
-> Comprendre pourquoi TypeScript a une étape de build, pourquoi une erreur de type n'existe plus à l'exécution, pourquoi Java a besoin d'une JVM, et ce que fait réellement `ng build`.
-
-> [!question]- Comment ça marche ?
-> Cycle général : code source → analyse (lexer/parser → arbre syntaxique AST) → vérifications → génération de code → exécution.
-> Le processeur exécute des instructions simples ; le système d'exploitation gère la mémoire, les fichiers, le réseau et les processus.
-
-### Schéma
+## Le chemin de ton code TypeScript
 
 ```mermaid
 flowchart LR
-  TS["Code TypeScript"] -->|"tsc / esbuild"| JS["JavaScript"]
-  JS -->|"bundler (Vite)"| B["Bundle optimisé"]
-  B -->|"navigateur"| V8["Moteur V8<br/>parse → bytecode → JIT"]
-  V8 --> CPU["Instructions CPU"]
+  TS["ton code TypeScript"] -->|"tsc / esbuild<br/>retire les types"| JS["JavaScript"]
+  JS -->|"Vite / Angular CLI<br/>regroupe et compresse"| B["bundle"]
+  B -->|"navigateur"| V8["moteur V8<br/>lit, optimise"]
+  V8 --> CPU["processeur"]
 ```
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Compilateur | Traduit un programme avant son exécution |
-| Interpréteur | Exécute le code source directement |
-| AST | Arbre syntaxique représentant le code |
-| Runtime | Environnement d'exécution (Node, navigateur, JVM) |
-| Processus | Programme en cours d'exécution avec sa mémoire |
-
----
-
-## Points clés
-
-- TypeScript est transpilé : les types n'existent plus au runtime
-- JS est exécuté par un moteur JIT (V8)
-- Un « runtime » fournit les APIs (DOM dans le navigateur, fichiers dans Node)
-- Les linters, formateurs et compilateurs travaillent tous sur l'AST
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Croire qu'une vérification de type TS protège à l'exécution (données d'API)
-
----
-
-## Exemple minimal
-
-```bash
-npx tsc film.ts        # produit film.js sans les types
-node film.js           # V8 exécute le JavaScript
+```ts
+// Ce que tu écris
+function greet(name: string): string {
+  return `Bonjour ${name}`;
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Le code qui tourne n'est jamais exactement celui que j'écris : il est transformé par des outils.
+```js
+// Ce que le navigateur reçoit : plus aucun type
+function greet(name) {
+  return `Bonjour ${name}`;
+}
+```
 
----
+## La conséquence la plus importante
 
-## Pour aller plus loin (niveau senior)
+Les types TypeScript sont vérifiés **pendant que tu codes**, puis **effacés**. À l'exécution, ils n'existent plus.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir expliquer ce que fait un bundler (graphe de dépendances, tree-shaking, minification, source maps)
-> - Utiliser AST Explorer pour comprendre ESLint/codemods
+```ts
+const movie = (await response.json()) as Movie;   // TypeScript te croit sur parole
+movie.title.toUpperCase();                        // plante si l'API a renvoyé autre chose
+```
 
----
+Les données qui viennent de l'extérieur (API, formulaire, fichier) doivent donc être **vérifiées à l'exécution** : voir [[TS-19-Validation-Runtime-Zod|Zod]].
 
-## Connexions
+## Le « runtime » : là où tourne le code
 
-**Arbre théorique :**
-- Sujet parent → [[Théorie Générale]]
-- Sous-sujets → [[TG-02-Memoire-Valeur-Reference|Mémoire Valeur et Référence]], [[TG-03-Typage-Statique-Dynamique|Typage Statique et Dynamique]]
-- À comparer avec → (—)
+Le même JavaScript peut tourner dans deux environnements, qui ne proposent pas les mêmes outils :
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/tg-01-comment-fonctionne-un-programme]]
-- Projet → [[02_Projects/CinéTrack]]
+| Runtime | Fournit | Ne fournit pas |
+|---|---|---|
+| **Navigateur** | le DOM (`document`), `localStorage`, `fetch` | l'accès aux fichiers de l'ordinateur |
+| **Node.js** | les fichiers, le réseau, les variables d'environnement | `document`, `window` |
 
----
+C'est pour ça que `document` est « undefined » dans un script Node, ou côté serveur.
 
-## Auto-vérification
+## Ce que fait un build front
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi dit-on que TypeScript « disparaît » à l'exécution ?
+1. **Transpiler** TypeScript en JavaScript.
+2. **Regrouper** tous les fichiers en quelques-uns (*bundle*).
+3. **Retirer le code inutilisé** (*tree-shaking*).
+4. **Compresser** (noms raccourcis, espaces retirés : *minification*).
+5. Générer des **source maps** : elles permettent de voir ton vrai code dans les outils de débogage.
 
-> [!faq]- Questions d'entretien
-> - Différence entre langage compilé et interprété ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Compiler un fichier TS à la main et lire le JS produit
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Croire que TypeScript protège à l'exécution** : il ne vérifie rien une fois le code lancé.
+- **Utiliser `document` ou `window` côté serveur** (Node, rendu serveur) : ils n'existent pas.
