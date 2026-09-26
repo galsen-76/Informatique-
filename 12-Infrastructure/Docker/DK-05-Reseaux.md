@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,9 +10,7 @@ aliases:
 tags:
   - infrastructure/docker/reseaux
 parent: "[[Docker]]"
-children: []
 related_theory: []
-related_snippets: []
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.docker.com/network/"
@@ -20,122 +18,55 @@ source: "https://docs.docker.com/network/"
 
 # Réseaux Docker
 
-> [!abstract] Introduction
-> Docker crée des réseaux virtuels isolés permettant aux conteneurs de communiquer entre eux et avec l'extérieur, de façon contrôlée.
+> [!abstract] En bref
+> Les conteneurs sont isolés, mais doivent se parler : l'API a besoin de PostgreSQL. Docker crée des **réseaux virtuels** dans lesquels les conteneurs se trouvent **par leur nom**. Et pour qu'un conteneur soit accessible depuis ta machine, il faut **publier un port**.
 
-> [!warning]- Prérequis
-> [[DK-01-Fondamentaux|Fondamentaux Docker]], [[NET-01-Fondamentaux-OSI-TCP-IP|notions de base réseau]] utile.
+## Les deux directions
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```bash
-> docker run -p 8080:80 nginx
-> ```
-> `8080:80` = le port 80 du conteneur accessible depuis l'hôte sur le port 8080.
-
-> [!example]- Analogie
-> Un port mappé est un standard téléphonique : les appels externes arrivent sur un numéro public (8080), redirigés en interne vers le poste réel (80) — l'appelant n'a jamais besoin de connaître le numéro interne.
-
-> [!question]- Pourquoi l'utiliser ?
-> Isoler chaque application dans son propre réseau évite les conflits et contrôle précisément qui peut parler à qui.
-
-> [!question]- Comment ça marche ?
-> Sur un réseau PERSONNALISÉ, les conteneurs se joignent par leur NOM. Sur le réseau `bridge` par défaut, seule l'adresse IP fonctionne (qui change à chaque redémarrage).
-
-> [!question]- Quand l'utiliser ?
-> Mapping de port : dès qu'un conteneur doit être accessible depuis l'hôte. Réseau personnalisé : dès que plusieurs conteneurs communiquent (Docker Compose le fait automatiquement).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Sans mapping de port explicite, un conteneur reste totalement inaccessible de l'extérieur, même s'il fonctionne parfaitement en interne — piège fréquent en débutant.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Mapping de port | Association `hôte:conteneur` rendant un service accessible |
-| Réseau `bridge` | Réseau par défaut de Docker, sans résolution par nom |
-
----
-
-## Points clés
-
-- `-p hôte:conteneur` rend un port accessible depuis l'hôte
-- Sans mapping, un conteneur reste inaccessible de l'extérieur
-- Réseau personnalisé = résolution par NOM entre conteneurs
-- Docker Compose crée automatiquement ce réseau personnalisé
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `-p` et se demander pourquoi le service est "injoignable" alors qu'il tourne bien
-> - Essayer de joindre un conteneur par son nom sur le réseau `bridge` par défaut (ne fonctionne pas sans réseau personnalisé)
-
----
-
-## Paramètres / Configuration
-
-| Commande | Description |
-|-----------|-------------|
-| `docker run -p 8080:80 image` | Mappe un port |
-| `docker network create nom` | Crée un réseau personnalisé |
-| `docker network ls` | Liste les réseaux |
-
----
-
-## Exemple minimal
-
-```bash
-docker network create app-network
-docker run -d --network app-network --name db postgres:16
-docker run -d --network app-network -e DATABASE_HOST=db mon-backend
+```mermaid
+flowchart LR
+  N["💻 Ta machine<br/>navigateur"] -->|"localhost:3000<br/>(port publié -p 3000:3000)"| A["conteneur api"]
+  subgraph Réseau Docker
+    A -->|"db:5432<br/>(par le nom)"| D["conteneur db"]
+  end
 ```
 
-> [!note] Ce que j'en retiens
-> Le backend accède à `db` par son NOM, sans jamais connaître d'adresse IP.
+| Qui parle à qui | Comment |
+|---|---|
+| ta machine → un conteneur | **publier** le port : `-p 3000:3000` (hôte:conteneur) |
+| conteneur → conteneur (même réseau) | par le **nom du service** : `db:5432` |
+| conteneur → ta machine | `host.docker.internal` (Docker Desktop) |
 
----
+## Avec Compose : automatique
 
-## Pour aller plus loin (niveau senior)
+Tous les services d'un `docker-compose.yml` sont dans le même réseau. L'API se connecte donc avec :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Docker embarque un serveur DNS interne pour les réseaux personnalisés : c'est lui qui résout les noms de conteneurs (réponse à la note brute)
+```bash
+DATABASE_URL=postgresql://cinetrack:motdepasse@db:5432/cinetrack
+```
 
----
+et **pas** `localhost`.
 
-## Connexions
+## Publier ou non un port
 
-**Arbre théorique :**
-- Sujet parent → [[Docker]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[DK-03-Docker-Compose|Docker Compose]]
+| Service | Publier ? |
+|---|---|
+| l'API (en dev) | oui, pour l'appeler depuis le navigateur |
+| PostgreSQL en **développement** | oui, pour y accéder avec IntelliJ ou Prisma Studio |
+| PostgreSQL en **production** | **non** : seule l'API doit y accéder, par le réseau interne |
 
-**Pratique :**
-- Extrait de code → (aucun pour l'instant)
-- Projet → [[02_Projects/CinéTrack]]
+`-p 127.0.0.1:5432:5432` publie seulement pour ta machine, pas pour le réseau local.
 
----
+## Déboguer
 
-## Auto-vérification
+```bash
+docker network ls
+docker network inspect cinetrack_default     # quels conteneurs, quelles IP
+docker compose exec api ping db              # l'API voit-elle la base ?
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi un conteneur sans `-p` reste injoignable, sans dire "port" deux fois ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Créer un réseau personnalisé et connecter deux conteneurs par leur nom
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Comment fonctionne la résolution de nom en coulisses sur un réseau personnalisé ?
+- **`localhost` dans un conteneur** : c'est **lui-même**. Le symptôme : `ECONNREFUSED 127.0.0.1:5432`.
+- **Une application qui écoute sur `127.0.0.1`** dans le conteneur : injoignable, même avec `-p`. Elle doit écouter sur `0.0.0.0` (NestJS : `app.listen(3000, '0.0.0.0')`).
+- **Publier la base de production** sur Internet.

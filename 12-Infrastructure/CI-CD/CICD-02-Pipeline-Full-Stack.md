@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,13 +10,10 @@ tags:
 aliases:
   - "Pipeline CI/CD Full Stack"
 parent: "[[Infrastructure]]"
-children: []
 related_theory:
   - "[[CICD-01-Fondamentaux|Fondamentaux CI/CD]]"
   - "[[03-CI-CD|CI/CD GitLab]]"
   - "[[DK-08-Multi-stage-Builds|Multi-stage Builds Docker]]"
-related_snippets:
-  - "[[04_Snippets/cicd-02-pipeline-full-stack]]"
 related_projects:
   - "[[02_Projects/CinéTrack-Fullstack]]"
 source: "https://docs.gitlab.com/ci/yaml/"
@@ -24,166 +21,127 @@ source: "https://docs.gitlab.com/ci/yaml/"
 
 # Pipeline CI/CD Full Stack
 
-> [!abstract] Introduction
-> Exemple complet de pipeline GitLab pour un monorepo front (Angular ou Vue) + API NestJS : qualité, tests avec PostgreSQL, build d'images Docker, déploiement recette puis production.
+> [!abstract] En bref
+> Le pipeline complet de **CinéTrack Full Stack** (monorepo : front Angular + API NestJS) : vérifications, tests avec une vraie base PostgreSQL, construction des images Docker, déploiement. C'est le livrable du M11, et une excellente pièce de portfolio.
 
-> [!warning]- Prérequis
-> [[03-CI-CD|CI/CD GitLab]], [[DK-08-Multi-stage-Builds|Multi-stage Builds Docker]]
+## Le schéma
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```yaml
-> stages: [quality, test, build, deploy]
-> default:
->   image: node:22
->   cache: { key: { files: [package-lock.json] }, paths: [.npm/] }
->   before_script: [npm ci --cache .npm --prefer-offline]
->
-> lint:
->   stage: quality
->   script: [npm run lint, npm run typecheck]
->
-> test-front:
->   stage: test
->   script: [npm run test --workspace=front -- --run --coverage]
->   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
->
-> test-api:
->   stage: test
->   services: [postgres:17]
->   variables: { POSTGRES_DB: test, POSTGRES_USER: test, POSTGRES_PASSWORD: test, DATABASE_URL: "postgresql://test:test@postgres:5432/test" }
->   script: [npx prisma migrate deploy --schema api/prisma/schema.prisma, npm run test:e2e --workspace=api]
->
-> .docker:
->   stage: build
->   image: docker:27
->   services: [docker:27-dind]
->   before_script: [docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"]
->   rules: [{ if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH }]
->
-> build-api:
->   extends: .docker
->   script:
->     - docker build -t $CI_REGISTRY_IMAGE/api:$CI_COMMIT_SHORT_SHA -f api/Dockerfile .
->     - docker push $CI_REGISTRY_IMAGE/api:$CI_COMMIT_SHORT_SHA
->
-> deploy-recette:
->   stage: deploy
->   image: alpine:3.20
->   environment: { name: recette, url: https://recette.cinetrack.fr }
->   script: [./scripts/deploy.sh recette $CI_COMMIT_SHORT_SHA]
->   rules: [{ if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH }]
->
-> deploy-prod:
->   extends: deploy-recette
->   environment: { name: production, url: https://cinetrack.fr }
->   script: [./scripts/deploy.sh production $CI_COMMIT_SHORT_SHA]
->   when: manual
-> ```
-
-> [!example]- Analogie
-> Le plan de vol complet d'un avion : chaque étape est vérifiée, et le décollage en production nécessite l'accord du commandant (bouton manuel).
-
-> [!question]- Pourquoi l'utiliser ?
-> Voir comment toutes les notions (tests, BDD de test, Docker, registry, environnements, secrets) s'assemblent dans un vrai projet.
-
-> [!question]- Comment ça marche ?
-> Points clés :
-> - `before_script` + cache npm par lockfile
-> - Service PostgreSQL éphémère pour les tests d'API
-> - Images taguées par SHA, construites seulement sur `main`
-> - `environment` : GitLab suit ce qui est déployé où
-> - Production : `when: manual` (continuous delivery)
-> - Migrations BDD appliquées par le script de déploiement AVANT de basculer le trafic
-
-> [!question]- Quand l'utiliser ?
-> Projet full stack d'équipe ou projet perso « vitrine » pour le portfolio.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Docker-in-Docker nécessite des runners privilégiés ; alternatives : Kaniko, Buildah.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Monorepo | Front et back dans le même dépôt |
-| dind | Docker in Docker |
-| Environment | Cible de déploiement suivie par GitLab |
-| `extends` | Héritage de configuration entre jobs |
-
----
-
-## Points clés
-
-- Qualité → tests → build → déploiement
-- Même image en recette et en prod
-- Production manuelle au début
-- Migrations avant bascule
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Déployer sans avoir exécuté les migrations
-> - Variables sensibles non masquées dans les logs
-
----
-
-## Exemple minimal
-
-```bash
-# scripts/deploy.sh (simplifié, sur un VPS)
-ssh deploy@$HOST "cd /srv/cinetrack && \
-  TAG=$2 docker compose pull && \
-  TAG=$2 docker compose run --rm api npx prisma migrate deploy && \
-  TAG=$2 docker compose up -d"
+```mermaid
+flowchart LR
+  subgraph lint
+    LW["web : lint + types"]
+    LA["api : lint + types"]
+  end
+  subgraph test
+    TW["web : Vitest"]
+    TA["api : unitaires + e2e<br/>(service PostgreSQL)"]
+  end
+  subgraph build
+    BW["image web (Nginx)"]
+    BA["image api"]
+  end
+  subgraph deploy
+    ST["staging (auto)"]
+    PR["production (bouton)"]
+  end
+  lint --> test --> build --> deploy
 ```
 
-> [!note] Ce que j'en retiens
-> Pull, migrer, redémarrer : trois étapes reproductibles.
+## Le fichier `.gitlab-ci.yml`
 
----
+```yaml
+stages: [lint, test, build, deploy]
 
-## Pour aller plus loin (niveau senior)
+default:
+  image: node:22-alpine
+  cache:
+    key: { files: [package-lock.json] }
+    paths: [.npm/]
+  before_script:
+    - npm ci --cache .npm --prefer-offline
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Review apps par MR, rollback automatisé, déploiement GitOps (Argo CD)
+# ── Vérifications rapides ──
+lint:
+  stage: lint
+  script:
+    - npm run lint --workspaces
+    - npx tsc -p apps/api --noEmit
 
----
+# ── Tests ──
+test-web:
+  stage: test
+  script:
+    - npm run test --workspace apps/web -- --no-watch
 
-## Connexions
+test-api:
+  stage: test
+  services:
+    - name: postgres:17
+      alias: db
+  variables:
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test
+    POSTGRES_DB: cinetrack_test
+    DATABASE_URL: postgresql://test:test@db:5432/cinetrack_test
+    JWT_SECRET: secret-de-test-assez-long-pour-la-validation-32c
+  script:
+    - npx prisma migrate deploy --schema apps/api/prisma/schema.prisma
+    - npm run test:e2e --workspace apps/api
 
-**Arbre théorique :**
-- Sujet parent → [[Infrastructure]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+# ── Images Docker ──
+.build-image:
+  stage: build
+  image: docker:27
+  services: [docker:27-dind]
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/cicd-02-pipeline-full-stack]]
-- Projet → [[02_Projects/CinéTrack-Fullstack]]
+build-web:
+  extends: .build-image
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE/web:$CI_COMMIT_SHORT_SHA apps/web
+    - docker push $CI_REGISTRY_IMAGE/web:$CI_COMMIT_SHORT_SHA
 
----
+build-api:
+  extends: .build-image
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE/api:$CI_COMMIT_SHORT_SHA apps/api
+    - docker push $CI_REGISTRY_IMAGE/api:$CI_COMMIT_SHORT_SHA
 
-## Auto-vérification
+# ── Déploiement ──
+deploy-staging:
+  stage: deploy
+  script: ./scripts/deploy.sh staging $CI_COMMIT_SHORT_SHA
+  environment: { name: staging, url: https://staging.cinetrack.fr }
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi les migrations doivent-elles être compatibles avec l'ancienne version du code ?
+deploy-prod:
+  stage: deploy
+  script: ./scripts/deploy.sh production $CI_COMMIT_SHORT_SHA
+  environment: { name: production, url: https://cinetrack.fr }
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+```
 
----
+## Les points importants
 
-## Tâches
+| Point | Pourquoi |
+|---|---|
+| lint et tests sur **toutes** les MR, build et déploiement seulement sur `main` | retour rapide sur les MR, rien ne part en ligne sans fusion |
+| **service PostgreSQL** pour les tests d'API | tester avec une vraie base, jetable |
+| image étiquetée avec l'**id du commit** | savoir exactement ce qui tourne, pouvoir revenir en arrière |
+| production **manuelle** au début | garder le contrôle ; passer en automatique quand la confiance est là |
+| secrets dans les **variables GitLab** | jamais dans le fichier |
+| **migrations** lancées au déploiement | la base suit le code |
 
-- [ ] #task Mettre en place ce pipeline sur CinéTrack (GitLab.com gratuit)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Le script `deploy.sh` dépend de l'hébergement : mettre à jour l'image sur un serveur avec Docker Compose, ou chez un hébergeur (voir [[CLOUD-03-Heberger-API-BDD|Héberger l'API]]).
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Un pipeline de 30 minutes** : cache les dépendances, parallélise les jobs, lance les tests lents seulement quand il faut.
+- **Des tests qui dépendent du réseau** (vraie API TMDB) : instables, simule l'API.
+- **Déployer une image reconstruite** au lieu de celle testée : ce n'est plus le même artefact.

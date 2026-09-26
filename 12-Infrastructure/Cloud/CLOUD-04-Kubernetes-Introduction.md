@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,152 +10,95 @@ tags:
 aliases:
   - "Kubernetes Introduction"
 parent: "[[Infrastructure]]"
-children: []
 related_theory:
   - "[[DK-01-Fondamentaux|Fondamentaux Docker]]"
   - "[[CICD-03-Strategies-Deploiement|Stratégies de Déploiement]]"
   - "[[ARCH-06-Scalabilite|Scalabilité]]"
-related_snippets:
-  - "[[04_Snippets/cloud-04-kubernetes-introduction]]"
 related_projects: []
 source: "https://kubernetes.io/fr/docs/concepts/"
 ---
 
 # Kubernetes Introduction
 
-> [!abstract] Introduction
-> Kubernetes (K8s) orchestre des conteneurs sur un cluster de machines : il les déploie, les redémarre, les met à l'échelle et les expose, à partir d'une description déclarative (YAML) de l'état souhaité.
+> [!abstract] En bref
+> **Kubernetes** (K8s) est un **chef d'orchestre** pour conteneurs : tu lui dis « je veux 3 copies de mon API, toujours en marche », et il s'en charge sur un groupe de machines (redémarre ce qui plante, répartit la charge, met à jour sans coupure). Très utilisé en entreprise, **inutile pour tes projets perso**. L'objectif ici : comprendre le vocabulaire et savoir lire un fichier de configuration.
 
-> [!warning]- Prérequis
-> [[DK-03-Docker-Compose|Docker Compose]]
+## Docker Compose ou Kubernetes ?
 
----
+| | Docker Compose | Kubernetes |
+|---|---|---|
+| Machines | **une** | un **groupe** (cluster) |
+| Un conteneur plante | redémarre (si configuré) | recréé automatiquement, ailleurs si besoin |
+| Plus de charge | à la main | ajout automatique de copies |
+| Mise à jour sans coupure | limité | natif (progressive) |
+| Complexité | faible | **élevée** |
+| Pour | développement, petits projets | production en entreprise |
 
-## Théorie
+## Le vocabulaire
 
-> [!question]- C'est quoi ?
-> Objets principaux :
-> | Objet | Rôle |
-> |---|---|
-> | Pod | Un ou plusieurs conteneurs qui tournent ensemble |
-> | Deployment | Maintient N pods d'une version, gère les rolling updates |
-> | Service | Adresse stable pour joindre des pods |
-> | Ingress | Point d'entrée HTTP(S) externe (reverse proxy) |
-> | ConfigMap / Secret | Configuration / données sensibles |
-> | Namespace | Espace isolé (par équipe, environnement) |
-> | HPA | Mise à l'échelle automatique |
-
-> [!example]- Analogie
-> Docker Compose est un chef qui dirige une cuisine ; Kubernetes est le directeur d'une chaîne de restaurants qui garantit qu'il y a toujours le bon nombre de cuisiniers dans chaque restaurant, remplace les absents et ouvre des cuisines supplémentaires en cas d'affluence.
-
-> [!question]- Pourquoi l'utiliser ?
-> Standard de fait des grandes infrastructures (et de nombreux clients d'ESN) : haute disponibilité, autoscaling, déploiements progressifs.
-
-> [!question]- Comment ça marche ?
-> ```yaml
-> apiVersion: apps/v1
-> kind: Deployment
-> metadata: { name: cinetrack-api }
-> spec:
->   replicas: 3
->   selector: { matchLabels: { app: api } }
->   template:
->     metadata: { labels: { app: api } }
->     spec:
->       containers:
->         - name: api
->           image: registry.gitlab.com/moi/cinetrack/api:3f2a91c
->           ports: [{ containerPort: 3000 }]
->           envFrom: [{ secretRef: { name: api-secrets } }]
->           readinessProbe: { httpGet: { path: /api/health, port: 3000 } }
->           resources: { requests: { cpu: 100m, memory: 256Mi }, limits: { memory: 512Mi } }
-> ```
-> ```bash
-> kubectl apply -f api.yaml
-> kubectl get pods; kubectl logs -f deploy/cinetrack-api; kubectl rollout undo deploy/cinetrack-api
-> ```
-
-> [!question]- Quand l'utiliser ?
-> En tant que développeur : savoir lire les manifestes, consulter logs et pods, comprendre readiness/liveness. L'administration du cluster est souvent le rôle d'une équipe plateforme/DevOps.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Complexité élevée : surdimensionné pour un petit projet (préférer PaaS ou Compose).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Cluster | Ensemble de machines gérées par K8s |
-| Pod | Plus petite unité déployable |
-| Manifeste | Fichier YAML décrivant un objet |
-| Readiness probe | Le pod est-il prêt à recevoir du trafic ? |
-| Helm | Gestionnaire de « paquets » Kubernetes |
-
----
-
-## Points clés
-
-- Déclaratif : on décrit l'état souhaité
-- Deployment + Service + Ingress = application web
-- Probes et ressources obligatoires en production
-- `kubectl logs/describe/get` pour déboguer
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Pas de readiness probe → trafic envoyé à un pod pas prêt
-> - Pas de limites mémoire → un pod peut étouffer le nœud
-
----
-
-## Exemple minimal
-
-```bash
-kind create cluster       # cluster local pour s'entraîner (ou minikube)
+```mermaid
+flowchart TB
+  I["Ingress<br/>(entrée HTTPS)"] --> S["Service<br/>adresse stable + répartition"]
+  S --> P1["Pod API"]
+  S --> P2["Pod API"]
+  S --> P3["Pod API"]
+  D["Deployment<br/>« 3 copies de api:1.4.0 »"] -.gère.-> P1
+  D -.gère.-> P2
+  D -.gère.-> P3
 ```
 
-> [!note] Ce que j'en retiens
-> On s'entraîne gratuitement en local.
+| Objet | C'est… |
+|---|---|
+| **Cluster** | le groupe de machines |
+| **Node** | une machine du cluster |
+| **Pod** | la plus petite unité : un (ou quelques) conteneur(s) |
+| **Deployment** | « je veux N copies de cette image » ; gère les mises à jour |
+| **Service** | une adresse stable pour joindre les pods (qui vont et viennent) |
+| **Ingress** | la porte d'entrée HTTP(S) depuis l'extérieur |
+| **ConfigMap / Secret** | la configuration / les secrets injectés dans les pods |
+| **Namespace** | un espace séparé (par équipe ou environnement) |
 
----
+## Lire un Deployment
 
-## Pour aller plus loin (niveau senior)
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cinetrack-api
+spec:
+  replicas: 3                                   # 3 copies
+  selector:
+    matchLabels: { app: cinetrack-api }
+  template:
+    metadata:
+      labels: { app: cinetrack-api }
+    spec:
+      containers:
+        - name: api
+          image: registry.gitlab.com/ton-nom/cinetrack-api:a1b2c3d
+          ports: [{ containerPort: 3000 }]
+          envFrom: [{ secretRef: { name: cinetrack-secrets } }]
+          readinessProbe:                        # prêt à recevoir du trafic ?
+            httpGet: { path: /health, port: 3000 }
+          resources:
+            limits: { memory: 512Mi, cpu: 500m }
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Helm/Kustomize, GitOps (Argo CD), observabilité du cluster
+## Les commandes de base
 
----
+```bash
+kubectl get pods                    # lister les pods
+kubectl logs -f deploy/cinetrack-api
+kubectl describe pod <nom>          # pourquoi un pod ne démarre pas
+kubectl apply -f deployment.yaml    # appliquer une configuration
+kubectl rollout undo deploy/cinetrack-api   # revenir à la version précédente
+```
 
-## Connexions
+## Pour t'entraîner
 
-**Arbre théorique :**
-- Sujet parent → [[Infrastructure]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+`kind` ou `minikube` créent un petit cluster sur ta machine. À faire **après** avoir maîtrisé Docker et Compose.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/cloud-04-kubernetes-introduction]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quel objet K8s garantit qu'il y a toujours 3 instances de l'API ?
-
----
-
-## Tâches
-
-- [ ] #task Déployer l'API CinéTrack sur un cluster kind local
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Kubernetes pour un projet d'une personne** : des semaines de configuration pour un besoin que Compose couvre.
+- **Pas de `readinessProbe`** : du trafic est envoyé à un pod pas encore prêt.

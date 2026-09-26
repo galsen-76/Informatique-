@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,136 +10,83 @@ tags:
 aliases:
   - "Linux Essentiels"
 parent: "[[Infrastructure]]"
-children:
-  - "[[LNX-02-Permissions-Processus-Services|Permissions Processus et Services Linux]]"
 related_theory:
   - "[[OUT-01-Terminal-Bash|Terminal et Bash]]"
-related_snippets:
-  - "[[04_Snippets/lnx-01-linux-essentiels]]"
 related_projects: []
 source: "https://linuxjourney.com/"
 ---
 
 # Linux Essentiels
 
-> [!abstract] Introduction
-> Linux fait tourner l'immense majorité des serveurs et toutes les images Docker : arborescence, utilisateurs, paquets et commandes de base sont indispensables pour déployer et déboguer.
+> [!abstract] En bref
+> Les serveurs, les conteneurs Docker et la CI tournent sous **Linux**, et tu travailles dans WSL : savoir t'y repérer est indispensable. Cette note complète [[OUT-01-Terminal-Bash|Terminal et Bash]] avec ce qu'il faut pour **se débrouiller sur un serveur** : l'arborescence, lire des fichiers, installer, éditer.
 
-> [!warning]- Prérequis
-> [[OUT-01-Terminal-Bash|Terminal et Bash]]
+## L'arborescence
 
----
+Tout part de `/` (pas de `C:`).
 
-## Théorie
+| Dossier | Contient |
+|---|---|
+| `/home/ton-nom` (`~`) | tes fichiers |
+| `/etc` | la configuration (`/etc/nginx/`, `/etc/hosts`) |
+| `/var/log` | les logs du système et des services |
+| `/var/lib` | les données des services (`/var/lib/postgresql`) |
+| `/usr/bin` | les programmes |
+| `/tmp` | fichiers temporaires (effacés au redémarrage) |
+| `/opt` | logiciels installés à part |
 
-> [!question]- C'est quoi ?
-> Arborescence :
-> | Dossier | Contenu |
-> |---|---|
-> | `/etc` | Configuration |
-> | `/var/log` | Logs |
-> | `/home` | Dossiers utilisateurs |
-> | `/usr/bin` | Programmes |
-> | `/tmp` | Temporaire |
-> | `/srv`, `/opt` | Applications |
-> Distributions : Debian/Ubuntu (`apt`), Alpine (`apk`, images Docker légères), RHEL/Rocky (`dnf`).
+Les fichiers commençant par `.` sont **cachés** (`.bashrc`, `.env`) : `ls -a` pour les voir.
 
-> [!example]- Analogie
-> Linux est un immeuble de bureaux bien rangé : chaque étage a sa fonction (config, logs, programmes), et chaque bureau a son propriétaire et ses clés (permissions).
+## Lire des fichiers et des logs
 
-> [!question]- Pourquoi l'utiliser ?
-> Écrire des Dockerfiles, lire des logs en recette, comprendre les erreurs de permissions, administrer un VPS.
+| Commande | Rôle |
+|---|---|
+| `cat fichier` | tout afficher |
+| `less fichier` | lire page par page (`q` pour quitter, `/mot` pour chercher) |
+| `head -n 20` / `tail -n 50 fichier` | début / fin |
+| `tail -f /var/log/nginx/error.log` | **suivre** un log en direct |
+| `grep -i error app.log` | lignes qui contiennent « error » |
+| `grep -rn "DATABASE_URL" .` | chercher dans tous les fichiers |
+| `wc -l fichier` | compter les lignes |
 
-> [!question]- Comment ça marche ?
-> ```bash
-> sudo apt update && sudo apt install -y nginx
-> df -h          # espace disque
-> du -sh *       # taille des dossiers
-> free -h        # mémoire
-> top / htop     # processus et CPU
-> journalctl -u nginx -f     # logs d'un service systemd
-> tail -f /var/log/nginx/error.log
-> ```
+## Éditer un fichier sur un serveur
 
-> [!question]- Quand l'utiliser ?
-> Serveurs, conteneurs, WSL2 sur Windows.
+`nano fichier` : simple. `Ctrl+O` puis `Entrée` pour enregistrer, `Ctrl+X` pour quitter.
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les images Alpine utilisent musl et `sh` (pas `bash`) : certaines commandes/paquets diffèrent.
+(Tu croiseras `vim` : `i` pour écrire, `Échap` puis `:wq` pour enregistrer et quitter, `:q!` pour quitter sans enregistrer.)
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Distribution | Variante de Linux (Ubuntu, Alpine) |
-| Paquet | Logiciel installable |
-| sudo | Exécuter en administrateur |
-| systemd | Gestionnaire de services |
-
----
-
-## Points clés
-
-- Config dans `/etc`, logs dans `/var/log`
-- `df -h` et `free -h` en premier réflexe d'incident
-- `journalctl` pour les services
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Disque plein (logs, images Docker) → application qui plante sans message clair
-
----
-
-## Exemple minimal
+## Installer des logiciels (Ubuntu / Debian)
 
 ```bash
-docker system df          # espace pris par Docker
-sudo du -sh /var/lib/docker
+sudo apt update                 # mettre à jour la liste des paquets
+sudo apt install -y nginx       # installer
+sudo apt upgrade -y             # mettre à jour ce qui est installé
+apt search postgresql           # chercher
 ```
 
-> [!note] Ce que j'en retiens
-> Un serveur « qui plante tout seul » a souvent un disque plein.
+`sudo` = exécuter en administrateur (il demande ton mot de passe).
 
----
+## Espace disque et mémoire
 
-## Pour aller plus loin (niveau senior)
+| Commande | Rôle |
+|---|---|
+| `df -h` | espace libre sur les disques |
+| `du -sh *` | taille de chaque dossier ici |
+| `free -h` | mémoire vive |
+| `htop` (ou `top`) | processus et charge en direct |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Automatiser la maintenance (logrotate, nettoyage Docker, mises à jour de sécurité)
+## Archiver et transférer
 
----
+```bash
+tar -czf sauvegarde.tar.gz dossier/     # compresser
+tar -xzf sauvegarde.tar.gz              # décompresser
+scp fichier ubuntu@serveur:/tmp/        # copier vers un serveur
+```
 
-## Connexions
+La suite : utilisateurs, droits, processus et services dans [[LNX-02-Permissions-Processus-Services|Permissions, processus et services]].
 
-**Arbre théorique :**
-- Sujet parent → [[Infrastructure]]
-- Sous-sujets → [[LNX-02-Permissions-Processus-Services|Permissions Processus et Services Linux]]
-- À comparer avec → (—)
+## Pièges
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/lnx-01-linux-essentiels]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Où chercher la configuration d'Nginx ? ses logs ?
-
----
-
-## Tâches
-
-- [ ] #task Installer WSL2 (si Windows) et faire Linux Journey (Command line, Text-fu)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`sudo rm -rf`** : aucune corbeille, aucune confirmation.
+- **Les majuscules comptent** : `Readme.md` et `README.md` sont deux fichiers différents.
+- **Un espace dans un nom de fichier** : entoure-le de guillemets (`"mon fichier.txt"`).

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,10 +10,7 @@ aliases:
 tags:
   - infrastructure/docker/compose
 parent: "[[Docker]]"
-children: []
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/docker-compose-fullstack]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.docker.com/compose/"
@@ -21,132 +18,83 @@ source: "https://docs.docker.com/compose/"
 
 # Docker Compose
 
-> [!abstract] Introduction
-> Docker Compose décrit et lance plusieurs conteneurs qui travaillent ensemble via un seul fichier et une seule commande.
+> [!abstract] En bref
+> Ton application, ce n'est pas un seul conteneur : il y a l'API, PostgreSQL, Redis, le front. **Docker Compose** décrit **tous ces services dans un seul fichier** et les lance d'une seule commande : `docker compose up`. C'est l'outil du quotidien pour développer CinéTrack en local.
 
-> [!warning]- Prérequis
-> [[DK-02-Dockerfile|Dockerfile]], [[DK-01-Fondamentaux|Fondamentaux Docker]].
+## Le `docker-compose.yml` de CinéTrack (développement)
 
----
+```yaml
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: cinetrack
+      POSTGRES_PASSWORD: motdepasse
+      POSTGRES_DB: cinetrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data     # les données survivent
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cinetrack"]
+      interval: 5s
+      retries: 5
 
-## Théorie
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
 
-> [!question]- C'est quoi ?
-> ```yaml
-> services:
->   frontend:
->     build: ./frontend
->     ports: ["4200:80"]
->   db:
->     image: postgres:16
-> ```
+  api:
+    build: ./apps/api
+    env_file: ./apps/api/.env
+    environment:
+      DATABASE_URL: postgresql://cinetrack:motdepasse@db:5432/cinetrack   # « db » = nom du service
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy            # attend que la base soit prête
 
-> [!example]- Analogie
-> Docker Compose est une partition d'orchestre : au lieu de dire à chaque musicien (conteneur) individuellement quand jouer, une seule partition coordonne tout le monde en même temps.
-
-> [!question]- Pourquoi l'utiliser ?
-> Un seul fichier versionné permet à toute l'équipe de lancer l'environnement complet (BDD incluse) en une commande.
-
-> [!question]- Comment ça marche ?
-> Chaque service communique par son NOM, via un réseau créé automatiquement — pas besoin d'adresse IP.
-
-> [!question]- Quand l'utiliser ?
-> Dès qu'un projet a plusieurs services à faire tourner ensemble (très courant en dev local).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `depends_on` garantit seulement l'ORDRE de démarrage, pas que le service soit VRAIMENT prêt à recevoir des requêtes — une base de données qui met du temps à s'initialiser peut encore faire échouer les premières connexions.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Service | Un conteneur défini dans `docker-compose.yml` |
-| `depends_on` | Définit l'ordre de démarrage souhaité |
-
----
-
-## Points clés
-
-- `docker-compose.yml` décrit plusieurs services à lancer ensemble
-- Les services communiquent par leur NOM
-- `depends_on` = ordre, pas garantie de disponibilité réelle
-- `docker compose up -d` / `down` gèrent tout le cycle de vie
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Croire que `depends_on` attend que le service soit VRAIMENT opérationnel
-> - Oublier `-d` et bloquer le terminal sur les logs en direct
-
----
-
-## Paramètres / Configuration
-
-| Clé YAML | Description |
-|-----------|-------------|
-| `services` | Liste des conteneurs |
-| `build` | Depuis un Dockerfile local |
-| `image` | Image existante |
-| `depends_on` | Ordre de démarrage |
-| `volumes` | Persistance des données |
-
----
-
-## Exemple minimal
-
-```bash
-docker compose up -d
-docker compose logs -f backend
-docker compose down
+volumes:
+  db-data:
 ```
 
-> [!note] Ce que j'en retiens
-> Ces 3 commandes gèrent tout le cycle de vie d'un environnement multi-services, sans longue commande `docker run` par conteneur.
+```mermaid
+flowchart LR
+  N["Navigateur"] -->|"localhost:3000"| API["api"]
+  API -->|"db:5432"| DB[("db")]
+  API -->|"redis:6379"| R[("redis")]
+```
 
----
+Les services se parlent par leur **nom** (`db`, `redis`) : Compose crée un réseau commun (voir [[DK-05-Reseaux|Réseaux]]).
 
-## Pour aller plus loin (niveau senior)
+## Les commandes
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Attendre qu'une BDD soit prête : `healthcheck` sur le service + `depends_on: { db: { condition: service_healthy } }` (réponse à la note brute)
-> - Fichiers multiples : `compose.yaml` + `compose.override.yaml` (dev) + `compose.prod.yaml`
+| Commande | Rôle |
+|---|---|
+| `docker compose up -d` | tout lancer en arrière-plan |
+| `docker compose up -d db redis` | seulement certains services |
+| `docker compose ps` | l'état des services |
+| `docker compose logs -f api` | suivre les logs de l'API |
+| `docker compose exec db psql -U cinetrack` | entrer dans un service |
+| `docker compose build` | reconstruire les images |
+| `docker compose down` | tout arrêter (les volumes restent) |
+| `docker compose down -v` | tout arrêter **et effacer les données** ⚠️ |
 
----
+## Un usage pratique au quotidien
 
-## Connexions
+Souvent, on lance **seulement la base et Redis** avec Compose, et l'API / le front directement sur sa machine (`npm run start:dev`) pour profiter du rechargement instantané :
 
-**Arbre théorique :**
-- Sujet parent → [[Docker]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[DK-02-Dockerfile|Dockerfile]], [[DK-05-Reseaux|Reseaux Docker]]
+```bash
+docker compose up -d db redis
+npm run start:dev
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/docker-compose-fullstack]]
-- Projet → [[02_Projects/CinéTrack]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `depends_on` ne suffit pas toujours pour une base de données lente à démarrer ?
-
-> [!faq]- Questions d'entretien
-> - À quoi sert Docker Compose ?
-
----
-
-## Tâches
-
-- [ ] #task Créer un `docker-compose.yml` avec un frontend et une base de données
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Comment forcer l'attente réelle qu'une BDD soit prête avant de lancer le backend ?
+- **`localhost` dans la configuration de l'API** quand elle tourne dans Compose : utilise le nom du service (`db`).
+- **`depends_on` sans `healthcheck`** : l'API démarre avant que PostgreSQL soit prêt, et plante.
+- **`down -v` par réflexe** : toutes les données de développement disparaissent.
+- **Des mots de passe réels dans le fichier commité** : utilise un `.env` (Compose le lit automatiquement).

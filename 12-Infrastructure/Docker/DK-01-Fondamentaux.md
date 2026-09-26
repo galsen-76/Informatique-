@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,139 +10,76 @@ aliases:
 tags:
   - infrastructure/docker/fondamentaux
 parent: "[[Docker]]"
-children:
-  - "[[DK-02-Dockerfile|Dockerfile]]"
-  - "[[DK-03-Docker-Compose|Docker Compose]]"
 related_theory: []
-related_snippets: []
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.docker.com/get-started/"
 ---
 
-# Fondamentaux Docker
+# Docker Fondamentaux
 
-> [!abstract] Introduction
-> Docker empaquette une application avec tout ce dont elle a besoin dans un "conteneur" qui tourne de façon identique sur n'importe quelle machine.
+> [!abstract] En bref
+> **Docker** emballe une application **avec tout ce dont elle a besoin** (la bonne version de Node, les librairies, la configuration) dans une boîte appelée **conteneur**. Cette boîte fonctionne **pareil partout** : sur ton PC, chez un collègue, dans la CI, en production. Fini le « ça marche sur ma machine ».
 
-> [!warning]- Prérequis
-> [[PY-13-Environnements-Virtuels-Pip|notion d'isolation]] aide à comprendre le principe, mais aucun prérequis technique strict.
+## L'image : le conteneur maritime
 
----
+Avant les conteneurs, on chargeait les bateaux carton par carton, chaque port à sa façon. Le conteneur standard a tout changé : **n'importe quel bateau, grue ou camion** sait le transporter, quel que soit son contenu. Docker fait pareil pour les applications.
 
-## Théorie
+## Les 3 mots à connaître
 
-> [!question]- C'est quoi ?
-> Une image est un modèle figé ; un conteneur est une instance en cours d'exécution de cette image.
-
-> [!example]- Analogie
-> Une image est une recette de cuisine écrite. Un conteneur est le plat effectivement cuisiné à partir de cette recette — on peut cuisiner plusieurs plats identiques (conteneurs) à partir de la même recette (image).
-
-> [!question]- Pourquoi l'utiliser ?
-> Éliminer le "ça marche sur ma machine" : l'image contient tout ce qui est nécessaire, le conteneur se comporte identiquement partout.
-
-> [!question]- Comment ça marche ?
-> ```bash
-> docker build -t mon-app .
-> docker run mon-app
-> ```
-> Contrairement à une VM, un conteneur partage le noyau du système hôte — plus léger et rapide à démarrer.
-
-> [!question]- Quand l'utiliser ?
-> Garantir un comportement identique dev/prod, isoler plusieurs services sur une même machine, simplifier l'onboarding.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Un conteneur est éphémère : tout ce qui y est écrit disparaît à sa suppression, SAUF utilisation d'un volume (voir [[DK-04-Volumes|Volumes Docker]]) — ne jamais y stocker de données critiques sans volume.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Image | Modèle figé décrivant le contenu d'un conteneur |
-| Conteneur | Instance en cours d'exécution d'une image |
-| Noyau (kernel) | Cœur du système d'exploitation, partagé par les conteneurs |
-
----
-
-## Points clés
-
-- Image = modèle figé, conteneur = instance en exécution
-- Docker partage le noyau de l'hôte, contrairement à une VM complète
-- `docker build` crée une image, `docker run` démarre un conteneur
-- Un conteneur est éphémère par nature
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Stocker des données importantes DANS un conteneur sans volume, les perdant à sa suppression
-> - Confondre image et conteneur dans le vocabulaire, source de confusion en lisant la doc
-
----
-
-## Paramètres / Configuration
-
-| Commande | Description |
-|-----------|-------------|
-| `docker build -t nom .` | Construit une image |
-| `docker run nom` | Démarre un conteneur |
-| `docker ps` | Liste les conteneurs actifs |
-| `docker images` | Liste les images locales |
-
----
-
-## Exemple minimal
-
-```bash
-docker run --rm -it node:22 node --version
+```mermaid
+flowchart LR
+  D["📝 Dockerfile<br/>la recette"] -->|"docker build"| I["📦 Image<br/>le plat surgelé,<br/>prêt à l'emploi"]
+  I -->|"docker run"| C["▶️ Conteneur<br/>le plat réchauffé,<br/>qui tourne"]
+  I -->|"docker push"| R["🏪 Registre<br/>(Docker Hub, GitLab)"]
 ```
 
-> [!note] Ce que j'en retiens
-> Node.js s'exécute dans un conteneur isolé, sans jamais avoir été installé sur la machine hôte elle-même.
+| Mot | C'est… |
+|---|---|
+| **Dockerfile** | la **recette** : quelle base, quels fichiers copier, quelle commande lancer (voir [[DK-02-Dockerfile\|Dockerfile]]) |
+| **Image** | le résultat de la recette, **figé** : on peut en lancer autant de copies qu'on veut |
+| **Conteneur** | une image **en train de tourner** |
+| **Registre** | la bibliothèque d'images (Docker Hub, registre GitLab) |
 
----
+## Conteneur ou machine virtuelle ?
 
-## Pour aller plus loin (niveau senior)
+| | Machine virtuelle | Conteneur |
+|---|---|---|
+| Contient | un système d'exploitation complet | seulement l'application et ses dépendances |
+| Taille | plusieurs Go | quelques dizaines à centaines de Mo |
+| Démarrage | minutes | secondes |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Sur Mac/Windows, Docker Desktop fait tourner une VM Linux légère : les conteneurs partagent le noyau de CETTE VM (réponse à la note brute)
-> - Scanner les images (Trivy, Docker Scout) et utiliser des images de base minimales
+## Ton premier usage : une base de données sans rien installer
 
----
+```bash
+docker run -d --name cinetrack-db \
+  -e POSTGRES_PASSWORD=motdepasse -p 5432:5432 postgres:17
+```
 
-## Connexions
+- `-d` : en arrière-plan.
+- `--name` : un nom pour le retrouver.
+- `-e` : une variable d'environnement.
+- `-p 5432:5432` : le port de ta machine → le port du conteneur.
 
-**Arbre théorique :**
-- Sujet parent → [[Docker]]
-- Sous-sujets → [[DK-02-Dockerfile|Dockerfile]], [[DK-03-Docker-Compose|Docker Compose]]
-- À comparer avec → [[PY-13-Environnements-Virtuels-Pip|Environnements Virtuels et Pip]]
+PostgreSQL tourne, sans l'avoir installé. `docker stop cinetrack-db` pour l'arrêter.
 
-**Pratique :**
-- Extrait de code → (aucun pour l'instant)
-- Projet → [[02_Projects/CinéTrack]]
+## Ce que Docker t'apporte dans tes projets
 
----
+| Quand | Usage |
+|---|---|
+| **M07** (dès CinéTrack-API) | lancer PostgreSQL et Redis en une commande |
+| **M11** | emballer ton API et ton front dans des images |
+| CI | les jobs tournent dans des images (`node:22`) |
+| Production | déployer la même image testée en CI |
 
-## Auto-vérification
+Sur Windows, Docker Desktop utilise **WSL2** : active l'intégration Ubuntu (voir [[OUT-01-Terminal-Bash|Terminal]]).
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer la différence image/conteneur avec l'analogie recette/plat, sans le mot "Docker" ?
+## La suite
 
-> [!faq]- Questions d'entretien
-> - Différence entre un conteneur et une machine virtuelle ?
+[[DK-07-Commandes-CLI|Commandes]] → [[DK-02-Dockerfile|Dockerfile]] → [[DK-03-Docker-Compose|Docker Compose]] → [[DK-08-Multi-stage-Builds|Images légères]].
 
----
+## Pièges
 
-## Tâches
-
-- [ ] #task Installer Docker Desktop et lancer un premier conteneur
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Sur Mac Apple Silicon, Docker utilise-t-il une VM en coulisses malgré le discours "plus léger" ?
+- **Un conteneur perd ses données** quand on le supprime, sauf avec un **volume** (voir [[DK-04-Volumes|Volumes]]).
+- **`localhost` dans un conteneur** désigne le conteneur lui-même, pas ta machine (voir [[DK-05-Reseaux|Réseaux]]).
+- **L'étiquette `latest`** : elle change avec le temps. Précise la version (`postgres:17`).

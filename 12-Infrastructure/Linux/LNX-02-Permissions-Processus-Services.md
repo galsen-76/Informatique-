@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,130 +10,79 @@ tags:
 aliases:
   - "Permissions Processus et Services Linux"
 parent: "[[Infrastructure]]"
-children: []
 related_theory:
   - "[[LNX-01-Linux-Essentiels|Linux Essentiels]]"
   - "[[DK-02-Dockerfile|Dockerfile]]"
-related_snippets:
-  - "[[04_Snippets/lnx-02-permissions-processus-services]]"
 related_projects: []
 source: "https://linuxjourney.com/lesson/file-permissions"
 ---
 
-# Permissions Processus et Services Linux
+# Permissions Processus et Services
 
-> [!abstract] Introduction
-> Les permissions (lecture/écriture/exécution par propriétaire, groupe, autres), les processus et les services systemd expliquent la majorité des erreurs « Permission denied » et « ça tourne plus après redémarrage ».
+> [!abstract] En bref
+> Sous Linux, chaque fichier a des **droits** (qui peut lire, écrire, exécuter), chaque programme en cours est un **processus**, et les programmes qui tournent en permanence (Nginx, PostgreSQL, Docker) sont des **services**. Trois choses à savoir manipuler quand tu gères un serveur ou déboques un conteneur.
 
-> [!warning]- Prérequis
-> [[LNX-01-Linux-Essentiels|Linux Essentiels]]
+## Les permissions
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```bash
-> ls -l script.sh      # -rwxr-x--- 1 deploy www-data ...
-> chmod 750 script.sh  # rwx r-x ---
-> chmod +x script.sh
-> chown deploy:www-data fichier
-> ps aux | grep node
-> kill <pid>; kill -9 <pid>
-> systemctl status|start|stop|restart|enable nginx
-> ```
-> Lecture `rwx` : r=4, w=2, x=1 → 7 = rwx, 5 = r-x, 4 = r--.
-
-> [!example]- Analogie
-> Chaque fichier a trois serrures : une pour le propriétaire, une pour son équipe (groupe), une pour tous les autres ; chacune autorise lire, modifier ou exécuter.
-
-> [!question]- Pourquoi l'utiliser ?
-> Sécurité (moindre privilège), Dockerfiles avec utilisateur non root, scripts de déploiement, services qui redémarrent automatiquement.
-
-> [!question]- Comment ça marche ?
-> - Ne jamais faire tourner une application en root → utilisateur dédié (`USER node` dans le Dockerfile)
-> - Service systemd : fichier `.service` avec `Restart=always`
-> - Signaux : `SIGTERM` (arrêt propre, que Node/Nest doivent gérer), `SIGKILL` (brutal)
-
-> [!question]- Quand l'utiliser ?
-> Déploiement sur VM, écriture de Dockerfiles, scripts.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `chmod 777` « pour que ça marche » ouvre tout à tout le monde : à proscrire.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Propriétaire / groupe / autres | Trois catégories d'utilisateurs |
-| PID | Identifiant de processus |
-| Signal | Message envoyé à un processus |
-| Service | Processus géré par systemd |
-
----
-
-## Points clés
-
-- Jamais root pour une application
-- Pas de 777
-- Gérer SIGTERM pour un arrêt propre (conteneurs)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Conteneur Node qui ignore SIGTERM → arrêt lent et requêtes coupées
-
----
-
-## Exemple minimal
-
-```typescript
-// NestJS : fermer proprement BDD et connexions à l'arrêt du conteneur
-app.enableShutdownHooks();
+```bash
+ls -l deploy.sh
+-rwxr-x---  1 ubuntu devs  512 sept. 26  deploy.sh
+ └┬┘└┬┘└┬┘    └─┬──┘ └─┬┘
+  │  │  │       │      └ groupe
+  │  │  │       └ propriétaire
+  │  │  └ les autres : rien
+  │  └ le groupe : lire, exécuter
+  └ le propriétaire : lire, écrire, exécuter
 ```
 
-> [!note] Ce que j'en retiens
-> Un arrêt propre = zéro requête perdue lors d'un déploiement.
+| Lettre | Droit | Sur un fichier | Sur un dossier |
+|---|---|---|---|
+| `r` | lire | voir le contenu | lister |
+| `w` | écrire | modifier | créer / supprimer dedans |
+| `x` | exécuter | lancer comme programme | entrer dedans |
 
----
+```bash
+chmod +x deploy.sh          # rendre exécutable
+chmod 600 ~/.ssh/id_ed25519 # clé privée : lisible par toi seul (sinon SSH refuse)
+chmod 644 index.html        # lecture pour tous, écriture pour toi
+sudo chown ubuntu:ubuntu fichier   # changer le propriétaire
+```
 
-## Pour aller plus loin (niveau senior)
+En chiffres : `r=4`, `w=2`, `x=1`, additionnés par groupe : `755` = `rwxr-xr-x`.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Durcir un serveur (utilisateurs, sudoers, SELinux/AppArmor)
+## Les processus
 
----
+| Commande | Rôle |
+|---|---|
+| `ps aux \| grep node` | trouver un processus |
+| `htop` | vue en direct (CPU, mémoire) |
+| `kill <PID>` | demander l'arrêt |
+| `kill -9 <PID>` | forcer l'arrêt (en dernier recours) |
+| `lsof -i :3000` | quel processus utilise ce port |
+| `commande &` / `nohup commande &` | lancer en arrière-plan |
 
-## Connexions
+## Les services (systemd)
 
-**Arbre théorique :**
-- Sujet parent → [[Infrastructure]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+```bash
+sudo systemctl status nginx      # état
+sudo systemctl start nginx       # démarrer
+sudo systemctl stop nginx        # arrêter
+sudo systemctl restart nginx     # redémarrer
+sudo systemctl reload nginx      # relire la configuration sans couper
+sudo systemctl enable nginx      # démarrer automatiquement au boot
+journalctl -u nginx -f           # suivre les logs du service
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/lnx-02-permissions-processus-services]]
+Avec Docker, tes applications sont gérées par Docker (`restart: unless-stopped` dans Compose) : systemd sert surtout pour Docker lui-même, Nginx, etc.
 
----
+## Les utilisateurs
 
-## Auto-vérification
+- **Ne travaille pas en `root`** sur un serveur : crée un utilisateur et utilise `sudo` quand il faut.
+- Dans une image Docker : `USER node` pour que l'application ne tourne pas en administrateur.
+- `whoami` : qui suis-je ? `id` : mes groupes.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Que signifie `chmod 640` ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Ajouter un utilisateur non root dans les Dockerfiles de CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`chmod 777`** pour « régler » un problème de droits : tout le monde peut tout faire. Donne le droit minimal.
+- **« Permission denied »** en lançant un script : il manque `chmod +x`, ou le fichier a des fins de ligne Windows.
+- **`kill -9` en premier réflexe** : le programme n'a pas le temps de se fermer proprement (fichiers, connexions).

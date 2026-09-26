@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,132 +10,68 @@ aliases:
 tags:
   - infrastructure/docker/registry
 parent: "[[Docker]]"
-children: []
 related_theory: []
-related_snippets: []
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.docker.com/docker-hub/"
 ---
 
-# Registry & Docker Hub
+# Registry et Docker Hub
 
-> [!abstract] Introduction
-> Un registry héberge des images Docker prêtes à être téléchargées ou publiées ; Docker Hub est le plus connu publiquement.
+> [!abstract] En bref
+> Un **registre** est une bibliothèque d'images Docker. Tu y **télécharges** les images officielles (`postgres`, `node`), et tu y **publies** les tiennes pour qu'un serveur puisse les récupérer. **Docker Hub** est le registre public principal ; **GitLab** a son propre registre, intégré au projet.
 
-> [!warning]- Prérequis
-> [[DK-01-Fondamentaux|Fondamentaux Docker]].
+## Le circuit d'une image
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```bash
-> docker pull postgres:16
-> docker push moncompte/mon-app:1.0
-> ```
-
-> [!example]- Analogie
-> Un registry est une bibliothèque publique de recettes de cuisine (images) : tu peux emprunter (pull) une recette existante, ou déposer la tienne (push) pour que d'autres l'utilisent.
-
-> [!question]- Pourquoi l'utiliser ?
-> Partager une image déjà construite entre plusieurs machines ou membres d'équipe, sans reconstruire à chaque fois.
-
-> [!question]- Comment ça marche ?
-> Le tag (`:16`) précise la version. GitLab intègre son propre registry privé, lié aux permissions du projet (voir [[01-GitLab|Fondamentaux GitLab]]).
-
-> [!question]- Quand l'utiliser ?
-> Docker Hub pour des images officielles publiques ; registry privé pour ses propres images d'entreprise.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Utiliser `latest` (sans tag précis) en production est risqué : la version peut changer sans prévenir, cassant un déploiement qui fonctionnait la veille.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Tag | Précise la version d'une image |
-| `latest` | Tag par défaut si aucun n'est précisé, risqué en production |
-
----
-
-## Points clés
-
-- `docker pull` télécharge, `docker push` publie
-- Le tag précise la version, éviter `latest` en production
-- GitLab intègre un Container Registry privé lié aux permissions du projet
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Utiliser `latest` en production, exposé à un changement de version imprévisible
-> - Oublier `docker login` avant un `push`, provoquant une erreur d'authentification
-
----
-
-## Paramètres / Configuration
-
-| Commande | Description |
-|-----------|-------------|
-| `docker pull image:tag` | Télécharge une image |
-| `docker push image:tag` | Publie une image |
-| `docker login registry` | Authentification |
-
----
-
-## Exemple minimal
-
-```bash
-docker build -t registry.gitlab.com/monequipe/cinetrack:1.0 .
-docker login registry.gitlab.com
-docker push registry.gitlab.com/monequipe/cinetrack:1.0
+```mermaid
+flowchart LR
+  CI["⚙️ Pipeline CI<br/>docker build"] -->|"docker push"| R["🏪 Registre<br/>(GitLab, Docker Hub)"]
+  R -->|"docker pull"| S["🖥️ Serveur<br/>docker run"]
 ```
 
-> [!note] Ce que j'en retiens
-> Une fois publiée, cette image précise (1.0) est accessible depuis n'importe quelle machine autorisée, sans ambiguïté de version.
+## Le nom d'une image
 
----
+```text
+registry.gitlab.com/ton-nom/cinetrack-api:1.4.0
+└──────── registre ─────┘└── projet ───┘└version┘
+```
 
-## Pour aller plus loin (niveau senior)
+| Partie | Exemple |
+|---|---|
+| registre | `registry.gitlab.com` (par défaut : Docker Hub) |
+| nom | `ton-nom/cinetrack-api` |
+| **étiquette (tag)** | `1.4.0`, `a1b2c3d` (id de commit), `latest` |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Politiques de nettoyage (cleanup policies) du Container Registry GitLab pour supprimer les vieux tags (réponse à la note brute)
-> - Taguer par SHA de commit et par version SemVer, jamais seulement `latest`
+## Les commandes
 
----
+```bash
+docker pull postgres:17                                     # télécharger
+docker login registry.gitlab.com                            # se connecter
+docker build -t registry.gitlab.com/ton-nom/cinetrack-api:1.4.0 .
+docker push registry.gitlab.com/ton-nom/cinetrack-api:1.4.0 # publier
+docker tag cinetrack-api:local registry.gitlab.com/ton-nom/cinetrack-api:1.4.0   # renommer
+```
 
-## Connexions
+Dans la CI GitLab, c'est automatique : voir [[05-GitLab-Avance|GitLab avancé]].
 
-**Arbre théorique :**
-- Sujet parent → [[Docker]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[01-GitLab|Fondamentaux GitLab]], [[03-CI-CD|CICD Pipelines GitLab]]
+## Bien étiqueter
 
-**Pratique :**
-- Extrait de code → (aucun pour l'instant)
-- Projet → [[02_Projects/CinéTrack]]
+| Étiquette | Pour |
+|---|---|
+| `1.4.0` (SemVer) | une version publiée |
+| l'id court du commit (`a1b2c3d`) | savoir exactement quel code est dans l'image |
+| `latest` | pratique en local, **à éviter en production** (on ne sait pas quelle version tourne) |
 
----
+Déployer une étiquette précise permet de **revenir en arrière** facilement : redéployer `1.3.2`.
 
-## Auto-vérification
+## Choisir les images de base
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `latest` est risqué en production ?
+- Préfère les images **officielles** (`node`, `postgres`, `nginx`) ou d'éditeurs vérifiés.
+- Précise la **version** (`node:22-alpine`).
+- Les registres scannent les images pour trouver des failles connues : regarde les résultats.
 
----
+## Pièges
 
-## Tâches
-
-- [ ] #task Publier une image de test sur le Container Registry GitLab
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Comment gérer le nettoyage des vieilles images accumulées sur un registry ?
+- **Publier une image contenant un secret** sur un registre public.
+- **Tout déployer avec `latest`** : impossible de savoir ce qui tourne, et de revenir en arrière.
+- **Des images non officielles** au nom proche d'une image connue : elles peuvent être malveillantes.

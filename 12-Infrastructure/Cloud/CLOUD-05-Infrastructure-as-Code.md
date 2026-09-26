@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,131 +10,72 @@ tags:
 aliases:
   - "Infrastructure as Code"
 parent: "[[Infrastructure]]"
-children: []
 related_theory:
   - "[[CLOUD-01-Fondamentaux-Cloud|Fondamentaux du Cloud]]"
   - "[[CICD-01-Fondamentaux|Fondamentaux CI/CD]]"
-related_snippets:
-  - "[[04_Snippets/cloud-05-infrastructure-as-code]]"
 related_projects: []
 source: "https://developer.hashicorp.com/terraform/intro"
 ---
 
 # Infrastructure as Code
 
-> [!abstract] Introduction
-> L'Infrastructure as Code décrit serveurs, réseaux, bases et DNS dans des fichiers versionnés (Terraform/OpenTofu, Pulumi, Ansible) au lieu de cliquer dans une console — reproductible, relu en revue, automatisé.
+> [!abstract] En bref
+> L'**Infrastructure as Code** (IaC), c'est décrire ses serveurs, bases et réseaux dans des **fichiers texte versionnés**, au lieu de cliquer dans une console web. On peut alors recréer tout un environnement à l'identique en une commande, relire les changements en Merge Request, et savoir exactement ce qui existe.
 
-> [!warning]- Prérequis
-> [[CLOUD-01-Fondamentaux-Cloud|Fondamentaux du Cloud]]
+## Cliquer ou écrire ?
 
----
+| Configuration à la main (console web) | Infrastructure as Code |
+|---|---|
+| « qui a changé ce réglage, et quand ? » → personne ne sait | historique Git |
+| recréer l'environnement de test : des heures, avec des oublis | une commande |
+| relire avant d'appliquer | impossible | Merge Request |
+| production et test identiques | rarement | garanti |
 
-## Théorie
+Image : la différence entre **décrire la recette** (on peut refaire le plat) et **se souvenir de ce qu'on a mis** dans la casserole.
 
-> [!question]- C'est quoi ?
-> ```hcl
-> resource "scaleway_rdb_instance" "db" {
->   name           = "cinetrack-db"
->   node_type      = "DB-DEV-S"
->   engine         = "PostgreSQL-16"
->   is_ha_cluster  = false
-> }
-> ```
-> ```bash
-> terraform init && terraform plan && terraform apply
-> ```
-> - **Terraform/OpenTofu, Pulumi** : provisionner l'infrastructure (déclaratif)
-> - **Ansible** : configurer des machines (installer, paramétrer)
+## Les outils
 
-> [!example]- Analogie
-> Une recette écrite plutôt qu'un plat improvisé : n'importe qui peut refaire exactement la même infrastructure, et on voit l'historique des changements.
+| Outil | Sert à | Exemple |
+|---|---|---|
+| **Terraform** / OpenTofu | **créer** l'infrastructure (serveurs, bases, DNS) chez n'importe quel fournisseur | « une base PostgreSQL, un bucket, un enregistrement DNS » |
+| **Ansible** | **configurer** des serveurs existants (installer, régler) | « installer Docker et Nginx sur ces 3 serveurs » |
+| **Docker Compose / Kubernetes YAML** | décrire les **applications** qui tournent | ce que tu connais déjà |
+| Pulumi | comme Terraform, en TypeScript | |
 
-> [!question]- Pourquoi l'utiliser ?
-> Environnements identiques (recette = production), reconstruction après incident, revue des changements d'infra comme du code.
+Tu fais déjà de l'IaC sans le savoir : ton `docker-compose.yml` et ton `.gitlab-ci.yml` sont de l'infrastructure décrite en code.
 
-> [!question]- Comment ça marche ?
-> `plan` montre les changements avant de les appliquer ; l'état (state) est stocké à distance et verrouillé ; modules réutilisables.
+## Un aperçu de Terraform
 
-> [!question]- Quand l'utiliser ?
-> Dès qu'une infrastructure cloud dépasse quelques ressources ou doit être dupliquée.
+```hcl
+resource "scaleway_rdb_instance" "db" {
+  name           = "cinetrack-db"
+  engine         = "PostgreSQL-16"
+  node_type      = "DB-DEV-S"
+  is_ha_cluster  = false
+}
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Le state est sensible (secrets possibles) ; les modifications manuelles hors IaC créent de la dérive.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| IaC | Infrastructure décrite en code |
-| Provider | Plugin vers un fournisseur (AWS, Scaleway) |
-| State | État connu de l'infrastructure |
-| Plan | Aperçu des changements |
-| Dérive | Écart entre code et réalité |
-
----
-
-## Points clés
-
-- Tout changement d'infra passe par le code et une MR
-- Toujours lire le `plan`
-- State distant et verrouillé
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Commiter le state ou des secrets
-
----
-
-## Exemple minimal
-
-```text
-MR « ajoute Redis managé » → pipeline exécute terraform plan → relecture → merge → terraform apply
+resource "cloudflare_record" "api" {
+  zone_id = var.zone_id
+  name    = "api"
+  type    = "A"
+  content = scaleway_instance_ip.api.address
+}
 ```
 
-> [!note] Ce que j'en retiens
-> L'infrastructure suit le même workflow que le code applicatif.
+```bash
+terraform plan     # « voici ce que je vais créer / modifier / supprimer »
+terraform apply    # appliquer
+```
 
----
+Le `plan` est la clé : on **voit** l'effet avant de l'appliquer, et on peut le relire en équipe.
 
-## Pour aller plus loin (niveau senior)
+## Pour toi
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - GitOps complet (Terraform + Argo CD), politiques (OPA) sur l'infrastructure
+- Tes projets : `docker-compose.yml` et `.gitlab-ci.yml` bien écrits suffisent.
+- En entreprise : l'infrastructure est souvent gérée par une équipe « plateforme » avec Terraform ; savoir **lire** un `plan` et proposer une modification en MR est un vrai plus.
 
----
+## Pièges
 
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Infrastructure]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/cloud-05-infrastructure-as-code]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi ne jamais modifier à la main une ressource gérée par Terraform ?
-
----
-
-## Tâches
-
-- [ ] #task Suivre le tutoriel officiel Terraform « Get started » avec Docker comme provider
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Modifier à la main** une ressource gérée par Terraform : le code et la réalité divergent.
+- **Des secrets dans les fichiers** Terraform : utilise des variables et un coffre-fort.
+- **Perdre l'état Terraform** (le fichier qui mémorise ce qui existe) : il se stocke dans un espace partagé et sauvegardé, jamais seulement sur un PC.

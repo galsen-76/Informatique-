@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,134 +10,82 @@ aliases:
 tags:
   - infrastructure/docker/cli
 parent: "[[Docker]]"
-children: []
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/docker-cli-cheatsheet]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://docs.docker.com/engine/reference/commandline/cli/"
 ---
 
-# Commandes CLI Essentielles Docker
+# Commandes Docker CLI
 
-> [!abstract] Introduction
-> Un ensemble de commandes couvrant le cycle de vie complet d'un conteneur : créer, inspecter, déboguer, nettoyer.
+> [!abstract] En bref
+> L'aide-mémoire des commandes Docker du quotidien : lancer, voir, entrer dans un conteneur, lire les logs, nettoyer.
 
-> [!warning]- Prérequis
-> [[DK-01-Fondamentaux|Fondamentaux Docker]].
+## Les conteneurs
 
----
+| Commande | Rôle |
+|---|---|
+| `docker run -d --name api -p 3000:3000 image` | lancer un conteneur en arrière-plan |
+| `docker run -it --rm node:22 bash` | lancer un conteneur jetable et entrer dedans |
+| `docker ps` | les conteneurs **en marche** |
+| `docker ps -a` | **tous** les conteneurs (arrêtés compris) |
+| `docker stop api` / `docker start api` | arrêter / relancer |
+| `docker restart api` | redémarrer |
+| `docker rm api` | supprimer (arrêté) ; `-f` pour forcer |
+| `docker logs -f api` | suivre les logs |
+| `docker logs --tail 100 api` | les 100 dernières lignes |
+| `docker exec -it api sh` | ouvrir un terminal **dans** un conteneur |
+| `docker inspect api` | tout le détail (IP, variables, volumes) |
+| `docker stats` | CPU et mémoire en direct |
 
-## Théorie
+## Les images
 
-> [!question]- C'est quoi ?
-> ```bash
-> docker exec -it nom_conteneur bash
-> docker logs -f nom_conteneur
-> ```
+| Commande | Rôle |
+|---|---|
+| `docker build -t cinetrack-api .` | construire depuis le Dockerfile du dossier |
+| `docker images` | lister les images |
+| `docker pull postgres:17` | télécharger |
+| `docker rmi image` | supprimer une image |
+| `docker history image` | la taille de chaque couche |
 
-> [!example]- Analogie
-> `docker exec -it` est comme entrer physiquement dans un bâtiment déjà en activité pour voir ce qui s'y passe, plutôt que de deviner de l'extérieur en regardant les fenêtres.
+## Les options de `docker run`
 
-> [!question]- Pourquoi l'utiliser ?
-> Déboguer rapidement un comportement inattendu et faire le ménage régulier des ressources inutilisées.
+| Option | Effet |
+|---|---|
+| `-d` | en arrière-plan |
+| `--name api` | donner un nom |
+| `-p 3000:3000` | publier un port (machine:conteneur) |
+| `-e CLE=valeur` / `--env-file .env` | variables d'environnement |
+| `-v db-data:/var/lib/postgresql/data` | un volume |
+| `--rm` | supprimer le conteneur à l'arrêt |
+| `-it` | mode interactif (pour un terminal) |
+| `--network nom` | rejoindre un réseau |
 
-> [!question]- Comment ça marche ?
-> `docker exec -it nom bash` ouvre un terminal dans un conteneur déjà lancé. `docker system prune` nettoie tout ce qui est inutilisé.
+## Compose
 
-> [!question]- Quand l'utiliser ?
-> `exec` pour déboguer, `logs -f` pour suivre en direct, `prune` régulièrement pour libérer de l'espace disque.
+| Commande | Rôle |
+|---|---|
+| `docker compose up -d` | tout lancer |
+| `docker compose logs -f api` | logs d'un service |
+| `docker compose exec db psql -U cinetrack` | entrer dans un service |
+| `docker compose down` | tout arrêter |
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `docker system prune` peut supprimer des images qu'on pensait encore utiles — toujours vérifier ce qui va être supprimé avant de confirmer.
+Détails : [[DK-03-Docker-Compose|Docker Compose]].
 
----
+## Faire de la place
 
-## Vocabulaire
+| Commande | Supprime |
+|---|---|
+| `docker system df` | (affiche l'espace utilisé) |
+| `docker container prune` | les conteneurs arrêtés |
+| `docker image prune` | les images sans nom |
+| `docker builder prune` | le cache de construction |
+| `docker system prune` | tout ce qui est inutilisé (**sauf volumes**) |
+| `docker system prune --volumes` | ⚠️ **y compris les volumes** (données des bases) |
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `exec` | Ouvre un terminal dans un conteneur déjà lancé |
-| `prune` | Nettoie les ressources Docker inutilisées |
+## Le déroulé de débogage
 
----
-
-## Points clés
-
-- `docker exec -it nom bash` = terminal interactif dans un conteneur actif
-- `docker logs -f` suit les logs en direct
-- Les commandes `prune` nettoient mais peuvent supprimer plus que prévu
-- `docker rm -f` force arrêt + suppression en une commande
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Lancer `docker system prune` sans vérifier ce qui va être supprimé
-> - Oublier `-it` avec `exec`, obtenant une session non interactive inutilisable
-
----
-
-## Paramètres / Configuration
-
-| Commande | Description |
-|-----------|-------------|
-| `docker exec -it nom bash` | Terminal dans un conteneur |
-| `docker logs -f nom` | Logs en direct |
-| `docker stats` | Utilisation CPU/mémoire |
-| `docker system prune` | Nettoyage global |
-
----
-
-## Exemple minimal
-
-```bash
-docker exec -it mon_backend bash
-cat /app/config.json
-exit
-```
-
-> [!note] Ce que j'en retiens
-> Explorer directement le système de fichiers d'un conteneur actif est souvent plus rapide que deviner un bug de configuration depuis l'extérieur.
-
----
-
-## Pour aller plus loin (niveau senior)
-
-> [!tip]- Ce qui distingue un dev expérimenté
-> - `docker system df` affiche l'espace total occupé par images, conteneurs, volumes et cache (réponse à la note brute)
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Docker]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[DK-01-Fondamentaux|Fondamentaux Docker]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/docker-cli-cheatsheet]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer la différence entre `docker stop` et `docker rm` ?
-
----
-
-## Tâches
-
-- [ ] #task S'entraîner à ouvrir un terminal dans un conteneur actif
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Commande pour voir l'espace disque total occupé par Docker (images + conteneurs + volumes) ?
+1. `docker ps -a` : le conteneur tourne-t-il ? S'est-il arrêté ?
+2. `docker logs api` : que dit-il ?
+3. `docker exec -it api sh` : entrer et vérifier (fichiers, variables avec `env`).
+4. `docker inspect api` : ports, réseau, volumes.

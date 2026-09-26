@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,13 +10,10 @@ tags:
 aliases:
   - "Héberger une API et une Base de Données"
 parent: "[[Infrastructure]]"
-children: []
 related_theory:
   - "[[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]"
   - "[[BDD-09-PostgreSQL-Pratique|PostgreSQL en Pratique]]"
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
-related_snippets:
-  - "[[04_Snippets/cloud-03-heberger-api-bdd]]"
 related_projects:
   - "[[02_Projects/CinéTrack-Fullstack]]"
 source: "https://docs.docker.com/compose/production/"
@@ -24,136 +21,61 @@ source: "https://docs.docker.com/compose/production/"
 
 # Héberger une API et une Base de Données
 
-> [!abstract] Introduction
-> Mettre en production une API NestJS et sa base PostgreSQL : conteneur de l'API, base managée ou conteneurisée avec volumes et sauvegardes, reverse proxy HTTPS, secrets et migrations.
+> [!abstract] En bref
+> Contrairement au front, une API a besoin d'un **serveur qui tourne en permanence**, d'une **base de données** et de **secrets**. Deux chemins : un **PaaS** (tu donnes ton code ou ton image, il s'occupe du reste) ou un **VPS** avec Docker Compose (tu gères le serveur). Pour CinéTrack-API, les deux sont de bons exercices.
 
-> [!warning]- Prérequis
-> [[DK-03-Docker-Compose|Docker Compose]], [[NET-09-Proxy-Reverse-Proxy-Load-Balancer|Proxy Reverse Proxy et Load Balancer]]
+## Les deux chemins
 
----
+| | PaaS (Render, Railway, Fly.io, Clever Cloud) | VPS + Docker Compose (OVH, Scaleway, Hetzner) |
+|---|---|---|
+| Mise en route | **rapide** : relier le dépôt, régler les variables | serveur à installer et sécuriser |
+| HTTPS, redémarrage, logs | fournis | à mettre en place (Nginx, Let's Encrypt) |
+| Base PostgreSQL | proposée, gérée, sauvegardée | un conteneur à sauvegarder toi-même, ou une base gérée à part |
+| Contrôle | limité | total |
+| Ce que tu apprends | le déploiement | **tout** : Linux, réseau, sécurité, Docker |
 
-## Théorie
+## Chemin 1 : un PaaS
 
-> [!question]- C'est quoi ?
-> Options par ordre de simplicité :
-> 1. **PaaS** (Render, Railway, Clever Cloud, Scalingo) : push → déployé, PostgreSQL managé en un clic
-> 2. **VPS + Docker Compose** : Traefik/Nginx + API + PostgreSQL + Redis → très formateur
-> 3. **Cloud managé** : conteneurs (Cloud Run, ECS, Azure Container Apps) + BDD managée (RDS, Cloud SQL)
-> 4. **Kubernetes** : pour de nombreux services et équipes
+1. Crée une base PostgreSQL gérée → récupère son URL.
+2. Crée un service web relié au dépôt (ou à l'image du registre).
+3. Règle les **variables** : `DATABASE_URL`, `JWT_SECRET`, `TMDB_TOKEN`, `CORS_ORIGINS`.
+4. Commande de démarrage : `npx prisma migrate deploy && node dist/main.js`.
+5. Route de santé : `/health`.
 
-> [!example]- Analogie
-> Le VPS + Compose, c'est cuisiner soi-même dans sa cuisine : plus de travail, mais on comprend chaque ingrédient ; le PaaS, c'est le traiteur.
+## Chemin 2 : un VPS
 
-> [!question]- Pourquoi l'utiliser ?
-> Un full stack doit savoir mettre en ligne ce qu'il construit, au moins de façon simple et sûre.
-
-> [!question]- Comment ça marche ?
-> ```yaml
-> # docker-compose.prod.yml (VPS)
-> services:
->   proxy:
->     image: traefik:v3.1
->     command: ["--providers.docker", "--entrypoints.websecure.address=:443", "--certificatesresolvers.le.acme.tlschallenge=true", "--certificatesresolvers.le.acme.email=moi@exemple.fr", "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"]
->     ports: ["443:443"]
->     volumes: ["/var/run/docker.sock:/var/run/docker.sock:ro", "le:/letsencrypt"]
->   api:
->     image: registry.gitlab.com/moi/cinetrack/api:${TAG}
->     env_file: .env.prod
->     labels: ["traefik.http.routers.api.rule=Host(`cinetrack.fr`) && PathPrefix(`/api`)", "traefik.http.routers.api.tls.certresolver=le"]
->     depends_on: { db: { condition: service_healthy } }
->     restart: unless-stopped
->   db:
->     image: postgres:17
->     env_file: .env.db
->     volumes: ["pgdata:/var/lib/postgresql/data"]
->     healthcheck: { test: ["CMD-SHELL", "pg_isready -U cine"], interval: 5s, retries: 10 }
->     restart: unless-stopped
-> volumes: { pgdata: {}, le: {} }
-> ```
-> La BDD n'expose AUCUN port publiquement ; sauvegardes quotidiennes (`pg_dump` vers un stockage externe) et test de restauration.
-
-> [!question]- Quand l'utiliser ?
-> Projets perso, petites applications ; en entreprise, suivre la plateforme existante (souvent Kubernetes ou cloud managé).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Une BDD conteneurisée sur un seul VPS = pas de haute disponibilité ; pour de la vraie production critique, préférer une base managée.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| PaaS | Plateforme qui gère serveurs et runtime |
-| Base managée | BDD administrée par le fournisseur |
-| Healthcheck | Test de disponibilité d'un conteneur |
-| `restart: unless-stopped` | Redémarrage automatique |
-
----
-
-## Points clés
-
-- BDD jamais exposée publiquement
-- Sauvegardes automatiques + tests de restauration
-- Secrets hors de l'image
-- Migrations dans le processus de déploiement
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `ports: ["5432:5432"]` en production
-> - Aucune sauvegarde « parce que c'est un projet perso » (jusqu'au jour où…)
-
----
-
-## Exemple minimal
-
-```bash
-# Sauvegarde quotidienne (cron sur le VPS)
-0 3 * * * docker compose exec -T db pg_dump -U cine -Fc cinetrack > /backups/cinetrack-$(date +\%F).dump
+```mermaid
+flowchart LR
+  I["🌍 Internet"] -->|"443"| N["Nginx + Let's Encrypt"]
+  subgraph "VPS (Docker Compose)"
+    N --> W["web (Nginx, front)"]
+    N --> A["api (NestJS)"]
+    A --> D[("postgres + volume")]
+    A --> R[("redis")]
+  end
 ```
 
-> [!note] Ce que j'en retiens
-> Une ligne de cron protège des mois de données.
+Les étapes :
+1. Sécuriser le serveur : utilisateur non root, SSH par clé, pare-feu (ports 22, 80, 443) (voir [[NET-08-Pare-feu-Securite-Reseau|Pare-feu]]).
+2. Installer Docker.
+3. Un `docker-compose.prod.yml` qui utilise les **images du registre** (pas de `build`).
+4. Un reverse proxy pour HTTPS (voir [[NET-09-Proxy-Reverse-Proxy-Load-Balancer|Reverse proxy]]).
+5. Le déploiement depuis la CI : `ssh` sur le serveur, `docker compose pull && docker compose up -d`.
+6. **Sauvegardes** automatiques de la base (`pg_dump` planifié, copié ailleurs).
 
----
+## La check-list production
 
-## Pour aller plus loin (niveau senior)
+- [ ] HTTPS
+- [ ] Variables d'environnement, aucun secret dans le dépôt
+- [ ] Migrations appliquées au déploiement
+- [ ] Route `/health`
+- [ ] Logs consultables (voir [[MON-01-Logs|Logs]])
+- [ ] Sauvegardes de la base **testées**
+- [ ] CORS limité au domaine du front
+- [ ] Base de données non exposée sur Internet
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Haute disponibilité, réplicas, sauvegardes PITR, plan de reprise d'activité
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Infrastructure]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/cloud-03-heberger-api-bdd]]
-- Projet → [[02_Projects/CinéTrack-Fullstack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `depends_on` avec `service_healthy` ?
-
----
-
-## Tâches
-
-- [ ] #task Déployer l'API CinéTrack sur un VPS ou un PaaS avec HTTPS
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Base de données exposée** avec le mot de passe par défaut.
+- **Aucune sauvegarde**, ou des sauvegardes jamais restaurées pour vérifier.
+- **Un PaaS gratuit qui s'endort** : la première requête prend 30 secondes. Normal sur les offres gratuites.
