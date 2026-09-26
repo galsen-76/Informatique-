@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<header data-composant="AppHeader.vue">
+<header>
   <div class="conteneur barre">
     <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
     <nav aria-label="Navigation principale">
@@ -28,7 +28,7 @@
   </div>
 </header>
 
-<main data-composant="views/ProjetsView.vue">
+<main>
   <section class="conteneur page-titre">
     <nav class="fil" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> / <span>Projets</span></nav>
     <h1>Projets</h1>
@@ -37,29 +37,29 @@
 
   <section class="conteneur bloc" style="padding-top:18px">
     <div class="outils">
-      <div class="filtres" role="group" aria-label="Filtrer par technologie" data-composant="FiltreTechnos.vue">
+      <div class="filtres" role="group" aria-label="Filtrer par technologie">
       <button class="filtre actif" type="button" data-techno="">Tous</button>
       <button class="filtre" type="button" data-techno="angular">Angular</button>
       <button class="filtre" type="button" data-techno="vue">Vue</button>
       <button class="filtre" type="button" data-techno="nestjs">NestJS</button>
     </div>
       <div class="outils-droite">
-        <label class="recherche" data-composant="RechercheProjets.vue"><span class="sr" hidden>Rechercher</span><input id="recherche" class="saisie" type="search" placeholder="Rechercher un projet, une techno…"></label>
+        <label class="recherche"><span class="sr" hidden>Rechercher</span><input id="recherche" class="saisie" type="search" placeholder="Rechercher un projet, une techno…"></label>
         <select class="saisie" aria-label="Trier">
           <option>Plus récents</option><option>Nom (A → Z)</option>
         </select>
       </div>
     </div>
     <p class="compteur" id="compteur">6 projets</p>
-    <div class="projets" data-composant="ProjetGrid.vue">
-      <article class="carte projet" data-technos="angular" data-composant="ProjetCard.vue">
-        <div class="capture v2" aria-hidden="true" data-composant="ProjetCapture.vue"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i></div></div></div></div>
+    <div class="projets">
+      <article class="carte projet" data-technos="angular">
+        <div class="capture v2" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i></div></div></div></div>
         <div class="corps">
           <span class="cat">Front-end · Angular</span>
           <h3>CinéTrack</h3>
           <p class="probleme"><b>Problème :</b> retrouver ses films vus, à voir et ses avis au même endroit.</p>
           <div class="tags"><span class="tag">Angular</span><span class="tag">Signals</span><span class="tag">RxJS</span><span class="tag">PrimeNG</span><span class="tag">API TMDB</span></div>
-          <div class="qualite" data-composant="BadgesQualite.vue"><span class="badge"><span>tests</span><b>64 ✓</b></span><span class="badge"><span>lighthouse</span><b>93</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="qualite"><span class="badge"><span>tests</span><b>64 ✓</b></span><span class="badge"><span>lighthouse</span><b>93</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
           <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
         </div>
       </article>
@@ -123,17 +123,14 @@ GET  /api/favoris
         </div>
       </article>
     </div>
-    <div class="vide" id="vide" hidden data-composant="EtatVide.vue">Aucun projet ne correspond à ta recherche.<br><button class="btn btn-contour" type="button" style="margin-top:12px" onclick="location.reload()">Réinitialiser les filtres</button></div>
+    <div class="vide" id="vide" hidden>Aucun projet ne correspond à ta recherche.<br><button class="btn btn-contour" type="button" style="margin-top:12px" onclick="location.reload()">Réinitialiser les filtres</button></div>
   </section>
 </main>
 
-<footer data-composant="AppFooter.vue">
+<footer>
   <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
 </footer>
 
-<div class="revue" aria-label="Outils de revue de la maquette">
-  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
-</div>
 
 <script src="app.js"></script>
 </body>

@@ -4,7 +4,7 @@ function basculerTheme() {
   r.dataset.theme = r.dataset.theme === 'dark' ? 'light' : 'dark';
 }
 
-// Filtres par techno + recherche (FiltreTechnos.vue, RechercheProjets.vue → un computed dans le vrai projet)
+// Filtres par techno + recherche (un computed dans le vrai projet)
 let techno = '';
 const recherche = document.querySelector('#recherche');
 function appliquerFiltres() {

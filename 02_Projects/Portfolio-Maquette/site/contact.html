@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<header data-composant="AppHeader.vue">
+<header>
   <div class="conteneur barre">
     <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
     <nav aria-label="Navigation principale">
@@ -28,7 +28,7 @@
   </div>
 </header>
 
-<main data-composant="views/ContactView.vue">
+<main>
   <section class="conteneur page-titre">
     <nav class="fil" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> / <span>Contact</span></nav>
     <h1>Travaillons ensemble</h1>
@@ -36,7 +36,7 @@
   </section>
 
   <div class="conteneur contact-grid">
-    <form class="carte formulaire" id="form-contact" novalidate data-composant="ContactForm.vue">
+    <form class="carte formulaire" id="form-contact" novalidate>
       <div class="ligne-2">
         <div class="champ" data-champ><label for="nom">Nom <em>*</em></label><input id="nom" class="saisie" autocomplete="name" placeholder="Jeanne Martin"><span class="erreur" aria-live="polite"></span></div>
         <div class="champ" data-champ><label for="email">E-mail <em>*</em></label><input id="email" class="saisie" type="email" autocomplete="email" placeholder="jeanne@exemple.fr"><span class="erreur" aria-live="polite"></span></div>
@@ -53,7 +53,7 @@
       </div>
     </form>
 
-    <aside class="infos" data-composant="ContactInfos.vue">
+    <aside class="infos">
       <a class="carte info" href="#"><span class="ico">✉️</span><span><small>E-mail</small><b>ton.nom@exemple.fr</b></span></a>
       <a class="carte info" href="#"><span class="ico">in</span><span><small>LinkedIn</small><b>/in/ton-nom</b></span></a>
       <a class="carte info" href="#"><span class="ico">GL</span><span><small>GitLab / GitHub</small><b>@ton-nom</b></span></a>
@@ -63,13 +63,10 @@
   </div>
 </main>
 
-<footer data-composant="AppFooter.vue">
+<footer>
   <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
 </footer>
 
-<div class="revue" aria-label="Outils de revue de la maquette">
-  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
-</div>
 
 <script src="app.js"></script>
 </body>

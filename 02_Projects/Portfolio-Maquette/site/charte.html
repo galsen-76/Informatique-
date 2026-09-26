@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charte graphique — Portfolio</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .charte h2 { font-size: 1.3rem; margin: 40px 0 14px; letter-spacing: -.02em; }
+  .charte h2:first-of-type { margin-top: 0; }
+  .nuancier { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .nuance { border: 1px solid var(--bord); border-radius: 12px; overflow: hidden; background: var(--surface); }
+  .nuance i { display: block; height: 64px; border-bottom: 1px solid var(--bord); }
+  .nuance div { padding: 8px 10px; font-size: 12.5px; }
+  .nuance b { display: block; font-size: 13px; }
+  .nuance code { color: var(--texte-doux); }
+  .typo > div { display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed var(--bord); }
+  .typo small { color: var(--texte-doux); font: 12px/1.4 ui-monospace, monospace; }
+  .demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .rayons div { width: 90px; height: 60px; border: 1px solid var(--primaire); background: var(--primaire-clair); display: grid; place-items: center; font: 12px ui-monospace, monospace; }
+  .degr { height: 60px; border-radius: 12px; flex: 1; min-width: 160px; display: grid; place-items: center; font: 12px ui-monospace, monospace; color: #fff; }
+</style>
+</head>
+<body>
+<main class="conteneur charte" style="padding-block:40px">
+  <h1 style="font-size:2rem;margin:0 0 6px">Charte graphique</h1>
+  <p style="color:var(--texte-doux);margin:0 0 32px">Thème sombre par défaut · accent émeraude · touche indigo</p>
+
+  <h2>Couleurs — thème sombre</h2>
+  <div class="nuancier">
+    <div class="nuance"><i style="background:#05080f"></i><div><b>Fond</b><code>#05080F</code></div></div>
+    <div class="nuance"><i style="background:#0c111c"></i><div><b>Surface</b><code>#0C111C</code></div></div>
+    <div class="nuance"><i style="background:#1a2232"></i><div><b>Bordure</b><code>#1A2232</code></div></div>
+    <div class="nuance"><i style="background:#e5e7eb"></i><div><b>Texte</b><code>#E5E7EB</code></div></div>
+    <div class="nuance"><i style="background:#8b98ad"></i><div><b>Texte secondaire</b><code>#8B98AD</code></div></div>
+    <div class="nuance"><i style="background:#10b981"></i><div><b>Primaire</b><code>#10B981</code></div></div>
+    <div class="nuance"><i style="background:#34d399"></i><div><b>Primaire survol</b><code>#34D399</code></div></div>
+    <div class="nuance"><i style="background:#6ee7b7"></i><div><b>Primaire texte</b><code>#6EE7B7</code></div></div>
+    <div class="nuance"><i style="background:rgba(16,185,129,.14)"></i><div><b>Primaire léger</b><code>#10B981 à 14 %</code></div></div>
+    <div class="nuance"><i style="background:#6366f1"></i><div><b>Accent</b><code>#6366F1</code></div></div>
+  </div>
+
+  <h2>Couleurs d'état</h2>
+  <div class="nuancier">
+    <div class="nuance"><i style="background:#10b981"></i><div><b>Succès</b><code>#10B981</code></div></div>
+    <div class="nuance"><i style="background:#fbbf24"></i><div><b>Attention</b><code>#FBBF24</code></div></div>
+    <div class="nuance"><i style="background:#f87171"></i><div><b>Erreur</b><code>#F87171</code></div></div>
+    <div class="nuance"><i style="background:#a5b4fc"></i><div><b>Info</b><code>#A5B4FC</code></div></div>
+    <div class="nuance"><i style="background:#0f172a"></i><div><b>Bloc de code</b><code>#0F172A</code></div></div>
+  </div>
+
+  <h2>Couleurs — thème clair</h2>
+  <div class="nuancier">
+    <div class="nuance"><i style="background:#f8fafc"></i><div><b>Fond</b><code>#F8FAFC</code></div></div>
+    <div class="nuance"><i style="background:#ffffff"></i><div><b>Surface</b><code>#FFFFFF</code></div></div>
+    <div class="nuance"><i style="background:#e2e8f0"></i><div><b>Bordure</b><code>#E2E8F0</code></div></div>
+    <div class="nuance"><i style="background:#0f172a"></i><div><b>Texte</b><code>#0F172A</code></div></div>
+    <div class="nuance"><i style="background:#64748b"></i><div><b>Texte secondaire</b><code>#64748B</code></div></div>
+    <div class="nuance"><i style="background:#d1fae5"></i><div><b>Primaire léger</b><code>#D1FAE5</code></div></div>
+  </div>
+
+  <h2>Dégradés</h2>
+  <div class="demo">
+    <div class="degr" style="background:linear-gradient(135deg,#10b981,#6366f1)">135° #10B981 → #6366F1</div>
+    <div class="degr" style="background:radial-gradient(300px 120px at 80% 0%,rgba(16,185,129,.25),transparent 70%),radial-gradient(260px 120px at 0% 100%,rgba(99,102,241,.2),transparent 70%),#05080f;border:1px solid var(--bord)">Halo de fond</div>
+    <div class="degr" style="background:linear-gradient(90deg,#f59e0b,#10b981)">Barre de progression</div>
+  </div>
+
+  <h2>Typographie — Inter</h2>
+  <div class="typo">
+    <div><small>H1 · 54px · 700 · -3 %</small><span style="font-size:54px;font-weight:700;letter-spacing:-.03em;line-height:1.08">Titre principal</span></div>
+    <div><small>H2 · 26px · 700 · -2 %</small><span style="font-size:26px;font-weight:700;letter-spacing:-.02em">Titre de section</span></div>
+    <div><small>H3 · 17px · 700</small><span style="font-size:17px;font-weight:700">Titre de carte</span></div>
+    <div><small>Chapô · 18px · 400</small><span style="font-size:18px;color:var(--texte-doux)">Texte d'introduction sous un titre.</span></div>
+    <div><small>Texte · 16px · 400 · 1.55</small><span>Texte courant des paragraphes.</span></div>
+    <div><small>Petit · 14.5px</small><span style="font-size:14.5px;color:var(--texte-doux)">Description de carte, texte secondaire.</span></div>
+    <div><small>Surtitre · 12px · 600 · MAJ</small><span class="cat">Front-end · Angular</span></div>
+    <div><small>Code · 13px · mono</small><span style="font:13px ui-monospace,monospace">const projet: Projet = { … }</span></div>
+  </div>
+
+  <h2>Rayons</h2>
+  <div class="demo rayons">
+    <div style="border-radius:6px">6px</div><div style="border-radius:10px">10px</div><div style="border-radius:14px">14px</div>
+    <div style="border-radius:20px">20px</div><div style="border-radius:32px">32px</div><div style="border-radius:999px">999px</div>
+  </div>
+
+  <h2>Éléments</h2>
+  <div class="demo" style="margin-bottom:14px">
+    <a class="btn btn-primaire" href="#">Bouton principal →</a>
+    <a class="btn btn-contour" href="#">Bouton secondaire</a>
+    <button class="btn-icone" type="button">☀️</button>
+    <span class="pastille"><i></i> Pastille</span>
+    <button class="filtre actif" type="button">Filtre actif</button>
+    <button class="filtre" type="button">Filtre</button>
+  </div>
+  <div class="demo" style="margin-bottom:14px">
+    <span class="tag">Étiquette</span>
+    <span class="badge"><span>tests</span><b>64 ✓</b></span>
+    <span class="badge"><span>CI</span><b>passing</b></span>
+    <span class="statut encours">En cours</span>
+    <span class="techno pro">Angular <small>pro · 3 projets</small></span>
+  </div>
+  <div class="demo" style="align-items:flex-start">
+    <div class="carte" style="width:280px"><div class="ico">🔒</div><h3 style="margin:12px 0 6px">Carte</h3><p style="margin:0;color:var(--texte-doux);font-size:14.5px">Surface, bordure 1px, rayon 14px, ombre douce, padding 20px.</p></div>
+    <div class="champ" style="width:280px"><label>Champ <em>*</em></label><input class="saisie" placeholder="Texte d'exemple"><span class="aide">Aide sous le champ</span></div>
+    <div class="champ invalide" style="width:280px"><label>Champ en erreur</label><input class="saisie" value="adresse@"><span class="erreur">Adresse e-mail invalide.</span></div>
+  </div>
+</main>
+</body>
+</html>

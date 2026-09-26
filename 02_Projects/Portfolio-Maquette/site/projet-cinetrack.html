@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<header data-composant="AppHeader.vue">
+<header>
   <div class="conteneur barre">
     <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
     <nav aria-label="Navigation principale">
@@ -28,8 +28,8 @@
   </div>
 </header>
 
-<main data-composant="views/ProjetDetailView.vue">
-  <section class="conteneur detail-entete" data-composant="ProjetEntete.vue">
+<main>
+  <section class="conteneur detail-entete">
     <div>
       <nav class="fil" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> / <a href="projets.html">Projets</a> / <span>CinéTrack</span></nav>
       <h1>CinéTrack</h1>
@@ -43,11 +43,11 @@
   </section>
 
   <div class="conteneur">
-    <div class="grande-capture v2" aria-hidden="true" data-composant="ProjetCapture.vue"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div>
+    <div class="grande-capture v2" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div>
   </div>
 
   <div class="conteneur detail-grid">
-    <article class="etude" data-composant="EtudeDeCas.vue">
+    <article class="etude">
       <h2 id="contexte"><span>01</span>Contexte et problème</h2>
       <p>Entre les plateformes de streaming, les recommandations d'amis et les notes éparpillées, il est difficile de <strong>savoir ce qu'on a déjà vu</strong> et ce qu'on veut voir. CinéTrack centralise tout : on cherche un film, on l'ajoute à une liste, on laisse un avis.</p>
       <p><strong>Objectif :</strong> une application rapide, utilisable au clavier et sur mobile, qui reste fluide même avec des centaines de films.</p>
@@ -61,7 +61,7 @@
       </div>
 
       <h2 id="architecture"><span>03</span>Architecture</h2>
-      <div class="archi" data-composant="SchemaArchitecture.vue">
+      <div class="archi">
         <div class="noeud"><b>Navigateur</b><small>Angular 20</small></div>
         <span class="fleche">→</span>
         <div class="pile">
@@ -105,7 +105,7 @@
       </ul>
 
       <h2 id="resultats"><span>07</span>Résultats</h2>
-      <div class="metriques" data-composant="Metriques.vue">
+      <div class="metriques">
         <div class="carte metrique"><b>93</b><span>Lighthouse performance</span></div>
         <div class="carte metrique"><b>100</b><span>Lighthouse accessibilité</span></div>
         <div class="carte metrique"><b>64</b><span>tests automatisés</span></div>
@@ -128,7 +128,7 @@
     </article>
 
     <aside>
-      <div class="carte fiche" data-composant="FicheProjet.vue">
+      <div class="carte fiche">
         <dl>
           <div><dt>Rôle</dt><dd>Conception, développement, tests, déploiement</dd></div>
           <div><dt>Durée</dt><dd>8 semaines</dd></div>
@@ -137,7 +137,7 @@
           <div><dt>Qualité</dt><dd class="qualite"><span class="badge"><span>tests</span><b>64 ✓</b></span><span class="badge"><span>CI</span><b>passing</b></span></dd></div>
         </dl>
       </div>
-      <nav class="carte sommaire" aria-label="Sommaire" data-composant="Sommaire.vue">
+      <nav class="carte sommaire" aria-label="Sommaire">
         <a href="#contexte" class="actif">Contexte</a><a href="#fonctionnalites">Fonctionnalités</a><a href="#architecture">Architecture</a>
         <a href="#choix">Choix techniques</a><a href="#difficultes">Difficultés</a><a href="#securite">Sécurité</a>
         <a href="#resultats">Résultats</a><a href="#appris">Ce que j'en retiens</a>
@@ -145,19 +145,16 @@
     </aside>
   </div>
 
-  <nav class="conteneur nav-projets" aria-label="Autres projets" data-composant="NavProjets.vue">
+  <nav class="conteneur nav-projets" aria-label="Autres projets">
     <a class="carte" href="projet-cinetrack.html"><small>← Projet précédent</small><br><b>Portfolio</b></a>
     <a class="carte suiv" href="projet-cinetrack.html"><small>Projet suivant →</small><br><b>CinéTrack API</b></a>
   </nav>
 </main>
 
-<footer data-composant="AppFooter.vue">
+<footer>
   <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
 </footer>
 
-<div class="revue" aria-label="Outils de revue de la maquette">
-  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
-</div>
 
 <script src="app.js"></script>
 </body>

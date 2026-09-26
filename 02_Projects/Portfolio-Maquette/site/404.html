@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<header data-composant="AppHeader.vue">
+<header>
   <div class="conteneur barre">
     <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
     <nav aria-label="Navigation principale">
@@ -28,7 +28,7 @@
   </div>
 </header>
 
-<main data-composant="views/NotFoundView.vue">
+<main>
   <section class="conteneur page-404">
     <div>
       <div class="code">404</div>
@@ -43,13 +43,10 @@
   </section>
 </main>
 
-<footer data-composant="AppFooter.vue">
+<footer>
   <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
 </footer>
 
-<div class="revue" aria-label="Outils de revue de la maquette">
-  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
-</div>
 
 <script src="app.js"></script>
 </body>

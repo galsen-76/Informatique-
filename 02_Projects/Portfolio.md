@@ -62,7 +62,7 @@ aliases:
 ---
 
 > [!success] Maquette validée
-> Les 5 pages sont dessinées dans [[Portfolio-Maquette|Maquette du Portfolio]] (captures, maquette cliquable, découpage en composants Vue).
+> Les 5 pages sont dessinées dans [[Portfolio-Maquette|Maquette du Portfolio]] (captures, maquette cliquable, charte graphique complète).
 
 ## Pages
 

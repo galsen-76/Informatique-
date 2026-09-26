@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<header data-composant="AppHeader.vue">
+<header>
   <div class="conteneur barre">
     <a href="index.html" class="logo"><span>TN</span> Ton Nom</a>
     <nav aria-label="Navigation principale">
@@ -28,8 +28,8 @@
   </div>
 </header>
 
-<main data-composant="views/AccueilView.vue">
-  <section class="conteneur hero" data-composant="HeroSection.vue">
+<main>
+  <section class="conteneur hero">
     <div>
       <span class="pastille"><i></i> Développeur full stack · TypeScript</span>
       <h1>Je conçois des applications web <em>sécurisées, performantes et maintenables</em>.</h1>
@@ -38,13 +38,13 @@
         <a class="btn btn-primaire" href="projets.html">Voir mes projets →</a>
         <a class="btn btn-contour" href="#">⬇ Télécharger mon CV</a>
       </div>
-      <div class="reseaux" data-composant="LiensSociaux.vue">
+      <div class="reseaux">
         <a class="reseau" href="#"><b style="background:#fc6d26">GL</b> GitLab</a>
         <a class="reseau" href="#"><b style="background:#24292f">GH</b> GitHub</a>
         <a class="reseau" href="#"><b style="background:#0a66c2">in</b> LinkedIn</a>
       </div>
     </div>
-    <div class="photo" data-composant="PhotoProfil.vue">
+    <div class="photo">
       <div class="cadre"><div class="img">
         <svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><circle cx="50" cy="36" r="20"/><path d="M8 100c2-24 20-38 42-38s40 14 42 38z"/></svg>
       </div></div>
@@ -53,10 +53,10 @@
     </div>
   </section>
 
-  <section class="conteneur bloc" data-composant="ServicesSection.vue">
+  <section class="conteneur bloc">
     <div class="titre-section"><div><h2>Ce que je fais</h2><p>Une vision complète d'une application, pas seulement de l'écran.</p></div></div>
     <div class="valeurs">
-      <article class="carte valeur" data-composant="ServiceCard.vue"><div class="ico">🖥️</div><h3>Interfaces</h3>
+      <article class="carte valeur"><div class="ico">🖥️</div><h3>Interfaces</h3>
         <p>Applications Angular et Vue typées, accessibles et rapides, avec une architecture qui tient dans la durée.</p>
         <div class="tags"><span class="tag">Angular</span><span class="tag">Vue 3</span><span class="tag">RxJS</span></div></article>
       <article class="carte valeur"><div class="ico">⚙️</div><h3>API &amp; données</h3>
@@ -71,26 +71,26 @@
     </div>
   </section>
 
-  <section class="conteneur bloc" id="projets" data-composant="ProjetsMisEnAvant.vue">
+  <section class="conteneur bloc" id="projets">
     <div class="titre-section">
       <div><h2>Projets à la une</h2><p>Conçus, testés et déployés de bout en bout.</p></div>
       <a class="lien-voir" href="projets.html">Tous les projets →</a>
     </div>
-    <div class="filtres" role="group" aria-label="Filtrer par technologie" data-composant="FiltreTechnos.vue">
+    <div class="filtres" role="group" aria-label="Filtrer par technologie">
       <button class="filtre actif" type="button" data-techno="">Tous</button>
       <button class="filtre" type="button" data-techno="angular">Angular</button>
       <button class="filtre" type="button" data-techno="vue">Vue</button>
       <button class="filtre" type="button" data-techno="nestjs">NestJS</button>
     </div>
-    <div class="projets" data-composant="ProjetGrid.vue">
-      <article class="carte projet" data-technos="angular" data-composant="ProjetCard.vue">
-        <div class="capture v2" aria-hidden="true" data-composant="ProjetCapture.vue"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i></div></div></div></div>
+    <div class="projets">
+      <article class="carte projet" data-technos="angular">
+        <div class="capture v2" aria-hidden="true"><div class="fenetre"><div class="bar"><i></i><i></i><i></i></div><div class="ecran"><div class="l" style="width:60%;height:12px"></div><div class="grille-mini affiches"><i></i><i></i><i></i><i></i></div></div></div></div>
         <div class="corps">
           <span class="cat">Front-end · Angular</span>
           <h3>CinéTrack</h3>
           <p class="probleme"><b>Problème :</b> retrouver ses films vus, à voir et ses avis au même endroit.</p>
           <div class="tags"><span class="tag">Angular</span><span class="tag">Signals</span><span class="tag">RxJS</span><span class="tag">PrimeNG</span><span class="tag">API TMDB</span></div>
-          <div class="qualite" data-composant="BadgesQualite.vue"><span class="badge"><span>tests</span><b>64 ✓</b></span><span class="badge"><span>lighthouse</span><b>93</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
+          <div class="qualite"><span class="badge"><span>tests</span><b>64 ✓</b></span><span class="badge"><span>lighthouse</span><b>93</b></span><span class="badge"><span>CI</span><b>passing</b></span></div>
           <div class="pied"><a class="btn btn-primaire" href="projet-cinetrack.html">Étude de cas</a><a class="btn btn-contour" href="#">Démo ↗</a><a class="btn btn-contour" href="#">Code</a></div>
         </div>
       </article>
@@ -123,10 +123,10 @@ GET  /api/favoris
     </div>
   </section>
 
-  <section class="conteneur bloc" id="experience" data-composant="ExperienceSection.vue">
+  <section class="conteneur bloc" id="experience">
     <div class="titre-section"><div><h2>Expérience</h2><p>Ce que je fais au quotidien en entreprise.</p></div></div>
     <div class="experience">
-      <article class="carte" data-composant="PosteCard.vue">
+      <article class="carte">
         <div class="poste">
           <div class="logo-ent" aria-hidden="true">🏢</div>
           <div>
@@ -147,7 +147,7 @@ GET  /api/favoris
     </div>
   </section>
 
-  <section class="conteneur bloc" data-composant="StackTechnos.vue">
+  <section class="conteneur bloc">
     <div class="titre-section"><div><h2>Stack</h2><p>Chaque techno renvoie aux projets qui l'utilisent.</p></div></div>
     <div class="stack">
       <a class="techno pro" href="projets.html">TypeScript <small>pro · 6 projets</small></a>
@@ -164,7 +164,7 @@ GET  /api/favoris
     <p class="legende"><strong>pro</strong> = utilisé aussi en entreprise.</p>
   </section>
 
-  <section class="conteneur bloc" id="contact" data-composant="ContactCta.vue">
+  <section class="conteneur bloc" id="contact">
     <div class="cta">
       <h2>Un projet, une question, une opportunité ?</h2>
       <p>Je réponds en général sous 48 h.</p>
@@ -176,13 +176,10 @@ GET  /api/favoris
   </section>
 </main>
 
-<footer data-composant="AppFooter.vue">
+<footer>
   <div class="conteneur"><span>© 2026 Ton Nom — développeur full stack TypeScript</span><span><a href="#">GitLab</a> · <a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="#">CV</a> · <a href="404.html">Mentions légales</a></span></div>
 </footer>
 
-<div class="revue" aria-label="Outils de revue de la maquette">
-  <label><input type="checkbox" onchange="document.body.classList.toggle('annote', this.checked)"> Afficher les composants Vue</label>
-</div>
 
 <script src="app.js"></script>
 </body>

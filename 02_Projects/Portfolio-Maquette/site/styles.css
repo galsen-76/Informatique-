@@ -1,7 +1,7 @@
   :root {
     --fond: #f8fafc; --surface: #ffffff; --texte: #0f172a; --texte-doux: #64748b;
     --bord: #e2e8f0; --primaire: #10b981; --primaire-fonce: #059669; --primaire-clair: #d1fae5;
-    --accent: #6366f1; --rayon: 14px; --ombre: 0 1px 2px rgba(15,23,42,.06), 0 4px 16px rgba(15,23,42,.06);
+    --accent: #6366f1; --sur-primaire: #05080f; --primaire-survol: #34d399; --rayon: 14px; --ombre: 0 1px 2px rgba(15,23,42,.06), 0 4px 16px rgba(15,23,42,.06);
   }
   [data-theme="dark"] {
     --fond: #05080f; --surface: #0c111c; --texte: #e5e7eb; --texte-doux: #8b98ad;
@@ -17,19 +17,12 @@
   a { color: inherit; text-decoration: none; }
   .conteneur { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-  /* Étiquettes de composants Vue (mode annotation) */
-  [data-composant] { position: relative; }
-  body.annote [data-composant] { outline: 2px dashed var(--accent); outline-offset: 4px; }
-  body.annote [data-composant]::before {
-    content: attr(data-composant); position: absolute; top: -12px; left: 8px; z-index: 5;
-    background: var(--accent); color: #fff; font: 600 11px/1 ui-monospace, monospace; padding: 4px 6px; border-radius: 6px;
-  }
 
   /* En-tête */
   header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--surface) 85%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--bord); }
   .barre { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
   .logo { font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 8px; }
-  .logo span { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--primaire); color: #fff; font-size: 14px; }
+  .logo span { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--primaire); color: var(--sur-primaire); font-size: 14px; }
   header nav ul { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
   header nav a { padding: 8px 12px; border-radius: 8px; color: var(--texte-doux); font-weight: 500; }
   header nav a[aria-current="page"], header nav a:hover { color: var(--texte); background: var(--primaire-clair); }
@@ -38,8 +31,8 @@
 
   /* Boutons */
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 10px; font-weight: 600; border: 1px solid transparent; cursor: pointer; }
-  .btn-primaire { background: var(--primaire); color: #fff; }
-  .btn-primaire:hover { background: var(--primaire-fonce); }
+  .btn-primaire { background: var(--primaire); color: var(--sur-primaire); }
+  .btn-primaire:hover { background: var(--primaire-survol); }
   .btn-contour { border-color: var(--bord); background: var(--surface); color: var(--texte); }
 
   /* Hero */
@@ -118,7 +111,7 @@
   .qualite { display: flex; flex-wrap: wrap; gap: 6px; }
   .badge { display: inline-flex; font: 600 11.5px/1 ui-monospace, monospace; border-radius: 5px; overflow: hidden; border: 1px solid var(--bord); }
   .badge span { padding: 4px 6px; background: #334155; color: #fff; }
-  .badge b { padding: 4px 6px; background: var(--primaire); color: #fff; font-weight: 600; }
+  .badge b { padding: 4px 6px; background: var(--primaire); color: var(--sur-primaire); font-weight: 600; }
   .badge.gris b { background: #94a3b8; }
   .projet .pied { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; }
   .projet .pied .btn { padding: 8px 12px; font-size: 14px; }
@@ -154,9 +147,6 @@
   footer { padding: 28px 0 40px; color: var(--texte-doux); font-size: 14px; }
   footer .conteneur { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--bord); padding-top: 22px; }
 
-  /* Panneau de revue (hors maquette) */
-  .revue { position: fixed; right: 16px; bottom: 16px; z-index: 20; background: var(--surface); border: 1px solid var(--bord); border-radius: 12px; padding: 10px 12px; box-shadow: var(--ombre); display: flex; gap: 10px; align-items: center; font-size: 13px; }
-  .revue label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
 
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; padding-top: 48px; }
@@ -318,3 +308,4 @@ body { min-height: 100vh; }
   table.choix td:first-child { white-space: normal; width: 40%; }
   .actions-barre .btn-icone[aria-label="GitLab"], .actions-barre .btn-icone[aria-label="LinkedIn"] { display: none; }
 }
+h2, h3 { line-height: 1.3; }
