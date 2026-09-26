@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,137 +10,102 @@ tags:
 aliases:
   - "Tests d'Intégration d'API"
 parent: "[[Tests et Qualité]]"
-children: []
 related_theory:
   - "[[NEST-11-Tests-NestJS|Tests NestJS]]"
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]"
-related_snippets:
-  - "[[04_Snippets/test-04-tests-integration-api]]"
 related_projects: []
 source: "https://testcontainers.com/"
 ---
 
-# Tests d'Intégration d'API
+# Tests d'Intégration et d'API
 
-> [!abstract] Introduction
-> Les tests d'intégration vérifient que plusieurs briques fonctionnent ensemble réellement : endpoint HTTP + validation + service + vraie base de données, sans passer par un navigateur.
+> [!abstract] En bref
+> Un **test d'intégration** vérifie que plusieurs pièces **fonctionnent ensemble** : la route, la validation, le guard, le service et la **vraie** base de données. Pour une API, on envoie de vraies requêtes HTTP (avec **Supertest**) et on vérifie les réponses. C'est ce qui attrape les erreurs de branchement que les tests unitaires ne voient pas.
 
-> [!warning]- Prérequis
-> [[NEST-11-Tests-NestJS|Tests NestJS]]
+## Ce que ça attrape
 
----
+| Bug | Test unitaire | Test d'intégration |
+|---|---|---|
+| mauvais calcul dans un service | ✅ | ✅ |
+| `ValidationPipe` oublié | ❌ | ✅ |
+| route non protégée par le guard | ❌ | ✅ |
+| contrainte de base violée, migration manquante | ❌ | ✅ |
+| requête Prisma incorrecte | ❌ | ✅ |
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> it('crée puis relit un film', async () => {
->   const cree = await request(app.getHttpServer())
->     .post('/api/films').set('Authorization', `Bearer ${admin}`)
->     .send({ titre: 'Dune', annee: 2021 }).expect(201);
->   await request(app.getHttpServer()).get(`/api/films/${cree.body.id}`).expect(200)
->     .expect(res => expect(res.body.titre).toBe('Dune'));
-> });
-> ```
-
-> [!example]- Analogie
-> Tester que la prise, le câble et la lampe fonctionnent ensemble, pas seulement chaque pièce séparément.
-
-> [!question]- Pourquoi l'utiliser ?
-> La plupart des bugs sont aux jonctions : mapping DTO, requêtes SQL, contraintes, transactions, sérialisation.
-
-> [!question]- Comment ça marche ?
-> - BDD de test isolée : conteneur PostgreSQL (Testcontainers ou docker compose), migrations appliquées
-> - Réinitialiser les données entre tests (transaction annulée, TRUNCATE, schéma par worker)
-> - Fabriques de données (factories) pour créer des jeux de test lisibles
-> - En CI : service `postgres` dans le job GitLab
-
-> [!question]- Quand l'utiliser ?
-> Chaque endpoint important, chaque requête non triviale, les règles d'autorisation.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Plus lents que les unitaires : ne pas y tester toutes les combinaisons de règles métier.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Testcontainers | Conteneurs Docker éphémères pour les tests |
-| Factory | Fonction qui crée des données de test |
-| Isolation | Chaque test ne dépend d'aucun autre |
-
----
-
-## Points clés
-
-- Vraie BDD, pas de mock de l'ORM
-- Données réinitialisées entre tests
-- Tester succès ET erreurs (400, 401, 403, 404, 409)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Tests qui partagent des données et échouent selon l'ordre
-
----
-
-## Exemple minimal
+## Une base de test propre
 
 ```yaml
-# .gitlab-ci.yml
-test-api:
-  image: node:22
-  services: [postgres:17]
-  variables:
-    POSTGRES_DB: test
-    POSTGRES_USER: test
-    POSTGRES_PASSWORD: test
-    DATABASE_URL: postgresql://test:test@postgres:5432/test
-  script: [npm ci, npx prisma migrate deploy, npm run test:e2e]
+# docker-compose.test.yml
+services:
+  db-test:
+    image: postgres:17
+    environment: { POSTGRES_USER: test, POSTGRES_PASSWORD: test, POSTGRES_DB: cinetrack_test }
+    ports: ["5433:5432"]
 ```
 
-> [!note] Ce que j'en retiens
-> La CI démarre une vraie PostgreSQL jetable pour chaque pipeline.
+```bash
+DATABASE_URL=postgresql://test:test@localhost:5433/cinetrack_test npx prisma migrate reset --force
+```
 
----
+Avant chaque série de tests : base vidée, migrations appliquées, données de départ insérées. Chaque test crée les données **dont il a besoin**.
 
-## Pour aller plus loin (niveau senior)
+Alternative : **Testcontainers**, qui lance automatiquement un conteneur PostgreSQL le temps des tests.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Tests de contrat consommateur/fournisseur entre fronts et API
+## Un test de route
 
----
+```ts
+describe('POST /reviews', () => {
+  it('crée une critique (201)', async () => {
+    const res = await request(app.getHttpServer())
+      .post('/reviews')
+      .set('Authorization', `Bearer ${tokenAwa}`)
+      .send({ movieId: 27205, rating: 9, comment: 'Un chef-d\'œuvre absolu.' })
+      .expect(201);
 
-## Connexions
+    expect(res.body).toMatchObject({ movieId: 27205, rating: 9 });
+    expect(await prisma.review.count()).toBe(1);   // vérifier aussi en base
+  });
 
-**Arbre théorique :**
-- Sujet parent → [[Tests et Qualité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+  it('refuse une deuxième critique du même film (409)', async () => { /* … */ });
+  it('refuse sans jeton (401)', () => request(app.getHttpServer()).post('/reviews').expect(401));
+  it('refuse de modifier la critique de quelqu\'un d\'autre (403)', async () => { /* avec tokenMoussa */ });
+});
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/test-04-tests-integration-api]]
+## Les cas à couvrir pour chaque route
 
----
+| Cas | Code attendu |
+|---|---|
+| normal | 200 / 201 / 204 |
+| données invalides | 400 |
+| sans jeton | 401 |
+| jeton d'un autre utilisateur | 403 |
+| ressource inexistante | 404 |
+| doublon | 409 |
 
-## Auto-vérification
+## Dans la CI
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi ne pas mocker Prisma dans un test d'intégration ?
+```yaml
+test-api:
+  image: node:22
+  services:
+    - name: postgres:17
+      alias: db
+  variables:
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test
+    POSTGRES_DB: cinetrack_test
+    DATABASE_URL: postgresql://test:test@db:5432/cinetrack_test
+  script:
+    - npm ci
+    - npx prisma migrate deploy
+    - npm run test:e2e
+```
 
----
+Voir [[NEST-11-Tests-NestJS|Tests NestJS]].
 
-## Tâches
+## Pièges
 
-- [ ] #task Mettre en place la BDD de test et 5 tests d'intégration de l'API
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Utiliser la base de développement** : tu effaces tes données.
+- **Des tests qui dépendent de l'ordre** (le test B utilise la critique créée par le test A).
+- **Appeler la vraie API TMDB** : remplace-la par un faux (voir [[TEST-03-Mocks-Stubs-Spies|Mocks]]).

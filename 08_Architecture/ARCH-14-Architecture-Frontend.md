@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,145 +10,68 @@ tags:
 aliases:
   - "Architecture Frontend"
 parent: "[[Architecture Logicielle]]"
-children: []
 related_theory:
   - "[[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]]"
   - "[[VUE-19-Architecture-Projet-Vue|Architecture d'un Projet Vue.js]]"
   - "[[ARCH-02-Monolithe-vs-Microservices|Monolithe vs Microservices]]"
-related_snippets:
-  - "[[04_Snippets/arch-14-architecture-frontend]]"
 related_projects: []
 source: "https://martinfowler.com/articles/micro-frontends.html"
 ---
 
 # Architecture Frontend
 
-> [!abstract] Introduction
-> Les choix d'architecture côté front : rendu (CSR/SSR/SSG), gestion d'état (local, partagé, serveur), découpage (features, monorepo, micro-frontends), design system et contrats avec le backend.
+> [!abstract] En bref
+> Un front Angular ou Vue, c'est aussi une vraie application qui mérite une architecture : où ranger les fichiers, où vit l'état, comment isoler l'API, comment découper les composants. Les principes sont les **mêmes dans les deux frameworks**. L'arborescence concrète est dans [[ARCH-15-Structure-de-Projet|Structure de projet]].
 
-> [!warning]- Prérequis
-> [[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]], [[VUE-19-Architecture-Projet-Vue|Architecture d'un Projet Vue.js]]
+## Les couches d'un front
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> Axes de décision :
-> | Axe | Options |
-> |---|---|
-> | Rendu | CSR (SPA), SSR, SSG, hybride par route |
-> | État | local (signal/ref), partagé (service/store), serveur (cache de requêtes), URL (filtres dans l'URL) |
-> | Découpage | par feature, monorepo (Nx, Turborepo), micro-frontends (Module Federation, Native Federation) |
-> | UI | design system interne, lib (Material, PrimeNG/PrimeVue), Tailwind |
-> | Contrat back | REST + OpenAPI, GraphQL, BFF (Backend For Frontend) |
-
-> [!example]- Analogie
-> Architecturer un front, c'est urbaniser une ville : quartiers (features), réseaux communs (core), règles d'urbanisme (lint, conventions), et parfois des villes jumelles (micro-frontends).
-
-> [!question]- Pourquoi l'utiliser ?
-> Une application front d'entreprise vit des années avec plusieurs équipes : sans architecture, chaque ajout coûte plus cher que le précédent.
-
-> [!question]- Comment ça marche ?
-> Types d'état et où les mettre :
-> ```mermaid
-> flowchart TB
->   S["Donnée ?"] --> Q1{"Vient du serveur ?"}
->   Q1 -- Oui --> SV["Cache serveur<br/>(service + signals / TanStack Query)"]
->   Q1 -- Non --> Q2{"Doit survivre au rechargement / partage de lien ?"}
->   Q2 -- Oui --> URL["URL (query params) ou localStorage"]
->   Q2 -- Non --> Q3{"Partagée entre écrans ?"}
->   Q3 -- Oui --> ST["Store global (service/NgRx/Pinia)"]
->   Q3 -- Non --> LOC["État local du composant"]
-> ```
-> Micro-frontends : plusieurs applications (éventuellement Angular ET Vue) composées dans une même page, déployées indépendamment — utile quand plusieurs équipes autonomes travaillent sur un même produit.
-
-> [!question]- Quand l'utiliser ?
-> Dès qu'un front dépasse une équipe ou quelques dizaines d'écrans ; micro-frontends seulement pour une vraie autonomie d'équipes.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Micro-frontends = complexité (versions partagées, cohérence UI, performance) ; beaucoup d'équipes s'en passent avec un monorepo bien structuré.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| BFF | Backend dédié à un front |
-| Micro-frontend | Front découpé en applications indépendantes |
-| Monorepo | Plusieurs projets dans un dépôt |
-| Module Federation | Chargement de code d'une autre app à l'exécution |
-| État serveur | Données dont la source de vérité est le backend |
-
----
-
-## Points clés
-
-- Choisir le rendu par besoin (SEO, perf, auth)
-- Classer l'état : local, partagé, serveur, URL
-- Monorepo + règles de dépendances avant micro-frontends
-- Design system partagé Angular/Vue via tokens CSS
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Tout mettre dans un store global
-> - Micro-frontends « parce que c'est moderne »
-
----
-
-## Exemple minimal
-
-```typescript
-// Filtres dans l'URL : partageables et restaurés au rechargement (Angular)
-const route = inject(ActivatedRoute);
-genre = toSignal(route.queryParamMap.pipe(map(p => p.get('genre') ?? 'tous')), { initialValue: 'tous' });
+```mermaid
+flowchart TB
+  P["📄 Pages<br/>assemblent l'écran, liées aux routes"] --> C["🧩 Composants d'affichage<br/>props / inputs → événements"]
+  P --> S["🗃️ État<br/>stores, composables, services"]
+  S --> A["🌐 Accès aux données<br/>api + mapper (DTO → modèle)"]
+  A --> X["API"]
 ```
 
-> [!note] Ce que j'en retiens
-> L'URL est un état : un lien partagé retrouve exactement la même liste filtrée.
+| Couche | Rôle | Angular | Vue |
+|---|---|---|---|
+| Pages | écran d'une route, branche l'état sur les composants | `movies-list.page.ts` | `MoviesPage.vue` |
+| Composants d'affichage | afficher, émettre des événements | `movie-card.component.ts` | `MovieCard.vue` |
+| État | données de l'écran ou partagées | service + signals | composable, Pinia |
+| Accès aux données | appels HTTP, conversion | `movies.api.ts` + mapper | `movies.api.ts` + mapper |
 
----
+## Les 6 principes
 
-## Pour aller plus loin (niveau senior)
+1. **Ranger par fonctionnalité** (`features/movies`), pas par type de fichier.
+2. **Des composants d'affichage « bêtes »** : ils reçoivent et émettent, sans service ni appel HTTP. Réutilisables et faciles à tester.
+3. **Isoler l'API** : un mapper convertit le DTO en modèle. L'API change ? Un seul fichier bouge.
+4. **Choisir où vit chaque état** : local au composant, dans un store partagé, ou **dans l'URL** (filtres, page) pour pouvoir partager le lien.
+5. **Prévoir les 4 états** de chaque chargement : chargement, erreur, vide, données.
+6. **Charger à la demande** : chaque feature dans sa route lazy.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Rédiger la vision d'architecture front d'un produit (ADR, règles Nx, design system, stratégie de tests)
+## Les grandes approches de rendu
 
----
+| Approche | Principe | Pour |
+|---|---|---|
+| **SPA** (Angular / Vue classiques) | le navigateur construit les pages | applications, tableaux de bord |
+| **SSR** (Angular SSR, Nuxt) | le serveur envoie la page remplie | sites publics, référencement |
+| **SSG** | pages générées au build | vitrine, blog, portfolio |
 
-## Connexions
+Voir [[ANG-26-SSR-Hydratation|Angular SSR]] et [[VUE-18-Nuxt-SSR|Nuxt]].
 
-**Arbre théorique :**
-- Sujet parent → [[Architecture Logicielle]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Les grosses applications
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/arch-14-architecture-frontend]]
+- **Monorepo** (Nx) : plusieurs applications et librairies partagées dans un dépôt, avec des règles d'import vérifiées.
+- **Design system** : une librairie de composants communs à toutes les applications de l'entreprise.
+- **Micro-frontends** : plusieurs équipes livrent chacune une partie de l'interface indépendamment. Puissant, mais complexe : seulement pour de très grosses organisations.
 
----
+## Les notes détaillées
 
-## Auto-vérification
+- Angular : [[ANG-28-Architecture-Projet-Angular|Principes]] · [[ANG-30-Template-Architecture-Angular|Template]]
+- Vue : [[VUE-19-Architecture-Projet-Vue|Principes]] · [[VUE-22-Template-Architecture-Vue|Template]]
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Où ranger l'état « filtre de recherche » et pourquoi ?
+## Pièges
 
-> [!faq]- Questions d'entretien
-> - Comment organiseriez-vous le front d'une application utilisée par 5 équipes ?
-
----
-
-## Tâches
-
-- [ ] #task Cartographier l'architecture front des projets Angular et Vue au travail
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Tout l'état dans un store global** : un filtre de page reste dans la page (ou l'URL).
+- **Des composants qui appellent l'API** directement : impossible à réutiliser.
+- **Des micro-frontends pour une application d'une équipe** : complexité énorme sans bénéfice.

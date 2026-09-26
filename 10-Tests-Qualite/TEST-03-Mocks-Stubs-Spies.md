@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,141 +10,79 @@ tags:
 aliases:
   - "Mocks Stubs et Spies"
 parent: "[[Tests et Qualité]]"
-children: []
 related_theory:
   - "[[TEST-02-Tests-Unitaires-Vitest-Jest|Tests Unitaires avec Vitest et Jest]]"
   - "[[NEST-04-Providers-DI|Providers et Injection de Dépendances NestJS]]"
-related_snippets:
-  - "[[04_Snippets/test-03-mocks-stubs-spies]]"
 related_projects: []
 source: "https://martinfowler.com/articles/mocksArentStubs.html"
 ---
 
 # Mocks Stubs et Spies
 
-> [!abstract] Introduction
-> Les doublures de test remplacent une dépendance réelle (API, BDD, horloge) pour isoler le code testé : stub (renvoie une valeur), spy (observe les appels), mock (vérifie des interactions), fake (implémentation simplifiée).
+> [!abstract] En bref
+> Pour tester un service **seul**, on remplace ses dépendances (la base de données, l'API TMDB, l'envoi d'e-mail) par des **doublures** : de faux objets qu'on contrôle. Comme au cinéma, la doublure remplace l'acteur pour les scènes dangereuses. Les tests restent rapides, fiables et sans effet réel.
 
-> [!warning]- Prérequis
-> [[TEST-02-Tests-Unitaires-Vitest-Jest|Tests Unitaires avec Vitest et Jest]]
+## Les types de doublures
 
----
+| Type | Rôle | Exemple |
+|---|---|---|
+| **Stub** | renvoie une réponse **toute prête** | la « base » renvoie toujours ce film |
+| **Spy** (espion) | **enregistre** les appels pour les vérifier | « `sendEmail` a-t-il été appelé avec cette adresse ? » |
+| **Mock** | stub + espion : réponse préparée **et** appels vérifiés | le plus courant avec `vi.fn()` |
+| **Fake** | une **vraie petite implémentation** simplifiée | une « base » en mémoire avec un tableau |
 
-## Théorie
+## Avec Vitest
 
-> [!question]- C'est quoi ?
-> | Doublure | Rôle | Exemple |
-> |---|---|---|
-> | Dummy | Remplir un paramètre | `null as any` |
-> | Stub | Renvoyer une réponse prédéfinie | `vi.fn().mockResolvedValue([])` |
-> | Spy | Enregistrer les appels d'une vraie fonction | `vi.spyOn(console, 'error')` |
-> | Mock | Stub + vérification des appels | `expect(api.creer).toHaveBeenCalledWith(...)` |
-> | Fake | Implémentation légère réelle | Repository en mémoire |
+```ts
+import { vi } from 'vitest';
 
-> [!example]- Analogie
-> Un cascadeur remplace l'acteur pour les scènes dangereuses : le film (le test) continue sans risquer l'acteur (la vraie BDD, la vraie API de paiement).
+// une fausse fonction
+const findUnique = vi.fn().mockResolvedValue({ id: 1, userId: 99 });
 
-> [!question]- Pourquoi l'utiliser ?
-> Tests rapides, déterministes, sans réseau, capables de simuler des erreurs (500, timeout) difficiles à provoquer autrement.
+// un espion sur une vraie méthode
+const spy = vi.spyOn(mailer, 'send').mockResolvedValue(undefined);
 
-> [!question]- Comment ça marche ?
-> ```typescript
-> // Angular : service HTTP remplacé
-> TestBed.configureTestingModule({
->   providers: [{ provide: FilmApi, useValue: { liste: vi.fn().mockReturnValue(of([dune])) } }],
-> });
-> // Angular HttpClient : outils dédiés
-> provideHttpClient(), provideHttpClientTesting();
-> const http = TestBed.inject(HttpTestingController);
-> http.expectOne('/api/films').flush([dune]);
-> // Réseau global : MSW intercepte fetch/XHR (Vue, Angular, Node)
-> ```
+// vérifications
+expect(findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
+expect(spy).toHaveBeenCalledTimes(1);
+expect(spy).not.toHaveBeenCalled();
+```
 
-> [!question]- Quand l'utiliser ?
-> Dépendances lentes, non déterministes ou externes : HTTP, BDD (en unitaire), temps, aléatoire, stockage.
+| Outil | Effet |
+|---|---|
+| `vi.fn()` | crée une fausse fonction |
+| `.mockReturnValue(x)` | renvoie `x` |
+| `.mockResolvedValue(x)` / `.mockRejectedValue(e)` | Promise réussie / échouée |
+| `vi.spyOn(obj, 'méthode')` | espionne (et peut remplacer) une vraie méthode |
+| `vi.mock('./module')` | remplace un module entier |
+| `vi.useFakeTimers()` | contrôler le temps (`setTimeout`, dates) |
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Trop de mocks = tests qui vérifient l'implémentation et passent alors que l'intégration réelle est cassée. Mocker ce qu'on ne possède pas via une abstraction à soi.
+## Exemple : tester un service NestJS
 
----
+```ts
+it('envoie un e-mail de bienvenue à l\'inscription', async () => {
+  const prisma = { user: { findUnique: vi.fn().mockResolvedValue(null), create: vi.fn().mockResolvedValue({ id: 1, email: 'a@b.fr' }) } };
+  const mailer = { sendWelcome: vi.fn() };
+  const service = new AuthService(prisma as any, mailer as any, jwtStub);
 
-## Vocabulaire
+  await service.register({ email: 'a@b.fr', password: 'Motdepasse123!' });
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Doublure | Objet qui remplace une dépendance en test |
-| Stub | Réponse prédéfinie |
-| Spy | Observateur d'appels |
-| Fake | Implémentation simplifiée fonctionnelle |
-| MSW | Interception réseau pour les tests |
-
----
-
-## Points clés
-
-- Doubler les frontières (réseau, BDD, temps)
-- Préférer les fakes simples aux mocks complexes
-- Tester aussi les cas d'erreur grâce aux stubs
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Mocker le module qu'on teste lui-même
-> - Vérifier chaque appel interne (tests fragiles)
-
----
-
-## Exemple minimal
-
-```typescript
-it('affiche un message si l\'API échoue', async () => {
-  api.liste.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 500 })));
-  const f = TestBed.createComponent(ListeFilmsComponent);
-  f.detectChanges(); await f.whenStable();
-  expect(f.nativeElement.textContent).toContain('Chargement impossible');
+  expect(mailer.sendWelcome).toHaveBeenCalledWith('a@b.fr');
 });
 ```
 
-> [!note] Ce que j'en retiens
-> Un stub en erreur teste le chemin d'échec en une ligne.
+Grâce à l'injection de dépendances, remplacer une dépendance est facile (voir [[NEST-04-Providers-DI|Injection NestJS]] et [[ANG-05-Services-DI|Injection Angular]]).
 
----
+## Quoi remplacer, quoi garder
 
-## Pour aller plus loin (niveau senior)
+| Remplacer ✅ | Garder réel ✅ |
+|---|---|
+| la base de données (en test unitaire) | tes propres fonctions de calcul |
+| les API externes (TMDB, paiement, e-mail) | les mappers, les validations |
+| le temps, l'aléatoire | |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Concevoir le code pour la testabilité (DI, fonctions pures) plutôt que multiplier les mocks
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Tests et Qualité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/test-03-mocks-stubs-spies]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Différence entre stub et mock ?
-
----
-
-## Tâches
-
-- [ ] #task Tester le cas d'erreur réseau de la liste de films (Angular et Vue)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Tout mocker** : tu finis par tester tes mocks, pas ton code. Si un test est rempli de mocks, c'est peut-être un test d'**intégration** qu'il faut (voir [[TEST-04-Tests-Integration-API|Intégration]]).
+- **Oublier de réinitialiser** les mocks entre les tests (`vi.clearAllMocks()` dans `beforeEach`) : un test hérite des appels du précédent.
+- **Un mock qui ne ressemble pas à la vraie réponse** : le test passe, la production casse.

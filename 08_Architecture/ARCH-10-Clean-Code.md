@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,141 +10,105 @@ tags:
 aliases:
   - "Clean Code"
 parent: "[[Architecture Logicielle]]"
-children:
-  - "[[ARCH-11-SOLID|SOLID]]"
 related_theory:
   - "[[TG-08-Lisibilite-Nommage|Lisibilité et Nommage du Code]]"
   - "[[TEST-07-Code-Review|Code Review]]"
-related_snippets:
-  - "[[04_Snippets/arch-10-clean-code]]"
 related_projects: []
 source: "https://refactoring.guru/fr/refactoring/smells"
 ---
 
 # Clean Code
 
-> [!abstract] Introduction
-> Le Clean Code regroupe des pratiques pour écrire un code facile à lire, à tester et à modifier : noms explicites, petites fonctions, pas de duplication, gestion d'erreurs claire, et refactoring continu guidé par les « code smells ».
+> [!abstract] En bref
+> Du code « propre », c'est du code **facile à lire et à modifier** par quelqu'un d'autre (ou par toi dans six mois). On lit le code dix fois plus qu'on ne l'écrit. Quelques règles simples font l'essentiel : des **noms clairs**, des **fonctions courtes** qui font **une seule chose**, et **pas de duplication** inutile.
 
-> [!warning]- Prérequis
-> [[TG-08-Lisibilite-Nommage|Lisibilité et Nommage du Code]]
+## 1. Des noms qui disent tout
 
----
+| ❌ | ✅ |
+|---|---|
+| `data`, `list`, `tmp` | `popularMovies`, `favoriteIds` |
+| `d` | `releaseDate` |
+| `handle()` | `addToFavorites()` |
+| `flag` | `isLoading`, `hasError` |
+| `getData2()` | `fetchMovieDetails()` |
 
-## Théorie
+- Variables : des **noms** (`movies`). Fonctions : des **verbes** (`loadMovies`). Booléens : `is…`, `has…`, `can…`.
+- Si tu as besoin d'un commentaire pour expliquer une variable, renomme-la.
 
-> [!question]- C'est quoi ?
-> Principes :
-> - **KISS** (Keep It Simple) — la solution la plus simple qui marche
-> - **DRY** (Don't Repeat Yourself) — une connaissance = un endroit
-> - **YAGNI** (You Aren't Gonna Need It) — ne pas coder pour un futur hypothétique
-> - **Règle du boy-scout** — laisser le code un peu plus propre qu'on ne l'a trouvé
-> - Fonctions courtes, un niveau d'abstraction, peu de paramètres
-> Code smells courants : fonction trop longue, classe « Dieu », duplication, longue liste de paramètres, `if/else` en cascade sur un type, nombres magiques, commentaires qui expliquent un code obscur.
+Voir aussi [[TG-08-Lisibilite-Nommage|Lisibilité et nommage]].
 
-> [!example]- Analogie
-> Un atelier rangé : chaque outil à sa place, étiqueté, on retrouve tout sans chercher ; le refactoring, c'est le rangement quotidien plutôt que le grand ménage annuel.
+## 2. Des fonctions courtes, une seule responsabilité
 
-> [!question]- Pourquoi l'utiliser ?
-> Le coût d'un logiciel est surtout dans sa maintenance ; un code propre réduit bugs, temps d'onboarding et peur de modifier.
+```ts
+// ❌ une fonction qui fait tout
+async function handleSubmit() {
+  if (!form.email || !form.email.includes('@')) { /* … */ }
+  const res = await fetch('/api/contact', { /* … */ });
+  if (!res.ok) { /* … */ }
+  toast.show('Envoyé');
+  form.reset();
+  analytics.track('contact');
+}
 
-> [!question]- Comment ça marche ?
-> Refactorings de base (toujours sous tests) : extraire une fonction, renommer, remplacer un nombre magique par une constante, remplacer des conditions par du polymorphisme ou une table de correspondance, introduire un objet paramètre.
-> ```typescript
-> // Avant
-> function prix(t: string, p: number) { if (t === 'e') return p * 0.5; else if (t === 's') return p * 0.8; else return p; }
-> // Après
-> const REDUCTIONS: Record<TypeClient, number> = { etudiant: 0.5, senior: 0.8, standard: 1 };
-> const prixApresReduction = (type: TypeClient, prix: number) => prix * REDUCTIONS[type];
-> ```
-
-> [!question]- Quand l'utiliser ?
-> En continu, surtout quand on touche un code (règle du boy-scout) et avant d'ajouter une fonctionnalité dans une zone confuse.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> DRY poussé à l'extrême crée des abstractions couplées : deux codes qui se ressemblent par hasard ne doivent pas forcément être fusionnés (« la duplication vaut mieux que la mauvaise abstraction »).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Code smell | Symptôme d'un problème de conception |
-| Refactoring | Améliorer la structure sans changer le comportement |
-| KISS / DRY / YAGNI | Simplicité / pas de duplication / pas de sur-ingénierie |
-| Dette technique | Coût futur des raccourcis pris aujourd'hui |
-
----
-
-## Points clés
-
-- Refactorer sous couverture de tests
-- Petites étapes, commits séparés du changement fonctionnel
-- Simplicité avant généricité
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Refactoring géant mélangé à une nouvelle fonctionnalité dans la même MR
-> - Sur-abstraction « au cas où »
-
----
-
-## Exemple minimal
-
-```typescript
-// Guard clauses au lieu d'imbrication
-function peutNoter(user?: Utilisateur, film?: Film): boolean {
-  if (!user || !film) return false;
-  if (user.estBanni) return false;
-  return film.dateSortie <= new Date();
+// ✅ chaque étape a un nom
+async function handleSubmit() {
+  if (!isValid(form)) return showErrors();
+  await contactApi.send(form.values);
+  notifySuccess();
+  form.reset();
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Chaque condition éliminatoire sort tôt ; le cas nominal se lit à la fin.
+Repère : si tu dois faire défiler pour lire une fonction, ou si son nom contient « et », découpe-la.
 
----
+## 3. Sortir tôt plutôt qu'imbriquer
 
-## Pour aller plus loin (niveau senior)
+```ts
+// ❌ la pyramide
+function canEdit(user, review) {
+  if (user) {
+    if (review) {
+      if (review.userId === user.id || user.role === 'ADMIN') {
+        return true;
+      }
+    }
+  }
+  return false;
+}
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Piloter la dette technique : la rendre visible (tickets), la prioriser, la rembourser par petits lots
+// ✅ les cas particuliers d'abord
+function canEdit(user: User | null, review: Review | null) {
+  if (!user || !review) return false;
+  return review.userId === user.id || user.role === 'ADMIN';
+}
+```
 
----
+## 4. Pas de nombres magiques
 
-## Connexions
+```ts
+setTimeout(search, 300);                 // ❌ pourquoi 300 ?
+const SEARCH_DEBOUNCE_MS = 300;          // ✅
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Architecture Logicielle]]
-- Sous-sujets → [[ARCH-11-SOLID|SOLID]]
-- À comparer avec → (—)
+## 5. Les commentaires : le pourquoi, pas le quoi
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/arch-10-clean-code]]
+```ts
+// ❌ incrémente i
+i++;
 
----
+// ✅ TMDB limite à 40 requêtes / 10 s : on regroupe les appels
+```
 
-## Auto-vérification
+## 6. DRY… sans excès
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi la duplication est-elle parfois préférable à une abstraction ?
+**DRY** (*Don't Repeat Yourself*) : ne pas dupliquer une **règle**. Mais deux morceaux de code qui se ressemblent par hasard ne doivent pas forcément être fusionnés. Règle pratique : attends la **troisième** répétition avant de factoriser.
 
-> [!faq]- Questions d'entretien
-> - Qu'est-ce qu'un code propre pour vous ?
+## 7. Laisser le code un peu plus propre qu'on l'a trouvé
 
----
+Tu touches un fichier ? Améliore un nom, supprime un code mort. Petit à petit, sans grande refonte (et dans un commit `refactor:` séparé).
 
-## Tâches
+## Pièges
 
-- [ ] #task Lire le catalogue des code smells de refactoring.guru et en identifier 3 dans un vieux projet
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Du code « malin »** (une ligne incompréhensible) au lieu de trois lignes claires.
+- **Du code commenté « au cas où »** : Git garde l'historique, supprime-le.
+- **Des abstractions prématurées** : une interface pour une seule implémentation, trois couches pour une route.

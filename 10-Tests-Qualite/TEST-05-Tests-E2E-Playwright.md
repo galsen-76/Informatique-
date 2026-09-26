@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,138 +10,87 @@ tags:
 aliases:
   - "Tests End-to-End Playwright et Cypress"
 parent: "[[Tests et Qualité]]"
-children: []
 related_theory:
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]"
   - "[[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]"
-related_snippets:
-  - "[[04_Snippets/test-05-tests-e2e-playwright]]"
 related_projects: []
 source: "https://playwright.dev/docs/intro"
 ---
 
-# Tests End-to-End Playwright et Cypress
+# Tests E2E avec Playwright
 
-> [!abstract] Introduction
-> Les tests E2E pilotent un vrai navigateur pour vérifier des parcours utilisateur complets (front + API + BDD) ; Playwright est aujourd'hui la référence (multi-navigateurs, rapide, robuste), Cypress reste très répandu.
+> [!abstract] En bref
+> Un test **end-to-end** (E2E) pilote un **vrai navigateur** comme le ferait un utilisateur : ouvrir la page, taper dans la recherche, cliquer sur un film, vérifier qu'il apparaît dans les favoris. **Playwright** est l'outil de référence. On en écrit **peu**, pour les parcours essentiels.
 
-> [!warning]- Prérequis
-> [[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> import { test, expect } from '@playwright/test';
-> test('un utilisateur ajoute un film à ses favoris', async ({ page }) => {
->   await page.goto('/login');
->   await page.getByLabel('E-mail').fill('ali@test.fr');
->   await page.getByLabel('Mot de passe').fill('motdepasse-solide');
->   await page.getByRole('button', { name: 'Se connecter' }).click();
->   await page.goto('/films/1');
->   await page.getByRole('button', { name: 'Ajouter aux favoris' }).click();
->   await page.goto('/favoris');
->   await expect(page.getByRole('heading', { name: 'Dune' })).toBeVisible();
-> });
-> ```
-
-> [!example]- Analogie
-> Un client mystère qui fait réellement ses courses dans le magasin pour vérifier que tout le parcours fonctionne.
-
-> [!question]- Pourquoi l'utiliser ?
-> Seul niveau qui prouve que l'application marche vraiment du point de vue de l'utilisateur ; indispensable pour les parcours critiques.
-
-> [!question]- Comment ça marche ?
-> - Sélecteurs orientés utilisateur : `getByRole`, `getByLabel`, `getByText` (robustes et accessibles) plutôt que classes CSS
-> - Attentes automatiques (auto-waiting) : pas de `sleep`
-> - Authentification réutilisée (storageState) pour accélérer
-> - Traces, vidéos et captures en cas d'échec ; mode UI pour déboguer
-> - Accessibilité : `@axe-core/playwright`
-
-> [!question]- Quand l'utiliser ?
-> 5 à 20 parcours critiques (connexion, création, paiement), exécutés en CI sur la recette.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Lents et parfois instables (flaky) ; ne pas y tester chaque règle métier.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| E2E | Test de bout en bout |
-| Flaky | Instable |
-| Auto-waiting | Attente automatique qu'un élément soit prêt |
-| Trace viewer | Relecture pas à pas d'un test Playwright |
-
----
-
-## Points clés
-
-- Sélecteurs par rôle et libellé
-- Pas d'attente fixe
-- Peu de tests, mais sur les parcours critiques
-- Traces pour diagnostiquer
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `page.waitForTimeout(3000)` partout
-> - Tests dépendant de données de recette modifiées par d'autres
-
----
-
-## Exemple minimal
+## Installer
 
 ```bash
-npm init playwright@latest
-npx playwright test --ui
-npx playwright codegen http://localhost:4200   # enregistre un parcours
+npm init playwright@latest        # crée playwright.config.ts et un dossier e2e/
+npx playwright test               # lancer (sans fenêtre)
+npx playwright test --ui          # interface visuelle : très pratique pour écrire et déboguer
+npx playwright codegen localhost:5173   # enregistre tes clics et génère le code
 ```
 
-> [!note] Ce que j'en retiens
-> `codegen` génère un premier jet de test en cliquant dans l'application.
+## Un test : le parcours principal de CinéTrack
 
----
+```ts
+// e2e/favorites.spec.ts
+import { test, expect } from '@playwright/test';
 
-## Pour aller plus loin (niveau senior)
+test('un visiteur trouve un film et l\'ajoute en favori', async ({ page }) => {
+  await page.goto('/');
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Paralléliser, isoler les données par test, intégrer à la CI avec rapports
+  await page.getByRole('searchbox', { name: 'Rechercher un film' }).fill('Inception');
+  await page.getByRole('link', { name: /Inception/ }).first().click();
 
----
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Inception');
 
-## Connexions
+  await page.getByRole('button', { name: 'Ajouter aux favoris' }).click();
+  await page.getByRole('link', { name: 'Favoris' }).click();
 
-**Arbre théorique :**
-- Sujet parent → [[Tests et Qualité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+  await expect(page.getByText('Inception')).toBeVisible();
+});
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/test-05-tests-e2e-playwright]]
+## Trouver les éléments comme un utilisateur
 
----
+| Localisateur | Trouve | Priorité |
+|---|---|---|
+| `getByRole('button', { name: 'Envoyer' })` | par rôle et texte accessible | ⭐ à préférer |
+| `getByLabel('E-mail')` | un champ par son label | ⭐ |
+| `getByText('Aucun résultat')` | un texte | ⭐ |
+| `getByTestId('movie-card')` | un `data-testid` | si rien d'autre |
+| `locator('.card > h3')` | un sélecteur CSS | à éviter (fragile) |
 
-## Auto-vérification
+Bonus : si `getByRole` et `getByLabel` trouvent tes éléments, ta page est probablement **accessible**.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `getByRole` est-il plus robuste qu'un sélecteur CSS ?
+## Les vérifications attendent toutes seules
 
----
+```ts
+await expect(page.getByText('Message envoyé')).toBeVisible();   // attend jusqu'à 5 s
+```
 
-## Tâches
+Pas besoin de `sleep` : Playwright réessaie jusqu'à ce que la condition soit vraie ou que le délai expire.
 
-- [ ] #task Écrire 3 tests E2E pour CinéTrack (connexion, recherche, favoris)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Maîtriser les appels API
 
----
+Pour un test stable, on peut simuler l'API :
 
-## Notes brutes
+```ts
+await page.route('**/movie/popular*', route =>
+  route.fulfill({ json: { results: [{ id: 1, title: 'Dune', poster_path: null }] } }),
+);
+```
 
-- ?
+## Quels parcours tester
+
+- Le Portfolio : l'accueil s'affiche, le filtre par techno fonctionne, le formulaire de contact valide et envoie.
+- CinéTrack : recherche → fiche → favori ; connexion → écrire une critique.
+
+**5 à 10 tests E2E bien choisis** valent mieux que 100 fragiles.
+
+## Pièges
+
+- **Des `waitForTimeout(2000)`** : lents et instables. Utilise les `expect` qui attendent.
+- **Des sélecteurs CSS** qui cassent au moindre changement de style.
+- **Des tests qui dépendent de données réelles** qui changent (films populaires de TMDB) : simule l'API ou utilise une base de test.

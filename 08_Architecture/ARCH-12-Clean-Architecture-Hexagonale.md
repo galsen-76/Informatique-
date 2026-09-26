@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,161 +10,97 @@ tags:
 aliases:
   - "Architecture Hexagonale et Clean Architecture"
 parent: "[[Architecture Logicielle]]"
-children: []
 related_theory:
   - "[[ARCH-03-Architecture-en-Couches|Architecture en Couches]]"
   - "[[ARCH-11-SOLID|SOLID]]"
   - "[[ARCH-13-Domain-Driven-Design|Domain-Driven Design]]"
-related_snippets:
-  - "[[04_Snippets/arch-12-clean-architecture-hexagonale]]"
 related_projects: []
 source: "https://alistair.cockburn.us/hexagonal-architecture/"
 ---
 
-# Architecture Hexagonale et Clean Architecture
+# Clean Architecture et Hexagonale
 
-> [!abstract] Introduction
-> L'architecture hexagonale (ports & adapters) et la Clean Architecture placent la logique métier au centre, indépendante des frameworks, de la base de données et de l'UI ; les détails techniques se branchent autour via des interfaces.
+> [!abstract] En bref
+> L'idée : mettre les **règles métier au centre**, et tout le reste (le framework, la base de données, les API externes, l'interface) **autour**, branché par des « prises ». Le cœur ne dépend de rien de technique. On peut alors changer de base ou de framework sans toucher aux règles. Utile pour les applications métier complexes, **trop lourd** pour un petit projet.
 
-> [!warning]- Prérequis
-> [[ARCH-03-Architecture-en-Couches|Architecture en Couches]], [[ARCH-11-SOLID|SOLID]]
+## L'image : l'hexagone et ses prises
 
----
+Le **cœur métier** est un appareil avec des **prises** normalisées (les *ports*). Autour, des **adaptateurs** se branchent : une prise « base de données » reçoit un adaptateur Prisma aujourd'hui, MongoDB demain ; la prise « notifications » reçoit un adaptateur e-mail ou SMS.
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```mermaid
-> flowchart LR
->   subgraph Adapters entrants
->     HTTP["Controller REST (NestJS)"]
->     CLI["Job / CLI"]
->   end
->   subgraph Cœur["Domaine + cas d'usage"]
->     UC["Cas d'usage : AjouterFavori"]
->     D["Entités / règles métier"]
->     P1(["Port : FavorisRepository"])
->     P2(["Port : Notifieur"])
->   end
->   subgraph Adapters sortants
->     DB["PrismaFavorisRepository"]
->     MAIL["EmailNotifieur"]
->   end
->   HTTP --> UC
->   CLI --> UC
->   UC --> D
->   UC --> P1
->   UC --> P2
->   DB -. implémente .-> P1
->   MAIL -. implémente .-> P2
-> ```
-> Règle de dépendance : les dépendances pointent **vers le centre** ; le domaine ne connaît ni NestJS, ni Prisma, ni HTTP.
-
-> [!example]- Analogie
-> Le cœur métier est un moteur ; les adapters sont les prises et câbles. On peut changer la prise (REST → GraphQL) ou la batterie (PostgreSQL → Mongo) sans toucher au moteur.
-
-> [!question]- Pourquoi l'utiliser ?
-> Tester le métier sans BDD ni serveur, changer de technologie sans réécrire les règles, protéger le code métier (la partie qui a de la valeur) des évolutions des frameworks.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> // Port (domaine)
-> export interface FavorisRepository { existe(u: number, f: number): Promise<boolean>; ajouter(u: number, f: number): Promise<void> }
-> // Cas d'usage (domaine, aucun import NestJS/Prisma)
-> export class AjouterFavori {
->   constructor(private repo: FavorisRepository) {}
->   async executer(userId: number, filmId: number) {
->     if (await this.repo.existe(userId, filmId)) throw new FavoriDejaPresent();
->     await this.repo.ajouter(userId, filmId);
->   }
-> }
-> // Adapter (infrastructure)
-> @Injectable() export class PrismaFavorisRepository implements FavorisRepository { /* Prisma */ }
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Domaine métier riche et durable (règles complexes, plusieurs points d'entrée). Pour un CRUD simple, une architecture en couches classique suffit.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Plus de fichiers, d'interfaces et de mapping entre objets : surcoût réel pour des applications simples.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Port | Interface définie par le domaine |
-| Adapter | Implémentation technique d'un port |
-| Cas d'usage | Action métier orchestrée (application service) |
-| Règle de dépendance | Le centre ne dépend jamais de l'extérieur |
-
----
-
-## Points clés
-
-- Le métier au centre, sans dépendance technique
-- Ports = interfaces, adapters = implémentations
-- Tests unitaires du métier sans mock de framework
-- Adapter la rigueur à la complexité du domaine
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Appliquer l'hexagonal à un CRUD de 3 tables
-> - Laisser fuiter les types Prisma dans le domaine
-
----
-
-## Exemple minimal
-
-```typescript
-// Test du cas d'usage avec un faux repository en mémoire
-const repo = new FavorisEnMemoire();
-await new AjouterFavori(repo).executer(1, 42);
-await expect(new AjouterFavori(repo).executer(1, 42)).rejects.toThrow(FavoriDejaPresent);
+```mermaid
+flowchart LR
+  subgraph Extérieur gauche
+    HTTP["Controller HTTP"]
+    CLI["Tâche planifiée"]
+  end
+  subgraph Cœur["🟢 Cœur métier (sans framework)"]
+    UC["Cas d'usage<br/>PublishReview"]
+    D["Règles<br/>Review, Rating"]
+    P1["port : ReviewRepository"]
+    P2["port : Notifier"]
+  end
+  subgraph Extérieur droit
+    DB["Adaptateur Prisma"]
+    MAIL["Adaptateur e-mail"]
+  end
+  HTTP --> UC
+  CLI --> UC
+  UC --> D
+  UC --> P1
+  UC --> P2
+  DB -. implémente .-> P1
+  MAIL -. implémente .-> P2
 ```
 
-> [!note] Ce que j'en retiens
-> La règle métier se teste en millisecondes, sans base ni serveur.
+**La règle de dépendance :** les flèches pointent **vers le cœur**. Le cœur ne connaît ni NestJS, ni Prisma, ni HTTP.
 
----
+## En code
 
-## Pour aller plus loin (niveau senior)
+```ts
+// ── cœur : aucune dépendance technique ──
+export interface ReviewRepository {                  // un port
+  findByUserAndMovie(userId: number, movieId: number): Promise<Review | null>;
+  save(review: Review): Promise<Review>;
+}
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Choisir le niveau d'architecture par module (CRUD simple vs cœur métier complexe)
+export class PublishReview {                          // un cas d'usage
+  constructor(private reviews: ReviewRepository, private notifier: Notifier) {}
 
----
+  async execute(input: { userId: number; movieId: number; rating: number; comment: string }) {
+    if (input.rating < 1 || input.rating > 10) throw new InvalidRatingError();
+    if (await this.reviews.findByUserAndMovie(input.userId, input.movieId)) throw new AlreadyReviewedError();
+    const review = await this.reviews.save(Review.create(input));
+    await this.notifier.reviewPublished(review);
+    return review;
+  }
+}
 
-## Connexions
+// ── extérieur : l'adaptateur ──
+@Injectable()
+export class PrismaReviewRepository implements ReviewRepository {
+  constructor(private prisma: PrismaService) {}
+  findByUserAndMovie(userId: number, movieId: number) { /* Prisma */ }
+  save(review: Review) { /* Prisma */ }
+}
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Architecture Logicielle]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Le cas d'usage se teste avec de **faux** adaptateurs, sans base ni serveur.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/arch-12-clean-architecture-hexagonale]]
+## Couches classiques vs hexagonale
 
----
+| | [[ARCH-03-Architecture-en-Couches\|Couches]] | Hexagonale / Clean |
+|---|---|---|
+| Le métier dépend de | la couche données (Prisma) | **rien** : c'est l'inverse |
+| Changer de base | on modifie les repositories | on écrit un nouvel adaptateur |
+| Quantité de code | moins | plus (interfaces, adaptateurs, conversions) |
+| Idéal pour | la plupart des API | métier riche et durable, plusieurs entrées / sorties |
 
-## Auto-vérification
+## Quand l'utiliser ?
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Dans quel sens pointent les dépendances en Clean Architecture ?
+- **Oui** : application métier complexe qui vivra des années, règles nombreuses, plusieurs façons d'entrer (API, tâches, messages).
+- **Non** : CRUD simple, projet perso, prototype. CinéTrack-API n'en a pas besoin (mais c'est un excellent exercice sur un module).
 
----
+## Pièges
 
-## Tâches
-
-- [ ] #task Implémenter le module favoris de l'API en hexagonal et comparer avec la version en couches
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Tout le cérémonial pour une table et trois routes**.
+- **Un « cœur » qui importe Prisma ou NestJS** : la règle de dépendance est cassée, on paie la complexité sans le bénéfice.

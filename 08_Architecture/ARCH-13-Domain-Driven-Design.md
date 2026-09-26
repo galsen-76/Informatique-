@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,140 +10,82 @@ tags:
 aliases:
   - "Domain-Driven Design"
 parent: "[[Architecture Logicielle]]"
-children: []
 related_theory:
   - "[[ARCH-12-Clean-Architecture-Hexagonale|Architecture Hexagonale et Clean Architecture]]"
   - "[[ARCH-02-Monolithe-vs-Microservices|Monolithe vs Microservices]]"
-related_snippets:
-  - "[[04_Snippets/arch-13-domain-driven-design]]"
 related_projects: []
 source: "https://martinfowler.com/bliki/DomainDrivenDesign.html"
 ---
 
 # Domain-Driven Design
 
-> [!abstract] Introduction
-> Le DDD est une approche qui place le domaine métier et son langage au cœur de la conception : langage omniprésent, bounded contexts, agrégats, entités et objets valeur.
+> [!abstract] En bref
+> Le **DDD** (*Domain-Driven Design*) est une façon de concevoir un logiciel **à partir du métier** : on parle le **même vocabulaire** que les experts, on découpe l'application selon les **domaines** du métier, et les règles vivent dans le code métier plutôt qu'éparpillées. Utile pour les gros logiciels métier ; à connaître pour comprendre les discussions d'architecture en entreprise.
 
-> [!warning]- Prérequis
-> [[ARCH-12-Clean-Architecture-Hexagonale|Architecture Hexagonale et Clean Architecture]]
+## Les idées principales
 
----
+### 1. Un langage commun (*ubiquitous language*)
 
-## Théorie
+Les mots du code sont **les mots du métier**. Si les experts parlent de « critique » et de « liste à voir », le code dit `Review` et `Watchlist`, pas `Comment` et `SavedItems`. Fini les traductions et les malentendus.
 
-> [!question]- C'est quoi ?
-> **Stratégique** :
-> - **Langage omniprésent** (ubiquitous language) : mêmes mots dans les discussions métier et dans le code
-> - **Bounded context** : frontière où un modèle et son langage sont cohérents (« Client » en Facturation ≠ « Client » en Support)
-> - **Context map** : relations entre contextes
-> **Tactique** :
-> - **Entité** : identité qui persiste (Utilisateur #42)
-> - **Objet valeur** : défini par ses valeurs, immuable (Email, Montant, Période)
-> - **Agrégat** : grappe d'objets modifiée comme un tout via une racine, frontière de cohérence transactionnelle
-> - **Événement de domaine** : « FilmAjoutéAuxFavoris »
-> - **Repository**, **service de domaine**
+### 2. Découper par domaine (*bounded contexts*)
 
-> [!example]- Analogie
-> Un traducteur spécialisé : avant de traduire des contrats, il apprend le vocabulaire juridique exact, sinon il traduit juste mais faux.
+Un même mot peut avoir des sens différents selon le contexte. On découpe l'application en **zones** qui ont chacune leur modèle :
 
-> [!question]- Pourquoi l'utiliser ?
-> Sur des domaines complexes (assurance, énergie, industrie — typique des clients d'ESN), le principal risque est de mal comprendre le métier ; le DDD aligne code et métier.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> // Objet valeur : valide à la construction, immuable
-> export class Email {
->   private constructor(readonly valeur: string) {}
->   static creer(v: string): Email {
->     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) throw new EmailInvalide(v);
->     return new Email(v.toLowerCase());
->   }
-> }
-> ```
-> Bounded contexts → modules NestJS (voire microservices) ; événements de domaine → communication entre contextes.
-
-> [!question]- Quand l'utiliser ?
-> Logiciels métier complexes et durables. Inutile pour un CRUD ou un site vitrine.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Coûteux à apprendre et à appliquer ; nécessite un accès réel aux experts métier.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Ubiquitous language | Vocabulaire commun métier/code |
-| Bounded context | Frontière de cohérence d'un modèle |
-| Agrégat | Ensemble cohérent modifié via sa racine |
-| Objet valeur | Objet sans identité, défini par ses valeurs |
-| Événement de domaine | Fait métier significatif passé |
-
----
-
-## Points clés
-
-- Le langage métier dans le code
-- Découper par bounded contexts
-- Invariants protégés par les agrégats
-- Objets valeur pour valider tôt
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Faire du « DDD » uniquement avec des noms de dossiers (entities/, repositories/) sans travail avec le métier
-
----
-
-## Exemple minimal
-
-```text
-Contextes CinéTrack : Catalogue (films, genres) · Communauté (critiques, notes, modération) · Compte (utilisateurs, auth)
-« Film » du Catalogue ≠ « FilmNoté » de la Communauté
+```mermaid
+flowchart LR
+  subgraph Catalogue
+    M1["Film<br/>titre, synopsis, casting"]
+  end
+  subgraph Avis
+    M2["Film<br/>id, note moyenne"]
+    R["Critique"]
+  end
+  subgraph Comptes
+    U["Utilisateur<br/>e-mail, rôle"]
+  end
+  Catalogue -. "id du film" .-> Avis
+  Comptes -. "id de l'utilisateur" .-> Avis
 ```
 
-> [!note] Ce que j'en retiens
-> Des frontières claires = des modules indépendants qui évoluent sans se casser mutuellement.
+Dans « Catalogue », un film a tout son détail ; dans « Avis », seul son identifiant et sa note comptent. Les contextes communiquent par identifiants ou par événements.
 
----
+Ces zones correspondent souvent aux **modules** NestJS ou aux **features** du front.
 
-## Pour aller plus loin (niveau senior)
+### 3. Les briques du modèle
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Animer un Event Storming avec le métier
+| Brique | Idée | Exemple |
+|---|---|---|
+| **Entité** | a une **identité** qui dure | un utilisateur (même s'il change d'e-mail) |
+| **Objet valeur** | défini par sa **valeur**, non modifiable | une note (`Rating`) de 1 à 10, une adresse e-mail valide |
+| **Agrégat** | un groupe d'objets modifiés ensemble, avec **une porte d'entrée** | une commande et ses lignes |
+| **Événement de domaine** | un fait métier qui s'est produit | `ReviewPublished` |
+| **Repository** | charge et sauvegarde les agrégats | `ReviewRepository` |
 
----
+### 4. Les règles dans le modèle
 
-## Connexions
+```ts
+class Rating {
+  private constructor(readonly value: number) {}
+  static of(value: number) {
+    if (!Number.isInteger(value) || value < 1 || value > 10) throw new InvalidRatingError(value);
+    return new Rating(value);
+  }
+}
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Architecture Logicielle]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Impossible de créer une note invalide **où que ce soit** dans le code : la règle vit à un seul endroit.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/arch-13-domain-driven-design]]
+## Quand l'utiliser ?
 
----
+| Oui | Non |
+|---|---|
+| métier riche et complexe (assurance, banque, logistique, planification) | CRUD simple |
+| logiciel qui vivra longtemps, avec des experts métier disponibles | projet perso, prototype |
 
-## Auto-vérification
+Même sans faire du DDD complet, deux idées sont utiles **partout** : **le vocabulaire du métier dans le code**, et **les règles au plus près des données** (objets valeurs).
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Différence entre une entité et un objet valeur ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Lire « DDD Distilled » (Vaughn Vernon) ou le résumé de Martin Fowler
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Appliquer tout le DDD à une petite application** : beaucoup de concepts pour peu de bénéfice.
+- **Un modèle « anémique »** : des classes qui ne contiennent que des données, toutes les règles étant éparpillées dans des services.
