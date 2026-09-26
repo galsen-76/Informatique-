@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,128 +10,55 @@ tags:
 aliases:
   - "UML Diagramme de Cas d'Utilisation"
 parent: "[[Conception]]"
-children:
-  - "[[CONC-04-UML-Diagramme-de-Classes|UML Diagramme de Classes]]"
-  - "[[CONC-05-UML-Sequence-Activite|UML Séquence et Activité]]"
 related_theory:
   - "[[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]"
-related_snippets:
-  - "[[04_Snippets/conc-03-uml-cas-utilisation]]"
 related_projects: []
 source: "https://www.uml-diagrams.org/use-case-diagrams.html"
 ---
 
 # UML Diagramme de Cas d'Utilisation
 
-> [!abstract] Introduction
-> UML est un langage graphique standard pour modéliser un logiciel ; le diagramme de cas d'utilisation montre QUI (acteurs) peut faire QUOI (cas d'utilisation) avec le système.
+> [!abstract] En bref
+> **UML** est un ensemble de schémas standard pour décrire un logiciel. Le **diagramme de cas d'utilisation** est le plus simple : il montre **qui** (les acteurs) peut faire **quoi** (les cas d'utilisation) avec l'application. C'est une vue d'ensemble du périmètre, idéale pour démarrer un projet.
 
----
+## Exemple : CinéTrack
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> Éléments : **acteurs** (humains ou systèmes externes), **cas d'utilisation** (ovales), **frontière du système** (rectangle), relations `include` (toujours inclus) et `extend` (optionnel).
-
-> [!example]- Analogie
-> Un plan de la carte d'un restaurant par type de client : ce que peut commander un client, ce que fait le serveur, ce que gère le chef.
-
-> [!question]- Pourquoi l'utiliser ?
-> Vision d'ensemble du périmètre avant d'entrer dans les détails ; support de discussion avec le métier.
-
-> [!question]- Comment ça marche ?
-> ```mermaid
-> flowchart LR
->   V(("Visiteur")) --> R["Rechercher un film"]
->   V --> F["Consulter une fiche"]
->   U(("Utilisateur")) --> R
->   U --> FAV["Gérer ses favoris"]
->   U --> N["Noter un film"]
->   A(("Admin")) --> M["Modérer les critiques"]
->   FAV -. "include" .-> AUTH["S'authentifier"]
->   N -. "include" .-> AUTH
->   TMDB[["API TMDB (système)"]] --- R
-> ```
-> (Mermaid n'a pas de diagramme use case natif : on l'approche avec un flowchart ; PlantUML ou draw.io le font nativement.)
-
-> [!question]- Quand l'utiliser ?
-> Début de projet ou nouvelle grande fonctionnalité.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Ne décrit pas l'ordre des actions ni l'interface : compléter avec des user stories et des diagrammes de séquence.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Acteur | Rôle externe interagissant avec le système |
-| Cas d'utilisation | Fonction rendue à un acteur |
-| include | Cas toujours exécuté par un autre |
-| extend | Cas optionnel sous condition |
-
----
-
-## Points clés
-
-- Acteurs = rôles, pas personnes
-- Un cas = un objectif utilisateur
-- Complément des user stories, pas un remplacement
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Modéliser des écrans ou des clics au lieu d'objectifs
-
----
-
-## Exemple minimal
-
-```text
-Acteurs CinéTrack : Visiteur, Utilisateur, Administrateur, API TMDB
+```mermaid
+flowchart LR
+  V(("Visiteur")) --> R["Rechercher un film"]
+  V --> F["Consulter une fiche"]
+  U(("Utilisateur")) --> R
+  U --> FAV["Gérer ses favoris"]
+  U --> N["Noter un film"]
+  A(("Admin")) --> M["Modérer les critiques"]
+  FAV -. "include" .-> AUTH["S'authentifier"]
+  N -. "include" .-> AUTH
+  TMDB[/"API TMDB"/] --- R
 ```
 
-> [!note] Ce que j'en retiens
-> Les rôles identifiés ici deviendront les rôles d'autorisation (RBAC) de l'API.
+(Mermaid n'a pas de vrai diagramme de cas d'utilisation : on l'imite avec un `flowchart`. draw.io ou PlantUML le font nativement.)
 
----
+## Les éléments
 
-## Pour aller plus loin (niveau senior)
+| Élément | Représentation | Sens |
+|---|---|---|
+| **Acteur** | bonhomme (ici un cercle) | un **rôle** : Visiteur, Utilisateur, Admin, ou un système externe (TMDB) |
+| **Cas d'utilisation** | ovale (ici un rectangle) | un **objectif** de l'acteur : « noter un film » |
+| **include** | flèche pointillée | toujours inclus : noter **exige** d'être authentifié |
+| **extend** | flèche pointillée | optionnel, sous condition : « afficher la bande-annonce » si elle existe |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Utiliser le C4 model pour l'architecture, UML pour le détail quand il apporte de la valeur
+## Les règles
 
----
+- Un acteur est un **rôle**, pas une personne : toi, tu peux être Visiteur puis Utilisateur.
+- Un cas = un **objectif** de l'utilisateur, pas un écran ni un clic (« Gérer ses favoris », pas « Cliquer sur le cœur »).
+- Rester simple : 5 à 15 cas pour une application.
 
-## Connexions
+## À quoi ça sert concrètement
 
-**Arbre théorique :**
-- Sujet parent → [[Conception]]
-- Sous-sujets → [[CONC-04-UML-Diagramme-de-Classes|UML Diagramme de Classes]], [[CONC-05-UML-Sequence-Activite|UML Séquence et Activité]]
-- À comparer avec → (—)
+- Les **acteurs** deviennent tes **rôles** dans l'API (`VISITOR`, `USER`, `ADMIN`) → voir [[NEST-06-Middleware-Guards-Interceptors|Guards NestJS]].
+- Les **cas** deviennent tes **epics** et tes [[CONC-02-User-Stories-Criteres-Acceptation|user stories]].
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/conc-03-uml-cas-utilisation]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Différence entre include et extend ?
-
----
-
-## Tâches
-
-- [ ] #task Dessiner le diagramme de cas d'utilisation de CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Décrire des écrans** au lieu d'objectifs.
+- **Vouloir y mettre l'ordre des actions** : ce diagramme ne le montre pas, c'est le rôle du [[CONC-05-UML-Sequence-Activite|diagramme de séquence]].

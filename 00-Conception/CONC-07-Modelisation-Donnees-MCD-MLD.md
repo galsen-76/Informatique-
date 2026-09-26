@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,132 +10,91 @@ tags:
 aliases:
   - "Modélisation des Données MCD MLD"
 parent: "[[Conception]]"
-children: []
 related_theory:
   - "[[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]]"
   - "[[CONC-04-UML-Diagramme-de-Classes|UML Diagramme de Classes]]"
-related_snippets:
-  - "[[04_Snippets/conc-07-modelisation-donnees-mcd-mld]]"
 related_projects: []
 source: "https://fr.wikipedia.org/wiki/Merise_(informatique)"
 ---
 
 # Modélisation des Données MCD MLD
 
-> [!abstract] Introduction
-> Méthode Merise (très utilisée en France) : le MCD (Modèle Conceptuel de Données) décrit entités et associations métier, le MLD (Modèle Logique) le traduit en tables, clés primaires et étrangères.
+> [!abstract] En bref
+> Avant de créer tes tables, tu dessines tes données. La méthode **Merise** (très utilisée en France, et demandée aux examens) le fait en deux temps : le **MCD** décrit les « choses » du métier et leurs liens, le **MLD** les traduit en **tables** avec leurs clés. Ensuite, ça devient ton schéma Prisma presque directement.
 
----
+## MCD : le métier
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> MCD : entités (Utilisateur, Film), associations (FAVORISER), cardinalités (0,n / 1,1).
-> MLD : `Utilisateur(id, email, hash)`, `Film(id, titre, annee)`, `Favori(#user_id, #film_id, date_ajout)`.
-
-> [!example]- Analogie
-> Le MCD est la description d'une famille (qui est lié à qui) ; le MLD est l'arbre généalogique rangé dans des fiches classées.
-
-> [!question]- Pourquoi l'utiliser ?
-> Identifier les entités et relations dès la conception évite des refontes de BDD coûteuses ; Merise est enseigné et demandé dans beaucoup d'entreprises françaises.
-
-> [!question]- Comment ça marche ?
-> Règles de passage MCD → MLD :
-> - Entité → table, identifiant → clé primaire
-> - Association **1-N** → clé étrangère côté N
-> - Association **N-N** → table d'association (clés étrangères composées + attributs portés, ex. `date_ajout`)
-> - Association **1-1** → clé étrangère unique
-> ```mermaid
-> erDiagram
->   UTILISATEUR ||--o{ FAVORI : ajoute
->   FILM ||--o{ FAVORI : "est ajouté"
->   FAVORI {
->     int user_id FK
->     int film_id FK
->     date date_ajout
->   }
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Conception de toute nouvelle base ou évolution importante.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Merise ne dit rien des index, performances ou NoSQL : compléter au niveau physique (MPD).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| MCD | Modèle conceptuel (métier) |
-| MLD | Modèle logique (tables, clés) |
-| MPD | Modèle physique (types, index, SGBD) |
-| Cardinalité | Min et max d'occurrences d'une association |
-| Attribut porté | Donnée propre à une association |
-
----
-
-## Points clés
-
-- MCD = métier, MLD = relationnel
-- N-N → table d'association
-- Cardinalités (0,n) (1,1) à lire de chaque côté
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Lire les cardinalités Merise dans le mauvais sens (inverse de l'UML)
-
----
-
-## Exemple minimal
+On parle **entités** (Utilisateur, Film) et **associations** (un utilisateur NOTE un film), avec des **cardinalités**.
 
 ```text
-UTILISATEUR (0,n) —— NOTER (note, date) —— (0,n) FILM
-→ MLD : Note(#user_id, #film_id, note, date)
+UTILISATEUR (0,n) ──── NOTER ──── (0,n) FILM
+                    (note, date)
 ```
 
-> [!note] Ce que j'en retiens
-> Les attributs portés par l'association deviennent des colonnes de la table d'association.
+Se lit : « un utilisateur note **0 ou plusieurs** films » et « un film est noté par **0 ou plusieurs** utilisateurs ». La note et la date appartiennent à l'**association**.
 
----
+> ⚠️ En Merise, la cardinalité se lit **du côté de l'entité** : c'est l'inverse de l'UML. Source classique d'erreurs.
 
-## Pour aller plus loin (niveau senior)
+## MLD : les tables
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Passer fluidement du MCD au schéma Prisma et aux migrations
+Les 3 règles de passage :
 
----
+| Association | Devient | Exemple |
+|---|---|---|
+| **1 — N** | une **clé étrangère** du côté N | `Review(id, content, #userId)` |
+| **N — N** | une **table d'association** | `Rating(#userId, #movieId, rating, date)` |
+| **1 — 1** | une clé étrangère **unique** | `Profile(id, bio, #userId unique)` |
 
-## Connexions
+(`#` = clé étrangère, souligné / `id` = clé primaire.)
 
-**Arbre théorique :**
-- Sujet parent → [[Conception]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Le résultat pour CinéTrack
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/conc-07-modelisation-donnees-mcd-mld]]
+```mermaid
+erDiagram
+  USER ||--o{ FAVORITE : ajoute
+  MOVIE ||--o{ FAVORITE : "est ajouté"
+  USER ||--o{ REVIEW : écrit
+  MOVIE ||--o{ REVIEW : reçoit
+  FAVORITE {
+    int userId FK
+    int movieId FK
+    date createdAt
+  }
+  REVIEW {
+    int id PK
+    int rating
+    string content
+    int userId FK
+    int movieId FK
+  }
+```
 
----
+## Et en Prisma
 
-## Auto-vérification
+```prisma
+model Favorite {
+  userId    Int
+  movieId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  movie     Movie    @relation(fields: [movieId], references: [id])
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Comment traduire une association N-N avec attribut en MLD ?
+  @@id([userId, movieId])     // la paire est unique : pas deux fois le même favori
+}
+```
 
----
+Voir [[ORM-01-Prisma-Schema-Migrations|Prisma : schéma et migrations]] et [[BDD-02-Modelisation-Normalisation|Modélisation et normalisation]].
 
-## Tâches
+## Les 3 niveaux Merise
 
-- [ ] #task Faire le MCD puis le MLD complets de CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+| Niveau | Contient |
+|---|---|
+| **MCD** (conceptuel) | entités, associations, cardinalités : le **métier** |
+| **MLD** (logique) | tables, clés primaires et étrangères |
+| **MPD** (physique) | types exacts, index, SGBD choisi (le SQL de création) |
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Lire les cardinalités dans le mauvais sens.**
+- **Oublier la table d'association** pour un N — N (tu mets une liste d'identifiants dans une colonne : à éviter).
+- **Mettre la note dans Film** alors qu'elle dépend de l'utilisateur **et** du film.

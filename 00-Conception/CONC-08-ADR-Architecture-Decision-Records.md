@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,136 +10,67 @@ tags:
 aliases:
   - "Architecture Decision Records ADR"
 parent: "[[Conception]]"
-children: []
 related_theory:
   - "[[METH-04-Documentation-Technique|Documentation Technique]]"
   - "[[BACK-00-Choisir-son-Backend|Choisir son Backend]]"
-related_snippets:
-  - "[[04_Snippets/conc-08-adr-architecture-decision-records]]"
 related_projects: []
 source: "https://adr.github.io/"
 ---
 
 # Architecture Decision Records ADR
 
-> [!abstract] Introduction
-> Un ADR est un court document qui trace une décision technique importante : son contexte, la décision prise, les alternatives et les conséquences — pour que l'équipe sache POURQUOI dans 2 ans.
+> [!abstract] En bref
+> Un **ADR** est une **page courte** qui explique une décision technique importante : **pourquoi** on a choisi NestJS, PostgreSQL ou un monorepo. Dans six mois (ou en entretien), tu sauras justifier tes choix au lieu de répondre « je ne sais plus ». C'est aussi un excellent contenu à montrer dans un projet de portfolio.
 
----
+## Le modèle
 
-## Théorie
+```markdown
+# ADR-003 : NestJS pour l'API de CinéTrack
 
-> [!question]- C'est quoi ?
-> ```markdown
-> # ADR-003 : Utiliser NestJS pour l'API CinéTrack
-> Date : 2026-10-01 — Statut : Accepté
->
-> ## Contexte
-> Fronts en Angular et Vue (TypeScript). Équipe de 2 devs front. Besoin d'une API REST + auth.
->
-> ## Décision
-> NestJS + Prisma + PostgreSQL.
->
-> ## Alternatives considérées
-> - Spring Boot : robuste mais nouveau langage pour l'équipe
-> - Express seul : trop peu structurant
->
-> ## Conséquences
-> + Un seul langage, types partagés, architecture familière (Angular)
-> − Moins adapté au calcul CPU intensif ; écosystème Java de l'entreprise non réutilisé
-> ```
+Date : 2026-10-01 · Statut : Accepté
 
-> [!example]- Analogie
-> Le carnet de bord d'un navire : on note pourquoi on a changé de cap, pour que le prochain capitaine ne refasse pas la même erreur.
+## Contexte
+Le front est en Angular (TypeScript). Je veux une API REST avec authentification,
+une base relationnelle, et une structure claire.
 
-> [!question]- Pourquoi l'utiliser ?
-> Les décisions oubliées sont rediscutées sans fin ou annulées par méconnaissance ; l'ADR accélère l'onboarding et les revues d'architecture.
+## Décision
+NestJS + Prisma + PostgreSQL.
 
-> [!question]- Comment ça marche ?
-> - Fichiers Markdown numérotés dans le dépôt (`docs/adr/`)
-> - Immuables : on ne modifie pas un ADR accepté, on en crée un nouveau qui le remplace (« Remplacé par ADR-007 »)
-> - Statuts : Proposé, Accepté, Déprécié, Remplacé
+## Alternatives étudiées
+- Express seul : trop libre, il faudrait tout structurer soi-même.
+- Spring Boot : solide, mais un deuxième langage à apprendre.
 
-> [!question]- Quand l'utiliser ?
-> Choix de framework, de BDD, de structure, d'authentification, de stratégie de déploiement — tout ce qui est coûteux à changer.
+## Conséquences
++ Un seul langage (TypeScript) du front à la base, types partagés.
++ Même logique que Angular (modules, injection de dépendances).
+− Moins adapté aux calculs très lourds.
+```
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Documenter chaque micro-choix noie les décisions importantes.
+4 parties : **contexte** (la situation), **décision**, **alternatives** (ce qu'on a écarté et pourquoi), **conséquences** (le bon **et** le moins bon).
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| ADR | Architecture Decision Record |
-| Contexte | Situation et contraintes au moment du choix |
-| Conséquences | Effets positifs et négatifs acceptés |
-
----
-
-## Points clés
-
-- Court (1 page)
-- Alternatives et conséquences obligatoires
-- Versionné avec le code
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - ADR écrit après coup pour justifier sans vraie comparaison
-
----
-
-## Exemple minimal
+## Où les ranger
 
 ```text
 docs/adr/
-├── 0001-structure-monorepo.md
+├── 0001-monorepo.md
 ├── 0002-postgresql.md
 └── 0003-nestjs.md
 ```
 
-> [!note] Ce que j'en retiens
-> Le « pourquoi » d'une architecture tient dans une poignée de fichiers courts.
+Dans le dépôt, versionnés avec le code.
 
----
+## Les règles
 
-## Pour aller plus loin (niveau senior)
+- **Une page maximum.**
+- **On ne modifie pas** un ADR accepté : si la décision change, on écrit un nouvel ADR (« remplace l'ADR-003 »). L'historique reste lisible.
+- **Seulement les décisions coûteuses à changer** : framework, base de données, authentification, hébergement, structure du projet.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Animer une discussion d'architecture et la conclure par un ADR
+## Sur tes projets
 
----
+3 ou 4 ADR par projet suffisent. En entretien, « j'ai choisi PostgreSQL plutôt que MongoDB parce que mes données sont très liées entre elles (utilisateurs, films, critiques) » montre que tu **réfléchis**, pas seulement que tu codes.
 
-## Connexions
+## Pièges
 
-**Arbre théorique :**
-- Sujet parent → [[Conception]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/conc-08-adr-architecture-decision-records]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un ADR accepté ne se modifie-t-il pas ?
-
----
-
-## Tâches
-
-- [ ] #task Écrire les 3 premiers ADR de CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Écrire l'ADR après coup** pour justifier un choix sans vraie comparaison.
+- **Un ADR pour chaque petit choix** : les décisions importantes sont noyées.
+- **Oublier les inconvénients** : toute décision en a.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,132 +10,61 @@ tags:
 aliases:
   - "Estimation et Planification"
 parent: "[[Conception]]"
-children: []
 related_theory:
   - "[[METH-02-Scrum|Scrum]]"
   - "[[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]"
-related_snippets:
-  - "[[04_Snippets/conc-09-estimation-planification]]"
 related_projects: []
 source: "https://www.mountaingoatsoftware.com/agile/planning-poker"
 ---
 
 # Estimation et Planification
 
-> [!abstract] Introduction
-> Estimer, c'est donner un ordre de grandeur de l'effort (story points, jours idéaux) pour planifier ; découper le travail en petites tâches est la meilleure façon d'estimer juste.
+> [!abstract] En bref
+> Estimer, c'est donner un **ordre de grandeur** du temps ou de l'effort, pas une promesse. Le secret pour estimer juste : **découper** en petites tâches. Une tâche d'une demi-journée s'estime bien ; « faire l'authentification » ne s'estime pas.
 
-> [!warning]- Prérequis
-> [[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> - **Story points** : effort relatif (complexité + incertitude + volume), suite de Fibonacci 1, 2, 3, 5, 8, 13…
-> - **Planning poker** : chaque membre vote en même temps, on discute les écarts
-> - **Vélocité** : points réalisés par sprint (sert à planifier, pas à comparer les équipes)
-> - **T-shirt sizing** (S/M/L/XL) pour les estimations grossières
-
-> [!example]- Analogie
-> Estimer la distance d'une randonnée en « heures de marche » plutôt qu'en kilomètres : on tient compte du dénivelé (complexité) et du brouillard (incertitude).
-
-> [!question]- Pourquoi l'utiliser ?
-> Donner de la visibilité, détecter les stories trop grosses ou floues, engager l'équipe sur un sprint réaliste.
-
-> [!question]- Comment ça marche ?
-> Découper une story en tâches techniques :
-> ```text
-> Story « Ajouter aux favoris » (5 pts)
-> - [ ] API : table favoris + migration
-> - [ ] API : POST/DELETE /favoris + tests e2e
-> - [ ] Front : FavorisService + intercepteur auth
-> - [ ] Front : bouton + état + tests
-> - [ ] Recette + doc
-> ```
-> Règle : une tâche > 1 jour est trop grosse ; une story > 8 points doit être découpée.
-
-> [!question]- Quand l'utiliser ?
-> Affinage du backlog et sprint planning.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Une estimation n'est pas un engagement contractuel ; transformer les points en heures pour « contrôler » l'équipe détruit leur intérêt.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Story point | Unité relative d'effort |
-| Vélocité | Capacité mesurée d'une équipe par sprint |
-| Planning poker | Estimation collective par vote simultané |
-| Buffer | Marge pour l'imprévu |
-
----
-
-## Points clés
-
-- Découper pour mieux estimer
-- Estimer en relatif, collectivement
-- Inclure tests, revue et doc dans l'estimation
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier les tests, la revue et le déploiement dans l'estimation
-> - Sous-estimer l'intégration et les imprévus
-
----
-
-## Exemple minimal
+## Découper pour estimer
 
 ```text
-Écart au planning poker : A vote 2, B vote 13
-→ B connaît un piège (la BDD legacy n'a pas de clé étrangère) : discussion, re-vote à 8
+Story « Ajouter un film aux favoris »
+- [ ] API : modèle Favorite + migration Prisma         2 h
+- [ ] API : POST et DELETE /favorites + tests         3 h
+- [ ] Front : FavoritesApi + store                     2 h
+- [ ] Front : bouton sur la fiche + états             2 h
+- [ ] Front : page « Mes favoris »                     3 h
+- [ ] Tests E2E + relecture                            2 h
+                                             Total ≈ 14 h → 2 jours
 ```
 
-> [!note] Ce que j'en retiens
-> Les écarts de vote révèlent les risques cachés : c'est la vraie valeur du planning poker.
+**Règle** : une tâche de plus d'une journée est trop grosse, découpe-la encore.
 
----
+## Les estimations en équipe
 
-## Pour aller plus loin (niveau senior)
+| Outil | Principe |
+|---|---|
+| **Story points** | un effort **relatif** (1, 2, 3, 5, 8, 13…) : « deux fois plus compliqué que celle-là » |
+| **Planning poker** | tout le monde vote en même temps, puis on discute des écarts |
+| **Vélocité** | nombre de points réalisés par sprint, pour prévoir les suivants |
+| **Tailles de t-shirt** | S / M / L / XL pour une première idée rapide |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Donner des estimations avec une fourchette et les hypothèses associées
+Pourquoi relatif ? On est mauvais pour dire « 6 heures », mais bons pour dire « c'est plus gros que la story d'hier ».
 
----
+L'intérêt du planning poker, ce sont les **écarts** : si l'un vote 2 et l'autre 13, le second connaît sûrement un piège. On en parle, puis on revote.
 
-## Connexions
+## Ce qu'on oublie toujours d'estimer
 
-**Arbre théorique :**
-- Sujet parent → [[Conception]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+- les **tests** ;
+- la **relecture** et les corrections qui suivent ;
+- l'**intégration** front + back (les formats qui ne collent pas) ;
+- le **déploiement** et la configuration ;
+- les **imprévus** : garde de la marge (20 à 30 %).
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/conc-09-estimation-planification]]
+## Sur tes projets perso
 
----
+- Découpe chaque projet en jalons d'une ou deux semaines (tickets dans GitLab).
+- Note l'estimation **et** le temps réel : après quelques projets, tu sauras de combien tu te trompes (tout le monde sous-estime au début).
 
-## Auto-vérification
+## Pièges
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi une tâche de plus d'un jour doit-elle être découpée ?
-
----
-
-## Tâches
-
-- [ ] #task Estimer toutes les stories du MVP CinéTrack et comparer au réel
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Estimer une tâche floue** : clarifie ou découpe d'abord.
+- **Prendre l'estimation pour un engagement ferme.**
+- **Oublier tout ce qui n'est pas du code.**
