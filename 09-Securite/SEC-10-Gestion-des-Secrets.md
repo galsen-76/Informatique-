@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,125 +10,68 @@ tags:
 aliases:
   - "Gestion des Secrets"
 parent: "[[Sécurité]]"
-children: []
 related_theory:
   - "[[NEST-08-Configuration-Environnements|Configuration et Environnements NestJS]]"
   - "[[03-CI-CD|CI/CD GitLab]]"
-related_snippets:
-  - "[[04_Snippets/sec-10-gestion-des-secrets]]"
 related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
 ---
 
 # Gestion des Secrets
 
-> [!abstract] Introduction
-> Mots de passe de BDD, clés d'API, secrets JWT : ils ne doivent jamais être dans le code ni dans Git, mais injectés à l'exécution depuis un coffre-fort ou les variables protégées de la plateforme.
+> [!abstract] En bref
+> Un **secret**, c'est tout ce qui donne un accès : mot de passe de la base, secret des JWT, clé d'API TMDB, identifiants d'un service d'e-mail. Règle absolue : **jamais dans le code ni dans Git**. Ils vivent dans des variables d'environnement, fournies par un endroit protégé selon l'environnement.
 
-> [!warning]- Prérequis
-> [[NEST-08-Configuration-Environnements|Configuration et Environnements NestJS]]
+## Où vivent les secrets
 
----
+| Environnement | Où |
+|---|---|
+| ta machine | fichier `.env` **ignoré par Git** |
+| CI GitLab | *Settings → CI/CD → Variables*, cochées **Masked** et **Protected** |
+| production | les variables de l'hébergeur, ou un **coffre-fort** (Vault, AWS Secrets Manager, Doppler) |
+| Kubernetes | les objets `Secret` (idéalement alimentés par un coffre-fort) |
 
-## Théorie
+Le code, lui, lit seulement `process.env.JWT_SECRET` (via `ConfigService`, voir [[NEST-08-Configuration-Environnements|Configuration]]).
 
-> [!question]- C'est quoi ?
-> Où stocker :
-> - Local : fichier `.env` ignoré par Git
-> - CI : variables GitLab masquées et protégées
-> - Production : gestionnaire de secrets (HashiCorp Vault, AWS/GCP/Azure Secrets Manager, secrets Kubernetes chiffrés)
-> Où ne JAMAIS les mettre : code source, dépôt Git, image Docker, logs, variables d'environnement du FRONT (publiques).
+## Le fichier `.env.example`
 
-> [!example]- Analogie
-> On ne cache pas la clé de la maison sous le paillasson (le code) : on la confie à un coffre (vault) qui ne la remet qu'aux personnes autorisées, et on change la serrure régulièrement (rotation).
-
-> [!question]- Pourquoi l'utiliser ?
-> Les dépôts fuient (clones, forks, ex-employés, dépôts publics par erreur) ; des robots scannent GitHub/GitLab en permanence à la recherche de clés.
-
-> [!question]- Comment ça marche ?
-> - Détection : GitLab Secret Detection, gitleaks en pre-commit
-> - Secret commité = **révoquer et régénérer immédiatement** (le supprimer de l'historique ne suffit pas)
-> - Rotation régulière, secrets différents par environnement, moindre privilège par secret
-
-> [!question]- Quand l'utiliser ?
-> Dès le premier secret du projet.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les variables d'environnement peuvent apparaître dans des dumps ou logs : ne jamais les logger.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Secret | Information donnant un accès |
-| Vault | Coffre-fort de secrets |
-| Rotation | Remplacement régulier d'un secret |
-| Révocation | Invalidation d'un secret compromis |
-
----
-
-## Points clés
-
-- `.env` dans `.gitignore`, `.env.example` sans valeurs
-- Secret fuité = révocation immédiate
-- Rien de secret dans le front
-- Scanner les commits
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Clé d'API TMDB « privée » dans `environment.ts` Angular → visible par tous dans le bundle ; passer par l'API
-
----
-
-## Exemple minimal
+Commité, **sans les vraies valeurs** : il documente quelles variables existent.
 
 ```bash
-npx gitleaks detect --source .   # cherche des secrets dans l'historique
+DATABASE_URL=postgresql://user:password@localhost:5432/cinetrack
+JWT_SECRET=
+TMDB_TOKEN=
 ```
 
-> [!note] Ce que j'en retiens
-> À lancer sur tes dépôts perso : tu pourrais être surpris.
+## Et côté front ?
 
----
+**Tout ce qui est dans le front est public.** Une variable `VITE_…` ou une valeur dans `environment.ts` finit dans le JavaScript téléchargé par chaque visiteur.
 
-## Pour aller plus loin (niveau senior)
+| Donnée | Dans le front ? |
+|---|---|
+| URL de l'API | oui |
+| clé publique (Stripe publishable key, clé TMDB en lecture pour un projet perso) | acceptable |
+| secret JWT, mot de passe de base, clé privée | **jamais** → passer par ton API |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Mettre en place Vault/External Secrets et la rotation automatique
+## Si un secret a fuité
 
----
+1. **Change-le immédiatement** (révoquer la clé, nouveau mot de passe, nouveau secret JWT).
+2. Le retirer de Git **ne suffit pas** : il est dans l'historique, et peut-être déjà copié.
+3. Vérifie les accès suspects dans les logs du service concerné.
 
-## Connexions
+## Prévenir les fuites
 
-**Arbre théorique :**
-- Sujet parent → [[Sécurité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+- `.env` dans le `.gitignore` **dès la création du projet**.
+- **Détection automatique** : Secret Detection de GitLab, gitleaks en hook de pré-commit.
+- **Des secrets différents** par environnement (développement, test, production).
+- **Des secrets longs et aléatoires** :
+  ```bash
+  openssl rand -base64 48
+  ```
+- **Renouveler** régulièrement les secrets importants.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sec-10-gestion-des-secrets]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Que faire si un secret a été poussé sur GitLab ?
-
----
-
-## Tâches
-
-- [ ] #task Ajouter gitleaks en pre-commit sur CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Un secret dans un message de commit, un ticket, une capture d'écran ou Slack**.
+- **Afficher les variables d'environnement dans les logs** au démarrage « pour déboguer ».
+- **Le même mot de passe** pour la base de développement et de production.

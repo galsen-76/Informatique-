@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,132 +10,77 @@ tags:
 aliases:
   - "Cookies et Cache HTTP"
 parent: "[[Réseaux]]"
-children: []
 related_theory:
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
   - "[[JS-11-Stockage-Navigateur|Stockage Navigateur]]"
   - "[[ARCH-09-Cache-Performance|Cache et Performance]]"
-related_snippets:
-  - "[[04_Snippets/net-06-cookies-cache-http]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/HTTP/Caching"
 ---
 
 # Cookies et Cache HTTP
 
-> [!abstract] Introduction
-> Les cookies donnent une mémoire à un protocole sans état ; le cache HTTP (Cache-Control, ETag) évite de retélécharger ce qui n'a pas changé — deux mécanismes essentiels pour l'auth et la performance.
+> [!abstract] En bref
+> Deux mécanismes HTTP que tu croiseras souvent. Les **cookies** : de petites données que le navigateur **renvoie automatiquement** au serveur à chaque requête (idéal pour une session). Le **cache** : le navigateur **garde une copie** d'une réponse pour ne pas la redemander (le site charge plus vite).
 
-> [!warning]- Prérequis
-> [[NET-05-HTTP-Approfondi|HTTP Approfondi]]
+## Les cookies
 
----
+Le serveur dépose un cookie avec une réponse :
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> **Cookie** : posé par `Set-Cookie`, renvoyé automatiquement par le navigateur.
-> Attributs : `HttpOnly`, `Secure`, `SameSite=Strict|Lax|None`, `Domain`, `Path`, `Max-Age`/`Expires`.
-> **Cache** :
-> - `Cache-Control: public, max-age=31536000, immutable` → fichiers avec hash (JS/CSS buildés)
-> - `Cache-Control: no-cache` → revalider à chaque fois (index.html)
-> - `Cache-Control: no-store` → ne jamais stocker (données sensibles)
-> - `ETag` / `If-None-Match` → `304 Not Modified` si inchangé
-
-> [!example]- Analogie
-> Le cache, c'est garder une copie du menu du restaurant chez soi : on ne redemande le menu que s'il a changé (ETag) ou s'il est trop vieux (max-age).
-
-> [!question]- Pourquoi l'utiliser ?
-> Un site Angular/Vue bien configuré se recharge quasi instantanément ; mal configuré, les utilisateurs gardent une vieille version après un déploiement.
-
-> [!question]- Comment ça marche ?
-> Stratégie SPA classique :
-> - `index.html` : `no-cache` (toujours vérifier la dernière version)
-> - `main-ABC123.js`, `styles-XYZ.css` (hash dans le nom) : `max-age=1 an, immutable`
-> - API : `no-store` pour les données privées, `max-age` court ou ETag pour les données publiques
-
-> [!question]- Quand l'utiliser ?
-> Configuration du serveur web/CDN au déploiement, conception des endpoints publics.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Un cache mal réglé sert des données privées à d'autres utilisateurs (cache partagé/CDN) → `private` ou `no-store`.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Cache-Control | Règles de mise en cache |
-| ETag | Empreinte d'une version de ressource |
-| 304 | Réponse « pas modifié, utilise ta copie » |
-| CDN | Réseau de caches proches des utilisateurs |
-| SameSite | Contrôle l'envoi cross-site d'un cookie |
-
----
-
-## Points clés
-
-- index.html jamais en cache longue durée
-- Fichiers hashés en cache 1 an
-- Données privées : no-store/private
-- Cookies d'auth : HttpOnly + Secure + SameSite
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Mettre index.html en cache 1 an → les utilisateurs ne voient jamais la nouvelle version
-> - Cache CDN sur une réponse contenant des données personnelles
-
----
-
-## Exemple minimal
-
-```nginx
-location = /index.html { add_header Cache-Control "no-cache"; }
-location ~* \.(js|css|woff2|png|svg)$ { add_header Cache-Control "public, max-age=31536000, immutable"; }
+```http
+Set-Cookie: refresh_token=abc123; HttpOnly; Secure; SameSite=Lax; Path=/auth; Max-Age=604800
 ```
 
-> [!note] Ce que j'en retiens
-> Deux règles Nginx suffisent pour un cache parfait d'une SPA.
+Le navigateur le renvoie ensuite **tout seul** sur les requêtes concernées :
 
----
+```http
+Cookie: refresh_token=abc123
+```
 
-## Pour aller plus loin (niveau senior)
+| Option | Effet | Pourquoi |
+|---|---|---|
+| `HttpOnly` | JavaScript ne peut pas le lire | un script malveillant (XSS) ne peut pas le voler |
+| `Secure` | envoyé seulement en HTTPS | pas lisible sur un Wi-Fi public |
+| `SameSite=Lax` / `Strict` | pas envoyé depuis un autre site | protège contre le CSRF |
+| `Max-Age` / `Expires` | durée de vie | |
+| `Path` / `Domain` | sur quelles URL il est envoyé | |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Stratégies stale-while-revalidate, cache CDN par route, invalidation au déploiement
+Pour un jeton de connexion, ces trois options (`HttpOnly`, `Secure`, `SameSite`) sont indispensables. Voir [[SEC-06-XSS-CSRF|XSS et CSRF]] et [[JS-11-Stockage-Navigateur|Stockage navigateur]].
 
----
+## Le cache HTTP
 
-## Connexions
+Le serveur dit au navigateur combien de temps il peut garder une réponse :
 
-**Arbre théorique :**
-- Sujet parent → [[Réseaux]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+| En-tête | Sens | Pour |
+|---|---|---|
+| `Cache-Control: public, max-age=31536000, immutable` | garde-le 1 an, ne redemande jamais | fichiers avec empreinte (`main-4f3a2b.js`) |
+| `Cache-Control: no-cache` | garde-le, mais **vérifie** à chaque fois s'il a changé | `index.html` |
+| `Cache-Control: no-store` | ne garde **rien** | données sensibles, réponses privées |
+| `Cache-Control: private, max-age=60` | seulement le navigateur, 1 minute | données d'un utilisateur |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/net-06-cookies-cache-http]]
+### La vérification avec ETag
 
----
+```mermaid
+sequenceDiagram
+  participant N as Navigateur
+  participant S as Serveur
+  N->>S: GET /movies/popular
+  S-->>N: 200 + ETag: "v42" + données
+  Note over N: plus tard…
+  N->>S: GET /movies/popular  If-None-Match: "v42"
+  S-->>N: 304 Not Modified (sans données)
+```
 
-## Auto-vérification
+Si rien n'a changé, le serveur répond `304` sans renvoyer les données : économie de bande passante.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi peut-on mettre les fichiers JS buildés en cache un an ?
+## La stratégie classique d'une application Angular / Vue
 
----
+- Fichiers JS / CSS avec empreinte dans le nom : **cache 1 an** (le nom change à chaque build).
+- `index.html` : **`no-cache`**, pour que les utilisateurs récupèrent toujours la dernière version.
+- Réponses de l'API : au cas par cas, souvent `no-store` pour les données privées.
 
-## Tâches
+## Pièges
 
-- [ ] #task Vérifier les en-têtes de cache de la production d'une app du travail
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **« J'ai déployé mais les utilisateurs voient l'ancienne version »** : `index.html` mis en cache trop longtemps.
+- **Un cookie de session sans `HttpOnly`** : lisible et volable par un script.
+- **Mettre en cache public une réponse personnelle** : un proxy pourrait la servir à quelqu'un d'autre.

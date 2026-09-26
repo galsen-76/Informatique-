@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,137 +10,68 @@ tags:
 aliases:
   - "WebSockets et Server-Sent Events"
 parent: "[[Réseaux]]"
-children: []
 related_theory:
   - "[[NEST-14-WebSockets-Temps-Reel|WebSockets et Temps Réel NestJS]]"
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
-related_snippets:
-  - "[[04_Snippets/net-10-websockets-sse]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/API/WebSockets_API"
 ---
 
-# WebSockets et Server-Sent Events
+# WebSockets et SSE
 
-> [!abstract] Introduction
-> Pour pousser des données du serveur vers le navigateur en temps réel : polling (simple mais coûteux), Server-Sent Events (flux unidirectionnel sur HTTP) ou WebSocket (canal bidirectionnel persistant).
+> [!abstract] En bref
+> En HTTP classique, le serveur ne peut **que répondre**. Pour qu'il puisse **envoyer une information de lui-même** (nouvelle notification, réponse d'une IA mot par mot), il existe deux solutions : **SSE**, un canal où seul le serveur parle, simple ; et **WebSocket**, une ligne ouverte dans les deux sens.
 
-> [!warning]- Prérequis
-> [[NET-05-HTTP-Approfondi|HTTP Approfondi]]
+## Les options
 
----
+| Technique | Sens | Principe | Pour |
+|---|---|---|---|
+| **Polling** | client → serveur | redemander toutes les X secondes | simple, mais gaspille |
+| **SSE** (*Server-Sent Events*) | serveur → client | une réponse HTTP qui ne se termine jamais, le serveur écrit dedans | notifications, suivi de progression, **réponses d'IA en streaming** |
+| **WebSocket** | les deux | une connexion permanente et bidirectionnelle | chat, collaboration en direct, jeux |
 
-## Théorie
+## SSE : le plus simple quand seul le serveur parle
 
-> [!question]- C'est quoi ?
-> | Technique | Sens | Complexité | Usages |
-> |---|---|---|---|
-> | Polling | Client demande régulièrement | Très simple | Statut qui change rarement |
-> | Long polling | Le serveur retient la réponse | Moyenne | Legacy |
-> | SSE | Serveur → client | Simple (HTTP, reconnexion auto) | Notifications, progression, flux IA (streaming LLM) |
-> | WebSocket | Bidirectionnel | Plus complexe | Chat, collaboration, jeux |
-
-> [!example]- Analogie
-> Polling : demander toutes les 5 minutes « c'est prêt ? ». SSE : s'abonner à la radio. WebSocket : un appel téléphonique ouvert.
-
-> [!question]- Pourquoi l'utiliser ?
-> Expérience temps réel sans rafraîchir la page ; les réponses en streaming des LLM utilisent souvent SSE.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> // SSE côté front
-> const source = new EventSource('/api/notifications');
-> source.onmessage = (e) => afficher(JSON.parse(e.data));
-> // NestJS
-> @Sse('notifications') flux(): Observable<MessageEvent> {
->   return this.notifs.flux$.pipe(map(n => ({ data: n }) as MessageEvent));
-> }
-> ```
-
-> [!question]- Quand l'utiliser ?
-> SSE en premier choix pour du serveur → client ; WebSocket pour du vrai bidirectionnel fréquent.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Connexions longues : proxies/load balancers à configurer (timeouts, upgrade), consommation de ressources par connexion.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Polling | Interrogation périodique |
-| SSE | Flux d'événements serveur sur HTTP |
-| WebSocket | Canal bidirectionnel persistant |
-| Upgrade | Passage de HTTP à WebSocket |
-
----
-
-## Points clés
-
-- SSE = simple, unidirectionnel, reconnexion automatique
-- WebSocket = bidirectionnel
-- Configurer le proxy pour les connexions longues
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Polling toutes les secondes par des milliers de clients
-> - Oublier `proxy_set_header Upgrade` dans Nginx pour les WebSockets
-
----
-
-## Exemple minimal
-
-```nginx
-location /socket.io/ {
-  proxy_pass http://api;
-  proxy_http_version 1.1;
-  proxy_set_header Upgrade $http_upgrade;
-  proxy_set_header Connection "upgrade";
+```ts
+// NestJS
+@Sse('notifications')
+notifications(): Observable<MessageEvent> {
+  return this.events.stream$.pipe(map(data => ({ data })));
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Sans ces en-têtes, la connexion WebSocket échoue derrière Nginx.
+```ts
+// Front (natif, sans librairie)
+const source = new EventSource('/api/notifications');
+source.onmessage = (e) => console.log(JSON.parse(e.data));
+```
 
----
+Avantages : c'est du HTTP normal (passe partout, reconnexion automatique). Limite : le client ne peut pas répondre par le même canal.
 
-## Pour aller plus loin (niveau senior)
+## WebSocket : la ligne téléphonique
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Choisir la technique selon charge, sens des échanges et infrastructure
+```ts
+const socket = new WebSocket('wss://api.cinetrack.fr/ws');
+socket.onmessage = (e) => console.log(e.data);
+socket.send(JSON.stringify({ type: 'follow-movie', movieId: 27205 }));
+```
 
----
+La connexion commence par une requête HTTP qui demande à « passer en WebSocket » (`Upgrade: websocket`), puis reste ouverte. En pratique on utilise **Socket.IO**, qui ajoute la reconnexion et les « salles ». Voir [[NEST-14-WebSockets-Temps-Reel|WebSockets NestJS]].
 
-## Connexions
+## Choisir
 
-**Arbre théorique :**
-- Sujet parent → [[Réseaux]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+```mermaid
+flowchart TD
+  A{"Le client doit-il envoyer<br/>des messages en continu ?"} -- non --> S["SSE"]
+  A -- oui --> W["WebSocket"]
+  S --> X["notifications, IA en streaming,<br/>progression d'un traitement"]
+  W --> Y["chat, édition à plusieurs,<br/>jeu"]
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/net-10-websockets-sse]]
+Pour le Capstone (assistant IA), **SSE** suffit pour afficher la réponse au fur et à mesure.
 
----
+## Pièges
 
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quand préférer SSE à WebSocket ?
-
----
-
-## Tâches
-
-- [ ] #task Afficher en SSE la progression d'un import de films
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **WebSocket pour tout** : plus complexe à faire passer derrière un proxy et à répartir sur plusieurs serveurs.
+- **Oublier l'authentification** de la connexion.
+- **Garder la connexion ouverte** après avoir quitté la page : ferme-la dans `onUnmounted` / `ngOnDestroy`.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,139 +10,58 @@ tags:
 aliases:
   - "Fondamentaux de la Sécurité"
 parent: "[[Sécurité]]"
-children:
-  - "[[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]]"
-  - "[[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/sec-01-fondamentaux-securite]]"
 related_projects: []
 source: "https://cheatsheetseries.owasp.org/"
 ---
 
 # Fondamentaux de la Sécurité
 
-> [!abstract] Introduction
-> La sécurité applicative vise à protéger la confidentialité, l'intégrité et la disponibilité des données (triade CIA) ; elle se pense dès la conception (« security by design »), en couches, et côté serveur avant tout.
+> [!abstract] En bref
+> La sécurité, c'est protéger les **données** et les **utilisateurs** de ton application. Pas besoin d'être expert : quelques principes simples, appliqués systématiquement, évitent l'immense majorité des failles. Le premier : **ne jamais faire confiance à ce qui vient du client**.
 
----
+## Les 3 objectifs (CIA)
 
-## Théorie
+| Objectif | Question | Exemple d'attaque |
+|---|---|---|
+| **Confidentialité** | seules les bonnes personnes voient les données ? | lire les favoris d'un autre utilisateur |
+| **Intégrité** | les données ne sont pas modifiées sans droit ? | modifier la critique de quelqu'un d'autre |
+| **Disponibilité** | le service reste accessible ? | saturer l'API de requêtes |
 
-> [!question]- C'est quoi ?
-> **Triade CIA** : Confidentialité (seuls les autorisés lisent), Intégrité (données non altérées), Disponibilité (service accessible).
-> Principes :
-> - **Défense en profondeur** : plusieurs couches (WAF, HTTPS, auth, validation, droits BDD)
-> - **Moindre privilège** : chaque composant a le minimum de droits
-> - **Ne jamais faire confiance au client** : tout ce qui vient du navigateur est modifiable
-> - **Sécurité par défaut** : fermé par défaut, ouvert explicitement
-> - **Authentification** (qui es-tu ?) ≠ **Autorisation** (as-tu le droit ?)
+## Les 7 principes à appliquer partout
 
-> [!example]- Analogie
-> Un château fort : douves (pare-feu), murailles (HTTPS), gardes à la porte (authentification), clés différentes par salle (autorisation), coffre dans la tour (chiffrement) — si une défense tombe, les autres tiennent.
+1. **Ne jamais faire confiance au client.** Le front peut être modifié, les requêtes forgées avec Postman. Tout est **revérifié côté serveur** : données (DTO), identité (jeton), droits.
+2. **Le moindre privilège.** Chacun a seulement les droits nécessaires : l'utilisateur de la base n'est pas administrateur, un compte « lecteur » ne peut pas supprimer.
+3. **Défense en profondeur.** Plusieurs protections successives : validation dans l'API **et** contraintes en base **et** pare-feu. Si l'une échoue, les autres tiennent.
+4. **Sécurisé par défaut.** Toutes les routes protégées, sauf celles explicitement publiques.
+5. **Pas de secrets dans le code.** Variables d'environnement (voir [[SEC-10-Gestion-des-Secrets|Secrets]]).
+6. **Des dépendances à jour.** La plupart des failles viennent de librairies anciennes (`npm audit`).
+7. **Des erreurs discrètes.** Le client reçoit « Erreur interne », les détails vont dans les logs.
 
-> [!question]- Pourquoi l'utiliser ?
-> Une faille = fuite de données personnelles (sanctions RGPD, réputation), fraude, indisponibilité. Les attaques automatisées scannent en permanence toutes les applications exposées.
+## Front ou back : qui protège quoi ?
 
-> [!question]- Comment ça marche ?
-> ```mermaid
-> flowchart LR
->   U[Navigateur] -->|HTTPS| W[WAF / reverse proxy]
->   W --> API[API : auth, autorisation, validation, rate limiting]
->   API -->|"compte à droits limités"| DB[(BDD chiffrée + sauvegardes)]
->   API --> LOG[Logs et alertes]
-> ```
-> Côté front : éviter XSS, ne stocker aucun secret, CSP, dépendances à jour. Côté back : valider, autoriser chaque requête, requêtes paramétrées, secrets hors du code, journaliser.
-
-> [!question]- Quand l'utiliser ?
-> Dès la conception et à chaque fonctionnalité (« que peut faire un utilisateur malveillant ici ? »).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> La sécurité parfaite n'existe pas : on réduit le risque (probabilité × impact) de façon proportionnée.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Menace | Ce qui peut causer un dommage |
-| Vulnérabilité | Faiblesse exploitable |
-| Surface d'attaque | Ensemble des points d'entrée |
-| Moindre privilège | Droits minimaux nécessaires |
-| Threat modeling | Analyse des menaces d'un système |
-
----
-
-## Points clés
-
-- Le front n'est jamais une barrière de sécurité
-- Authentifier ET autoriser chaque requête
-- Défense en profondeur
-- Mettre à jour les dépendances
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Cacher un bouton admin côté front et croire l'API protégée
-> - Messages d'erreur trop détaillés (stack trace, requête SQL)
-
----
-
-## Exemple minimal
-
-```typescript
-// L'API vérifie que la critique appartient bien à l'utilisateur (autorisation au niveau objet)
-async supprimerCritique(userId: number, critiqueId: number) {
-  const c = await this.prisma.critique.findUniqueOrThrow({ where: { id: critiqueId } });
-  if (c.auteurId !== userId) throw new ForbiddenException();
-  await this.prisma.critique.delete({ where: { id: critiqueId } });
-}
+```mermaid
+flowchart LR
+  F["🖥️ Front<br/>aide l'utilisateur<br/>(cache un bouton, valide un champ)"] -->|"requête"| B["⚙️ Back<br/>DÉCIDE<br/>(vérifie jeton, droits, données)"]
+  B --> DB[("🗄️ Base<br/>contraintes = dernier rempart")]
 ```
 
-> [!note] Ce que j'en retiens
-> Être connecté ne suffit pas : il faut avoir le droit sur CETTE ressource.
+**Cacher un bouton « Supprimer » ne protège rien** : n'importe qui peut envoyer `DELETE /reviews/7` directement. C'est le back qui doit vérifier que la critique appartient à l'utilisateur.
 
----
+## La carte des sujets
 
-## Pour aller plus loin (niveau senior)
+| Sujet | Note |
+|---|---|
+| Les 10 risques les plus courants | [[SEC-02-OWASP-Top-10\|OWASP Top 10]] |
+| Qui est l'utilisateur ? | [[SEC-03-Authentification-Sessions-JWT\|Authentification]] |
+| A-t-il le droit ? | [[SEC-11-Autorisation-RBAC\|Autorisation]] |
+| Mots de passe | [[SEC-05-Hachage-Mots-de-Passe\|Hachage]] |
+| Scripts injectés, requêtes forcées | [[SEC-06-XSS-CSRF\|XSS et CSRF]] |
+| Appels entre domaines | [[SEC-07-CORS-Same-Origin\|CORS]] |
+| Injections dans la base | [[SEC-08-Injection-SQL-Validation\|Injection SQL]] |
+| Chiffrement des échanges | [[SEC-09-HTTPS-TLS\|HTTPS]] |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Faire du threat modeling (STRIDE) sur une nouvelle fonctionnalité
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Sécurité]]
-- Sous-sujets → [[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]], [[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/sec-01-fondamentaux-securite]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Différence entre authentification et autorisation ?
-
-> [!faq]- Questions d'entretien
-> - Comment sécurisez-vous une application web de bout en bout ?
-
----
-
-## Tâches
-
-- [ ] #task Lire la page OWASP « Secure Coding Practices Checklist »
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **« Personne ne va attaquer mon petit projet »** : des robots scannent Internet en continu, sans distinction.
+- **Sécurité seulement côté front** : elle se contourne en quelques secondes.

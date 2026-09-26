@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,143 +10,71 @@ tags:
 aliases:
   - "OAuth2 et OpenID Connect"
 parent: "[[Sécurité]]"
-children: []
 related_theory:
   - "[[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]"
   - "[[SEC-11-Autorisation-RBAC|Autorisation RBAC]]"
-related_snippets:
-  - "[[04_Snippets/sec-04-oauth2-openid-connect]]"
 related_projects: []
 source: "https://oauth.net/2/"
 ---
 
 # OAuth2 et OpenID Connect
 
-> [!abstract] Introduction
-> OAuth 2 est un protocole de délégation d'autorisation (« cette app peut accéder à mes données ») ; OpenID Connect (OIDC) ajoute l'identité par-dessus — c'est la base du SSO d'entreprise (Keycloak, Microsoft Entra ID, Okta) et du « Se connecter avec Google ».
+> [!abstract] En bref
+> Le bouton « **Se connecter avec Google** » (ou avec le compte de l'entreprise), c'est **OpenID Connect**, construit sur **OAuth2**. Ton application ne voit jamais le mot de passe : l'utilisateur se connecte chez le fournisseur (Google, Microsoft, Keycloak), qui te renvoie la preuve de son identité. En entreprise, c'est souvent ainsi que fonctionne la connexion unique (SSO).
 
-> [!warning]- Prérequis
-> [[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]
+## La différence
 
----
+| | OAuth2 | OpenID Connect (OIDC) |
+|---|---|---|
+| Répond à | « cette application a-t-elle le **droit d'accéder** à mes données ? » (autorisation) | « **qui** est cet utilisateur ? » (authentification) |
+| Donne | un *access token* | un *access token* + un **ID token** (JWT avec l'identité) |
+| Exemple | une app qui lit ton agenda Google | « Se connecter avec Google » |
 
-## Théorie
+## L'image
 
-> [!question]- C'est quoi ?
-> Acteurs : **Resource Owner** (l'utilisateur), **Client** (ton app Angular/Vue), **Authorization Server** (Keycloak, Entra ID), **Resource Server** (ton API NestJS).
-> Flux recommandé pour une SPA : **Authorization Code + PKCE**.
-> Jetons : **access token** (accéder à l'API), **ID token** (identité, OIDC), **refresh token**.
+À l'hôtel, tu ne donnes pas ta carte d'identité au bar : la **réception** (le fournisseur) vérifie ton identité et te donne un **badge** (le jeton) que le bar (ton application) accepte.
 
-> [!example]- Analogie
-> La clé voiturier : tu donnes au voiturier une clé qui démarre la voiture mais n'ouvre pas le coffre (scope limité), sans lui confier ton trousseau (mot de passe).
+## Le déroulé (Authorization Code + PKCE)
 
-> [!question]- Pourquoi l'utiliser ?
-> En entreprise, les utilisateurs se connectent via le SSO de l'entreprise : l'application ne gère jamais les mots de passe, l'API valide les tokens émis par le fournisseur d'identité.
+C'est le flux recommandé pour les applications web et mobiles :
 
-> [!question]- Comment ça marche ?
-> ```mermaid
-> sequenceDiagram
->   participant U as Utilisateur
->   participant SPA as SPA (Angular/Vue)
->   participant IdP as Keycloak / Entra ID
->   participant API as API NestJS
->   SPA->>IdP: redirection /authorize (code_challenge PKCE)
->   U->>IdP: login + MFA
->   IdP-->>SPA: redirection avec code
->   SPA->>IdP: POST /token (code + code_verifier)
->   IdP-->>SPA: access token (+ id token)
->   SPA->>API: Authorization: Bearer access token
->   API->>API: vérifie signature (JWKS), issuer, audience, expiration
->   API-->>SPA: données
-> ```
-> Librairies : `angular-oauth2-oidc`, `oidc-client-ts` (Vue), `passport-jwt` + JWKS côté Nest.
-
-> [!question]- Quand l'utiliser ?
-> SSO d'entreprise, connexion via un fournisseur externe, APIs ouvertes à des applications tierces.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Protocole complexe : ne jamais l'implémenter soi-même, utiliser des librairies certifiées et un IdP éprouvé. Le flux « implicit » est déprécié.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| PKCE | Protection du flux code pour les clients publics |
-| Scope | Périmètre d'accès demandé |
-| Issuer | Émetteur du token |
-| Audience | Destinataire prévu du token |
-| JWKS | Clés publiques pour vérifier les signatures |
-
----
-
-## Points clés
-
-- Authorization Code + PKCE pour les SPA
-- L'API vérifie issuer, audience, expiration, signature
-- Ne jamais implémenter OAuth soi-même
-- OIDC = identité, OAuth = autorisation déléguée
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Accepter un token émis pour une autre application (audience non vérifiée)
-> - Utiliser le flux implicit
-
----
-
-## Exemple minimal
-
-```bash
-# Keycloak local pour s'entraîner
-docker run -p 8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
-  quay.io/keycloak/keycloak:latest start-dev
+```mermaid
+sequenceDiagram
+  participant U as Utilisateur
+  participant F as Ton front
+  participant G as Fournisseur (Google, Keycloak)
+  participant A as Ton API
+  U->>F: clique « Se connecter avec Google »
+  F->>G: redirection vers la page de connexion Google
+  U->>G: se connecte chez Google (ton app ne voit rien)
+  G-->>F: redirection avec un code temporaire
+  F->>G: échange le code (+ preuve PKCE) contre des jetons
+  G-->>F: ID token + access token
+  F->>A: appels API avec le jeton
+  A->>A: vérifie la signature du jeton (clés publiques du fournisseur)
 ```
 
-> [!note] Ce que j'en retiens
-> Un vrai fournisseur d'identité en local pour tester le flux complet.
+**PKCE** (« pixy ») est une protection qui empêche qu'un code intercepté soit utilisé par quelqu'un d'autre.
 
----
+## Les mots à connaître
 
-## Pour aller plus loin (niveau senior)
+| Mot | Sens |
+|---|---|
+| **Fournisseur d'identité** (IdP) | celui qui vérifie l'identité : Google, Microsoft Entra ID, Keycloak, Auth0 |
+| **Client** | ton application, enregistrée chez le fournisseur (avec un *client id*) |
+| **Redirect URI** | l'adresse où le fournisseur renvoie l'utilisateur après connexion |
+| **Scope** | ce que tu demandes : `openid email profile` |
+| **ID token** | un JWT qui décrit l'utilisateur |
+| **SSO** | se connecter une fois pour toutes les applications de l'entreprise |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Concevoir les rôles/scopes et leur mapping dans l'API ; BFF pour éviter les tokens dans le navigateur
+## Dans tes projets
 
----
+- Pour CinéTrack : ta propre authentification JWT suffit (et t'apprend le fonctionnement).
+- Pour ajouter « Se connecter avec Google » : une librairie (`passport-google-oauth20` côté NestJS, ou un service comme Auth0 / Keycloak).
+- En entreprise : l'authentification passe souvent par un fournisseur central (Keycloak, Entra ID) ; les fronts utilisent une librairie OIDC (`angular-oauth2-oidc`, `oidc-client-ts`).
 
-## Connexions
+## Pièges
 
-**Arbre théorique :**
-- Sujet parent → [[Sécurité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/sec-04-oauth2-openid-connect]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi PKCE est-il nécessaire pour une SPA ?
-
-> [!faq]- Questions d'entretien
-> - Expliquez le flux Authorization Code avec PKCE.
-
----
-
-## Tâches
-
-- [ ] #task Demander quel IdP est utilisé au travail (Keycloak ? Entra ID ?) et brancher CinéTrack sur un Keycloak local
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Coder le flux toi-même** : utilise une librairie reconnue, les détails sont piégeux.
+- **Une `redirect URI` trop large** (`https://*`) : un attaquant peut récupérer le code.
+- **Faire confiance à un jeton sans vérifier sa signature, son émetteur (`iss`) et son destinataire (`aud`)**.

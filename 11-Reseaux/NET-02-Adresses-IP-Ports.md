@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,127 +10,74 @@ tags:
 aliases:
   - "Adresses IP et Ports"
 parent: "[[Réseaux]]"
-children: []
 related_theory:
   - "[[NET-01-Fondamentaux-OSI-TCP-IP|Fondamentaux Réseaux Modèles OSI et TCP IP]]"
   - "[[DK-05-Reseaux|Réseaux Docker]]"
-related_snippets:
-  - "[[04_Snippets/net-02-adresses-ip-ports]]"
 related_projects: []
 source: "https://fr.wikipedia.org/wiki/Adresse_IP"
 ---
 
 # Adresses IP et Ports
 
-> [!abstract] Introduction
-> Une adresse IP identifie une machine sur un réseau, un port identifie un service sur cette machine : `192.168.1.10:5432` = PostgreSQL sur la machine .10.
+> [!abstract] En bref
+> Une **adresse IP** identifie une **machine** sur un réseau (l'immeuble). Un **port** identifie un **programme** sur cette machine (l'appartement). `localhost:4200` = « ma propre machine, le programme qui écoute sur le port 4200 », c'est-à-dire ton `ng serve`.
 
-> [!warning]- Prérequis
-> [[NET-01-Fondamentaux-OSI-TCP-IP|Fondamentaux Réseaux Modèles OSI et TCP IP]]
+## Les adresses IP
 
----
+| Type | Exemple | Sens |
+|---|---|---|
+| IPv4 | `203.0.113.10` | 4 nombres de 0 à 255 |
+| IPv6 | `2001:db8::1` | le format moderne, bien plus d'adresses |
+| **localhost** | `127.0.0.1` / `::1` | **ta propre machine** |
+| privée | `192.168.x.x`, `10.x.x.x`, `172.16-31.x.x` | réseau local (box, entreprise, Docker), invisible d'Internet |
+| publique | le reste | visible sur Internet |
+| `0.0.0.0` | | « écouter sur toutes les interfaces » (utile dans Docker) |
 
-## Théorie
+## Les ports
 
-> [!question]- C'est quoi ?
-> - **IPv4** : `192.168.1.10` (32 bits, ~4 milliards d'adresses), **IPv6** : `2001:db8::1` (128 bits)
-> - **Privées** : `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` (non routables sur Internet) ; **publiques** : routables
-> - `127.0.0.1` / `localhost` : la machine elle-même ; `0.0.0.0` (serveur) : écouter sur toutes les interfaces
-> - **CIDR** : `192.168.1.0/24` = 256 adresses du même sous-réseau
-> - **NAT** : la box traduit les IP privées en une IP publique
-> - **Ports** (0-65535) : 22 SSH, 53 DNS, 80 HTTP, 443 HTTPS, 5432 PostgreSQL, 6379 Redis, 3000/4200/5173 serveurs de dev
+Un port est un numéro de 0 à 65535. Un programme **écoute** sur un port, et on l'appelle avec `adresse:port`.
 
-> [!example]- Analogie
-> L'IP est l'adresse de l'immeuble, le port est le numéro de l'appartement : le facteur (réseau) trouve l'immeuble, puis la bonne porte.
+| Port | Qui l'utilise |
+|---|---|
+| **80** | HTTP |
+| **443** | HTTPS |
+| **22** | SSH |
+| **5432** | PostgreSQL |
+| **6379** | Redis |
+| **3000** | ton API NestJS (par convention) |
+| **4200** | Angular (`ng serve`) |
+| **5173** | Vite (Vue) |
 
-> [!question]- Pourquoi l'utiliser ?
-> Configurer une API, Docker (`-p 8080:80`), un pare-feu, comprendre « connexion refusée » ou « l'API marche en local mais pas depuis le conteneur ».
+`https://cinetrack.fr` utilise le port 443 sans l'écrire : c'est le port par défaut de HTTPS.
 
-> [!question]- Comment ça marche ?
-> Un serveur « écoute » sur une IP et un port ; le client se connecte depuis un port éphémère aléatoire. Dans un conteneur, `localhost` désigne le CONTENEUR lui-même, pas ta machine.
+## En développement
 
-> [!question]- Quand l'utiliser ?
-> Configuration réseau, Docker, déploiement, pare-feu.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Une IP peut changer (DHCP, conteneurs) → utiliser des noms (DNS, noms de services Docker).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| IP | Adresse d'une machine |
-| Port | Numéro identifiant un service |
-| CIDR | Notation d'un bloc d'adresses |
-| NAT | Traduction d'adresses privées en publique |
-| Loopback | Adresse locale 127.0.0.1 |
-
----
-
-## Points clés
-
-- localhost dans un conteneur = le conteneur
-- Écouter sur 0.0.0.0 pour être joignable depuis l'extérieur du conteneur
-- Ne jamais exposer 5432/6379 sur Internet
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - API NestJS qui écoute sur 127.0.0.1 dans Docker → injoignable
-> - « EADDRINUSE » : port déjà utilisé par un autre processus
-
----
-
-## Exemple minimal
-
-```bash
-lsof -i :3000          # qui utilise le port 3000 ? (macOS/Linux)
-ss -tlnp               # ports en écoute (Linux)
-netstat -ano | findstr :3000   # Windows
+```mermaid
+flowchart LR
+  N["Navigateur"] -->|"localhost:4200"| A["ng serve"]
+  N -->|"localhost:3000"| B["API NestJS"]
+  B -->|"localhost:5432"| P["PostgreSQL (Docker)"]
 ```
 
-> [!note] Ce que j'en retiens
-> « Port déjà utilisé » se diagnostique en une commande.
+Dans Docker, les conteneurs se parlent par leur **nom de service** (`db:5432`), pas par `localhost`. Voir [[DK-05-Reseaux|Réseaux Docker]].
 
----
+## « Port déjà utilisé »
 
-## Pour aller plus loin (niveau senior)
+```text
+Error: listen EADDRINUSE: address already in use :::3000
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Calculer des sous-réseaux, concevoir un VPC (réseaux privés/publics)
+Un autre programme utilise déjà ce port (souvent une ancienne instance de ton API).
 
----
+```bash
+lsof -i :3000          # qui utilise le port 3000 ?
+kill <PID>             # l'arrêter
+```
 
-## Connexions
+Ou lance sur un autre port : `ng serve --port 4300`.
 
-**Arbre théorique :**
-- Sujet parent → [[Réseaux]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Pièges
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/net-02-adresses-ip-ports]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi `localhost` dans un conteneur ne désigne-t-il pas ta machine ?
-
----
-
-## Tâches
-
-- [ ] #task Lister les ports en écoute sur ta machine pendant que tu lances Angular, Vue et l'API
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`localhost` dans un conteneur Docker** = le conteneur lui-même, pas ta machine.
+- **Un serveur qui écoute sur `127.0.0.1`** dans un conteneur n'est pas joignable de l'extérieur : il doit écouter sur `0.0.0.0`.
+- **Exposer une base de données sur une IP publique** : seuls les services internes doivent pouvoir s'y connecter.

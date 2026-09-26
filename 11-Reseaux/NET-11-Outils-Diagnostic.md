@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,126 +10,71 @@ tags:
 aliases:
   - "Outils de Diagnostic Réseau"
 parent: "[[Réseaux]]"
-children: []
 related_theory:
   - "[[NET-01-Fondamentaux-OSI-TCP-IP|Fondamentaux Réseaux Modèles OSI et TCP IP]]"
   - "[[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]]"
-related_snippets:
-  - "[[04_Snippets/net-11-outils-diagnostic]]"
 related_projects: []
 source: "https://curl.se/docs/manual.html"
 ---
 
 # Outils de Diagnostic Réseau
 
-> [!abstract] Introduction
-> Une boîte à outils pour diagnostiquer rapidement un problème réseau : ping, traceroute, dig, curl, nc, ss/netstat, et l'onglet Network des DevTools.
+> [!abstract] En bref
+> Quand « l'API ne répond pas », ces outils te disent **où** ça bloque : le nom ne se résout pas, la machine est injoignable, le port est fermé, ou la requête HTTP échoue. Commence toujours par le plus simple : **l'onglet Network** du navigateur, puis **`curl -v`**.
 
-> [!warning]- Prérequis
-> [[NET-01-Fondamentaux-OSI-TCP-IP|Fondamentaux Réseaux Modèles OSI et TCP IP]]
+## La méthode : de bas en haut
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> | Outil | Question | Exemple |
-> |---|---|---|
-> | `ping` | La machine répond-elle ? | `ping 8.8.8.8` |
-> | `traceroute` / `tracert` | Par où passe le trafic ? | `traceroute cinetrack.fr` |
-> | `dig` / `nslookup` | Que répond le DNS ? | `dig api.cinetrack.fr` |
-> | `nc -zv` / `telnet` | Le port est-il ouvert ? | `nc -zv db 5432` |
-> | `curl -v` | Que se passe-t-il en HTTP/TLS ? | `curl -v https://…/health` |
-> | `ss -tlnp` / `netstat` | Qui écoute sur quel port ? | — |
-> | `openssl s_client` | Quel certificat ? | `openssl s_client -connect site:443` |
-> | DevTools Network | Détail des requêtes du navigateur | Timing, CORS, cache |
-
-> [!example]- Analogie
-> La trousse du médecin : stéthoscope, thermomètre, tensiomètre — chaque outil vérifie un organe précis.
-
-> [!question]- Pourquoi l'utiliser ?
-> « L'API ne répond pas » peut venir du DNS, du réseau, du port, du TLS, du proxy, de CORS ou de l'application : les outils permettent d'isoler la couche fautive en minutes.
-
-> [!question]- Comment ça marche ?
-> Démarche : DNS (`dig`) → joignabilité (`ping`, parfois bloqué) → port (`nc`) → TLS/HTTP (`curl -v`) → application (logs). Depuis un conteneur : `docker exec -it api sh` puis les mêmes outils.
-
-> [!question]- Quand l'utiliser ?
-> À chaque incident réseau ou de déploiement.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> ICMP (ping) est souvent bloqué par les pare-feux : un ping qui échoue ne prouve pas que le service est hors ligne.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| ICMP | Protocole utilisé par ping |
-| Hop | Saut entre routeurs |
-| Verbose | Mode détaillé (`-v`) |
-
----
-
-## Points clés
-
-- Diagnostiquer couche par couche
-- `curl -v` montre DNS, connexion, TLS et HTTP
-- Tester depuis l'endroit où le problème se produit (le conteneur)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Conclure « serveur mort » parce que ping ne répond pas
-
----
-
-## Exemple minimal
-
-```bash
-docker compose exec api sh -c "nc -zv db 5432 && curl -s localhost:3000/api/health"
+```mermaid
+flowchart TD
+  A["❓ Ça ne marche pas"] --> B{"Le nom se résout ?<br/>nslookup / dig"}
+  B -- non --> B1["problème DNS"]
+  B -- oui --> C{"La machine répond ?<br/>ping"}
+  C -- non --> C1["machine éteinte, réseau, pare-feu"]
+  C -- oui --> D{"Le port est ouvert ?<br/>curl -v / nc -zv"}
+  D -- non --> D1["le service n'écoute pas, pare-feu"]
+  D -- oui --> E{"Réponse HTTP ?<br/>curl -v / Network"}
+  E --> E1["lire le code et les logs du serveur"]
 ```
 
-> [!note] Ce que j'en retiens
-> Depuis le conteneur de l'API : la base est-elle joignable et l'API répond-elle ?
+## Les outils
 
----
+| Outil | Question | Exemple |
+|---|---|---|
+| **Onglet Network (F12)** | quelle requête part, quelle réponse revient ? | statut, en-têtes, corps, temps |
+| **`curl -v`** | la requête HTTP complète, étape par étape | `curl -v https://api.cinetrack.fr/health` |
+| `nslookup` / `dig` | quelle IP pour ce nom ? | `dig cinetrack.fr +short` |
+| `ping` | la machine répond-elle ? | `ping cinetrack.fr` (parfois bloqué) |
+| `nc -zv` | ce port est-il ouvert ? | `nc -zv localhost 5432` |
+| `lsof -i :3000` / `ss -tlnp` | qui écoute sur ce port, chez moi ? | port déjà utilisé |
+| `traceroute` | par où passent les paquets ? | lenteur réseau |
+| `docker logs` | que dit le conteneur ? | `docker logs -f api` |
 
-## Pour aller plus loin (niveau senior)
+## Lire `curl -v`
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Utiliser `tcpdump`/Wireshark pour les cas complexes
+```text
+* Trying 203.0.113.10:443...             ← DNS OK, tentative de connexion
+* Connected to api.cinetrack.fr          ← TCP OK
+* SSL connection using TLSv1.3           ← HTTPS OK
+> GET /health HTTP/2                     ← ce que tu envoies (>)
+> Authorization: Bearer …
+< HTTP/2 503                             ← ce que tu reçois (<)
+< content-type: application/json
+```
 
----
+Chaque ligne te dit quelle étape a réussi. L'échec est **juste après la dernière ligne qui a marché**.
 
-## Connexions
+## Les messages classiques
 
-**Arbre théorique :**
-- Sujet parent → [[Réseaux]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+| Message | Signification |
+|---|---|
+| `Could not resolve host` | DNS : nom inconnu ou faute de frappe |
+| `Connection refused` | la machine répond, mais rien n'écoute sur ce port (service arrêté, mauvais port) |
+| `Connection timed out` | pas de réponse du tout (pare-feu, machine injoignable) |
+| `SSL certificate problem` | certificat expiré ou pour un autre nom |
+| `CORS error` dans la console | la requête est partie ; le **serveur** doit autoriser ton domaine |
+| `502 Bad Gateway` | le reverse proxy n'arrive pas à joindre l'application derrière |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/net-11-outils-diagnostic]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle commande pour vérifier qu'un port est ouvert ?
-
----
-
-## Tâches
-
-- [ ] #task Créer une fiche « diagnostic réseau » dans 04_Snippets
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Tester depuis le mauvais endroit** : `localhost` depuis ton PC n'est pas `localhost` dans un conteneur ou sur le serveur.
+- **Conclure trop vite « c'est le réseau »** : 90 % du temps, c'est la configuration de l'application (URL, port, variable d'environnement).

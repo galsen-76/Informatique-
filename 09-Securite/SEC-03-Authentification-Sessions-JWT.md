@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,138 +10,76 @@ tags:
 aliases:
   - "Authentification Sessions vs JWT"
 parent: "[[Sécurité]]"
-children: []
 related_theory:
   - "[[NEST-10-Authentification-JWT|Authentification JWT NestJS]]"
   - "[[JS-11-Stockage-Navigateur|Stockage Navigateur]]"
   - "[[SEC-04-OAuth2-OpenID-Connect|OAuth2 et OpenID Connect]]"
-related_snippets:
-  - "[[04_Snippets/sec-03-authentification-sessions-jwt]]"
 related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
 ---
 
-# Authentification Sessions vs JWT
+# Authentification Sessions et JWT
 
-> [!abstract] Introduction
-> Deux grandes façons de maintenir un utilisateur connecté : la session côté serveur (identifiant dans un cookie) ou le token autoporteur (JWT) ; chacune a ses forces, ses faiblesses et ses règles de stockage.
+> [!abstract] En bref
+> HTTP ne se souvient de rien entre deux requêtes. Pour savoir **qui** fait la requête, il y a deux grandes méthodes : la **session** (le serveur garde une fiche, le navigateur garde un numéro dans un cookie) et le **JWT** (le serveur donne un jeton signé que le client présente à chaque fois). Les deux sont valables ; l'important est de bien les stocker.
 
-> [!warning]- Prérequis
-> [[SEC-01-Fondamentaux-Securite|Fondamentaux de la Sécurité]], [[JS-11-Stockage-Navigateur|Stockage Navigateur]]
+## Les deux approches
 
----
+| | Session | JWT |
+|---|---|---|
+| Image | un **ticket de vestiaire** : le numéro ne dit rien, le vestiaire garde ton manteau | un **badge signé** : tout est écrit dessus, le gardien vérifie la signature |
+| Où est l'info | sur le **serveur** (mémoire, Redis, base) | **dans le jeton** |
+| Le client garde | un identifiant de session (cookie) | le jeton |
+| Déconnecter quelqu'un immédiatement | facile (on supprime la session) | difficile (le jeton reste valide jusqu'à expiration) |
+| Plusieurs serveurs | il faut un stockage partagé (Redis) | rien à partager |
 
-## Théorie
+## Un JWT de près
 
-> [!question]- C'est quoi ?
-> | | Session serveur | JWT |
-> |---|---|---|
-> | Stockage de l'état | Serveur (mémoire/Redis/BDD) | Dans le token (signé) |
-> | Transport | Cookie `HttpOnly` | En-tête `Authorization: Bearer` ou cookie |
-> | Révocation | Immédiate (supprimer la session) | Difficile (attendre l'expiration) |
-> | Scalabilité | Store partagé nécessaire | Sans état, vérifiable partout |
-> | Cas typique | Application web classique, BFF | API, mobile, microservices |
+Un JWT est composé de 3 parties séparées par des points : `en-tête.contenu.signature`.
 
-> [!example]- Analogie
-> Session : le vestiaire garde ton manteau et te donne un ticket numéroté (le serveur retrouve tout avec le numéro). JWT : une carte d'identité infalsifiable que tu portes toi-même (tout le monde peut la vérifier, mais on ne peut pas la « désactiver » avant sa date d'expiration).
-
-> [!question]- Pourquoi l'utiliser ?
-> Le choix impacte la sécurité (XSS/CSRF), l'architecture (scalabilité) et l'expérience (déconnexion, expiration).
-
-> [!question]- Comment ça marche ?
-> Recommandations actuelles pour une SPA (Angular/Vue) :
-> - Idéal : **cookie `HttpOnly; Secure; SameSite`** (session ou JWT dans le cookie) — inaccessible au JS donc protégé du vol par XSS ; protéger contre CSRF (SameSite + token anti-CSRF si nécessaire)
-> - Variante courante : access token court **en mémoire** (variable/signal) + refresh token en cookie HttpOnly
-> - À éviter : token longue durée dans `localStorage`
-> - Pattern **BFF** : le backend du front gère les tokens, le navigateur n'a qu'un cookie de session
-
-> [!question]- Quand l'utiliser ?
-> Session : app monolithique ou BFF. JWT : API consommée par plusieurs clients, services distribués.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Aucune option ne protège d'une XSS qui agit directement dans la page : la prévention XSS reste indispensable.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Session | État d'authentification conservé côté serveur |
-| Token autoporteur | Jeton qui contient ses propres informations |
-| HttpOnly | Cookie inaccessible au JavaScript |
-| BFF | Backend For Frontend |
-| Révocation | Invalidation anticipée d'un accès |
-
----
-
-## Points clés
-
-- Cookie HttpOnly > localStorage pour les secrets d'auth
-- Access court + refresh rotaté
-- Déconnexion = invalider côté serveur (session ou refresh)
-- MFA pour les comptes sensibles
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - JWT de 30 jours dans localStorage
-> - Oublier la protection CSRF avec des cookies
-
----
-
-## Exemple minimal
-
-```typescript
-// NestJS : poser le refresh token en cookie sécurisé
-res.cookie('refresh', refreshToken, {
-  httpOnly: true, secure: true, sameSite: 'strict', path: '/api/auth/refresh', maxAge: 7 * 24 * 3600 * 1000,
-});
+```json
+// contenu (décodé) : LISIBLE PAR TOUS, il est seulement signé
+{ "sub": 42, "role": "USER", "iat": 1790000000, "exp": 1790000900 }
 ```
 
-> [!note] Ce que j'en retiens
-> Le cookie n'est envoyé qu'à la route de refresh, jamais lisible par le JS.
+- `sub` : l'identifiant de l'utilisateur.
+- `exp` : la date d'expiration.
+- La **signature** prouve que c'est bien ton serveur qui l'a créé : impossible de changer `role` en `ADMIN` sans connaître le secret.
 
----
+Essaie sur jwt.io avec un de tes jetons : tu verras que le contenu est lisible. **Jamais de donnée sensible dedans.**
 
-## Pour aller plus loin (niveau senior)
+## Le duo jeton court + jeton de rafraîchissement
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Concevoir un BFF avec OIDC et sessions pour une SPA d'entreprise
+```mermaid
+sequenceDiagram
+  participant F as Front
+  participant A as API
+  F->>A: POST /auth/login
+  A-->>F: accessToken (15 min) + cookie HttpOnly refreshToken (7 j)
+  F->>A: GET /favorites (Authorization: Bearer accessToken)
+  A-->>F: 200
+  Note over F: 15 min plus tard…
+  F->>A: GET /favorites → 401 (expiré)
+  F->>A: POST /auth/refresh (cookie envoyé automatiquement)
+  A-->>F: nouvel accessToken
+```
 
----
+- **Jeton d'accès court** (15 min) : s'il est volé, il ne sert pas longtemps.
+- **Jeton de rafraîchissement long**, dans un **cookie `HttpOnly`** : JavaScript ne peut pas le lire, donc un script malveillant ne peut pas le voler. On peut le révoquer côté serveur.
 
-## Connexions
+## Où stocker le jeton côté front ?
 
-**Arbre théorique :**
-- Sujet parent → [[Sécurité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+| Emplacement | Risque |
+|---|---|
+| `localStorage` | lisible par tout script de la page → volable en cas de faille XSS |
+| mémoire (variable, signal) | disparaît au rechargement (d'où le refresh token) |
+| **cookie `HttpOnly` + `Secure` + `SameSite`** | illisible par JavaScript ; protège bien si CSRF géré |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sec-03-authentification-sessions-jwt]]
+Recommandation pour tes projets : jeton d'accès **en mémoire**, jeton de rafraîchissement en **cookie `HttpOnly`**. Mise en œuvre : [[NEST-10-Authentification-JWT|Authentification JWT NestJS]].
 
----
+## Pièges
 
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un JWT est-il difficile à révoquer et comment compenser ?
-
-> [!faq]- Questions d'entretien
-> - Session ou JWT pour une SPA ? Justifiez.
-
----
-
-## Tâches
-
-- [ ] #task Implémenter login/refresh/logout dans CinéTrack en suivant ces règles
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Un JWT qui ne expire jamais** : s'il fuit, il est valable pour toujours.
+- **Un secret faible ou commité** : n'importe qui peut fabriquer des jetons.
+- **Accepter l'algorithme `none`** ou ne pas vérifier la signature : utilise les librairies officielles (`@nestjs/jwt`), jamais un décodage maison.
+- **Oublier que « connecté » ≠ « autorisé »** : voir [[SEC-11-Autorisation-RBAC|Autorisation]].

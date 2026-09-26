@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,132 +10,84 @@ tags:
 aliases:
   - "Injection SQL et Validation des Entrées"
 parent: "[[Sécurité]]"
-children: []
 related_theory:
   - "[[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]]"
   - "[[NEST-05-DTO-Validation-Pipes|DTO et Validation NestJS]]"
   - "[[ORM-02-Prisma-Client-Requetes-Relations|Prisma Client Requêtes et Relations]]"
-related_snippets:
-  - "[[04_Snippets/sec-08-injection-sql-validation]]"
 related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
 ---
 
-# Injection SQL et Validation des Entrées
+# Injection SQL et Validation
 
-> [!abstract] Introduction
-> L'injection survient quand des données utilisateur sont interprétées comme du code (SQL, NoSQL, commande shell) ; la parade : requêtes paramétrées et validation stricte de toutes les entrées.
+> [!abstract] En bref
+> Une **injection** se produit quand une donnée envoyée par l'utilisateur est **interprétée comme du code**. L'exemple le plus célèbre : l'injection SQL, qui permet de lire ou détruire toute la base. La parade est simple : **ne jamais construire une requête en collant du texte**, et **valider toutes les entrées**.
 
-> [!warning]- Prérequis
-> [[SQL-01-Fondamentaux-SELECT|Fondamentaux SQL SELECT]]
+## L'attaque
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> // ❌ Vulnérable
-> await db.query(`SELECT * FROM users WHERE email = '${email}'`);
-> // email = "' OR '1'='1" → renvoie tous les utilisateurs
-> // ✅ Paramétré
-> await db.query('SELECT * FROM users WHERE email = $1', [email]);
-> await prisma.$queryRaw`SELECT * FROM users WHERE email = ${email}`;   // template tag = paramétré
-> ```
-
-> [!example]- Analogie
-> Un formulaire papier où quelqu'un écrit dans la case « nom » : « Dupont, et donnez-lui aussi les clés du coffre ». Une requête paramétrée, c'est une case qui n'accepte QUE le nom, jamais des instructions.
-
-> [!question]- Pourquoi l'utiliser ?
-> Vol ou destruction de toute la base, contournement de l'authentification : l'une des failles les plus graves et les plus exploitées.
-
-> [!question]- Comment ça marche ?
-> - ORM/requêtes paramétrées partout ; jamais de concaténation
-> - Colonnes dynamiques (tri) : liste blanche (`['titre','annee'].includes(tri)`)
-> - Validation des entrées (type, longueur, format, énumérations) avec DTO/Zod
-> - NoSQL : refuser les objets là où on attend une chaîne (`{ "$gt": "" }`)
-> - Commandes shell : éviter `exec` avec des entrées utilisateur
-
-> [!question]- Quand l'utiliser ?
-> Toute donnée venant de l'extérieur : body, query, params, en-têtes, fichiers, webhooks.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> La validation ne remplace pas le paramétrage : les deux sont nécessaires.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Injection | Données interprétées comme du code |
-| Requête paramétrée | Données transmises séparément du SQL |
-| Liste blanche | N'accepter que des valeurs connues |
-
----
-
-## Points clés
-
-- Jamais de concaténation de SQL
-- Liste blanche pour les noms de colonnes
-- Valider type, taille, format
-- `$queryRawUnsafe` = danger
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `ORDER BY ${req.query.tri}` en brut
-> - Faire confiance aux données « venant de notre propre front »
-
----
-
-## Exemple minimal
-
-```typescript
-const TRIS = { titre: 'titre', annee: 'annee', note: 'note_moyenne' } as const;
-const colonne = TRIS[dto.tri as keyof typeof TRIS] ?? 'titre';   // jamais la valeur brute
+```ts
+// ❌ la requête est construite en collant le texte de l'utilisateur
+const sql = `SELECT * FROM users WHERE email = '${email}'`;
 ```
 
-> [!note] Ce que j'en retiens
-> L'utilisateur choisit une clé, le code choisit la vraie colonne.
+Si l'utilisateur tape comme e-mail :
 
----
+```text
+' OR '1'='1
+```
 
-## Pour aller plus loin (niveau senior)
+La requête devient :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Tester son API avec sqlmap en environnement de test
+```sql
+SELECT * FROM users WHERE email = '' OR '1'='1'   -- toujours vrai : tous les utilisateurs !
+```
 
----
+Ou pire : `'; DROP TABLE users; --`.
 
-## Connexions
+## La parade : les requêtes paramétrées
 
-**Arbre théorique :**
-- Sujet parent → [[Sécurité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+La valeur est envoyée **séparément** de la requête : la base la traite toujours comme une **donnée**, jamais comme du code.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sec-08-injection-sql-validation]]
+```ts
+// ✅ Prisma : paramétré automatiquement
+prisma.user.findUnique({ where: { email } });
 
----
+// ✅ SQL brut avec Prisma : le ${} est protégé
+prisma.$queryRaw`SELECT * FROM "User" WHERE email = ${email}`;
 
-## Auto-vérification
+// ❌ DANGER : désactive la protection
+prisma.$queryRawUnsafe(`SELECT * FROM "User" WHERE email = '${email}'`);
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un template tag `$queryRaw` est-il sûr alors que `$queryRawUnsafe` ne l'est pas ?
+```ts
+// ✅ pg (SQL direct)
+pool.query('SELECT * FROM users WHERE email = $1', [email]);
+```
 
----
+## Les autres injections
 
-## Tâches
+| Injection | Exemple | Parade |
+|---|---|---|
+| **HTML / JavaScript** (XSS) | un `<script>` dans une critique | affichage échappé par le framework (voir [[SEC-06-XSS-CSRF\|XSS]]) |
+| **Commande système** | `exec('convert ' + fichier)` | ne pas lancer de commande avec une donnée utilisateur, ou passer les arguments séparément |
+| **Chemin de fichier** | `readFile('uploads/' + nom)` avec `../../.env` | vérifier le nom, n'autoriser qu'un dossier |
+| **Recherche NoSQL** | `{ "$gt": "" }` à la place d'un mot de passe (MongoDB) | valider le type (une chaîne, pas un objet) |
 
-- [ ] #task Écrire un test qui envoie `' OR 1=1 --` sur la recherche et vérifie l'absence de fuite
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Valider toutes les entrées
 
----
+La validation est la **deuxième ligne de défense** :
 
-## Notes brutes
+| Où | Outil |
+|---|---|
+| corps des requêtes NestJS | DTO + `ValidationPipe` avec `whitelist` (voir [[NEST-05-DTO-Validation-Pipes\|DTO]]) |
+| paramètres d'URL | `ParseIntPipe`, `ParseUUIDPipe` |
+| données reçues d'une API externe | Zod (voir [[TS-19-Validation-Runtime-Zod\|Zod]]) |
+| formulaires du front | pour le confort de l'utilisateur ; **le serveur revalide** |
 
-- ?
+**Valide ce qui est attendu** (liste d'autorisation) plutôt que d'essayer de bloquer ce qui est dangereux : « une note entière entre 1 et 10 » est plus sûr que « pas de caractères bizarres ».
+
+## Pièges
+
+- **`$queryRawUnsafe` ou une concaténation** « juste pour cette requête compliquée ».
+- **Faire confiance à un champ caché** ou à une liste déroulante du front : n'importe quelle valeur peut être envoyée.
+- **Trier par une colonne choisie par l'utilisateur** (`ORDER BY ${colonne}`) : les noms de colonnes ne se paramètrent pas. Vérifie la valeur dans une liste autorisée.

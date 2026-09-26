@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,130 +10,64 @@ tags:
 aliases:
   - "DNS"
 parent: "[[Réseaux]]"
-children: []
 related_theory:
   - "[[NET-02-Adresses-IP-Ports|Adresses IP et Ports]]"
   - "[[CLOUD-02-Heberger-Front|Héberger un Front]]"
-related_snippets:
-  - "[[04_Snippets/net-04-dns]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Glossary/DNS"
 ---
 
 # DNS
 
-> [!abstract] Introduction
-> Le DNS est l'annuaire d'Internet : il traduit un nom (`cinetrack.fr`) en adresse IP ; bien le comprendre évite des heures de débogage lors des déploiements.
+> [!abstract] En bref
+> Le **DNS** est l'**annuaire** d'Internet : il traduit un nom lisible (`cinetrack.fr`) en adresse IP (`203.0.113.10`). Tu t'en occuperas en mettant tes projets en ligne : relier ton nom de domaine à ton hébergeur.
 
-> [!warning]- Prérequis
-> [[NET-02-Adresses-IP-Ports|Adresses IP et Ports]]
+## Le fonctionnement
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> Enregistrements courants :
-> | Type | Rôle | Exemple |
-> |---|---|---|
-> | A / AAAA | Nom → IPv4 / IPv6 | `cinetrack.fr → 203.0.113.5` |
-> | CNAME | Alias vers un autre nom | `www → cinetrack.fr` |
-> | MX | Serveurs mail | — |
-> | TXT | Texte (vérifications, SPF, DKIM) | — |
-> | NS | Serveurs faisant autorité | — |
-> **TTL** : durée de mise en cache d'une réponse.
-
-> [!example]- Analogie
-> Le répertoire de ton téléphone : tu appelles « Maman », le téléphone compose le numéro ; si elle change de numéro, il faut que le répertoire soit mis à jour partout (TTL).
-
-> [!question]- Pourquoi l'utiliser ?
-> Mise en ligne d'un domaine, sous-domaines (`api.`, `app.`), certificats TLS (validation DNS), bascule de serveur ; et Docker/Kubernetes utilisent un DNS interne (noms de services).
-
-> [!question]- Comment ça marche ?
-> Résolution : cache du navigateur → cache de l'OS → résolveur (FAI, 1.1.1.1) → serveurs racine → TLD (`.fr`) → serveur faisant autorité → réponse mise en cache pendant le TTL.
-> Fichier `hosts` : surcharge locale (`127.0.0.1 cinetrack.local`).
-
-> [!question]- Quand l'utiliser ?
-> Chaque déploiement sur un nom de domaine ; chaque « ça marche chez moi mais pas chez lui ».
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> La propagation dépend des TTL : baisser le TTL AVANT une migration.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Résolveur | Serveur qui cherche la réponse pour toi |
-| TTL | Durée de cache |
-| Zone | Ensemble des enregistrements d'un domaine |
-| Serveur faisant autorité | Source officielle d'un domaine |
-
----
-
-## Points clés
-
-- A = IP, CNAME = alias
-- TTL = cache ; le baisser avant un changement
-- Docker Compose : les services se trouvent par leur nom via un DNS interne
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - « J'ai changé le DNS mais rien ne change » → cache/TTL
-> - CNAME sur le domaine racine (non autorisé par la norme ; certains fournisseurs proposent ALIAS/ANAME)
-
----
-
-## Exemple minimal
-
-```bash
-dig cinetrack.fr +short
-dig api.cinetrack.fr CNAME
-nslookup cinetrack.fr 1.1.1.1
+```mermaid
+sequenceDiagram
+  participant N as Navigateur
+  participant R as Résolveur (box, 1.1.1.1)
+  participant A as Serveurs DNS
+  N->>R: IP de cinetrack.fr ?
+  R->>A: interroge la chaîne (racine → .fr → cinetrack.fr)
+  A-->>R: 203.0.113.10
+  R-->>N: 203.0.113.10 (mis en cache)
 ```
 
-> [!note] Ce que j'en retiens
-> `dig` montre exactement ce que répond le DNS.
+La réponse est gardée en **cache** pendant une durée appelée **TTL** : c'est pour ça qu'un changement DNS peut mettre de quelques minutes à quelques heures à être visible partout.
 
----
+## Les enregistrements à connaître
 
-## Pour aller plus loin (niveau senior)
+| Type | Sert à | Exemple |
+|---|---|---|
+| **A** | nom → adresse IPv4 | `cinetrack.fr → 203.0.113.10` |
+| **AAAA** | nom → adresse IPv6 | |
+| **CNAME** | nom → **autre nom** (alias) | `www.cinetrack.fr → cinetrack.fr` |
+| **MX** | serveurs d'e-mail | |
+| **TXT** | texte libre (vérification de domaine, sécurité e-mail) | preuve de propriété pour GitLab Pages |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Stratégies de bascule (blue/green via DNS, GeoDNS)
+## Mettre ton Portfolio sur ton nom de domaine
 
----
+1. Achète un domaine (OVH, Gandi, Cloudflare…).
+2. Chez ton hébergeur (GitLab Pages, Netlify…), ajoute ton domaine : il te donne une adresse IP ou un nom cible.
+3. Chez le registraire, crée l'enregistrement **A** (vers l'IP) ou **CNAME** (vers le nom cible).
+4. Ajoute le **TXT** de vérification si l'hébergeur le demande.
+5. Attends la propagation, puis active le **HTTPS** (souvent automatique).
 
-## Connexions
+## Vérifier
 
-**Arbre théorique :**
-- Sujet parent → [[Réseaux]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+```bash
+nslookup cinetrack.fr
+dig cinetrack.fr +short
+dig www.cinetrack.fr CNAME
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/net-04-dns]]
+## En développement
 
----
+Le fichier `hosts` permet de forcer un nom vers une IP sur ta machine (`/etc/hosts` sous Linux / WSL, `C:\Windows\System32\drivers\etc\hosts` sous Windows).
 
-## Auto-vérification
+## Pièges
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Que signifie un TTL de 3600 ?
-
----
-
-## Tâches
-
-- [ ] #task Configurer un sous-domaine pour le portfolio
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **« Le site ne marche pas »** juste après une modification DNS : c'est souvent le cache. Attends, ou teste avec `dig @1.1.1.1`.
+- **Un CNAME à la racine du domaine** (`cinetrack.fr` sans `www`) : interdit par la norme ; certains fournisseurs proposent un équivalent (ALIAS / flattening).

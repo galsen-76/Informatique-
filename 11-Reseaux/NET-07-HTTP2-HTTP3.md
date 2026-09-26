@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,122 +10,41 @@ tags:
 aliases:
   - "HTTP2 et HTTP3"
 parent: "[[Réseaux]]"
-children: []
 related_theory:
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
   - "[[NET-03-TCP-vs-UDP|TCP vs UDP]]"
-related_snippets:
-  - "[[04_Snippets/net-07-http2-http3]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Glossary/HTTP_2"
 ---
 
-# HTTP2 et HTTP3
+# HTTP/2 et HTTP/3
 
-> [!abstract] Introduction
-> HTTP/2 multiplexe plusieurs requêtes sur une seule connexion TCP et compresse les en-têtes ; HTTP/3 remplace TCP par QUIC (UDP) pour réduire encore la latence — la sémantique (méthodes, statuts) ne change pas.
+> [!abstract] En bref
+> HTTP a évolué pour aller plus vite, sans changer ce que tu écris : les méthodes, codes et en-têtes restent les mêmes. **HTTP/2** fait passer **plusieurs requêtes en même temps** sur une seule connexion. **HTTP/3** fonctionne sur un nouveau transport (QUIC) plus rapide, surtout sur mobile. C'est l'hébergeur qui les active : tu dois surtout savoir ce qu'ils changent.
 
-> [!warning]- Prérequis
-> [[NET-05-HTTP-Approfondi|HTTP Approfondi]], [[NET-03-TCP-vs-UDP|TCP vs UDP]]
+## Les trois versions
 
----
+| | HTTP/1.1 | HTTP/2 | HTTP/3 |
+|---|---|---|---|
+| Transport | TCP | TCP | **QUIC (sur UDP)** |
+| Plusieurs requêtes à la fois | non (une à la fois par connexion) | **oui**, sur une seule connexion | oui |
+| En-têtes | texte, répétés à chaque fois | compressés | compressés |
+| Un paquet perdu | bloque la connexion | bloque **toute** la connexion (TCP) | ne bloque que sa requête |
+| Chiffrement | optionnel | en pratique obligatoire | **intégré** |
+| Changement de réseau (Wi-Fi → 4G) | reconnexion | reconnexion | la connexion **survit** |
 
-## Théorie
+## L'image
 
-> [!question]- C'est quoi ?
-> | | HTTP/1.1 | HTTP/2 | HTTP/3 |
-> |---|---|---|---|
-> | Transport | TCP | TCP | QUIC (UDP) |
-> | Requêtes parallèles | ~6 connexions/domaine | Multiplexage sur 1 connexion | Multiplexage sans blocage |
-> | En-têtes | Texte | Binaire compressé (HPACK) | QPACK |
-> | Chiffrement | Optionnel | De fait obligatoire (navigateurs) | Intégré |
+- **HTTP/1.1** : une caisse de supermarché où chaque client passe **l'un après l'autre**.
+- **HTTP/2** : une caisse qui traite **plusieurs paniers en parallèle** ; mais si un article bloque, toute la caisse attend.
+- **HTTP/3** : chaque panier a sa propre file ; un blocage ne gêne que lui.
 
-> [!example]- Analogie
-> HTTP/1.1 : une caisse = un client à la fois. HTTP/2 : une caisse qui scanne les articles de plusieurs clients en alternance. HTTP/3 : si un article tombe, les autres clients ne sont pas bloqués.
+## Ce que ça change pour toi
 
-> [!question]- Pourquoi l'utiliser ?
-> Comprendre pourquoi certaines optimisations de l'époque HTTP/1 (concaténer tous les fichiers, sprites, domain sharding) sont moins utiles, et configurer correctement serveur et CDN.
+- **Les anciennes astuces sont inutiles, voire nuisibles** : regrouper toutes les images dans une seule (sprites), répartir les fichiers sur plusieurs domaines… HTTP/2 gère très bien les nombreux petits fichiers.
+- Le **découpage du code par page** (lazy loading) devient encore plus intéressant.
+- Ton **serveur ou hébergeur** active HTTP/2 et HTTP/3 (Nginx, Cloudflare, Netlify le font souvent par défaut). Ton code Angular / Vue / NestJS ne change pas.
 
-> [!question]- Comment ça marche ?
-> Activé côté serveur/CDN (Nginx `http2`, la plupart des CDN et load balancers gèrent HTTP/3). Rien à changer dans le code Angular/Vue/Nest.
+## Voir la version utilisée
 
-> [!question]- Quand l'utiliser ?
-> Toujours activer HTTP/2 minimum en production.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> HTTP/2 sur TCP souffre encore du head-of-line blocking au niveau TCP en cas de pertes (résolu par HTTP/3).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Multiplexage | Plusieurs flux sur une connexion |
-| Head-of-line blocking | Un paquet perdu bloque les suivants |
-| QUIC | Protocole de transport sur UDP |
-
----
-
-## Points clés
-
-- Même sémantique HTTP
-- Multiplexage = moins de connexions
-- Activé au niveau infrastructure
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Garder des optimisations HTTP/1 contre-productives
-
----
-
-## Exemple minimal
-
-```text
-DevTools > Network > clic droit sur les colonnes > « Protocol » : h2 / h3
-```
-
-> [!note] Ce que j'en retiens
-> Vérifier le protocole réellement utilisé en production.
-
----
-
-## Pour aller plus loin (niveau senior)
-
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Mesurer l'impact réel (WebPageTest) plutôt que supposer
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Réseaux]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/net-07-http2-http3]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Qu'est-ce que le multiplexage HTTP/2 ?
-
----
-
-## Tâches
-
-- [ ] #task Vérifier le protocole utilisé par les sites de l'entreprise
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+F12 → Network → clic droit sur les en-têtes de colonne → cocher **Protocol** : `h2` = HTTP/2, `h3` = HTTP/3.

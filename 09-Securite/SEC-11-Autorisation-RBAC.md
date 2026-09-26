@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,134 +10,82 @@ tags:
 aliases:
   - "Autorisation RBAC"
 parent: "[[Sécurité]]"
-children: []
 related_theory:
   - "[[NEST-06-Middleware-Guards-Interceptors|Middleware Guards et Interceptors NestJS]]"
   - "[[ANG-21-Guards-Resolvers-Intercepteurs|Guards Resolvers et Intercepteurs Angular]]"
-related_snippets:
-  - "[[04_Snippets/sec-11-autorisation-rbac]]"
 related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html"
 ---
 
-# Autorisation RBAC
+# Autorisation et RBAC
 
-> [!abstract] Introduction
-> L'autorisation décide ce qu'un utilisateur authentifié a le droit de faire : par rôle (RBAC), par attributs/propriété (ABAC), toujours vérifiée côté serveur, le front ne faisant qu'adapter l'affichage.
+> [!abstract] En bref
+> L'**authentification** répond à « **qui** es-tu ? ». L'**autorisation** répond à « **as-tu le droit** de faire ça ? ». Deux niveaux à vérifier côté serveur : le **rôle** (un admin peut modérer toutes les critiques) et la **propriété** (un utilisateur peut modifier **sa** critique, pas celle des autres). C'est la faille n°1 de l'OWASP.
 
-> [!warning]- Prérequis
-> [[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]
+## Les deux questions
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> - **RBAC** (Role-Based) : droits attachés à des rôles (`ADMIN`, `MODERATEUR`, `USER`)
-> - **Permissions** fines : `critique:supprimer`, `film:creer`
-> - **ABAC / propriété** : « l'auteur peut modifier SA critique », « le manager voit son équipe »
-> - Refus par défaut (deny by default)
-
-> [!example]- Analogie
-> Le badge d'entreprise : ton rôle ouvre certains étages (RBAC), mais seul ton bureau s'ouvre avec ta clé personnelle (propriété).
-
-> [!question]- Pourquoi l'utiliser ?
-> A01 de l'OWASP : le contrôle d'accès défaillant est la faille n°1.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> // API : rôle + propriété
-> @Roles('USER', 'MODERATEUR') @Delete('critiques/:id')
-> async supprimer(@Param('id', ParseIntPipe) id: number, @Req() req) {
->   const c = await this.critiques.obtenir(id);
->   const estModo = req.user.role === 'MODERATEUR';
->   if (!estModo && c.auteurId !== req.user.sub) throw new ForbiddenException();
->   return this.critiques.supprimer(id);
-> }
-> ```
-> Front (Angular) : guard de route + directive/`@if` pour masquer les boutons → confort uniquement.
-> Librairie : CASL (partage des règles front/back, Angular, Vue et Nest).
-
-> [!question]- Quand l'utiliser ?
-> Chaque endpoint, chaque objet manipulé.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Rôles qui explosent (« ADMIN_SAUF_FACTURATION ») → passer à des permissions/politiques.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| RBAC | Contrôle d'accès par rôle |
-| ABAC | Contrôle par attributs |
-| Permission | Droit élémentaire sur une action |
-| Deny by default | Tout est interdit sauf autorisation explicite |
-
----
-
-## Points clés
-
-- Vérifier côté serveur, toujours
-- Rôle ET propriété de la ressource
-- Refus par défaut
-- Tester les cas interdits (403)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Filtrer uniquement dans la liste mais laisser `GET /ressource/:id` ouvert
-
----
-
-## Exemple minimal
-
-```html
-<!-- Angular : confort d'affichage uniquement -->
-@if (auth.peut('critique:supprimer', critique)) { <button (click)="supprimer(critique.id)">Supprimer</button> }
+```mermaid
+flowchart LR
+  R["DELETE /reviews/7"] --> A{"Authentifié ?<br/>(jeton valide)"}
+  A -- non --> E1["401"]
+  A -- oui --> B{"Autorisé ?<br/>admin OU propriétaire"}
+  B -- non --> E2["403"]
+  B -- oui --> OK["204 supprimée"]
 ```
 
-> [!note] Ce que j'en retiens
-> Masquer le bouton améliore l'UX ; seule l'API protège réellement.
+## Par rôle : RBAC
 
----
+**RBAC** (*Role-Based Access Control*) : chaque utilisateur a un rôle, chaque rôle a des droits.
 
-## Pour aller plus loin (niveau senior)
+| Action | USER | MODERATOR | ADMIN |
+|---|---|---|---|
+| lire les critiques | ✅ | ✅ | ✅ |
+| écrire une critique | ✅ | ✅ | ✅ |
+| modifier **sa** critique | ✅ | ✅ | ✅ |
+| masquer **n'importe quelle** critique | ❌ | ✅ | ✅ |
+| gérer les utilisateurs | ❌ | ❌ | ✅ |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Centraliser les politiques (CASL, OPA) et les tester unitairement
+```ts
+@Patch(':id/hide')
+@Roles('MODERATOR', 'ADMIN')           // vérifié par un RolesGuard
+hide(@Param('id', ParseIntPipe) id: number) {}
+```
 
----
+Mise en œuvre du guard : [[NEST-06-Middleware-Guards-Interceptors|Guards]].
 
-## Connexions
+## Par propriété : le plus oublié
 
-**Arbre théorique :**
-- Sujet parent → [[Sécurité]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Le rôle ne suffit pas : un USER a le droit de modifier **une** critique, mais seulement **la sienne**. Cette vérification se fait **dans le service**, car il faut lire la ressource :
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/sec-11-autorisation-rbac]]
+```ts
+async update(id: number, dto: UpdateReviewDto, user: AuthUser) {
+  const review = await this.prisma.review.findUnique({ where: { id } });
+  if (!review) throw new NotFoundException();
 
----
+  const isOwner = review.userId === user.id;
+  const isModerator = ['MODERATOR', 'ADMIN'].includes(user.role);
+  if (!isOwner && !isModerator) throw new ForbiddenException();
 
-## Auto-vérification
+  return this.prisma.review.update({ where: { id }, data: dto });
+}
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi masquer un bouton côté front ne suffit-il pas ?
+Pour les listes, **filtre dès la requête** :
 
----
+```ts
+prisma.favorite.findMany({ where: { userId: user.id } });   // jamais « tous », puis filtrer
+```
 
-## Tâches
+## Et le front ?
 
-- [ ] #task Écrire les tests e2e « un utilisateur ne peut pas supprimer la critique d'un autre »
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Le front **adapte l'affichage** (cacher le bouton « Supprimer » sur les critiques des autres, cacher le menu admin) : c'est du **confort**, pas de la sécurité. La décision est **toujours** prise par l'API.
 
----
+## Pour aller plus loin
 
-## Notes brutes
+Quand les règles se compliquent (« un éditeur peut modifier les articles de son équipe, s'ils ne sont pas publiés »), on passe à des **permissions fines** ou à des règles par attributs (ABAC), avec des librairies comme **CASL**.
 
-- ?
+## Pièges
+
+- **Vérifier seulement que l'utilisateur est connecté** : il peut modifier les données des autres en changeant l'id dans l'URL.
+- **Prendre l'`userId` dans le corps de la requête** : il vient toujours du jeton.
+- **Tester uniquement avec son propre compte** : teste avec deux comptes, et essaie d'accéder aux ressources de l'autre.

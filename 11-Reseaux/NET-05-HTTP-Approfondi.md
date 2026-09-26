@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,153 +10,85 @@ tags:
 aliases:
   - "HTTP Approfondi"
 parent: "[[Réseaux]]"
-children:
-  - "[[NET-06-Cookies-Cache-HTTP|Cookies et Cache HTTP]]"
-  - "[[NET-07-HTTP2-HTTP3|HTTP2 et HTTP3]]"
 related_theory:
   - "[[ARCH-04-API-REST-Design|API REST Design]]"
   - "[[JS-10-Fetch-JSON-HTTP|Fetch API et JSON]]"
   - "[[SEC-07-CORS-Same-Origin|CORS et Same-Origin Policy]]"
-related_snippets:
-  - "[[04_Snippets/net-05-http-approfondi]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/HTTP"
 ---
 
 # HTTP Approfondi
 
-> [!abstract] Introduction
-> HTTP est le protocole requête/réponse du web : une méthode, une URL, des en-têtes et un corps ; le serveur répond avec un code de statut, des en-têtes et un corps. C'est le langage commun entre ton front Angular/Vue et ton API.
+> [!abstract] En bref
+> **HTTP** est la langue que parlent ton front et ton API. Une requête = une **méthode** (que veux-tu faire ?), une **URL** (sur quoi ?), des **en-têtes** (des infos en plus) et parfois un **corps** (les données). La réponse = un **code** (comment ça s'est passé ?), des en-têtes et un corps. C'est la note la plus utile de tout le réseau.
 
-> [!warning]- Prérequis
-> [[NET-01-Fondamentaux-OSI-TCP-IP|Fondamentaux Réseaux Modèles OSI et TCP IP]]
+## Une requête et sa réponse
 
----
+```http
+POST /reviews HTTP/1.1
+Host: api.cinetrack.fr
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOi…
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```http
-> POST /api/films HTTP/1.1
-> Host: cinetrack.fr
-> Content-Type: application/json
-> Authorization: Bearer eyJ...
->
-> {"titre":"Dune","annee":2021}
-> ```
-> ```http
-> HTTP/1.1 201 Created
-> Content-Type: application/json
-> Location: /api/films/42
->
-> {"id":42,"titre":"Dune","annee":2021}
-> ```
-> **Méthodes** : GET (lire), POST (créer/action), PUT (remplacer), PATCH (modifier partiellement), DELETE (supprimer), OPTIONS (preflight), HEAD.
-> **Propriétés** : *sûre* (ne modifie rien : GET, HEAD, OPTIONS) ; *idempotente* (répéter = même effet : GET, PUT, DELETE, mais PAS POST).
-
-> [!example]- Analogie
-> Une commande au comptoir : le verbe (je veux commander/annuler), l'objet (quel plat, URL), les précisions (en-têtes : sans gluten, à emporter), le contenu (corps) ; le serveur répond avec un code (servi, rupture de stock, pas compris).
-
-> [!question]- Pourquoi l'utiliser ?
-> Concevoir une API correcte, lire l'onglet Network, choisir les bons codes de statut, comprendre cache, auth, CORS.
-
-> [!question]- Comment ça marche ?
-> Codes de statut :
-> | Famille | Sens | Exemples |
-> |---|---|---|
-> | 1xx | Information | 101 Switching Protocols (WebSocket) |
-> | 2xx | Succès | 200 OK, 201 Created, 204 No Content |
-> | 3xx | Redirection | 301 permanente, 302/307 temporaire, 304 Not Modified |
-> | 4xx | Erreur client | 400 Bad Request, 401 non authentifié, 403 interdit, 404, 409 conflit, 422, 429 trop de requêtes |
-> | 5xx | Erreur serveur | 500, 502 Bad Gateway, 503 indisponible, 504 timeout |
-> En-têtes clés : `Content-Type`, `Accept`, `Authorization`, `Cookie`/`Set-Cookie`, `Cache-Control`, `ETag`, `Location`, `Origin`, `User-Agent`.
-> HTTP est **sans état** : chaque requête est indépendante (d'où cookies/tokens).
-
-> [!question]- Quand l'utiliser ?
-> Tous les jours : conception d'API, débogage front/back.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les codes ne suffisent pas à décrire l'erreur : ajouter un corps d'erreur structuré.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Méthode (verbe) | Action demandée |
-| Code de statut | Résultat de la requête |
-| En-tête | Métadonnée |
-| Idempotent | Répéter ne change pas le résultat |
-| Sans état | Aucune mémoire entre requêtes |
-
----
-
-## Points clés
-
-- 401 = pas authentifié, 403 = authentifié mais pas autorisé
-- POST n'est pas idempotent → attention aux doubles clics
-- PATCH partiel, PUT complet
-- HTTP est sans état
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Renvoyer 200 avec `{ "error": ... }`
-> - Utiliser GET pour une action qui modifie des données
-
----
-
-## Exemple minimal
-
-```bash
-curl -i -X PATCH http://localhost:3000/api/films/42 \
-  -H 'Content-Type: application/json' -d '{"annee":2022}'
+{ "movieId": 27205, "rating": 9, "comment": "Un chef-d'œuvre." }
 ```
 
-> [!note] Ce que j'en retiens
-> `-i` affiche statut et en-têtes : la moitié du débogage.
+```http
+HTTP/1.1 201 Created
+Content-Type: application/json
+Location: /reviews/812
 
----
+{ "id": 812, "movieId": 27205, "rating": 9, … }
+```
 
-## Pour aller plus loin (niveau senior)
+## Les méthodes
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Clés d'idempotence (`Idempotency-Key`) pour les POST critiques (paiement)
+| Méthode | Action | Corps | Répétable sans effet de plus ? |
+|---|---|---|---|
+| **GET** | lire | non | oui |
+| **POST** | créer, déclencher une action | oui | **non** (2 POST = 2 créations) |
+| **PUT** | remplacer entièrement | oui | oui |
+| **PATCH** | modifier une partie | oui | en général |
+| **DELETE** | supprimer | non | oui |
 
----
+« Répétable sans effet de plus » s'appelle **idempotent** : utile pour savoir si on peut réessayer une requête en cas de coupure.
 
-## Connexions
+## Les codes de réponse
 
-**Arbre théorique :**
-- Sujet parent → [[Réseaux]]
-- Sous-sujets → [[NET-06-Cookies-Cache-HTTP|Cookies et Cache HTTP]], [[NET-07-HTTP2-HTTP3|HTTP2 et HTTP3]]
-- À comparer avec → (—)
+| Famille | Sens | Les plus courants |
+|---|---|---|
+| **2xx** | ✅ succès | 200 OK, 201 Created, 204 No Content |
+| **3xx** | ↪️ redirection | 301 déplacé définitivement, 302 temporairement, 304 pas modifié (cache) |
+| **4xx** | ❌ erreur du **client** | 400 requête invalide, 401 non authentifié, 403 interdit, 404 introuvable, 409 conflit, 422 invalide, 429 trop de requêtes |
+| **5xx** | 💥 erreur du **serveur** | 500 erreur interne, 502 / 503 / 504 serveur injoignable ou surchargé |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/net-05-http-approfondi]]
+**Réflexe de débogage :** 4xx → regarde ce que **tu envoies**. 5xx → regarde les **logs du serveur**.
 
----
+## Les en-têtes utiles
 
-## Auto-vérification
+| En-tête | Rôle |
+|---|---|
+| `Content-Type: application/json` | le format du corps |
+| `Authorization: Bearer <jeton>` | qui je suis |
+| `Accept-Language: fr` | la langue souhaitée |
+| `Cache-Control` | règles de cache (voir [[NET-06-Cookies-Cache-HTTP\|Cache]]) |
+| `Set-Cookie` / `Cookie` | cookies (voir [[NET-06-Cookies-Cache-HTTP\|Cookies]]) |
+| `Access-Control-Allow-Origin` | autorisations CORS (voir [[SEC-07-CORS-Same-Origin\|CORS]]) |
+| `Location` | l'adresse de la ressource créée ou de la redirection |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Différence entre 401 et 403 ? Entre PUT et PATCH ?
+## HTTP est « sans mémoire »
 
-> [!faq]- Questions d'entretien
-> - Qu'est-ce qu'une méthode idempotente ?
+Chaque requête est **indépendante** : le serveur ne se souvient pas de la précédente. Pour savoir qui tu es, il faut renvoyer à chaque fois un jeton ou un cookie. C'est pour ça que l'authentification existe (voir [[SEC-03-Authentification-Sessions-JWT|Sessions et JWT]]).
 
----
+## Observer
 
-## Tâches
+F12 → **Network** : clique sur une requête pour voir ses en-têtes, le corps envoyé, la réponse et le temps de chaque étape. En ligne de commande : `curl -v https://api.cinetrack.fr/movies`.
 
-- [ ] #task Lire 20 requêtes dans l'onglet Network d'une application du travail et expliquer chaque code
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Bien concevoir les URL et les réponses d'une API : [[ARCH-04-API-REST-Design|Design d'API REST]].
 
----
+## Pièges
 
-## Notes brutes
-
-- ?
+- **Toujours répondre 200** avec `{ "error": "…" }` dedans : le front ne peut pas réagir correctement.
+- **Un GET qui modifie des données** : les navigateurs, caches et robots peuvent le rappeler à tout moment.
+- **Confondre 401 et 403** : 401 = « qui es-tu ? », 403 = « je sais qui tu es, mais c'est non ».
