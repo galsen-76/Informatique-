@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,11 +10,7 @@ aliases:
 tags:
   - frameworks/angular/state-management
 parent: "[[Angular]]"
-children:
-  - "[[ANG-25-NgRx-Signal-Store|NgRx]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-state-service]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev"
@@ -22,127 +18,73 @@ source: "https://angular.dev"
 
 # State Management Angular
 
-> [!abstract] Introduction
-> Organisation des données partagées entre plusieurs composants d'une application.
+> [!abstract] En bref
+> L'**état**, ce sont les données qui vivent dans l'application : les films chargés, les favoris, l'utilisateur connecté, les filtres. Le **state management**, c'est décider **où** ranger chaque donnée et **qui** a le droit de la modifier. En Angular moderne, un **service avec des signals** suffit pour la grande majorité des cas.
 
-> [!warning]- Prérequis
-> [[ANG-10-Signals|Signals Angular]], [[ANG-05-Services-DI|Services et DI Angular]].
+## Où ranger chaque donnée ?
 
----
+| La donnée sert à… | Où la mettre | Exemple CinéTrack |
+|---|---|---|
+| un seul composant | un signal dans le composant | le menu mobile ouvert / fermé |
+| un composant et ses enfants | le parent, transmis par inputs | le film affiché dans la fiche |
+| plusieurs écrans | un **store** (service `providedIn: 'root'` + signals) | les favoris, l'utilisateur |
+| être partagée par lien | l'**URL** | la page, le genre filtré (`?genre=action`) |
+| rester après fermeture | `localStorage` (via le store) | les favoris d'un visiteur |
 
-## Théorie
+## Le store « maison » : service + signals
 
-> [!question]- C'est quoi ?
-> Un service avec un signal, `providedIn: 'root'`, partagé par tous les composants qui l'injectent.
-
-> [!example]- Analogie
-> Un tableau d'affichage commun dans un bureau : n'importe qui peut le lire ou l'annoter, tout le monde voit la même version à jour, sans dupliquer l'information sur son propre bureau.
-
-> [!question]- Pourquoi l'utiliser ?
-> Garantir que plusieurs composants sans lien direct partagent une vue cohérente et synchronisée des mêmes données.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> @Injectable({ providedIn: 'root' })
-> export class FavorisService {
->   private favoris = signal<number[]>([]);
->   favorisActuels = this.favoris.asReadonly();
->   ajouter(id: number) { this.favoris.update(l => [...l, id]); }
-> }
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Service + signal suffit pour la majorité des applications. NgRx pour de très gros projets avec état complexe interconnecté.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Ajouter NgRx "par défaut" sur un petit projet ajoute une complexité disproportionnée (actions, reducers, effects) sans bénéfice réel.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `asReadonly()` | Version lecture seule d'un signal, protège contre la modification externe |
-| NgRx | Librairie de state management strict basée sur un store central |
-
----
-
-## Points clés
-
-- Un service `providedIn: 'root'` est déjà une forme simple de state management
-- `signal()` + service couvre la majorité des besoins
-- NgRx ajoute rigueur au prix de complexité — pour de gros projets d'équipe
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Exposer directement le signal modifiable au lieu de sa version `.asReadonly()`
-> - Introduire NgRx sur un projet trop simple pour le justifier
-
----
-
-## Paramètres / Configuration
-> Bloc supprimé — dépend fortement de la solution choisie (service simple vs NgRx).
-
----
-
-## Exemple minimal
-
-```typescript
+```ts
 @Injectable({ providedIn: 'root' })
-export class FavorisService {
-  private favoris = signal<number[]>([]);
-  favorisActuels = this.favoris.asReadonly();
-  ajouter(id: number) { this.favoris.update(l => [...l, id]); }
+export class MoviesStore {
+  private api = inject(MoviesApi);
+
+  // état privé
+  private readonly state = signal<LoadState<Movie[]>>({ status: 'idle' });
+
+  // lecture publique
+  readonly movies = computed(() => { const s = this.state(); return s.status === 'success' ? s.data : []; });
+  readonly loading = computed(() => this.state().status === 'loading');
+  readonly error = computed(() => { const s = this.state(); return s.status === 'error' ? s.message : null; });
+
+  // actions
+  load(page = 1) {
+    this.state.set({ status: 'loading' });
+    this.api.popular(page).subscribe({
+      next: data => this.state.set({ status: 'success', data }),
+      error: () => this.state.set({ status: 'error', message: 'Impossible de charger les films' }),
+    });
+  }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Tout composant injectant ce service voit exactement les mêmes favoris, toujours synchronisés.
+Les **trois règles** qui rendent un store fiable :
+1. l'état est **privé** ;
+2. les composants **lisent** via des signals en lecture seule ;
+3. les composants **modifient** uniquement via des méthodes (actions).
 
----
+Ainsi, quand un bug touche les films, tu sais qu'il vient de ces quelques méthodes. Le type `LoadState` est expliqué dans [[TS-18-Patterns-TypeScript-Pro|Patterns TypeScript]].
 
-## Pour aller plus loin (niveau senior)
+```mermaid
+flowchart LR
+  C["Composant"] -->|"action : store.load()"| S["Store<br/>(état privé)"]
+  S -->|"signals en lecture"| C
+  S --> A["MoviesApi"]
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Voir [[ANG-25-NgRx-Signal-Store|NgRx et Signal Store]] pour les solutions structurées
-> - Distinguer état serveur (cache de requêtes), état UI global, état local et état d'URL
+## Et NgRx ?
 
----
+**NgRx** est une librairie de state management plus structurée, utilisée dans beaucoup d'entreprises. Le **Signal Store** de NgRx reprend exactement les idées ci-dessus avec moins de code à écrire. Voir [[ANG-25-NgRx-Signal-Store|NgRx et Signal Store]].
 
-## Connexions
+| | Service + signals | NgRx Signal Store | NgRx Store (Redux) |
+|---|---|---|---|
+| Code à écrire | peu | peu | beaucoup |
+| Structure imposée | à toi de la fixer | oui | très forte |
+| Pour | la plupart des apps, CinéTrack | équipes qui veulent un cadre commun | grosses apps existantes |
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[ANG-25-NgRx-Signal-Store|NgRx]]
-- À comparer avec → [[VUE-09-Pinia-State-Management|Pinia (State Management Vue.js)]]
+**Au travail, utilise ce que l'équipe utilise déjà.**
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-state-service]]
-- Projet → [[02_Projects/CinéTrack]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Saurais-je expliquer pourquoi exposer `.asReadonly()` protège les données ?
-
-> [!faq]- Questions d'entretien
-> - Comment gérez-vous l'état partagé dans une application Angular ?
-
----
-
-## Tâches
-
-- [ ] #task Créer un `FavorisService` centralisé avec signals
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? À partir de quelle taille de projet NgRx devient-il réellement justifié ?
+- **Tout mettre dans un store global** : un état local reste dans son composant.
+- **Exposer un `signal` modifiable** publiquement : n'importe quel composant peut tout changer. Utilise `asReadonly()` ou `computed`.
+- **Copier les données du store** dans des variables du composant : elles ne seront plus à jour. Lis directement les signals du store.

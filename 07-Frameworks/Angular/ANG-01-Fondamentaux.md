@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🟡 In Progress"
 level: Fondamental
@@ -10,12 +10,7 @@ aliases:
 tags:
   - frameworks/angular/fondamentaux
 parent: "[[Angular]]"
-children:
-  - "[[ANG-02-Composants|Composants Angular]]"
-  - "[[ANG-03-Templates-Data-Binding|Templates et Data Binding Angular]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-cli-commandes]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev"
@@ -23,130 +18,72 @@ source: "https://angular.dev"
 
 # Fondamentaux Angular
 
-> [!abstract] Introduction
-> Angular est un framework complet pour construire des sites où le contenu change dynamiquement sans recharger la page, en organisant le code en composants réutilisables.
+> [!abstract] En bref
+> Angular est un framework **complet** : il fournit tout d'origine (composants, routes, appels HTTP, formulaires, tests) avec des conventions fortes. Le principe de base est le même qu'en Vue : tu décris l'écran en fonction de tes données, Angular le met à jour quand elles changent. C'est le framework de CinéTrack, et le principal de ton entreprise.
 
-> [!warning]- Prérequis
-> [[TS-01-Fondamentaux|Fondamentaux TypeScript]] (Angular s'écrit exclusivement en TypeScript).
+## Si tu viens de Vue
 
----
+Les idées sont les mêmes, l'écriture change : `ref` → `signal`, `v-if` → `@if`, `defineProps` → `input()`. Garde la table [[Angular-vs-Vue|Angular vs Vue]] ouverte.
 
-## Théorie
+La grande différence : Angular s'appuie sur des **classes**, des **décorateurs** (`@Component`) et l'**injection de dépendances** (les services te sont fournis automatiquement).
 
-> [!question]- C'est quoi ?
-> Angular fournit un CLI, des composants, des services, un routing intégré, et TypeScript par défaut — un ensemble complet, pas une simple librairie qu'on assemble soi-même.
+## Ton premier composant
 
-> [!example]- Analogie
-> React est une boîte de Lego libre (tu assembles ce que tu veux, comme tu veux). Angular est un meuble en kit avec un manuel strict — plus rigide, mais garantit que tout le monde le monte de la même façon.
+```ts
+// counter.component.ts
+import { Component, signal } from '@angular/core';
 
-> [!question]- Pourquoi l'utiliser ?
-> Sans framework, une application complexe devient vite ingérable. Angular impose une structure commune qui facilite le travail en équipe et la maintenance à long terme.
-
-> [!question]- Comment ça marche ?
-> ```bash
-> ng new mon-app
-> ng serve
-> ng generate component header
-> ```
-> Une application Angular est un arbre de composants imbriqués, compilé en une SPA (Single Page Application) qui se met à jour sans rechargement complet.
-
-> [!question]- Quand l'utiliser ?
-> Applications complexes d'entreprise, avec une équipe qui a besoin d'une structure stricte imposée dès le départ.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pour un site vitrine simple ou statique, Angular est disproportionné — sa courbe d'apprentissage et sa taille de bundle ne se justifient que pour de vraies applications interactives.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| SPA | Single Page Application — une seule page HTML qui change de contenu en JavaScript |
-| CLI | Command Line Interface, l'outil `ng` qui génère et gère le projet |
-
----
-
-## Points clés
-
-- Framework complet, contrairement à React qui est une librairie qu'on assemble
-- Le CLI (`ng`) génère du code cohérent automatiquement
-- TypeScript par défaut, quasi jamais omis en pratique
-- Une app = un arbre de composants imbriqués
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Créer des fichiers à la main plutôt qu'avec `ng generate`, perdant la cohérence de structure
-> - Sous-estimer le temps d'apprentissage initial en comparant à un framework plus léger
-
----
-
-## Paramètres / Configuration
-
-| Commande CLI | Description | Notes |
-|-----------|-------------|-------|
-| `ng new mon-projet` | Crée un projet | — |
-| `ng generate component nom` | Génère un composant | 4 fichiers créés |
-| `ng serve` | Serveur de dev | `localhost:4200` |
-| `ng build` | Build production | Génère `/dist` |
-
----
-
-## Exemple minimal
-
-```bash
-ng new mon-app
-cd mon-app
-ng serve
+@Component({
+  selector: 'app-counter',                 // la balise pour l'utiliser : <app-counter />
+  template: `
+    <button type="button" (click)="increment()">
+      Clics : {{ count() }}
+    </button>
+  `,
+  styles: `button { padding: 8px 16px; }`,
+})
+export class CounterComponent {
+  count = signal(0);                       // donnée réactive
+  increment() { this.count.update(v => v + 1); }
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Le CLI fait tout le travail de mise en place — jamais besoin de créer les fichiers à la main.
+- `@Component({…})` : dit à Angular que cette classe est un composant (voir [[TS-14-Decorators|décorateurs]]).
+- `signal(0)` : une donnée qui met l'écran à jour. On la **lit** avec `count()`.
+- `(click)` : réagir à un événement. `{{ }}` : afficher une valeur.
 
----
+## Créer un projet
 
-## Pour aller plus loin (niveau senior)
+```bash
+npm i -g @angular/cli
+ng new cinetrack          # choisis SCSS ou CSS, et le SSR (non pour commencer)
+cd cinetrack
+ng serve                  # http://localhost:4200
+ng generate component features/movies/components/movie-card   # génère un composant
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Suivre le rythme de versions (majeure tous les 6 mois) et utiliser `ng update` pour migrer
-> - Connaître les grandes évolutions récentes : standalone par défaut, contrôle de flux `@if/@for`, signals, `@defer`, zoneless, SSR avec hydratation
+| Fichier | Rôle |
+|---|---|
+| `src/main.ts` | démarre l'application |
+| `src/app/app.config.ts` | les fournisseurs globaux (routes, HTTP…) |
+| `src/app/app.routes.ts` | les routes |
+| `src/app/app.component.ts` | le composant racine |
+| `angular.json` | la configuration du projet (build, styles) |
 
----
+## Les notions, dans l'ordre où CinéTrack en aura besoin
 
-## Connexions
+1. [[ANG-02-Composants|Composants]] et [[ANG-03-Templates-Data-Binding|templates]] : afficher.
+2. [[ANG-10-Signals|Signals]] : les données réactives.
+3. [[ANG-19-Communication-Composants|Inputs / outputs]] : découper en composants.
+4. [[ANG-05-Services-DI|Services]] : partager la logique.
+5. [[ANG-09-HTTP-Communication-Serveur|HTTP]] et [[ANG-08-RxJS|RxJS]] : appeler TMDB.
+6. [[ANG-06-Routing|Routes]] : la liste et la fiche d'un film.
+7. [[ANG-07-Formulaires|Formulaires]] : la critique.
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[ANG-02-Composants|Composants Angular]], [[ANG-03-Templates-Data-Binding|Templates et Data Binding Angular]]
-- À comparer avec → [[VUE-01-Fondamentaux|Fondamentaux Vue.js]]
+Structure du projet : [[ANG-30-Template-Architecture-Angular|Template d'architecture Angular]].
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-cli-commandes]]
-- Projet → [[02_Projects/CinéTrack]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer à quelqu'un la différence Angular/React sans dire "librairie" ni "framework" ?
-
-> [!faq]- Questions d'entretien
-> - Qu'apporte Angular par rapport à Vue ?
-> - Quelles sont les nouveautés majeures d'Angular ces dernières versions ?
-
----
-
-## Tâches
-
-- [ ] #task Créer un projet Angular vide et explorer chaque fichier généré
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Qu'est-ce qui différencie vraiment une SPA d'un site multi-pages classique, côté navigateur ?
+- **Oublier les `()`** pour lire un signal : `{{ count }}` affiche la fonction, pas la valeur.
+- **Suivre un tutoriel ancien** (NgModules, `@Input()`, `*ngIf`) : Angular a beaucoup changé. Vérifie que la doc est récente (angular.dev, pas angular.io).
+- **Installer Angular DevTools** (extension navigateur) dès le début.

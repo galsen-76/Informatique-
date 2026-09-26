@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Cycle de vie des composants Angular"
 parent: "[[Angular]]"
-children: []
 related_theory:
   - "[[ANG-02-Composants|Composants Angular]]"
   - "[[ANG-11-Detection-de-changement|Détection de Changement Angular]]"
-related_snippets:
-  - "[[04_Snippets/ang-18-cycle-de-vie]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/components/lifecycle"
@@ -23,149 +20,56 @@ source: "https://angular.dev/guide/components/lifecycle"
 
 # Cycle de vie des composants Angular
 
-> [!abstract] Introduction
-> Un composant Angular naît, se met à jour et meurt ; des « hooks » (ngOnInit, ngOnDestroy…) permettent d'exécuter du code à chaque étape.
+> [!abstract] En bref
+> Un composant est **créé**, **affiché**, **mis à jour**, puis **détruit**. Angular permet d'exécuter du code à ces moments-là avec des méthodes spéciales (*hooks*). Avec les signals, tu en as beaucoup moins besoin qu'avant : `ngOnInit`, `ngOnDestroy` et `afterNextRender` couvrent presque tout.
 
-> [!warning]- Prérequis
-> [[ANG-02-Composants|Composants Angular]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> Ordre principal :
-> 1. `constructor` — création de la classe (injection uniquement)
-> 2. `ngOnChanges` — un `@Input` a changé (avant `ngOnInit` puis à chaque changement)
-> 3. `ngOnInit` — une fois, inputs disponibles → initialisation
-> 4. `ngDoCheck` — à chaque détection de changement (rare)
-> 5. `ngAfterContentInit` / `Checked` — contenu projeté prêt
-> 6. `ngAfterViewInit` / `Checked` — vue et enfants (`viewChild`) prêts
-> 7. `ngOnDestroy` — juste avant destruction → nettoyage
-> API modernes : `DestroyRef`, `afterNextRender()`, `afterEveryRender()`.
-
-> [!example]- Analogie
-> La vie d'un employé : embauche (constructor), premier jour et installation du poste (ngOnInit), mises à jour de ses missions (ngOnChanges), départ et restitution du badge (ngOnDestroy).
-
-> [!question]- Pourquoi l'utiliser ?
-> Charger des données au bon moment, accéder au DOM seulement quand il existe, et surtout NETTOYER (abonnements, timers, listeners) pour éviter les fuites mémoire.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> export class FilmDetailComponent implements OnInit {
->   private destroyRef = inject(DestroyRef);
->   ngOnInit() {
->     const id = setInterval(() => this.rafraichir(), 30_000);
->     this.destroyRef.onDestroy(() => clearInterval(id));   // nettoyage déclaré à côté
->   }
-> }
-> ```
-> Avec les signals : un `input()` se lit directement, un `computed()` remplace souvent `ngOnChanges`, et `effect()` se nettoie tout seul.
-
-> [!question]- Quand l'utiliser ?
-> - `ngOnInit` : initialisation dépendante des inputs, chargement initial
-> - `ngAfterViewInit` / `afterNextRender` : mesurer le DOM, initialiser une lib graphique
-> - `ngOnDestroy` / `DestroyRef` : nettoyage
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Mettre de la logique lourde dans le `constructor` (inputs pas encore disponibles) ou modifier l'état dans `ngAfterViewInit` (erreur `ExpressionChangedAfterItHasBeenCheckedError` en dev).
-
-### Schéma
+## Les moments utiles
 
 ```mermaid
-flowchart TB
-  C[constructor] --> OC[ngOnChanges] --> OI[ngOnInit] --> DC[ngDoCheck]
-  DC --> ACI[ngAfterContentInit] --> AVI[ngAfterViewInit]
-  AVI -->|"à chaque détection"| DC
-  AVI --> OD[ngOnDestroy]
+flowchart LR
+  A["constructor<br/>création"] --> B["ngOnInit<br/>inputs disponibles"]
+  B --> C["afterNextRender<br/>affiché dans la page"]
+  C --> D["mises à jour…"]
+  D --> E["ngOnDestroy<br/>destruction"]
 ```
 
----
+| Moment | Hook | Usage |
+|---|---|---|
+| Création | `constructor` / propriétés | `inject()`, créer les signals et `computed` |
+| Inputs disponibles | `ngOnInit` | lancer un chargement qui dépend d'un input |
+| Affiché dans la page | `afterNextRender(() => …)` | donner le focus, mesurer, démarrer une librairie graphique |
+| Destruction | `ngOnDestroy` ou `inject(DestroyRef).onDestroy(…)` | nettoyer minuteurs et écouteurs |
 
-## Vocabulaire
+## Exemple
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Hook | Méthode appelée par le framework à une étape précise |
-| `DestroyRef` | Service pour enregistrer du code de nettoyage |
-| `afterNextRender` | Exécute du code après le prochain rendu (navigateur uniquement) |
+```ts
+export class MovieDetailPage implements OnInit {
+  id = input.required<number>();
+  private store = inject(MovieDetailStore);
 
----
-
-## Points clés
-
-- Constructor = injection, ngOnInit = initialisation
-- Toujours nettoyer ce qu'on démarre
-- `takeUntilDestroyed()` pour les Observables
-- Préférer `computed()` à `ngOnChanges` avec les signal inputs
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Lire un `@Input` dans le constructor → `undefined`
-> - Oublier de désabonner un `interval` → fuite et appels fantômes
-> - `ExpressionChangedAfterItHasBeenChecked` en modifiant l'état après la vérification
-
----
-
-## Exemple minimal
-
-```typescript
-@Component({ selector: 'app-graphique', template: `<canvas #canvas></canvas>` })
-export class GraphiqueComponent {
-  canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
   constructor() {
-    afterNextRender(() => dessiner(this.canvas().nativeElement));   // DOM disponible, pas en SSR
+    afterNextRender(() => document.querySelector<HTMLElement>('h1')?.focus());
+
+    const timer = setInterval(() => this.store.refreshRating(), 60_000);
+    inject(DestroyRef).onDestroy(() => clearInterval(timer));
+  }
+
+  ngOnInit() {
+    this.store.load(this.id());   // les inputs ne sont pas encore là dans le constructeur
   }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> `afterNextRender` est le bon endroit pour toucher au DOM, et il n'est jamais exécuté côté serveur.
+## Ce que les signals remplacent
 
----
+| Avant | Maintenant |
+|---|---|
+| `ngOnChanges` pour réagir au changement d'un input | `computed(() => … this.id() …)` ou `effect` |
+| `ngOnInit` + `subscribe` + `ngOnDestroy` + `unsubscribe` | `toSignal(obs$)` ou `httpResource` (nettoyés automatiquement) |
+| `ngAfterViewInit` pour accéder au DOM | `afterNextRender` + `viewChild()` |
 
-## Pour aller plus loin (niveau senior)
+## Pièges
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Expliquer `ExpressionChangedAfterItHasBeenCheckedError` et comment l'éviter
-> - Remplacer les hooks par des primitives réactives (signals, `DestroyRef`)
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[VUE-11-Cycle-de-Vie|Cycle de Vie Vue.js]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/ang-18-cycle-de-vie]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un input est-il `undefined` dans le constructor ?
-
-> [!faq]- Questions d'entretien
-> - Quelle différence entre constructor et ngOnInit ?
-> - Comment éviter les fuites mémoire dans un composant ?
-
----
-
-## Tâches
-
-- [ ] #task Logger chaque hook d'un composant et observer l'ordre
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Lire un input dans le constructeur** : il n'a pas encore de valeur. Utilise `ngOnInit`, ou mieux un `computed`.
+- **Oublier de nettoyer** un `setInterval` ou un `addEventListener` sur `window` : il continue après la destruction.
+- **Accéder au DOM dans `ngOnInit`** : il n'est pas encore affiché. Utilise `afterNextRender`.

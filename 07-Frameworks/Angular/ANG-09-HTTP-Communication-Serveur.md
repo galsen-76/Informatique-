@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,7 @@ aliases:
 tags:
   - frameworks/angular/http
 parent: "[[Angular]]"
-children:
-  - "[[ANG-21-Guards-Resolvers-Intercepteurs|Intercepteurs HTTP Angular]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-httpclient]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/http"
@@ -22,135 +18,109 @@ source: "https://angular.dev/guide/http"
 
 # HTTP & Communication Serveur Angular
 
-> [!abstract] Introduction
-> `HttpClient` est l'outil Angular pour envoyer et recevoir des données depuis une API, en retournant un `Observable` par requête.
+> [!abstract] En bref
+> `HttpClient` est l'outil intégré d'Angular pour appeler une API. Chaque appel renvoie un **Observable**. On range les appels dans un service `xxx.api.ts`, on convertit les réponses en modèles, et on gère chargement et erreurs. Cas concret : appeler l'API TMDB pour CinéTrack.
 
-> [!warning]- Prérequis
-> [[ANG-05-Services-DI|Services et DI Angular]], [[ANG-08-RxJS|Programmation Réactive RxJS Angular]].
+## Activer HttpClient
 
----
+```ts
+// app.config.ts
+providers: [
+  provideHttpClient(withFetch(), withInterceptors([apiInterceptor, errorInterceptor])),
+]
+```
 
-## Théorie
+## Le service API
 
-> [!question]- C'est quoi ?
-> ```typescript
-> private http = inject(HttpClient);
-> this.http.get<Film[]>('https://api.example.com/films');
-> ```
+```ts
+// features/movies/data/movies.api.ts
+@Injectable({ providedIn: 'root' })
+export class MoviesApi {
+  private http = inject(HttpClient);
+  private config = inject(APP_CONFIG);
 
-> [!example]- Analogie
-> `HttpClient` est un facteur : tu lui donnes une lettre (la requête), il part la livrer et revient avec une réponse — mais tu ne restes pas planté à sa porte, tu t'abonnes (`subscribe`) pour être prévenu à son retour.
+  popular(page = 1): Observable<Movie[]> {
+    return this.http
+      .get<TmdbPage<MovieDto>>(`${this.config.apiUrl}/movie/popular`, { params: { page, language: 'fr-FR' } })
+      .pipe(map(r => r.results.map(d => toMovie(d, this.config.imageUrl))));
+  }
 
-> [!question]- Pourquoi l'utiliser ?
-> Simplifie les échanges HTTP par rapport au `fetch()` brut, et s'intègre nativement avec RxJS.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> this.filmService.obtenirFilms().pipe(
->   catchError(() => of([]))
-> ).subscribe(films => console.log(films));
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Dès qu'une application communique avec un serveur distant — quasiment toujours.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Ne jamais oublier la gestion d'erreur (`catchError`) — sans elle, une panne réseau fait planter silencieusement le flux entier.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `HttpClient` | Service Angular pour requêtes HTTP |
-| Intercepteur | Code exécuté automatiquement à CHAQUE requête |
-
----
-
-## Points clés
-
-- `.get()`, `.post()`, `.put()`, `.delete()` correspondent aux méthodes HTTP
-- Chaque appel retourne un `Observable`, rien ne se passe sans `.subscribe()`
-- Toujours gérer les erreurs avec `catchError`
-- Un intercepteur ajoute automatiquement une info à chaque requête (ex : token)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `.subscribe()`, croyant que la requête part toute seule
-> - Ne pas typer la réponse (`http.get<Film[]>`), perdant l'autocomplétion et la sécurité de type
-> - Absence de `catchError`, faisant planter tout le flux à la moindre erreur réseau
-
----
-
-## Paramètres / Configuration
-
-| Méthode | Description |
-|-----------|-------------|
-| `http.get<T>(url)` | Récupère des données |
-| `http.post(url, body)` | Envoie des données |
-| `http.put(url, body)` | Remplace une ressource |
-| `http.delete(url)` | Supprime une ressource |
-
----
-
-## Exemple minimal
-
-```typescript
-obtenirFilms() {
-  return this.http.get<Film[]>(this.url).pipe(
-    catchError(() => of([]))
-  );
+  details(id: number): Observable<Movie> {
+    return this.http
+      .get<MovieDto>(`${this.config.apiUrl}/movie/${id}`)
+      .pipe(map(d => toMovie(d, this.config.imageUrl)));
+  }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Le service encapsule toute la logique d'accès au serveur — le composant reçoit juste un `Observable<Film[]>` à écouter.
+- `get<MovieDto>` : on indique à TypeScript la forme de la réponse (il ne la vérifie pas : voir [[TS-19-Validation-Runtime-Zod|Zod]]).
+- `toMovie` : la conversion DTO → modèle (voir [[ANG-30-Template-Architecture-Angular|architecture]]).
 
----
+| Méthode | Pour |
+|---|---|
+| `http.get<T>(url, { params })` | lire |
+| `http.post<T>(url, body)` | créer |
+| `http.put<T>` / `patch<T>` | modifier |
+| `http.delete(url)` | supprimer |
 
-## Pour aller plus loin (niveau senior)
+## Utiliser la réponse dans une page
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - `provideHttpClient(withInterceptors([...]), withFetch())` dans `app.config.ts`
-> - Tester avec `provideHttpClientTesting()` et `HttpTestingController`
-> - `httpResource()` (API récente) pour des requêtes pilotées par signals
+**Façon moderne : `httpResource`** (état de chargement et d'erreur inclus)
 
----
+```ts
+export class MovieDetailPage {
+  id = input.required<string>();
+  private config = inject(APP_CONFIG);
+  movie = httpResource<MovieDto>(() => `${this.config.apiUrl}/movie/${this.id()}`);   // se recharge quand id change
+}
+```
 
-## Connexions
+```html
+@if (movie.isLoading()) { <app-loader /> }
+@else if (movie.error()) { <p>Film introuvable.</p> }
+@else if (movie.value(); as m) { <h1>{{ m.title }}</h1> }
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[ANG-21-Guards-Resolvers-Intercepteurs|Intercepteurs HTTP Angular]]
-- À comparer avec → [[ANG-08-RxJS|Programmation Réactive RxJS Angular]]
+**Façon classique : un store qui s'abonne** (voir le store de [[ANG-30-Template-Architecture-Angular|l'architecture]]), ou `toSignal(this.api.popular())`.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-httpclient]]
-- Projet → [[02_Projects/CinéTrack]]
+## La clé d'API TMDB : les intercepteurs
 
----
+Un **intercepteur** modifie **toutes** les requêtes au même endroit :
 
-## Auto-vérification
+```ts
+// core/http/api.interceptor.ts
+export const apiInterceptor: HttpInterceptorFn = (req, next) => {
+  const config = inject(APP_CONFIG);
+  if (!req.url.startsWith(config.apiUrl)) return next(req);
+  return next(req.clone({ setHeaders: { Authorization: `Bearer ${config.tmdbToken}` } }));
+};
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `catchError` est indispensable, avec un exemple concret d'échec réseau ?
+> [!warning] Clé visible
+> Tout ce qui est dans le front est **visible** par les utilisateurs. Pour un projet perso, la clé en lecture seule de TMDB est acceptable. Dans CinéTrack-API, les appels passeront par ton serveur pour la cacher.
 
-> [!faq]- Questions d'entretien
-> - Comment gérez-vous les erreurs HTTP de façon globale ?
+Détails des intercepteurs : [[ANG-21-Guards-Resolvers-Intercepteurs|Guards et intercepteurs]].
 
----
+## Gérer les erreurs
 
-## Tâches
+```ts
+this.api.popular().pipe(
+  catchError(() => {
+    this.error.set('Impossible de charger les films');
+    return of([]);                     // valeur de secours
+  }),
+);
+```
 
-- [ ] #task Connecter CinéTrack à une vraie API via `HttpClient`
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+| Code | Réaction |
+|---|---|
+| 401 | rediriger vers la connexion |
+| 404 | afficher « introuvable » |
+| 429 (TMDB) | trop de requêtes : attendre |
+| 500 / réseau | message + bouton « réessayer » |
 
----
+## Pièges
 
-## Notes brutes
-
-- ? Comment tester un service `HttpClient` sans faire de vrais appels réseau ?
+- **Pas de `subscribe`** (ni `toSignal`, ni `async`) : la requête n'est jamais envoyée.
+- **L'URL de l'API en dur** dans chaque service : utilise la configuration (`environment` / `APP_CONFIG`).
+- **Appeler l'API dans un composant d'affichage** : garde les appels dans `data/`.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "Angular Material et CDK"
 parent: "[[Angular]]"
-children: []
 related_theory:
   - "[[HTML-03-Accessibilite-Web|Accessibilité Web]]"
   - "[[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]]"
-related_snippets:
-  - "[[04_Snippets/ang-29-angular-material-cdk]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://material.angular.dev"
@@ -23,122 +20,81 @@ source: "https://material.angular.dev"
 
 # Angular Material et CDK
 
-> [!abstract] Introduction
-> Angular Material fournit des composants UI prêts à l'emploi (boutons, tableaux, dialogues) conformes à Material Design ; le CDK (Component Dev Kit) fournit les briques comportementales sans style (overlay, drag & drop, a11y, virtual scroll).
+> [!abstract] En bref
+> **Angular Material** est la librairie de composants officielle d'Angular (style Material Design de Google). Le **CDK** (*Component Dev Kit*) fournit les **comportements** sans le style : fenêtres flottantes, glisser-déposer, listes virtuelles, gestion du focus. Même si tu utilises PrimeNG, le CDK te sera utile.
 
-> [!warning]- Prérequis
-> [[ANG-02-Composants|Composants Angular]]
+## Angular Material ou PrimeNG ?
 
----
+| | Angular Material | PrimeNG |
+|---|---|---|
+| Éditeur | équipe Angular (Google) | PrimeTek |
+| Style | Material Design (reconnaissable) | thèmes variés (Aura…) |
+| Nombre de composants | moins | **beaucoup** (tableaux avancés, graphiques…) |
+| Existe aussi pour Vue | non | **oui (PrimeVue)** |
 
-## Théorie
+Ton choix pour CinéTrack : **PrimeNG**, pour garder les mêmes composants qu'avec PrimeVue dans le Portfolio (voir [[UI-Librairies-Interfaces-Rapides|Librairies UI]]). Si l'équipe utilise Material, suis l'équipe.
 
-> [!question]- C'est quoi ?
-> ```bash
-> ng add @angular/material
-> ```
-> ```typescript
-> @Component({
->   imports: [MatButtonModule, MatTableModule],
->   template: `<button mat-flat-button (click)="ouvrir()">Ajouter</button>`
-> })
-> ```
-> CDK utiles même sans Material : `Overlay`, `DragDropModule`, `ScrollingModule` (`cdk-virtual-scroll-viewport`), `A11yModule` (`cdkTrapFocus`, `LiveAnnouncer`), `BreakpointObserver`, `Clipboard`.
+```bash
+ng add @angular/material     # si besoin : installe et configure le thème
+```
 
-> [!example]- Analogie
-> Material est une cuisine équipée clé en main ; le CDK est la plomberie et l'électricité, sur lesquelles tu peux poser tes propres meubles.
+## Le CDK : les comportements utiles
 
-> [!question]- Pourquoi l'utiliser ?
-> Gagner des semaines sur des composants complexes et accessibles (datepicker, tableau triable/paginé, dialog avec focus trap).
+| Outil | Sert à | Exemple |
+|---|---|---|
+| **Overlay** | afficher un élément flottant par-dessus tout | menu, info-bulle, modale |
+| **Dialog** | fenêtre modale accessible (focus piégé, Échap) | confirmation |
+| **DragDrop** | glisser-déposer | réordonner une liste de favoris |
+| **ScrollingModule** | liste virtuelle (seules les lignes visibles existent) | 10 000 films |
+| **A11y** | `cdkTrapFocus`, `LiveAnnouncer`, `FocusMonitor` | accessibilité |
+| **BreakpointObserver** | réagir à la taille d'écran en TypeScript | menu mobile |
+| **Clipboard** | copier dans le presse-papier | bouton « copier le lien » |
 
-> [!question]- Comment ça marche ?
-> - Thème via Sass (`mat.theme(...)`) et design tokens (Material 3)
-> - `MatDialog.open(Composant, { data })` pour les modales
-> - `mat-table` + `MatSort` + `MatPaginator`
-> - Beaucoup d'entreprises utilisent aussi PrimeNG ou un design system interne : les concepts restent identiques
+## Exemples
 
-> [!question]- Quand l'utiliser ?
-> Back-offices, applications métier, prototypes. Pour une identité visuelle très spécifique : CDK + design system maison.
+**Réordonner les favoris :**
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Personnaliser fortement Material est laborieux ; surcharger les classes internes (`.mdc-...`) casse aux mises à jour.
+```ts
+@Component({
+  imports: [CdkDropList, CdkDrag],
+  template: `
+    <ul cdkDropList (cdkDropListDropped)="drop($event)">
+      @for (m of favorites(); track m.id) {
+        <li cdkDrag>{{ m.title }}</li>
+      }
+    </ul>
+  `,
+})
+export class FavoritesListComponent {
+  favorites = signal<Movie[]>([]);
+  drop(e: CdkDragDrop<Movie[]>) {
+    this.favorites.update(list => {
+      const copy = [...list];
+      moveItemInArray(copy, e.previousIndex, e.currentIndex);
+      return copy;
+    });
+  }
+}
+```
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| CDK | Component Dev Kit, comportements sans style |
-| Overlay | Couche flottante (menus, dialogues) |
-| Virtual scroll | Ne rend que les éléments visibles d'une longue liste |
-| Thème | Configuration des couleurs/typographie |
-
----
-
-## Points clés
-
-- Material = composants stylés, CDK = comportements
-- Virtual scroll pour les listes de milliers d'éléments
-- Personnaliser via l'API de thème, pas en surchargeant les classes internes
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `::ng-deep .mat-mdc-button` partout
-> - Mettre à jour Angular sans mettre à jour Material (versions alignées)
-
----
-
-## Exemple minimal
+**Liste de 10 000 éléments fluide :**
 
 ```html
-<cdk-virtual-scroll-viewport itemSize="72" class="liste">
-  <app-film-card *cdkVirtualFor="let f of films(); trackBy: parId" [film]="f" />
+<cdk-virtual-scroll-viewport itemSize="72" style="height: 600px">
+  <app-movie-row *cdkVirtualFor="let m of movies(); trackBy: trackById" [movie]="m" />
 </cdk-virtual-scroll-viewport>
 ```
 
-> [!note] Ce que j'en retiens
-> 10 000 films mais seulement une vingtaine de cartes réellement dans le DOM.
+**Réagir à la taille d'écran :**
 
----
+```ts
+isMobile = toSignal(
+  inject(BreakpointObserver).observe('(max-width: 900px)').pipe(map(r => r.matches)),
+  { initialValue: false },
+);
+```
 
-## Pour aller plus loin (niveau senior)
+## Pièges
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Construire un composant accessible maison avec les primitives CDK
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[VUE-21-Ecosysteme-UI-Vue|Écosystème UI Vue.js]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/ang-29-angular-material-cdk]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle différence entre Material et le CDK ?
-
----
-
-## Tâches
-
-- [ ] #task Identifier la librairie UI utilisée au travail et lire sa doc de thème
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Mélanger Material et PrimeNG** dans la même application : une seule librairie de composants.
+- **Recoder une modale** avec un `div` : le focus, la touche Échap et le lecteur d'écran seront mal gérés. Utilise Dialog (CDK, Material ou PrimeNG).

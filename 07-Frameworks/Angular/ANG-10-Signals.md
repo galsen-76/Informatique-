@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🟡 In Progress"
 level: Intermédiaire
@@ -10,12 +10,7 @@ aliases:
 tags:
   - frameworks/angular/signals
 parent: "[[Angular]]"
-children:
-  - "[[ANG-23-Signals-Avances|computed()]]"
-  - "[[ANG-23-Signals-Avances|effect()]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-signals-counter]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/signals"
@@ -23,134 +18,89 @@ source: "https://angular.dev/guide/signals"
 
 # Signals Angular
 
-> [!abstract] Introduction
-> Un signal est une boîte contenant une valeur qui prévient automatiquement Angular dès qu'elle change, pour ne mettre à jour que ce qui est vraiment nécessaire à l'écran.
+> [!abstract] En bref
+> Un **signal** est une boîte qui contient une valeur et **prévient Angular** dès qu'elle change, pour qu'il mette à jour seulement ce qui en dépend. C'est l'équivalent de `ref` en Vue. Trois fonctions à connaître : `signal`, `computed`, `effect`.
 
-> [!warning]- Prérequis
-> [[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]], [[ANG-11-Detection-de-changement|Détection de Changement Angular]].
+## `signal` : la donnée
 
----
+```ts
+import { signal } from '@angular/core';
 
-## Théorie
+count = signal(0);
+movies = signal<Movie[]>([]);
 
-> [!question]- C'est quoi ?
-> ```typescript
-> compteur = signal(0);
-> console.log(this.compteur());  // lecture avec parenthèses
-> this.compteur.set(5);
-> ```
-
-> [!example]- Analogie
-> Un signal est un afficheur numérique connecté à un capteur : dès que la valeur mesurée change, l'afficheur se met à jour automatiquement, sans que quelqu'un doive venir le relever manuellement.
-
-> [!question]- Pourquoi l'utiliser ?
-> Avant, Angular utilisait Zone.js pour tout revérifier à chaque événement — coûteux. Les signals savent EXACTEMENT quoi mettre à jour.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> compteur = signal(0);
-> double = computed(() => this.compteur() * 2);  // recalcul automatique
-> this.compteur.update(v => v + 1);
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Pour l'état local d'un composant. Pour de l'asynchrone réel (requêtes HTTP), RxJS reste l'outil adapté.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Un signal est synchrone et ne représente qu'une valeur À UN INSTANT — il ne remplace pas RxJS pour un vrai flux temporel (WebSocket, événements répétés dans le temps).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Signal | Fonction encapsulant une valeur réactive |
-| `computed()` | Signal calculé, recalculé automatiquement |
-| `effect()` | Exécute du code à chaque changement d'un signal lu dedans |
-
----
-
-## Points clés
-
-- Un signal est une FONCTION : toujours l'appeler avec `()`
-- `.set()` remplace, `.update()` calcule depuis l'ancienne valeur
-- Synchrone, contrairement à RxJS
-- Pas de `.subscribe()`/`.unsubscribe()` à gérer
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier les parenthèses en lisant un signal (`compteur` au lieu de `compteur()`)
-> - Réassigner directement (`compteur = 5`) au lieu d'utiliser `.set()`, ce qu'Angular ne détecte pas
-> - Créer un `effect()` qui modifie le signal qu'il surveille, provoquant une boucle infinie
-
----
-
-## Paramètres / Configuration
-
-| Fonction | Description |
-|-----------|-------------|
-| `signal(valeur)` | Crée un signal |
-| `.set(valeur)` | Remplace la valeur |
-| `.update(fn)` | Calcule depuis l'ancienne valeur |
-| `computed(fn)` | Signal calculé automatiquement |
-
----
-
-## Exemple minimal
-
-```typescript
-compteur = signal(0);
-double = computed(() => this.compteur() * 2);
-incrementer() { this.compteur.update(v => v + 1); }
+this.count();                        // lire → 0 (avec des parenthèses)
+this.count.set(5);                   // remplacer
+this.count.update(v => v + 1);       // modifier à partir de l'ancienne valeur
+this.movies.update(list => [...list, newMovie]);
 ```
 
-> [!note] Ce que j'en retiens
-> `double` se recalcule tout seul dès que `compteur` change, sans mise à jour manuelle.
+```html
+<p>{{ count() }}</p>
+```
 
----
+On **lit** un signal en l'appelant comme une fonction : `count()`. C'est ce qui permet à Angular de savoir qui l'utilise.
 
-## Pour aller plus loin (niveau senior)
+## `computed` : une valeur calculée
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Signal inputs (`input()`), `model()`, `linkedSignal`, `resource` : voir [[ANG-23-Signals-Avances|Signals Avancés Angular]]
-> - Réponse à la note brute : oui, un service avec `signal` privé + `asReadonly()` remplace la plupart des `BehaviorSubject` ; RxJS reste utile pour les flux temporels
+```ts
+search = signal('');
+genre = signal<string | null>(null);
 
----
+filtered = computed(() =>
+  this.movies()
+    .filter(m => !this.genre() || m.genres.includes(this.genre()!))
+    .filter(m => m.title.toLowerCase().includes(this.search().toLowerCase())),
+);
 
-## Connexions
+count = computed(() => this.filtered().length);
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[ANG-23-Signals-Avances|computed()]], [[ANG-23-Signals-Avances|effect()]]
-- À comparer avec → [[ANG-08-RxJS|Programmation Réactive RxJS Angular]], [[VUE-02-Reactivite|Réactivité Vue.js]]
+Comme une formule Excel : recalculée automatiquement, et **seulement** quand `movies`, `search` ou `genre` changent. Un `computed` est en lecture seule.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-signals-counter]]
-- Projet → [[02_Projects/CinéTrack]]
+## `effect` : agir quand quelque chose change
 
----
+```ts
+constructor() {
+  effect(() => {
+    localStorage.setItem('favorites', JSON.stringify(this.favoriteIds()));
+  });
+}
+```
 
-## Auto-vérification
+S'exécute au départ, puis à chaque changement des signals lus à l'intérieur.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `compteur = 5` ne fonctionne pas comme `compteur.set(5)` ?
+| Tu veux… | Utilise |
+|---|---|
+| une valeur dérivée | `computed` |
+| sauvegarder, écrire dans le `localStorage`, appeler une librairie externe | `effect` |
 
-> [!faq]- Questions d'entretien
-> - Signals vs RxJS : quand utiliser quoi ?
+## Exposer un signal en lecture seule
 
----
+Dans un service, on garde la modification à l'intérieur :
 
-## Tâches
+```ts
+@Injectable({ providedIn: 'root' })
+export class FavoritesStore {
+  private readonly _ids = signal<number[]>([]);
+  readonly ids = this._ids.asReadonly();     // les composants peuvent lire, pas écrire
 
-- [ ] #task Refactoriser un état local de CinéTrack en signal
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+  toggle(id: number) { /* seul le store modifie */ }
+}
+```
 
----
+## Les inputs sont des signals
 
-## Notes brutes
+```ts
+movie = input.required<Movie>();          // lire : this.movie()
+title = computed(() => this.movie().title.toUpperCase());
+```
 
-- ? `signal` peut-il remplacer TOTALEMENT `BehaviorSubject` dans un service partagé ?
+## Pièges
+
+- **Oublier les `()`** : `this.count + 1` ou `{{ count }}` ne donnent pas la valeur.
+- **Modifier un tableau sans le remplacer** : `this.movies().push(m)` ne prévient pas Angular. Écris `this.movies.update(l => [...l, m])`.
+- **Utiliser `effect` pour recopier un signal dans un autre** : c'est un `computed`.
+- **Modifier un signal dans un `computed`** : interdit, un `computed` ne fait que calculer.
+
+Pour aller plus loin (`linkedSignal`, `resource`, conversion RxJS) : [[ANG-23-Signals-Avances|Signals avancés]].

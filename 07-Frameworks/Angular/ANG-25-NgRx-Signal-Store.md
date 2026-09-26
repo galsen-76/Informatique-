@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,12 +10,9 @@ tags:
 aliases:
   - "NgRx et Signal Store"
 parent: "[[Angular]]"
-children: []
 related_theory:
   - "[[ANG-12-State-Management|State Management Angular]]"
   - "[[ANG-23-Signals-Avances|Signals Avancés Angular]]"
-related_snippets:
-  - "[[04_Snippets/ang-25-ngrx-signal-store]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://ngrx.io/guide/signals"
@@ -23,141 +20,84 @@ source: "https://ngrx.io/guide/signals"
 
 # NgRx et Signal Store
 
-> [!abstract] Introduction
-> NgRx fournit des solutions de state management structurées : le Store classique (actions / reducers / effects, inspiré de Redux) et le Signal Store, plus léger et basé sur les signals.
+> [!abstract] En bref
+> **NgRx** est la librairie de state management la plus répandue en Angular. Deux versions : le **Store classique** (inspiré de Redux, beaucoup de fichiers : actions, reducers, effects, selectors) et le **Signal Store**, plus récent et bien plus léger. Si ton entreprise l'utilise, c'est ici. Sinon, un service avec des signals ([[ANG-12-State-Management|State management]]) suffit.
 
-> [!warning]- Prérequis
-> [[ANG-12-State-Management|State Management Angular]], [[ANG-24-RxJS-Avance|RxJS Avancé]]
+## Le Signal Store
 
----
+C'est le store « maison » de la note précédente, avec une structure standard :
 
-## Théorie
+```ts
+import { signalStore, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
 
-> [!question]- C'est quoi ?
-> **Signal Store** :
-> ```typescript
-> export const FavorisStore = signalStore(
->   { providedIn: 'root' },
->   withState({ ids: [] as number[], chargement: false }),
->   withComputed(({ ids }) => ({ total: computed(() => ids().length) })),
->   withMethods((store, api = inject(FavorisApi)) => ({
->     ajouter(id: number) { patchState(store, s => ({ ids: [...s.ids, id] })); },
->     async charger() {
->       patchState(store, { chargement: true });
->       patchState(store, { ids: await api.liste(), chargement: false });
->     },
->   })),
-> );
-> ```
-> **Store classique** : `Action` (ce qui s'est passé) → `Reducer` (fonction pure : nouvel état) → `Selector` (lecture dérivée) ; `Effect` pour les appels API.
+type FavoritesState = { ids: number[]; filter: string };
 
-> [!example]- Analogie
-> Le Store classique est un registre officiel : toute modification doit passer par un formulaire normalisé (action) traité par un bureau unique (reducer), ce qui laisse une trace complète. Le Signal Store est un classeur partagé bien organisé, avec des règles mais moins de paperasse.
+export const FavoritesStore = signalStore(
+  { providedIn: 'root' },
 
-> [!question]- Pourquoi l'utiliser ?
-> Sur une grosse application, un flux unidirectionnel et prévisible, un état traçable (Redux DevTools, time-travel) et des conventions communes à toute l'équipe.
+  withState<FavoritesState>({ ids: [], filter: '' }),        // l'état
 
-> [!question]- Comment ça marche ?
-> ```mermaid
-> flowchart LR
->   C["Composant"] -->|"dispatch(action)"| R["Reducer (pur)"]
->   R --> S["Store (état)"]
->   S -->|"select"| C
->   C -.-> E["Effect"]
->   E -->|"API"| API[(Backend)]
->   E -->|"action succès/échec"| R
-> ```
+  withComputed(({ ids }) => ({                               // les valeurs calculées
+    count: computed(() => ids().length),
+  })),
 
-> [!question]- Quand l'utiliser ?
-> Store classique : gros projets multi-équipes, besoin d'audit/traçabilité de l'état. Signal Store : la plupart des besoins de store partagé moderne. Service + signals : petits et moyens projets.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Beaucoup de code répétitif (boilerplate) avec le store classique ; surdimensionné pour de l'état local ou simple.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Action | Événement décrivant ce qui s'est passé |
-| Reducer | Fonction pure (état, action) → nouvel état |
-| Selector | Fonction de lecture mémoïsée |
-| Effect | Gestion des effets de bord (API) |
-| `patchState` | Mise à jour partielle d'un Signal Store |
-
----
-
-## Points clés
-
-- Flux unidirectionnel : action → reducer → état → vue
-- Reducers purs et immuables
-- Signal Store = moins de code, API composable (`withState`, `withMethods`, `withHooks`)
-- Choisir selon la taille du projet et les conventions de l'équipe
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Mettre TOUT l'état (formulaires, état UI local) dans le store global
-> - Muter l'état dans un reducer
-> - Dupliquer dans le store des données qui pourraient être dérivées
-
----
-
-## Exemple minimal
-
-```typescript
-@Component({ template: `<p>{{ store.total() }} favoris</p>` })
-export class CompteurFavorisComponent {
-  store = inject(FavorisStore);
-}
+  withMethods((store) => ({                                  // les actions
+    toggle(id: number) {
+      patchState(store, ({ ids }) => ({
+        ids: ids.includes(id) ? ids.filter(x => x !== id) : [...ids, id],
+      }));
+    },
+  })),
+);
 ```
 
-> [!note] Ce que j'en retiens
-> Le composant ne fait que lire des signals et appeler des méthodes : il ignore comment l'état est géré.
+```ts
+// dans un composant
+protected favorites = inject(FavoritesStore);
+```
+```html
+<span>♥ {{ favorites.count() }}</span>
+<button type="button" (click)="favorites.toggle(movie().id)">♡</button>
+```
 
----
+| Bloc | Rôle |
+|---|---|
+| `withState` | les données de départ ; chaque champ devient un signal |
+| `withComputed` | les valeurs calculées |
+| `withMethods` | les actions (seul endroit où on modifie) |
+| `patchState` | modifier une partie de l'état |
+| `withHooks` | code au démarrage (charger des données) |
 
-## Pour aller plus loin (niveau senior)
+Extensions utiles : `withEntities` (listes avec ajout / suppression par id), `rxMethod` (actions basées sur RxJS, comme une recherche avec délai).
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir argumenter : service+signals vs Signal Store vs Store classique
-> - Normaliser l'état (entités par id) avec `withEntities`
+## Le Store classique (Redux)
 
----
+Tu le croiseras dans des applications plus anciennes :
 
-## Connexions
+```mermaid
+flowchart LR
+  C["Composant"] -->|"dispatch(action)"| R["Reducer<br/>calcule le nouvel état"]
+  R --> S["Store"]
+  S -->|"select(selector)"| C
+  A["Action"] --> E["Effect<br/>appel API"] -->|"nouvelle action"| R
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[VUE-09-Pinia-State-Management|Pinia (State Management Vue.js)]]
+- **Action** : un événement (« films chargés »).
+- **Reducer** : une fonction pure qui calcule le nouvel état.
+- **Selector** : lit une partie de l'état.
+- **Effect** : fait les appels API et renvoie une action.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ang-25-ngrx-signal-store]]
-- Projet → [[02_Projects/CinéTrack]]
+Plus de code, mais tout est tracé : l'extension **Redux DevTools** montre chaque action et chaque état, pratique sur une grosse application.
 
----
+## Lequel choisir ?
 
-## Auto-vérification
+| Situation | Choix |
+|---|---|
+| CinéTrack, la plupart des apps | service + signals |
+| une équipe qui veut une structure commune | **NgRx Signal Store** |
+| une grosse application existante en NgRx | **Store classique** (suis l'existant) |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi un reducer doit-il être pur ?
+## Pièges
 
-> [!faq]- Questions d'entretien
-> - Quand introduiriez-vous NgRx dans un projet ?
-
----
-
-## Tâches
-
-- [ ] #task Demander au travail quelle solution d'état est utilisée et lire le code d'un store existant
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Ajouter NgRx « parce que c'est pro »** sur une petite app : beaucoup de code pour rien.
+- **Modifier l'état hors des méthodes** du store : on perd l'intérêt d'un point de passage unique.

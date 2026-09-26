@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,10 +10,7 @@ aliases:
 tags:
   - frameworks/angular/directives
 parent: "[[Angular]]"
-children: []
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-directives]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/directives"
@@ -21,132 +18,72 @@ source: "https://angular.dev/guide/directives"
 
 # Directives Angular
 
-> [!abstract] Introduction
-> Une directive est une instruction collée sur une balise HTML pour lui donner un comportement ou une apparence supplémentaire, sans créer un composant entier.
+> [!abstract] En bref
+> Une **directive** ajoute un comportement à un élément HTML existant, sans créer de composant. Tu en utilises déjà : `ngModel`, `routerLink`, `[class]`. Tu peux en créer pour un comportement réutilisable : donner le focus, détecter un clic en dehors d'un menu, afficher une image de secours.
 
-> [!warning]- Prérequis
-> [[ANG-03-Templates-Data-Binding|Templates et Data Binding Angular]].
+## Composant ou directive ?
 
----
+| | Composant | Directive |
+|---|---|---|
+| A son propre HTML | oui | **non** |
+| S'utilise comme | une balise `<app-movie-card>` | un attribut `<img appFallback>` |
+| Exemple | une carte, une page | « si l'image ne charge pas, en mettre une autre » |
 
-## Théorie
+## Les directives d'Angular que tu utiliseras
 
-> [!question]- C'est quoi ?
-> 2 catégories : structurelles (`@if`, `@for`, changent le HTML présent) et d'attribut (`ngClass`, modifient un élément existant).
+| Directive | Rôle |
+|---|---|
+| `[class.x]`, `[style.x]` | classes et styles dynamiques |
+| `ngModel` | lier un champ (formulaires simples) |
+| `formControlName` | lier un champ à un formulaire réactif |
+| `routerLink`, `routerLinkActive` | liens de navigation, lien actif |
+| `NgOptimizedImage` (`ngSrc`) | images optimisées (tailles, lazy loading) |
 
-> [!example]- Analogie
-> Une directive structurelle est un videur de boîte de nuit (décide qui entre ou reste dehors — ajoute/retire des éléments). Une directive d'attribut est un maquilleur (change l'apparence de ce qui est déjà là, sans rien ajouter ni retirer).
+Les anciennes `*ngIf`, `*ngFor`, `[ngClass]` sont remplacées par `@if`, `@for` et `[class]`.
 
-> [!question]- Pourquoi l'utiliser ?
-> Manipuler le HTML de façon déclarative plutôt qu'avec du JavaScript manuel (cacher, répéter des éléments).
+## Créer une directive utile
 
-> [!question]- Comment ça marche ?
-> ```html
-> @if (filmEstNote) {
->   <p>Ce film a une note</p>
-> }
-> @for (film of films; track film.id) {
->   <li>{{ film.titre }}</li>
-> }
-> <p [ngClass]="{ 'favori': estFavori }">Titre</p>
-> ```
+**Image de secours** quand une affiche TMDB est introuvable :
 
-> [!question]- Quand l'utiliser ?
-> `@if`/`@for` pour afficher/masquer ou lister ; `ngClass`/`ngStyle` pour l'apparence conditionnelle.
+```ts
+import { Directive, input } from '@angular/core';
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `track` est obligatoire avec `@for` — l'omettre (ou mal le choisir) dégrade sérieusement la performance sur de grandes listes qui changent souvent.
+@Directive({
+  selector: 'img[appFallback]',
+  host: { '(error)': 'onError($event)' },     // écoute l'événement error de l'image
+})
+export class FallbackImageDirective {
+  appFallback = input('/assets/no-poster.webp');
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Directive structurelle | Ajoute/retire des éléments du DOM |
-| `track` | Identifie chaque élément de liste de façon unique |
-
----
-
-## Points clés
-
-- `@if`/`@for`/`@switch` remplacent `*ngIf`/`*ngFor`/`*ngSwitch` depuis Angular 17
-- `track` obligatoire avec `@for`
-- Directive structurelle = ajoute/retire, directive d'attribut = modifie sans retirer
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `track` dans `@for` (erreur de compilation avec la nouvelle syntaxe)
-> - Utiliser encore `*ngIf`/`*ngFor` sur un nouveau projet sans raison
-
----
-
-## Paramètres / Configuration
-
-| Directive | Description | Notes |
-|-----------|-------------|-------|
-| `@if / @else` | Condition | Remplace `*ngIf` |
-| `@for (x of l; track x.id)` | Boucle | `track` obligatoire |
-| `[ngClass]` | Classes conditionnelles | Objet `{classe: condition}` |
-
----
-
-## Exemple minimal
-
-```typescript
-template: `
-  @for (film of films; track film.id) {
-    <li [ngClass]="{ 'favori': film.estFavori }">{{ film.titre }}</li>
+  onError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    if (img.src.endsWith(this.appFallback())) return;   // éviter une boucle infinie
+    img.src = this.appFallback();
   }
-`
+}
 ```
 
-> [!note] Ce que j'en retiens
-> `track` permet à Angular de savoir quel élément a changé sans redessiner toute la liste.
+```html
+<img [src]="movie().poster" appFallback alt="…">
+```
 
----
+**Focus automatique** :
 
-## Pour aller plus loin (niveau senior)
+```ts
+@Directive({ selector: '[appAutofocus]' })
+export class AutofocusDirective {
+  private el = inject(ElementRef<HTMLElement>);
+  constructor() {
+    afterNextRender(() => this.el.nativeElement.focus());   // après l'affichage
+  }
+}
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Créer ses propres directives d'attribut (`@Directive`) et les composer via `hostDirectives`
-> - Migration automatique vers le contrôle de flux : `ng generate @angular/core:control-flow`
+## Quand créer une directive ?
 
----
+Quand le **même comportement** sur des éléments existants revient à plusieurs endroits. Si ça a du HTML propre, c'est un composant. Si c'est de la logique sans lien avec un élément, c'est un service ou une fonction.
 
-## Connexions
+## Pièges
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[VUE-04-Directives-Templates|Directives & Templates Vue.js]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-directives]]
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `track` améliore la performance, sans dire "DOM" ?
-
-> [!faq]- Questions d'entretien
-> - Différence entre directive structurelle et directive d'attribut ?
-
----
-
-## Tâches
-
-- [ ] #task Refaire une liste avec la nouvelle syntaxe `@for`/`@if`
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Gain de performance concret entre l'ancienne et la nouvelle syntaxe ?
+- **Manipuler le DOM dans le constructeur** : l'élément n'est pas encore affiché. Utilise `afterNextRender`.
+- **Oublier d'importer la directive** dans le composant qui l'utilise.

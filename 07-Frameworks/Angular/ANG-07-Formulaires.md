@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,10 +10,7 @@ aliases:
 tags:
   - frameworks/angular/formulaires
 parent: "[[Angular]]"
-children: []
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-formulaire-reactif]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/forms"
@@ -21,136 +18,112 @@ source: "https://angular.dev/guide/forms"
 
 # Formulaires Angular
 
-> [!abstract] Introduction
-> Angular propose deux approches : template-driven (logique dans le HTML avec `ngModel`) et reactive forms (structure définie en TypeScript, plus puissante).
+> [!abstract] En bref
+> Angular propose deux façons d'écrire un formulaire : **template-driven** (tout dans le HTML avec `ngModel`, pour un champ ou deux) et **Reactive Forms** (le formulaire est décrit en TypeScript, typé et testable). En entreprise, c'est presque toujours Reactive Forms. Cas concret : le formulaire « ajouter une critique » de CinéTrack.
 
-> [!warning]- Prérequis
-> [[ANG-03-Templates-Data-Binding|Templates et Data Binding Angular]].
+## Le choix
 
----
+| | Template-driven | **Reactive Forms** |
+|---|---|---|
+| Défini dans | le HTML (`ngModel`) | le TypeScript (`FormGroup`) |
+| Typage | faible | **fort** |
+| Validation complexe | difficile | facile |
+| Tests | difficiles | faciles |
+| Pour | une barre de recherche | tout vrai formulaire |
 
-## Théorie
+## Reactive Forms : le formulaire de critique
 
-> [!question]- C'est quoi ?
-> `FormControl` = un champ. `FormGroup` = plusieurs `FormControl` regroupés en un formulaire complet.
+```ts
+import { Component, inject, input, output } from '@angular/core';
+import { ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
 
-> [!example]- Analogie
-> Un `FormGroup` est un dossier administratif, chaque `FormControl` est un champ du formulaire à l'intérieur (nom, email) — chacun a son propre état (rempli, valide) mais fait partie du même dossier global.
+@Component({
+  selector: 'app-review-form',
+  imports: [ReactiveFormsModule],
+  templateUrl: './review-form.component.html',
+})
+export class ReviewFormComponent {
+  movieId = input.required<number>();
+  saved = output<Review>();
 
-> [!question]- Pourquoi l'utiliser ?
-> Les reactive forms permettent de tester facilement, ajouter de la validation complexe, et suivre précisément l'état de chaque champ.
+  private fb = inject(NonNullableFormBuilder);
 
-> [!question]- Comment ça marche ?
-> ```typescript
-> formulaire = new FormGroup({
->   titre: new FormControl('', [Validators.required, Validators.minLength(3)])
-> });
-> ```
-> ```html
-> <form [formGroup]="formulaire" (ngSubmit)="soumettre()">
->   <input formControlName="titre">
-> </form>
-> ```
+  form = this.fb.group({
+    rating: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
+    comment: ['', [Validators.required, Validators.minLength(10)]],
+    spoiler: [false],
+  });
 
-> [!question]- Quand l'utiliser ?
-> Template-driven : formulaires très simples. Reactive : validation avancée, champs interdépendants, besoin de tests.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les reactive forms ajoutent une couche de configuration TypeScript non nécessaire pour un formulaire trivial de 1-2 champs sans validation — le template-driven suffit alors largement.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `FormControl` | Représente un seul champ de formulaire |
-| `FormGroup` | Regroupe plusieurs `FormControl` |
-| `Validator` | Règle vérifiant automatiquement la validité d'un champ |
-
----
-
-## Points clés
-
-- `FormControl` = un champ, `FormGroup` = un ensemble
-- Reactive forms séparent totalement logique (TS) et affichage (HTML)
-- États utiles : `.valid`, `.invalid`, `.dirty`, `.touched`
-- `FormBuilder` raccourcit la création de `FormGroup`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Afficher une erreur de validation avant même que l'utilisateur ait touché le champ (oublier `.touched`)
-> - Oublier d'importer `ReactiveFormsModule`
-> - Confondre `FormControl` et `FormGroup` dans le HTML (`formControlName` vs `formGroupName`)
-
----
-
-## Paramètres / Configuration
-
-| Validator | Description |
-|-----------|-------------|
-| `Validators.required` | Champ obligatoire |
-| `Validators.minLength(n)` | Longueur minimale |
-| `Validators.email` | Format email |
-| `Validators.pattern(regex)` | Format custom |
-
----
-
-## Exemple minimal
-
-```typescript
-formulaire = new FormGroup({
-  titre: new FormControl('', [Validators.required, Validators.minLength(3)])
-});
+  submit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();           // affiche les erreurs de tous les champs
+      return;
+    }
+    const value = this.form.getRawValue();    // typé : { rating: number; comment: string; spoiler: boolean }
+    this.saved.emit({ movieId: this.movieId(), ...value });
+    this.form.reset();
+  }
+}
 ```
 
-> [!note] Ce que j'en retiens
-> Le bouton peut rester désactivé tant que `formulaire.invalid`, et l'erreur ne s'affiche que si le champ est `touched` ET `invalid`.
+```html
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <label for="rating">Note (1 à 10)</label>
+  <input id="rating" type="number" formControlName="rating">
 
----
+  <label for="comment">Critique</label>
+  <textarea id="comment" formControlName="comment"></textarea>
+  @if (form.controls.comment.touched && form.controls.comment.errors; as e) {
+    @if (e['required']) { <p class="error">La critique est obligatoire.</p> }
+    @if (e['minlength']) { <p class="error">Au moins 10 caractères.</p> }
+  }
 
-## Pour aller plus loin (niveau senior)
+  <label><input type="checkbox" formControlName="spoiler"> Contient des spoilers</label>
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Formulaires typés (`FormGroup<{ titre: FormControl<string> }>`) et `NonNullableFormBuilder`
-> - Validateurs personnalisés et asynchrones (vérifier qu'un email est libre), validateurs de groupe (confirmation de mot de passe)
-> - Suivre les Signal Forms (API expérimentale récente) sans les utiliser en production tant qu'elles ne sont pas stables
+  <button type="submit">Publier</button>
+</form>
+```
 
----
+`NonNullableFormBuilder` : après `reset()`, les champs reviennent à leur valeur de départ au lieu de `null`.
 
-## Connexions
+## Les validateurs
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[VUE-14-Formulaires-Validation|Formulaires et Validation Vue.js]]
+| Validateur | Règle |
+|---|---|
+| `Validators.required` | obligatoire |
+| `Validators.minLength(n)` / `maxLength(n)` | longueur |
+| `Validators.min(n)` / `max(n)` | valeur |
+| `Validators.email` | format e-mail |
+| `Validators.pattern(/…/)` | forme imposée |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-formulaire-reactif]]
-- Projet → [[02_Projects/CinéTrack]]
+Un validateur personnalisé est une simple fonction :
 
----
+```ts
+const noSpaces: ValidatorFn = (c) => /\s/.test(c.value) ? { noSpaces: true } : null;
+```
 
-## Auto-vérification
+## Réagir aux changements d'un champ
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi vérifier `.touched` évite d'afficher une erreur trop tôt ?
+```ts
+this.form.controls.rating.valueChanges.subscribe(v => console.log('nouvelle note', v));
+// ou en signal
+rating = toSignal(this.form.controls.rating.valueChanges, { initialValue: 5 });
+```
 
-> [!faq]- Questions d'entretien
-> - Template-driven ou reactive forms : lequel choisir ?
+## Template-driven, pour les cas simples
 
----
+```ts
+imports: [FormsModule]
+```
+```html
+<input type="search" [(ngModel)]="search" name="search">
+```
 
-## Tâches
+> [!note] Signal Forms
+> Angular prépare une nouvelle API de formulaires basée sur les signals. Vérifie son état dans la documentation de ta version ; Reactive Forms reste la référence dans le code existant.
 
-- [ ] #task Créer un formulaire d'ajout de film avec reactive forms
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Pièges
 
----
-
-## Notes brutes
-
-- ? Comment valider deux champs dépendants l'un de l'autre (confirmation de mot de passe) ?
+- **Oublier `ReactiveFormsModule`** dans `imports` : `formGroup` inconnu.
+- **Afficher les erreurs dès l'ouverture** : attends que le champ soit `touched`.
+- **Oublier `markAllAsTouched()`** à l'envoi : l'utilisateur clique, rien ne se passe, aucune erreur visible.

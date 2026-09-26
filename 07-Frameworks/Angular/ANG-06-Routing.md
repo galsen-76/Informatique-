@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,12 +10,7 @@ aliases:
 tags:
   - frameworks/angular/routing
 parent: "[[Angular]]"
-children:
-  - "[[ANG-21-Guards-Resolvers-Intercepteurs|Guards Angular]]"
-  - "[[ANG-15-Performance-Bonnes-Pratiques|Lazy Loading Angular]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-routing-basique]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/routing"
@@ -23,139 +18,97 @@ source: "https://angular.dev/guide/routing"
 
 # Routing Angular
 
-> [!abstract] Introduction
-> Le routing change ce qui s'affiche selon l'URL, sans jamais recharger réellement la page.
+> [!abstract] En bref
+> Le routeur affiche le bon écran selon l'URL : `/movies` montre la liste, `/movies/27205` la fiche d'Inception. Il est intégré à Angular. Tu déclares une liste de routes, tu places une zone d'affichage `<router-outlet>`, et tu navigues avec `routerLink`.
 
-> [!warning]- Prérequis
-> [[ANG-02-Composants|Composants Angular]], [[ANG-01-Fondamentaux|notion de SPA]].
+## Déclarer les routes
 
----
+```ts
+// app.routes.ts
+import { Routes } from '@angular/router';
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> export const routes: Routes = [
->   { path: 'films', component: ListeFilmsComponent },
->   { path: 'films/:id', component: DetailFilmComponent }
-> ];
-> ```
-
-> [!example]- Analogie
-> Le `<router-outlet>` est un cadre photo fixe accroché au mur : selon l'URL, on change simplement la photo (le composant) qu'il affiche, sans jamais déplacer le cadre lui-même.
-
-> [!question]- Pourquoi l'utiliser ?
-> Structurer la navigation avec des URLs propres et partageables, plutôt que de gérer l'affichage à coups de `@if`.
-
-> [!question]- Comment ça marche ?
-> ```html
-> <a routerLink="/films">Voir les films</a>
-> <router-outlet></router-outlet>
-> ```
-> ```typescript
-> private route = inject(ActivatedRoute);
-> idFilm = this.route.snapshot.paramMap.get('id');
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Dès qu'une application a plusieurs écrans logiquement séparés.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Utiliser `<a href="">` classique au lieu de `routerLink` recharge toute la page — perd l'intérêt même de la SPA.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `router-outlet` | Emplacement où s'affiche le composant de la route active |
-| `routerLink` | Équivalent de `href` sans rechargement de page |
-| Guard | Fonction qui autorise ou bloque l'accès à une route |
-
----
-
-## Points clés
-
-- `routerLink` remplace `href` pour éviter le rechargement
-- `<router-outlet>` = emplacement du composant actif
-- Paramètre d'URL (`:id`) récupéré via `ActivatedRoute`
-- Le lazy loading charge une route seulement quand nécessaire
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Utiliser `href` au lieu de `routerLink`, provoquant un rechargement complet
-> - Oublier `<router-outlet>` dans le template parent, rien ne s'affiche alors
-> - Récupérer un paramètre d'URL avant que la route ne soit pleinement résolue
-
----
-
-## Paramètres / Configuration
-
-| Concept | Description | Notes |
-|-----------|-------------|-------|
-| `path` | Segment d'URL | `''` = route par défaut |
-| `:param` | Paramètre dynamique | Via `ActivatedRoute` |
-| `loadComponent` | Lazy loading | Meilleure performance |
-| `canActivate` | Guard | Bloque/autorise l'accès |
-
----
-
-## Exemple minimal
-
-```typescript
 export const routes: Routes = [
-  { path: '', component: AccueilComponent },
-  { path: 'films/:id', component: DetailFilmComponent }
+  { path: '', pathMatch: 'full', redirectTo: 'movies' },
+  {
+    path: 'movies',
+    loadComponent: () => import('./features/movies/pages/movies-list.page').then(m => m.MoviesListPage),
+    title: 'Films populaires',                  // titre de l'onglet
+  },
+  {
+    path: 'movies/:id',                         // :id = partie variable
+    loadComponent: () => import('./features/movies/pages/movie-detail.page').then(m => m.MovieDetailPage),
+  },
+  { path: '**', loadComponent: () => import('./core/layout/not-found.page').then(m => m.NotFoundPage) },
 ];
 ```
 
-> [!note] Ce que j'en retiens
-> Cliquer sur un lien change l'URL SANS recharger la page — seul le contenu du `router-outlet` change.
+```ts
+// app.config.ts
+providers: [provideRouter(routes, withComponentInputBinding())]
+```
 
----
+`loadComponent` = la page est téléchargée **seulement quand on y va** (lazy loading).
 
-## Pour aller plus loin (niveau senior)
+## Afficher la page et naviguer
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - `withComponentInputBinding()` : paramètres de route reçus directement dans des `input()`
-> - Routes enfants, `loadChildren` par feature, titres de page (`title`) et stratégies de préchargement
+```ts
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  template: `
+    <nav>
+      <a routerLink="/movies" routerLinkActive="active">Films</a>
+      <a routerLink="/favorites" routerLinkActive="active">Favoris</a>
+    </nav>
+    <router-outlet />           <!-- la page de la route s'affiche ici -->
+  `,
+})
+export class AppComponent {}
+```
 
----
+```html
+<a [routerLink]="['/movies', movie().id]">Voir la fiche</a>
+```
 
-## Connexions
+En TypeScript :
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[ANG-21-Guards-Resolvers-Intercepteurs|Guards Angular]], [[ANG-15-Performance-Bonnes-Pratiques|Lazy Loading Angular]]
-- À comparer avec → [[VUE-08-Vue-Router|Vue Router]]
+```ts
+private router = inject(Router);
+this.router.navigate(['/movies', id]);
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-routing-basique]]
-- Projet → [[02_Projects/CinéTrack]]
+## Lire le paramètre de l'URL
 
----
+Grâce à `withComponentInputBinding()`, le paramètre arrive directement en **input** :
 
-## Auto-vérification
+```ts
+export class MovieDetailPage {
+  id = input.required<string>();              // /movies/27205 → id() = '27205'
+  private api = inject(MoviesApi);
+  movie = httpResource<Movie>(() => `/api/movies/${this.id()}`);   // se recharge si l'id change
+}
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer comment Angular change l'URL sans recharger la page ?
+Les paramètres de recherche (`/movies?page=2`) arrivent aussi en input : `page = input<string>()`.
 
-> [!faq]- Questions d'entretien
-> - Comment protéger une route et charger une section à la demande ?
+## Organiser les routes par feature
 
----
+```ts
+// features/movies/movies.routes.ts
+export default [
+  { path: '', loadComponent: () => import('./pages/movies-list.page').then(m => m.MoviesListPage) },
+  { path: ':id', loadComponent: () => import('./pages/movie-detail.page').then(m => m.MovieDetailPage) },
+] satisfies Routes;
 
-## Tâches
+// app.routes.ts
+{ path: 'movies', loadChildren: () => import('./features/movies/movies.routes') }
+```
 
-- [ ] #task Mettre en place le routing de CinéTrack (accueil, liste, détail)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Protéger une route (connexion obligatoire) : [[ANG-21-Guards-Resolvers-Intercepteurs|Guards]].
 
----
+## Pièges
 
-## Notes brutes
-
-- ? Mécanisme technique précis derrière le changement d'URL sans rechargement ?
+- **Oublier `pathMatch: 'full'`** sur la redirection de `''` : boucle ou redirection partout.
+- **La route `**` pas en dernier** : elle attrape tout ce qui suit.
+- **Page 404 du serveur** en rafraîchissant `/movies/12` : l'hébergeur doit renvoyer `index.html` pour toutes les URL.
+- **Un `href` classique** au lieu de `routerLink` : toute l'application se recharge.

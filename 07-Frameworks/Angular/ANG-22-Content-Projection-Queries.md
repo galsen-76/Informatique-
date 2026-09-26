@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,8 @@ tags:
 aliases:
   - "Content Projection et View Queries Angular"
 parent: "[[Angular]]"
-children: []
 related_theory:
   - "[[ANG-19-Communication-Composants|Communication parent-enfant Angular]]"
-related_snippets:
-  - "[[04_Snippets/ang-22-content-projection-queries]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/components/content-projection"
@@ -22,138 +19,90 @@ source: "https://angular.dev/guide/components/content-projection"
 
 # Content Projection et View Queries Angular
 
-> [!abstract] Introduction
-> `<ng-content>` permet à un composant d'afficher du contenu fourni par son parent (cartes, modales, layouts) ; `viewChild`/`contentChild` donnent accès à des éléments ou composants du template.
+> [!abstract] En bref
+> **`<ng-content>`** laisse un **trou** dans un composant, que le parent remplit avec son propre contenu : parfait pour une carte, une modale, une mise en page (c'est le `<slot>` de Vue). **`viewChild()`** donne accès à un élément ou un composant du template (pour donner le focus, par exemple).
 
-> [!warning]- Prérequis
-> [[ANG-02-Composants|Composants Angular]]
+## `<ng-content>` : le cadre et le contenu
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> @Component({
->   selector: 'app-carte',
->   template: `
->     <header><ng-content select="[titre]" /></header>
->     <section><ng-content /></section>
->     <footer><ng-content select="[actions]" /></footer>`
-> })
-> export class CarteComponent {}
-> ```
-> ```html
-> <app-carte>
->   <h2 titre>Inception</h2>
->   <p>Un voleur de rêves…</p>
->   <button actions>Voir</button>
-> </app-carte>
-> ```
-
-> [!example]- Analogie
-> Un cadre photo avec plusieurs emplacements (titre, photo, légende) : le cadre définit la structure, le parent fournit les photos.
-
-> [!question]- Pourquoi l'utiliser ?
-> Créer des composants de mise en forme génériques (carte, modale, onglets, layout) sans multiplier les inputs.
-
-> [!question]- Comment ça marche ?
-> - `<ng-content select="...">` : emplacements nommés par sélecteur CSS
-> - `ng-template` + `ngTemplateOutlet` : projection conditionnelle ou répétée avec contexte (« render props »)
-> - Requêtes signal : `viewChild('ref')`, `viewChildren(Comp)`, `contentChild(Comp)` (API décorateurs `@ViewChild` encore courante)
-
-> [!question]- Quand l'utiliser ?
-> Composants UI génériques d'un design system. `viewChild` pour focus, scroll, instance d'un composant enfant.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `<ng-content>` ne peut pas être rendu conditionnellement plusieurs fois (le contenu est toujours instancié) → utiliser `ng-template` pour du contenu paresseux.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Content projection | Afficher le contenu fourni par le parent |
-| Slot | Emplacement de projection |
-| `ng-template` | Bloc de template non rendu par défaut |
-| `viewChild` | Référence à un élément du propre template |
-| `contentChild` | Référence à un élément projeté |
-
----
-
-## Points clés
-
-- `select` pour plusieurs emplacements
-- `ng-template` pour du contenu paresseux ou avec contexte
-- Requêtes signal (`viewChild()`) = lisibles dans un `computed`/`effect`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Lire un `viewChild` dans le constructor ou ngOnInit (encore undefined, sauf static)
-> - Croire que `@if` autour de `<ng-content>` empêche l'instanciation du contenu projeté
-
----
-
-## Exemple minimal
-
-```typescript
+```ts
 @Component({
-  selector: 'app-liste',
-  imports: [NgTemplateOutlet],
-  template: `@for (item of items(); track $index) {
-     <ng-container *ngTemplateOutlet="ligne(); context: { $implicit: item }" />
-  }`
+  selector: 'app-card',
+  template: `
+    <article class="card">
+      <header><ng-content select="[card-title]" /></header>   <!-- zone nommée -->
+      <div class="body"><ng-content /></div>                  <!-- tout le reste -->
+      <footer><ng-content select="[card-actions]" /></footer>
+    </article>
+  `,
 })
-export class ListeComponent<T> {
-  items = input.required<T[]>();
-  ligne = contentChild.required(TemplateRef);
-}
-// <app-liste [items]="films"><ng-template let-f>{{ f.titre }}</ng-template></app-liste>
+export class CardComponent {}
 ```
 
-> [!note] Ce que j'en retiens
-> Le parent décide du rendu de chaque ligne, le composant gère la boucle : équivalent des scoped slots Vue.
+```html
+<app-card>
+  <h3 card-title>Inception</h3>
+  <p>Un voleur s'infiltre dans les rêves…</p>
+  <button card-actions type="button">Voir la fiche</button>
+</app-card>
+```
 
----
+Image : un **cadre photo** avec plusieurs emplacements. Le cadre est toujours le même, tu choisis ce que tu y mets.
 
-## Pour aller plus loin (niveau senior)
+## Contenu par défaut
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Concevoir des composants « headless » (logique sans style) avec projection
+```html
+<ng-content select="[card-actions]">
+  <button type="button">Fermer</button>   <!-- affiché si le parent ne fournit rien -->
+</ng-content>
+```
 
----
+## Un modèle que l'enfant remplit avec ses données : `ng-template`
 
-## Connexions
+Quand l'enfant boucle sur une liste mais laisse le parent choisir l'affichage de chaque élément (comme les colonnes du tableau PrimeNG) :
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[VUE-12-Slots|Slots Vue.js]]
+```ts
+@Component({
+  selector: 'app-list',
+  imports: [NgTemplateOutlet],
+  template: `
+    @for (item of items(); track $index) {
+      <ng-container *ngTemplateOutlet="itemTemplate(); context: { $implicit: item }" />
+    }
+  `,
+})
+export class ListComponent<T> {
+  items = input.required<T[]>();
+  itemTemplate = contentChild.required<TemplateRef<{ $implicit: T }>>(TemplateRef);
+}
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/ang-22-content-projection-queries]]
-- Projet → [[02_Projects/CinéTrack]]
+```html
+<app-list [items]="movies()">
+  <ng-template let-movie><strong>{{ movie.title }}</strong> ({{ movie.year }})</ng-template>
+</app-list>
+```
 
----
+Tu t'en serviras surtout en **lisant** du code de librairie. Dans tes projets, `ng-content` suffit presque toujours.
 
-## Auto-vérification
+## `viewChild` : accéder à un élément
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quand préférer `ng-template` à `ng-content` ?
+```ts
+@Component({
+  template: `<input #search type="search"> <button type="button" (click)="focus()">🔍</button>`,
+})
+export class SearchComponent {
+  search = viewChild.required<ElementRef<HTMLInputElement>>('search');
+  focus() { this.search().nativeElement.focus(); }
+}
+```
 
----
+| Fonction | Cherche dans | Exemple |
+|---|---|---|
+| `viewChild` | **son propre** template | un champ, un composant enfant |
+| `viewChildren` | son template (plusieurs) | toutes les cartes |
+| `contentChild` | le contenu **projeté** par le parent | le `ng-template` ci-dessus |
 
-## Tâches
+## Pièges
 
-- [ ] #task Créer un composant `Carte` à 3 emplacements et une `Modale` projetée
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Accéder à `viewChild` dans le constructeur** : pas encore disponible. Utilise-le dans une méthode ou dans `afterNextRender`.
+- **Utiliser `viewChild` pour faire communiquer deux composants** : préfère `input` / `output`.

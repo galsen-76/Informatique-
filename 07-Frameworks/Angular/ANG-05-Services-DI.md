@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,11 +10,7 @@ aliases:
 tags:
   - frameworks/angular/services-di
 parent: "[[Angular]]"
-children:
-  - "[[ANG-05-Services-DI|Hiérarchie des injecteurs Angular]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-service-basique]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/di"
@@ -22,136 +18,91 @@ source: "https://angular.dev/guide/di"
 
 # Services & Injection de Dépendances (DI) Angular
 
-> [!abstract] Introduction
-> Un service centralise une logique partagée entre composants ; l'injection de dépendances la fournit automatiquement à qui en a besoin.
+> [!abstract] En bref
+> Un **service** est une classe qui contient une logique partagée : les appels à TMDB, la liste des favoris, l'utilisateur connecté. L'**injection de dépendances** (DI), c'est Angular qui **te fournit** le service quand tu le demandes avec `inject()`, au lieu que tu le crées toi-même.
 
-> [!warning]- Prérequis
-> [[ANG-02-Composants|Composants Angular]], [[ARCH-07-Design-Patterns-Fondamentaux|pattern Singleton]] (le fonctionnement par défaut d'un service).
+## L'image
 
----
+Au restaurant, tu ne vas pas en cuisine chercher ton plat : tu **demandes**, et on te l'apporte. Avec la DI, un composant dit « j'ai besoin de `MoviesApi` », et Angular le lui apporte, déjà prêt.
 
-## Théorie
+## Créer et utiliser un service
 
-> [!question]- C'est quoi ?
-> ```typescript
-> @Injectable({ providedIn: 'root' })
-> export class FilmService {
->   obtenirFilms() { return this.films; }
-> }
-> ```
+```ts
+// features/favorites/data/favorites.store.ts
+import { Injectable, signal, computed } from '@angular/core';
 
-> [!example]- Analogie
-> Un service est une boîte à outils commune de l'immeuble, accessible depuis chaque appartement (composant) sans que chacun ait à en posséder une copie personnelle.
+@Injectable({ providedIn: 'root' })        // un seul exemplaire pour toute l'app
+export class FavoritesStore {
+  private readonly ids = signal<number[]>([]);
 
-> [!question]- Pourquoi l'utiliser ?
-> Éviter la duplication de logique, partager des données entre composants, séparer affichage et logique métier.
+  readonly count = computed(() => this.ids().length);
+  has = (id: number) => this.ids().includes(id);
 
-> [!question]- Comment ça marche ?
-> ```typescript
-> private filmService = inject(FilmService);  // syntaxe moderne
-> // ou constructor(private filmService: FilmService) {}
-> ```
-> `providedIn: 'root'` = une seule instance partagée dans toute l'app.
-
-> [!question]- Quand l'utiliser ?
-> Dès qu'une logique doit être partagée entre composants, ou pour communiquer avec un serveur.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Mettre TOUTE la logique métier dans un unique service géant recrée le problème qu'on cherchait à éviter — répartir par domaine fonctionnel plutôt qu'avoir un "service fourre-tout".
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `@Injectable` | Décorateur marquant une classe comme service injectable |
-| `providedIn: 'root'` | Une instance unique partagée dans toute l'application |
-| `inject()` | Fonction moderne pour récupérer une dépendance |
-
----
-
-## Points clés
-
-- Service = classe `@Injectable`, sans HTML
-- `providedIn: 'root'` = instance unique partagée
-- Injection via constructeur (classique) ou `inject()` (moderne)
-- Angular gère la création/destruction, jamais de `new` manuel
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `@Injectable` sur une classe censée être un service
-> - Instancier soi-même un service avec `new`, perdant le partage garanti par Angular
-
----
-
-## Paramètres / Configuration
-
-| Option | Description | Notes |
-|-----------|-------------|-------|
-| `providedIn: 'root'` | Instance unique globale | Cas le plus courant |
-| `providedIn: 'any'` | Une instance par injecteur lazy | Déprécié, à éviter |
-| `providers: []` (composant) | Instance par composant | Isole un état local |
-
----
-
-## Exemple minimal
-
-```typescript
-@Injectable({ providedIn: 'root' })
-export class FilmService {
-  private films = ['Inception'];
-  obtenirFilms() { return this.films; }
+  toggle(id: number) {
+    this.ids.update(list => list.includes(id) ? list.filter(x => x !== id) : [...list, id]);
+  }
 }
 ```
 
-> [!note] Ce que j'en retiens
-> N'importe quel composant injectant `FilmService` reçoit la MÊME instance, donc les mêmes données.
+```ts
+// n'importe quel composant
+export class MovieCardComponent {
+  protected favorites = inject(FavoritesStore);   // Angular le fournit
+}
+```
 
----
+```html
+<button type="button" (click)="favorites.toggle(movie().id)">
+  {{ favorites.has(movie().id) ? '♥' : '♡' }}
+</button>
+```
 
-## Pour aller plus loin (niveau senior)
+**`providedIn: 'root'`** = un seul exemplaire partagé par toute l'application. Le compteur de favoris de l'en-tête et le bouton de la carte voient **les mêmes données**.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Hiérarchie des injecteurs : environnement (root, routes) et éléments (composants) ; `providers` sur une route pour une instance par feature
-> - `InjectionToken` pour injecter des valeurs (configuration) et `inject()` utilisable dans des fonctions (guards, intercepteurs)
+## Pourquoi c'est utile
 
----
+- **Partager** : une seule source de données pour plusieurs composants.
+- **Séparer** : le composant affiche, le service fait le travail.
+- **Tester** : dans un test, on remplace facilement le vrai service par un faux (voir [[ANG-14-Tests|Tests]]).
 
-## Connexions
+## `inject()` ou le constructeur ?
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[ANG-05-Services-DI|Hiérarchie des injecteurs Angular]]
-- À comparer avec → [[VUE-13-Provide-Inject|Provide Inject Vue.js]], [[ARCH-07-Design-Patterns-Fondamentaux|Design Patterns Fondamentaux]]
+```ts
+// Moderne (recommandé)
+private api = inject(MoviesApi);
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-service-basique]]
-- Projet → [[02_Projects/CinéTrack]]
+// Ancien (tu le verras dans du code existant)
+constructor(private api: MoviesApi) {}
+```
 
----
+Les deux font la même chose.
 
-## Auto-vérification
+## Fournir une configuration
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `providedIn: 'root'` est un pattern Singleton, sans utiliser ce mot ?
+```ts
+// core/config/app-config.ts
+export interface AppConfig { apiUrl: string; imageUrl: string }
+export const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
-> [!faq]- Questions d'entretien
-> - Qu'est-ce que l'injection de dépendances dans Angular ?
-> - Quelle différence entre `providedIn: 'root'` et `providers` d'un composant ?
+// app.config.ts
+providers: [{ provide: APP_CONFIG, useValue: environment }]
 
----
+// dans un service
+private config = inject(APP_CONFIG);
+```
 
-## Tâches
+Aucune URL en dur dans les services.
 
-- [ ] #task Créer un `FilmService` centralisant la liste des films
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## Un service par exemplaire de composant
 
----
+Rarement, on veut un service **propre à un composant** (et à ses enfants) :
 
-## Notes brutes
+```ts
+@Component({ providers: [MovieFormState] })   // un nouvel exemplaire pour chaque formulaire
+```
 
-- ? Dans quels cas voudrait-on PLUSIEURS instances d'un même service ?
+## Pièges
+
+- **`inject()` en dehors d'un constructeur ou d'une propriété** (dans une méthode appelée plus tard) : erreur. Appelle-le au moment de la création.
+- **Un service qui fait tout** (API + état + formatage) : sépare en `movies.api.ts` et `movies.store.ts` (voir [[ANG-30-Template-Architecture-Angular|architecture]]).
+- **Oublier `providedIn: 'root'`** : erreur « No provider for… ».

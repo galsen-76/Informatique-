@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,12 +10,7 @@ aliases:
 tags:
   - frameworks/angular/change-detection
 parent: "[[Angular]]"
-children:
-  - "[[ANG-11-Detection-de-changement|Zone.js]]"
-  - "[[ANG-11-Detection-de-changement|OnPush]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-onpush]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/change-detection"
@@ -23,126 +18,69 @@ source: "https://angular.dev/guide/change-detection"
 
 # Détection de Changement (Change Detection) Angular
 
-> [!abstract] Introduction
-> Mécanisme par lequel Angular décide QUAND revérifier l'écran pour voir si quelque chose a changé.
+> [!abstract] En bref
+> La **détection de changement**, c'est le moment où Angular revérifie tes composants pour mettre l'écran à jour. Historiquement, il revérifiait **tout** après chaque clic ou réponse réseau. Aujourd'hui, avec les **signals** et **`OnPush`**, il ne revérifie que ce qui a vraiment changé. Ce qu'il faut retenir : `OnPush` partout, et des signals.
 
-> [!warning]- Prérequis
-> [[ANG-02-Composants|Composants Angular]], [[ANG-10-Signals|Signals Angular]] (pour comprendre l'alternative moderne).
+## Les deux façons de fonctionner
 
----
+| | Ancienne (Zone.js, par défaut) | Moderne (OnPush + signals, zoneless) |
+|---|---|---|
+| Quand Angular vérifie | après **chaque** événement (clic, minuteur, requête) | quand un **signal** lu par le composant change, ou une entrée |
+| Quoi | **tous** les composants | seulement les composants concernés |
+| Performance | correcte, mais gaspille | excellente |
 
-## Théorie
+Image : l'ancienne méthode, c'est un gardien qui **fait le tour de tout l'immeuble** à chaque bruit. La moderne, ce sont des **détecteurs dans chaque pièce** qui ne sonnent que là où il se passe quelque chose.
 
-> [!question]- C'est quoi ?
-> Historiquement, Zone.js espionne toute action asynchrone (clic, timer, réponse réseau) pour dire à Angular "revérifie tout l'écran".
+**Zone.js** est une librairie qui détectait tous les événements du navigateur pour déclencher la vérification. Les versions récentes d'Angular peuvent s'en passer (mode *zoneless*), et c'est la direction prise par le framework.
 
-> [!example]- Analogie
-> La stratégie par défaut est un gardien qui refait le tour complet du bâtiment à chaque bruit, même minime. `OnPush` est un gardien qui ne vérifie QUE la pièce concernée par le bruit précis. Les signals sont un système d'alarme qui sait EXACTEMENT quelle pièce a été touchée, sans faire de tour du tout.
+## Ce que tu fais concrètement
 
-> [!question]- Pourquoi l'utiliser ?
-> Éviter de tout revérifier à chaque petit événement, ce qui ralentit une grosse application.
+1. **`OnPush` sur chaque composant**
 
-> [!question]- Comment ça marche ?
-> ```typescript
-> @Component({ changeDetection: ChangeDetectionStrategy.OnPush })
-> ```
-> Avec `OnPush`, le composant ne se revérifie que si un `@Input` change PAR RÉFÉRENCE, un événement de SON propre template survient, ou un signal lu change.
-
-> [!question]- Quand l'utiliser ?
-> `OnPush` sur les composants d'affichage recevant des données simples ; signals + zoneless pour les nouveaux projets.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `OnPush` piège classique : modifier une propriété d'un objet sans changer sa référence (`film.titre = 'X'`) n'est PAS détecté — il faut remplacer l'objet entier.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Zone.js | Outil espionnant les actions asynchrones pour déclencher une vérification |
-| Référence | Identité de l'objet en mémoire, pas juste sa valeur interne |
-
----
-
-## Points clés
-
-- Par défaut, Angular revérifie plus que nécessaire à cause de Zone.js
-- `OnPush` limite les vérifications, nécessite de comprendre la notion de référence
-- Les signals rendent la détection granulaire par nature
-- Le mode zoneless (`provideZonelessChangeDetection()`) est stable dans les versions récentes et devient le défaut des nouveaux projets : la détection est déclenchée par les signals, les événements du template et `markForCheck`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Modifier une propriété d'un objet `@Input` sans changer sa référence en `OnPush` — Angular ne détecte rien
-> - Activer `OnPush` sans comprendre ses conditions de déclenchement, causant un affichage figé
-
----
-
-## Paramètres / Configuration
-
-| Stratégie | Description |
-|-----------|-------------|
-| `Default` | Revérifie à chaque événement global |
-| `OnPush` | Revérifie seulement si `@Input` change par référence ou signal modifié |
-
----
-
-## Exemple minimal
-
-```typescript
-@Component({ changeDetection: ChangeDetectionStrategy.OnPush })
-export class FilmCardComponent {
-  @Input() film!: { titre: string };
-}
+```ts
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  …
+})
 ```
 
-> [!note] Ce que j'en retiens
-> `film.titre = 'Nouveau'` ne serait PAS détecté ici — il faudrait `film = { ...film, titre: 'Nouveau' }` pour changer la référence.
+Un composant `OnPush` n'est revérifié que si :
+- un de ses **inputs** reçoit une nouvelle valeur ;
+- un **signal** lu dans son template change ;
+- un événement se produit **dans** ce composant ;
+- un Observable affiché avec `| async` émet.
 
----
+2. **Des signals pour l'état** : ils préviennent Angular tout seuls.
 
-## Pour aller plus loin (niveau senior)
+3. **Remplacer les objets au lieu de les modifier**
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Réponse à la note brute : en zoneless, Angular planifie un rendu quand un signal lu par un template change, lors d'un événement du template, ou via `ChangeDetectorRef.markForCheck()`
-> - Diagnostiquer avec Angular DevTools (profiler de détection de changement)
+```ts
+// ❌ OnPush ne voit rien : c'est le même tableau
+this.movies().push(movie);
 
----
+// ✅ nouveau tableau → changement détecté
+this.movies.update(list => [...list, movie]);
+```
 
-## Connexions
+## Mode zoneless
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[ANG-11-Detection-de-changement|Zone.js]], [[ANG-11-Detection-de-changement|OnPush]]
-- À comparer avec → [[ANG-10-Signals|Signals Angular]]
+```ts
+// app.config.ts
+providers: [provideZonelessChangeDetection()]
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-onpush]]
-- Projet → [[02_Projects/CinéTrack]]
+Selon ta version d'Angular, c'est déjà le mode par défaut des nouveaux projets. Condition pour que ça marche : ton état passe par des **signals** (ou `async`), pas par des variables modifiées « en douce ».
 
----
+## Symptôme typique
 
-## Auto-vérification
+> « Ma donnée a changé (je la vois dans la console), mais l'écran ne se met pas à jour. »
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `film.titre = 'X'` ne déclenche rien en `OnPush` ?
+Causes probables :
+- tu as modifié un tableau ou un objet **sans le remplacer** ;
+- tu as modifié une **variable simple** (pas un signal) dans un `setTimeout` ou un `subscribe` d'un composant `OnPush` / zoneless.
 
-> [!faq]- Questions d'entretien
-> - Qu'est-ce que la stratégie OnPush et quels pièges comporte-t-elle ?
+Solution : utilise un signal et `set` / `update`.
 
----
+## Pour voir ce qui se passe
 
-## Tâches
-
-- [ ] #task Activer `OnPush` sur des composants d'affichage et observer le comportement
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Comment un projet Angular "zoneless" déclenche-t-il la vérification sans Zone.js ?
+**Angular DevTools** → onglet Profiler : montre chaque cycle de vérification et les composants concernés.

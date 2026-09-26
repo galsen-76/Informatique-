@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,11 +10,7 @@ aliases:
 tags:
   - frameworks/angular/tests
 parent: "[[Angular]]"
-children:
-  - "[[ANG-14-Tests|TestBed]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-test-composant]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/testing"
@@ -22,138 +18,101 @@ source: "https://angular.dev/guide/testing"
 
 # Tests Angular
 
-> [!abstract] Introduction
-> Vérifier automatiquement qu'un composant ou service se comporte comme prévu, avec `TestBed` et un runner : historiquement Jasmine + Karma (Karma est déprécié), aujourd'hui Vitest (défaut des nouveaux projets récents) ou Jest.
+> [!abstract] En bref
+> Les tests vérifient automatiquement que ton code fonctionne, à chaque modification. En Angular, on teste d'abord ce qui contient de la **logique** (mappers, stores, services), puis les composants importants avec **`TestBed`** (l'outil d'Angular pour créer un composant en test). Le lanceur de tests est Vitest dans les projets récents (Jasmine / Karma dans les anciens).
 
-> [!warning]- Prérequis
-> [[ANG-02-Composants|Composants Angular]], [[ANG-05-Services-DI|Services et DI Angular]].
+## Lancer les tests
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```typescript
-> describe('FilmService', () => {
->   it('devrait retourner une liste vide', () => {
->     expect(service.obtenirFilms()).toEqual([]);
->   });
-> });
-> ```
-
-> [!example]- Analogie
-> `TestBed` est un plateau de tournage miniature : il recrée un mini-environnement Angular contrôlé pour tester un composant sans avoir besoin de toute l'application réelle autour.
-
-> [!question]- Pourquoi l'utiliser ?
-> Détecter des régressions sans devoir vérifier manuellement toute l'application à chaque modification.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> const fixture = TestBed.createComponent(FilmCardComponent);
-> fixture.componentInstance.titre = 'Inception';
-> fixture.detectChanges();
-> ```
-> Une `fixture` donne accès au composant ET à son HTML réellement affiché.
-
-> [!question]- Quand l'utiliser ?
-> Tester chaque service, les composants critiques (formulaires, calculs), et les cas e2e via Cypress/Playwright.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Oublier `fixture.detectChanges()` fait échouer un test qui vérifie le HTML — Angular ne met pas à jour l'affichage automatiquement pendant un test.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| `TestBed` | Environnement Angular recréé pour tester isolément |
-| `fixture` | Conteneur de test donnant accès au composant et à son HTML |
-| Mock | Fausse version simplifiée d'un service pour isoler le test |
-
----
-
-## Points clés
-
-- Historique : Jasmine (syntaxe) + Karma (exécuteur, déprécié) ; aujourd'hui : Vitest ou Jest avec la même API `describe/it/expect`
-- `TestBed.createComponent` crée une instance de test
-- `fixture.detectChanges()` force la mise à jour de l'affichage
-- Mocker un service évite de dépendre d'un vrai serveur
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier `fixture.detectChanges()` après avoir modifié une propriété du composant
-> - Tester sans mocker un service dépendant d'un vrai appel réseau, rendant le test fragile
-> - Ne tester que le "happy path", jamais les cas d'erreur
-
----
-
-## Paramètres / Configuration
-
-| Élément | Description |
-|-----------|-------------|
-| `describe(nom, fn)` | Regroupe des tests |
-| `it(nom, fn)` | Un test individuel |
-| `TestBed.createComponent(X)` | Instance de test d'un composant |
-| `fixture.detectChanges()` | Force la mise à jour d'affichage |
-
----
-
-## Exemple minimal
-
-```typescript
-const fixture = TestBed.createComponent(FilmCardComponent);
-fixture.componentInstance.titre = 'Inception';
-fixture.detectChanges();
-expect(fixture.nativeElement.querySelector('h2').textContent).toContain('Inception');
+```bash
+ng test                 # lance les tests (en surveillance)
+ng test --no-watch      # une fois (CI)
 ```
 
-> [!note] Ce que j'en retiens
-> `detectChanges()` est indispensable pour que le HTML reflète la modification faite juste avant.
+Les fichiers `*.spec.ts` sont à côté du fichier testé.
 
----
+## 1. Une fonction pure : le mapper
 
-## Pour aller plus loin (niveau senior)
+```ts
+describe('toMovie', () => {
+  it('construit l\'URL de l\'affiche et extrait l\'année', () => {
+    const dto = { id: 1, title: 'Dune', poster_path: '/d.jpg', release_date: '2021-09-15', vote_average: 7.8 };
+    expect(toMovie(dto, 'https://img/')).toEqual({
+      id: 1, title: 'Dune', poster: 'https://img//d.jpg', year: 2021, rating: 7.8,
+    });
+  });
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Tester les composants par le DOM et les rôles (Angular Testing Library) plutôt que par l'instance
-> - Voir [[TEST-01-Pyramide-des-Tests|Pyramide des Tests]], [[TEST-03-Mocks-Stubs-Spies|Mocks Stubs et Spies]], [[TEST-05-Tests-E2E-Playwright|Tests End-to-End Playwright et Cypress]]
+  it('gère une affiche absente', () => {
+    expect(toMovie({ ...dto, poster_path: null }, 'x').poster).toBeNull();
+  });
+});
+```
 
----
+Le plus simple et le plus rentable : pas besoin de `TestBed`.
 
-## Connexions
+## 2. Un store, avec une fausse API
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[ANG-14-Tests|TestBed]]
-- À comparer avec → [[PY-14-Tests-Pytest|Tests Pytest]]
+```ts
+describe('MoviesStore', () => {
+  it('passe en succès avec les films reçus', () => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: MoviesApi, useValue: { popular: () => of([dune]) } }],   // faux service
+    });
+    const store = TestBed.inject(MoviesStore);
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-test-composant]]
-- Projet → [[02_Projects/CinéTrack]]
+    store.load();
 
----
+    expect(store.movies()).toEqual([dune]);
+    expect(store.loading()).toBe(false);
+  });
+});
+```
 
-## Auto-vérification
+Remplacer un service par un faux, c'est tout l'intérêt de l'[[ANG-05-Services-DI|injection de dépendances]].
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `detectChanges()` est nécessaire dans un test, sans dire "détection de changement" ?
+## 3. Un composant
 
-> [!faq]- Questions d'entretien
-> - Comment testez-vous un composant qui dépend d'un service HTTP ?
+```ts
+describe('MovieCardComponent', () => {
+  it('affiche le titre et émet favorite au clic', async () => {
+    const fixture = TestBed.createComponent(MovieCardComponent);
+    fixture.componentRef.setInput('movie', dune);   // donner une valeur à un input
+    await fixture.whenStable();
 
----
+    const el: HTMLElement = fixture.nativeElement;
+    expect(el.textContent).toContain('Dune');
 
-## Tâches
+    const spy = vi.fn();
+    fixture.componentInstance.favorite.subscribe(spy);
+    el.querySelector('button')!.click();
+    expect(spy).toHaveBeenCalledWith(dune.id);
+  });
+});
+```
 
-- [ ] #task Écrire les premiers tests pour un service Angular
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+## 4. Un service HTTP
 
----
+```ts
+TestBed.configureTestingModule({
+  providers: [provideHttpClient(), provideHttpClientTesting(), { provide: APP_CONFIG, useValue: config }],
+});
+const api = TestBed.inject(MoviesApi);
+const http = TestBed.inject(HttpTestingController);
 
-## Notes brutes
+api.popular().subscribe(movies => expect(movies[0].title).toBe('Dune'));
+http.expectOne(r => r.url.endsWith('/movie/popular')).flush({ results: [duneDto] });
+```
 
-- ? Bonne proportion entre tests unitaires et e2e en entreprise ?
+## Quoi tester en priorité
+
+| Priorité | Quoi |
+|---|---|
+| ⭐⭐⭐ | mappers, fonctions de calcul, stores |
+| ⭐⭐ | composants avec logique (formulaire, filtre), guards |
+| ⭐ | composants qui ne font qu'afficher |
+| E2E | le parcours principal avec [[TEST-05-Tests-E2E-Playwright\|Playwright]] |
+
+## Pièges
+
+- **Tester les détails internes** (une propriété privée) : le test casse au moindre changement. Teste ce qui est visible et ce qui est renvoyé.
+- **Oublier `await fixture.whenStable()`** après un changement : l'affichage n'est pas encore à jour.
+- **Appeler la vraie API** dans un test : lent et instable. Toujours un faux service ou `HttpTestingController`.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,10 +10,7 @@ aliases:
 tags:
   - frameworks/angular/i18n-a11y
 parent: "[[Angular]]"
-children: []
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-i18n]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/i18n"
@@ -21,129 +18,65 @@ source: "https://angular.dev/guide/i18n"
 
 # Internationalisation & Accessibilité Angular
 
-> [!abstract] Introduction
-> L'i18n adapte une application à plusieurs langues, l'a11y la rend utilisable par des personnes en situation de handicap.
+> [!abstract] En bref
+> **i18n** (*internationalisation*) : proposer l'application en plusieurs langues et formater dates et nombres selon le pays. **a11y** (*accessibilité*) : la rendre utilisable par tous, au clavier et avec un lecteur d'écran. Deux sujets souvent exigés en entreprise, surtout pour des applications publiques.
 
-> [!warning]- Prérequis
-> [[ANG-03-Templates-Data-Binding|Templates et Data Binding Angular]].
+## Formater selon la langue : les pipes
 
----
+```ts
+// app.config.ts
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```html
-> <h1 i18n="@@titrePage">Bienvenue</h1>
-> <button aria-label="Ajouter aux favoris"><img alt=""></button>
-> ```
-
-> [!example]- Analogie
-> `aria-label` est un panneau en braille collé sous une icône muette pour les visiteurs qui ne peuvent pas voir l'image elle-même.
-
-> [!question]- Pourquoi l'utiliser ?
-> i18n : disponibilité multi-langue sans dupliquer le code. a11y : obligation légale fréquente et surtout inclusion réelle des utilisateurs.
-
-> [!question]- Comment ça marche ?
-> `i18n="@@id"` marque un texte traduisible, générant un fichier par langue au build. `aria-label` décrit un élément pour les lecteurs d'écran.
-
-> [!question]- Quand l'utiliser ?
-> i18n dès qu'une app doit exister en plusieurs langues ; a11y dès la conception, pas en correction après coup.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Ajouter des attributs `aria-*` partout sans utiliser les bonnes balises sémantiques HTML (`<button>` plutôt qu'un `<div>` cliquable) est un pansement, pas une vraie solution d'accessibilité.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| i18n | Internationalisation, rendre une app traduisible |
-| a11y | Accessibilité, utilisabilité pour tous |
-| `aria-label` | Description invisible visuellement, lue par un lecteur d'écran |
-
----
-
-## Points clés
-
-- `i18n` génère une version compilée par langue
-- `aria-*` enrichit le HTML pour les lecteurs d'écran
-- Les bonnes balises sémantiques valent souvent mieux que des `aria-*` ajoutés partout
-- L'accessibilité bénéficie à tous, pas seulement aux personnes en situation de handicap
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Utiliser un `<div>` cliquable au lieu d'un `<button>`, cassant la navigation au clavier
-> - Oublier `alt=""` sur une image purement décorative
-> - Traiter l'accessibilité comme une correction finale plutôt qu'un critère de conception
-
----
-
-## Paramètres / Configuration
-
-| Attribut | Description |
-|-----------|-------------|
-| `i18n="@@id"` | Marque un texte traduisible |
-| `aria-label` | Décrit un élément pour lecteur d'écran |
-| `alt` | Texte alternatif d'image |
-| `tabindex` | Ordre de navigation au clavier |
-
----
-
-## Exemple minimal
-
-```html
-<button aria-label="Ajouter ce film aux favoris" (click)="ajouterFavori()">
-  <img src="coeur.svg" alt="">
-</button>
+providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }]
 ```
 
-> [!note] Ce que j'en retiens
-> Le bouton reste compréhensible pour un lecteur d'écran même sans texte visible.
+```html
+{{ movie().releaseDate | date: 'longDate' }}   <!-- 15 septembre 2021 -->
+{{ budget | currency: 'EUR' }}                  <!-- 165 000 000,00 € -->
+{{ rating | number: '1.1-1' }}                  <!-- 7,8 -->
+```
 
----
+## Traduire l'application
 
-## Pour aller plus loin (niveau senior)
+Deux approches :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Alternatives à `@angular/localize` : Transloco ou ngx-translate (traduction à l'exécution, sans rebuild par langue)
-> - Angular CDK a11y : `FocusTrap`, `LiveAnnouncer`, `FocusMonitor` ; audit RGAA
+| | `@angular/localize` (officiel) | **Transloco** / ngx-translate |
+|---|---|---|
+| Principe | textes marqués `i18n` dans le HTML, **un build par langue** | fichiers JSON de traductions, **changement de langue en direct** |
+| Idéal pour | sites publics, performance | applications métier, choix de langue par l'utilisateur |
 
----
+```html
+<!-- @angular/localize -->
+<h1 i18n>Films populaires</h1>
 
-## Connexions
+<!-- Transloco -->
+<h1>{{ 'movies.popular' | transloco }}</h1>
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[HTML-01-Structure-Semantique|HTML sémantique]]
+Pour CinéTrack, le français seul suffit. Retiens surtout : **pas de texte écrit en dur dans le TypeScript** si l'application doit être traduite un jour.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-i18n]]
-- Projet → [[02_Projects/CinéTrack]]
+## Accessibilité : ce qu'Angular t'aide à faire
 
----
+Les règles générales sont dans [[HTML-03-Accessibilite-Web|Accessibilité web]]. Spécifique à Angular :
 
-## Auto-vérification
+| Besoin | Outil |
+|---|---|
+| Attributs ARIA dynamiques | `[attr.aria-expanded]="open()"` |
+| Annoncer un changement (« 20 films chargés ») | `LiveAnnouncer` du CDK |
+| Garder le focus dans une modale | `cdkTrapFocus` du CDK |
+| Titre de page à chaque route | `title` dans les routes |
+| Composants accessibles tout faits | PrimeNG, Angular Material, Angular Aria |
+| Vérifier | Lighthouse, extension axe DevTools, `eslint-plugin` template accessibility |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi `<button>` est préférable à `<div (click)>`, sans dire "accessibilité" ?
+```ts
+private announcer = inject(LiveAnnouncer);
+this.announcer.announce(`${count} films trouvés`);
+```
 
-> [!faq]- Questions d'entretien
-> - Comment rendez-vous une application Angular accessible ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Auditer l'accessibilité de CinéTrack avec Lighthouse
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Alternatives à `@angular/localize` pour gérer les traductions ?
+- **Un `div (click)`** : pas de clavier ni de lecteur d'écran. Utilise `<button>`.
+- **Changer de page sans déplacer le focus ni changer le titre** : l'utilisateur du lecteur d'écran ne sait pas que la page a changé.
+- **Concaténer des traductions** (`'Bonjour ' + nom`) : l'ordre des mots change selon les langues. Utilise des paramètres (`Bonjour {{name}}`).

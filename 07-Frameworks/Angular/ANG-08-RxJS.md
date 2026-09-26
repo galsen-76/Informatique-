@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,12 +10,7 @@ aliases:
 tags:
   - frameworks/angular/rxjs
 parent: "[[Angular]]"
-children:
-  - "[[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]]"
-  - "[[ANG-10-Signals|Signals Angular]]"
 related_theory: []
-related_snippets:
-  - "[[04_Snippets/angular-rxjs-basique]]"
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/rxjs"
@@ -23,133 +18,97 @@ source: "https://angular.dev/guide/rxjs"
 
 # Programmation Réactive (RxJS) Angular
 
-> [!abstract] Introduction
-> RxJS manipule des flux de valeurs arrivant dans le temps (clics, réponses serveur), en les combinant comme un tableau classique.
+> [!abstract] En bref
+> **RxJS** manipule des **flux** : des valeurs qui arrivent les unes après les autres dans le temps (les lettres tapées dans une recherche, les réponses d'une API). On les transforme avec des **opérateurs**, comme on transforme un tableau avec `map` et `filter`. Angular l'utilise pour `HttpClient`, le routeur et les formulaires.
 
-> [!warning]- Prérequis
-> [[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]].
+## L'image : un tapis roulant
 
----
+Une **Promise** est un colis livré **une fois**. Un **Observable** est un **tapis roulant** : des objets arrivent au fil du temps, et tu places des machines (opérateurs) le long du tapis pour les trier, les transformer, les ralentir.
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> Un `Observable` représente un flux ; on s'y abonne avec `.subscribe()` pour recevoir ses valeurs.
-
-> [!example]- Analogie
-> Un `Observable` est un abonnement à une newsletter : tu t'inscris (`subscribe`) et reçois les nouvelles éditions au fil du temps, sans avoir à revérifier ta boîte mail toi-même.
-
-> [!question]- Pourquoi l'utiliser ?
-> Gérer des événements asynchrones combinés (attendre un délai, annuler la requête précédente) sans des dizaines de `setTimeout` manuels.
-
-> [!question]- Comment ça marche ?
-> ```typescript
-> recherche$.pipe(
->   debounceTime(300),
->   switchMap(texte => this.http.get(`/api/films?q=${texte}`))
-> ).subscribe(resultats => console.log(resultats));
-> ```
-
-> [!question]- Quand l'utiliser ?
-> Requêtes HTTP, événements combinés dans le temps, formulaires réactifs. Pour du simple état local sans notion de temps, [[ANG-10-Signals|Signals Angular]] est souvent préféré aujourd'hui.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Oublier de se désabonner crée une fuite de mémoire — le composant peut disparaître mais l'abonnement continue de tourner en arrière-plan.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Observable | Objet représentant un flux de valeurs dans le temps |
-| Opérateur | Fonction transformant un flux via `.pipe()` |
-| `switchMap` | Annule le flux précédent si un nouveau démarre |
-
----
-
-## Points clés
-
-- `.subscribe()` déclenche la réception des valeurs
-- `.pipe()` enchaîne des opérateurs de transformation
-- Toujours se désabonner (ou utiliser l'`async pipe`)
-- `debounceTime`, `switchMap`, `catchError` sont les opérateurs les plus courants
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Oublier de se désabonner, créant une fuite de mémoire
-> - Utiliser `mergeMap` là où `switchMap` était nécessaire (garder d'anciennes requêtes obsolètes)
-> - Confondre `Observable` (flux) et `Promise` (valeur unique différée)
-
----
-
-## Paramètres / Configuration
-
-| Opérateur | Description |
-|-----------|-------------|
-| `map` | Transforme chaque valeur |
-| `filter` | Garde certaines valeurs |
-| `debounceTime(ms)` | Attend un délai de silence |
-| `switchMap` | Annule le flux précédent |
-| `catchError` | Intercepte une erreur |
-
----
-
-## Exemple minimal
-
-```typescript
-this.recherche.valueChanges.pipe(
-  debounceTime(300),
-  switchMap(texte => this.http.get(`/api/films?q=${texte}`))
-).subscribe(resultats => console.log(resultats));
+```mermaid
+flowchart LR
+  A["frappes :<br/>i, in, inc, ince…"] --> B["debounceTime(300)<br/>attendre une pause"]
+  B --> C["distinctUntilChanged<br/>ignorer les doublons"]
+  C --> D["switchMap<br/>appel API, annule le précédent"]
+  D --> E["résultats"]
 ```
 
-> [!note] Ce que j'en retiens
-> `debounceTime` attend que l'utilisateur arrête de taper, `switchMap` annule automatiquement la requête précédente si une nouvelle démarre.
+## Le vocabulaire minimum
 
----
+| Mot | Sens |
+|---|---|
+| **Observable** | le flux (le tapis roulant) |
+| **subscribe** | se brancher au flux pour recevoir les valeurs |
+| **opérateur** | une transformation, dans `.pipe(…)` |
+| `$` à la fin du nom | convention : `search$` est un Observable |
 
-## Pour aller plus loin (niveau senior)
+**Rien ne se passe tant que personne ne s'abonne.** Un `http.get()` sans `subscribe` (ou sans `async` / `toSignal`) n'envoie aucune requête.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Désabonnement moderne : `takeUntilDestroyed()`, `async` pipe ou `toSignal()`
-> - Voir [[ANG-24-RxJS-Avance|RxJS Avancé]] pour Subjects, opérateurs d'aplatissement et partage
+## Le cas de CinéTrack : la recherche
 
----
+```ts
+export class SearchPage {
+  private api = inject(MoviesApi);
+  search = new FormControl('', { nonNullable: true });
 
-## Connexions
+  results = toSignal(
+    this.search.valueChanges.pipe(
+      debounceTime(300),                  // attend 300 ms sans frappe
+      map(t => t.trim()),
+      distinctUntilChanged(),             // ignore si le texte n'a pas changé
+      filter(t => t.length >= 2),         // au moins 2 lettres
+      switchMap(t => this.api.search(t)), // annule la recherche précédente
+    ),
+    { initialValue: [] as Movie[] },
+  );
+}
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Angular]]
-- Sous-sujets → [[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]], [[ANG-10-Signals|Signals Angular]]
-- À comparer avec → [[ANG-10-Signals|Signals Angular]]
+```html
+<input type="search" [formControl]="search" placeholder="Rechercher un film">
+@for (m of results(); track m.id) { <app-movie-card [movie]="m" /> }
+```
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/angular-rxjs-basique]]
-- Projet → [[02_Projects/CinéTrack]]
+Sans `switchMap`, une réponse lente pour « inc » pourrait arriver **après** celle de « inception » et écraser le bon résultat.
 
----
+## Les opérateurs à connaître d'abord
 
-## Auto-vérification
+| Opérateur | Comme… | Rôle |
+|---|---|---|
+| `map` | `Array.map` | transformer chaque valeur |
+| `filter` | `Array.filter` | laisser passer certaines valeurs |
+| `debounceTime(ms)` | | attendre une pause |
+| `distinctUntilChanged()` | | ignorer les répétitions |
+| `switchMap` | | lancer un appel, **annuler le précédent** |
+| `catchError` | `try/catch` | gérer une erreur |
+| `tap` | | effet de bord (log), sans rien changer |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi ne PAS se désabonner cause une fuite de mémoire, sans dire "Observable" ?
+Les autres (`mergeMap`, `combineLatest`, `shareReplay`…) : [[ANG-24-RxJS-Avance|RxJS avancé]].
 
-> [!faq]- Questions d'entretien
-> - Qu'est-ce qu'un Observable ? Différence avec une Promise ?
+## Se désabonner
 
----
+Un abonnement qui reste ouvert après la destruction du composant = fuite mémoire. Les solutions, de la plus simple :
 
-## Tâches
+1. **`toSignal(obs$)`** : se désabonne tout seul. **À privilégier.**
+2. **`| async`** dans le template : pareil.
+3. **`takeUntilDestroyed()`** si tu fais un `subscribe` manuel :
+   ```ts
+   this.store.events$.pipe(takeUntilDestroyed()).subscribe(e => …);
+   ```
 
-- [ ] #task Implémenter une recherche avec `debounceTime` + `switchMap`
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Les appels `HttpClient` se terminent seuls après la réponse : pas de fuite.
 
----
+## Signals ou RxJS ?
 
-## Notes brutes
+| Besoin | Outil |
+|---|---|
+| un **état** (liste, compteur, utilisateur) | signal |
+| un **flux d'événements dans le temps** (frappes, websocket, annulation) | RxJS |
 
-- ? Dans quels cas choisir `mergeMap` ou `concatMap` plutôt que `switchMap` ?
+On passe de l'un à l'autre avec `toSignal` et `toObservable` (voir [[ANG-23-Signals-Avances|Signals avancés]]).
+
+## Pièges
+
+- **`subscribe` dans un `subscribe`** : utilise `switchMap`.
+- **Oublier de gérer l'erreur** : une erreur arrête définitivement le flux. Ajoute `catchError`.
+- **Tout faire en RxJS** : pour un simple état, un signal est plus lisible.
