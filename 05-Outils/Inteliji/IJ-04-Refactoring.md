@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,113 +10,71 @@ aliases:
 tags:
   - outils/intellij/refactoring
 parent: "[[IntelliJ IDEA]]"
-children: []
 related_theory: []
-related_snippets: []
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://www.jetbrains.com/help/idea/refactoring-source-code.html"
 ---
 
-# Refactoring dans IntelliJ
+# Refactoring IntelliJ
 
-> [!abstract] Introduction
-> Modifier la structure du code (renommer, déplacer) sans changer son comportement, avec la garantie qu'aucun usage n'est cassé ailleurs dans le projet.
+> [!abstract] En bref
+> **Refactoriser**, c'est améliorer la structure du code (renommer, découper, déplacer) **sans changer ce qu'il fait**. IntelliJ le fait en toute sécurité : il met à jour **tous** les usages dans le projet, y compris les imports et les templates. Bien plus fiable qu'un rechercher-remplacer.
 
-> [!warning]- Prérequis
-> [[IJ-03-Navigation-Recherche|Navigation et Recherche IntelliJ]].
+## Les refactorings du quotidien
 
----
+| Besoin | Raccourci | Exemple |
+|---|---|---|
+| **Renommer** | `Shift+F6` | `data` → `movies` partout, fichiers compris |
+| **Extraire une variable** | `Ctrl+Alt+V` | une expression longue → une variable bien nommée |
+| **Extraire une fonction** | `Ctrl+Alt+M` | 15 lignes → `filterByGenre()` |
+| **Extraire une constante** | `Ctrl+Alt+C` | `300` → `SEARCH_DEBOUNCE_MS` |
+| **Remplacer par la valeur** (inline) | `Ctrl+Alt+N` | l'inverse d'extraire |
+| **Changer la signature** | `Ctrl+F6` | ajouter un paramètre, changer l'ordre, partout |
+| **Déplacer** | `F6` | un fichier vers `shared/`, imports mis à jour |
+| **Tous les refactorings** | `Ctrl+Alt+Shift+T` | le menu complet |
 
-## Théorie
+## Exemple : extraire une fonction
 
-> [!question]- C'est quoi ?
-> IntelliJ sait exactement où chaque élément est utilisé (indexation) et peut modifier TOUS les endroits concernés simultanément et de façon fiable.
+```ts
+// Avant : la page fait tout
+const visibles = this.movies().filter(m =>
+  (!this.genre() || m.genres.includes(this.genre()!)) &&
+  m.title.toLowerCase().includes(this.search().toLowerCase()),
+);
+```
 
-> [!example]- Analogie
-> Un simple rechercher-remplacer est un correcteur automatique de texte qui change chaque occurrence du mot "avocat" — même si l'un parlait de fruit et l'autre de métier. Le refactoring IntelliJ comprend le SENS du code, pas juste le texte.
+Sélectionne l'expression → `Ctrl+Alt+M` → nomme-la `filterMovies` :
 
-> [!question]- Pourquoi l'utiliser ?
-> Un rechercher-remplacer classique risque de toucher un mot identique mais dans un contexte différent — IntelliJ comprend le code, pas juste le texte.
+```ts
+// Après : une fonction pure, testable
+const visibles = filterMovies(this.movies(), this.genre(), this.search());
 
-> [!question]- Comment ça marche ?
-> `Shift+F6` renomme partout ; `Cmd/Ctrl+Alt+V` extrait une variable ; `Cmd/Ctrl+Alt+M` extrait une méthode. Déplacer un fichier met à jour automatiquement les imports.
+function filterMovies(movies: Movie[], genre: string | null, search: string) {
+  return movies.filter(m =>
+    (!genre || m.genres.includes(genre)) &&
+    m.title.toLowerCase().includes(search.toLowerCase()),
+  );
+}
+```
 
-> [!question]- Quand l'utiliser ?
-> Renommer dès qu'un nom n'est plus clair ; extraire dès qu'un code se répète ou devient illisible.
+Tu peux ensuite la déplacer (`F6`) dans `movie.utils.ts` et lui écrire un test.
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Utiliser un rechercher-remplacer texte classique (pas le refactoring dédié) pour renommer une variable risque de toucher un mot identique dans un contexte différent.
+## Les petites actions `Alt+Entrée`
 
----
+Sur une ligne, `Alt+Entrée` propose des transformations adaptées : ajouter un import, convertir en fonction fléchée, ajouter le type de retour, inverser un `if`, transformer une concaténation en template string…
 
-## Vocabulaire
+## La méthode sûre
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Refactoriser | Réorganiser du code sans changer son comportement |
+1. **Des tests qui passent** avant de commencer (ou au moins l'application qui marche).
+2. **Un refactoring à la fois**, en le faisant avec l'outil, pas à la main.
+3. **Relancer** tests et application.
+4. **Commiter séparément** : `refactor: extrait filterMovies` dans son propre commit, jamais mélangé à une nouvelle fonctionnalité.
 
----
+Pourquoi et quand refactoriser : [[ARCH-10-Clean-Code|Clean code]].
 
-## Points clés
+## Pièges
 
-- `Shift+F6` renomme en toute sécurité à travers tout le projet
-- Extraction de variable/méthode automatisée
-- Déplacer un fichier met à jour les imports automatiquement
-- Comprend la STRUCTURE, pas juste le texte
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Utiliser un rechercher-remplacer texte au lieu du refactoring dédié pour renommer
-> - Déplacer un fichier manuellement (drag hors d'IntelliJ) au lieu de le glisser dans l'arborescence Project, cassant les imports
-
----
-
-## Paramètres / Configuration
-
-| Action | Raccourci (Mac) |
-|-----------|-------------|
-| Renommer | `Shift+F6` |
-| Extraire une variable | `Cmd+Alt+V` |
-| Extraire une méthode | `Cmd+Alt+M` |
-
----
-
-## Exemple minimal
-> Sujet lié au refactoring d'outil, pas à un extrait de code isolé pertinent — bloc non applicable.
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[IntelliJ IDEA]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[OUT-04-VSCode-Productivite|VSCode - Rename Symbol]]
-
-**Pratique :**
-- Extrait de code → (aucun, sujet non-code)
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi le refactoring IntelliJ est plus sûr qu'un rechercher-remplacer classique ?
-
----
-
-## Tâches
-
-- [ ] #task Renommer une variable mal nommée et observer les changements
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? "Extract Interface" fonctionne-t-il aussi bien en TypeScript qu'en Java ?
+- **Rechercher-remplacer** pour renommer : touche aussi des textes qui n'ont rien à voir, et rate les imports.
+- **Refactoriser et ajouter une fonctionnalité en même temps** : si ça casse, impossible de savoir pourquoi.
+- **Renommer un champ qui vient de l'API** : l'outil met à jour ton code, pas le serveur. Passe par le mapper.

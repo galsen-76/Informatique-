@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,114 +10,65 @@ aliases:
 tags:
   - outils/intellij/git
 parent: "[[IntelliJ IDEA]]"
-children: []
 related_theory: []
-related_snippets: []
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://www.jetbrains.com/help/idea/version-control-integration.html"
 ---
 
-# Git & Contrôle de Version dans IntelliJ
+# Git et Contrôle de Version IntelliJ
 
-> [!abstract] Introduction
-> IntelliJ intègre Git visuellement (commits, branches, conflits) souvent plus riche que l'onglet Source Control natif de VSCode.
+> [!abstract] En bref
+> IntelliJ intègre Git de façon très visuelle : voir ce que tu as modifié, commiter une partie seulement d'un fichier, résoudre un conflit en trois colonnes, parcourir l'historique. Pratique au quotidien, à condition de **connaître les commandes Git** derrière (voir [[GIT-01-Fondamentaux|Git]]).
 
-> [!warning]- Prérequis
-> [[01-GitLab|Fondamentaux GitLab]] ou notions Git de base.
+## Où c'est
 
----
+| Élément | Où |
+|---|---|
+| Branche actuelle, changer de branche | en haut à gauche (nom de la branche) |
+| Modifications en cours, commit | fenêtre **Commit** (`Alt+0`) ou `Ctrl+K` |
+| Historique, branches | fenêtre **Git** (`Alt+9`) → onglet *Log* |
+| Lignes modifiées | couleurs dans la marge (vert = ajout, bleu = modifié, gris = supprimé) |
 
-## Théorie
+## Commiter proprement
 
-> [!question]- C'est quoi ?
-> Marqueurs de changement dans la marge (vert = ajouté, bleu = modifié, rouge = supprimé), fenêtre de commit avec diff, gestion de branches sans ligne de commande.
+1. `Ctrl+K` : la liste des fichiers modifiés s'affiche.
+2. **Double-clic sur un fichier** : le diff avant / après.
+3. Coche seulement les fichiers — ou même seulement **certaines lignes** — qui vont ensemble.
+4. Message au format `feat: …` (voir [[GIT-07-Conventions-Commits-SemVer|Conventions]]).
+5. Options utiles avant le commit : *Reformat code*, *Optimize imports*, *Analyze code*.
+6. **Commit** ou **Commit and Push** (`Ctrl+Shift+K` pour pousser ensuite).
 
-> [!example]- Analogie
-> La vue à 3 colonnes pour résoudre un conflit est comme comparer deux versions d'un même document côte à côte avec un correcteur, plutôt que déchiffrer des symboles `<<<<<<<` en ligne de commande.
+**Changelists** : ranger des modifications dans des « paniers » séparés pour les commiter à des moments différents.
 
-> [!question]- Pourquoi l'utiliser ?
-> Voir immédiatement ce qui a changé ligne par ligne accélère la relecture de son propre travail avant de committer.
+## Résoudre un conflit
 
-> [!question]- Comment ça marche ?
-> `Cmd/Ctrl+K` ouvre la fenêtre de commit avec diff. Le nom de branche cliquable en bas à droite gère créer/changer/fusionner.
+Quand un conflit apparaît, IntelliJ propose **Resolve** :
 
-> [!question]- Quand l'utiliser ?
-> Marqueurs en continu pendant le codage ; fenêtre de commit à chaque validation ; résolution visuelle dès qu'un conflit survient.
+```text
+┌──────────────┬──────────────┬──────────────┐
+│  Ta version  │   Résultat   │ L'autre      │
+│   (gauche)   │   (milieu)   │ (droite)     │
+└──────────────┴──────────────┴──────────────┘
+```
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Pour des opérations Git avancées et rares (rebase interactif complexe, bisect), le terminal reste souvent plus direct que l'interface graphique.
+Clique sur `>>` ou `<<` pour prendre un morceau d'un côté, modifie le résultat au milieu si besoin, puis **Apply**. Beaucoup plus clair que les marqueurs `<<<<<<<` (voir [[GIT-04-Conflits|Conflits]]).
 
----
+## Les autres outils utiles
 
-## Vocabulaire
+| Besoin | Où |
+|---|---|
+| historique d'un fichier | clic droit → *Git → Show History* |
+| qui a écrit cette ligne | clic droit dans la marge → *Annotate with Git Blame* |
+| comparer avec une autre branche | clic droit → *Git → Compare with Branch* |
+| mettre de côté (stash) | *Git → Uncommitted Changes → Stash* |
+| rebase interactif | onglet *Log* → clic droit sur un commit → *Interactively Rebase from Here* |
+| annuler un commit poussé | onglet *Log* → clic droit → *Revert Commit* |
+| retrouver des modifications perdues | clic droit → *Local History* (même hors Git !) |
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Diff | Différences entre deux versions d'un fichier |
-| Conflit de merge | Modifications incompatibles sur la même partie d'un fichier |
+**Local History** garde toutes tes modifications de fichiers, même non commitées : un filet de sécurité précieux.
 
----
+## Pièges
 
-## Points clés
-
-- Marqueurs colorés dans la marge = changements en temps réel
-- `Cmd/Ctrl+K` = fenêtre de commit avec diff
-- Résolution de conflit en vue 3 colonnes
-- Le terminal reste disponible pour ce que l'interface ne couvre pas
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Committer sans relire le diff proposé dans la fenêtre de commit
-> - Ignorer les marqueurs de marge, ratant une modification oubliée avant de committer
-
----
-
-## Paramètres / Configuration
-
-| Action | Raccourci (Mac) |
-|-----------|-------------|
-| Ouvrir la fenêtre de commit | `Cmd+K` |
-| Push | `Cmd+Shift+K` |
-| Mettre à jour (pull) | `Cmd+T` |
-
----
-
-## Exemple minimal
-> Sujet lié à l'interface Git, pas au code — bloc non applicable.
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[IntelliJ IDEA]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[OUT-04-VSCode-Productivite|VSCode - Source Control]]
-
-**Pratique :**
-- Extrait de code → (aucun, sujet non-code)
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Saurais-je résoudre un conflit de merge simple via l'interface visuelle d'IntelliJ ?
-
----
-
-## Tâches
-
-- [ ] #task Faire un premier commit depuis IntelliJ et observer le diff
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? IntelliJ peut-il remplacer complètement le terminal Git au quotidien ?
+- **Tout cocher sans regarder** : un `console.log` ou un fichier de configuration personnel part dans le commit.
+- **Utiliser l'interface sans comprendre Git** : le jour où ça coince, tu ne sais pas quoi faire. Garde le terminal comme référence.

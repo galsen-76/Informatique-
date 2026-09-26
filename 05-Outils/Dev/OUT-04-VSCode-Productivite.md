@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,121 +10,68 @@ tags:
 aliases:
   - "VS Code et Productivité"
 parent: "[[Outils]]"
-children: []
 related_theory:
   - "[[IJ-10-Transition-VSCode|Transition vers VS Code]]"
-related_snippets:
-  - "[[04_Snippets/out-04-vscode-productivite]]"
 related_projects: []
 source: "https://code.visualstudio.com/docs"
 ---
 
-# VS Code et Productivité
+# VS Code Productivité
 
-> [!abstract] Introduction
-> VS Code est l'éditeur le plus utilisé en front ; bien configuré (extensions, raccourcis, débogueur, settings partagés), il rivalise avec IntelliJ/WebStorm pour Angular et Vue.
+> [!abstract] En bref
+> **VS Code** est l'éditeur le plus utilisé pour le front. Léger, gratuit, il devient très puissant avec les bonnes extensions et quelques raccourcis. Si tu utilises IntelliJ au travail, voir [[IJ-10-Transition-VSCode|la transition]] ; les deux font le travail.
 
----
+## Les extensions à installer
 
-## Théorie
+| Extension | Pour |
+|---|---|
+| **WSL** | travailler dans Linux depuis Windows (`code .` dans Ubuntu) |
+| **Vue - Official** | Vue et TypeScript dans les `.vue` |
+| **Angular Language Service** | autocomplétion et erreurs dans les templates Angular |
+| **ESLint** + **Prettier** | qualité et mise en forme (voir [[OUT-03-ESLint-Prettier-Qualite\|ESLint / Prettier]]) |
+| **Tailwind CSS IntelliSense** | autocomplétion des classes Tailwind |
+| **Prisma** | coloration et formatage de `schema.prisma` |
+| **GitLens** | historique et auteur de chaque ligne |
+| **Error Lens** | les erreurs affichées directement sur la ligne |
+| **Docker** | gérer les conteneurs |
 
-> [!question]- C'est quoi ?
-> Extensions essentielles : **Angular Language Service**, **Vue - Official**, ESLint, Prettier, EditorConfig, GitLens, Error Lens, Docker, REST Client/Thunder Client, Playwright Test.
-> Raccourcis : `Ctrl+P` (fichier), `Ctrl+Shift+P` (commandes), `F12` (définition), `Shift+F12` (références), `F2` (renommer), `Alt+↑/↓` (déplacer ligne), `Ctrl+D` (multi-curseur), `` Ctrl+` `` (terminal intégré).
+## Les raccourcis essentiels (Windows)
 
-> [!example]- Analogie
-> Un établi : l'outil ne fait pas l'artisan, mais un établi bien rangé fait gagner des heures chaque semaine.
+| Raccourci | Action |
+|---|---|
+| `Ctrl+P` | ouvrir un fichier par son nom |
+| `Ctrl+Shift+P` | **toutes les commandes** |
+| `Ctrl+Shift+F` | chercher dans tout le projet |
+| `F12` / `Ctrl+clic` | aller à la définition |
+| `Shift+F12` | voir toutes les utilisations |
+| `F2` | renommer partout |
+| `Ctrl+.` | corrections rapides (ajouter un import…) |
+| `Alt+↑` / `Alt+↓` | déplacer la ligne |
+| `Shift+Alt+↓` | dupliquer la ligne |
+| `Ctrl+D` | sélectionner l'occurrence suivante (multi-curseur) |
+| `Ctrl+/` | commenter |
+| `` Ctrl+` `` | ouvrir le terminal |
+| `Ctrl+B` | afficher / cacher l'explorateur |
 
-> [!question]- Pourquoi l'utiliser ?
-> Productivité, refactorings sûrs, débogage directement dans l'éditeur.
-
-> [!question]- Comment ça marche ?
-> - `.vscode/extensions.json` (extensions recommandées) et `.vscode/settings.json` commités pour l'équipe
-> - `launch.json` pour déboguer Angular/Vue (Chrome) et NestJS (Node)
-> - Format on save + ESLint fix on save
-
-> [!question]- Quand l'utiliser ?
-> Selon la préférence de l'équipe (IntelliJ Ultimate/WebStorm est aussi excellent, voir [[IJ-01-Interface-Fondamentaux|Interface & Fondamentaux IntelliJ IDEA]]).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Accumuler des dizaines d'extensions ralentit l'éditeur.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Command Palette | Accès à toutes les commandes |
-| Workspace settings | Paramètres propres au projet |
-| Language Service | Moteur d'autocomplétion d'un langage |
-
----
-
-## Points clés
-
-- Paramètres de projet commités
-- Apprendre 10 raccourcis vaut mieux que 50 extensions
-- Débogueur intégré
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Extensions Vue 2 (Vetur) installées sur un projet Vue 3
-
----
-
-## Exemple minimal
+## Les réglages utiles
 
 ```json
+// .vscode/settings.json (commité : partagé avec l'équipe)
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": { "source.fixAll.eslint": "explicit" },
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }
 ```
 
-> [!note] Ce que j'en retiens
-> Trois lignes de configuration = code toujours formaté et corrigé.
+Un fichier `.vscode/extensions.json` peut recommander les extensions du projet à toute l'équipe.
 
----
+## Déboguer dans l'éditeur
 
-## Pour aller plus loin (niveau senior)
+Plutôt que des `console.log` : **Run and Debug** (`Ctrl+Shift+D`), puis un point d'arrêt en cliquant dans la marge. Fonctionne pour Node / NestJS (« JavaScript Debug Terminal » puis `npm run start:dev`) et pour le navigateur.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Snippets personnalisés, tâches, dev containers
+## Pièges
 
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Outils]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[IJ-01-Interface-Fondamentaux|Interface & Fondamentaux IntelliJ IDEA]]
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/out-04-vscode-productivite]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quels fichiers `.vscode` partager avec l'équipe ?
-
----
-
-## Tâches
-
-- [ ] #task Créer `.vscode/extensions.json` et `settings.json` pour CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Trop d'extensions** : l'éditeur ralentit. Garde celles que tu utilises.
+- **Deux formateurs qui se battent** (Prettier et un autre) : fixe `editor.defaultFormatter`.

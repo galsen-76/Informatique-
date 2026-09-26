@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,145 +10,90 @@ tags:
 aliases:
   - "Branches Merge et Rebase"
 parent: "[[Git]]"
-children: []
 related_theory:
   - "[[GIT-01-Fondamentaux|Git Fondamentaux]]"
   - "[[GIT-04-Conflits|Résoudre les Conflits Git]]"
-related_snippets:
-  - "[[04_Snippets/git-02-branches-merge-rebase]]"
 related_projects: []
 source: "https://git-scm.com/book/fr/v2/Les-branches-avec-Git-Rebaser-Rebasing"
 ---
 
 # Branches Merge et Rebase
 
-> [!abstract] Introduction
-> Une branche est une ligne de travail isolée ; `merge` et `rebase` sont les deux façons de réintégrer ce travail — l'une conserve l'historique tel quel, l'autre le réécrit pour le rendre linéaire.
+> [!abstract] En bref
+> Une **branche** est une ligne de travail à part : tu développes le formulaire de contact sans toucher à `main`. Quand c'est prêt, tu **réintègres** ton travail : avec un **merge** (on fusionne, l'historique garde la trace de la branche) ou un **rebase** (on rejoue tes commits par-dessus, l'historique devient une ligne droite).
 
-> [!warning]- Prérequis
-> [[GIT-01-Fondamentaux|Git Fondamentaux]]
+## L'image
 
----
+`main` est la **route principale**. Une branche est une **déviation** pour faire des travaux sans bloquer la circulation. Une fois les travaux finis, la déviation rejoint la route.
 
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```bash
-> git switch -c feature/favoris      # créer une branche
-> git merge feature/favoris          # fusionner dans la branche courante
-> git rebase main                    # rejouer mes commits au-dessus de main
-> ```
-
-> [!example]- Analogie
-> Merge : deux routes qui se rejoignent à un carrefour (on voit les deux routes sur la carte). Rebase : on reconstruit sa route comme si elle était partie plus tard, directement dans le prolongement de la principale.
-
-> [!question]- Pourquoi l'utiliser ?
-> Travailler sur plusieurs sujets en parallèle, garder `main` stable, avoir un historique lisible.
-
-> [!question]- Comment ça marche ?
-> ```mermaid
-> gitGraph
->   commit id: "A"
->   commit id: "B"
->   branch feature
->   commit id: "F1"
->   commit id: "F2"
->   checkout main
->   commit id: "C"
->   merge feature id: "Merge"
-> ```
-> - **Fast-forward** : si `main` n'a pas bougé, le merge avance simplement le pointeur
-> - **Merge commit** : commit à deux parents quand les deux branches ont avancé
-> - **Rebase** : rejoue F1, F2 après C → historique linéaire, nouveaux hash
-> - **Squash** : fusionne plusieurs commits en un seul (souvent à la fusion de la MR)
-> Règle d'or : **ne jamais rebaser une branche partagée déjà poussée** (sauf accord d'équipe et `push --force-with-lease`).
-
-> [!question]- Quand l'utiliser ?
-> Rebase : mettre à jour SA branche de feature avec `main` avant la MR. Merge : intégrer une feature dans `main` (via MR).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Rebaser une branche utilisée par d'autres réécrit leur historique → conflits et travail perdu.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Fast-forward | Avance du pointeur sans commit de merge |
-| Merge commit | Commit qui réunit deux historiques |
-| Rebase | Réapplique des commits sur une autre base |
-| Squash | Regroupe plusieurs commits en un |
-
----
-
-## Points clés
-
-- Une branche par sujet, courte durée de vie
-- Rebase de sa propre branche OK, jamais d'une branche partagée
-- `--force-with-lease` plutôt que `--force`
-- Suivre la convention de l'équipe (merge, squash, rebase)
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `git push --force` sur une branche partagée
-> - Branches qui vivent des semaines → énormes conflits
-
----
-
-## Exemple minimal
-
-```bash
-git switch feature/favoris
-git fetch origin
-git rebase origin/main          # résoudre les conflits éventuels, puis :
-git push --force-with-lease
+```mermaid
+gitGraph
+  commit id: "init"
+  commit id: "accueil"
+  branch feature/contact
+  checkout feature/contact
+  commit id: "formulaire"
+  commit id: "validation"
+  checkout main
+  commit id: "fix menu"
+  merge feature/contact
+  commit id: "suite"
 ```
 
-> [!note] Ce que j'en retiens
-> Mettre à jour sa branche avec main avant la revue simplifie la MR et le merge.
+## Les commandes
 
----
+```bash
+git switch -c feature/contact      # créer une branche et y aller
+git switch main                    # revenir sur main
+git branch                         # lister les branches locales
+git branch -d feature/contact      # supprimer une branche fusionnée
+```
 
-## Pour aller plus loin (niveau senior)
+**Nommer ses branches :** `feature/contact-form`, `fix/menu-mobile`, `chore/update-deps`.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - `git rebase -i` pour nettoyer ses commits avant revue (réordonner, fusionner, renommer)
+## Merge : fusionner
 
----
+```bash
+git switch main
+git merge feature/contact
+```
 
-## Connexions
+Git crée un **commit de fusion** qui relie les deux histoires. Rien n'est réécrit : c'est sûr, mais l'historique peut devenir touffu.
 
-**Arbre théorique :**
-- Sujet parent → [[Git]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Rebase : rejouer par-dessus
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/git-02-branches-merge-rebase]]
+```bash
+git switch feature/contact
+git rebase main                     # rejoue mes commits après les derniers de main
+```
 
----
+Avant : ta branche est partie d'un vieux `main`. Après : c'est comme si tu avais commencé ton travail sur le `main` d'aujourd'hui. Historique **linéaire**, plus lisible.
 
-## Auto-vérification
+| | Merge | Rebase |
+|---|---|---|
+| Historique | garde les embranchements | ligne droite |
+| Réécrit les commits | non | **oui** (nouveaux identifiants) |
+| Sûr sur une branche partagée | oui | **non** |
+| Usage typique | intégrer une MR dans `main` | mettre à jour **ta** branche avant la MR |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi ne jamais rebaser une branche partagée ?
+## La règle d'or du rebase
 
-> [!faq]- Questions d'entretien
-> - Différence entre merge et rebase ?
+> **Ne jamais rebaser une branche que d'autres utilisent déjà.**
 
----
+Le rebase crée de nouveaux commits. Si un collègue avait les anciens, vos historiques divergent. Rebaser **ta** branche perso avant de la proposer : oui. Rebaser `main` : jamais.
 
-## Tâches
+Après un rebase d'une branche déjà poussée :
 
-- [ ] #task Faire la section « Montée en puissance » de learngitbranching
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+```bash
+git push --force-with-lease        # force, mais refuse si quelqu'un d'autre a poussé entretemps
+```
 
----
+## Au travail
 
-## Notes brutes
+Suis la convention de l'équipe : certaines équipes fusionnent (merge), d'autres rebasent ou « squashent » (tous les commits de la MR réunis en un seul). Voir [[GIT-06-Workflows-Equipe|Workflows]].
 
-- ?
+## Pièges
+
+- **Travailler directement sur `main`**.
+- **Une branche qui vit 3 semaines** : les conflits s'accumulent. Petites branches, fusionnées vite.
+- **`git push --force`** sans `-with-lease` : peut effacer le travail d'un collègue.

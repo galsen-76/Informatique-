@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,135 +10,73 @@ tags:
 aliases:
   - "Outils de Build et Bundlers"
 parent: "[[Outils]]"
-children: []
 related_theory:
   - "[[JS-09-Modules-ESM|Modules ES JavaScript]]"
   - "[[NODE-01-Node-npm|Node.js et npm]]"
   - "[[TG-01-Comment-fonctionne-un-programme|Comment fonctionne un programme]]"
-related_snippets:
-  - "[[04_Snippets/out-02-outillage-build-vite-bundlers]]"
 related_projects: []
 source: "https://vite.dev/guide/"
 ---
 
-# Outils de Build et Bundlers
+# Outillage de Build Vite et Bundlers
 
-> [!abstract] Introduction
-> Un bundler (Vite, esbuild, webpack, Rollup) transforme les sources (TS, SFC, SCSS, imports) en fichiers optimisés pour le navigateur ; Vite est l'outil de Vue et, via esbuild/Vite, d'Angular moderne.
+> [!abstract] En bref
+> Ton navigateur ne comprend ni le TypeScript, ni les fichiers `.vue`, ni le SCSS. Un **outil de build** (Vite pour Vue, le builder d'Angular CLI) **transforme** tes sources en fichiers que le navigateur sait lire, et les **optimise** pour la production. Pendant le développement, il rafraîchit la page instantanément à chaque sauvegarde.
 
-> [!warning]- Prérequis
-> [[JS-09-Modules-ESM|Modules ES JavaScript]]
+## Ce qu'il fait
 
----
+```mermaid
+flowchart LR
+  S["Tes sources<br/>.ts .vue .scss<br/>imports"] --> B["Vite / Angular CLI"]
+  B --> D["npm run dev<br/>serveur local,<br/>rechargement instantané"]
+  B --> P["npm run build<br/>dist/ : .js .css .html<br/>minifiés, découpés"]
+```
 
-## Théorie
+| Étape | En clair |
+|---|---|
+| **Transpiler** | TypeScript → JavaScript, `.vue` → JavaScript |
+| **Regrouper** (*bundle*) | des centaines de fichiers → quelques fichiers |
+| **Supprimer le code inutile** (*tree-shaking*) | ce qui n'est jamais importé disparaît |
+| **Minifier** | retirer espaces et raccourcir les noms → fichiers plus légers |
+| **Découper** (*code splitting*) | un fichier par page chargée à la demande |
+| **Nommer avec une empreinte** | `main-4f3a2b.js` : le navigateur recharge seulement ce qui a changé |
 
-> [!question]- C'est quoi ?
-> Tâches d'un outil de build :
-> - Transpiler TS → JS, SCSS → CSS, `.vue` → JS
-> - Résoudre et **regrouper** les imports (bundling) en chunks
-> - **Tree-shaking**, **minification**, hash dans les noms de fichiers (cache)
-> - **Source maps** pour le débogage
-> - Serveur de dev avec **HMR** (rechargement à chaud)
+## Vite (Vue)
 
-> [!example]- Analogie
-> Le bundler est l'éditeur d'un livre : il rassemble les chapitres (modules), retire les passages inutiles (tree-shaking), compresse la mise en page (minification) et imprime une édition prête à vendre.
+```bash
+npm run dev       # serveur de développement : http://localhost:5173
+npm run build     # production → dist/
+npm run preview   # tester la version de production en local
+```
 
-> [!question]- Pourquoi l'utiliser ?
-> Comprendre les erreurs de build, les tailles de bundle, les variables d'environnement, le lazy loading et la configuration (`vite.config.ts`, `angular.json`).
-
-> [!question]- Comment ça marche ?
-> - Vite en dev : sert les modules ESM natifs + esbuild (ultra rapide) ; en prod : bundle optimisé (Rollup, puis Rolldown)
-> - Angular CLI : builder `application` basé sur esbuild + serveur de dev Vite
-> - Variables d'env : `import.meta.env.VITE_*` (Vite), fichiers `environment.ts` / `define` (Angular)
-> - Analyse : `rollup-plugin-visualizer`, `ng build --stats-json`
-
-> [!question]- Quand l'utiliser ?
-> Configuration initiale, optimisation, ajout d'alias (`@/` → `src/`), proxy vers l'API en dev.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les variables d'env du front sont PUBLIQUES (intégrées au bundle) : jamais de secret.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Bundle | Fichier JS final regroupé |
-| Chunk | Morceau de bundle chargé séparément |
-| HMR | Remplacement de module à chaud |
-| Minification | Réduction de la taille du code |
-| Source map | Correspondance code compilé ↔ source |
-
----
-
-## Points clés
-
-- Vite = dev rapide + build optimisé
-- Hash dans les noms → cache long terme
-- Aucune clé secrète dans les variables du front
-- Proxy de dev pour éviter les soucis CORS en local
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Mettre une clé API privée dans `VITE_…`
-> - Importer une librairie entière (`lodash`) au lieu de la fonction utile
-
----
-
-## Exemple minimal
-
-```typescript
+```ts
 // vite.config.ts
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), tailwindcss()],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
-  server: { proxy: { '/api': 'http://localhost:3000' } },   // plus de CORS en dev
+  server: {
+    proxy: { '/api': 'http://localhost:3000' },   // appelle ton API sans problème de CORS en dev
+  },
 });
 ```
 
-> [!note] Ce que j'en retiens
-> Le proxy fait croire au navigateur que l'API est sur la même origine en développement.
+Les variables d'environnement : fichiers `.env`, `.env.production`, lues avec `import.meta.env.VITE_…` (et visibles par tous dans le navigateur).
 
----
+## Angular CLI
 
-## Pour aller plus loin (niveau senior)
+```bash
+ng serve          # développement : http://localhost:4200
+ng build          # production → dist/
+```
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Stratégie de découpage (vendor chunks), budgets de taille dans la CI (`budgets` Angular)
+La configuration est dans `angular.json`. Angular utilise esbuild et Vite en interne : tu n'as rien à régler pour commencer.
 
----
+## Pourquoi c'est rapide aujourd'hui
 
-## Connexions
+Les anciens outils (webpack) reconstruisaient tout le projet à chaque modification. Vite, en développement, envoie les fichiers **au fur et à mesure** au navigateur et utilise **esbuild** (écrit en Go, très rapide) : démarrage en une seconde.
 
-**Arbre théorique :**
-- Sujet parent → [[Outils]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Pièges
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/out-02-outillage-build-vite-bundlers]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi les variables d'environnement front ne sont-elles jamais secrètes ?
-
----
-
-## Tâches
-
-- [ ] #task Configurer alias + proxy dans CinéTrack Vue et `proxy.conf.json` dans CinéTrack Angular
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Tester seulement avec `npm run dev`** : certains problèmes n'apparaissent qu'au build de production. Lance `npm run build` avant de pousser.
+- **Un bundle énorme** : regarde quelles librairies pèsent le plus (`npx vite-bundle-visualizer`).
+- **Un secret dans une variable `VITE_`** : il finit dans le JavaScript public.

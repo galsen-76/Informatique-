@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,133 +10,100 @@ tags:
 aliases:
   - "Terminal et Bash"
 parent: "[[Outils]]"
-children: []
 related_theory:
   - "[[LNX-01-Linux-Essentiels|Linux Essentiels]]"
-related_snippets:
-  - "[[04_Snippets/out-01-terminal-bash]]"
 related_projects: []
 source: "https://www.gnu.org/software/bash/manual/"
 ---
 
 # Terminal et Bash
 
-> [!abstract] Introduction
-> Le terminal est l'outil de base du développeur : naviguer, lancer des commandes (npm, git, docker), enchaîner des outils et automatiser des tâches avec des scripts shell.
+> [!abstract] En bref
+> Le **terminal** est l'endroit où tu tapes des commandes au lieu de cliquer : lancer ton projet, utiliser Git, npm, Docker. **Bash** est le langage de ces commandes sous Linux. Sur Windows, on travaille dans **WSL2** (un vrai Linux intégré) pour avoir le même environnement que les serveurs et la CI.
 
----
+## Pourquoi WSL2 sur Windows
 
-## Théorie
+Les serveurs, Docker et la CI GitLab tournent sous **Linux**. Travailler dans WSL2 évite les surprises :
 
-> [!question]- C'est quoi ?
-> ```bash
-> pwd; ls -la; cd projets/cinetrack
-> mkdir -p src/app && touch README.md
-> cp a.txt b.txt; mv b.txt docs/; rm -r dossier
-> cat fichier; less gros.log; head -n 20; tail -f app.log
-> grep -rn "TODO" src/            # chercher dans les fichiers
-> find . -name "*.spec.ts"
-> cmd1 | cmd2                      # pipe : sortie de cmd1 → entrée de cmd2
-> cmd > fichier ; cmd >> fichier   # redirection (écraser / ajouter)
-> ```
+| Problème sous Windows | Avec WSL2 |
+|---|---|
+| `rm -rf`, `NODE_ENV=production node …` ne marchent pas dans cmd / PowerShell | ✅ |
+| `import './Header.vue'` au lieu de `header.vue` passe sur Windows, casse sur la CI | l'erreur apparaît tout de suite |
+| scripts `.sh` avec des fins de ligne Windows : `/bin/bash^M: bad interpreter` | ✅ |
+| `npm install` lent (des milliers de petits fichiers) | 2 à 3 fois plus rapide |
+| paquets natifs (`argon2`, Prisma) difficiles à compiler | ✅ |
 
-> [!example]- Analogie
-> L'interface graphique est un restaurant avec menu illustré ; le terminal, c'est parler directement au chef : plus rapide et plus précis dès qu'on connaît la langue.
+Installation (PowerShell administrateur) : `wsl --install`, puis Ubuntu. **Range tes projets dans `~/projets`**, pas dans `/mnt/c/…`. Ouvre-les avec `code .` (VS Code + extension WSL) ou via `\\wsl$` dans IntelliJ.
 
-> [!question]- Pourquoi l'utiliser ?
-> Les outils de dev (CLI Angular, npm, git, docker, kubectl, ssh sur un serveur) s'utilisent en ligne de commande ; sur un serveur de production il n'y a souvent QUE le terminal.
+Terminal conseillé : **Windows Terminal** avec Ubuntu comme profil par défaut.
 
-> [!question]- Comment ça marche ?
-> - Variables d'environnement : `export API_URL=…`, `echo $PATH`
-> - Codes de retour : `0` = succès, `&&` enchaîne si succès, `||` si échec
-> - Historique : flèche haut, `Ctrl+R` (recherche)
-> - Windows : utiliser WSL2 (Linux dans Windows) ou Git Bash
-> - Script : fichier `.sh` commençant par `#!/usr/bin/env bash`, `set -euo pipefail`
+## Se déplacer et manipuler des fichiers
 
-> [!question]- Quand l'utiliser ?
-> Au quotidien ; scripts pour automatiser ce qu'on fait plus de 3 fois.
+| Commande | Rôle |
+|---|---|
+| `pwd` | où suis-je ? |
+| `ls -la` | lister (y compris les fichiers cachés) |
+| `cd projets/portfolio` | aller dans un dossier |
+| `cd ..` / `cd ~` / `cd -` | dossier parent / dossier personnel / dossier précédent |
+| `mkdir -p src/app/core` | créer un dossier (et ses parents) |
+| `touch fichier.ts` | créer un fichier vide |
+| `cp a b` / `mv a b` | copier / déplacer ou renommer |
+| `rm fichier` / `rm -rf dossier` | supprimer ⚠️ sans corbeille |
+| `cat fichier` / `less fichier` | afficher / lire page par page |
+| `code .` / `explorer.exe .` | ouvrir le dossier dans VS Code / l'explorateur Windows |
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les commandes destructrices (`rm -rf`) n'ont pas de corbeille.
+## Chercher
 
----
+| Commande | Rôle |
+|---|---|
+| `grep -rn "useProjects" src/` | chercher un texte dans les fichiers |
+| `rg "useProjects"` | pareil, en beaucoup plus rapide (ripgrep) |
+| `find . -name "*.spec.ts"` | chercher des fichiers par nom |
+| `history \| grep docker` | retrouver une ancienne commande (ou `Ctrl+R`) |
 
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Shell | Interpréteur de commandes (bash, zsh, PowerShell) |
-| Pipe | Enchaînement de commandes `|` |
-| PATH | Liste des dossiers où chercher les exécutables |
-| Code de retour | Résultat numérique d'une commande |
-
----
-
-## Points clés
-
-- `Tab` pour l'autocomplétion
-- `man cmd` / `cmd --help`
-- `&&` pour enchaîner seulement si succès
-- WSL2 sous Windows
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `rm -rf` avec une variable vide (`rm -rf $DOSSIER/`) → `set -u`
-> - Oublier les guillemets autour des chemins avec espaces
-
----
-
-## Exemple minimal
+## Enchaîner les commandes
 
 ```bash
-#!/usr/bin/env bash
-set -euo pipefail
-echo "Installation…" && npm ci
-npm run lint && npm test -- --watch=false && npm run build
-echo "✅ Prêt à pousser"
+npm run lint && npm test          # && : la 2e seulement si la 1re réussit
+npm run build || echo "échec"     # || : la 2e seulement si la 1re échoue
+cat app.log | grep ERROR | wc -l  # | : la sortie de l'une va dans l'autre
+npm test > resultat.txt 2>&1      # > : écrire dans un fichier (erreurs comprises)
 ```
 
-> [!note] Ce que j'en retiens
-> `set -euo pipefail` arrête le script à la première erreur : indispensable.
+## Les raccourcis qui changent tout
 
----
+| Raccourci | Effet |
+|---|---|
+| `Tab` | compléter un nom de fichier ou de commande |
+| `↑` | commande précédente |
+| `Ctrl+R` | rechercher dans l'historique |
+| `Ctrl+C` | arrêter la commande en cours |
+| `Ctrl+L` | effacer l'écran |
+| `Ctrl+A` / `Ctrl+E` | début / fin de ligne |
 
-## Pour aller plus loin (niveau senior)
+## Variables d'environnement
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Maîtriser `jq` (JSON), `curl`, `ssh`, `tmux`, alias et fonctions shell
+```bash
+export API_URL=http://localhost:3000   # pour la session
+echo $API_URL
+```
 
----
+Pour qu'elles soient permanentes : dans `~/.bashrc`, avec tes alias :
 
-## Connexions
+```bash
+alias ll='ls -lah'
+alias gs='git status'
+alias gl='git log --oneline --graph -15'
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Outils]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Puis `source ~/.bashrc`.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/out-01-terminal-bash]]
+## Pour aller plus vite
 
----
+**Starship** (prompt qui affiche la branche Git et la version de Node), **fzf** (recherche floue), **zoxide** (`z portfolio` pour sauter dans un dossier), **fnm** (versions de Node). Voir aussi les commandes Linux de [[LNX-01-Linux-Essentiels|Linux essentiels]].
 
-## Auto-vérification
+## Pièges
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Que fait `cmd1 && cmd2 || cmd3` ?
-
----
-
-## Tâches
-
-- [ ] #task Faire le tutoriel « The Missing Semester » (MIT), leçons 1 et 2
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`rm -rf` avec une variable vide** (`rm -rf $DOSSIER/`) : peut effacer bien plus que prévu. Vérifie avant.
+- **Un projet dans `/mnt/c/`** depuis WSL : très lent.
+- **Copier-coller une commande trouvée en ligne sans la comprendre**, surtout avec `sudo` ou `curl … | bash`.

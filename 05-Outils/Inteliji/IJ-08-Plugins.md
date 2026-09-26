@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,9 +10,7 @@ aliases:
 tags:
   - outils/intellij/plugins
 parent: "[[IntelliJ IDEA]]"
-children: []
 related_theory: []
-related_snippets: []
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://plugins.jetbrains.com/"
@@ -20,103 +18,33 @@ source: "https://plugins.jetbrains.com/"
 
 # Plugins IntelliJ
 
-> [!abstract] Introduction
-> IntelliJ peut être étendu par des plugins, mais fonctionne déjà très bien nativement — les plugins servent surtout à ajouter des langages/frameworks absents par défaut.
+> [!abstract] En bref
+> IntelliJ fait déjà presque tout d'origine (TypeScript, Angular, Vue, Git, bases de données, tests). Les plugins servent à ajouter ce qui manque. Règle : **peu de plugins**, bien choisis, sinon l'IDE ralentit.
 
-> [!warning]- Prérequis
-> [[IJ-01-Interface-Fondamentaux|Interface et Fondamentaux IntelliJ]].
+## Ce qui est déjà inclus (inutile de chercher un plugin)
 
----
+TypeScript, JavaScript, Angular, Vue, HTML, CSS / SCSS, ESLint, Prettier, Git, terminal, client HTTP (`.http`), outil base de données (IntelliJ Ultimate / WebStorm), Docker, débogueur.
 
-## Théorie
+Vérifie qu'ils sont activés : *Settings → Plugins → Installed*.
 
-> [!question]- C'est quoi ?
-> Un plugin ajoute un support de langage/framework ou une fonctionnalité de confort, installable via Preferences → Plugins.
+## Les plugins utiles
 
-> [!example]- Analogie
-> Sur VSCode, les extensions sont les fondations mêmes de la maison. Sur IntelliJ, les plugins sont des annexes ajoutées à une maison déjà complète.
+| Plugin | Pour |
+|---|---|
+| **Key Promoter X** | apprendre les raccourcis (affiche le raccourci de chaque clic) |
+| **Prisma ORM** | coloration et autocomplétion de `schema.prisma` |
+| **Tailwind CSS** | autocomplétion des classes (souvent déjà inclus) |
+| **Rainbow Brackets** | parenthèses colorées par niveau |
+| **GitToolBox** | auteur et date du dernier changement sur chaque ligne |
+| **.env files support** | coloration des fichiers `.env` |
+| **Mermaid** | aperçu des diagrammes dans les `.md` |
 
-> [!question]- Pourquoi l'utiliser ?
-> Certains langages (Python, Go, Rust) nécessitent un plugin dédié pour un support complet, même sur IntelliJ Ultimate.
+## Installer
 
-> [!question]- Comment ça marche ?
-> Preferences → Plugins → recherche dans le Marketplace → Install → redémarrage si demandé.
+*Settings → Plugins → Marketplace* → rechercher → *Install* → redémarrer si demandé.
 
-> [!question]- Quand l'utiliser ?
-> Installer le plugin du langage principal utilisé ; plugins de confort (Key Promoter X) pendant la transition depuis VSCode.
+## Pièges
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Sur-installer des plugins ralentit un IDE déjà plus lourd que VSCode par défaut — chaque plugin ajoute un coût de performance.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Marketplace | Catalogue de plugins intégré à IntelliJ |
-
----
-
-## Points clés
-
-- IntelliJ inclut déjà beaucoup nativement, contrairement à VSCode
-- Le plugin Python est souvent indispensable même sur Ultimate
-- Key Promoter X aide à apprendre les raccourcis en venant de VSCode
-- Ne pas sur-installer, chaque plugin a un coût de performance
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Installer trop de plugins "au cas où", ralentissant l'IDE
-> - Chercher un plugin pour une fonctionnalité déjà native
-
----
-
-## Paramètres / Configuration
-
-| Plugin | Utilité |
-|-----------|-------------|
-| Python | Support complet du langage |
-| Key Promoter X | Apprentissage des raccourcis |
-| Rainbow Brackets | Lisibilité des parenthèses imbriquées |
-
----
-
-## Exemple minimal
-> Sujet lié à la configuration de l'outil — bloc non applicable.
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[IntelliJ IDEA]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[OUT-04-VSCode-Productivite|VSCode - Extensions]]
-
-**Pratique :**
-- Extrait de code → (aucun, sujet non-code)
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi IntelliJ a besoin de moins de plugins que VSCode a besoin d'extensions ?
-
----
-
-## Tâches
-
-- [ ] #task Installer le plugin Python et vérifier le support complet
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Différence de plugins nécessaires entre Community et Ultimate pour Angular/Python ?
+- **Chercher un plugin pour une fonctionnalité déjà native** (réflexe VS Code) : regarde d'abord dans `Ctrl+Shift+A`.
+- **Trop de plugins** : démarrage lent, instabilité. Désinstalle ce que tu n'utilises plus.
+- **Un plugin non maintenu** : vérifie la date de mise à jour et la compatibilité avec ta version d'IntelliJ.

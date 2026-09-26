@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,146 +10,70 @@ tags:
 aliases:
   - "Workflows Git en Équipe"
 parent: "[[Git]]"
-children: []
 related_theory:
   - "[[02-Merge-Requests|Merge Requests]]"
   - "[[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]"
-related_snippets:
-  - "[[04_Snippets/git-06-workflows-equipe]]"
 related_projects: []
 source: "https://www.atlassian.com/git/tutorials/comparing-workflows"
 ---
 
 # Workflows Git en Équipe
 
-> [!abstract] Introduction
-> Un workflow Git définit comment une équipe utilise les branches : GitFlow (branches develop/release/hotfix), GitHub/GitLab Flow (feature branches + MR), Trunk-Based Development (intégration continue sur main).
+> [!abstract] En bref
+> Un **workflow** Git, c'est la règle du jeu de l'équipe : quelles branches existent, qui peut écrire où, comment on intègre le travail. Le plus courant aujourd'hui : **une branche par tâche, une Merge Request, puis fusion dans `main`**. Au travail, tu suis celui de ton équipe.
 
-> [!warning]- Prérequis
-> [[GIT-02-Branches-Merge-Rebase|Branches Merge et Rebase]]
+## Le workflow par branches de fonctionnalité (le plus courant)
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> | Workflow | Branches | Pour qui |
-> |---|---|---|
-> | **GitFlow** | main, develop, feature/*, release/*, hotfix/* | Releases planifiées, versions multiples maintenues |
-> | **GitLab Flow / Feature branch** | main + feature/* (+ branches d'environnement) | La majorité des équipes |
-> | **Trunk-Based** | main + branches très courtes (< 1-2 jours), feature flags | Déploiement continu, équipes matures |
-
-> [!example]- Analogie
-> GitFlow est une chaîne de production avec plusieurs sas de contrôle ; trunk-based est une cuisine de restaurant où chaque plat part dès qu'il est prêt, avec un chef qui goûte en continu (tests automatisés).
-
-> [!question]- Pourquoi l'utiliser ?
-> Sans convention commune, les branches se multiplient, les merges deviennent douloureux et on ne sait plus ce qui est en production.
-
-> [!question]- Comment ça marche ?
-> ```mermaid
-> gitGraph
->   commit id: "v1.0" tag: "v1.0"
->   branch develop
->   commit
->   branch feature/favoris
->   commit
->   commit
->   checkout develop
->   merge feature/favoris
->   branch release/1.1
->   commit id: "fix recette"
->   checkout main
->   merge release/1.1 tag: "v1.1"
->   checkout develop
->   merge release/1.1
-> ```
-> Nommage courant : `feature/JIRA-123-favoris`, `fix/…`, `hotfix/…`, `chore/…`.
-
-> [!question]- Quand l'utiliser ?
-> Suivre le workflow de l'équipe (demander au travail : GitFlow est fréquent en ESN / grands comptes).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> GitFlow alourdit le déploiement continu ; trunk-based exige une excellente couverture de tests et des feature flags.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Feature branch | Branche dédiée à une fonctionnalité |
-| Release branch | Branche de stabilisation d'une version |
-| Hotfix | Correctif urgent en production |
-| Feature flag | Interrupteur pour activer une fonctionnalité sans déployer |
-
----
-
-## Points clés
-
-- Branches courtes = moins de conflits
-- Main toujours déployable
-- Nommage normé lié au ticket
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Branches « feature » ouvertes pendant des semaines
-> - Mélanger plusieurs sujets dans une même branche/MR
-
----
-
-## Exemple minimal
-
-```bash
-git switch develop && git pull
-git switch -c feature/CT-42-favoris
-# ... commits ...
-git push -u origin feature/CT-42-favoris   # → MR vers develop
+```mermaid
+gitGraph
+  commit id: "v1.2"
+  branch feature/filtre
+  commit id: "filtre"
+  commit id: "tests"
+  checkout main
+  merge feature/filtre id: "MR !42"
+  branch fix/menu
+  commit id: "fix"
+  checkout main
+  merge fix/menu id: "MR !43"
 ```
 
-> [!note] Ce que j'en retiens
-> Le nom de branche relie automatiquement le code au ticket.
+1. `main` est **protégée** : personne ne pousse directement dessus.
+2. Une tâche = une branche (`feature/…`, `fix/…`).
+3. Une **Merge Request** avec revue de code et pipeline vert.
+4. Fusion dans `main`, suppression de la branche.
+5. Déploiement depuis `main` (souvent automatique).
 
----
+C'est celui que tu utilises dans tes projets. Voir [[02-Merge-Requests|Merge Requests]].
 
-## Pour aller plus loin (niveau senior)
+## Les autres workflows
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Argumenter le passage de GitFlow à trunk-based (prérequis : CI rapide, tests, feature flags)
+| Workflow | Principe | Pour |
+|---|---|---|
+| **Feature branches + MR** (GitHub / GitLab Flow) | branches courtes vers `main` | la plupart des équipes |
+| **GitFlow** | `main` + `develop` + branches `release/` et `hotfix/` | versions planifiées (logiciel livré par version) |
+| **Trunk-based** | tout le monde intègre dans `main` plusieurs fois par jour, fonctionnalités cachées derrière des interrupteurs | équipes très matures, déploiement continu |
 
----
+```mermaid
+flowchart LR
+  subgraph GitFlow
+    F["feature/*"] --> D["develop"] --> R["release/*"] --> M["main"]
+    H["hotfix/*"] --> M
+  end
+```
 
-## Connexions
+GitFlow est plus lourd : beaucoup de branches à maintenir. Tu le croiseras dans des projets existants.
 
-**Arbre théorique :**
-- Sujet parent → [[Git]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Les bonnes pratiques de l'équipe
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/git-06-workflows-equipe]]
+- **Branches courtes** : quelques jours maximum.
+- **Petites MR** : une MR de 200 lignes est relue sérieusement, une de 2 000 est survolée.
+- **`main` toujours déployable** : ce qui y entre est testé.
+- **Un nom de branche lié au ticket** : `feature/123-filtre-technos`.
+- **Stratégie de fusion commune** : merge, rebase ou squash, mais tout le monde pareil.
 
----
+## Pièges
 
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi le trunk-based nécessite-t-il des feature flags ?
-
-> [!faq]- Questions d'entretien
-> - Quel workflow Git utilisez-vous et pourquoi ?
-
----
-
-## Tâches
-
-- [ ] #task Demander et noter le workflow exact de l'équipe (branches, MR, qui merge)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Pousser directement sur `main`** « juste pour une petite correction ».
+- **Une branche `develop` qui diverge** pendant des semaines de `main`.
+- **Imposer ton workflow** dans une équipe qui en a déjà un : propose, mais suis l'existant.

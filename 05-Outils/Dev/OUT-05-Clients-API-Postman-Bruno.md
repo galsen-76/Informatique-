@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,134 +10,84 @@ tags:
 aliases:
   - "Clients API Postman Bruno curl"
 parent: "[[Outils]]"
-children: []
 related_theory:
   - "[[ARCH-04-API-REST-Design|API REST Design]]"
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
-related_snippets:
-  - "[[04_Snippets/out-05-clients-api-postman-bruno]]"
 related_projects: []
 source: "https://www.usebruno.com/"
 ---
 
-# Clients API Postman Bruno curl
+# Clients API Postman et Bruno
 
-> [!abstract] Introduction
-> Un client API (Postman, Bruno, Insomnia, curl, fichiers `.http`) permet d'envoyer des requêtes HTTP à un backend sans passer par le front — indispensable pour développer et déboguer une API.
+> [!abstract] En bref
+> Un **client API** envoie des requêtes HTTP à ton back-end **sans passer par le front** : tu testes `POST /reviews` avant même d'avoir codé le formulaire. Indispensable pour développer et déboguer CinéTrack-API.
 
-> [!warning]- Prérequis
-> [[NET-05-HTTP-Approfondi|HTTP Approfondi]]
+## Les outils
 
----
+| Outil | Particularité |
+|---|---|
+| **Bruno** | gratuit, les requêtes sont des **fichiers dans ton projet** (versionnés avec Git) |
+| **Postman** | le plus connu, collections partagées en ligne |
+| **Fichiers `.http`** | intégrés à IntelliJ (et VS Code avec l'extension REST Client) |
+| **Swagger UI** | généré par NestJS sur `/docs` (voir [[NEST-12-OpenAPI-Swagger\|Swagger]]) |
+| **curl** | en ligne de commande, partout |
 
-## Théorie
+## Un fichier `.http` (IntelliJ / VS Code)
 
-> [!question]- C'est quoi ?
-> ```bash
-> curl -i http://localhost:3000/api/films
-> curl -X POST http://localhost:3000/api/films \
->   -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" \
->   -d '{"titre":"Dune","annee":2021}'
-> ```
-> ```http
-> ### films.http (VS Code REST Client / IntelliJ HTTP Client)
-> @base = http://localhost:3000/api
-> GET {{base}}/films?page=1
-> ###
-> POST {{base}}/films
-> Content-Type: application/json
->
-> { "titre": "Dune", "annee": 2021 }
-> ```
+```http
+### Connexion
+POST http://localhost:3000/auth/login
+Content-Type: application/json
 
-> [!example]- Analogie
-> Tester une API avec le front, c'est tester un moteur en conduisant la voiture ; un client API, c'est mettre le moteur sur un banc d'essai.
+{ "email": "test@cinetrack.fr", "password": "Motdepasse123!" }
 
-> [!question]- Pourquoi l'utiliser ?
-> Isoler un problème (front ou back ?), tester des cas d'erreur, documenter des exemples de requêtes partageables.
+> {% client.global.set("token", response.body.accessToken); %}
 
-> [!question]- Comment ça marche ?
-> - Collections versionnées (Bruno stocke en fichiers texte dans le dépôt, idéal avec Git)
-> - Environnements (local, recette) avec variables
-> - Scripts pour récupérer automatiquement un token
+### Créer une critique (utilise le jeton récupéré)
+POST http://localhost:3000/reviews
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
-> [!question]- Quand l'utiliser ?
-> Pendant tout le développement d'une API, et pour reproduire un bug remonté par le front.
+{ "movieId": 27205, "rating": 9, "comment": "Un chef-d'œuvre à revoir." }
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Ne remplace pas les tests automatisés.
+### Tester la validation : doit renvoyer 400
+POST http://localhost:3000/reviews
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Collection | Ensemble de requêtes enregistrées |
-| Environnement | Jeu de variables (URL, token) |
-| `.http` | Format texte de requêtes HTTP |
-
----
-
-## Points clés
-
-- `curl -i` affiche aussi les en-têtes
-- Collections versionnées avec le code
-- Variables d'environnement pour ne pas dupliquer
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Commiter des tokens réels dans les collections
-
----
-
-## Exemple minimal
-
-```bash
-curl -s http://localhost:3000/api/films | jq '.[].titre'
+{ "movieId": 27205, "rating": 11, "comment": "court" }
 ```
 
-> [!note] Ce que j'en retiens
-> `curl` + `jq` : inspection rapide d'une API depuis le terminal.
+Le fichier se range dans le projet (`api.http`) : il sert de **documentation vivante** des routes.
 
----
+## curl
 
-## Pour aller plus loin (niveau senior)
+```bash
+curl -s http://localhost:3000/movies?page=2 | jq .
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Tests de collection automatisés en CI (Bruno CLI, Newman)
+curl -X POST http://localhost:3000/reviews \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"movieId": 27205, "rating": 9, "comment": "Superbe film vraiment"}'
+```
 
----
+`jq` affiche le JSON joliment (`sudo apt install jq`).
 
-## Connexions
+## Ce qu'il faut tester pour chaque route
 
-**Arbre théorique :**
-- Sujet parent → [[Outils]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+1. Le **cas normal** (200 / 201).
+2. Des **données invalides** (400).
+3. **Sans jeton** (401).
+4. Avec le jeton **d'un autre utilisateur** (403).
+5. Une ressource **inexistante** (404).
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/out-05-clients-api-postman-bruno]]
+Ce sont aussi les cas de tes tests automatisés (voir [[NEST-11-Tests-NestJS|Tests NestJS]]).
 
----
+## Les environnements
 
-## Auto-vérification
+Définis des variables `baseUrl` et `token` par environnement (local, staging) pour passer de l'un à l'autre sans réécrire les URL.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi tester l'API sans le front ?
+## Pièges
 
----
-
-## Tâches
-
-- [ ] #task Créer une collection Bruno/`.http` pour l'API CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Commiter des jetons ou mots de passe réels** dans les fichiers de requêtes : utilise des variables et un fichier d'environnement ignoré par Git.
+- **Tester seulement le cas qui marche** : les bugs sont dans les cas d'erreur.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,167 +10,106 @@ tags:
 aliases:
   - "CI/CD GitLab"
 parent: "[[GitLab]]"
-children: []
 related_theory:
   - "[[CICD-01-Fondamentaux|Fondamentaux CI/CD]]"
   - "[[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]"
-related_snippets:
-  - "[[04_Snippets/03-ci-cd]]"
 related_projects: []
 source: "https://docs.gitlab.com/ci/"
 ---
 
-# CI/CD GitLab
+# GitLab CI/CD
 
-> [!abstract] Introduction
-> GitLab CI/CD automatise le build, les tests et le déploiement du code à chaque modification, via un fichier `.gitlab-ci.yml` exécuté par des runners.
+> [!abstract] En bref
+> À chaque push, GitLab peut lancer **automatiquement** une suite de vérifications et d'actions : installer, vérifier le style, lancer les tests, construire, déployer. C'est le **pipeline**, décrit dans un fichier `.gitlab-ci.yml` à la racine du projet. Plus besoin de faire confiance à « ça marche sur ma machine ».
 
-> [!warning]- Prérequis
-> [[01-GitLab|Fondamentaux GitLab]]
+## Le vocabulaire
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> Une chaîne automatisée (**pipeline**) définie dans `.gitlab-ci.yml`, exécutée à chaque push, MR ou tag. Elle est composée de **stages** (étapes) contenant des **jobs**, exécutés par des **runners**.
-
-> [!example]- Analogie
-> Une chaîne de contrôle qualité automatique en usine : chaque pièce (commit) passe par les mêmes postes de vérification avant d'être expédiée.
-
-> [!question]- Pourquoi l'utiliser ?
-> - Garantir que le code compile et passe les tests avant merge
-> - Automatiser le déploiement vers différents environnements
-> - Centraliser les vérifications (lint, sécurité)
-
-> [!question]- Comment ça marche ?
-> ```text
-> Pipeline
-> ├── Stage: build   → jobs de compilation
-> ├── Stage: test    → jobs de test (en parallèle)
-> └── Stage: deploy  → jobs de déploiement
-> ```
-> Mots-clés essentiels : `stages`, `image`, `script`, `rules` (conditions ; préférer `rules` à l'ancien `only/except`), `needs` (dépendances entre jobs, pipeline DAG), `artifacts`, `cache`, `variables`, `environment`, `when: manual`.
-
-> [!question]- Quand l'utiliser ?
-> Sur tout projet en production ou en équipe — c'est le filet de sécurité avant merge/déploiement.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Un pipeline lent (> 15 min) décourage les petites MR : optimiser cache, parallélisme et `needs`.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Pipeline | Exécution complète des jobs pour un commit |
-| Stage | Grande étape ordonnée |
-| Job | Tâche précise exécutée par un runner |
-| Runner | Machine/agent qui exécute les jobs |
-| Artifact | Fichier produit par un job, transmis aux suivants |
-
----
-
-## Points clés
-
-- Les jobs d'un même stage tournent en parallèle
-- Variables CI/CD (Settings > CI/CD) pour les secrets, masquées et protégées
-- Artifacts pour transmettre, cache pour accélérer
-- `rules` plutôt que `only/except`
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Secrets écrits en dur dans `.gitlab-ci.yml`
-> - Cache de `node_modules` mal configuré (clé non liée au lockfile)
-
----
-
-## Paramètres / Configuration
-
-| Mot-clé | Rôle |
+| Mot | Sens |
 |---|---|
-| `stages` | Ordre des grandes étapes |
-| `script` | Commandes exécutées par le job |
-| `rules` | Conditions de déclenchement |
-| `needs` | Démarrer dès qu'un job précis est fini |
-| `artifacts` | Fichiers à conserver après le job |
-| `cache` | Dépendances réutilisées entre pipelines |
+| **Pipeline** | l'ensemble des vérifications lancées pour un commit |
+| **Stage** (étape) | un groupe de jobs, exécutés dans l'ordre (lint → test → build → deploy) |
+| **Job** | une tâche : une suite de commandes |
+| **Runner** | la machine qui exécute les jobs |
+| **Artifact** | un fichier produit par un job et transmis aux suivants (le dossier `dist/`) |
+| **Variable** | une valeur de configuration ou un secret, réglé dans GitLab |
 
----
-
-## Exemple minimal
-
-```yaml
-stages: [install, test, build]
-default:
-  image: node:22
-  cache:
-    key: { files: [package-lock.json] }
-    paths: [.npm/]
-install:
-  stage: install
-  script: [npm ci --cache .npm --prefer-offline]
-  artifacts: { paths: [node_modules/], expire_in: 1h }
-lint:
-  stage: test
-  needs: [install]
-  script: [npm run lint]
-test:
-  stage: test
-  needs: [install]
-  script: [npm test -- --watch=false]
-build:
-  stage: build
-  needs: [install]
-  script: [npm run build]
-  artifacts: { paths: [dist/] }
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+```mermaid
+flowchart LR
+  L["lint"] --> T["test"] --> B["build"] --> D["deploy<br/>(seulement sur main)"]
 ```
 
-> [!note] Ce que j'en retiens
-> Le pipeline est le contrôle qualité automatique avant qu'un changement n'atteigne la production.
+Si un job échoue, les étapes suivantes ne sont pas lancées.
 
----
+## Le pipeline du Portfolio (Vue)
 
-## Pour aller plus loin (niveau senior)
+```yaml
+# .gitlab-ci.yml
+image: node:22
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Templates partagés (`include`), pipelines parents/enfants, environnements de review par MR
+stages: [lint, test, build, deploy]
 
----
+cache:
+  key: { files: [package-lock.json] }
+  paths: [.npm/]
 
-## Connexions
+before_script:
+  - npm ci --cache .npm --prefer-offline
 
-**Arbre théorique :**
-- Sujet parent → [[GitLab]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → [[CICD-01-Fondamentaux|GitHub Actions]]
+lint:
+  stage: lint
+  script:
+    - npm run lint
+    - npx vue-tsc --noEmit
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/03-ci-cd]]
+test:
+  stage: test
+  script:
+    - npx vitest run --coverage
 
----
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths: [dist/]
 
-## Auto-vérification
+pages:                                  # GitLab Pages : publie le site
+  stage: deploy
+  script:
+    - cp -r dist public
+    - cp public/index.html public/404.html   # pour que Vue Router fonctionne au rafraîchissement
+  artifacts:
+    paths: [public]
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"   # seulement sur main
+```
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Différence entre `artifacts` et `cache` ?
+## Les éléments utiles
 
----
+| Clé | Rôle |
+|---|---|
+| `image` | l'environnement du job (une image Docker : `node:22`, `postgres:17`) |
+| `script` | les commandes |
+| `rules` | quand lancer le job (branche, MR, tag) |
+| `cache` | réutiliser `node_modules` / `.npm` d'un pipeline à l'autre |
+| `artifacts` | garder des fichiers produits |
+| `services` | lancer une base à côté (PostgreSQL pour les tests d'API) |
+| `needs` | lancer un job dès qu'un autre est fini, sans attendre toute l'étape |
 
-## Tâches
+## Les secrets
 
-- [ ] #task Lire un `.gitlab-ci.yml` réel chez Assystem
-- [ ] #task Identifier les runners utilisés (partagés vs dédiés)
-- [ ] #task Mettre à jour `status` une fois maîtrisé
+Jamais dans le fichier : **Settings → CI/CD → Variables**, cochées **Masked** (cachées dans les logs) et **Protected** (disponibles seulement sur les branches protégées). Dans le script : `$TMDB_TOKEN`.
 
----
+## Déboguer un pipeline rouge
 
-## Notes brutes
+1. Ouvre le job en échec et lis le log **depuis la fin**.
+2. Relance **la même commande** en local (`npm ci && npm run lint`).
+3. Les différences classiques : version de Node, variable manquante, fichier non commité, test qui dépend de l'ordre.
 
-- ? Quels environnements de déploiement sont configurés chez Assystem (staging, prod) ?
+Pipeline complet front + back + Docker : [[CICD-02-Pipeline-Full-Stack|Pipeline full stack]].
+
+## Pièges
+
+- **`npm install` au lieu de `npm ci`** : versions différentes de celles du `package-lock.json`.
+- **Un secret dans `.gitlab-ci.yml`** : il est dans l'historique Git.
+- **Déployer depuis n'importe quelle branche** : limite avec `rules`.

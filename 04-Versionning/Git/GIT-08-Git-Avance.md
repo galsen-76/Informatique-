@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Avancé
@@ -10,130 +10,87 @@ tags:
 aliases:
   - "Git Avancé"
 parent: "[[Git]]"
-children: []
 related_theory:
   - "[[GIT-05-Annuler-Corriger|Annuler et Corriger dans Git]]"
-related_snippets:
-  - "[[04_Snippets/git-08-git-avance]]"
 related_projects: []
 source: "https://git-scm.com/book/fr/v2/Utilitaires-Git-R%C3%A9%C3%A9crire-l%E2%80%99historique"
 ---
 
 # Git Avancé
 
-> [!abstract] Introduction
-> Les outils qui font gagner des heures : rebase interactif, cherry-pick, bisect (trouver le commit fautif), blame, hooks, worktrees.
+> [!abstract] En bref
+> Des commandes moins fréquentes mais qui font gagner des heures : **nettoyer tes commits** avant une MR, **récupérer un seul commit** d'une autre branche, **trouver automatiquement** le commit qui a introduit un bug, **savoir qui a écrit** une ligne et pourquoi.
 
-> [!warning]- Prérequis
-> [[GIT-05-Annuler-Corriger|Annuler et Corriger dans Git]]
+## Aide-mémoire
 
----
+| Besoin | Commande |
+|---|---|
+| nettoyer / regrouper mes commits avant la MR | `git rebase -i main` |
+| copier un commit d'une autre branche | `git cherry-pick <id>` |
+| trouver le commit qui a cassé quelque chose | `git bisect` |
+| qui a modifié cette ligne, et quand | `git blame fichier.ts` (ou l'annotation de l'éditeur) |
+| chercher dans l'historique un texte ajouté ou supprimé | `git log -S "useProjectFilters"` |
+| voir l'historique d'un fichier | `git log --follow -p fichier.ts` |
+| travailler sur deux branches en même temps | `git worktree add ../hotfix main` |
+| lancer une action avant chaque commit | hooks (husky) |
 
-## Théorie
+## Rebase interactif : nettoyer avant la MR
 
-> [!question]- C'est quoi ?
-> ```bash
-> git rebase -i HEAD~4            # réordonner / fusionner (squash/fixup) / renommer des commits
-> git cherry-pick <sha>           # appliquer un commit précis sur la branche courante
-> git bisect start; git bisect bad; git bisect good v1.2   # recherche dichotomique du bug
-> git blame -L 10,30 fichier.ts   # qui a modifié ces lignes
-> git log -S "calculerTotal"      # commits qui ont ajouté/retiré ce texte
-> git worktree add ../hotfix main # deuxième copie de travail sans re-cloner
-> ```
+Tes commits : « wip », « fix typo », « encore un fix », « ajoute le filtre ». Avant de proposer la MR :
 
-> [!example]- Analogie
-> `bisect` est un jeu du « plus ou moins » sur l'historique : en 10 questions on trouve le commit fautif parmi 1000.
+```bash
+git rebase -i main
+```
 
-> [!question]- Pourquoi l'utiliser ?
-> Nettoyer son historique avant revue, porter un correctif sur une autre branche, trouver l'origine d'une régression rapidement.
+L'éditeur s'ouvre :
 
-> [!question]- Comment ça marche ?
-> - Hooks (`.git/hooks` ou husky) : `pre-commit` (lint-staged), `commit-msg` (commitlint), `pre-push` (tests)
-> - `git bisect run npm test` : automatise la recherche
-> - `fixup!` + `rebase -i --autosquash` pour corriger un commit précédent proprement
+```text
+pick a1b2c3 ajoute le filtre
+fixup d4e5f6 fix typo            ← fusionné dans le précédent, message oublié
+fixup g7h8i9 encore un fix
+reword j1k2l3 wip                ← changer le message
+```
 
-> [!question]- Quand l'utiliser ?
-> Rebase interactif : avant d'ouvrir une MR. Cherry-pick : hotfix à reporter. Bisect : « ça marchait la semaine dernière ».
+| Mot | Effet |
+|---|---|
+| `pick` | garder |
+| `reword` | garder, changer le message |
+| `squash` | fusionner avec le précédent, en combinant les messages |
+| `fixup` | fusionner avec le précédent, en gardant son message |
+| `drop` | supprimer |
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Rebase interactif = réécriture : seulement sur une branche non partagée.
+Seulement sur **ta** branche, jamais sur une branche partagée (voir [[GIT-02-Branches-Merge-Rebase|Rebase]]).
 
----
+## Bisect : trouver le coupable automatiquement
 
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Rebase interactif | Édition de la liste des commits |
-| Cherry-pick | Copier un commit sur une autre branche |
-| Bisect | Recherche dichotomique d'un commit |
-| Hook | Script déclenché par une action Git |
-
----
-
-## Points clés
-
-- Nettoyer ses commits avant la MR
-- Bisect pour les régressions
-- Hooks pour automatiser la qualité
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Cherry-pick en série qui duplique des commits et crée des conflits futurs
-
----
-
-## Exemple minimal
+« Le filtre marchait il y a 2 semaines, plus maintenant, et il y a 60 commits depuis. »
 
 ```bash
 git bisect start
 git bisect bad                 # la version actuelle est cassée
-git bisect good v2.3.0         # cette version marchait
-git bisect run npm test -- --run
+git bisect good v1.2.0         # cette version marchait
+# Git se place au milieu : tu testes, puis tu dis
+git bisect good                # ou : git bisect bad
+# … 6 étapes plus tard, Git affiche le commit fautif
 git bisect reset
 ```
 
-> [!note] Ce que j'en retiens
-> Git trouve tout seul le premier commit qui fait échouer les tests.
+Chaque étape coupe les possibilités en deux : 60 commits = environ 6 tests. Avec un test automatique : `git bisect run npm test`.
 
----
+## Cherry-pick : un seul commit
 
-## Pour aller plus loin (niveau senior)
+Une correction faite sur ta branche doit partir tout de suite en production :
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Maîtriser l'historique pour des revues efficaces (commits atomiques racontant une histoire)
+```bash
+git switch main
+git cherry-pick a1b2c3
+```
 
----
+## Blame : comprendre une ligne
 
-## Connexions
+`git blame` n'est pas fait pour accuser : il montre le **commit** derrière une ligne, donc son **message** et sa MR, c'est-à-dire le **pourquoi**. Dans IntelliJ : clic droit dans la marge → *Annotate with Git Blame*.
 
-**Arbre théorique :**
-- Sujet parent → [[Git]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+## Pièges
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/git-08-git-avance]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Dans quel cas utiliser cherry-pick ?
-
----
-
-## Tâches
-
-- [ ] #task Utiliser bisect sur un dépôt d'entraînement avec un bug introduit volontairement
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Rebase interactif sur une branche déjà relue** : les commentaires de revue peuvent se détacher des lignes. Nettoie **avant** de demander la revue.
+- **Cherry-pick en série** : si tu en fais beaucoup, c'est souvent un signe que la stratégie de branches est à revoir.

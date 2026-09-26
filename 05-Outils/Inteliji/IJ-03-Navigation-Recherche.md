@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,115 +10,66 @@ aliases:
 tags:
   - outils/intellij/navigation
 parent: "[[IntelliJ IDEA]]"
-children: []
 related_theory: []
-related_snippets: []
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://www.jetbrains.com/help/idea/searching-everywhere.html"
 ---
 
-# Navigation & Recherche dans IntelliJ
+# Navigation et Recherche IntelliJ
 
-> [!abstract] Introduction
-> Grâce à l'indexation, IntelliJ permet de sauter instantanément vers un fichier, une fonction ou un usage, sans dérouler l'arborescence manuellement.
+> [!abstract] En bref
+> Dans un gros projet, on passe plus de temps à **chercher** et **lire** du code qu'à en écrire. IntelliJ connaît tout ton projet et te fait sauter directement au bon endroit : un fichier, une fonction, tous les endroits qui l'utilisent. Plus besoin de dérouler l'arborescence.
 
-> [!warning]- Prérequis
-> [[IJ-01-Interface-Fondamentaux|Interface et Fondamentaux IntelliJ]], [[IJ-02-Raccourcis-Clavier|Raccourcis Clavier IntelliJ]].
+## Trouver quelque chose
 
----
+| Tu cherches… | Raccourci |
+|---|---|
+| **n'importe quoi** | `Shift` `Shift` |
+| un fichier | `Ctrl+Shift+N` (tape `mov-card` pour `movie-card.component.ts`) |
+| une classe | `Ctrl+N` |
+| une fonction, une variable | `Ctrl+Alt+Shift+N` |
+| un texte dans tout le projet | `Ctrl+Shift+F` |
+| une action ou un réglage | `Ctrl+Shift+A` |
 
-## Théorie
+La recherche est **floue** : les initiales suffisent (`MCC` trouve `MovieCardComponent`).
 
-> [!question]- C'est quoi ?
-> Plusieurs modes de recherche : universelle, aller à la définition, trouver tous les usages, historique de navigation.
+## Comprendre le code
 
-> [!example]- Analogie
-> "Aller à la définition" c'est remonter à la source d'une rivière. "Trouver les usages" c'est suivre tous les affluents qui en partent — deux directions opposées et complémentaires.
+| Question | Raccourci |
+|---|---|
+| où est défini ce truc ? | `Ctrl+B` / `Ctrl+clic` |
+| qui l'utilise ? | `Alt+F7` (liste) ou `Ctrl+Alt+F7` (popup) |
+| quelles méthodes dans ce fichier ? | `Ctrl+F12` |
+| qui appelle cette fonction, et qui appelle l'appelant ? | `Ctrl+Alt+H` |
+| quelle est son implémentation ? | `Ctrl+Alt+B` |
+| qui a écrit cette ligne, dans quel commit ? | clic droit dans la marge → *Annotate with Git Blame* |
 
-> [!question]- Pourquoi l'utiliser ?
-> Sur un gros projet, dérouler l'arborescence manuellement devient très lent — la recherche indexée retrouve instantanément n'importe quoi.
+## Revenir en arrière
 
-> [!question]- Comment ça marche ?
-> `Cmd/Ctrl+B` va à la définition. `Cmd/Ctrl+Alt+F7` trouve tous les usages. La recherche accepte des abréviations approximatives.
+Tu as sauté de définition en définition et tu es perdu ?
 
-> [!question]- Quand l'utiliser ?
-> "Trouver les usages" avant de modifier/supprimer quelque chose, pour mesurer l'impact.
+| Raccourci | Effet |
+|---|---|
+| `Ctrl+Alt+←` | revenir à l'endroit précédent |
+| `Ctrl+Alt+→` | avancer |
+| `Ctrl+E` | fichiers récents |
+| `Ctrl+Shift+E` | derniers endroits consultés |
+| `Ctrl+Shift+Retour arrière` | dernier endroit modifié |
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Sur le réseau `bridge` par défaut sans indexation à jour (projet fraîchement modifié depuis l'extérieur), la recherche peut ne pas refléter l'état le plus récent — réindexer si les résultats semblent incohérents.
+## Dans l'arborescence
 
----
+- `Alt+F1` puis `1` : **montrer le fichier courant** dans l'arborescence.
+- Dans l'arborescence, **tape directement** un nom : la recherche démarre.
 
-## Vocabulaire
+## La méthode pour découvrir un projet inconnu (au travail)
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Recherche floue | Recherche acceptant des abréviations approximatives |
-| Usages | Tous les endroits où un élément est utilisé dans le projet |
+1. Ouvre `package.json` : quelles librairies, quels scripts.
+2. Ouvre les routes (`app.routes.ts` ou `router/index.ts`) : quelles pages.
+3. Pour une page qui t'intéresse : `Ctrl+B` sur son composant, puis sur les services qu'il utilise.
+4. `Alt+F7` sur un service pour voir tous ceux qui en dépendent.
 
----
+## Pièges
 
-## Points clés
-
-- Double `Shift` = point d'entrée universel
-- `Cmd/Ctrl+B` = définition, `Cmd/Ctrl+Alt+F7` = usages
-- Recherche floue : pas besoin du nom exact complet
-- `Cmd/Ctrl+Shift+F` = recherche dans tout le contenu des fichiers
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Supprimer une fonction sans avoir vérifié ses usages au préalable
-> - Chercher un fichier par navigation manuelle alors que la recherche universelle serait 10x plus rapide
-
----
-
-## Paramètres / Configuration
-
-| Action | Raccourci (Mac) |
-|-----------|-------------|
-| Recherche universelle | `Shift Shift` |
-| Aller à la définition | `Cmd+B` |
-| Trouver les usages | `Cmd+Alt+F7` |
-| Rechercher dans le contenu | `Cmd+Shift+F` |
-
----
-
-## Exemple minimal
-> Sujet lié à la navigation dans l'outil, pas au code — bloc non applicable.
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[IntelliJ IDEA]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[OUT-04-VSCode-Productivite|VSCode - Recherche globale]]
-
-**Pratique :**
-- Extrait de code → (aucun, sujet non-code)
-- Projet → [[02_Projects/CinéTrack]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Saurais-je expliquer la différence entre "aller à la définition" et "trouver les usages" à quelqu'un qui ne connaît pas IntelliJ ?
-
----
-
-## Tâches
-
-- [ ] #task Utiliser "Trouver les usages" avant de modifier une fonction
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Peut-on restreindre la recherche à un seul dossier plutôt qu'à tout le projet ?
+- **Chercher avec `Ctrl+F`** (fichier courant) au lieu de `Ctrl+Shift+F` (tout le projet).
+- **Oublier d'exclure `node_modules` et `dist`** : *clic droit sur le dossier → Mark Directory as → Excluded* (souvent automatique).

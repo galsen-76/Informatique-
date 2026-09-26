@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,124 +10,62 @@ tags:
 aliases:
   - "Chercher et Lire la Documentation"
 parent: "[[Outils]]"
-children: []
 related_theory:
   - "[[METH-05-Resolution-Problemes-Debug|Résolution de Problèmes et Débogage]]"
-related_snippets:
-  - "[[04_Snippets/out-06-recherche-documentation]]"
 related_projects: []
 source: "https://developer.mozilla.org/fr/"
 ---
 
-# Chercher et Lire la Documentation
+# Recherche et Documentation
 
-> [!abstract] Introduction
-> Savoir trouver l'information fiable (doc officielle, code source, issues GitHub) et lire une documentation technique est la compétence qui fait progresser le plus vite — surtout avec l'IA qui peut se tromper.
+> [!abstract] En bref
+> Savoir **trouver une information fiable** fait progresser plus vite que tout le reste. L'ordre : la documentation officielle, puis le code source et les tickets de la librairie, puis les forums. L'IA aide énormément, mais elle se trompe parfois avec assurance : vérifie toujours dans la source officielle.
 
----
+## Où chercher, dans l'ordre
 
-## Théorie
+| Source | Pour | Adresse |
+|---|---|---|
+| **Documentation officielle** | la référence, à jour | angular.dev, vuejs.org, docs.nestjs.com, prisma.io/docs |
+| **MDN** | HTML, CSS, JavaScript, HTTP | developer.mozilla.org/fr |
+| **Tickets GitHub** de la librairie | bugs connus, contournements | onglet *Issues* du dépôt |
+| **Code source** | quand la doc ne dit pas tout | le dépôt, ou `node_modules/` |
+| **Stack Overflow** | problèmes courants | vérifie la **date** et la version |
+| **L'IA** | expliquer, proposer une piste | à vérifier dans la doc (voir [[IA-07-IA-Assistee-Dev\|IA au quotidien]]) |
 
-> [!question]- C'est quoi ?
-> Sources par ordre de fiabilité :
-> 1. Documentation officielle (angular.dev, vuejs.org, docs.nestjs.com, MDN, postgresql.org)
-> 2. Code source et types (`Ctrl+clic` dans l'IDE)
-> 3. Changelogs, guides de migration, RFC
-> 4. Issues/discussions GitHub du projet
-> 5. Stack Overflow, blogs, IA (à vérifier, souvent datés)
+## Vérifier la version
 
-> [!example]- Analogie
-> La doc officielle est la carte IGN à jour ; un article de blog de 2019 est un plan dessiné par un voisin : utile, mais les routes ont peut-être changé.
+Beaucoup de réponses en ligne concernent une **ancienne version** :
+- Angular : `*ngIf`, `@Input()`, NgModules, `angular.io` → ancien. `@if`, `input()`, standalone, `angular.dev` → actuel.
+- Vue : `data()`, `methods` (Options API) → ancien style. `<script setup>` → actuel.
 
-> [!question]- Pourquoi l'utiliser ?
-> Les frameworks évoluent vite (Angular : signals, contrôle de flux, zoneless ; Vue 3.5 ; Nest 11) : beaucoup de tutoriels sont obsolètes.
+Vérifie ta version : `ng version`, `npm ls vue`, ou le `package.json`.
 
-> [!question]- Comment ça marche ?
-> - Toujours vérifier la **version** (du tuto vs de ton projet)
-> - Lire le « Getting started » puis les « Guides », garder l'« API reference » pour les détails
-> - Reproduire le problème dans un projet minimal (StackBlitz)
-> - Poser une question : contexte, ce que tu as essayé, message d'erreur complet, exemple minimal
+## Chercher efficacement
 
-> [!question]- Quand l'utiliser ?
-> Avant toute installation de librairie, à chaque nouvelle API, à chaque message d'erreur inconnu.
+- **Copie le message d'erreur exact** entre guillemets, en retirant ce qui est propre à ton projet (chemins, noms).
+- Ajoute la **techno et la version** : `"NG0201" angular 20`.
+- Cherche en **anglais** : dix fois plus de résultats.
+- Lis la réponse **et les commentaires** : ils signalent souvent qu'elle est dépassée.
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> L'IA peut inventer des API ou mélanger des versions : toujours confronter à la doc et tester.
+## Lire une documentation
 
----
+1. **Getting started / Tutorial** : pour démarrer.
+2. **Guides** : comment faire une tâche (formulaires, routes, authentification).
+3. **API reference** : la liste précise des options, à consulter quand tu sais déjà ce que tu cherches.
 
-## Vocabulaire
+Pas besoin de tout lire : lis la partie dont ta tâche a besoin, c'est la méthode du vault ([[Methode-d-apprentissage|Méthode d'apprentissage]]).
 
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Changelog | Liste des changements par version |
-| Guide de migration | Étapes pour passer d'une version à l'autre |
-| Reproduction minimale | Plus petit exemple qui montre le problème |
+## Demander de l'aide
 
----
+Quand tu bloques plus de 30 à 60 minutes, demande, avec :
+- **ce que tu veux faire** ;
+- **ce qui se passe** (message d'erreur complet) ;
+- **ce que tu as déjà essayé** ;
+- un **exemple minimal** qui reproduit le problème.
 
-## Points clés
+Souvent, rédiger la question suffit à trouver la réponse.
 
-- Doc officielle d'abord
-- Vérifier la version
-- Exemple minimal pour comprendre ou demander de l'aide
+## Pièges
 
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Copier-coller une solution sans la comprendre
-> - Suivre un tutoriel Angular basé sur NgModules/`*ngIf` pour un projet récent
-
----
-
-## Exemple minimal
-
-```text
-Question bien posée :
-« Angular 20, composant standalone. `toSignal(this.route.paramMap)` renvoie undefined au premier rendu.
-J'ai essayé initialValue et requireSync (erreur NG0601). Reproduction : <lien StackBlitz>. »
-```
-
-> [!note] Ce que j'en retiens
-> Version, contexte, essais, erreur, reproduction : on obtient une réponse en minutes.
-
----
-
-## Pour aller plus loin (niveau senior)
-
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Contribuer à la doc ou aux issues des projets open source utilisés
-
----
-
-## Connexions
-
-**Arbre théorique :**
-- Sujet parent → [[Outils]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
-
-**Pratique :**
-- Extrait de code → [[04_Snippets/out-06-recherche-documentation]]
-
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Comment vérifier qu'un tutoriel correspond à ta version ?
-
----
-
-## Tâches
-
-- [ ] #task Mettre en favoris les docs officielles de la stack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Copier une réponse sans la comprendre** : le bug revient sous une autre forme.
+- **Un tutoriel vidéo de 2019** pour un framework qui a beaucoup changé.

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,131 +10,79 @@ tags:
 aliases:
   - "Conventions de Commits et SemVer"
 parent: "[[Git]]"
-children: []
 related_theory:
   - "[[GIT-06-Workflows-Equipe|Workflows Git en Équipe]]"
   - "[[METH-04-Documentation-Technique|Documentation Technique]]"
-related_snippets:
-  - "[[04_Snippets/git-07-conventions-commits-semver]]"
 related_projects: []
 source: "https://www.conventionalcommits.org/fr/v1.0.0/"
 ---
 
 # Conventions de Commits et SemVer
 
-> [!abstract] Introduction
-> Les Conventional Commits normalisent les messages (`feat:`, `fix:`…) et le versionnement sémantique (MAJEUR.MINEUR.PATCH) exprime l'impact d'une version — ensemble, ils permettent changelogs et versions automatiques.
+> [!abstract] En bref
+> Deux conventions partagées par la plupart des équipes. **Conventional Commits** : chaque message commence par un type (`feat:`, `fix:`…), pour un historique lisible et des notes de version automatiques. **SemVer** : un numéro de version en 3 parties (`2.4.1`) qui dit si une mise à jour peut casser ton code.
 
-> [!warning]- Prérequis
-> [[GIT-01-Fondamentaux|Git Fondamentaux]]
-
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> ```text
-> <type>(<portée>): <description courte à l'impératif>
->
-> [corps : le POURQUOI]
->
-> [footer : BREAKING CHANGE: …, Closes #123]
-> ```
-> Types : `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
-> SemVer `2.4.1` : **MAJEUR** (incompatible) . **MINEUR** (fonctionnalité compatible) . **PATCH** (correctif).
-
-> [!example]- Analogie
-> Des étiquettes normalisées sur des cartons de déménagement : n'importe qui sait ce qu'il y a dedans sans ouvrir, et une machine peut les trier.
-
-> [!question]- Pourquoi l'utiliser ?
-> Historique lisible, revue facilitée, génération automatique du changelog et du numéro de version (`feat` → mineure, `fix` → patch, `BREAKING CHANGE` → majeure).
-
-> [!question]- Comment ça marche ?
-> Outillage : commitlint + husky (hook `commit-msg`), semantic-release / release-please / changesets.
-
-> [!question]- Quand l'utiliser ?
-> Tous les commits, si l'équipe l'adopte (très répandu).
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Une convention n'aide que si elle est respectée : l'outiller (hook, CI) plutôt que compter sur la mémoire.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Conventional Commits | Format standard des messages de commit |
-| SemVer | Versionnement sémantique |
-| Changelog | Journal des changements par version |
-| Breaking change | Changement incompatible |
-
----
-
-## Points clés
-
-- Message à l'impératif, court, avec un type
-- Le corps explique le pourquoi
-- BREAKING CHANGE = version majeure
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - « fix », « update », « wip » comme messages
-> - Un commit qui mélange feat + refactor + format
-
----
-
-## Exemple minimal
+## Conventional Commits
 
 ```text
-feat(favoris): permettre de trier les favoris par date d'ajout
+type(portée optionnelle): description courte à l'impératif
 
-Les utilisateurs retrouvaient difficilement leurs derniers ajouts.
-
-Closes #87
+corps optionnel : le pourquoi
 ```
 
-> [!note] Ce que j'en retiens
-> Type, portée, intention, raison et ticket : tout est là.
+```bash
+git commit -m "feat(projects): ajoute le filtre par techno"
+git commit -m "fix(contact): empêche le double envoi du formulaire"
+git commit -m "docs: complète le README"
+```
 
----
+| Type | Pour |
+|---|---|
+| `feat` | une nouvelle fonctionnalité |
+| `fix` | une correction de bug |
+| `refactor` | réorganiser le code sans changer le comportement |
+| `style` | mise en forme (espaces, point-virgule), pas le CSS |
+| `test` | ajouter ou corriger des tests |
+| `docs` | documentation |
+| `chore` | maintenance (dépendances, configuration) |
+| `ci` | pipeline |
+| `perf` | performance |
 
-## Pour aller plus loin (niveau senior)
+Un changement qui **casse** la compatibilité : `feat!: …` ou une ligne `BREAKING CHANGE: …`.
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Mettre en place semantic-release dans la CI
+**Un bon message** dit **ce que fait** le commit, pas ce que tu as fait : « ajoute la pagination », pas « j'ai travaillé sur la liste ».
 
----
+## SemVer : MAJEUR.MINEUR.CORRECTIF
 
-## Connexions
+```text
+  2  .  4  .  1
+  │     │     └─ CORRECTIF : correction de bug, rien ne change pour toi
+  │     └─────── MINEUR : nouvelle fonctionnalité, compatible
+  └───────────── MAJEUR : changement qui peut casser ton code
+```
 
-**Arbre théorique :**
-- Sujet parent → [[Git]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+| Passage | Signification | Risque pour toi |
+|---|---|---|
+| 2.4.1 → 2.4.2 | correction | aucun |
+| 2.4.1 → 2.5.0 | nouveauté | faible |
+| 2.4.1 → 3.0.0 | changement cassant | **lire les notes de migration** |
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/git-07-conventions-commits-semver]]
+Le lien avec les commits : `fix` → correctif, `feat` → mineur, `BREAKING CHANGE` → majeur. Des outils (semantic-release, release-please) calculent la version et le changelog automatiquement.
 
----
+### Dans `package.json`
 
-## Auto-vérification
+| Écriture | Accepte |
+|---|---|
+| `"^2.4.1"` | 2.x.x à partir de 2.4.1 (pas 3.0.0) |
+| `"~2.4.1"` | 2.4.x à partir de 2.4.1 |
+| `"2.4.1"` | exactement cette version |
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quelle version après 1.4.2 pour un `feat` ? Pour un `fix` ? Pour un breaking change ?
+## Vérifier automatiquement
 
----
+**commitlint** + **husky** refusent un commit dont le message ne respecte pas la convention. Voir [[OUT-03-ESLint-Prettier-Qualite|Qualité outillée]].
 
-## Tâches
+## Pièges
 
-- [ ] #task Installer commitlint + husky sur CinéTrack
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **Des messages vagues** : « fix », « modifs », « wip ».
+- **Un commit qui mélange** une fonctionnalité, une correction et du formatage : impossible à relire ou à annuler proprement.
+- **Mettre à jour une dépendance de version majeure** sans lire ses notes de version.

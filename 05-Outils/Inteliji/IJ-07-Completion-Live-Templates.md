@@ -1,6 +1,6 @@
 ---
 created: 2026-09-16
-modified: 2026-09-16
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,121 +10,80 @@ aliases:
 tags:
   - outils/intellij/completion
 parent: "[[IntelliJ IDEA]]"
-children: []
 related_theory: []
-related_snippets: []
 related_projects:
   - "[[02_Projects/CinéTrack]]"
 source: "https://www.jetbrains.com/help/idea/auto-completing-code.html"
 ---
 
-# Complétion de Code & Live Templates IntelliJ
+# Complétion et Live Templates IntelliJ
 
-> [!abstract] Introduction
-> IntelliJ propose plusieurs niveaux d'autocomplétion, jusqu'à la génération automatique de blocs de code via des raccourcis ("live templates").
+> [!abstract] En bref
+> IntelliJ complète ton code intelligemment (il propose seulement ce qui a du sens à cet endroit) et permet de créer des **live templates** : tu tapes une abréviation, `Tab`, et un bloc de code apparaît, avec des zones à remplir. Idéal pour ce que tu écris souvent.
 
-> [!warning]- Prérequis
-> [[IJ-01-Interface-Fondamentaux|Interface et Fondamentaux IntelliJ]].
+## Les complétions
 
----
+| Raccourci | Propose |
+|---|---|
+| `Ctrl+Espace` | complétion de base |
+| `Ctrl+Shift+Espace` | complétion **selon le type attendu** (plus précise) |
+| `Ctrl+Shift+Entrée` | **termine l'instruction** (ajoute `)`, `;`, `{}`) |
+| `Tab` au lieu d'`Entrée` | **remplace** le mot existant au lieu d'insérer |
 
-## Théorie
+## Les « postfix » : écrire à l'envers
 
-> [!question]- C'est quoi ?
-> Complétion basique (tout ce qui commence par ces lettres), complétion intelligente (filtrée par contexte de type), live templates (raccourci + Tab = bloc généré).
+Tape une expression, puis `.` et un mot-clé :
 
-> [!example]- Analogie
-> La complétion basique est un dictionnaire qui propose tous les mots commençant par "ch". La complétion intelligente est un correcteur qui ne propose que les mots qui ont VRAIMENT du sens dans cette phrase précise.
+| Tu tapes | Tu obtiens |
+|---|---|
+| `movies.for` + `Tab` | `for (const movie of movies) { }` |
+| `user.null` | `if (user === null) { }` |
+| `result.const` | `const result = …;` |
+| `condition.if` | `if (condition) { }` |
+| `promise.await` | `await promise` |
+| `value.log` | `console.log(value)` |
 
-> [!question]- Pourquoi l'utiliser ?
-> Écrire du code répétitif à la main est lent et source d'erreurs — les live templates le génèrent instantanément.
+## Les live templates
 
-> [!question]- Comment ça marche ?
-> `Cmd/Ctrl+Shift+Espace` = complétion intelligente. `sout` + Tab (Java) génère `System.out.println()`. Postfix completion : `expression.if` génère la structure `if`.
+Des abréviations fournies, puis les tiennes (*Settings → Editor → Live Templates*) :
 
-> [!question]- Quand l'utiliser ?
-> Complétion intelligente dès qu'on hésite entre plusieurs suggestions ; live templates pour toute structure répétée souvent.
+**Un composant Angular avec signals** (abréviation `ngsc`) :
 
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Les live templates diffèrent selon le langage du fichier ouvert — un raccourci appris en Java ne fonctionnera pas forcément identique en TypeScript.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Live template | Raccourci générant un bloc de code entier après Tab |
-| Postfix completion | Complétion inversée (`expr.if` génère la structure autour) |
-
----
-
-## Points clés
-
-- Complétion intelligente filtre selon le type attendu au contexte
-- Live templates changent selon le langage du fichier
-- Postfix completion inverse l'ordre d'écriture habituel
-- Live templates personnalisables dans les préférences
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - S'attendre à un live template identique entre deux langages différents
-> - Ignorer la complétion intelligente et se fier uniquement à la basique, plus bruyante
-
----
-
-## Paramètres / Configuration
-
-| Action | Raccourci (Mac) |
-|-----------|-------------|
-| Complétion intelligente | `Cmd+Shift+Espace` |
-| Générer du code | `Cmd+N` |
-
----
-
-## Exemple minimal
-
-```typescript
-function afficher(film: Film) { }
-const monFilm: Film = { titre: "Inception", annee: 2010 };
-afficher(m) // Cmd+Shift+Espace -> propose directement "monFilm"
+```ts
+@Component({
+  selector: 'app-$NAME$',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `$END$`,
+})
+export class $CLASS$Component {
+}
 ```
 
-> [!note] Ce que j'en retiens
-> La complétion intelligente élimine les suggestions non pertinentes en filtrant par TYPE attendu.
+**Un test Vitest** (abréviation `desc`) :
 
----
+```ts
+describe('$SUBJECT$', () => {
+  it('$SHOULD$', () => {
+    $END$
+  });
+});
+```
 
-## Connexions
+`$NAME$` = zone à remplir (on passe à la suivante avec `Tab`), `$END$` = position finale du curseur.
 
-**Arbre théorique :**
-- Sujet parent → [[IntelliJ IDEA]]
-- Sous-sujets → (aucun)
-- À comparer avec → [[OUT-04-VSCode-Productivite|VSCode - IntelliSense et Snippets]]
+## Entourer du code : `Ctrl+Alt+T`
 
-**Pratique :**
-- Extrait de code → (aucun, sujet non-code)
-- Projet → [[02_Projects/CinéTrack]]
+Sélectionne des lignes → `Ctrl+Alt+T` → *try / catch*, *if*, *for*… Le bloc est placé autour.
 
----
+## Générer : `Alt+Insert`
 
-## Auto-vérification
+Dans un fichier ou dans l'arborescence : créer un composant, un fichier de test, un constructeur, etc.
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> Pourrais-je expliquer pourquoi la complétion intelligente donne moins de résultats que la basique ?
+## Et l'IA ?
 
----
+IntelliJ propose aussi une complétion par IA (ligne entière, fonction). Utile, mais **relis toujours** ce qui est proposé : voir [[IA-07-IA-Assistee-Dev|IA au quotidien]].
 
-## Tâches
+## Pièges
 
-- [ ] #task Tester la complétion intelligente sur une fonction TypeScript
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? Existe-t-il des live templates prêts à l'emploi spécifiques à Angular ?
+- **Accepter une complétion sans la lire**, surtout celle de l'IA.
+- **Des templates pour tout** : crée-en seulement pour ce que tu tapes vraiment souvent.

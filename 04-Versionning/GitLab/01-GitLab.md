@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Fondamental
@@ -10,139 +10,63 @@ tags:
 aliases:
   - "Fondamentaux GitLab"
 parent: "[[GitLab]]"
-children:
-  - "[[02-Merge-Requests|Merge Requests]]"
-  - "[[03-CI-CD|CI/CD GitLab]]"
-  - "[[04-Issues-Boards|Issues et Boards GitLab]]"
-  - "[[05-GitLab-Avance|GitLab Avancé]]"
 related_theory:
   - "[[GIT-01-Fondamentaux|Git Fondamentaux]]"
-related_snippets:
-  - "[[04_Snippets/01-gitlab]]"
 related_projects: []
 source: "https://docs.gitlab.com/"
 ---
 
 # Fondamentaux GitLab
 
-> [!abstract] Introduction
-> GitLab sert à héberger le code versionné avec Git, et à organiser le travail d'équipe autour : revue de code, automatisation (CI/CD), suivi de tâches.
+> [!abstract] En bref
+> **Git** est l'outil qui garde l'historique sur ta machine. **GitLab** est la plateforme en ligne autour : il héberge le code et ajoute ce qu'il faut pour travailler en équipe (Merge Requests, pipelines automatiques, tickets). Ton entreprise utilise son propre GitLab, hébergé sur ses serveurs.
 
-> [!warning]- Prérequis
-> [[GIT-01-Fondamentaux|Git Fondamentaux]]
+## L'image
 
----
+Git est le **moteur**. GitLab est l'**usine** construite autour : un bureau d'études (les tickets), un contrôle qualité (les Merge Requests et les pipelines), un entrepôt (le registre d'images), un service d'expédition (le déploiement).
 
-## Théorie
+## Le parcours d'une modification
 
-> [!question]- C'est quoi ?
-> **GitLab** est une plateforme web qui héberge des dépôts Git et ajoute des outils de collaboration (Merge Requests, CI/CD, issues, registry, wiki). Il peut être utilisé en SaaS (gitlab.com) ou **auto-hébergé** (self-managed) sur les serveurs de l'entreprise.
-
-> [!example]- Analogie
-> Git est le moteur ; GitLab est l'usine autour : bureau d'études (issues), contrôle qualité (MR + pipelines), entrepôt (registry), expédition (déploiement).
-
-> [!question]- Pourquoi l'utiliser ?
-> - Protéger la branche principale contre les modifications directes
-> - Imposer une revue avant tout changement
-> - Automatiser tests et déploiements
-> - Centraliser code, tickets et documentation
-
-> [!question]- Comment ça marche ?
-> ```mermaid
-> flowchart LR
->   P["Push d'une branche"] --> MR["Merge Request<br/>(revue de code)"]
->   MR --> CI["Pipeline CI/CD<br/>(build / test)"]
->   CI -->|"vert + approbations"| M["Merge dans main"]
->   M --> D["Déploiement"]
-> ```
-> Organisation : **Groupes** (équipes/départements) → **Projets** (un dépôt chacun) ; permissions par rôle (Guest, Reporter, Developer, Maintainer, Owner).
-
-> [!question]- Quand l'utiliser ?
-> Dès qu'un projet est développé en équipe, ou dès qu'on veut un historique de code sécurisé et accessible en ligne.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> Certaines fonctionnalités (règles d'approbation avancées, sécurité) dépendent de la licence (Free / Premium / Ultimate).
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Projet | Dépôt GitLab avec ses issues, MR, pipelines |
-| Groupe | Ensemble de projets et de membres |
-| Merge Request | Demande d'intégration d'une branche après revue |
-| Pipeline | Suite automatique de jobs CI/CD |
-| Branche protégée | Branche modifiable uniquement via MR validée |
-
----
-
-## Points clés
-
-- GitLab = Git + collaboration + CI/CD
-- Rôles et branches protégées contrôlent qui peut quoi
-- Self-managed possible (choix d'Assystem : héberger ses propres serveurs)
-- Tout passe par une MR
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - Confondre GitLab (plateforme) et Git (outil)
-> - Travailler directement sur `main`
-
----
-
-## Exemple minimal
-
-```bash
-git clone git@gitlab.entreprise.fr:equipe/mon-projet.git
-git switch -c feature/ma-page
-# ... code ...
-git commit -am "feat: ajoute ma page"
-git push -u origin feature/ma-page
-# → GitLab affiche un lien pour créer la Merge Request
+```mermaid
+flowchart LR
+  I["📋 Ticket<br/>(issue)"] --> B["🌿 Branche"]
+  B --> P["⬆️ Push"]
+  P --> MR["🔍 Merge Request<br/>revue de code"]
+  MR --> CI["⚙️ Pipeline<br/>lint, tests, build"]
+  CI -->|"vert + approuvé"| M["✅ Fusion dans main"]
+  M --> D["🚀 Déploiement"]
 ```
 
-> [!note] Ce que j'en retiens
-> GitLab n'est pas un remplaçant de Git, c'est la couche collaborative posée par-dessus : revue, automatisation, suivi.
+## L'organisation
 
----
+| Élément | C'est… |
+|---|---|
+| **Groupe** | une équipe ou un département, qui contient des projets |
+| **Projet** | un dépôt Git + ses tickets, MR, pipelines, wiki |
+| **Branche protégée** | `main` : modifiable seulement via une MR validée |
+| **Rôle** | ce que tu as le droit de faire |
 
-## Pour aller plus loin (niveau senior)
+| Rôle | Peut |
+|---|---|
+| Guest / Reporter | lire, commenter les tickets |
+| **Developer** | pousser des branches, ouvrir des MR (ton rôle habituel) |
+| Maintainer | fusionner, configurer le projet |
+| Owner | tout, y compris supprimer |
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Configurer un projet : branches protégées, règles d'approbation, templates de MR/issues, CODEOWNERS
+## Les fonctionnalités que tu utiliseras
 
----
+| Fonctionnalité | Note |
+|---|---|
+| Merge Requests | [[02-Merge-Requests\|Merge Requests]] |
+| Pipelines CI/CD | [[03-CI-CD\|CI/CD]] |
+| Tickets et tableaux | [[04-Issues-Boards\|Issues et boards]] |
+| Registre d'images, Pages, sécurité | [[05-GitLab-Avance\|GitLab avancé]] |
 
-## Connexions
+## Tes projets perso
 
-**Arbre théorique :**
-- Sujet parent → [[GitLab]]
-- Sous-sujets → [[02-Merge-Requests|Merge Requests]], [[03-CI-CD|CI/CD GitLab]], [[04-Issues-Boards|Issues et Boards GitLab]], [[05-GitLab-Avance|GitLab Avancé]]
-- À comparer avec → [[GitHub]]
+Mets tes projets sur **gitlab.com** (ou GitHub) : c'est ce que regardera un recruteur. Un dépôt propre = un README clair, des commits lisibles, un pipeline vert, un lien vers la démo.
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/01-gitlab]]
+## Pièges
 
----
-
-## Auto-vérification
-
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Quels rôles GitLab peuvent merger sur une branche protégée ?
-
----
-
-## Tâches
-
-- [ ] #task Faire une Merge Request complète de bout en bout
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ? GitLab vs GitHub chez Assystem : GitLab car on peut héberger nos propres serveurs.
+- **Confondre Git et GitLab** : Git marche très bien sans GitLab, l'inverse non.
+- **Travailler directement sur `main`** : impossible si elle est protégée, et c'est tant mieux.

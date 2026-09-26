@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-26
 type: knowledge
 status: "🔴 Not Started"
 level: Intermédiaire
@@ -10,132 +10,77 @@ tags:
 aliases:
   - "Annuler et Corriger dans Git"
 parent: "[[Git]]"
-children: []
 related_theory:
   - "[[GIT-01-Fondamentaux|Git Fondamentaux]]"
   - "[[GIT-08-Git-Avance|Git Avancé]]"
-related_snippets:
-  - "[[04_Snippets/git-05-annuler-corriger]]"
 related_projects: []
 source: "https://git-scm.com/book/fr/v2/Les-bases-de-Git-Annuler-des-actions"
 ---
 
-# Annuler et Corriger dans Git
+# Annuler et Corriger avec Git
 
-> [!abstract] Introduction
-> Git offre plusieurs façons de revenir en arrière — `restore`, `reset`, `revert`, `stash`, `commit --amend`, `reflog` — à choisir selon que le travail est local ou déjà partagé.
+> [!abstract] En bref
+> Avec Git, presque tout se rattrape. Le bon outil dépend d'**une seule question** : ce que je veux annuler a-t-il **déjà été poussé** (partagé avec d'autres) ? Si non, on peut réécrire l'historique. Si oui, on ajoute un commit qui corrige.
 
-> [!warning]- Prérequis
-> [[GIT-01-Fondamentaux|Git Fondamentaux]]
+## Le guide de choix
 
----
-
-## Théorie
-
-> [!question]- C'est quoi ?
-> | Besoin | Commande | Réécrit l'historique ? |
-> |---|---|---|
-> | Annuler les modifs d'un fichier | `git restore fichier` | Non (perte des modifs) |
-> | Retirer du staging | `git restore --staged fichier` | Non |
-> | Corriger le dernier commit (local) | `git commit --amend` | Oui |
-> | Défaire des commits locaux | `git reset --soft/--mixed/--hard HEAD~1` | Oui |
-> | Annuler un commit déjà poussé | `git revert <sha>` | Non (nouveau commit inverse) |
-> | Mettre de côté un travail | `git stash` / `git stash pop` | Non |
-> | Retrouver un commit « perdu » | `git reflog` | — |
-
-> [!example]- Analogie
-> `revert` : publier un erratum dans le journal du lendemain. `reset` : arracher la page avant que le journal ne soit imprimé.
-
-> [!question]- Pourquoi l'utiliser ?
-> Les erreurs arrivent (mauvais fichier commité, commit sur la mauvaise branche) : savoir les corriger sans paniquer ni casser le travail des autres.
-
-> [!question]- Comment ça marche ?
-> - `--soft` : garde les modifs indexées ; `--mixed` (défaut) : garde les modifs non indexées ; `--hard` : supprime tout
-> - Sur une branche partagée : **revert**, jamais reset
-> - `reflog` garde ~90 jours d'historique des déplacements de HEAD : presque rien n'est vraiment perdu
-
-> [!question]- Quand l'utiliser ?
-> Local et non poussé : amend/reset. Poussé et partagé : revert.
-
-> [!danger]- Quand NE PAS l'utiliser / Limites
-> `reset --hard` et `restore` suppriment des modifications NON commitées de façon définitive.
-
----
-
-## Vocabulaire
-
-| Terme | Définition en une ligne |
-|-------|--------------------------|
-| Revert | Commit qui annule un autre |
-| Reset | Déplace la branche vers un autre commit |
-| Stash | Pile de modifications mises de côté |
-| Reflog | Journal des positions de HEAD |
-
----
-
-## Points clés
-
-- Partagé → revert ; local → reset/amend
-- `stash` pour changer de branche rapidement
-- `reflog` pour tout récupérer
-
----
-
-## Pièges courants
-
-> [!bug]- Erreurs fréquentes
-> - `git reset --hard` avec du travail non commité
-> - `--amend` sur un commit déjà poussé
-
----
-
-## Exemple minimal
-
-```bash
-# J'ai commité sur main au lieu d'une branche (pas encore poussé)
-git switch -c feature/oups        # la branche garde le commit
-git switch main
-git reset --hard origin/main      # main revient à l'état distant
+```mermaid
+flowchart TD
+  A{"Qu'est-ce que je veux annuler ?"} --> B["Des modifications<br/>pas encore commitées"]
+  A --> C["Le dernier commit<br/>pas encore poussé"]
+  A --> D["Un commit<br/>déjà poussé"]
+  A --> E["Mettre de côté<br/>temporairement"]
+  B --> B1["git restore fichier"]
+  C --> C1["git commit --amend<br/>ou git reset"]
+  D --> D1["git revert id"]
+  E --> E1["git stash"]
 ```
 
-> [!note] Ce que j'en retiens
-> Créer la branche d'abord, nettoyer ensuite : aucun travail perdu.
+## Aide-mémoire
 
----
+| Situation | Commande | Danger |
+|---|---|---|
+| annuler les modifs d'un fichier (pas commité) | `git restore fichier.ts` | ⚠️ les modifs sont perdues |
+| retirer un fichier de la préparation (`add`) | `git restore --staged fichier.ts` | aucun |
+| corriger le message ou ajouter un oubli au **dernier** commit (pas poussé) | `git add oubli.ts && git commit --amend` | réécrit le commit |
+| défaire le dernier commit, **garder** le code | `git reset --soft HEAD~1` | réécrit l'historique |
+| défaire le dernier commit **et** le code | `git reset --hard HEAD~1` | ⚠️ code perdu |
+| annuler un commit **déjà poussé** | `git revert <id>` | aucun : crée un commit inverse |
+| mettre de côté pour changer de branche | `git stash` puis `git stash pop` | aucun |
+| retrouver un commit « perdu » | `git reflog` | aucun |
 
-## Pour aller plus loin (niveau senior)
+## `revert` : la méthode sûre pour ce qui est partagé
 
-> [!tip]- Ce qui distingue un dev expérimenté
-> - Savoir récupérer après un rebase raté grâce au reflog
+```bash
+git log --oneline          # trouver l'id du commit fautif, ex. a1b2c3d
+git revert a1b2c3d         # crée un nouveau commit qui fait l'inverse
+git push
+```
 
----
+L'historique garde les deux commits : personne n'est perturbé.
 
-## Connexions
+## `stash` : le tiroir
 
-**Arbre théorique :**
-- Sujet parent → [[Git]]
-- Sous-sujets → (aucun pour l'instant)
-- À comparer avec → (—)
+Tu es en plein travail, et on te demande une correction urgente sur une autre branche :
 
-**Pratique :**
-- Extrait de code → [[04_Snippets/git-05-annuler-corriger]]
+```bash
+git stash                  # range tes modifs dans un tiroir
+git switch main            # … corrige, commite …
+git switch feature/contact
+git stash pop              # ressort tes modifs
+```
 
----
+## `reflog` : le filet de sécurité
 
-## Auto-vérification
+Git note **tout** ce que tu fais pendant environ 90 jours, même après un `reset --hard` :
 
-> [!check]- Est-ce que je maîtrise vraiment ?
-> - Pourquoi utiliser revert plutôt que reset sur une branche partagée ?
+```bash
+git reflog                 # liste de tous tes déplacements
+git reset --hard HEAD@{3}  # revenir à l'état d'il y a 3 actions
+```
 
----
+## Pièges
 
-## Tâches
-
-- [ ] #task S'entraîner : amend, reset --soft, revert, stash, reflog dans un dépôt de test
-- [ ] #task Mettre à jour `status` une fois maîtrisé
-
----
-
-## Notes brutes
-
-- ?
+- **`reset --hard` ou `restore`** sur du travail non commité : il est **vraiment** perdu (le reflog ne voit que les commits). Commite souvent, ou `stash`.
+- **`reset` ou `--amend` sur un commit déjà poussé** : tes collègues auront un historique incompatible. Utilise `revert`.
+- **Paniquer** : avant toute commande risquée, `git status` et `git log --oneline`.
