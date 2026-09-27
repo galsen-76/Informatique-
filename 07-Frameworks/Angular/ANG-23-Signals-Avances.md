@@ -108,3 +108,44 @@ Vérifie dans la documentation de ta version d'Angular si ces API sont stables o
 - **`toSignal` sans `initialValue`** : le type inclut `undefined`.
 - **`effect` qui modifie les signals qu'il lit** : boucle infinie.
 - **Tout convertir en RxJS** « par habitude » : une recherche avec délai oui, un simple compteur non.
+
+## Exercices
+
+### Exercice 1 · Charger selon l'id
+
+Sur la fiche film, charge automatiquement le film chaque fois que l'input `id` change, avec `httpResource`. Affiche les états chargement et erreur.
+
+> [!success]- Solution
+> ```ts
+> export class MovieDetailsPage {
+>   private config = inject(TMDB_CONFIG);
+>   id = input.required<string>();
+>
+>   movie = httpResource<MovieDetailsDto>(() => `${this.config.apiUrl}/movie/${this.id()}`);
+> }
+> ```
+>
+> ```html
+> @if (movie.isLoading()) { <p>Chargement…</p> }
+> @if (movie.error()) { <p>Film introuvable</p> }
+> @if (movie.value(); as m) { <h1>{{ m.title }}</h1> }
+> ```
+
+### Exercice 2 · Une valeur qui se réinitialise
+
+Sur la page de résultats, la page courante doit revenir à 1 chaque fois que le texte de recherche change, tout en restant modifiable par la pagination. Quel outil ?
+
+> [!success]- Solution
+> ```ts
+> query = input('');
+> page = linkedSignal({
+>   source: this.query,
+>   computation: () => 1,
+> });
+>
+> nextPage() {
+>   this.page.update((p) => p + 1);
+> }
+> ```
+>
+> `linkedSignal` est un signal modifiable qui se **recalcule** quand sa source change.

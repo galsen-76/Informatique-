@@ -106,3 +106,60 @@ Rarement, on veut un service **propre à un composant** (et à ses enfants) :
 - **`inject()` en dehors d'un constructeur ou d'une propriété** (dans une méthode appelée plus tard) : erreur. Appelle-le au moment de la création.
 - **Un service qui fait tout** (API + état + formatage) : sépare en `movies.api.ts` et `movies.store.ts` (voir [[ANG-30-Template-Architecture-Angular|architecture]]).
 - **Oublier `providedIn: 'root'`** : erreur « No provider for… ».
+
+## Exercices
+
+### Exercice 1 · Un service partagé
+
+Crée un service `FavoritesService` disponible dans toute l'application, qui garde une liste d'ids dans un signal, avec `toggle(id)` et `has(id)`. Utilise-le dans un composant avec `inject()`.
+
+> [!success]- Solution
+> ```ts
+> @Injectable({ providedIn: 'root' })
+> export class FavoritesService {
+>   private ids = signal<number[]>([]);
+>
+>   toggle(id: number) {
+>     this.ids.update((list) => (list.includes(id) ? list.filter((x) => x !== id) : [...list, id]));
+>   }
+>
+>   has(id: number) {
+>     return this.ids().includes(id);
+>   }
+> }
+> ```
+>
+> ```ts
+> export class MovieCard {
+>   private favorites = inject(FavoritesService);
+>   movie = input.required<Movie>();
+>   isFavorite = computed(() => this.favorites.has(this.movie().id));
+> }
+> ```
+>
+> `providedIn: 'root'` = une seule instance partagée par toute l'application.
+
+### Exercice 2 · Fournir une configuration
+
+Crée un jeton d'injection `TMDB_CONFIG` qui contient `apiUrl` et `language`, fournis-le dans `app.config.ts` et lis-le dans un service.
+
+> [!success]- Solution
+> ```ts
+> // core/config/tmdb.config.ts
+> export interface TmdbConfig {
+>   apiUrl: string;
+>   language: string;
+> }
+> export const TMDB_CONFIG = new InjectionToken<TmdbConfig>('TMDB_CONFIG');
+> ```
+>
+> ```ts
+> // app.config.ts
+> providers: [
+>   { provide: TMDB_CONFIG, useValue: { apiUrl: 'https://api.themoviedb.org/3', language: 'fr-FR' } },
+> ]
+> ```
+>
+> ```ts
+> private config = inject(TMDB_CONFIG);
+> ```

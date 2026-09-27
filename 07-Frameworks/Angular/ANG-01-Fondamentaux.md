@@ -87,3 +87,49 @@ Structure du projet : [[ANG-30-Template-Architecture-Angular|Template d'architec
 - **Oublier les `()`** pour lire un signal : `{{ count }}` affiche la fonction, pas la valeur.
 - **Suivre un tutoriel ancien** (NgModules, `@Input()`, `*ngIf`) : Angular a beaucoup changé. Vérifie que la doc est récente (angular.dev, pas angular.io).
 - **Installer Angular DevTools** (extension navigateur) dès le début.
+
+## Exercices
+
+### Exercice 1 · Créer et lancer le projet
+
+Écris les commandes pour installer le CLI Angular, créer le projet `cinetrack` et le lancer. À quelle adresse s'ouvre l'application ?
+
+> [!success]- Solution
+> ```bash
+> npm install -g @angular/cli
+> ng new cinetrack
+> cd cinetrack
+> ng serve
+> ```
+>
+> L'application s'ouvre sur **http://localhost:4200**. `ng serve` recharge la page à chaque enregistrement.
+
+### Exercice 2 · Ton premier composant
+
+Crée un composant `Hello` qui affiche « Bonjour Alice ! », où le prénom vient d'un signal. Affiche-le dans `App`.
+
+> [!success]- Solution
+> ```ts
+> // hello.ts
+> import { Component, signal } from '@angular/core';
+>
+> @Component({
+>   selector: 'app-hello',
+>   template: `<p>Bonjour {{ name() }} !</p>`,
+> })
+> export class Hello {
+>   name = signal('Alice');
+> }
+> ```
+>
+> ```ts
+> // app.ts
+> @Component({
+>   selector: 'app-root',
+>   imports: [Hello],
+>   template: `<app-hello />`,
+> })
+> export class App {}
+> ```
+>
+> On lit un signal en l'**appelant** : `name()`.

@@ -106,3 +106,45 @@ Le resolver **bloque** la navigation jusqu'à la réponse : l'utilisateur ne voi
 - **Compter sur le guard pour la sécurité** : non, c'est le serveur.
 - **Un intercepteur qui modifie la requête d'origine** : elle est non modifiable, utilise `req.clone(…)`.
 - **Avaler l'erreur dans l'intercepteur** (sans `throwError`) : la page croit que tout s'est bien passé.
+
+## Exercices
+
+### Exercice 1 · L'intercepteur TMDB
+
+Écris un intercepteur fonctionnel qui ajoute l'en-tête `Authorization: Bearer <jeton>` et le paramètre `language=fr-FR`, **seulement** pour les requêtes vers TMDB.
+
+> [!success]- Solution
+> ```ts
+> export const tmdbInterceptor: HttpInterceptorFn = (req, next) => {
+>   const config = inject(TMDB_CONFIG);
+>   if (!req.url.startsWith(config.apiUrl)) return next(req);
+>
+>   return next(
+>     req.clone({
+>       setHeaders: { Authorization: `Bearer ${config.token}` },
+>       setParams: { language: 'fr-FR' },
+>     }),
+>   );
+> };
+> ```
+>
+> ```ts
+> provideHttpClient(withInterceptors([tmdbInterceptor]))
+> ```
+
+### Exercice 2 · Protéger une page
+
+Écris un guard qui laisse accéder à `/favorites` seulement si l'utilisateur est connecté, sinon il redirige vers `/login`.
+
+> [!success]- Solution
+> ```ts
+> export const authGuard: CanActivateFn = () => {
+>   const auth = inject(AuthService);
+>   const router = inject(Router);
+>   return auth.isLoggedIn() ? true : router.createUrlTree(['/login']);
+> };
+> ```
+>
+> ```ts
+> { path: 'favorites', canActivate: [authGuard], loadComponent: () => … }
+> ```

@@ -112,3 +112,43 @@ Protéger une route (connexion obligatoire) : [[ANG-21-Guards-Resolvers-Intercep
 - **La route `**` pas en dernier** : elle attrape tout ce qui suit.
 - **Page 404 du serveur** en rafraîchissant `/movies/12` : l'hébergeur doit renvoyer `index.html` pour toutes les URL.
 - **Un `href` classique** au lieu de `routerLink` : toute l'application se recharge.
+
+## Exercices
+
+### Exercice 1 · Déclarer les routes
+
+Écris les routes : `/` (films populaires), `/movies/:id` (fiche), `/favorites`, et une page 404 pour tout le reste. Les pages sont chargées à la demande.
+
+> [!success]- Solution
+> ```ts
+> export const routes: Routes = [
+>   { path: '', loadComponent: () => import('./features/movies/pages/movies-page').then((m) => m.MoviesPage) },
+>   { path: 'movies/:id', loadComponent: () => import('./features/movies/pages/movie-details-page').then((m) => m.MovieDetailsPage) },
+>   { path: 'favorites', loadComponent: () => import('./features/account/pages/favorites-page').then((m) => m.FavoritesPage) },
+>   { path: '**', loadComponent: () => import('./core/layout/not-found').then((m) => m.NotFound) },
+> ];
+> ```
+>
+> La route `**` doit être **la dernière** : elle attrape tout.
+
+### Exercice 2 · Lire l'id de l'URL
+
+Sur la page `/movies/:id`, récupère l'`id` sous forme d'input du composant. Que faut-il activer dans la configuration ? Et comment faire un lien vers une fiche depuis une carte ?
+
+> [!success]- Solution
+> ```ts
+> // app.config.ts
+> provideRouter(routes, withComponentInputBinding())
+> ```
+>
+> ```ts
+> export class MovieDetailsPage {
+>   id = input.required<string>();   // rempli automatiquement depuis :id
+> }
+> ```
+>
+> ```html
+> <a [routerLink]="['/movies', movie().id]">{{ movie().title }}</a>
+> ```
+>
+> (`RouterLink` à importer dans le composant.)

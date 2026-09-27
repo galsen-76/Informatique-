@@ -88,3 +88,42 @@ flowchart LR
 - **Tout mettre dans un store global** : un état local reste dans son composant.
 - **Exposer un `signal` modifiable** publiquement : n'importe quel composant peut tout changer. Utilise `asReadonly()` ou `computed`.
 - **Copier les données du store** dans des variables du composant : elles ne seront plus à jour. Lis directement les signals du store.
+
+## Exercices
+
+### Exercice 1 · Un store maison
+
+Écris un `FavoritesStore` : état privé (signal), lecture seule exposée, un `computed` `count`, et une méthode `toggle(movie)`.
+
+> [!success]- Solution
+> ```ts
+> @Injectable({ providedIn: 'root' })
+> export class FavoritesStore {
+>   private readonly _items = signal<Movie[]>([]);
+>
+>   readonly items = this._items.asReadonly();
+>   readonly count = computed(() => this._items().length);
+>
+>   toggle(movie: Movie) {
+>     this._items.update((list) =>
+>       list.some((m) => m.id === movie.id) ? list.filter((m) => m.id !== movie.id) : [...list, movie],
+>     );
+>   }
+> }
+> ```
+>
+> Les composants lisent `items()` et `count()`, mais seul le store peut modifier l'état.
+
+### Exercice 2 · Où ranger la donnée ?
+
+Pour chaque donnée, où la ranges-tu : dans le composant, dans un store (service), ou dans l'URL ?
+1. le texte de la recherche, pour pouvoir partager le lien ;
+2. l'ouverture d'un menu déroulant ;
+3. le compte connecté ;
+4. la page de résultats actuelle.
+
+> [!success]- Solution
+> 1. **URL** (`?query=dune`) : on peut partager le lien et revenir en arrière.
+> 2. **Composant** : personne d'autre n'en a besoin.
+> 3. **Store** (service) : utilisé par l'en-tête, les guards, plusieurs pages.
+> 4. **URL** (`?page=3`) : comme la recherche.

@@ -84,3 +84,37 @@ Solution : utilise un signal et `set` / `update`.
 ## Pour voir ce qui se passe
 
 **Angular DevTools** → onglet Profiler : montre chaque cycle de vérification et les composants concernés.
+
+## Exercices
+
+### Exercice 1 · Pourquoi l'écran ne bouge pas ?
+
+Composant en `OnPush` : au clic, la note change dans l'objet mais l'affichage reste le même. Explique et corrige.
+
+```ts
+movie = { title: 'Dune', rating: 3 };
+rate() { this.movie.rating = 5; }
+```
+
+> [!success]- Solution
+> Avec `OnPush`, Angular ne redessine le composant que si un **input** change de **référence**, si un événement a lieu dans le composant, ou si un **signal** lu dans le template change. Modifier une propriété d'un objet simple ne suffit pas toujours à le prévenir.
+>
+> Avec un signal :
+>
+> ```ts
+> movie = signal({ title: 'Dune', rating: 3 });
+> rate() {
+>   this.movie.update((m) => ({ ...m, rating: 5 }));
+> }
+> ```
+
+### Exercice 2 · Vrai ou faux ?
+
+1. Avec `OnPush`, un signal lu dans le template qui change met bien l'écran à jour.
+2. En mode zoneless, un `setTimeout` qui modifie une variable simple met l'écran à jour.
+3. `OnPush` rend l'application plus rapide.
+
+> [!success]- Solution
+> 1. **Vrai** : les signals préviennent Angular directement.
+> 2. **Faux** : sans Zone.js, Angular n'est pas averti. Il faut modifier un **signal**.
+> 3. **Vrai** : Angular vérifie beaucoup moins de composants à chaque événement.

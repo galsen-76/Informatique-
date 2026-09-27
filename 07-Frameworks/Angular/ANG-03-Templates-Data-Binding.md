@@ -85,3 +85,41 @@ Moyen mnémotechnique : les **crochets `[ ]`** font entrer la donnée dans le HT
 - **Oublier les `()` d'un signal** : `{{ movie.title }}` au lieu de `{{ movie().title }}`.
 - **Des calculs lourds dans le template** (`{{ filterMovies() }}`) : la fonction est rappelée très souvent. Mets le calcul dans un `computed()`.
 - **Anciennes écritures** `*ngIf`, `*ngFor` : fonctionnent encore, mais on écrit maintenant `@if`, `@for`.
+
+## Exercices
+
+### Exercice 1 · Les 4 liaisons
+
+Dans ce template, écris : le titre (texte), l'image de l'affiche (propriété `src`), un bouton qui appelle `toggleFavorite()`, et un champ de recherche lié dans les deux sens à un signal `query`.
+
+> [!success]- Solution
+> ```html
+> <h2>{{ movie().title }}</h2>
+> <img [src]="posterUrl()" [alt]="'Affiche de ' + movie().title" />
+> <button (click)="toggleFavorite()">♥</button>
+> <input [(ngModel)]="query" />
+> ```
+>
+> - `{{ }}` : afficher du texte
+> - `[prop]` : donner une valeur à une propriété
+> - `(event)` : réagir à un événement
+> - `[( )]` : liaison dans les deux sens (`ngModel` accepte un signal ; importer `FormsModule`)
+
+### Exercice 2 · Le contrôle du flux
+
+Affiche la liste `movies()` : un message « Chargement… » si `loading()` est vrai, sinon une carte par film, et « Aucun film » si la liste est vide.
+
+> [!success]- Solution
+> ```html
+> @if (loading()) {
+>   <p>Chargement…</p>
+> } @else {
+>   @for (movie of movies(); track movie.id) {
+>     <app-movie-card [movie]="movie" />
+>   } @empty {
+>     <p>Aucun film</p>
+>   }
+> }
+> ```
+>
+> `track movie.id` permet à Angular de ne redessiner que les cartes qui changent.

@@ -109,3 +109,51 @@ Tu les verras dans du code existant : `@Input() movie!: Movie;` et `@Output() fa
 - **Modifier un input dans l'enfant** : impossible (lecture seule). Émets un événement, ou utilise `model()`.
 - **Oublier les crochets** : `movie="m"` passe le texte « m ».
 - **Faire passer une donnée sur 4 niveaux** : utilise un service.
+
+## Exercices
+
+### Exercice 1 · Parent et enfant
+
+`MovieCard` reçoit un film et prévient le parent quand on clique sur « favori ». Écris l'enfant et l'utilisation dans le parent.
+
+> [!success]- Solution
+> ```ts
+> // enfant
+> export class MovieCard {
+>   movie = input.required<Movie>();
+>   favoriteToggle = output<number>();
+> }
+> ```
+>
+> ```html
+> <!-- template de l'enfant -->
+> <button (click)="favoriteToggle.emit(movie().id)">♥</button>
+> ```
+>
+> ```html
+> <!-- parent -->
+> <app-movie-card [movie]="m" (favoriteToggle)="store.toggle($event)" />
+> ```
+
+### Exercice 2 · Une valeur modifiable par l'enfant
+
+Crée un composant `RatingStars` dont la note peut être lue **et** modifiée par le parent avec `[(rating)]`.
+
+> [!success]- Solution
+> ```ts
+> @Component({
+>   selector: 'app-rating-stars',
+>   template: `
+>     @for (star of [1, 2, 3, 4, 5]; track star) {
+>       <button type="button" (click)="rating.set(star)">{{ star <= rating() ? '★' : '☆' }}</button>
+>     }
+>   `,
+> })
+> export class RatingStars {
+>   rating = model(0);
+> }
+> ```
+>
+> ```html
+> <app-rating-stars [(rating)]="myRating" />
+> ```

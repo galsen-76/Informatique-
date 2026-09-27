@@ -87,3 +87,37 @@ Voir [[CICD-01-Fondamentaux|CI/CD]].
 - **Tester seulement avec `ng serve`** : le build de production peut révéler des erreurs (budgets, code inutilisé). Lance `ng build` avant de pousser.
 - **Oublier `base-href`** quand le site est dans un sous-dossier : écran blanc, fichiers introuvables.
 - **Mettre une clé secrète dans `environment.ts`**.
+
+## Exercices
+
+### Exercice 1 · Construire pour la production
+
+Quelle commande produit le build de production ? Où sont les fichiers, et que faut-il configurer sur l'hébergeur pour que `/movies/42` ne donne pas une erreur 404 au rechargement ?
+
+> [!success]- Solution
+> ```bash
+> ng build
+> ```
+>
+> Les fichiers sont dans `dist/cinetrack/browser/`.
+>
+> C'est une application à page unique : toutes les URL doivent renvoyer `index.html`, puis Angular affiche la bonne page. Sur l'hébergeur, on ajoute une **règle de réécriture** (par exemple sur Netlify, un fichier `_redirects` contenant `/* /index.html 200`).
+
+### Exercice 2 · Les environnements
+
+Tu veux une URL d'API différente en développement et en production. Comment l'organiser avec Angular ?
+
+> [!success]- Solution
+> ```bash
+> ng generate environments
+> ```
+>
+> ```ts
+> // src/environments/environment.development.ts
+> export const environment = { apiUrl: 'https://api.themoviedb.org/3', production: false };
+>
+> // src/environments/environment.ts
+> export const environment = { apiUrl: 'https://api.themoviedb.org/3', production: true };
+> ```
+>
+> Le CLI remplace le fichier selon la configuration (`ng serve` = développement, `ng build` = production). Ne jamais y mettre de vrai secret : tout finit dans le bundle public.

@@ -72,3 +72,34 @@ On peut ajouter `prefetch on idle` : télécharger le code en avance, mais ne l'
 - **Un composant utilisé aussi ailleurs sans `@defer`** : son code est de toute façon dans le paquet principal, le gain disparaît.
 - **Oublier `@placeholder`** avec `on viewport` : sans élément à observer, rien ne se déclenche.
 - **Réserver la hauteur** dans le placeholder, sinon la page « saute » au chargement.
+
+## Exercices
+
+### Exercice 1 · Différer la bande-annonce
+
+Sur la fiche film, charge le composant `Trailer` seulement quand il arrive à l'écran, avec un espace réservé et un message pendant le chargement.
+
+> [!success]- Solution
+> ```html
+> @defer (on viewport) {
+>   <app-trailer [videoKey]="trailerKey()" />
+> } @placeholder {
+>   <div class="trailer-placeholder">Bande-annonce</div>
+> } @loading (minimum 300ms) {
+>   <p>Chargement…</p>
+> }
+> ```
+>
+> Le code de `Trailer` est placé dans un fichier séparé, téléchargé seulement si besoin.
+
+### Exercice 2 · Quel déclencheur ?
+
+Choisis le déclencheur de `@defer` :
+1. une section « Films similaires » en bas de page ;
+2. une fenêtre de partage ouverte au clic ;
+3. un widget non prioritaire, dès que le navigateur est libre.
+
+> [!success]- Solution
+> 1. `on viewport` : quand la section devient visible.
+> 2. `on interaction` : au clic (ou `on hover` pour précharger).
+> 3. `on idle` : quand le navigateur n'a plus rien d'urgent à faire.

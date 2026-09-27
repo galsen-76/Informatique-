@@ -127,3 +127,49 @@ imports: [FormsModule]
 - **Oublier `ReactiveFormsModule`** dans `imports` : `formGroup` inconnu.
 - **Afficher les erreurs dès l'ouverture** : attends que le champ soit `touched`.
 - **Oublier `markAllAsTouched()`** à l'envoi : l'utilisateur clique, rien ne se passe, aucune erreur visible.
+
+## Exercices
+
+### Exercice 1 · Un formulaire de critique
+
+Crée un formulaire réactif avec une note (obligatoire, entre 1 et 5) et un texte (obligatoire, 10 caractères minimum). Le bouton est désactivé tant que le formulaire est invalide.
+
+> [!success]- Solution
+> ```ts
+> export class ReviewForm {
+>   private fb = inject(NonNullableFormBuilder);
+>
+>   form = this.fb.group({
+>     rating: [0, [Validators.required, Validators.min(1), Validators.max(5)]],
+>     content: ['', [Validators.required, Validators.minLength(10)]],
+>   });
+>
+>   submit() {
+>     if (this.form.invalid) return;
+>     console.log(this.form.getRawValue());   // { rating: number, content: string }
+>   }
+> }
+> ```
+>
+> ```html
+> <form [formGroup]="form" (ngSubmit)="submit()">
+>   <input type="number" formControlName="rating" />
+>   <textarea formControlName="content"></textarea>
+>   <button type="submit" [disabled]="form.invalid">Publier</button>
+> </form>
+> ```
+>
+> (`ReactiveFormsModule` à importer.)
+
+### Exercice 2 · Afficher une erreur
+
+Affiche « 10 caractères minimum » sous le texte, seulement si l'utilisateur a quitté le champ et que la longueur est insuffisante.
+
+> [!success]- Solution
+> ```html
+> @if (form.controls.content.touched && form.controls.content.hasError('minlength')) {
+>   <p class="error">10 caractères minimum</p>
+> }
+> ```
+>
+> `touched` évite d'afficher l'erreur avant que l'utilisateur ait commencé.

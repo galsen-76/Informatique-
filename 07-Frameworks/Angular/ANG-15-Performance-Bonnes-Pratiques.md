@@ -58,3 +58,34 @@ source: "https://angular.dev/guide/performance"
 - **Optimiser sans avoir mesuré** : tu passes du temps sur ce qui ne compte pas.
 - **Une librairie énorme importée entièrement** (`import * as _ from 'lodash'`) pour une seule fonction.
 - **Des centaines d'abonnements** jamais fermés : la page ralentit au fil de la navigation.
+
+## Exercices
+
+### Exercice 1 · Trouver les problèmes
+
+Relève les 4 problèmes de performance de ce template.
+
+```html
+@for (movie of movies(); track $index) {
+  <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster" />
+  <p>{{ formatRuntime(movie.runtime) }}</p>
+}
+```
+
+Le composant n'a pas `OnPush`.
+
+> [!success]- Solution
+> 1. **`track $index`** : si la liste change d'ordre, Angular redessine tout. → `track movie.id`
+> 2. **Image `original`** (plusieurs Mo) pour une vignette. → `w342` + `loading="lazy"` + `width` / `height` (ou `NgOptimizedImage`).
+> 3. **Appel de méthode dans le template** : recalculé à chaque vérification. → un **pipe** pur ou un `computed`.
+> 4. **Pas d'`OnPush`** : le composant est vérifié à chaque événement de l'application.
+
+### Exercice 2 · Mesurer
+
+Comment mesures-tu la performance de CinéTrack, et quelles 2 métriques regardes-tu en premier ?
+
+> [!success]- Solution
+> - **Lighthouse** (DevTools → onglet Lighthouse) sur le build de production (`ng build` puis servir `dist/`), pas sur `ng serve`.
+> - **Angular DevTools** (profiler) pour voir quels composants se redessinent.
+>
+> Métriques : **LCP** (temps d'affichage du plus gros élément, par exemple la grille d'affiches) et **CLS** (sauts de mise en page, souvent des images sans dimensions).

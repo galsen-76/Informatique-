@@ -101,3 +101,35 @@ Si le `catchError` est à l'extérieur, la première erreur **arrête définitiv
 - **`mergeMap` pour une recherche** : les réponses peuvent arriver dans le désordre.
 - **`catchError` au mauvais niveau** : le flux s'arrête à la première erreur.
 - **`combineLatest` qui n'émet rien** : il attend que **chaque** flux ait émis au moins une fois (`startWith` pour donner une valeur de départ).
+
+## Exercices
+
+### Exercice 1 · Quel « …Map » ?
+
+Choisis `switchMap`, `mergeMap`, `concatMap` ou `exhaustMap` :
+1. recherche pendant la frappe ;
+2. bouton « Se connecter » cliqué plusieurs fois ;
+3. enregistrer plusieurs notes dans l'ordre ;
+4. charger les détails de 10 films en parallèle.
+
+> [!success]- Solution
+> 1. **`switchMap`** : annule la recherche précédente.
+> 2. **`exhaustMap`** : ignore les clics tant que la connexion est en cours.
+> 3. **`concatMap`** : une requête après l'autre, dans l'ordre.
+> 4. **`mergeMap`** : toutes en parallèle.
+
+### Exercice 2 · Combiner deux flux
+
+Tu as `genres$` (liste des genres) et `movies$` (films avec `genre_ids`). Produis un flux de films avec les **noms** de genres.
+
+> [!success]- Solution
+> ```ts
+> moviesWithGenres$ = combineLatest([this.movies$, this.genres$]).pipe(
+>   map(([movies, genres]) => {
+>     const names = new Map(genres.map((g) => [g.id, g.name]));
+>     return movies.map((m) => ({ ...m, genreNames: m.genre_ids.map((id) => names.get(id) ?? '') }));
+>   }),
+> );
+> ```
+>
+> `combineLatest` émet dès que l'un des deux flux change, avec la dernière valeur de chacun.

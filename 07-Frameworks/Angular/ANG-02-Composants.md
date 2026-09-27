@@ -103,3 +103,47 @@ flowchart TB
 - **Oublier l'import** dans `imports: […]` : erreur « is not a known element ».
 - **Un composant de 400 lignes** : découpe.
 - **Appeler une API depuis un composant d'affichage** : passe par un service et une page.
+
+## Exercices
+
+### Exercice 1 · Créer la carte de film
+
+Génère un composant `MovieCard` dans `shared/ui/` avec le CLI. Il reçoit un film en entrée (obligatoire) et affiche son titre et son année. Active `OnPush`.
+
+> [!success]- Solution
+> ```bash
+> ng generate component shared/ui/movie-card
+> ```
+>
+> ```ts
+> import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+>
+> @Component({
+>   selector: 'app-movie-card',
+>   changeDetection: ChangeDetectionStrategy.OnPush,
+>   template: `
+>     <article>
+>       <h3>{{ movie().title }}</h3>
+>       <p>{{ movie().year }}</p>
+>     </article>
+>   `,
+> })
+> export class MovieCard {
+>   movie = input.required<Movie>();
+> }
+> ```
+
+### Exercice 2 · Découper une page
+
+Découpe la page « Films populaires » en composants : lesquels crées-tu, et lequel charge les données ?
+
+> [!success]- Solution
+> ```text
+> MoviesPage          ← la page : charge les films (appelle le service)
+> ├── SearchBar       ← émet le texte recherché
+> ├── MovieGrid       ← reçoit la liste, affiche la grille
+> │   └── MovieCard   ← reçoit un film, émet « favori »
+> └── Paginator       ← reçoit page / total, émet le changement de page
+> ```
+>
+> Seule la **page** parle au service. Les autres composants reçoivent des données (`input`) et émettent des événements (`output`) : ils sont réutilisables et faciles à tester.

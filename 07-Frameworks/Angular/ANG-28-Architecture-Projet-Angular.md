@@ -75,3 +75,34 @@ Chaque feature a son fichier de routes, chargé avec `loadChildren`. Le premier 
 - **`shared` qui devient un fourre-tout** : n'y mets que ce qui est vraiment utilisé par plusieurs features.
 - **Un service qui fait tout** : sépare accès aux données et état.
 - **Au travail** : suis la structure existante, et propose des améliorations progressives.
+
+## Exercices
+
+### Exercice 1 · Ranger les fichiers
+
+Où ranges-tu chaque fichier : `core`, `shared` ou `features/…` ?
+1. l'intercepteur TMDB ;
+2. le composant `MovieCard` utilisé dans 3 pages ;
+3. la page « Mes favoris » ;
+4. le pipe `runtime` ;
+5. `AuthService`.
+
+> [!success]- Solution
+> 1. `core/http/` : une seule instance, utile à toute l'application.
+> 2. `shared/ui/` : réutilisé par plusieurs features.
+> 3. `features/account/pages/`.
+> 4. `shared/pipes/`.
+> 5. `core/auth/`.
+
+### Exercice 2 · Les règles d'import
+
+Quels imports sont interdits, et pourquoi ?
+1. `features/movies` importe `shared/ui/movie-card` ;
+2. `shared/ui/movie-card` importe `features/account/data/account.api` ;
+3. `features/account` importe `features/movies/pages/movies-page` ;
+4. `features/movies` importe `core/config`.
+
+> [!success]- Solution
+> - 1 et 4 : **autorisés** (une feature peut utiliser `shared` et `core`).
+> - 2 : **interdit** : `shared` ne doit dépendre d'aucune feature, sinon il n'est plus réutilisable.
+> - 3 : **interdit** : les features ne s'importent pas entre elles. Ce qui est commun remonte dans `shared` ou `core`.

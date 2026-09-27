@@ -87,3 +87,45 @@ Quand le **même comportement** sur des éléments existants revient à plusieur
 
 - **Manipuler le DOM dans le constructeur** : l'élément n'est pas encore affiché. Utilise `afterNextRender`.
 - **Oublier d'importer la directive** dans le composant qui l'utilise.
+
+## Exercices
+
+### Exercice 1 · Classe et style dynamiques
+
+Ajoute la classe `favorite` sur la carte si le film est favori, et une couleur de bordure qui dépend de la note (vert si ≥ 7, sinon gris).
+
+> [!success]- Solution
+> ```html
+> <article
+>   [class.favorite]="isFavorite()"
+>   [style.border-color]="movie().rating >= 7 ? 'green' : 'gray'">
+>   …
+> </article>
+> ```
+>
+> Pas besoin de `ngClass` / `ngStyle` pour les cas simples.
+
+### Exercice 2 · Une directive « image de remplacement »
+
+Écris une directive `appFallbackImg` qui remplace le `src` d'une image par `/assets/no-poster.png` si l'image ne se charge pas.
+
+> [!success]- Solution
+> ```ts
+> import { Directive, ElementRef, inject } from '@angular/core';
+>
+> @Directive({
+>   selector: 'img[appFallbackImg]',
+>   host: { '(error)': 'onError()' },
+> })
+> export class FallbackImg {
+>   private img = inject<ElementRef<HTMLImageElement>>(ElementRef);
+>
+>   onError() {
+>     this.img.nativeElement.src = '/assets/no-poster.png';
+>   }
+> }
+> ```
+>
+> ```html
+> <img [src]="posterUrl()" appFallbackImg alt="Affiche" />
+> ```

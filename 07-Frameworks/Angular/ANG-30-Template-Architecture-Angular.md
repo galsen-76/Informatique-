@@ -184,3 +184,46 @@ Dans `tsconfig.json`, pour écrire `@core/…` au lieu de `../../../core/…` :
 - **Un composant d'affichage qui injecte un service HTTP** : il devient impossible à réutiliser et à tester simplement.
 - **Deux features qui s'importent l'une l'autre** : déplace le code commun dans `shared/`.
 - **Des dossiers vides « pour plus tard »** : crée-les le jour où tu en as besoin.
+
+## Exercices
+
+### Exercice 1 · Les couches d'une feature
+
+Pour la feature `movies`, écris le rôle des 5 fichiers de `data/` : `movie.dto.ts`, `movie.model.ts`, `movie.mapper.ts`, `movies.api.ts`, `movies.store.ts`.
+
+> [!success]- Solution
+> | Fichier | Rôle |
+> |---|---|
+> | `movie.dto.ts` | la forme **exacte** de la réponse TMDB (`release_date`, `poster_path`…) |
+> | `movie.model.ts` | la forme **utile à l'application** (`year`, `posterUrl`…) |
+> | `movie.mapper.ts` | `toMovie(dto)` : convertit l'un en l'autre |
+> | `movies.api.ts` | les appels HTTP |
+> | `movies.store.ts` | l'état partagé (liste, chargement, erreur) en signals |
+>
+> Si TMDB change un champ, seuls le DTO et le mapper bougent.
+
+### Exercice 2 · Les alias
+
+Configure les alias `@core/*`, `@shared/*` et `@features/*`, puis réécris cet import.
+
+```ts
+import { MovieCard } from '../../../shared/ui/movie-card/movie-card';
+```
+
+> [!success]- Solution
+> ```json
+> // tsconfig.json
+> {
+>   "compilerOptions": {
+>     "paths": {
+>       "@core/*": ["src/app/core/*"],
+>       "@shared/*": ["src/app/shared/*"],
+>       "@features/*": ["src/app/features/*"]
+>     }
+>   }
+> }
+> ```
+>
+> ```ts
+> import { MovieCard } from '@shared/ui/movie-card/movie-card';
+> ```

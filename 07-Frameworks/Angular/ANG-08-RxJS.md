@@ -112,3 +112,47 @@ On passe de l'un à l'autre avec `toSignal` et `toObservable` (voir [[ANG-23-Sig
 - **`subscribe` dans un `subscribe`** : utilise `switchMap`.
 - **Oublier de gérer l'erreur** : une erreur arrête définitivement le flux. Ajoute `catchError`.
 - **Tout faire en RxJS** : pour un simple état, un signal est plus lisible.
+
+## Exercices
+
+### Exercice 1 · La recherche avec délai
+
+À partir d'un `FormControl` `search`, lance la recherche TMDB 300 ms après la dernière frappe, ignore les textes de moins de 2 caractères et les doublons, et annule la requête précédente si on retape.
+
+> [!success]- Solution
+> ```ts
+> results$ = this.search.valueChanges.pipe(
+>   debounceTime(300),
+>   map((q) => q.trim()),
+>   filter((q) => q.length >= 2),
+>   distinctUntilChanged(),
+>   switchMap((q) => this.moviesApi.search(q)),
+> );
+> ```
+>
+> `switchMap` annule la requête en cours quand une nouvelle arrive : pas de résultats dans le désordre.
+
+### Exercice 2 · Se désabonner
+
+Ce composant s'abonne à un intervalle qui continue après la fermeture de la page. Corrige-le de deux façons.
+
+```ts
+ngOnInit() {
+  interval(1000).subscribe((n) => this.seconds.set(n));
+}
+```
+
+> [!success]- Solution
+> 1. **`takeUntilDestroyed`** : arrêt automatique à la destruction du composant.
+>
+> ```ts
+> constructor() {
+>   interval(1000).pipe(takeUntilDestroyed()).subscribe((n) => this.seconds.set(n));
+> }
+> ```
+>
+> 2. **`toSignal`** : Angular gère l'abonnement.
+>
+> ```ts
+> seconds = toSignal(interval(1000), { initialValue: 0 });
+> ```

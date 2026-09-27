@@ -80,3 +80,44 @@ this.announcer.announce(`${count} films trouvés`);
 - **Un `div (click)`** : pas de clavier ni de lecteur d'écran. Utilise `<button>`.
 - **Changer de page sans déplacer le focus ni changer le titre** : l'utilisateur du lecteur d'écran ne sait pas que la page a changé.
 - **Concaténer des traductions** (`'Bonjour ' + nom`) : l'ordre des mots change selon les langues. Utilise des paramètres (`Bonjour {{name}}`).
+
+## Exercices
+
+### Exercice 1 · Formater en français
+
+Affiche la date de sortie `2021-09-15` au format « 15 sept. 2021 », la note `7.8123` avec une décimale, et un prix en euros. Que faut-il configurer pour le français ?
+
+> [!success]- Solution
+> ```ts
+> // app.config.ts
+> import { registerLocaleData } from '@angular/common';
+> import localeFr from '@angular/common/locales/fr';
+> registerLocaleData(localeFr);
+>
+> providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }]
+> ```
+>
+> ```html
+> {{ movie.releaseDate | date: 'mediumDate' }}   <!-- 15 sept. 2021 -->
+> {{ movie.rating | number: '1.1-1' }}           <!-- 7,8 -->
+> {{ 12.5 | currency: 'EUR' }}                   <!-- 12,50 € -->
+> ```
+
+### Exercice 2 · Un bouton-icône accessible
+
+Rends ce bouton favori accessible : nom lu par le lecteur d'écran, état (appuyé ou non) annoncé.
+
+```html
+<button (click)="toggle()"><i class="pi pi-heart"></i></button>
+```
+
+> [!success]- Solution
+> ```html
+> <button
+>   type="button"
+>   (click)="toggle()"
+>   [attr.aria-label]="'Ajouter ' + movie().title + ' aux favoris'"
+>   [attr.aria-pressed]="isFavorite()">
+>   <i class="pi pi-heart" aria-hidden="true"></i>
+> </button>
+> ```

@@ -73,3 +73,33 @@ export class MovieDetailPage implements OnInit {
 - **Lire un input dans le constructeur** : il n'a pas encore de valeur. Utilise `ngOnInit`, ou mieux un `computed`.
 - **Oublier de nettoyer** un `setInterval` ou un `addEventListener` sur `window` : il continue après la destruction.
 - **Accéder au DOM dans `ngOnInit`** : il n'est pas encore affiché. Utilise `afterNextRender`.
+
+## Exercices
+
+### Exercice 1 · Au bon moment
+
+Pour chaque besoin, quel moment du cycle de vie (ou quel outil moderne) utilises-tu ?
+1. lancer une animation sur un élément du DOM après son affichage ;
+2. arrêter un `setInterval` quand le composant disparaît ;
+3. recalculer une valeur quand un input change.
+
+> [!success]- Solution
+> 1. **`afterNextRender`** (le DOM est prêt).
+> 2. **`DestroyRef.onDestroy`** (ou `ngOnDestroy`).
+> 3. **`computed`** à partir de l'input signal (plus besoin de `ngOnChanges`).
+
+### Exercice 2 · Nettoyer
+
+Écris un composant qui met à jour un signal `now` chaque seconde et arrête le minuteur quand il est détruit.
+
+> [!success]- Solution
+> ```ts
+> export class Clock {
+>   now = signal(new Date());
+>
+>   constructor() {
+>     const id = setInterval(() => this.now.set(new Date()), 1000);
+>     inject(DestroyRef).onDestroy(() => clearInterval(id));
+>   }
+> }
+> ```

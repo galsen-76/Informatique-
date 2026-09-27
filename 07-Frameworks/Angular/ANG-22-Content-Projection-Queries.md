@@ -106,3 +106,50 @@ export class SearchComponent {
 
 - **Accéder à `viewChild` dans le constructeur** : pas encore disponible. Utilise-le dans une méthode ou dans `afterNextRender`.
 - **Utiliser `viewChild` pour faire communiquer deux composants** : préfère `input` / `output`.
+
+## Exercices
+
+### Exercice 1 · Un cadre réutilisable
+
+Crée un composant `Panel` avec un titre en input et un contenu libre fourni par le parent.
+
+> [!success]- Solution
+> ```ts
+> @Component({
+>   selector: 'app-panel',
+>   template: `
+>     <section class="panel">
+>       <h2>{{ title() }}</h2>
+>       <ng-content />
+>     </section>
+>   `,
+> })
+> export class Panel {
+>   title = input.required<string>();
+> }
+> ```
+>
+> ```html
+> <app-panel title="Casting">
+>   <p>Timothée Chalamet, Zendaya…</p>
+> </app-panel>
+> ```
+
+### Exercice 2 · Donner le focus
+
+Au chargement de la page de recherche, place le curseur dans le champ. Utilise `viewChild`.
+
+> [!success]- Solution
+> ```ts
+> export class SearchPage {
+>   searchInput = viewChild.required<ElementRef<HTMLInputElement>>('search');
+>
+>   constructor() {
+>     afterNextRender(() => this.searchInput().nativeElement.focus());
+>   }
+> }
+> ```
+>
+> ```html
+> <input #search type="search" />
+> ```

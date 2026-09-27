@@ -116,3 +116,42 @@ http.expectOne(r => r.url.endsWith('/movie/popular')).flush({ results: [duneDto]
 - **Tester les détails internes** (une propriété privée) : le test casse au moindre changement. Teste ce qui est visible et ce qui est renvoyé.
 - **Oublier `await fixture.whenStable()`** après un changement : l'affichage n'est pas encore à jour.
 - **Appeler la vraie API** dans un test : lent et instable. Toujours un faux service ou `HttpTestingController`.
+
+## Exercices
+
+### Exercice 1 · Tester une fonction pure
+
+Écris les tests du mapper `toMovie(dto)` : il convertit `release_date: '2021-09-15'` en `year: 2021` et donne `posterUrl: null` quand `poster_path` vaut `null`.
+
+> [!success]- Solution
+> ```ts
+> describe('toMovie', () => {
+>   it('extrait l’année', () => {
+>     const movie = toMovie({ id: 1, title: 'Dune', release_date: '2021-09-15', poster_path: '/a.jpg', vote_average: 7.8 });
+>     expect(movie.year).toBe(2021);
+>   });
+>
+>   it('gère une affiche absente', () => {
+>     const movie = toMovie({ id: 1, title: 'Dune', release_date: '2021-09-15', poster_path: null, vote_average: 7.8 });
+>     expect(movie.posterUrl).toBeNull();
+>   });
+> });
+> ```
+>
+> Une fonction pure se teste sans rien configurer.
+
+### Exercice 2 · Tester un composant avec un input
+
+Teste que `MovieCard` affiche le titre du film reçu en input.
+
+> [!success]- Solution
+> ```ts
+> it('affiche le titre', async () => {
+>   const fixture = TestBed.createComponent(MovieCard);
+>   fixture.componentRef.setInput('movie', { id: 1, title: 'Dune', year: 2021 });
+>   await fixture.whenStable();
+>
+>   const title = fixture.nativeElement.querySelector('h3');
+>   expect(title.textContent).toContain('Dune');
+> });
+> ```

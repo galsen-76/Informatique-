@@ -101,3 +101,36 @@ Plus de code, mais tout est tracé : l'extension **Redux DevTools** montre chaqu
 
 - **Ajouter NgRx « parce que c'est pro »** sur une petite app : beaucoup de code pour rien.
 - **Modifier l'état hors des méthodes** du store : on perd l'intérêt d'un point de passage unique.
+
+## Exercices
+
+### Exercice 1 · Un Signal Store
+
+Réécris le store des favoris avec le Signal Store NgRx : état `{ items: Movie[] }`, un `count` calculé, une méthode `toggle`.
+
+> [!success]- Solution
+> ```ts
+> export const FavoritesStore = signalStore(
+>   { providedIn: 'root' },
+>   withState({ items: [] as Movie[] }),
+>   withComputed(({ items }) => ({
+>     count: computed(() => items().length),
+>   })),
+>   withMethods((store) => ({
+>     toggle(movie: Movie) {
+>       patchState(store, ({ items }) => ({
+>         items: items.some((m) => m.id === movie.id) ? items.filter((m) => m.id !== movie.id) : [...items, movie],
+>       }));
+>     },
+>   })),
+> );
+> ```
+
+### Exercice 2 · Faut-il NgRx ?
+
+Pour CinéTrack (projet n°1), choisirais-tu un store maison (service + signals), le Signal Store ou le Store classique ? Justifie.
+
+> [!success]- Solution
+> Un **store maison** suffit : l'état est simple (compte connecté, favoris, liste « à voir »), et tu apprends le principe sans outil en plus.
+>
+> Le **Signal Store** devient intéressant quand plusieurs stores répètent la même logique (chargement, erreurs, entités). Le **Store classique** (actions, reducers, effets) sert surtout aux grosses applications d'équipe.

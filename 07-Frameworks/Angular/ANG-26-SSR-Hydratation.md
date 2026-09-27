@@ -84,3 +84,37 @@ constructor() {
 | un contenu différent entre serveur et navigateur (date du jour, nombre aléatoire) | erreur d'hydratation : calcule-le après l'affichage |
 
 L'équivalent Vue : [[VUE-18-Nuxt-SSR|Nuxt]].
+
+## Exercices
+
+### Exercice 1 · SSR ou pas ?
+
+Pour chaque application, activerais-tu le SSR ?
+1. CinéTrack, dont les fiches de films doivent être trouvées sur Google ;
+2. un back-office interne derrière une connexion ;
+3. ton portfolio.
+
+> [!success]- Solution
+> 1. **Oui** : les fiches sont publiques, le référencement compte.
+> 2. **Non** : pas de référencement nécessaire, et plus simple à héberger.
+> 3. **Oui, ou un rendu statique au build** (prerendering) : peu de pages, référencement utile.
+
+### Exercice 2 · Le piège côté serveur
+
+Pourquoi ce code plante-t-il avec le SSR ? Corrige-le.
+
+```ts
+export class ThemeService {
+  theme = signal(localStorage.getItem('theme') ?? 'light');
+}
+```
+
+> [!success]- Solution
+> Côté serveur, il n'y a **pas de navigateur** : `localStorage` n'existe pas.
+>
+> ```ts
+> export class ThemeService {
+>   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+>   theme = signal(this.isBrowser ? (localStorage.getItem('theme') ?? 'light') : 'light');
+> }
+> ```

@@ -124,3 +124,56 @@ this.api.popular().pipe(
 - **Pas de `subscribe`** (ni `toSignal`, ni `async`) : la requête n'est jamais envoyée.
 - **L'URL de l'API en dur** dans chaque service : utilise la configuration (`environment` / `APP_CONFIG`).
 - **Appeler l'API dans un composant d'affichage** : garde les appels dans `data/`.
+
+## Exercices
+
+### Exercice 1 · Le service API
+
+Active `HttpClient`, puis écris `MoviesApi.popular(page)` qui appelle `GET /movie/popular` et renvoie la liste typée.
+
+> [!success]- Solution
+> ```ts
+> // app.config.ts
+> providers: [provideHttpClient(withInterceptors([tmdbInterceptor]))]
+> ```
+>
+> ```ts
+> @Injectable({ providedIn: 'root' })
+> export class MoviesApi {
+>   private http = inject(HttpClient);
+>   private config = inject(TMDB_CONFIG);
+>
+>   popular(page = 1) {
+>     return this.http.get<TmdbPage<MovieDto>>(`${this.config.apiUrl}/movie/popular`, {
+>       params: { page },
+>     });
+>   }
+> }
+> ```
+
+### Exercice 2 · Gérer une erreur
+
+Dans la page, affiche un message « Impossible de charger les films » si l'appel échoue, sans faire planter la page.
+
+> [!success]- Solution
+> ```ts
+> export class MoviesPage {
+>   private api = inject(MoviesApi);
+>   error = signal<string | null>(null);
+>
+>   movies = toSignal(
+>     this.api.popular().pipe(
+>       map((res) => res.results),
+>       catchError(() => {
+>         this.error.set('Impossible de charger les films');
+>         return of([]);
+>       }),
+>     ),
+>     { initialValue: [] },
+>   );
+> }
+> ```
+>
+> ```html
+> @if (error(); as message) { <p role="alert">{{ message }}</p> }
+> ```

@@ -76,3 +76,35 @@ Un pipe est **pur** par défaut : Angular ne le recalcule que si sa valeur d'ent
 - **Oublier d'importer le pipe** dans le composant : « The pipe 'duration' could not be found ».
 - **Mettre de la logique métier dans un pipe** (filtrer une liste, appeler une API) : un pipe **formate**, c'est tout.
 - **`async` plusieurs fois sur le même Observable HTTP** : autant de requêtes. Préfère `toSignal` dans la classe.
+
+## Exercices
+
+### Exercice 1 · Un pipe « durée »
+
+Écris un pipe `runtime` qui transforme `155` (minutes) en `2 h 35`, et `45` en `45 min`.
+
+> [!success]- Solution
+> ```ts
+> @Pipe({ name: 'runtime' })
+> export class RuntimePipe implements PipeTransform {
+>   transform(minutes: number | null | undefined): string {
+>     if (!minutes) return '';
+>     const h = Math.floor(minutes / 60);
+>     const m = minutes % 60;
+>     return h ? `${h} h ${String(m).padStart(2, '0')}` : `${m} min`;
+>   }
+> }
+> ```
+>
+> ```html
+> {{ movie.runtime | runtime }}
+> ```
+
+### Exercice 2 · Pipe ou méthode ?
+
+Pourquoi `{{ movie.runtime | runtime }}` est-il préférable à `{{ formatRuntime(movie.runtime) }}` ?
+
+> [!success]- Solution
+> Un pipe **pur** (le cas par défaut) n'est recalculé que si sa valeur d'entrée change. Une méthode dans le template est rappelée **à chaque vérification** du composant.
+>
+> Le pipe est aussi réutilisable partout et testable seul.

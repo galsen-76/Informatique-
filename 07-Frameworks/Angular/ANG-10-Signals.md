@@ -104,3 +104,35 @@ title = computed(() => this.movie().title.toUpperCase());
 - **Modifier un signal dans un `computed`** : interdit, un `computed` ne fait que calculer.
 
 Pour aller plus loin (`linkedSignal`, `resource`, conversion RxJS) : [[ANG-23-Signals-Avances|Signals avancés]].
+
+## Exercices
+
+### Exercice 1 · signal, computed
+
+Crée un signal `movies` (liste de films) et un signal `minRating`. Déduis-en `filtered` (films avec une note ≥ `minRating`) et `count`.
+
+> [!success]- Solution
+> ```ts
+> movies = signal<Movie[]>([]);
+> minRating = signal(0);
+>
+> filtered = computed(() => this.movies().filter((m) => m.rating >= this.minRating()));
+> count = computed(() => this.filtered().length);
+> ```
+>
+> Quand `movies` ou `minRating` change, `filtered` puis `count` se recalculent tout seuls.
+
+### Exercice 2 · Un effet utile
+
+Enregistre automatiquement la liste des ids favoris dans `localStorage` à chaque changement du signal `favoriteIds`. Pourquoi ne faut-il pas utiliser `effect` pour calculer une valeur ?
+
+> [!success]- Solution
+> ```ts
+> constructor() {
+>   effect(() => {
+>     localStorage.setItem('favorites', JSON.stringify(this.favoriteIds()));
+>   });
+> }
+> ```
+>
+> `effect` sert aux **effets de bord** (stockage, logs, appel externe). Pour une valeur dérivée d'autres signals, on utilise `computed` : plus simple, sans risque de boucle.

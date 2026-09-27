@@ -67,3 +67,56 @@ export class MovieListComponent {}
 
 - **Déclarer un composant standalone** dans `declarations` : erreur. Il va dans `imports`.
 - **Suivre un tutoriel qui commence par `AppModule`** : il date d'avant Angular 17.
+
+## Exercices
+
+### Exercice 1 · Traduire l'ancien code
+
+Traduis ce code ancien en Angular moderne.
+
+```ts
+@NgModule({
+  declarations: [MovieCardComponent],
+  imports: [CommonModule],
+  exports: [MovieCardComponent],
+})
+export class SharedModule {}
+```
+
+```html
+<div *ngIf="movie">
+  <p *ngFor="let g of movie.genres">{{ g }}</p>
+</div>
+```
+
+> [!success]- Solution
+> Plus de module : le composant est autonome (standalone par défaut) et on l'importe là où on l'utilise.
+>
+> ```ts
+> @Component({ selector: 'app-movie-card', template: '…' })
+> export class MovieCard {}
+> ```
+>
+> ```html
+> @if (movie) {
+>   <div>
+>     @for (g of movie.genres; track g) {
+>       <p>{{ g }}</p>
+>     }
+>   </div>
+> }
+> ```
+
+### Exercice 2 · Reconnaître l'époque
+
+Pour chaque écriture, dis si elle est ancienne ou moderne, et donne l'équivalent moderne si besoin : `@Input()`, `inject(HttpClient)`, `*ngFor`, `input.required<Movie>()`, `HttpClientModule`, `@switch`.
+
+> [!success]- Solution
+> | Écriture | Époque | Moderne |
+> |---|---|---|
+> | `@Input()` | ancienne | `input()` |
+> | `inject(HttpClient)` | moderne | — |
+> | `*ngFor` | ancienne | `@for` |
+> | `input.required<Movie>()` | moderne | — |
+> | `HttpClientModule` | ancienne | `provideHttpClient()` |
+> | `@switch` | moderne | — |

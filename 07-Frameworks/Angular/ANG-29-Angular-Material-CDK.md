@@ -98,3 +98,44 @@ isMobile = toSignal(
 
 - **Mélanger Material et PrimeNG** dans la même application : une seule librairie de composants.
 - **Recoder une modale** avec un `div` : le focus, la touche Échap et le lecteur d'écran seront mal gérés. Utilise Dialog (CDK, Material ou PrimeNG).
+
+## Exercices
+
+### Exercice 1 · Material ou PrimeNG ?
+
+Donne un avantage de chaque librairie pour CinéTrack, et dis pourquoi il vaut mieux n'en choisir qu'une.
+
+> [!success]- Solution
+> - **Angular Material** : maintenue par l'équipe Angular, très accessible, suit le design Material.
+> - **PrimeNG** : beaucoup plus de composants prêts (tableaux avancés, notation, carrousel, galerie), thèmes faciles à personnaliser.
+>
+> Deux librairies = deux styles visuels, un bundle plus lourd et deux documentations : on en choisit **une** par projet.
+
+### Exercice 2 · Une liste réordonnable avec le CDK
+
+Avec le CDK, permets de réordonner la liste « À voir » par glisser-déposer.
+
+> [!success]- Solution
+> ```ts
+> @Component({
+>   imports: [CdkDropList, CdkDrag],
+>   template: `
+>     <ul cdkDropList (cdkDropListDropped)="drop($event)">
+>       @for (m of watchlist(); track m.id) {
+>         <li cdkDrag>{{ m.title }}</li>
+>       }
+>     </ul>
+>   `,
+> })
+> export class WatchlistPage {
+>   watchlist = signal<Movie[]>([]);
+>
+>   drop(event: CdkDragDrop<Movie[]>) {
+>     this.watchlist.update((list) => {
+>       const copy = [...list];
+>       moveItemInArray(copy, event.previousIndex, event.currentIndex);
+>       return copy;
+>     });
+>   }
+> }
+> ```
