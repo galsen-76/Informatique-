@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-27
 type: home
 tags:
   - accueil
@@ -12,62 +12,34 @@ aliases:
 # 🏠 Accueil — Apprentissage Full Stack
 
 > [!abstract] Ce coffre
-> Mon parcours pour devenir **développeur full stack expérimenté avec une vision 360°** : front (TypeScript, **Angular**, **Vue**), back (**NestJS**, PostgreSQL), et tout ce qui les relie (réseaux, sécurité, tests, architecture, DevOps, IA).
+> Mon parcours pour devenir **développeur full stack** : front (TypeScript, **Angular**, Vue), back (NestJS, PostgreSQL), et tout ce qui les relie (réseaux, sécurité, tests, architecture, DevOps, IA).
+> J'apprends **en faisant des projets** : une tâche du projet → la note qui explique → je code.
+
+## 🎬 Mon projet : CinéTrack
+
+> [!tip] [[02_Projects/CinéTrack|CinéTrack]] · le premier projet
+> Une application **Angular** qui affiche les films de l'**API TMDB** (populaires, recherche, fiche détaillée), avec la librairie UI **PrimeNG**. On peut **se connecter avec son compte TMDB** pour gérer ses favoris, sa liste « à voir » et noter des films.
+
+### À maîtriser avant de commencer
+
+| Dossier | Pourquoi |
+|---|---|
+| [[Outils]] | terminal, Node / npm, éditeur, ESLint : l'environnement de travail |
+| [[Git]] | versionner le projet et l'envoyer sur GitLab |
+| [[HTML-CSS]] | la structure et le style des pages |
+| [[JavaScript]] | le langage que le navigateur exécute |
+| [[TypeScript]] | JavaScript avec des types : la langue d'Angular |
+| [[Théorie Générale]] | mémoire, asynchrone, POO, lisibilité : les bases qui expliquent le reste |
+| [[Angular]] | le framework du projet |
+
+La fiche du projet détaille ensuite, étape par étape, la note à ouvrir pour chaque tâche.
 
 ## 🚀 Commencer ici
-1. [[Roadmap-12-mois|Roadmap 12 mois]] — le plan mois par mois, avec livrables et points de contrôle
-2. [[Tableau-de-bord|Tableau de bord]] — progression (notes par statut, par mois), tâches en cours
-3. [[Methode-d-apprentissage|Méthode d'apprentissage]] — comment étudier une note, réviser, pratiquer
+1. [[Methode-d-apprentissage|Méthode d'apprentissage]] — apprendre par le projet : tâche → note → code
+2. [[02_Projects/CinéTrack|CinéTrack]] — le projet, ses prérequis et ses jalons
+3. [[Tableau-de-bord|Tableau de bord]] — progression et tâches en cours
 4. [[Conventions-du-coffre|Conventions du coffre]] — format des notes, statuts, tags, modèles
-5. [[Corrections-apportees|Corrections apportées]] — ce qui a été corrigé / harmonisé dans les notes existantes
-
-## 🧭 Carte des domaines
-
-```mermaid
-mindmap
-  root((Full Stack 360°))
-    Conception
-      Besoins & user stories
-      UML & MCD
-      ADR
-    Méthodologie
-      Agile / Scrum / Kanban
-      Documentation
-      Débogage
-    Langages
-      HTML & CSS
-      JavaScript
-      TypeScript
-      SQL
-      Théorie générale
-      Python (option)
-    Front
-      Angular
-      Vue
-    Back
-      Node / Express
-      NestJS
-      Prisma / ORM
-    Données
-      PostgreSQL
-      Redis
-      NoSQL
-    Transverse
-      Git & GitLab
-      Sécurité
-      Tests & qualité
-      Architecture
-      Réseaux
-    Ops
-      Docker
-      CI/CD
-      Cloud & K8s
-      Observabilité
-    IA
-      LLM & prompts
-      RAG
-      Agents
-```
+5. [[Roadmap-12-mois|Roadmap 12 mois]] — le plan d'ensemble
 
 ## 📚 Index des domaines
 
@@ -88,18 +60,8 @@ mindmap
 | 12 | Infrastructure | [[Infrastructure]] · [[Docker]] |
 | 13 | Intelligence artificielle | [[Intelligence Artificielle]] |
 
-## 🛠️ Projets fil rouge
-| Projet | Mois | Stack |
-|---|---|---|
-| [[02_Projects/Portfolio\|Portfolio]] | M1–M3 | Vue 3 + TypeScript, PrimeVue, Lucide, Tailwind (HTML/CSS assistés par l'IA) |
-| [[02_Projects/CinéTrack\|CinéTrack]] | M4–M5 | Angular, API TMDB, signals, RxJS, PrimeNG |
-| [[02_Projects/CinéTrack-Vue\|CinéTrack-Vue]] | M6 | Vue 3, Pinia, Vue Router |
-| [[02_Projects/CinéTrack-API\|CinéTrack-API]] | M7–M9 | NestJS, Prisma, PostgreSQL, Redis |
-| [[02_Projects/CinéTrack-Fullstack\|CinéTrack-Fullstack]] | M10–M11 | Monorepo, Docker, GitLab CI, déploiement |
-| [[02_Projects/Capstone\|Capstone]] | M12 | IA, temps réel, projet vitrine |
-
 ## 🗂️ Espaces de travail
-- `01_Daily/` — notes quotidiennes (modèle `TPL_Daily-Note`, créées via le plugin Calendar/Daily notes)
-- `02_Projects/` — un fichier par projet + tableau Kanban
-- `04_Snippets/` — extraits de code : cliquer sur un lien « Extrait de code » d'une note crée le fichier avec le modèle `TPL_Snippet`
+- `01_Daily/` — notes quotidiennes (modèle `TPL_Daily-Note`)
+- `02_Projects/` — les fiches projets et le tableau Kanban
+- `04_Snippets/` — extraits de code (modèle `TPL_Snippet`)
 - `_Templates/` — modèles
