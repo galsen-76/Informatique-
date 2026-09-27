@@ -101,3 +101,45 @@ def test_best(movies):              # pytest passe la fixture en paramètre, par
 
 - **Oublier le préfixe `test_`** (fichier ou fonction) : le test n'est pas trouvé, sans erreur.
 - **Comparer des nombres à virgule avec `==`** : utilise `pytest.approx(0.3)` (voir [[TG-07-Encodage-Unicode-Nombres|Nombres]]).
+
+## Exercices
+
+### Exercice 1 · Écrire des tests
+
+Écris 2 tests pytest pour `average(ratings)` : un cas normal et une liste vide (qui doit renvoyer 0).
+
+> [!success]- Solution
+> ```python
+> # test_ratings.py
+> from ratings import average
+>
+> def test_average():
+>     assert average([4, 5, 3]) == 4.0
+>
+> def test_average_empty():
+>     assert average([]) == 0
+> ```
+>
+> Lancer : `pytest -v`.
+
+### Exercice 2 · Tester une erreur et plusieurs cas
+
+1. Teste que `check_rating(9)` lève une `ValueError`.
+2. Teste `label(rating)` sur les cas `(5, "Excellent")`, `(3, "Correct")`, `(1, "À éviter")` en un seul test paramétré.
+
+> [!success]- Solution
+> ```python
+> import pytest
+>
+> def test_invalid_rating():
+>     with pytest.raises(ValueError):
+>         check_rating(9)
+>
+> @pytest.mark.parametrize("rating, expected", [
+>     (5, "Excellent"),
+>     (3, "Correct"),
+>     (1, "À éviter"),
+> ])
+> def test_label(rating, expected):
+>     assert label(rating) == expected
+> ```

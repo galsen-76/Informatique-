@@ -90,3 +90,41 @@ Annote surtout les **paramètres** de fonctions et les données qui viennent de 
 
 - **Croire que les types existent à l'exécution** : ils sont effacés (voir [[TG-01-Comment-fonctionne-un-programme|Comment fonctionne un programme]]). `instanceof MonInterface` est impossible.
 - **Mettre `any` partout** : tu retombes en JavaScript sans filet. Préfère `unknown` puis vérifie.
+
+## Exercices
+
+### Exercice 1 · Statique ou à l'exécution ?
+
+Pour chaque erreur, dis si TypeScript la détecte **avant** l'exécution ou si elle n'apparaît **qu'à** l'exécution :
+1. appeler `movie.titel` au lieu de `movie.title` sur un objet typé `Movie` ;
+2. l'API renvoie `{ name: 'Dune' }` au lieu de `{ title: 'Dune' }` ;
+3. passer `'2021'` à une fonction qui attend un `number` ;
+4. diviser par zéro.
+
+> [!success]- Solution
+> 1. **Avant** : la propriété n'existe pas sur le type.
+> 2. **À l'exécution** : TypeScript ne voit pas les données réelles (d'où Zod).
+> 3. **Avant** : mauvais type d'argument.
+> 4. **À l'exécution** : c'est une valeur, pas un type (en JavaScript, ça donne `Infinity`).
+
+### Exercice 2 · Typage structurel
+
+Ce code compile-t-il ? Pourquoi ?
+
+```ts
+interface HasId { id: number }
+
+class User {
+  constructor(public id: number, public email: string) {}
+}
+
+function logId(item: HasId) {
+  console.log(item.id);
+}
+
+logId(new User(1, 'a@b.fr'));
+logId({ id: 2 });
+```
+
+> [!success]- Solution
+> **Oui, les deux appels compilent.** TypeScript est **structurel** : il vérifie la **forme** de l'objet, pas son nom. `User` possède un `id: number`, et l'objet littéral aussi : ils conviennent à `HasId`, sans `implements`.

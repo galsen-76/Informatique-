@@ -87,3 +87,41 @@ MovieNotFoundError: Film 99 introuvable      ← lire ici en premier
 
 - **`except:` tout seul** ou `except Exception: pass` : l'erreur disparaît, le bug devient invisible.
 - **Lire le traceback par le haut** : la vraie erreur est à la dernière ligne.
+
+## Exercices
+
+### Exercice 1 · Attraper la bonne erreur
+
+Écris une fonction `ask_rating(text)` qui convertit le texte en entier et renvoie `None` si ce n'est pas un nombre (sans attraper les autres erreurs).
+
+> [!success]- Solution
+> ```python
+> def ask_rating(text):
+>     try:
+>         return int(text)
+>     except ValueError:
+>         return None
+>
+> ask_rating("4")    # 4
+> ask_rating("abc")  # None
+> ```
+
+### Exercice 2 · Lever sa propre erreur
+
+Crée une exception `InvalidRatingError` et lève-la dans `check_rating(value)` si la note n'est pas entre 1 et 5. Puis attrape-la et affiche le message.
+
+> [!success]- Solution
+> ```python
+> class InvalidRatingError(Exception):
+>     pass
+>
+> def check_rating(value):
+>     if not 1 <= value <= 5:
+>         raise InvalidRatingError(f"Note invalide : {value}")
+>     return value
+>
+> try:
+>     check_rating(9)
+> except InvalidRatingError as e:
+>     print(e)   # Note invalide : 9
+> ```

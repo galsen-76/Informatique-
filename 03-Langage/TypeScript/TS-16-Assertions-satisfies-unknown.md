@@ -82,3 +82,52 @@ Sans `as const`, `ROLES` serait un simple `string[]`. Avec, TypeScript connaît 
 | `unknown` | oblige à vérifier | données externes |
 | `satisfies Type` | oui | objets de configuration, tables de correspondance |
 | `as const` | fige les valeurs | listes de valeurs fixes |
+
+## Exercices
+
+### Exercice 1 · `as` ou vérification ?
+
+Quel est le risque de ce code ? Propose une version sûre.
+
+```ts
+const saved = JSON.parse(localStorage.getItem('user') ?? '{}') as { name: string };
+saved.name.toUpperCase();
+```
+
+> [!success]- Solution
+> `as` **ne vérifie rien** : si le stockage contient `{}`, `saved.name` vaut `undefined` et `toUpperCase()` plante.
+>
+> ```ts
+> const saved: unknown = JSON.parse(localStorage.getItem('user') ?? '{}');
+> if (typeof saved === 'object' && saved !== null && 'name' in saved && typeof saved.name === 'string') {
+>   saved.name.toUpperCase();
+> }
+> ```
+>
+> (ou mieux : un schéma Zod.)
+
+### Exercice 2 · Utiliser `satisfies`
+
+Tu veux vérifier que cet objet associe bien chaque route à un titre (`Record<string, string>`) **sans perdre** l'autocomplétion des clés exactes. Que mets-tu ?
+
+```ts
+const pageTitles = {
+  home: 'Accueil',
+  movies: 'Films',
+  favorites: 'Mes favoris',
+};
+```
+
+> [!success]- Solution
+> ```ts
+> const pageTitles = {
+>   home: 'Accueil',
+>   movies: 'Films',
+>   favorites: 'Mes favoris',
+> } satisfies Record<string, string>;
+>
+> pageTitles.movies;   // ✅ autocomplétion
+> pageTitles.foo;      // ❌ erreur : la clé n'existe pas
+> ```
+>
+> Avec `: Record<string, string>`, `pageTitles.foo` serait accepté.

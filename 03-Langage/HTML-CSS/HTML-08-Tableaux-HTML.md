@@ -88,3 +88,41 @@ Un tableau large déborde. Solution simple : l'envelopper dans un conteneur qui 
 - **Utiliser un tableau pour la mise en page** : c'est le rôle de Flexbox et Grid.
 - **Pas de `th`** : le lecteur d'écran lit une suite de valeurs sans savoir à quelle colonne elles appartiennent.
 - **Des milliers de lignes d'un coup** : pagine, ou utilise un tableau « virtualisé ».
+
+## Exercices
+
+### Exercice 1 · Un tableau accessible
+
+Écris un tableau des films notés avec les colonnes Titre, Année, Note, un titre de tableau, et 2 lignes.
+
+> [!success]- Solution
+> ```html
+> <table>
+>   <caption>Mes films notés</caption>
+>   <thead>
+>     <tr>
+>       <th scope="col">Titre</th>
+>       <th scope="col">Année</th>
+>       <th scope="col">Note</th>
+>     </tr>
+>   </thead>
+>   <tbody>
+>     <tr><td>Dune</td><td>2021</td><td>5</td></tr>
+>     <tr><td>Alien</td><td>1979</td><td>4</td></tr>
+>   </tbody>
+> </table>
+> ```
+
+### Exercice 2 · Tableau ou pas ?
+
+Pour chaque cas, faut-il un `<table>` ?
+1. comparer les notes de plusieurs films sur plusieurs critères ;
+2. afficher une grille d'affiches de films ;
+3. un formulaire en deux colonnes.
+
+> [!success]- Solution
+> 1. **Oui** : ce sont des données en lignes et colonnes.
+> 2. **Non** : c'est de la mise en page → CSS Grid.
+> 3. **Non** : mise en page → CSS Grid ou Flexbox.
+>
+> Un `<table>` sert uniquement pour des **données tabulaires**, jamais pour la mise en page.

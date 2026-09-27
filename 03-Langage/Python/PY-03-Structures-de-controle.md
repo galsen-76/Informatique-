@@ -83,3 +83,34 @@ match status:
 - **Écrire `else if`** : c'est `elif`.
 - **`i++`** n'existe pas : `i += 1`.
 - **Oublier les `:`** en fin de `if`, `for`, `while`.
+
+## Exercices
+
+### Exercice 1 · Parcourir avec l'index
+
+Affiche chaque film avec son numéro, en commençant à 1 : `1. Dune`, `2. Alien`…
+
+> [!success]- Solution
+> ```python
+> movies = ["Dune", "Alien", "Heat"]
+> for i, title in enumerate(movies, start=1):
+>     print(f"{i}. {title}")
+> ```
+
+### Exercice 2 · Classer une note
+
+Écris une fonction `label(rating)` qui renvoie `"Excellent"` (≥ 4), `"Correct"` (≥ 2) ou `"À éviter"`, puis affiche le label de chaque note de `[5, 3, 1]`.
+
+> [!success]- Solution
+> ```python
+> def label(rating):
+>     if rating >= 4:
+>         return "Excellent"
+>     elif rating >= 2:
+>         return "Correct"
+>     else:
+>         return "À éviter"
+>
+> for r in [5, 3, 1]:
+>     print(r, label(r))
+> ```

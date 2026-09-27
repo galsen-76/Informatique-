@@ -86,3 +86,28 @@ Le lien avec les commits : `fix` → correctif, `feat` → mineur, `BREAKING CHA
 - **Des messages vagues** : « fix », « modifs », « wip ».
 - **Un commit qui mélange** une fonctionnalité, une correction et du formatage : impossible à relire ou à annuler proprement.
 - **Mettre à jour une dépendance de version majeure** sans lire ses notes de version.
+
+## Exercices
+
+### Exercice 1 · Écrire les messages
+
+Écris un message Conventional Commits pour chaque changement :
+1. ajout de la page des favoris ;
+2. correction d'un plantage quand l'affiche est absente ;
+3. mise à jour d'Angular ;
+4. renommage de fichiers sans changement de comportement.
+
+> [!success]- Solution
+> 1. `feat(favorites): ajoute la page des favoris`
+> 2. `fix(movie-card): gère l'absence d'affiche`
+> 3. `chore(deps): met à jour Angular en 20.1`
+> 4. `refactor: renomme les fichiers du dossier movies`
+
+### Exercice 2 · Quelle version ?
+
+Ta librairie est en version `2.4.1`. Quelle est la nouvelle version après : une correction de bug ? une nouvelle fonctionnalité compatible ? la suppression d'une fonction publique ?
+
+> [!success]- Solution
+> - correction de bug → `2.4.2` (CORRECTIF)
+> - nouvelle fonctionnalité compatible → `2.5.0` (MINEUR, le correctif repart à 0)
+> - suppression d'une fonction publique → `3.0.0` (MAJEUR : ça casse le code des utilisateurs)

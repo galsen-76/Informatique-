@@ -88,3 +88,36 @@ Les valeurs passées avec `${…}` dans `$queryRaw` sont **protégées** contre 
 
 - **`NOT IN (SELECT …)`** quand la sous-requête peut contenir `NULL` : ne renvoie rien. Préfère `NOT EXISTS`.
 - **Une sous-requête exécutée pour chaque ligne** (qui dépend de la ligne courante) sur une grosse table : peut être lent. Vérifie avec `EXPLAIN` (voir [[BDD-04-Indexation-Performance|Index]]).
+
+## Exercices
+
+### Exercice 1 · Au-dessus de la moyenne
+
+Affiche les films dont la note est supérieure à la note moyenne de tous les films, avec une sous-requête.
+
+> [!success]- Solution
+> ```sql
+> SELECT title, rating
+> FROM movies
+> WHERE rating > (SELECT AVG(rating) FROM movies);
+> ```
+
+### Exercice 2 · Découper avec une CTE
+
+Avec une CTE, calcule le nombre de critiques par utilisateur, puis affiche seulement les utilisateurs qui en ont écrit au moins 5, avec leur e-mail.
+
+> [!success]- Solution
+> ```sql
+> WITH review_counts AS (
+>   SELECT user_id, COUNT(*) AS nb
+>   FROM reviews
+>   GROUP BY user_id
+> )
+> SELECT u.email, rc.nb
+> FROM review_counts rc
+> JOIN users u ON u.id = rc.user_id
+> WHERE rc.nb >= 5
+> ORDER BY rc.nb DESC;
+> ```
+>
+> La CTE donne un **nom** à une étape : la requête se lit de haut en bas.

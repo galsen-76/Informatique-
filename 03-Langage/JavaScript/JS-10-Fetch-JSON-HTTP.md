@@ -97,3 +97,44 @@ En Vue, tu mettras ça dans un fichier `http.ts` ou un composable. En Angular, `
 - **Les dates arrivent en texte** (`"2026-09-26T10:00:00Z"`) : reconvertis-les avec `new Date(…)`.
 - **Erreur CORS** : ce n'est pas un bug de ton front, c'est le serveur qui n'autorise pas ton domaine. Voir [[SEC-07-CORS-Same-Origin|CORS]].
 - **Les données reçues ne sont jamais garanties** : valide-les avec [[TS-19-Validation-Runtime-Zod|Zod]].
+
+## Exercices
+
+### Exercice 1 · Gérer une réponse en erreur
+
+Si l’API répond 404, ce code ne signale rien et plante plus loin. Corrige-le pour lever une erreur claire quand le statut n’est pas OK.
+
+```js
+async function getMovie(id) {
+  const res = await fetch(`https://api.themoviedb.org/3/movie/${id}`);
+  return res.json();
+}
+```
+
+> [!success]- Solution
+> ```js
+> async function getMovie(id) {
+>   const res = await fetch(`https://api.themoviedb.org/3/movie/${id}`);
+>   if (!res.ok) {
+>     throw new Error(res.status === 404 ? 'Film introuvable' : `Erreur ${res.status}`);
+>   }
+>   return res.json();
+> }
+> ```
+>
+> `fetch` ne lève **pas** d'erreur sur un 404 ou un 500 : seulement si le réseau échoue. Il faut vérifier `res.ok` soi-même.
+
+### Exercice 2 · Envoyer un JSON
+
+Écris l'appel qui envoie une note `{ movieId: 438631, rating: 4 }` en `POST` à `/api/ratings`, avec le bon en-tête.
+
+> [!success]- Solution
+> ```js
+> const res = await fetch('/api/ratings', {
+>   method: 'POST',
+>   headers: { 'Content-Type': 'application/json' },
+>   body: JSON.stringify({ movieId: 438631, rating: 4 }),
+> });
+> ```
+>
+> Deux oublis fréquents : `JSON.stringify` (sinon on envoie `[object Object]`) et l'en-tête `Content-Type`.

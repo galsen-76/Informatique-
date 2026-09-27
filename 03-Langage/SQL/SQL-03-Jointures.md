@@ -111,3 +111,31 @@ Comment concevoir ces tables : [[BDD-02-Modelisation-Normalisation|Modélisation
 - **Oublier la condition `ON`** : chaque ligne est combinée avec **toutes** les autres (des millions de lignes).
 - **Un `WHERE` sur la table de droite après un `LEFT JOIN`** (`WHERE r.rating > 5`) : il supprime les lignes `NULL` et transforme la jointure en `INNER`. Mets la condition dans le `ON`.
 - **Une jointure lente** : vérifie qu'il y a un **index** sur la clé étrangère (voir [[BDD-04-Indexation-Performance|Index]]).
+
+## Exercices
+
+### Exercice 1 · Afficher les critiques avec leur auteur
+
+Avec `users (id, email)`, `movies (id, title)` et `reviews (id, user_id, movie_id, rating)`, affiche pour chaque critique : l'e-mail de l'auteur, le titre du film et la note.
+
+> [!success]- Solution
+> ```sql
+> SELECT u.email, m.title, r.rating
+> FROM reviews r
+> JOIN users u  ON u.id = r.user_id
+> JOIN movies m ON m.id = r.movie_id;
+> ```
+
+### Exercice 2 · Les films sans critique
+
+Liste les films qui n'ont **aucune** critique. Quelle jointure faut-il et pourquoi ?
+
+> [!success]- Solution
+> ```sql
+> SELECT m.title
+> FROM movies m
+> LEFT JOIN reviews r ON r.movie_id = m.id
+> WHERE r.id IS NULL;
+> ```
+>
+> Un `LEFT JOIN` garde **tous** les films, même sans critique : pour eux, les colonnes de `reviews` valent `NULL`. Un `INNER JOIN` les aurait fait disparaître.

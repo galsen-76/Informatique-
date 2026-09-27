@@ -93,3 +93,33 @@ Et `rating <> 5` **exclut** les lignes où `rating` est `NULL`.
 - **Paginer sans `ORDER BY`** : l'ordre n'est pas garanti, des lignes apparaissent sur deux pages ou jamais.
 - **`LIKE '%texte%'` sur une grosse table** : ne peut pas utiliser un index classique, donc lent. Pour une vraie recherche : recherche plein texte de PostgreSQL.
 - **Construire le `WHERE` en collant du texte venant de l'utilisateur** : injection SQL. Voir [[SEC-08-Injection-SQL-Validation|Injection SQL]].
+
+## Exercices
+
+### Exercice 1 · Filtrer et trier
+
+Écris la requête qui affiche les films de science-fiction (`genre = 'SF'`) sortis entre 2000 et 2020, du mieux noté au moins bien noté, puis par titre.
+
+> [!success]- Solution
+> ```sql
+> SELECT title, release_year, rating
+> FROM movies
+> WHERE genre = 'SF'
+>   AND release_year BETWEEN 2000 AND 2020
+> ORDER BY rating DESC, title ASC;
+> ```
+
+### Exercice 2 · Page 3 et valeurs vides
+
+1. Écris la requête qui affiche la **3ᵉ page** de films (20 par page), triés par titre.
+2. Pourquoi `WHERE rating = NULL` ne renvoie-t-il jamais rien ?
+
+> [!success]- Solution
+> ```sql
+> SELECT id, title
+> FROM movies
+> ORDER BY title
+> LIMIT 20 OFFSET 40;      -- on saute les 2 premières pages (2 × 20)
+> ```
+>
+> `NULL` signifie « inconnu » : `NULL = NULL` n'est ni vrai ni faux. Il faut écrire `WHERE rating IS NULL`.

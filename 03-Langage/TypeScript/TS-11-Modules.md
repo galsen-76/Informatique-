@@ -84,3 +84,50 @@ Pratique pour un **petit** dossier. Évite les gros `index.ts` qui ré-exportent
 
 - **Un alias dans `tsconfig` mais pas dans l'outil de build** : l'éditeur est content, mais le build échoue. Angular CLI et Vite (avec la config générée) lisent bien `tsconfig`.
 - **Import circulaire** (A importe B qui importe A) : valeurs `undefined` au démarrage. Déplace le code commun ailleurs.
+
+## Exercices
+
+### Exercice 1 · Exporter un type
+
+Dans `movie.model.ts`, exporte l'interface `Movie`. Dans `movies.api.ts`, importe-la **uniquement comme type**. Pourquoi préciser que c'est un type ?
+
+> [!success]- Solution
+> ```ts
+> // movie.model.ts
+> export interface Movie {
+>   id: number;
+>   title: string;
+> }
+> ```
+>
+> ```ts
+> // movies.api.ts
+> import type { Movie } from './movie.model';
+> ```
+>
+> `import type` garantit que l'import disparaît complètement à la compilation : aucun code n'est chargé pour un simple type.
+
+### Exercice 2 · Un alias de chemin
+
+Remplace cet import par un alias `@core/*` qui pointe vers `src/app/core/*`. Où se configure-t-il ?
+
+```ts
+import { ApiConfig } from '../../../core/config/api-config';
+```
+
+> [!success]- Solution
+> Dans `tsconfig.json` :
+>
+> ```json
+> {
+>   "compilerOptions": {
+>     "paths": { "@core/*": ["src/app/core/*"] }
+>   }
+> }
+> ```
+>
+> ```ts
+> import { ApiConfig } from '@core/config/api-config';
+> ```
+>
+> L'import ne casse plus si on déplace le fichier qui l'utilise.

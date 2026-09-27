@@ -90,3 +90,35 @@ Ces modifications passent par des **migrations** versionnées, jamais à la main
 - **`FLOAT` pour de l'argent** : erreurs d'arrondi. Utilise `NUMERIC` ou des centimes en entier.
 - **`TIMESTAMP` sans fuseau** : les heures deviennent fausses dès qu'il y a plusieurs fuseaux ou un changement d'heure. Utilise `TIMESTAMPTZ`.
 - **Pas de contrainte parce que « l'API vérifie »** : un jour, quelque chose passera à côté de l'API.
+
+## Exercices
+
+### Exercice 1 · Créer la table des critiques
+
+Écris le `CREATE TABLE reviews` : id auto-incrémenté, auteur et film obligatoires (clés étrangères), note entière entre 1 et 5, texte facultatif, date de création par défaut. Un utilisateur ne peut critiquer un film qu'une fois.
+
+> [!success]- Solution
+> ```sql
+> CREATE TABLE reviews (
+>   id          SERIAL PRIMARY KEY,
+>   user_id     INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+>   movie_id    INT NOT NULL REFERENCES movies(id),
+>   rating      INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+>   content     TEXT,
+>   created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+>   UNIQUE (user_id, movie_id)
+> );
+> ```
+
+### Exercice 2 · Choisir les types
+
+Quel type PostgreSQL choisis-tu pour : un prix, une date + heure de création, un e-mail, une liste de genres, un booléen « spoiler » ?
+
+> [!success]- Solution
+> | Donnée | Type |
+> |---|---|
+> | prix | `NUMERIC(10, 2)` (jamais de nombre à virgule flottante pour l'argent) |
+> | date + heure | `TIMESTAMPTZ` (avec fuseau horaire) |
+> | e-mail | `TEXT` avec une contrainte `UNIQUE` |
+> | liste de genres | une table de liaison `movie_genres` (ou `TEXT[]` si c'est simple) |
+> | spoiler | `BOOLEAN NOT NULL DEFAULT false` |

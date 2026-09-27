@@ -87,3 +87,37 @@ Utile pour assembler des morceaux réutilisables. Pour un objet simple, `interfa
 
 - **Lire un champ qui n'existe que dans un cas** sans avoir vérifié le cas : erreur TypeScript (et c'est tant mieux).
 - **Intersection impossible** (`string & number`) : donne le type `never`, qui ne peut contenir aucune valeur.
+
+## Exercices
+
+### Exercice 1 · Décrire l'état d'un chargement
+
+Crée un type `LoadState` qui représente les 3 états : chargement, succès (avec la liste de films), erreur (avec un message). Utilise une union avec étiquette `status`.
+
+> [!success]- Solution
+> ```ts
+> type LoadState =
+>   | { status: 'loading' }
+>   | { status: 'success'; movies: Movie[] }
+>   | { status: 'error'; message: string };
+> ```
+>
+> Impossible d'avoir à la fois `movies` et `message`, ou un état « succès » sans films.
+
+### Exercice 2 · Utiliser l'union
+
+Écris `render(state: LoadState): string` qui renvoie « Chargement… », le nombre de films, ou le message d'erreur.
+
+> [!success]- Solution
+> ```ts
+> function render(state: LoadState): string {
+>   switch (state.status) {
+>     case 'loading':
+>       return 'Chargement…';
+>     case 'success':
+>       return `${state.movies.length} films`;   // TypeScript sait que movies existe ici
+>     case 'error':
+>       return `Erreur : ${state.message}`;
+>   }
+> }
+> ```

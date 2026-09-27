@@ -88,3 +88,39 @@ Les **template strings** (entre accents graves `` ` ``) permettent d'insérer de
 - **`var`** : sa portée fuit hors des blocs `{ }`. Utilise `let` et `const`.
 - **Java ≠ JavaScript** : aucun rapport, à part le nom.
 - **Un calcul très long bloque la page** : comme il n'y a qu'un fil, rien d'autre ne peut s'exécuter pendant ce temps.
+
+## Exercices
+
+### Exercice 1 · Prédire le résultat
+
+Sans lancer le code, que se passe-t-il à chaque ligne ?
+
+```js
+const title = 'Dune';
+title = 'Alien';
+
+let year = 2021;
+year = year + 3;
+console.log(year);
+```
+
+> [!success]- Solution
+> - `title = 'Alien'` provoque une erreur **TypeError: Assignment to constant variable** : une `const` ne peut pas être réaffectée.
+> - Sans cette ligne, `console.log(year)` affiche **2024** : une `let` peut changer de valeur.
+>
+> Règle : `const` par défaut, `let` seulement si la valeur doit changer.
+
+### Exercice 2 · Écrire une petite fonction
+
+Écris une fonction `label(title, year)` qui renvoie `"Dune (2021)"`. Si l'année est avant 2000, elle ajoute ` · classique` : `"Alien (1979) · classique"`.
+
+> [!success]- Solution
+> ```js
+> function label(title, year) {
+>   const base = `${title} (${year})`;
+>   return year < 2000 ? `${base} · classique` : base;
+> }
+>
+> label('Dune', 2021);   // "Dune (2021)"
+> label('Alien', 1979);  // "Alien (1979) · classique"
+> ```

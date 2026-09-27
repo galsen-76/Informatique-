@@ -99,3 +99,63 @@ C'est grâce à ça que `[1, 2].map(…)` fonctionne : `map` n'est pas dans ton 
   ```
   Règle simple : **méthodes** en syntaxe normale, **callbacks** en fléché.
 - **Ne jamais modifier les objets natifs** (`Array.prototype.maMethode = …`) : conflits garantis avec les librairies.
+
+## Exercices
+
+### Exercice 1 · Le `this` perdu
+
+Pourquoi ce code affiche-t-il `undefined` au bout d'une seconde ? Corrige-le.
+
+```js
+class Timer {
+  label = 'Chargement';
+  start() {
+    setTimeout(function () {
+      console.log(this.label);
+    }, 1000);
+  }
+}
+new Timer().start();
+```
+
+> [!success]- Solution
+> Une `function` classique a son propre `this`, qui n'est plus l'objet `Timer` quand `setTimeout` l'appelle.
+>
+> Correction avec une fonction fléchée, qui garde le `this` de l'endroit où elle est écrite :
+>
+> ```js
+> start() {
+>   setTimeout(() => {
+>     console.log(this.label);   // "Chargement"
+>   }, 1000);
+> }
+> ```
+
+### Exercice 2 · Écrire une classe
+
+Crée une classe `Movie` avec `title` et `ratings` (tableau vide au départ), une méthode `addRating(value)` qui refuse une note hors de 1 à 5 (avec `throw`), et un getter `average`.
+
+> [!success]- Solution
+> ```js
+> class Movie {
+>   constructor(title) {
+>     this.title = title;
+>     this.ratings = [];
+>   }
+>
+>   addRating(value) {
+>     if (value < 1 || value > 5) throw new Error('Note entre 1 et 5');
+>     this.ratings.push(value);
+>   }
+>
+>   get average() {
+>     if (this.ratings.length === 0) return 0;
+>     return this.ratings.reduce((sum, r) => sum + r, 0) / this.ratings.length;
+>   }
+> }
+>
+> const dune = new Movie('Dune');
+> dune.addRating(5);
+> dune.addRating(4);
+> dune.average;   // 4.5
+> ```

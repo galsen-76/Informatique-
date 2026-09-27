@@ -89,3 +89,37 @@ Dans tes projets, utilise une librairie d'icônes (Lucide, PrimeIcons) plutôt q
 - **Images sans dimensions** : le contenu saute pendant le chargement (mauvais score Lighthouse « CLS »).
 - **Une photo de 4 Mo** : compresse et convertis en WebP (squoosh.app).
 - **Du texte dans une image** : illisible pour Google et les lecteurs d'écran.
+
+## Exercices
+
+### Exercice 1 · Écrire les `alt`
+
+Propose un `alt` pour chacune de ces images :
+1. l'affiche de *Dune* sur sa fiche ;
+2. une icône loupe dans un bouton qui a déjà le texte « Rechercher » ;
+3. le logo CinéTrack qui sert de lien vers l'accueil.
+
+> [!success]- Solution
+> 1. `alt="Affiche de Dune"`
+> 2. `alt=""` : l'image est **décorative**, le texte du bouton suffit. Un `alt` vide dit au lecteur d'écran de l'ignorer.
+> 3. `alt="CinéTrack, retour à l'accueil"` : on décrit la **fonction** du lien.
+
+### Exercice 2 · Une affiche performante
+
+Écris la balise d'une affiche TMDB qui : ne se charge que quand elle approche de l'écran, n'entraîne pas de saut de mise en page, et propose une version 342 px et 500 px selon l'écran.
+
+> [!success]- Solution
+> ```html
+> <img
+>   src="https://image.tmdb.org/t/p/w342/abc.jpg"
+>   srcset="https://image.tmdb.org/t/p/w342/abc.jpg 342w,
+>           https://image.tmdb.org/t/p/w500/abc.jpg 500w"
+>   sizes="(max-width: 600px) 50vw, 342px"
+>   width="342" height="513"
+>   loading="lazy"
+>   alt="Affiche de Dune" />
+> ```
+>
+> - `loading="lazy"` : chargée au dernier moment ;
+> - `width` / `height` : le navigateur réserve la place ;
+> - `srcset` / `sizes` : il choisit la bonne taille.

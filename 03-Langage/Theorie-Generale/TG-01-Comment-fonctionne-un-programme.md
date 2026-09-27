@@ -89,3 +89,37 @@ C'est pour ça que `document` est « undefined » dans un script Node, ou côté
 
 - **Croire que TypeScript protège à l'exécution** : il ne vérifie rien une fois le code lancé.
 - **Utiliser `document` ou `window` côté serveur** (Node, rendu serveur) : ils n'existent pas.
+
+## Exercices
+
+### Exercice 1 · Associer chaque langage
+
+Associe chaque langage à sa façon d'être exécuté : TypeScript, JavaScript dans Chrome, Java, Python, Go.
+Façons : compilé en code machine, machine virtuelle, transpilé, JIT, interprété.
+
+> [!success]- Solution
+> | Langage | Exécution |
+> |---|---|
+> | TypeScript | **transpilé** en JavaScript |
+> | JavaScript dans Chrome | **JIT** (moteur V8) |
+> | Java | **machine virtuelle** (JVM) |
+> | Python | **interprété** |
+> | Go | **compilé** en code machine |
+
+### Exercice 2 · Navigateur ou Node ?
+
+Pour chaque ligne, dis si elle marche dans le navigateur, dans Node.js, ou les deux :
+1. `document.querySelector('h1')`
+2. `fetch('https://api.themoviedb.org/3/...')`
+3. `process.env.TMDB_TOKEN`
+4. `localStorage.setItem('theme', 'dark')`
+5. `import fs from 'node:fs'`
+
+> [!success]- Solution
+> 1. **navigateur** seulement (le DOM)
+> 2. **les deux** (Node 18+ a `fetch`)
+> 3. **Node** seulement (variables d'environnement du serveur)
+> 4. **navigateur** seulement
+> 5. **Node** seulement (accès aux fichiers)
+>
+> Le langage est le même, mais le **runtime** fournit des outils différents.

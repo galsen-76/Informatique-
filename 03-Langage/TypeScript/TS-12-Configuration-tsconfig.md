@@ -76,3 +76,33 @@ npx vue-tsc --noEmit    # projet Vue (vérifie aussi les .vue)
 - **Mettre `strict: false`** pour faire disparaître des erreurs : tu caches des bugs.
 - **Modifier `target` ou `module` au hasard** : ces réglages doivent correspondre à l'outil de build. Laisse ceux générés par Angular CLI, Vite ou Nest CLI.
 - **Plusieurs `tsconfig`** (`tsconfig.app.json`, `tsconfig.spec.json`) : c'est normal, un pour l'app et un pour les tests. Ils héritent du principal avec `extends`.
+
+## Exercices
+
+### Exercice 1 · Ce que `strict` détecte
+
+Avec `"strict": true`, quelles erreurs apparaissent dans ce code ?
+
+```ts
+function greet(name) {
+  return 'Bonjour ' + name.toUpperCase();
+}
+
+const movie = movies.find((m) => m.id === 1);
+console.log(movie.title);
+```
+
+> [!success]- Solution
+> - `name` a implicitement le type `any` (**noImplicitAny**) : il faut écrire `name: string`.
+> - `movie` peut être `undefined` (`find` ne trouve peut-être rien) (**strictNullChecks**) : il faut `movie?.title` ou un `if (movie)`.
+
+### Exercice 2 · Vérifier sans compiler
+
+Quelle commande lance la vérification de types de tout le projet sans produire de fichiers ? Pourquoi est-elle utile en CI ?
+
+> [!success]- Solution
+> ```bash
+> npx tsc --noEmit
+> ```
+>
+> Vite et esbuild **retirent** les types sans les vérifier : un projet peut se construire avec des erreurs de type. Lancer `tsc --noEmit` en CI bloque la MR si une erreur de type existe.

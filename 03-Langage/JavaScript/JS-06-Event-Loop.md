@@ -90,3 +90,40 @@ console.log('B');      // A, B, C
 
 - **Croire que `await` bloque tout le programme** : il ne met en pause que sa fonction.
 - **Un traitement très lourd** (trier 1 million de lignes) fige l'interface : découpe-le ou utilise un Web Worker.
+
+## Exercices
+
+### Exercice 1 · Dans quel ordre ?
+
+Donne l'ordre d'affichage :
+
+```js
+console.log('A');
+setTimeout(() => console.log('B'), 0);
+Promise.resolve().then(() => console.log('C'));
+console.log('D');
+```
+
+> [!success]- Solution
+> **A, D, C, B**
+>
+> 1. `A` et `D` : le code synchrone s'exécute d'abord, en entier.
+> 2. `C` : les promesses (microtâches) passent dès que la pile est vide.
+> 3. `B` : les `setTimeout` (tâches) passent après les microtâches, même avec 0 ms.
+
+### Exercice 2 · Pourquoi la page se fige ?
+
+Au clic sur un bouton, ce code fige la page pendant plusieurs secondes : impossible de cliquer ou de défiler. Explique pourquoi, en lien avec l'event loop.
+
+```js
+button.addEventListener('click', () => {
+  let total = 0;
+  for (let i = 0; i < 5_000_000_000; i++) total += i;
+  result.textContent = total;
+});
+```
+
+> [!success]- Solution
+> JavaScript n'a **qu'un seul fil d'exécution**. Tant que la boucle tourne, la pile d'appels n'est jamais vide : l'event loop ne peut traiter **ni les clics, ni l'affichage**.
+>
+> L'asynchrone n'aide pas ici : ce n'est pas une attente mais un **calcul**. Solutions : faire le calcul côté serveur, le découper en morceaux, ou l'envoyer dans un Web Worker (un autre fil).

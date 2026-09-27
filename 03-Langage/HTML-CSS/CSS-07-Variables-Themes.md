@@ -104,3 +104,48 @@ Pour tout ce qui peut changer (thème, couleurs), utilise les variables CSS.
 
 - **Oublier `var()`** : `color: --primaire` ne marche pas.
 - **Faute de frappe dans le nom** : pas d'erreur, la propriété est simplement ignorée. Vérifie dans F12 → Styles.
+
+## Exercices
+
+### Exercice 1 · Créer des variables de thème
+
+Déclare les variables `--bg`, `--text` et `--primary` pour un thème clair, puis utilise-les sur `body` et les boutons.
+
+> [!success]- Solution
+> ```css
+> :root {
+>   --bg: #ffffff;
+>   --text: #1a1a1a;
+>   --primary: #e50914;
+> }
+>
+> body {
+>   background: var(--bg);
+>   color: var(--text);
+> }
+>
+> button {
+>   background: var(--primary);
+> }
+> ```
+
+### Exercice 2 · Ajouter le mode sombre
+
+Ajoute un thème sombre activé par `data-theme="dark"` sur `<html>`, et qui suit par défaut le réglage du système.
+
+> [!success]- Solution
+> ```css
+> @media (prefers-color-scheme: dark) {
+>   :root:not([data-theme='light']) {
+>     --bg: #121212;
+>     --text: #f0f0f0;
+>   }
+> }
+>
+> :root[data-theme='dark'] {
+>   --bg: #121212;
+>   --text: #f0f0f0;
+> }
+> ```
+>
+> Seules les **valeurs** des variables changent : le reste du CSS ne bouge pas.

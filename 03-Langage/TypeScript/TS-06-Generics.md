@@ -92,3 +92,43 @@ function trouverParId<T extends { id: number }>(liste: T[], id: number): T | und
 - **Un `<T>` utilisé une seule fois** ne sert à rien : un type normal suffit.
 - **`http.get<any>()`** : tu perds tout l'intérêt. Donne le vrai type.
 - **Oublier la contrainte `extends`** puis lire `e.id` : TypeScript refuse, car rien ne garantit que `T` a un `id`.
+
+## Exercices
+
+### Exercice 1 · Typer une réponse paginée
+
+TMDB renvoie ses listes toujours sous la même forme. Écris un type générique `Paginated<T>` puis utilise-le pour une liste de films.
+
+```json
+{ "page": 1, "results": [ ... ], "total_pages": 50, "total_results": 1000 }
+```
+
+> [!success]- Solution
+> ```ts
+> interface Paginated<T> {
+>   page: number;
+>   results: T[];
+>   total_pages: number;
+>   total_results: number;
+> }
+>
+> type MoviesPage = Paginated<Movie>;
+> ```
+>
+> Le même type servira pour les séries, les personnes, etc. : `Paginated<Person>`.
+
+### Exercice 2 · Une fonction générique
+
+Écris `first<T>(items: T[])` qui renvoie le premier élément ou `undefined`. Quel type obtient-on pour `first(['a', 'b'])` et `first(movies)` ?
+
+> [!success]- Solution
+> ```ts
+> function first<T>(items: T[]): T | undefined {
+>   return items[0];
+> }
+>
+> const a = first(['a', 'b']);   // string | undefined
+> const b = first(movies);       // Movie | undefined
+> ```
+>
+> TypeScript déduit `T` à partir de l'argument : pas besoin d'écrire `first<string>(...)`.

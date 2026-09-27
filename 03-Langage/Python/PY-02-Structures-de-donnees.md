@@ -82,3 +82,30 @@ Pour choisir entre liste et set, même logique qu'en JS : voir [[ALGO-04-Tables-
 - **`movie["key"]` sur une clé absente** : `KeyError`. Utilise `.get()` si tu n'es pas sûr.
 - **`{}` crée un dictionnaire vide**, pas un set : pour un set vide, `set()`.
 - **Copier une liste avec `=`** : les deux variables pointent vers la même liste (comme en JS). Copie avec `movies.copy()` ou `list(movies)`.
+
+## Exercices
+
+### Exercice 1 · Manipuler une liste
+
+À partir de `movies = ["Dune", "Alien", "Heat"]` : ajoute `"Tenet"`, affiche le dernier élément, les deux premiers, le nombre de films, et vérifie si `"Alien"` est présent.
+
+> [!success]- Solution
+> ```python
+> movies = ["Dune", "Alien", "Heat"]
+> movies.append("Tenet")
+> print(movies[-1])        # Tenet
+> print(movies[0:2])       # ['Dune', 'Alien']
+> print(len(movies))       # 4
+> print("Alien" in movies) # True
+> ```
+
+### Exercice 2 · Lire un dictionnaire sans planter
+
+Avec `movie = {"title": "Dune", "year": 2021}`, affiche le réalisateur, ou `"inconnu"` s'il n'existe pas. Pourquoi `movie["director"]` est-il risqué ?
+
+> [!success]- Solution
+> ```python
+> print(movie.get("director", "inconnu"))   # inconnu
+> ```
+>
+> `movie["director"]` lève une erreur **KeyError** si la clé n'existe pas. `.get()` renvoie une valeur par défaut.

@@ -90,3 +90,39 @@ for p in data_dir.glob("*.csv"):
 - **Ouvrir sans `with`** et oublier de fermer le fichier.
 - **Oublier `encoding="utf-8"`** : accents cassés, surtout sous Windows.
 - **Le mode `"w"`** efface le fichier existant sans prévenir.
+
+## Exercices
+
+### Exercice 1 · Lire un JSON
+
+Le fichier `movies.json` contient une liste de films `{ "title", "year" }`. Écris le code qui le lit et affiche les titres des films sortis après 2000.
+
+> [!success]- Solution
+> ```python
+> import json
+>
+> with open("movies.json", encoding="utf-8") as f:
+>     movies = json.load(f)
+>
+> for m in movies:
+>     if m["year"] > 2000:
+>         print(m["title"])
+> ```
+
+### Exercice 2 · Écrire un CSV
+
+Écris ces films dans `movies.csv` avec une ligne d'en-tête `title,year`.
+
+```python
+movies = [{"title": "Dune", "year": 2021}, {"title": "Alien", "year": 1979}]
+```
+
+> [!success]- Solution
+> ```python
+> import csv
+>
+> with open("movies.csv", "w", encoding="utf-8", newline="") as f:
+>     writer = csv.DictWriter(f, fieldnames=["title", "year"])
+>     writer.writeheader()
+>     writer.writerows(movies)
+> ```

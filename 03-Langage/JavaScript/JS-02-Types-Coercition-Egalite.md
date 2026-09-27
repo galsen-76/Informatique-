@@ -97,3 +97,50 @@ film?.realisateur?.nom   // undefined au lieu d'une erreur si realisateur n'exis
 - `NaN === NaN` est `false` : utilise `Number.isNaN(x)`.
 
 TypeScript attrape la plupart de ces erreurs avant même l'exécution : voir [[TS-01-Fondamentaux|Fondamentaux TypeScript]].
+
+## Exercices
+
+### Exercice 1 · Vrai ou faux ?
+
+Pour chaque ligne, donne le résultat :
+
+```js
+'5' == 5
+'5' === 5
+0 || 'aucune note'
+0 ?? 'aucune note'
+Boolean('')
+Boolean([])
+```
+
+> [!success]- Solution
+> | Expression | Résultat | Pourquoi |
+> |---|---|---|
+> | `'5' == 5` | `true` | `==` convertit le texte en nombre |
+> | `'5' === 5` | `false` | types différents, pas de conversion |
+> | `0 \|\| 'aucune note'` | `'aucune note'` | `0` est « faux » pour `\|\|` |
+> | `0 ?? 'aucune note'` | `0` | `??` ne remplace que `null` et `undefined` |
+> | `Boolean('')` | `false` | chaîne vide = faux |
+> | `Boolean([])` | `true` | un tableau, même vide, est « vrai » |
+
+### Exercice 2 · Corriger le bug
+
+Une note de film peut valoir `0`. Ce code affiche « Non noté » pour un film noté 0. Corrige-le.
+
+```js
+function showRating(rating) {
+  return rating || 'Non noté';
+}
+```
+
+> [!success]- Solution
+> ```js
+> function showRating(rating) {
+>   return rating ?? 'Non noté';
+> }
+>
+> showRating(0);          // 0
+> showRating(undefined);  // "Non noté"
+> ```
+>
+> `||` remplace toutes les valeurs « fausses » (`0`, `''`, `false`), alors que `??` ne remplace que `null` et `undefined`.

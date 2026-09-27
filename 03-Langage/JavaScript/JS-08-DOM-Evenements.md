@@ -86,3 +86,48 @@ Tu n'écris presque jamais `addEventListener` : tu écris `(click)="ajouter()"` 
 - **`innerHTML` avec un texte venant de l'utilisateur** = faille de sécurité (XSS). Utilise `textContent`. Voir [[SEC-06-XSS-CSRF|XSS et CSRF]].
 - **Script chargé avant la page** : l'élément n'existe pas encore → `null`. Mets `defer` sur ta balise `<script>`.
 - **Écouteurs jamais retirés** : ils s'accumulent en mémoire.
+
+## Exercices
+
+### Exercice 1 · Compter les clics
+
+Avec cette page, écris le JavaScript qui augmente le nombre affiché à chaque clic sur le bouton.
+
+```html
+<button id="like">👍 J'aime</button>
+<span id="count">0</span>
+```
+
+> [!success]- Solution
+> ```js
+> const button = document.querySelector('#like');
+> const count = document.querySelector('#count');
+> let likes = 0;
+>
+> button.addEventListener('click', () => {
+>   likes++;
+>   count.textContent = likes;
+> });
+> ```
+
+### Exercice 2 · Un seul écouteur pour toute la liste
+
+Une liste contient des dizaines de films. Au lieu de mettre un écouteur sur chaque `<li>`, mets-en **un seul** sur la `<ul>` qui affiche l'`id` du film cliqué. Quelle notion de la note utilises-tu ?
+
+```html
+<ul id="movies">
+  <li data-id="438631">Dune</li>
+  <li data-id="348">Alien</li>
+</ul>
+```
+
+> [!success]- Solution
+> ```js
+> document.querySelector('#movies').addEventListener('click', (event) => {
+>   const item = event.target.closest('li');
+>   if (!item) return;
+>   console.log(item.dataset.id);   // "438631"
+> });
+> ```
+>
+> C'est la **remontée des événements** (bubbling) : le clic sur un `<li>` remonte jusqu'à la `<ul>`. On parle de **délégation d'événements**. Avantage : ça marche aussi pour les `<li>` ajoutés plus tard.

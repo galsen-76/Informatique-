@@ -100,3 +100,40 @@ const titles2 = movies
 - **Un appel HTTP ou une modification dans un `computed` ou un `map`.**
 - **Modifier le tableau reçu** en paramètre (`sort`, `push`) au lieu d'en créer un nouveau.
 - **Tout vouloir en fonctionnel** au point de rendre le code illisible pour l'équipe.
+
+## Exercices
+
+### Exercice 1 · Pure ou pas ?
+
+Lesquelles de ces fonctions sont pures ? Pourquoi ?
+
+```ts
+const add = (a: number, b: number) => a + b;
+
+let total = 0;
+const addToTotal = (n: number) => { total += n; return total; };
+
+const now = () => new Date();
+
+const sortTitles = (titles: string[]) => titles.sort();
+```
+
+> [!success]- Solution
+> - `add` : **pure** (même entrée → même sortie, ne touche à rien).
+> - `addToTotal` : **impure** (modifie une variable extérieure).
+> - `now` : **impure** (renvoie un résultat différent à chaque appel).
+> - `sortTitles` : **impure** (`sort` modifie le tableau reçu). Version pure : `(titles) => titles.toSorted()`.
+
+### Exercice 2 · Une fonction qui fabrique des fonctions
+
+Écris `minRating(min)` qui renvoie une fonction de filtrage, pour écrire `movies.filter(minRating(4))`.
+
+> [!success]- Solution
+> ```ts
+> const minRating = (min: number) => (movie: Movie) => movie.rating >= min;
+>
+> movies.filter(minRating(4));
+> movies.filter(minRating(4.5));
+> ```
+>
+> `minRating(4)` renvoie une fonction qui se souvient de `min` (closure) : c'est une fonction d'ordre supérieur.

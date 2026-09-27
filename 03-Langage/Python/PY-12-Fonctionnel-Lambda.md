@@ -78,3 +78,34 @@ Les principes (fonctions pures, immutabilité) sont les mêmes qu'en JS : voir [
 
 - **Ranger une lambda dans une variable** (`double = lambda …`) : autant écrire un `def`, qui a un nom dans les erreurs.
 - **Des `map(lambda …)` imbriqués** : une compréhension est plus lisible.
+
+## Exercices
+
+### Exercice 1 · Trier avec une clé
+
+Avec une liste de films `{ "title", "year", "rating" }` :
+1. trie par année croissante ;
+2. trie par note décroissante ;
+3. trouve le film le plus ancien.
+
+> [!success]- Solution
+> ```python
+> by_year = sorted(movies, key=lambda m: m["year"])
+> by_rating = sorted(movies, key=lambda m: m["rating"], reverse=True)
+> oldest = min(movies, key=lambda m: m["year"])
+> ```
+
+### Exercice 2 · Lambda ou def ?
+
+Réécris ce code de façon plus lisible, en Python « idiomatique ».
+
+```python
+result = list(map(lambda m: m["title"], filter(lambda m: m["year"] > 2000, movies)))
+```
+
+> [!success]- Solution
+> ```python
+> result = [m["title"] for m in movies if m["year"] > 2000]
+> ```
+>
+> En Python, une compréhension se lit plus facilement qu'un `map` + `filter` avec des lambdas.

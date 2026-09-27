@@ -97,3 +97,42 @@ def add_movie(movie, movies=None):
 
 - **Une liste ou un dict comme valeur par défaut** (voir ci-dessus).
 - **Oublier le `return`** : la fonction renvoie `None`.
+
+## Exercices
+
+### Exercice 1 · Paramètres par défaut et nommés
+
+Écris `search(title, year=None, limit=10)` qui renvoie un texte décrivant la recherche. Appelle-la avec seulement le titre, puis avec le titre et `limit=5` sans donner l'année.
+
+> [!success]- Solution
+> ```python
+> def search(title, year=None, limit=10):
+>     return f"Recherche '{title}', année={year}, limite={limit}"
+>
+> search("Dune")               # année=None, limite=10
+> search("Dune", limit=5)      # on saute year grâce au paramètre nommé
+> ```
+
+### Exercice 2 · Le piège de la liste par défaut
+
+Qu'affiche ce code au deuxième appel ? Corrige-le.
+
+```python
+def add_favorite(movie, favorites=[]):
+    favorites.append(movie)
+    return favorites
+
+add_favorite("Dune")
+print(add_favorite("Alien"))
+```
+
+> [!success]- Solution
+> Il affiche `['Dune', 'Alien']` : la liste par défaut est créée **une seule fois** et partagée entre les appels.
+>
+> ```python
+> def add_favorite(movie, favorites=None):
+>     if favorites is None:
+>         favorites = []
+>     favorites.append(movie)
+>     return favorites
+> ```

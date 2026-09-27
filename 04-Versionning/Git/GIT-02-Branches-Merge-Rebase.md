@@ -97,3 +97,37 @@ Suis la convention de l'équipe : certaines équipes fusionnent (merge), d'autre
 - **Travailler directement sur `main`**.
 - **Une branche qui vit 3 semaines** : les conflits s'accumulent. Petites branches, fusionnées vite.
 - **`git push --force`** sans `-with-lease` : peut effacer le travail d'un collègue.
+
+## Exercices
+
+### Exercice 1 · Travailler sur une branche
+
+Écris les commandes pour : créer une branche `feature/search` depuis `main` à jour, y commiter, puis revenir sur `main` et fusionner la branche.
+
+> [!success]- Solution
+> ```bash
+> git switch main
+> git pull
+> git switch -c feature/search
+> # … modifications …
+> git add .
+> git commit -m "feat: ajoute la recherche de films"
+> git switch main
+> git merge feature/search
+> ```
+>
+> En équipe, la fusion se fait plutôt par une merge request.
+
+### Exercice 2 · Merge ou rebase ?
+
+Ta branche `feature/search` est en retard sur `main`. Quelle commande pour la mettre à jour **si tu es seul dessus** ? Et pourquoi ne jamais faire de rebase sur `main` ?
+
+> [!success]- Solution
+> ```bash
+> git switch feature/search
+> git fetch
+> git rebase origin/main
+> git push --force-with-lease
+> ```
+>
+> Le rebase **réécrit** les commits (ils changent d'identifiant). Sur une branche partagée comme `main`, les autres auraient un historique qui ne correspond plus au leur. Règle : on ne rebase que ses propres branches non partagées.

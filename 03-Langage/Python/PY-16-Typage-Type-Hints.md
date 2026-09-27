@@ -89,3 +89,38 @@ FastAPI l'utilise pour valider automatiquement le corps des requêtes, comme les
 
 - **Croire que les annotations empêchent les erreurs** : sans mypy ni Pydantic, rien n'est vérifié.
 - **`list[str]` sur un vieux Python** (avant 3.9) : il faut `from typing import List`.
+
+## Exercices
+
+### Exercice 1 · Annoter une fonction
+
+Ajoute les annotations de type : `movies` est une liste de dictionnaires, `min_year` un entier, et la fonction renvoie une liste de titres.
+
+```python
+def recent_titles(movies, min_year):
+    return [m["title"] for m in movies if m["year"] >= min_year]
+```
+
+> [!success]- Solution
+> ```python
+> def recent_titles(movies: list[dict], min_year: int) -> list[str]:
+>     return [m["title"] for m in movies if m["year"] >= min_year]
+> ```
+
+### Exercice 2 · Annotation ou validation ?
+
+Ce code affiche-t-il une erreur ? Comment obtenir une vraie vérification ?
+
+```python
+def double(n: int) -> int:
+    return n * 2
+
+print(double("ab"))
+```
+
+> [!success]- Solution
+> Aucune erreur : il affiche `abab`. Python **ignore** les annotations à l'exécution.
+>
+> Pour vérifier :
+> - **avant** d'exécuter : `mypy .` signale l'argument de mauvais type ;
+> - **à l'exécution**, pour des données externes : un modèle **Pydantic**, qui valide vraiment les valeurs.

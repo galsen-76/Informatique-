@@ -94,3 +94,42 @@ Certaines personnes ont le mal des transports avec les animations et l'ont désa
 
 - **`transition: all`** : anime aussi ce que tu ne voulais pas, et coûte plus cher. Liste les propriétés.
 - **Trop d'animations** : une interface pro reste sobre. Survol, apparition, chargement : c'est suffisant.
+
+## Exercices
+
+### Exercice 1 · Un survol fluide
+
+Fais grossir légèrement une carte (5 %) au survol, avec une transition de 200 ms, en ne touchant que des propriétés performantes.
+
+> [!success]- Solution
+> ```css
+> .movie-card {
+>   transition: transform 200ms ease;
+> }
+>
+> .movie-card:hover {
+>   transform: scale(1.05);
+> }
+> ```
+>
+> `transform` et `opacity` sont gérés par la carte graphique : l'animation reste fluide.
+
+### Exercice 2 · Un squelette de chargement
+
+Crée une animation de « pulsation » pour les cartes de chargement (l'opacité varie en boucle), désactivée pour les utilisateurs qui préfèrent moins de mouvement.
+
+> [!success]- Solution
+> ```css
+> @keyframes pulse {
+>   0%, 100% { opacity: 1; }
+>   50% { opacity: 0.4; }
+> }
+>
+> .skeleton {
+>   animation: pulse 1.5s ease-in-out infinite;
+> }
+>
+> @media (prefers-reduced-motion: reduce) {
+>   .skeleton { animation: none; }
+> }
+> ```

@@ -101,3 +101,46 @@ Une **fuite mémoire**, c'est un objet qui reste pointé alors qu'on ne s'en ser
 - **Modifier un objet reçu en `input()`** : tu modifies celui du parent, sans que l'écran le sache.
 - **Une fonction qui modifie l'objet qu'on lui passe** sans le dire.
 - **Une copie « superficielle »** : `{ ...movie }` copie le premier niveau, mais `movie.genres` reste partagé. Pour tout copier : `structuredClone(movie)`.
+
+## Exercices
+
+### Exercice 1 · Prédire
+
+Qu'affichent ces deux `console.log` ?
+
+```js
+let rating = 4;
+let copy = rating;
+copy = 5;
+console.log(rating);
+
+const movie = { title: 'Dune', rating: 4 };
+const same = movie;
+same.rating = 5;
+console.log(movie.rating);
+```
+
+> [!success]- Solution
+> - `4` : un nombre est copié **par valeur**, `copy` est indépendant.
+> - `5` : un objet est copié **par référence**, `same` et `movie` sont le **même** objet.
+
+### Exercice 2 · L'écran ne se met pas à jour
+
+Dans un composant Angular, ce code ajoute bien un film à la liste, mais l'écran ne change pas. Pourquoi ? Corrige.
+
+```ts
+movies = signal<Movie[]>([]);
+
+add(movie: Movie) {
+  this.movies().push(movie);
+}
+```
+
+> [!success]- Solution
+> `push` modifie le tableau **existant** : sa référence ne change pas, donc le signal ne voit aucun changement.
+>
+> ```ts
+> add(movie: Movie) {
+>   this.movies.update((list) => [...list, movie]);   // nouveau tableau = nouvelle référence
+> }
+> ```

@@ -78,3 +78,35 @@ type ProjetsApi = ReturnType<typeof useProjets>;
 
 - **`Partial` partout** « pour être tranquille » : tu perds la garantie que les champs obligatoires sont là.
 - **`Readonly` n'agit qu'au premier niveau** : les objets imbriqués restent modifiables.
+
+## Exercices
+
+### Exercice 1 · Choisir le bon utilitaire
+
+Pour chaque besoin, quel utility type utilises-tu à partir de `Movie` ?
+1. les données d'un formulaire de modification où tout est facultatif ;
+2. une carte qui n'affiche que `id`, `title` et `poster_path` ;
+3. un film sans `genre_ids` ;
+4. un film qu'on ne doit pas modifier.
+
+> [!success]- Solution
+> ```ts
+> type MovieUpdate = Partial<Movie>;
+> type MovieCard = Pick<Movie, 'id' | 'title' | 'poster_path'>;
+> type MovieWithoutGenres = Omit<Movie, 'genre_ids'>;
+> type FrozenMovie = Readonly<Movie>;
+> ```
+
+### Exercice 2 · Un dictionnaire typé
+
+Crée le type d'un objet qui associe un id de genre (nombre) à son nom (texte), puis un exemple de valeur.
+
+> [!success]- Solution
+> ```ts
+> type GenreNames = Record<number, string>;
+>
+> const genres: GenreNames = {
+>   28: 'Action',
+>   878: 'Science-fiction',
+> };
+> ```

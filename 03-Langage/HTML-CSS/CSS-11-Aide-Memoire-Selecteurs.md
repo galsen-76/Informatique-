@@ -95,3 +95,35 @@ document.querySelector('[data-testid="btn-envoyer"]');
 ```
 
 Comment ils s'affrontent en cas de conflit : [[CSS-01-Selecteurs-Cascade-Specificite|Cascade et spécificité]].
+
+## Exercices
+
+### Exercice 1 · Écrire les sélecteurs
+
+Écris le sélecteur qui cible :
+1. les liens directement dans `<nav>` (pas plus profond) ;
+2. une ligne de tableau sur deux ;
+3. les champs invalides ;
+4. les liens qui mènent vers un autre site (commencent par `http`) ;
+5. le dernier élément d'une liste.
+
+> [!success]- Solution
+> 1. `nav > a`
+> 2. `tr:nth-child(even)`
+> 3. `input:invalid` (ou `input:user-invalid` : seulement après une saisie)
+> 4. `a[href^="http"]`
+> 5. `li:last-child`
+
+### Exercice 2 · Un contour de focus visible
+
+Écris la règle qui affiche un contour épais et coloré sur les éléments qui reçoivent le focus **au clavier**, sans l'afficher au clic de souris.
+
+> [!success]- Solution
+> ```css
+> :focus-visible {
+>   outline: 3px solid var(--primary);
+>   outline-offset: 2px;
+> }
+> ```
+>
+> `:focus-visible` ne s'applique que quand le navigateur juge le contour utile (navigation clavier). Ne jamais écrire `outline: none` sans le remplacer.

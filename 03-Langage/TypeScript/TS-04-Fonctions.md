@@ -86,3 +86,40 @@ trier(films, (a, b) => a.annee - b.annee);
 
 - **Paramètre optionnel avant un obligatoire** : interdit.
 - **Beaucoup de paramètres du même type** (`creer('Dune', 'Villeneuve', 'SF')`) : facile à inverser. Passe plutôt un objet.
+
+## Exercices
+
+### Exercice 1 · Typer une fonction
+
+Type complètement cette fonction : `limit` est optionnel et vaut 10 par défaut, la fonction renvoie un tableau de titres.
+
+```js
+function topTitles(movies, limit = 10) {
+  return movies.toSorted((a, b) => b.vote_average - a.vote_average).slice(0, limit).map((m) => m.title);
+}
+```
+
+> [!success]- Solution
+> ```ts
+> function topTitles(movies: Movie[], limit = 10): string[] {
+>   return movies
+>     .toSorted((a, b) => b.vote_average - a.vote_average)
+>     .slice(0, limit)
+>     .map((m) => m.title);
+> }
+> ```
+>
+> `limit = 10` suffit : TypeScript déduit `number` et le rend optionnel.
+
+### Exercice 2 · Une fonction en paramètre
+
+Écris `filterMovies(movies, predicate)` où `predicate` est une fonction qui reçoit un `Movie` et renvoie un booléen. Utilise-la pour garder les films notés plus de 7.
+
+> [!success]- Solution
+> ```ts
+> function filterMovies(movies: Movie[], predicate: (movie: Movie) => boolean): Movie[] {
+>   return movies.filter(predicate);
+> }
+>
+> const good = filterMovies(movies, (m) => m.vote_average > 7);
+> ```

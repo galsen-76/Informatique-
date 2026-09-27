@@ -68,3 +68,46 @@ const dernier = films.at(-1);
 ## À savoir
 
 Ton code moderne est **converti** par les outils de build (TypeScript, Vite) pour fonctionner sur les navigateurs visés. Les **syntaxes** (`?.`, `??`) sont toujours converties. Les **nouvelles méthodes** (`Object.groupBy`, `toSorted`) ne le sont pas : sur de très vieux navigateurs, elles peuvent manquer. En pratique, sur des navigateurs à jour, tout fonctionne.
+
+## Exercices
+
+### Exercice 1 · Moderniser ce code
+
+Réécris ce code avec les écritures modernes (déstructuration, fonctions fléchées, template literals, `?.`, `??`) :
+
+```js
+function describe(movie) {
+  var title = movie.title;
+  var director = movie.director && movie.director.name;
+  if (director === undefined || director === null) director = 'inconnu';
+  return title + ' — réalisé par ' + director;
+}
+```
+
+> [!success]- Solution
+> ```js
+> const describe = ({ title, director }) =>
+>   `${title} — réalisé par ${director?.name ?? 'inconnu'}`;
+> ```
+
+### Exercice 2 · Grouper des films
+
+Avec `Object.groupBy` (ES2024), regroupe cette liste par genre. Qu'obtiens-tu ?
+
+```js
+const movies = [
+  { title: 'Dune', genre: 'SF' },
+  { title: 'Heat', genre: 'Policier' },
+  { title: 'Alien', genre: 'SF' },
+];
+```
+
+> [!success]- Solution
+> ```js
+> const byGenre = Object.groupBy(movies, (m) => m.genre);
+>
+> // {
+> //   SF: [{ title: 'Dune', ... }, { title: 'Alien', ... }],
+> //   Policier: [{ title: 'Heat', ... }]
+> // }
+> ```

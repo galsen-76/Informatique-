@@ -86,3 +86,36 @@ Angular (`| currency`, `| date`) et Vue (via `Intl`) s'appuient dessus.
 - **Des prix en nombres à virgule** : des centimes perdus ou en trop.
 - **Trier des mots accentués** sans `localeCompare`.
 - **Couper un texte** au milieu d'un emoji.
+
+## Exercices
+
+### Exercice 1 · Les prix
+
+Un panier contient 3 places à 9,99 €. Pourquoi `3 * 9.99` pose-t-il problème ? Comment calculer et afficher correctement le total ?
+
+> [!success]- Solution
+> `3 * 9.99` donne `29.970000000000002` : les nombres à virgule ne sont pas exacts en binaire.
+>
+> ```ts
+> const priceCents = 999;                // on compte en centimes (entier)
+> const totalCents = 3 * priceCents;     // 2997, exact
+>
+> new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
+>   .format(totalCents / 100);           // "29,97 €"
+> ```
+
+### Exercice 2 · Trier et couper du texte
+
+1. Trie `['Zoé', 'émilie', 'Alice']` dans l'ordre alphabétique français.
+2. Coupe le titre `'Le film 🎬 génial'` aux 9 premiers caractères **sans casser l'emoji**.
+
+> [!success]- Solution
+> ```ts
+> ['Zoé', 'émilie', 'Alice'].sort((a, b) => a.localeCompare(b, 'fr'));
+> // ["Alice", "émilie", "Zoé"]
+>
+> [...'Le film 🎬 génial'].slice(0, 9).join('');
+> // "Le film 🎬"
+> ```
+>
+> `slice` sur la chaîne directement compte l'emoji comme 2 unités et peut le couper en deux.

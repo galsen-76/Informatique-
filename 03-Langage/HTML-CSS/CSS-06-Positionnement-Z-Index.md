@@ -84,3 +84,47 @@ Certaines propriétés (`transform`, `opacity` < 1, `filter`, `position` + `z-in
 - **`absolute` sans parent `relative`** : l'élément se place par rapport à la page entière.
 - **`sticky` qui ne colle pas** : il faut un `top`, et aucun parent avec `overflow: hidden`.
 - **Monter les `z-index` à l'infini** : tiens-toi à l'échelle ci-dessus.
+
+## Exercices
+
+### Exercice 1 · Un badge sur l'affiche
+
+Place un badge de note en haut à droite d'une affiche, par-dessus l'image.
+
+```html
+<div class="poster">
+  <img src="dune.jpg" alt="Affiche de Dune" />
+  <span class="badge">7.8</span>
+</div>
+```
+
+> [!success]- Solution
+> ```css
+> .poster {
+>   position: relative;          /* le repère du badge */
+> }
+>
+> .badge {
+>   position: absolute;
+>   top: 0.5rem;
+>   right: 0.5rem;
+> }
+> ```
+>
+> Un élément `absolute` se place par rapport au plus proche parent **positionné**.
+
+### Exercice 2 · Un en-tête qui reste visible
+
+Écris le CSS pour que l'en-tête reste collé en haut pendant le défilement, sans masquer le contenu au départ.
+
+> [!success]- Solution
+> ```css
+> header {
+>   position: sticky;
+>   top: 0;
+>   z-index: 10;
+>   background: var(--bg);   /* sinon le contenu se voit à travers */
+> }
+> ```
+>
+> `sticky` reste dans le flux (pas de décalage), puis se colle en haut au défilement. `fixed` sortirait l'en-tête du flux.

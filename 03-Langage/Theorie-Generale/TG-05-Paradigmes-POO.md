@@ -110,3 +110,63 @@ Le front actuel **mélange** : des classes pour les services, et un style plus f
 - **La classe qui fait tout** (300 lignes, 20 méthodes) : découpe par responsabilité.
 - **Hériter juste pour réutiliser du code** : préfère la composition.
 - **Tout mettre en `public`** : l'encapsulation protège tes règles (une note entre 1 et 5).
+
+## Exercices
+
+### Exercice 1 · Les 4 idées
+
+Dans ce code, repère l'encapsulation, l'abstraction, l'héritage et le polymorphisme.
+
+```ts
+interface Exporter { export(movies: Movie[]): string }
+
+class CsvExporter implements Exporter {
+  export(movies: Movie[]) { return movies.map((m) => m.title).join(';'); }
+}
+
+class JsonExporter implements Exporter {
+  export(movies: Movie[]) { return JSON.stringify(movies); }
+}
+
+class Library {
+  private movies: Movie[] = [];
+  add(m: Movie) { this.movies.push(m); }
+  save(exporter: Exporter) { return exporter.export(this.movies); }
+}
+```
+
+> [!success]- Solution
+> - **Encapsulation** : `private movies` : on ne touche à la liste que via `add`.
+> - **Abstraction** : l'interface `Exporter` dit **quoi** faire (exporter), pas **comment**.
+> - **Polymorphisme** : `exporter.export(...)` fait un CSV **ou** un JSON selon l'objet passé.
+> - **Héritage** : il n'y en a pas ici ! `implements` respecte un contrat, ce n'est pas de l'héritage (`extends`). Et c'est très bien : la composition suffit.
+
+### Exercice 2 · Dépendre d'un contrat
+
+Écris une interface `Notifier` et un service `ReviewsService` qui la reçoit dans son constructeur. Puis écris une fausse implémentation pour les tests qui mémorise les messages au lieu de les envoyer.
+
+> [!success]- Solution
+> ```ts
+> interface Notifier {
+>   send(message: string): void;
+> }
+>
+> class ReviewsService {
+>   constructor(private notifier: Notifier) {}
+>
+>   publish(title: string) {
+>     this.notifier.send(`Nouvelle critique : ${title}`);
+>   }
+> }
+>
+> class FakeNotifier implements Notifier {
+>   messages: string[] = [];
+>   send(message: string) {
+>     this.messages.push(message);
+>   }
+> }
+>
+> const fake = new FakeNotifier();
+> new ReviewsService(fake).publish('Dune');
+> fake.messages;   // ["Nouvelle critique : Dune"]
+> ```

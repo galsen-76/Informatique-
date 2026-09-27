@@ -94,3 +94,51 @@ F12 → icône téléphone/tablette (**mode appareil**) → choisis un modèle o
 - **Largeurs fixes en px** (`width: 1200px`) : scroll horizontal sur mobile.
 - **Cibles trop petites** : un bouton doit faire au moins 44 × 44 px pour un doigt.
 - **Texte trop petit** : 16 px minimum pour le texte courant.
+
+## Exercices
+
+### Exercice 1 · Mobile d'abord
+
+Réécris ce CSS en « mobile first » : une colonne par défaut, trois colonnes à partir de 1024 px.
+
+```css
+.grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 1023px) {
+  .grid { grid-template-columns: 1fr; }
+}
+```
+
+> [!success]- Solution
+> ```css
+> .grid {
+>   display: grid;
+>   grid-template-columns: 1fr;
+> }
+>
+> @media (min-width: 1024px) {
+>   .grid {
+>     grid-template-columns: repeat(3, 1fr);
+>   }
+> }
+> ```
+>
+> On part du plus petit écran et on **ajoute** avec `min-width`.
+
+### Exercice 2 · Un titre qui s'adapte
+
+Écris une taille de titre qui fait au moins 1.5rem, au plus 3rem, et grandit avec la largeur de l'écran entre les deux. Quelle balise est obligatoire dans le HTML pour que le responsive marche sur mobile ?
+
+> [!success]- Solution
+> ```css
+> h1 {
+>   font-size: clamp(1.5rem, 4vw, 3rem);
+> }
+> ```
+>
+> Et dans le `<head>` :
+>
+> ```html
+> <meta name="viewport" content="width=device-width, initial-scale=1" />
+> ```
+>
+> Sans elle, le téléphone affiche la page comme un écran de bureau réduit.

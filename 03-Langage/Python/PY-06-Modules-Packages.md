@@ -85,3 +85,42 @@ Installés avec **pip** (le npm de Python) : voir [[PY-13-Environnements-Virtuel
 
 - **Appeler ton fichier comme un module standard** (`random.py`, `json.py`) : il masque le vrai module.
 - **Imports circulaires** : A importe B qui importe A. Réorganise le code.
+
+## Exercices
+
+### Exercice 1 · Découper en modules
+
+Déplace la fonction `format_year(year)` dans un fichier `utils.py` et utilise-la depuis `main.py`.
+
+> [!success]- Solution
+> ```python
+> # utils.py
+> def format_year(year):
+>     return f"({year})" if year else ""
+> ```
+>
+> ```python
+> # main.py
+> from utils import format_year
+>
+> print(format_year(2021))
+> ```
+>
+> Pas besoin d'`export` : tout ce qui est défini dans un module est importable.
+
+### Exercice 2 · `if __name__ == "__main__"`
+
+À quoi sert ce bloc ? Que se passe-t-il si on l'enlève et qu'un autre fichier importe `main.py` ?
+
+```python
+def main():
+    print("Import des films…")
+
+if __name__ == "__main__":
+    main()
+```
+
+> [!success]- Solution
+> Le bloc n'exécute `main()` que si on **lance** le fichier (`python3 main.py`).
+>
+> Sans lui, un simple `import main` depuis un autre fichier **lancerait** l'import des films : le code s'exécuterait à l'importation, sans qu'on le veuille.

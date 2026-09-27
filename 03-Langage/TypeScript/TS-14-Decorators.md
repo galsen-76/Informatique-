@@ -73,3 +73,51 @@ export class CreateMovieDto {
 
 - **Oublier les parenthèses** : `@Injectable` au lieu de `@Injectable()` → erreur.
 - **Écrire tes propres décorateurs** pour de la logique métier : c'est rarement nécessaire et difficile à tester. Une simple fonction suffit presque toujours.
+
+## Exercices
+
+### Exercice 1 · Reconnaître les décorateurs
+
+Dans ce code Angular, repère les décorateurs et dis ce que fait chacun.
+
+```ts
+@Component({
+  selector: 'app-movie-card',
+  templateUrl: './movie-card.html',
+})
+export class MovieCard {}
+
+@Injectable({ providedIn: 'root' })
+export class MoviesApi {}
+```
+
+> [!success]- Solution
+> - `@Component({...})` : transforme la classe en **composant** affichable avec la balise `<app-movie-card>` et le template donné.
+> - `@Injectable({ providedIn: 'root' })` : rend la classe **injectable** partout dans l'application, avec une seule instance partagée.
+>
+> Les décorateurs ajoutent des informations à la classe, que le framework lit ensuite.
+
+### Exercice 2 · Écrire un décorateur simple
+
+Écris un décorateur de méthode `@Log()` qui affiche dans la console le nom de la méthode et ses arguments à chaque appel (décorateurs standard TypeScript 5).
+
+> [!success]- Solution
+> ```ts
+> function Log() {
+>   return function (method: (...args: any[]) => any, context: ClassMethodDecoratorContext) {
+>     return function (this: unknown, ...args: any[]) {
+>       console.log(`${String(context.name)}(`, ...args, ')');
+>       return method.apply(this, args);
+>     };
+>   };
+> }
+>
+> class MoviesService {
+>   @Log()
+>   search(query: string) {
+>     return [];
+>   }
+> }
+>
+> new MoviesService().search('dune');   // affiche : search( dune )
+> ```

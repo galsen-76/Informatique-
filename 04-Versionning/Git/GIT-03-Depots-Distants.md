@@ -89,3 +89,27 @@ Voir [[02-Merge-Requests|Merge Requests]].
 - **« rejected: non-fast-forward »** au `push` : quelqu'un a poussé avant toi. Fais `git pull --rebase`, puis repousse.
 - **Travailler plusieurs jours sans `pull`** : les conflits s'accumulent.
 - **Oublier `-u` au premier push** : ensuite `git push` tout court ne sait pas où envoyer.
+
+## Exercices
+
+### Exercice 1 · Publier un projet
+
+Tu as un dépôt local avec des commits. Écris les commandes pour le relier à un dépôt GitLab vide et envoyer la branche `main`.
+
+> [!success]- Solution
+> ```bash
+> git remote add origin git@gitlab.com:mon-compte/cinetrack.git
+> git push -u origin main
+> ```
+>
+> `-u` relie la branche locale à la branche distante : ensuite, un simple `git push` suffit.
+
+### Exercice 2 · `fetch` ou `pull` ?
+
+Quelle est la différence entre `git fetch` et `git pull` ? Dans quel cas préférer `fetch` ?
+
+> [!success]- Solution
+> - `git fetch` **télécharge** les nouveautés du serveur sans toucher à tes fichiers.
+> - `git pull` = `fetch` **+ fusion** dans ta branche actuelle.
+>
+> On préfère `fetch` quand on veut d'abord **regarder** ce qui a changé (`git log origin/main`) avant de l'intégrer.

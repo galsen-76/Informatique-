@@ -90,3 +90,51 @@ JavaScript est asynchrone mais **pas parallèle** : un gros calcul bloque quand 
 - **Oublier `await`** : tu obtiens une Promise au lieu de la valeur.
 - **Enchaîner des appels indépendants** au lieu de les lancer ensemble.
 - **Un calcul très lourd** dans le navigateur : l'asynchrone ne l'empêche pas de figer la page.
+
+## Exercices
+
+### Exercice 1 · Dans quel ordre ?
+
+Qu'affiche ce code, et dans quel ordre ?
+
+```js
+async function load() {
+  console.log('2');
+  await new Promise((r) => setTimeout(r, 500));
+  console.log('4');
+}
+
+console.log('1');
+load();
+console.log('3');
+```
+
+> [!success]- Solution
+> **1, 2, 3, 4**
+>
+> - `1` puis l'appel de `load()` qui affiche `2` tout de suite.
+> - Au `await`, la fonction se met en pause et **rend la main** : `3` s'affiche.
+> - 500 ms plus tard, la fonction reprend : `4`.
+
+### Exercice 2 · Accélérer une page
+
+Cette page charge un film, ses acteurs et ses films similaires. Chaque appel prend 300 ms et ils sont indépendants. Combien de temps prend ce code ? Réécris-le pour qu'il soit 3 fois plus rapide.
+
+```ts
+const movie = await api.movie(id);
+const credits = await api.credits(id);
+const similar = await api.similar(id);
+```
+
+> [!success]- Solution
+> Environ **900 ms** : chaque appel attend le précédent.
+>
+> ```ts
+> const [movie, credits, similar] = await Promise.all([
+>   api.movie(id),
+>   api.credits(id),
+>   api.similar(id),
+> ]);
+> ```
+>
+> Environ **300 ms** : les trois requêtes partent en même temps.

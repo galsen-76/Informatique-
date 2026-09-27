@@ -95,3 +95,56 @@ export class MoviesController {
 - **`private` TypeScript n'existe qu'à la compilation** : dans le JavaScript final, la propriété reste lisible. Le vrai privé à l'exécution s'écrit `#note`.
 - **Héritage en cascade** (`A extends B extends C…`) : difficile à suivre. Préfère assembler de petits objets (composition).
 - **Utiliser `this` avant `super()`** dans le constructeur d'une classe enfant : interdit.
+
+## Exercices
+
+### Exercice 1 · Classe avec visibilité
+
+Écris une classe `FavoritesStore` avec une liste privée d'ids, une méthode `toggle(id)` qui ajoute ou retire l'id, et une méthode `has(id)`. Personne ne doit pouvoir modifier la liste de l'extérieur.
+
+> [!success]- Solution
+> ```ts
+> class FavoritesStore {
+>   private ids = new Set<number>();
+>
+>   toggle(id: number): void {
+>     if (this.ids.has(id)) this.ids.delete(id);
+>     else this.ids.add(id);
+>   }
+>
+>   has(id: number): boolean {
+>     return this.ids.has(id);
+>   }
+> }
+>
+> const store = new FavoritesStore();
+> store.toggle(438631);
+> store.ids;   // ❌ erreur : 'ids' est privé
+> ```
+
+### Exercice 2 · Constructeur raccourci
+
+Réécris cette classe avec la syntaxe raccourcie du constructeur :
+
+```ts
+class ApiClient {
+  private baseUrl: string;
+  private token: string;
+  constructor(baseUrl: string, token: string) {
+    this.baseUrl = baseUrl;
+    this.token = token;
+  }
+}
+```
+
+> [!success]- Solution
+> ```ts
+> class ApiClient {
+>   constructor(
+>     private readonly baseUrl: string,
+>     private readonly token: string,
+>   ) {}
+> }
+> ```
+>
+> Le mot-clé de visibilité dans les paramètres déclare **et** remplit l'attribut. `readonly` empêche de le modifier ensuite.

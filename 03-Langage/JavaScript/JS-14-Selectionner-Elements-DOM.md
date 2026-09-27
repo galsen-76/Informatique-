@@ -105,3 +105,45 @@ onMounted(() => champ.value?.focus());
 - **Oublier `.` ou `#`** : `querySelector('carte')` cherche une balise `<carte>`, pas la classe.
 - **Chercher trop tôt** : l'élément n'existe pas encore. Script avec `defer`, ou dans `onMounted` (Vue) / `afterNextRender` (Angular).
 - **Sélectionner par une classe de style** : si quelqu'un renomme la classe CSS, ton JS casse. Préfère un attribut dédié (`data-testid`, `id`).
+
+## Exercices
+
+### Exercice 1 · Choisir le bon sélecteur
+
+Écris le code qui sélectionne :
+1. le titre `<h1>` de la page ;
+2. **tous** les boutons qui ont la classe `favorite` ;
+3. le formulaire dont l'`id` est `search` ;
+4. le lien actif dans `<nav>` (classe `active`).
+
+> [!success]- Solution
+> ```js
+> const title = document.querySelector('h1');
+> const favoriteButtons = document.querySelectorAll('button.favorite');   // NodeList
+> const form = document.querySelector('#search');
+> const activeLink = document.querySelector('nav a.active');
+> ```
+>
+> `querySelector` renvoie le **premier** élément (ou `null`), `querySelectorAll` **tous** les éléments.
+
+### Exercice 2 · Remonter au bon parent
+
+Au clic sur un bouton « Supprimer » placé dans une carte, on veut supprimer **toute la carte** (`<article class="movie-card">`). Écris le code.
+
+```html
+<article class="movie-card">
+  <h2>Dune</h2>
+  <div class="actions"><button class="delete">Supprimer</button></div>
+</article>
+```
+
+> [!success]- Solution
+> ```js
+> document.querySelectorAll('.delete').forEach((button) => {
+>   button.addEventListener('click', () => {
+>     button.closest('.movie-card')?.remove();
+>   });
+> });
+> ```
+>
+> `closest` remonte les parents jusqu'au premier qui correspond au sélecteur, quelle que soit la profondeur.

@@ -127,3 +127,48 @@ C'est ce que fait `debounceTime` en RxJS : voir [[ANG-08-RxJS|RxJS]].
 > b();   // ?
 > ```
 > Réponse : `1`, car `b` a son propre `total`.
+
+## Exercices
+
+### Exercice 1 · Avec ou sans parenthèses
+
+Que contiennent `a` et `b` ?
+
+```js
+function getYear() {
+  return 2024;
+}
+
+const a = getYear;
+const b = getYear();
+```
+
+> [!success]- Solution
+> - `a` contient **la fonction elle-même** (sans parenthèses, on ne l'exécute pas). On peut l'appeler plus tard : `a()` → `2024`.
+> - `b` contient **2024**, le résultat de l'appel (avec parenthèses, on exécute).
+>
+> C'est la même chose quand on passe une fonction à `addEventListener('click', handle)` : sans parenthèses, sinon elle s'exécute tout de suite.
+
+### Exercice 2 · Créer un compteur avec une closure
+
+Écris une fonction `createCounter()` qui renvoie une fonction. Chaque appel de cette fonction renvoie le nombre suivant : 1, puis 2, puis 3. Deux compteurs créés séparément doivent être indépendants.
+
+> [!success]- Solution
+> ```js
+> function createCounter() {
+>   let count = 0;            // variable « enfermée » dans la closure
+>   return function () {
+>     count++;
+>     return count;
+>   };
+> }
+>
+> const views = createCounter();
+> views(); // 1
+> views(); // 2
+>
+> const likes = createCounter();
+> likes(); // 1 → indépendant de views
+> ```
+>
+> La fonction renvoyée se souvient de `count` même après la fin de `createCounter` : c'est la closure.

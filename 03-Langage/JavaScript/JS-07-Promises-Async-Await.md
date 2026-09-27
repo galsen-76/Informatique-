@@ -98,3 +98,45 @@ fetch('/api/films')
 
 > [!note] Promise ou Observable ?
 > Une Promise donne **une seule** valeur et ne s'annule pas. Angular utilise plutôt des **Observables** (RxJS), qui peuvent donner plusieurs valeurs dans le temps et s'annuler : voir [[ANG-08-RxJS|RxJS]].
+
+## Exercices
+
+### Exercice 1 · Réécrire avec async / await
+
+Réécris ce code avec `async` / `await` et un `try / catch` :
+
+```js
+function loadMovie(id) {
+  return fetch(`/api/movies/${id}`)
+    .then((res) => res.json())
+    .then((movie) => console.log(movie.title))
+    .catch((err) => console.error('Échec', err));
+}
+```
+
+> [!success]- Solution
+> ```js
+> async function loadMovie(id) {
+>   try {
+>     const res = await fetch(`/api/movies/${id}`);
+>     const movie = await res.json();
+>     console.log(movie.title);
+>   } catch (err) {
+>     console.error('Échec', err);
+>   }
+> }
+> ```
+
+### Exercice 2 · Charger deux choses en même temps
+
+`loadMovie(id)` et `loadCredits(id)` prennent chacune 1 seconde et ne dépendent pas l'une de l'autre. Écris `loadPage(id)` qui renvoie `{ movie, credits }` en environ **1 seconde** au lieu de 2.
+
+> [!success]- Solution
+> ```js
+> async function loadPage(id) {
+>   const [movie, credits] = await Promise.all([loadMovie(id), loadCredits(id)]);
+>   return { movie, credits };
+> }
+> ```
+>
+> Les deux appels sont lancés **avant** d'attendre, donc ils voyagent en même temps. Si l'un échoue, `Promise.all` échoue aussi (à attraper avec `try / catch`).

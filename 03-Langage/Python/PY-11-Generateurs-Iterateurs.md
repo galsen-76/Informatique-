@@ -71,3 +71,34 @@ total = sum(m["rating"] for m in movies)     # aucune liste intermédiaire cré�
 
 - **Un générateur ne se parcourt qu'une fois** : après, il est vide. Recrée-le ou transforme-le en liste.
 - **`len()` ne marche pas** sur un générateur : il ne connaît pas sa taille à l'avance.
+
+## Exercices
+
+### Exercice 1 · Écrire un générateur
+
+Écris un générateur `pages(total_pages)` qui donne les numéros de page de 1 à `total_pages`, puis utilise-le dans une boucle.
+
+> [!success]- Solution
+> ```python
+> def pages(total_pages):
+>     for page in range(1, total_pages + 1):
+>         yield page
+>
+> for p in pages(3):
+>     print(f"Chargement de la page {p}")
+> ```
+
+### Exercice 2 · Le générateur vide
+
+Pourquoi le deuxième `sum` renvoie-t-il 0 ?
+
+```python
+ratings = (m["rating"] for m in movies)
+print(sum(ratings))
+print(sum(ratings))
+```
+
+> [!success]- Solution
+> Un générateur ne se parcourt **qu'une fois** : le premier `sum` l'a épuisé, il n'a plus rien à donner.
+>
+> Pour le réutiliser, crée une liste : `ratings = [m["rating"] for m in movies]`.

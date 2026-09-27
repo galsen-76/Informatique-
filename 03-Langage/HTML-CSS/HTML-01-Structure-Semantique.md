@@ -94,3 +94,60 @@ Le cas le plus important : **un élément cliquable est un `<button>` (action) o
 - **Un `<a>` sans `href`** utilisé comme bouton : utilise `<button>`.
 
 La liste complète des balises : [[HTML-04-Aide-Memoire-Balises|Aide-mémoire des balises]].
+
+## Exercices
+
+### Exercice 1 · Remplacer les `div`
+
+Réécris cette page avec les balises sémantiques adaptées.
+
+```html
+<div class="header">
+  <div class="logo">CinéTrack</div>
+  <div class="nav"><a href="/">Films</a> <a href="/favorites">Favoris</a></div>
+</div>
+<div class="main">
+  <div class="title">Films populaires</div>
+  <div class="card">Dune</div>
+</div>
+<div class="footer">© 2026</div>
+```
+
+> [!success]- Solution
+> ```html
+> <header>
+>   <a href="/" class="logo">CinéTrack</a>
+>   <nav>
+>     <a href="/">Films</a>
+>     <a href="/favorites">Favoris</a>
+>   </nav>
+> </header>
+> <main>
+>   <h1>Films populaires</h1>
+>   <article class="card">Dune</article>
+> </main>
+> <footer>© 2026</footer>
+> ```
+
+### Exercice 2 · Corriger la hiérarchie des titres
+
+Qu'est-ce qui ne va pas dans ces titres ? Propose une correction.
+
+```html
+<h1>CinéTrack</h1>
+<h1>Films populaires</h1>
+<h4>Dune</h4>
+<h4>Alien</h4>
+```
+
+> [!success]- Solution
+> - **Deux `<h1>`** : une page n'a qu'un titre principal.
+> - **On saute de `h1` à `h4`** : les lecteurs d'écran s'en servent comme d'un sommaire, il ne doit pas y avoir de trou.
+>
+> ```html
+> <h1>Films populaires</h1>
+> <h2>Dune</h2>
+> <h2>Alien</h2>
+> ```
+>
+> Le nom du site peut être un simple lien dans le `<header>`. Pour une taille de texte différente, on utilise le CSS, pas un autre niveau de titre.

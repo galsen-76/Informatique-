@@ -84,3 +84,32 @@ git reset --hard HEAD@{3}  # revenir à l'état d'il y a 3 actions
 - **`reset --hard` ou `restore`** sur du travail non commité : il est **vraiment** perdu (le reflog ne voit que les commits). Commite souvent, ou `stash`.
 - **`reset` ou `--amend` sur un commit déjà poussé** : tes collègues auront un historique incompatible. Utilise `revert`.
 - **Paniquer** : avant toute commande risquée, `git status` et `git log --oneline`.
+
+## Exercices
+
+### Exercice 1 · Choisir la bonne commande
+
+Quelle commande pour chaque situation ?
+1. tu veux annuler tes modifications non commitées sur `app.ts` ;
+2. tu as oublié un fichier dans le dernier commit (pas encore poussé) ;
+3. un commit déjà poussé sur `main` a cassé la recherche ;
+4. tu dois changer de branche mais ton travail n'est pas prêt à être commité.
+
+> [!success]- Solution
+> 1. `git restore app.ts`
+> 2. `git add oubli.ts` puis `git commit --amend --no-edit`
+> 3. `git revert <id-du-commit>` : crée un commit inverse, sans réécrire l'historique partagé
+> 4. `git stash`, puis plus tard `git stash pop`
+
+### Exercice 2 · Récupérer un commit « perdu »
+
+Après un `git reset --hard HEAD~2`, tu réalises que tu as effacé deux commits importants. Comment les retrouver ?
+
+> [!success]- Solution
+> ```bash
+> git reflog                     # liste tous les endroits où HEAD est passé
+> # repère la ligne juste avant le reset, par exemple : a1b2c3d HEAD@{1}
+> git reset --hard a1b2c3d
+> ```
+>
+> Le `reflog` garde l'historique de tes déplacements pendant environ 90 jours : un commit n'est presque jamais vraiment perdu.

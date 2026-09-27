@@ -74,3 +74,35 @@ export {};
 
 - **`declare module 'x'` sans rien dedans** : tout devient `any`. C'est une rustine, pas une solution.
 - **Une version de `@types/…` différente de la librairie** : les types ne correspondent plus au vrai code.
+
+## Exercices
+
+### Exercice 1 · Une librairie sans types
+
+Tu installes une librairie JavaScript `tiny-slug` et TypeScript affiche « Could not find a declaration file for module ». Quelles sont les deux solutions ?
+
+> [!success]- Solution
+> 1. Installer les types s'ils existent : `npm install -D @types/tiny-slug`.
+> 2. Sinon, les déclarer toi-même dans un fichier `src/types/tiny-slug.d.ts` :
+>
+> ```ts
+> declare module 'tiny-slug' {
+>   export default function slug(text: string): string;
+> }
+> ```
+
+### Exercice 2 · Typer les variables d'environnement de Vite
+
+Dans un projet Vue (Vite), déclare la variable `VITE_TMDB_BASE_URL` pour que `import.meta.env.VITE_TMDB_BASE_URL` soit typée `string`.
+
+> [!success]- Solution
+> ```ts
+> // src/env.d.ts
+> interface ImportMetaEnv {
+>   readonly VITE_TMDB_BASE_URL: string;
+> }
+>
+> interface ImportMeta {
+>   readonly env: ImportMetaEnv;
+> }
+> ```

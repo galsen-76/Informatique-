@@ -79,3 +79,43 @@ source: "https://developer.mozilla.org/fr/docs/Web/HTML/Element"
 | `<b>` pour un texte important | `<strong>` |
 
 La référence complète : [MDN – Éléments HTML](https://developer.mozilla.org/fr/docs/Web/HTML/Element).
+
+## Exercices
+
+### Exercice 1 · Quelle balise ?
+
+Pour chaque besoin, donne la balise adaptée :
+1. un bouton qui ouvre une fenêtre ;
+2. un lien vers la fiche d'un film ;
+3. la liste des acteurs ;
+4. une carte de film autonome ;
+5. une date de sortie ;
+6. une citation d'une critique.
+
+> [!success]- Solution
+> 1. `<button type="button">`
+> 2. `<a href="/movies/438631">`
+> 3. `<ul>` avec des `<li>`
+> 4. `<article>`
+> 5. `<time datetime="2021-09-15">15 septembre 2021</time>`
+> 6. `<blockquote>` (ou `<q>` si elle est dans une phrase)
+>
+> Règle : un **lien** mène quelque part (change d'URL), un **bouton** déclenche une action.
+
+### Exercice 2 · Une fiche de film
+
+Écris le HTML d'une fiche de film : titre, affiche, date de sortie, synopsis, et liste des genres.
+
+> [!success]- Solution
+> ```html
+> <article>
+>   <h1>Dune</h1>
+>   <img src="/posters/dune.jpg" alt="Affiche de Dune" width="342" height="513" />
+>   <p>Sortie : <time datetime="2021-09-15">15 septembre 2021</time></p>
+>   <p>Paul Atréides, jeune homme brillant, doit se rendre sur la planète la plus dangereuse de l'univers…</p>
+>   <ul>
+>     <li>Science-fiction</li>
+>     <li>Aventure</li>
+>   </ul>
+> </article>
+> ```

@@ -86,3 +86,45 @@ function afficher(film: Film) {
 - **Désactiver le mode strict** pour « aller plus vite » : tu perds l'essentiel des protections. Voir [[TS-12-Configuration-tsconfig|tsconfig]].
 - **Utiliser `any`** pour faire taire une erreur : ça désactive la vérification. Cherche plutôt le bon type.
 - **Annoter tout, partout** : si TypeScript devine déjà, l'annotation n'ajoute que du bruit.
+
+## Exercices
+
+### Exercice 1 · Trouver les erreurs
+
+Quelles lignes TypeScript signale-t-il en rouge, et pourquoi ?
+
+```ts
+let title = 'Dune';
+title = 2021;
+
+function double(n: number) {
+  return n * 2;
+}
+double('4');
+
+const movie = { title: 'Dune', year: 2021 };
+movie.rating;
+```
+
+> [!success]- Solution
+> - `title = 2021` : `title` a été **inféré** comme `string` à la première ligne, on ne peut pas y mettre un nombre.
+> - `double('4')` : le paramètre attend un `number`, pas un `string`.
+> - `movie.rating` : la propriété `rating` n'existe pas sur l'objet.
+>
+> Trois erreurs trouvées **avant** d'exécuter le code : c'est tout l'intérêt de TypeScript.
+
+### Exercice 2 · Après la compilation
+
+Que reste-t-il de ce code une fois transformé en JavaScript ? Qu'en déduis-tu pour les données d'une API ?
+
+```ts
+interface Movie { title: string; year: number }
+const movie: Movie = await fetch('/api/movies/1').then((r) => r.json());
+```
+
+> [!success]- Solution
+> ```js
+> const movie = await fetch('/api/movies/1').then((r) => r.json());
+> ```
+>
+> L'interface et le `: Movie` **disparaissent**. TypeScript fait confiance à l'annotation mais ne vérifie rien à l'exécution : si l'API renvoie autre chose, rien ne le signale. Pour vérifier vraiment, il faut un schéma de validation comme Zod.

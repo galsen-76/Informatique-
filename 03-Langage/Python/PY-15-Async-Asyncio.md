@@ -70,3 +70,49 @@ async def get_movie(movie_id: int):
 - **Appeler une fonction `async` sans `await`** : tu obtiens un objet « coroutine » au lieu du résultat (et un avertissement).
 - **Utiliser une bibliothèque bloquante** (`requests`, `time.sleep`) dans du code async : tout se bloque. Prends les versions async (`httpx`, `asyncio.sleep`).
 - **Croire que l'async accélère les calculs** : il n'aide que pour **attendre** (réseau, disque).
+
+## Exercices
+
+### Exercice 1 · Traduire du JavaScript
+
+Traduis ce code en Python avec `asyncio` (on simule l'attente avec `asyncio.sleep`) :
+
+```js
+async function wait(ms, label) {
+  await new Promise((r) => setTimeout(r, ms));
+  return label;
+}
+const results = await Promise.all([wait(500, 'A'), wait(500, 'B')]);
+console.log(results);
+```
+
+> [!success]- Solution
+> ```python
+> import asyncio
+>
+> async def wait(seconds, label):
+>     await asyncio.sleep(seconds)
+>     return label
+>
+> async def main():
+>     results = await asyncio.gather(wait(0.5, "A"), wait(0.5, "B"))
+>     print(results)   # ['A', 'B'] après ~0,5 s
+>
+> asyncio.run(main())
+> ```
+
+### Exercice 2 · Le bug de l'appel oublié
+
+Qu'affiche ce code, et pourquoi ?
+
+```python
+async def get_title():
+    return "Dune"
+
+print(get_title())
+```
+
+> [!success]- Solution
+> Il affiche `<coroutine object get_title at 0x...>` (et un avertissement), pas `"Dune"`.
+>
+> Appeler une fonction `async` ne l'exécute pas : il faut l'**attendre** avec `await` dans une autre fonction async, ou la lancer avec `asyncio.run(get_title())`.

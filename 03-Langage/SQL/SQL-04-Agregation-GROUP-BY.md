@@ -93,3 +93,34 @@ GROUP BY movie_id;
 - **Colonne dans le `SELECT` absente du `GROUP BY`** : erreur « must appear in the GROUP BY clause ».
 - **Filtrer un résultat d'agrégation dans le `WHERE`** (`WHERE COUNT(*) > 10`) : impossible, c'est le rôle de `HAVING`.
 - **`AVG` sur des entiers** peut donner beaucoup de décimales : arrondis avec `ROUND`.
+
+## Exercices
+
+### Exercice 1 · Statistiques par film
+
+Pour chaque film, affiche son titre, le nombre de critiques et la note moyenne arrondie à une décimale.
+
+> [!success]- Solution
+> ```sql
+> SELECT m.title,
+>        COUNT(r.id)              AS nb_reviews,
+>        ROUND(AVG(r.rating), 1)  AS avg_rating
+> FROM movies m
+> LEFT JOIN reviews r ON r.movie_id = m.id
+> GROUP BY m.id, m.title;
+> ```
+>
+> `COUNT(r.id)` renvoie 0 pour un film sans critique, alors que `COUNT(*)` compterait 1 (la ligne du `LEFT JOIN`).
+
+### Exercice 2 · `WHERE` ou `HAVING` ?
+
+Affiche les genres qui ont **plus de 10 films** sortis après 2000. Explique où va chaque condition.
+
+> [!success]- Solution
+> ```sql
+> SELECT genre, COUNT(*) AS nb
+> FROM movies
+> WHERE release_year > 2000      -- filtre les LIGNES, avant le regroupement
+> GROUP BY genre
+> HAVING COUNT(*) > 10;          -- filtre les GROUPES, après le calcul
+> ```

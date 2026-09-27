@@ -81,3 +81,43 @@ Tu décris le résultat, le framework fait les `classList` et `append` pour toi.
 - **`innerHTML +=` dans une boucle** : lent, et les écouteurs d'événements déjà posés sont perdus.
 - **Changer dix propriétés `style`** une à une : crée une classe CSS et bascule-la.
 - **Modifier le DOM d'un composant Angular / Vue à la main** : le framework peut écraser tes changements au prochain affichage.
+
+## Exercices
+
+### Exercice 1 · Afficher une liste
+
+Avec un `<ul id="list">` vide dans la page, écris la fonction `renderMovies(movies)` qui affiche un `<li>` par film au format `Dune (2021)`, sans utiliser `innerHTML`.
+
+> [!success]- Solution
+> ```js
+> function renderMovies(movies) {
+>   const list = document.querySelector('#list');
+>   list.replaceChildren();                      // vide la liste
+>   for (const m of movies) {
+>     const li = document.createElement('li');
+>     li.textContent = `${m.title} (${m.year})`;
+>     list.append(li);
+>   }
+> }
+> ```
+>
+> `textContent` affiche le texte tel quel : un titre contenant du HTML ne sera pas interprété.
+
+### Exercice 2 · Le danger d'`innerHTML`
+
+Pourquoi ce code est-il dangereux si `review.text` vient d'un utilisateur ? Corrige-le.
+
+```js
+card.innerHTML = `<p>${review.text}</p>`;
+```
+
+> [!success]- Solution
+> Si un utilisateur écrit `<img src=x onerror="alert(document.cookie)">`, le navigateur **exécute** ce code chez tous les visiteurs : c'est une faille **XSS**.
+>
+> ```js
+> const p = document.createElement('p');
+> p.textContent = review.text;   // affiché comme du texte, jamais exécuté
+> card.append(p);
+> ```
+>
+> Angular et Vue échappent automatiquement le texte dans les templates (`{{ }}`).

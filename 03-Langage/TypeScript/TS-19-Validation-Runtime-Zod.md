@@ -93,3 +93,45 @@ if (!resultat.success) {
 
 - **Valider partout, tout le temps** : valide aux **frontières** (ce qui entre dans l'app), pas entre tes propres fonctions.
 - **Écrire le type à la main à côté du schéma** : ils finiront par diverger. Utilise `z.infer`.
+
+## Exercices
+
+### Exercice 1 · Écrire un schéma
+
+Écris le schéma Zod d'un film TMDB (`id`, `title`, `release_date`, `vote_average`, `poster_path` nullable), puis déduis-en le type `Movie`.
+
+> [!success]- Solution
+> ```ts
+> import { z } from 'zod';
+>
+> const MovieSchema = z.object({
+>   id: z.number(),
+>   title: z.string(),
+>   release_date: z.string(),
+>   vote_average: z.number(),
+>   poster_path: z.string().nullable(),
+> });
+>
+> type Movie = z.infer<typeof MovieSchema>;
+> ```
+>
+> Une seule source de vérité : le schéma vérifie à l'exécution, le type en découle.
+
+### Exercice 2 · `parse` ou `safeParse` ?
+
+Valide la réponse d'une recherche (`{ results: Movie[] }`) sans faire planter l'application si les données sont invalides : affiche plutôt un message.
+
+> [!success]- Solution
+> ```ts
+> const SearchSchema = z.object({ results: z.array(MovieSchema) });
+>
+> const result = SearchSchema.safeParse(await res.json());
+> if (!result.success) {
+>   console.error(result.error.issues);
+>   showError('Réponse inattendue du serveur');
+> } else {
+>   displayMovies(result.data.results);   // typé Movie[]
+> }
+> ```
+>
+> `parse` lève une exception, `safeParse` renvoie un objet `{ success, data | error }` à tester.

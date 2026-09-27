@@ -84,3 +84,40 @@ git add package-lock.json
 - **Commiter avec des marqueurs `<<<<<<<` oubliés** : le code ne compile plus. Cherche `<<<<<<<` avant de commiter.
 - **Garder « ma version » partout** sans regarder : tu effaces le travail d'un collègue.
 - **Résoudre sans relancer l'application** : deux versions correctes séparément peuvent être incompatibles ensemble.
+
+## Exercices
+
+### Exercice 1 · Résoudre un conflit
+
+Après un `git merge`, tu obtiens ce fichier. Résous-le en gardant les deux idées : titre en majuscules **et** année entre parenthèses. Puis termine la fusion.
+
+```ts
+<<<<<<< HEAD
+return movie.title.toUpperCase();
+=======
+return `${movie.title} (${movie.year})`;
+>>>>>>> feature/year
+```
+
+> [!success]- Solution
+> ```ts
+> return `${movie.title.toUpperCase()} (${movie.year})`;
+> ```
+>
+> Puis :
+>
+> ```bash
+> git add movie-label.ts
+> git commit            # termine la fusion
+> ```
+>
+> Les marqueurs `<<<<<<<`, `=======`, `>>>>>>>` doivent tous disparaître.
+
+### Exercice 2 · Moins de conflits
+
+Donne 3 habitudes qui réduisent les conflits dans une équipe.
+
+> [!success]- Solution
+> 1. **Des branches courtes** : fusionner souvent (quelques jours maximum).
+> 2. **Récupérer `main` régulièrement** dans sa branche.
+> 3. **Des commits petits et ciblés**, et un formateur automatique (Prettier) pour que tout le monde ait le même style.

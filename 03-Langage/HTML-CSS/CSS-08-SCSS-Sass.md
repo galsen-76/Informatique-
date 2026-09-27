@@ -85,3 +85,48 @@ Utilise `@use`. L'ancien `@import` est abandonné.
 - **Imbriquer sur 5 niveaux** : le CSS généré devient trop spécifique et difficile à surcharger. 2 ou 3 niveaux maximum.
 - **`@import`** au lieu de `@use` : obsolète.
 - **Tout mettre en SCSS** alors que le CSS moderne sait déjà faire les variables (`--x`) et même l'imbrication (dans les navigateurs récents).
+
+## Exercices
+
+### Exercice 1 · Imbriquer
+
+Réécris ce CSS en SCSS avec l'imbrication et `&`.
+
+```css
+.movie-card { padding: 1rem; }
+.movie-card:hover { transform: scale(1.02); }
+.movie-card .title { font-weight: 600; }
+.movie-card--featured { border: 2px solid gold; }
+```
+
+> [!success]- Solution
+> ```scss
+> .movie-card {
+>   padding: 1rem;
+>
+>   &:hover { transform: scale(1.02); }
+>   .title { font-weight: 600; }
+>   &--featured { border: 2px solid gold; }
+> }
+> ```
+
+### Exercice 2 · Un mixin pour les écrans
+
+Écris un mixin `tablet-up` qui entoure son contenu d'une media query `min-width: 768px`, puis utilise-le.
+
+> [!success]- Solution
+> ```scss
+> @mixin tablet-up {
+>   @media (min-width: 768px) {
+>     @content;
+>   }
+> }
+>
+> .layout {
+>   display: grid;
+>
+>   @include tablet-up {
+>     grid-template-columns: 250px 1fr;
+>   }
+> }
+> ```

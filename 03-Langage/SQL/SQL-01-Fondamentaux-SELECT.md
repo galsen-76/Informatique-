@@ -83,3 +83,34 @@ C'est pour ça qu'on ne peut pas utiliser dans le `WHERE` un alias créé dans l
 - **`SELECT *` dans le code** : tu ramènes des colonnes inutiles (et parfois sensibles). Liste les colonnes.
 - **Oublier le `;`** en fin de requête dans `psql`.
 - **Les textes entre apostrophes simples** : `'Dune'`. Les guillemets doubles `"…"` servent aux **noms** de colonnes ou de tables.
+
+## Exercices
+
+### Exercice 1 · Première requête
+
+Avec la table `movies (id, title, release_year, genre, rating)`, écris la requête qui affiche le titre et l'année de tous les films, avec la colonne `release_year` renommée `annee`.
+
+> [!success]- Solution
+> ```sql
+> SELECT title, release_year AS annee
+> FROM movies;
+> ```
+
+### Exercice 2 · L'ordre d'exécution
+
+Pourquoi cette requête provoque-t-elle une erreur ? Comment la corriger ?
+
+```sql
+SELECT title, rating * 10 AS score
+FROM movies
+WHERE score > 80;
+```
+
+> [!success]- Solution
+> SQL exécute `FROM`, puis `WHERE`, **puis** `SELECT`. Au moment du `WHERE`, l'alias `score` n'existe pas encore.
+>
+> ```sql
+> SELECT title, rating * 10 AS score
+> FROM movies
+> WHERE rating * 10 > 80;
+> ```

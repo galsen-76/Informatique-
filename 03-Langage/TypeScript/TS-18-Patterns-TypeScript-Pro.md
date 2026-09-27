@@ -106,3 +106,46 @@ Utile quand une erreur coûte cher (argent, droits). À ne pas mettre partout.
 > **Rendre les états impossibles… impossibles à écrire.**
 
 Si le type autorise une situation absurde, un jour elle arrivera. Si le type l'interdit, elle ne peut pas arriver.
+
+## Exercices
+
+### Exercice 1 · Ne rien oublier
+
+Ajoute un état `{ status: 'empty' }` à `LoadState`. Comment faire pour que TypeScript t'oblige à gérer ce nouveau cas dans tous les `switch` existants ?
+
+> [!success]- Solution
+> Ajouter un cas `default` qui assigne l'état à `never` :
+>
+> ```ts
+> function render(state: LoadState): string {
+>   switch (state.status) {
+>     case 'loading': return 'Chargement…';
+>     case 'success': return `${state.movies.length} films`;
+>     case 'error': return state.message;
+>     default: {
+>       const unhandled: never = state;   // ❌ erreur tant que 'empty' n'est pas traité
+>       return unhandled;
+>     }
+>   }
+> }
+> ```
+
+### Exercice 2 · Ne pas confondre deux ids
+
+Un `movieId` et un `userId` sont tous les deux des `number` : on peut les inverser sans erreur. Crée deux types « marqués » pour que `addFavorite(userId, movieId)` refuse l'inversion.
+
+> [!success]- Solution
+> ```ts
+> type MovieId = number & { readonly __brand: 'MovieId' };
+> type UserId = number & { readonly __brand: 'UserId' };
+>
+> const asMovieId = (n: number) => n as MovieId;
+> const asUserId = (n: number) => n as UserId;
+>
+> function addFavorite(userId: UserId, movieId: MovieId) {}
+>
+> const u = asUserId(1);
+> const m = asMovieId(438631);
+> addFavorite(u, m);   // ✅
+> addFavorite(m, u);   // ❌ erreur
+> ```

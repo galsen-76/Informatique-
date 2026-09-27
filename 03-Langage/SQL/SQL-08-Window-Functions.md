@@ -99,3 +99,36 @@ Tableaux de bord, classements, évolutions : les écrans de statistiques d'une a
 
 - **Filtrer sur le résultat d'une fonction de fenêtre dans le `WHERE`** : impossible (elle est calculée après). Passe par une CTE, comme dans l'exemple du top 3.
 - **Oublier `ORDER BY` dans `OVER`** pour un classement ou un cumul : le résultat n'a pas de sens.
+
+## Exercices
+
+### Exercice 1 · Classer par genre
+
+Affiche pour chaque film son titre, son genre, sa note et son **rang** dans son genre (le mieux noté = 1).
+
+> [!success]- Solution
+> ```sql
+> SELECT title, genre, rating,
+>        RANK() OVER (PARTITION BY genre ORDER BY rating DESC) AS rank_in_genre
+> FROM movies;
+> ```
+>
+> Contrairement à `GROUP BY`, chaque film reste une ligne.
+
+### Exercice 2 · Le top 3 de chaque genre
+
+En réutilisant la requête précédente, garde seulement les 3 meilleurs films de chaque genre.
+
+> [!success]- Solution
+> ```sql
+> WITH ranked AS (
+>   SELECT title, genre, rating,
+>          ROW_NUMBER() OVER (PARTITION BY genre ORDER BY rating DESC) AS rn
+>   FROM movies
+> )
+> SELECT title, genre, rating
+> FROM ranked
+> WHERE rn <= 3;
+> ```
+>
+> On ne peut pas filtrer une window function dans le `WHERE` de la même requête : il faut passer par une CTE ou une sous-requête.

@@ -108,3 +108,39 @@ Jeu pour s'entraîner : [Grid Garden](https://cssgridgarden.com/#fr).
 
 - **`auto-fill` vs `auto-fit`** : avec peu d'éléments, `auto-fit` les étire pour remplir la ligne, `auto-fill` garde des cases vides. Pour une grille de cartes, `auto-fill` donne des cartes de taille régulière.
 - **Un contenu très large** (code, URL longue) casse la grille : `min-width: 0` sur l'enfant.
+
+## Exercices
+
+### Exercice 1 · Une grille d'affiches responsive
+
+Écris le CSS d'une grille d'affiches qui met autant de colonnes que possible, chacune d'au moins 160 px, sans media query.
+
+> [!success]- Solution
+> ```css
+> .movie-grid {
+>   display: grid;
+>   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+>   gap: 1rem;
+> }
+> ```
+>
+> Sur mobile : 2 colonnes ; sur grand écran : 7 ou 8, automatiquement.
+
+### Exercice 2 · Page avec barre latérale
+
+Crée une mise en page : une barre latérale de filtres de 250 px à gauche, les résultats à droite qui prennent le reste. Sur mobile (moins de 768 px), la barre passe au-dessus.
+
+> [!success]- Solution
+> ```css
+> .layout {
+>   display: grid;
+>   grid-template-columns: 1fr;
+>   gap: 1.5rem;
+> }
+>
+> @media (min-width: 768px) {
+>   .layout {
+>     grid-template-columns: 250px 1fr;
+>   }
+> }
+> ```

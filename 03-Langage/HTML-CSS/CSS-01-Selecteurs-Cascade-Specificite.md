@@ -81,3 +81,43 @@ F12 → onglet **Elements** → sélectionne l'élément → panneau **Styles** 
 - **`!important` pour forcer** : la prochaine fois, il faudra un autre `!important` pour le battre.
 - **Sélecteurs à rallonge** (`.page .main .liste .carte .titre`) : fragiles et trop spécifiques. Une classe bien nommée suffit.
 - Dans Angular et Vue, le CSS d'un composant est **limité à ce composant** par défaut : tu évites la plupart des conflits (voir [[CSS-09-Architecture-BEM-Tailwind|Architecture CSS]]).
+
+## Exercices
+
+### Exercice 1 · Quelle couleur ?
+
+De quelle couleur est le titre ? Explique.
+
+```html
+<h2 id="main-title" class="title">Dune</h2>
+```
+
+```css
+#main-title { color: red; }
+.title { color: blue; }
+h2 { color: green; }
+```
+
+> [!success]- Solution
+> **Rouge**. La spécificité l'emporte sur l'ordre :
+> - `#main-title` → (1, 0, 0)
+> - `.title` → (0, 1, 0)
+> - `h2` → (0, 0, 1)
+>
+> L'id gagne. C'est pour ça qu'on évite les `id` en CSS : ils sont difficiles à surcharger.
+
+### Exercice 2 · Calculer des scores
+
+Classe ces sélecteurs du moins fort au plus fort :
+`nav a`, `.card .title`, `a:hover`, `.movie-card`, `#header .logo`.
+
+> [!success]- Solution
+> | Sélecteur | Score |
+> |---|---|
+> | `nav a` | (0, 0, 2) |
+> | `.movie-card` | (0, 1, 0) |
+> | `a:hover` | (0, 1, 1) |
+> | `.card .title` | (0, 2, 0) |
+> | `#header .logo` | (1, 1, 0) |
+>
+> On compare colonne par colonne, de gauche à droite.

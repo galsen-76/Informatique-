@@ -87,3 +87,44 @@ C'est un premier filet. Dans tes projets, la vraie validation se fait en TypeScr
 - **Pas de `label`**, seulement un `placeholder`.
 - **Oublier `event.preventDefault()`** quand tu gères l'envoi en JavaScript : la page se recharge. (Angular et Vue le gèrent avec `(ngSubmit)` et `@submit.prevent`.)
 - **Faire confiance à la validation HTML** pour la sécurité : le serveur doit toujours revérifier.
+
+## Exercices
+
+### Exercice 1 · Un formulaire de connexion propre
+
+Écris un formulaire de connexion avec e-mail et mot de passe : labels reliés aux champs, bons types, champs obligatoires, et aide du navigateur pour remplir automatiquement.
+
+> [!success]- Solution
+> ```html
+> <form>
+>   <label for="email">E-mail</label>
+>   <input id="email" name="email" type="email" autocomplete="email" required />
+>
+>   <label for="password">Mot de passe</label>
+>   <input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" />
+>
+>   <button type="submit">Se connecter</button>
+> </form>
+> ```
+
+### Exercice 2 · Trouver les erreurs
+
+Trouve les 3 problèmes de ce champ de recherche.
+
+```html
+<input placeholder="Rechercher un film">
+<div onclick="search()">OK</div>
+```
+
+> [!success]- Solution
+> 1. **Pas de `<label>`** : le `placeholder` disparaît à la saisie et n'est pas un vrai label. Ajoute un label (éventuellement masqué visuellement).
+> 2. **Un `div` cliquable** au lieu d'un `<button>` : impossible à atteindre au clavier, pas annoncé comme bouton.
+> 3. **Pas de `<form>`** : la touche Entrée ne lance pas la recherche. Et `type="search"` serait plus adapté.
+>
+> ```html
+> <form role="search">
+>   <label for="q">Rechercher un film</label>
+>   <input id="q" name="q" type="search" />
+>   <button type="submit">OK</button>
+> </form>
+> ```

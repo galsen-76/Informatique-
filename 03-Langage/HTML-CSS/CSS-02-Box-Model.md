@@ -95,3 +95,43 @@ Au lieu de mettre une marge sur chaque élément, dans un conteneur Flex ou Grid
 - **Deux marges verticales qui se touchent fusionnent** : 20 px + 30 px = 30 px, pas 50. `gap` n'a pas ce problème.
 - **`width: 100%` + `padding`** sans `border-box` : ça déborde.
 - **Déboguer** : F12 → Elements → le schéma coloré en bas du panneau Styles montre chaque couche avec ses dimensions.
+
+## Exercices
+
+### Exercice 1 · Calculer la largeur
+
+Quelle largeur prend cette carte à l'écran, sans puis avec `box-sizing: border-box` ?
+
+```css
+.card {
+  width: 300px;
+  padding: 20px;
+  border: 2px solid #333;
+  margin: 10px;
+}
+```
+
+> [!success]- Solution
+> - **Sans** `border-box` : 300 + 2 × 20 + 2 × 2 = **344 px** (+ 10 px de marge de chaque côté).
+> - **Avec** `border-box` : **300 px** : le padding et la bordure sont inclus dans la largeur.
+>
+> D'où la ligne à mettre dans tous les projets : `*, *::before, *::after { box-sizing: border-box; }`.
+
+### Exercice 2 · Espacer des cartes
+
+Ces cartes ont un espace en trop après la dernière. Réécris le CSS avec `gap`.
+
+```css
+.list { display: flex; }
+.card { margin-right: 16px; }
+```
+
+> [!success]- Solution
+> ```css
+> .list {
+>   display: flex;
+>   gap: 16px;
+> }
+> ```
+>
+> `gap` met l'espace **entre** les éléments uniquement, et marche aussi avec Grid.

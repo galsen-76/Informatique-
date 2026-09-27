@@ -77,3 +77,49 @@ Le décorateur reçoit une fonction et renvoie une **nouvelle** fonction qui fai
 
 - **Oublier `@wraps`** : la fonction décorée perd son nom (gênant en débogage).
 - **Oublier `return result`** dans le wrapper : la fonction décorée renvoie `None`.
+
+## Exercices
+
+### Exercice 1 · Utiliser un décorateur existant
+
+Cette fonction recalcule plusieurs fois les mêmes valeurs et devient très lente pour `n = 40`. Quel décorateur de la bibliothèque standard ajoutes-tu ?
+
+```python
+def fib(n):
+    return n if n < 2 else fib(n - 1) + fib(n - 2)
+```
+
+> [!success]- Solution
+> ```python
+> from functools import cache
+>
+> @cache
+> def fib(n):
+>     return n if n < 2 else fib(n - 1) + fib(n - 2)
+>
+> fib(40)   # instantané
+> ```
+>
+> `@cache` garde en mémoire le résultat de chaque `n` déjà calculé.
+
+### Exercice 2 · Écrire un décorateur
+
+Écris un décorateur `@log_call` qui affiche `Appel de <nom>` avant chaque appel de la fonction décorée.
+
+> [!success]- Solution
+> ```python
+> from functools import wraps
+>
+> def log_call(func):
+>     @wraps(func)
+>     def wrapper(*args, **kwargs):
+>         print(f"Appel de {func.__name__}")
+>         return func(*args, **kwargs)
+>     return wrapper
+>
+> @log_call
+> def load_movies():
+>     return ["Dune"]
+>
+> load_movies()   # affiche "Appel de load_movies"
+> ```

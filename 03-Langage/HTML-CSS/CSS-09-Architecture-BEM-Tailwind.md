@@ -90,3 +90,33 @@ Chaque classe fait **une seule chose**, et on les combine directement dans le HT
 Voir [[UI-Librairies-Interfaces-Rapides|Librairies UI]].
 
 **Au travail**, suis la convention déjà en place dans le projet.
+
+## Exercices
+
+### Exercice 1 · Nommer en BEM
+
+Donne les classes BEM pour une carte de film qui contient une affiche, un titre et un bouton favori, avec une variante « en vedette ».
+
+> [!success]- Solution
+> ```html
+> <article class="movie-card movie-card--featured">
+>   <img class="movie-card__poster" />
+>   <h2 class="movie-card__title">Dune</h2>
+>   <button class="movie-card__favorite">♥</button>
+> </article>
+> ```
+>
+> Bloc `movie-card`, éléments `__poster`, `__title`, `__favorite`, modificateur `--featured`.
+
+### Exercice 2 · Traduire en Tailwind
+
+Écris cette carte avec des classes Tailwind : fond blanc, coins arrondis, ombre, espacement interne, et l'ombre qui grossit au survol.
+
+> [!success]- Solution
+> ```html
+> <article class="rounded-xl bg-white p-4 shadow transition hover:shadow-lg">
+>   <h2 class="font-semibold">Dune</h2>
+> </article>
+> ```
+>
+> Pas de fichier CSS : chaque classe applique une seule règle.

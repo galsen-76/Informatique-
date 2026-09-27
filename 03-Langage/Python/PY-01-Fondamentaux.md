@@ -77,3 +77,45 @@ python3                    # console interactive (quit() pour sortir)
 - **Mélanger espaces et tabulations** : configure l'éditeur sur 4 espaces.
 - **Oublier les `:`** après `if`, `for`, `def`, `class`.
 - **Écrire `true`** en minuscules : c'est `True`.
+
+## Exercices
+
+### Exercice 1 · Traduire du JavaScript
+
+Traduis ce code en Python :
+
+```js
+const title = 'Dune';
+let year = 2021;
+if (year >= 2020 && title !== '') {
+  console.log(`${title} est récent`);
+} else {
+  console.log('Ancien');
+}
+```
+
+> [!success]- Solution
+> ```python
+> title = "Dune"
+> year = 2021
+> if year >= 2020 and title != "":
+>     print(f"{title} est récent")
+> else:
+>     print("Ancien")
+> ```
+
+### Exercice 2 · Trouver les erreurs
+
+Ce code contient 3 erreurs. Lesquelles ?
+
+```python
+rating = 4
+if rating > 3
+print("Bon film")
+is_favorite = true
+```
+
+> [!success]- Solution
+> 1. Il manque `:` après `if rating > 3`.
+> 2. `print` doit être **indenté** (4 espaces) pour appartenir au `if`.
+> 3. `true` s'écrit `True` en Python.

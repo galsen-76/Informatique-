@@ -109,3 +109,40 @@ Voir aussi [[METH-05-Resolution-Problemes-Debug|Résolution de problèmes]].
 - **`catch (e) {}` vide** : l'erreur disparaît, le bug devient introuvable.
 - **`throw 'erreur'`** (un texte) : pas de pile d'appels. Lance toujours `new Error(…)`.
 - **Des `console.log` oubliés** en production.
+
+## Exercices
+
+### Exercice 1 · Lire l'erreur
+
+Que signifie ce message, et quelle est la cause la plus probable ?
+
+```text
+TypeError: Cannot read properties of undefined (reading 'title')
+    at renderMovie (app.js:14:22)
+```
+
+> [!success]- Solution
+> À la **ligne 14, colonne 22** de `app.js`, dans la fonction `renderMovie`, le code fait `quelqueChose.title`, mais `quelqueChose` vaut `undefined`.
+>
+> Causes probables : le film n'est pas encore chargé (asynchrone), l'index du tableau n'existe pas, ou l'API a renvoyé une autre structure. On vérifie avec un point d'arrêt ligne 14 ou l'onglet Network.
+
+### Exercice 2 · Lever une erreur utile
+
+Écris une fonction `parseRating(value)` qui convertit un texte en nombre et lève une erreur claire si ce n'est pas un nombre entre 1 et 5. Puis appelle-la dans un `try / catch` qui affiche le message.
+
+> [!success]- Solution
+> ```js
+> function parseRating(value) {
+>   const rating = Number(value);
+>   if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+>     throw new Error(`Note invalide : "${value}" (attendu : 1 à 5)`);
+>   }
+>   return rating;
+> }
+>
+> try {
+>   parseRating('7');
+> } catch (err) {
+>   console.error(err.message);   // Note invalide : "7" (attendu : 1 à 5)
+> }
+> ```

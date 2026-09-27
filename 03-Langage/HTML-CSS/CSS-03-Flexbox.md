@@ -105,3 +105,47 @@ Jeu pour s'entraîner : [Flexbox Froggy](https://flexboxfroggy.com/#fr).
 
 - **`display: flex` sur l'enfant** au lieu du parent.
 - **Un texte long qui déborde** d'un élément flex : ajoute `min-width: 0` sur cet élément.
+
+## Exercices
+
+### Exercice 1 · Une barre de navigation
+
+Écris le CSS pour que le logo soit à gauche, les liens à droite, le tout centré verticalement.
+
+```html
+<header class="topbar">
+  <a class="logo">CinéTrack</a>
+  <nav class="links"><a>Films</a><a>Favoris</a></nav>
+</header>
+```
+
+> [!success]- Solution
+> ```css
+> .topbar {
+>   display: flex;
+>   justify-content: space-between;   /* axe principal (horizontal) */
+>   align-items: center;              /* axe secondaire (vertical) */
+>   padding: 1rem;
+> }
+>
+> .links {
+>   display: flex;
+>   gap: 1rem;
+> }
+> ```
+
+### Exercice 2 · Centrer parfaitement
+
+Centre horizontalement et verticalement un message « Aucun film trouvé » dans une zone de 300 px de haut.
+
+> [!success]- Solution
+> ```css
+> .empty {
+>   display: flex;
+>   justify-content: center;
+>   align-items: center;
+>   min-height: 300px;
+> }
+> ```
+>
+> (Avec Grid : `display: grid; place-items: center;`.)

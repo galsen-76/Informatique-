@@ -78,3 +78,47 @@ Dans un framework : `[disabled]="envoiEnCours"` (Angular) ou `:disabled="envoiEn
 
 - **Un `id` en dur dans un composant répété** (une carte affichée 10 fois) : 10 éléments avec le même id. Utilise des classes, ou génère un id unique.
 - **Styler avec un `id`** : trop « fort » en CSS, difficile à surcharger. Utilise des classes.
+
+## Exercices
+
+### Exercice 1 · Stocker l'id dans le HTML
+
+Ajoute l'id TMDB au bouton, puis écris le JavaScript qui le lit au clic.
+
+```html
+<button class="favorite">♥</button>
+```
+
+> [!success]- Solution
+> ```html
+> <button class="favorite" data-movie-id="438631" aria-label="Ajouter aux favoris">♥</button>
+> ```
+>
+> ```js
+> document.querySelector('.favorite').addEventListener('click', (e) => {
+>   const id = Number(e.currentTarget.dataset.movieId);   // data-movie-id → dataset.movieId
+>   console.log(id);   // 438631
+> });
+> ```
+>
+> `dataset` renvoie toujours du texte : on convertit avec `Number`.
+
+### Exercice 2 · Attribut booléen
+
+Pourquoi ce bouton reste-t-il désactivé ? Comment l'activer correctement en HTML et en JavaScript ?
+
+```html
+<button disabled="false">Envoyer</button>
+```
+
+> [!success]- Solution
+> Pour un attribut booléen, c'est la **présence** qui compte, pas la valeur : `disabled="false"` est désactivé.
+>
+> ```html
+> <button>Envoyer</button>              <!-- activé -->
+> <button disabled>Envoyer</button>     <!-- désactivé -->
+> ```
+>
+> ```js
+> button.disabled = false;   // propriété JavaScript : ici la valeur compte
+> ```

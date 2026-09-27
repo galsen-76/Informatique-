@@ -95,3 +95,32 @@ La suite : [[GIT-02-Branches-Merge-Rebase|Branches]] → [[GIT-03-Depots-Distant
 - **Commiter `.env` ou une clé secrète** : elle reste dans l'historique même après suppression. Si c'est arrivé, change le secret.
 - **Commiter `node_modules`** : des milliers de fichiers inutiles. Vérifie ton `.gitignore` dès le début.
 - **`git add .` sans regarder** : fais `git status` avant.
+
+## Exercices
+
+### Exercice 1 · Le premier dépôt
+
+Écris la suite de commandes pour : créer un dépôt dans le dossier `cinetrack`, ignorer `node_modules` et `.env`, puis faire un premier commit avec tous les fichiers.
+
+> [!success]- Solution
+> ```bash
+> cd cinetrack
+> git init
+> printf "node_modules/\n.env\n" > .gitignore
+> git add .
+> git status                      # vérifier ce qui va être commité
+> git commit -m "chore: initialise le projet"
+> ```
+
+### Exercice 2 · Les 3 zones
+
+Tu as modifié `movie-card.ts` et `movie-card.css`. Tu ne veux commiter **que** le fichier `.ts`. Quelles commandes, et dans quelle zone se trouve chaque fichier après ?
+
+> [!success]- Solution
+> ```bash
+> git add movie-card.ts
+> git commit -m "feat: affiche la note sur la carte"
+> ```
+>
+> - `movie-card.ts` : **commité** (dans l'historique).
+> - `movie-card.css` : toujours **modifié dans le dossier de travail**, pas encore préparé (`git status` l'affiche en rouge).

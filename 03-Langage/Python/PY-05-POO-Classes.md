@@ -99,3 +99,52 @@ Les méthodes entourées de `__` personnalisent le comportement : `__init__` (cr
 
 - **Oublier `self`** en premier paramètre : `TypeError: takes 0 positional arguments but 1 was given`.
 - **Oublier `self.`** devant un attribut : tu crées une variable locale au lieu de l'attribut.
+
+## Exercices
+
+### Exercice 1 · Traduire une classe TypeScript
+
+Traduis cette classe en Python :
+
+```ts
+class Movie {
+  constructor(public title: string, public year: number) {}
+  isRecent(): boolean { return this.year >= 2020; }
+}
+```
+
+> [!success]- Solution
+> ```python
+> class Movie:
+>     def __init__(self, title, year):
+>         self.title = title
+>         self.year = year
+>
+>     def is_recent(self):
+>         return self.year >= 2020
+>
+> dune = Movie("Dune", 2021)
+> dune.is_recent()   # True
+> ```
+
+### Exercice 2 · Une dataclass
+
+Réécris la classe précédente avec `@dataclass`, en ajoutant une note `rating` à `0.0` par défaut. Que t'apporte la dataclass ?
+
+> [!success]- Solution
+> ```python
+> from dataclasses import dataclass
+>
+> @dataclass
+> class Movie:
+>     title: str
+>     year: int
+>     rating: float = 0.0
+>
+>     def is_recent(self):
+>         return self.year >= 2020
+>
+> print(Movie("Dune", 2021))   # Movie(title='Dune', year=2021, rating=0.0)
+> ```
+>
+> Le `__init__`, l'affichage lisible et la comparaison `==` sont générés automatiquement.

@@ -96,3 +96,46 @@ Object.entries(film)  // [['id', 1], ['titre', 'Inception'], …]
 - **`sort()` modifie le tableau d'origine** : dans un `computed`, utilise `toSorted()`.
 - **La copie avec `...` est superficielle** : les objets imbriqués restent partagés. Pour une copie complète : `structuredClone(obj)`.
 - **`reduce` sans valeur de départ** plante sur un tableau vide : mets toujours le `0` (ou `[]`) final.
+
+## Exercices
+
+### Exercice 1 · Transformer une liste de films
+
+À partir de ce tableau, obtiens en **une chaîne de méthodes** : les titres (en majuscules) des films sortis à partir de 2000, triés par note décroissante.
+
+```js
+const movies = [
+  { title: 'Dune', year: 2021, rating: 4.5 },
+  { title: 'Alien', year: 1979, rating: 4.8 },
+  { title: 'Inception', year: 2010, rating: 4.7 },
+];
+```
+
+> [!success]- Solution
+> ```js
+> const titles = movies
+>   .filter((m) => m.year >= 2000)
+>   .toSorted((a, b) => b.rating - a.rating)
+>   .map((m) => m.title.toUpperCase());
+>
+> // ["INCEPTION", "DUNE"]
+> ```
+>
+> `toSorted` plutôt que `sort` pour ne pas modifier le tableau d'origine.
+
+### Exercice 2 · Mettre à jour sans modifier l'original
+
+Écris une fonction `rate(movies, title, rating)` qui renvoie un **nouveau** tableau où le film concerné a sa nouvelle note, sans toucher au tableau d'origine.
+
+> [!success]- Solution
+> ```js
+> function rate(movies, title, rating) {
+>   return movies.map((m) => (m.title === title ? { ...m, rating } : m));
+> }
+>
+> const updated = rate(movies, 'Dune', 5);
+> movies[0].rating;   // 4.5 → l'original est intact
+> updated[0].rating;  // 5
+> ```
+>
+> `map` crée un nouveau tableau, et `{ ...m, rating }` un nouvel objet.

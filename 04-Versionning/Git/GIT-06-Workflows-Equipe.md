@@ -77,3 +77,28 @@ GitFlow est plus lourd : beaucoup de branches à maintenir. Tu le croiseras dans
 - **Pousser directement sur `main`** « juste pour une petite correction ».
 - **Une branche `develop` qui diverge** pendant des semaines de `main`.
 - **Imposer ton workflow** dans une équipe qui en a déjà un : propose, mais suis l'existant.
+
+## Exercices
+
+### Exercice 1 · Le déroulé d'une fonctionnalité
+
+Décris dans l'ordre les étapes pour livrer la fonctionnalité « favoris » dans une équipe qui utilise des branches de fonctionnalité et des merge requests.
+
+> [!success]- Solution
+> 1. Partir de `main` à jour : `git switch main && git pull`.
+> 2. Créer la branche : `git switch -c feature/favorites`.
+> 3. Commiter par petites étapes, pousser : `git push -u origin feature/favorites`.
+> 4. Ouvrir une **merge request** vers `main`, liée au ticket.
+> 5. La CI passe (lint, tests, build), un collègue relit.
+> 6. Corriger selon les retours, puis fusionner.
+> 7. Supprimer la branche.
+
+### Exercice 2 · Une bonne merge request
+
+Qu'est-ce qui rend une MR facile à relire ? Donne 4 critères.
+
+> [!success]- Solution
+> 1. **Petite** : une seule fonctionnalité ou correction (idéalement moins de 400 lignes).
+> 2. **Un titre et une description claires** : quoi, pourquoi, comment tester, capture d'écran si c'est visuel.
+> 3. **La CI est verte** avant de demander une relecture.
+> 4. **Des commits propres** (messages clairs, pas de « wip », « fix », « fix2 »).

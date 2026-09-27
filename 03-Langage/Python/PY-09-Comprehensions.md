@@ -75,3 +75,30 @@ Si la compréhension ne tient plus sur une ligne lisible (plusieurs `for`, plusi
 
 - **Une compréhension géante** illisible.
 - **L'utiliser pour un effet de bord** (`[print(m) for m in movies]`) : fais une boucle `for`.
+
+## Exercices
+
+### Exercice 1 · Traduire en compréhension
+
+Traduis ce JavaScript en une compréhension Python :
+
+```js
+const titles = movies.filter((m) => m.rating >= 4).map((m) => m.title.toUpperCase());
+```
+
+> [!success]- Solution
+> ```python
+> titles = [m["title"].upper() for m in movies if m["rating"] >= 4]
+> ```
+
+### Exercice 2 · Dictionnaire et set
+
+Avec une liste de films `{ "id", "title", "genre" }` :
+1. crée un dictionnaire `id → titre` ;
+2. crée l'ensemble des genres, sans doublon.
+
+> [!success]- Solution
+> ```python
+> titles_by_id = {m["id"]: m["title"] for m in movies}
+> genres = {m["genre"] for m in movies}
+> ```

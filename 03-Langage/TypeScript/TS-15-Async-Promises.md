@@ -91,3 +91,49 @@ else console.error(res.error);
 - **Oublier `await`** : tu obtiens `Promise<Film>` au lieu de `Film`, et TypeScript te le signale dès que tu lis `.titre`.
 - **Une fonction `async` passée à `forEach`** : rien n'est attendu. Utilise `for…of` ou `Promise.all`.
 - **Promise « lâchée »** (appelée sans `await` ni `.catch`) : ses erreurs passent inaperçues. La règle ESLint `no-floating-promises` les repère.
+
+## Exercices
+
+### Exercice 1 · Typer une fonction asynchrone
+
+Type cette fonction pour qu'elle renvoie une promesse de `Paginated<Movie>`, avec une erreur si la réponse n'est pas OK.
+
+```ts
+async function searchMovies(query) {
+  const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+  return res.json();
+}
+```
+
+> [!success]- Solution
+> ```ts
+> async function searchMovies(query: string): Promise<Paginated<Movie>> {
+>   const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+>   if (!res.ok) throw new Error(`Erreur ${res.status}`);
+>   return res.json() as Promise<Paginated<Movie>>;
+> }
+> ```
+>
+> `res.json()` renvoie `Promise<any>` : le type annoncé est une promesse faite par toi, pas une vérification.
+
+### Exercice 2 · Le type de l'erreur
+
+Pourquoi TypeScript refuse-t-il `err.message` ici ? Corrige.
+
+```ts
+try {
+  await searchMovies('dune');
+} catch (err) {
+  console.error(err.message);
+}
+```
+
+> [!success]- Solution
+> Dans un `catch`, `err` est de type `unknown` : on peut lancer n'importe quoi (`throw 'texte'`), pas forcément une `Error`.
+>
+> ```ts
+> catch (err) {
+>   const message = err instanceof Error ? err.message : String(err);
+>   console.error(message);
+> }
+> ```

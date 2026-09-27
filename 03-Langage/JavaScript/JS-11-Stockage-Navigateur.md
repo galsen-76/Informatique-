@@ -85,3 +85,41 @@ Voir [[SEC-03-Authentification-Sessions-JWT|Authentification, sessions et JWT]].
 - **`JSON.parse` sur un contenu abîmé** plante : garde le `try/catch`.
 - **`localStorage` n'existe pas côté serveur** (Angular SSR, Nuxt) : ne l'utilise que dans le navigateur.
 - **L'utilisateur peut tout effacer** : prévois toujours une valeur par défaut.
+
+## Exercices
+
+### Exercice 1 · Se souvenir du thème
+
+Écris le code qui enregistre le thème choisi (`'dark'` ou `'light'`) dans le navigateur, et le relit au chargement de la page (thème clair par défaut).
+
+> [!success]- Solution
+> ```js
+> function saveTheme(theme) {
+>   localStorage.setItem('theme', theme);
+> }
+>
+> function loadTheme() {
+>   return localStorage.getItem('theme') ?? 'light';
+> }
+>
+> document.documentElement.dataset.theme = loadTheme();
+> ```
+
+### Exercice 2 · Stocker une liste
+
+On veut garder la liste des ids de films récemment vus. Pourquoi ce code ne marche pas ? Corrige-le.
+
+```js
+localStorage.setItem('recent', [438631, 348]);
+const recent = localStorage.getItem('recent');
+recent.includes(348);
+```
+
+> [!success]- Solution
+> `localStorage` ne stocke que du **texte** : le tableau devient `"438631,348"`, et `includes(348)` cherche dans une chaîne.
+>
+> ```js
+> localStorage.setItem('recent', JSON.stringify([438631, 348]));
+> const recent = JSON.parse(localStorage.getItem('recent') ?? '[]');
+> recent.includes(348);   // true
+> ```

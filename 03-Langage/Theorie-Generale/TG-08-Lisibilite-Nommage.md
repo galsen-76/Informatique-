@@ -101,3 +101,54 @@ addFavorite();
 - **Être astucieux** : une ligne géniale mais illisible coûte plus cher que trois lignes claires.
 - **Des noms qui mentent** : `getMovies()` qui modifie aussi la base.
 - **Mélanger français et anglais** dans les noms.
+
+## Exercices
+
+### Exercice 1 · Renommer
+
+Donne de meilleurs noms :
+
+```ts
+const d = await getData();
+const flag = user.role === 'admin';
+const arr2 = movies.filter((x) => x.r > 4);
+function handle() { /* ajoute ou retire un favori */ }
+setTimeout(refresh, 86400000);
+```
+
+> [!success]- Solution
+> ```ts
+> const popularMovies = await loadPopularMovies();
+> const isAdmin = user.role === 'admin';
+> const topRatedMovies = movies.filter((movie) => movie.rating > 4);
+> function toggleFavorite() { /* … */ }
+>
+> const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+> setTimeout(refresh, ONE_DAY_MS);
+> ```
+
+### Exercice 2 · Aplatir la pyramide
+
+Réécris cette fonction avec des retours anticipés.
+
+```ts
+function canReview(user?: User, movie?: Movie): boolean {
+  if (user) {
+    if (user.verified) {
+      if (movie) {
+        return !movie.reviewedBy.includes(user.id);
+      }
+    }
+  }
+  return false;
+}
+```
+
+> [!success]- Solution
+> ```ts
+> function canReview(user?: User, movie?: Movie): boolean {
+>   if (!user?.verified) return false;
+>   if (!movie) return false;
+>   return !movie.reviewedBy.includes(user.id);
+> }
+> ```

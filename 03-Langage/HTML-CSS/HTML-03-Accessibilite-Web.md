@@ -70,3 +70,36 @@ Les attributs `aria-*` ajoutent des informations pour les lecteurs d'écran :
 - **Un `<div>` cliquable** : ni focus, ni Entrée, ni annonce au lecteur d'écran.
 - **Du texte dans une image** : illisible par le lecteur d'écran et par Google.
 - **Une fenêtre modale** qui ne garde pas le focus à l'intérieur : utilise les composants de PrimeVue / Angular CDK, qui le gèrent.
+
+## Exercices
+
+### Exercice 1 · Audit express
+
+Liste les problèmes d'accessibilité de cette carte de film.
+
+```html
+<div class="card" onclick="open(42)">
+  <img src="dune.jpg">
+  <span style="color:#aaa; background:#fff">Dune</span>
+  <i class="icon-heart" onclick="fav(42)"></i>
+</div>
+```
+
+> [!success]- Solution
+> 1. **Carte cliquable en `div`** : utilise un lien `<a href="/movies/42">`.
+> 2. **Image sans `alt`** : ajoute `alt="Affiche de Dune"`.
+> 3. **Contraste trop faible** (#aaa sur blanc) : illisible pour beaucoup, vise 4.5:1 minimum.
+> 4. **Icône cliquable sans bouton ni texte** : `<button aria-label="Ajouter Dune aux favoris">` avec l'icône dedans.
+
+### Exercice 2 · Tester au clavier
+
+Décris comment tester l'accessibilité clavier d'une page en 2 minutes, et ce que tu dois vérifier.
+
+> [!success]- Solution
+> 1. Clique dans la barre d'adresse, puis appuie sur **Tab** plusieurs fois.
+> 2. Vérifie :
+>    - **tous** les liens, boutons et champs sont atteints ;
+>    - l'ordre suit la logique visuelle ;
+>    - on **voit** toujours où est le focus (contour visible) ;
+>    - **Entrée** / **Espace** activent les boutons ;
+>    - **Échap** ferme les fenêtres modales, et le focus ne reste pas coincé.

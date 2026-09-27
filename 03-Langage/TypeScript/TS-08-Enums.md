@@ -72,3 +72,44 @@ Une seule source : le tableau sert à l'affichage, le type est calculé à parti
 - **Enum numérique** (sans valeurs) : `StatutFilm[1]` renvoie le nom `'Vu'`, un comportement surprenant.
 - **`const enum`** pose problème avec certains outils de build (Vite, esbuild) : évite-le.
 - **Une valeur venant de l'API** n'est pas forcément un membre valide de l'enum : valide-la (voir [[TS-19-Validation-Runtime-Zod|Zod]]).
+
+## Exercices
+
+### Exercice 1 · Remplacer un enum
+
+Réécris cet enum avec un type littéral et une constante contenant la liste des valeurs (pour un menu déroulant).
+
+```ts
+enum SortBy {
+  Popularity = 'popularity',
+  Rating = 'rating',
+  Date = 'date',
+}
+```
+
+> [!success]- Solution
+> ```ts
+> const SORT_OPTIONS = ['popularity', 'rating', 'date'] as const;
+> type SortBy = (typeof SORT_OPTIONS)[number];   // 'popularity' | 'rating' | 'date'
+>
+> let sort: SortBy = 'rating';   // ✅
+> sort = 'title';                // ❌
+> ```
+>
+> `SORT_OPTIONS` sert pour afficher les choix, `SortBy` pour typer.
+
+### Exercice 2 · Le piège de l'enum numérique
+
+Qu'affiche ce code ? Pourquoi est-ce risqué ?
+
+```ts
+enum Status { Draft, Published }
+const s: Status = 42;
+console.log(Status.Published);
+```
+
+> [!success]- Solution
+> - `Status.Published` vaut **1** (les enums numériques commencent à 0).
+> - `const s: Status = 42` est **accepté** par les anciennes versions de TypeScript, alors que 42 ne correspond à rien.
+>
+> Et si quelqu'un insère une valeur au début de l'enum, tous les numéros changent, y compris ceux déjà enregistrés en base. D'où la préférence pour les types littéraux en texte.

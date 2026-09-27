@@ -96,3 +96,39 @@ type Evenement = `on${Capitalize<'click' | 'focus'>}`;   // 'onClick' | 'onFocus
 - **Conditionnels** : presque jamais dans une application. C'est l'outil des auteurs de librairies.
 
 **Si un type devient illisible, simplifie.** Un type clair et un peu répétitif vaut mieux qu'une énigme.
+
+## Exercices
+
+### Exercice 1 · Une fonction qui accepte seulement une clé existante
+
+Écris `sortBy(movies: Movie[], key: ...)` où `key` ne peut être qu'un nom de champ de `Movie`.
+
+> [!success]- Solution
+> ```ts
+> function sortBy(movies: Movie[], key: keyof Movie): Movie[] {
+>   return movies.toSorted((a, b) => String(a[key]).localeCompare(String(b[key])));
+> }
+>
+> sortBy(movies, 'title');   // ✅
+> sortBy(movies, 'foo');     // ❌
+> ```
+
+### Exercice 2 · Le type d'une constante
+
+Tu as cette configuration. Crée le type `ApiConfig` à partir de la valeur, sans le réécrire à la main.
+
+```ts
+const apiConfig = {
+  baseUrl: 'https://api.themoviedb.org/3',
+  language: 'fr-FR',
+  timeoutMs: 5000,
+};
+```
+
+> [!success]- Solution
+> ```ts
+> type ApiConfig = typeof apiConfig;
+> // { baseUrl: string; language: string; timeoutMs: number }
+> ```
+>
+> Si on ajoute un champ à `apiConfig`, le type suit automatiquement.

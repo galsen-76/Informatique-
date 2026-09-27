@@ -76,3 +76,48 @@ Angular CLI et Vite écrivent ces balises pour toi : tu dois surtout savoir les 
 - **Même `title` sur toutes les pages** : Google et l'historique du navigateur s'y perdent.
 - **Image `og:image` en chemin relatif** (`/apercu.png`) : il faut l'URL complète.
 - **Script sans `defer` dans le `<head>`** qui cherche un élément : il n'existe pas encore → `null`.
+
+## Exercices
+
+### Exercice 1 · Compléter le `<head>`
+
+Écris le `<head>` minimal d'une page « CinéTrack » : encodage, affichage mobile, titre, description, et un script chargé sans bloquer l'affichage.
+
+> [!success]- Solution
+> ```html
+> <head>
+>   <meta charset="utf-8" />
+>   <meta name="viewport" content="width=device-width, initial-scale=1" />
+>   <title>CinéTrack · Films populaires</title>
+>   <meta name="description" content="Découvre, note et garde tes films préférés." />
+>   <link rel="stylesheet" href="styles.css" />
+>   <script type="module" src="main.js"></script>
+> </head>
+> ```
+>
+> Un script `type="module"` est différé : il s'exécute après la lecture du HTML.
+
+### Exercice 2 · `defer` ou pas ?
+
+Ce script plante avec « Cannot read properties of null ». Pourquoi, et quelles sont deux corrections ?
+
+```html
+<head>
+  <script src="app.js"></script>
+</head>
+<body>
+  <button id="like">J'aime</button>
+</body>
+```
+
+```js
+// app.js
+document.querySelector('#like').addEventListener('click', like);
+```
+
+> [!success]- Solution
+> Le script est exécuté **dès qu'il est lu**, dans le `<head>` : le `<button>` n'existe pas encore, `querySelector` renvoie `null`.
+>
+> Corrections :
+> 1. `<script src="app.js" defer></script>` : exécution après la lecture de toute la page.
+> 2. ou placer le `<script>` juste avant `</body>`.

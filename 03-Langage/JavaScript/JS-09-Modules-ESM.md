@@ -74,3 +74,48 @@ C'est le même mécanisme que le **lazy loading** des routes Angular (`loadCompo
 
 - **Imports circulaires** : A importe B qui importe A. Résultat : des valeurs `undefined` au démarrage. Déplace le code commun dans un troisième fichier.
 - **Chemins à rallonge** (`../../../shared/utils`) : utilise les alias `@/` ou `@shared/` (voir [[ARCH-15-Structure-de-Projet|Structure de projet]]).
+
+## Exercices
+
+### Exercice 1 · Découper en modules
+
+Tu as tout dans `main.js`. Déplace la fonction `formatYear` dans un fichier `utils.js` et importe-la. Écris les deux fichiers.
+
+```js
+// main.js
+function formatYear(year) {
+  return year ? `(${year})` : '';
+}
+console.log(formatYear(2021));
+```
+
+> [!success]- Solution
+> ```js
+> // utils.js
+> export function formatYear(year) {
+>   return year ? `(${year})` : '';
+> }
+> ```
+>
+> ```js
+> // main.js
+> import { formatYear } from './utils.js';
+> console.log(formatYear(2021));
+> ```
+>
+> Dans le HTML : `<script type="module" src="main.js"></script>`.
+
+### Exercice 2 · Export nommé ou par défaut
+
+Quelle est la différence entre ces deux imports ? Lequel est préférable et pourquoi ?
+
+```js
+import MovieCard from './movie-card.js';
+import { MovieCard } from './movie-card.js';
+```
+
+> [!success]- Solution
+> - Le premier importe l'**export par défaut** (`export default`) : on peut lui donner **n'importe quel nom** à l'import.
+> - Le second importe un **export nommé** (`export class MovieCard`) : le nom doit être **exactement** le même.
+>
+> Les exports **nommés** sont préférables : l'éditeur les retrouve et les renomme partout, et le nom reste cohérent dans tout le projet.

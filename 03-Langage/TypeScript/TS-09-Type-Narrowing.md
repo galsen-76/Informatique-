@@ -111,3 +111,40 @@ switch (etat.status) {
 
 - **Forcer avec `as Film`** au lieu de vérifier : TypeScript se tait, mais le bug reste.
 - **`typeof x === 'object'`** est aussi vrai pour `null`. Ajoute `x !== null`.
+
+## Exercices
+
+### Exercice 1 · Gérer la valeur vide
+
+`poster_path` est `string | null`. Écris `posterUrl(movie: Movie): string` qui renvoie l'URL de l'affiche, ou `'/assets/no-poster.png'` si elle est absente.
+
+> [!success]- Solution
+> ```ts
+> function posterUrl(movie: Movie): string {
+>   if (movie.poster_path === null) return '/assets/no-poster.png';
+>   return `https://image.tmdb.org/t/p/w342${movie.poster_path}`;   // ici c'est forcément un string
+> }
+> ```
+>
+> Après le `if … return`, TypeScript **rétrécit** le type à `string`.
+
+### Exercice 2 · Écrire une vérification réutilisable
+
+Écris une fonction `isMovie(value: unknown): value is Movie` qui vérifie qu'un objet a un `id` (nombre) et un `title` (texte).
+
+> [!success]- Solution
+> ```ts
+> function isMovie(value: unknown): value is Movie {
+>   return (
+>     typeof value === 'object' &&
+>     value !== null &&
+>     typeof (value as Movie).id === 'number' &&
+>     typeof (value as Movie).title === 'string'
+>   );
+> }
+>
+> const data: unknown = JSON.parse(text);
+> if (isMovie(data)) {
+>   data.title;   // ✅ TypeScript sait que c'est un Movie
+> }
+> ```

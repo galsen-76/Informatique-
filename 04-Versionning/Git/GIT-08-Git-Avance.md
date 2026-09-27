@@ -94,3 +94,39 @@ git cherry-pick a1b2c3
 
 - **Rebase interactif sur une branche déjà relue** : les commentaires de revue peuvent se détacher des lignes. Nettoie **avant** de demander la revue.
 - **Cherry-pick en série** : si tu en fais beaucoup, c'est souvent un signe que la stratégie de branches est à revoir.
+
+## Exercices
+
+### Exercice 1 · Nettoyer avant la MR
+
+Ta branche contient 4 commits : `feat: recherche`, `wip`, `fix typo`, `oups`. Comment les regrouper en un seul commit propre avant d'ouvrir la merge request ?
+
+> [!success]- Solution
+> ```bash
+> git rebase -i HEAD~4
+> ```
+>
+> Dans l'éditeur, garde `pick` sur le premier commit et remplace `pick` par `fixup` (ou `f`) sur les trois autres. Puis :
+>
+> ```bash
+> git push --force-with-lease
+> ```
+>
+> À faire uniquement sur **ta** branche, pas sur une branche partagée.
+
+### Exercice 2 · Trouver le commit coupable
+
+La recherche marchait il y a 30 commits (tag `v1.2.0`) et ne marche plus. Décris comment trouver le commit fautif avec `git bisect`.
+
+> [!success]- Solution
+> ```bash
+> git bisect start
+> git bisect bad                 # la version actuelle est cassée
+> git bisect good v1.2.0         # cette version fonctionnait
+> # Git se place au milieu : on teste, puis on répond
+> git bisect good                # ou : git bisect bad
+> # … environ 5 étapes pour 30 commits …
+> git bisect reset               # revenir à la normale
+> ```
+>
+> Git coupe l'historique en deux à chaque réponse : c'est une recherche binaire.

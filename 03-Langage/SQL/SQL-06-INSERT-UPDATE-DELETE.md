@@ -100,3 +100,34 @@ Utile pour pouvoir restaurer, ou garder un historique.
 - **Oublier le `WHERE`** : voir ci-dessus.
 - **Supprimer une ligne référencée ailleurs** (un utilisateur qui a des critiques) : refusé par la clé étrangère, sauf si `ON DELETE CASCADE` est prévu. Voir [[SQL-07-DDL-Contraintes-Types|Contraintes]].
 - **Coller des valeurs d'utilisateur dans la requête** : injection SQL. Toujours des requêtes paramétrées (Prisma le fait pour toi).
+
+## Exercices
+
+### Exercice 1 · Ajouter, modifier, supprimer
+
+Écris les 3 requêtes :
+1. ajouter un favori pour l'utilisateur 1 et le film 438631 dans `favorites (user_id, movie_id)` ;
+2. passer la note de la critique 12 à 5 ;
+3. supprimer toutes les critiques de l'utilisateur 7.
+
+> [!success]- Solution
+> ```sql
+> INSERT INTO favorites (user_id, movie_id) VALUES (1, 438631);
+>
+> UPDATE reviews SET rating = 5 WHERE id = 12;
+>
+> DELETE FROM reviews WHERE user_id = 7;
+> ```
+>
+> Avant un `UPDATE` ou `DELETE`, lance d'abord un `SELECT` avec le même `WHERE` pour vérifier les lignes touchées.
+
+### Exercice 2 · Ne pas créer de doublon
+
+L'utilisateur clique deux fois sur « favori ». Écris l'insertion qui ne fait rien si le favori existe déjà (la paire `user_id, movie_id` est unique).
+
+> [!success]- Solution
+> ```sql
+> INSERT INTO favorites (user_id, movie_id)
+> VALUES (1, 438631)
+> ON CONFLICT (user_id, movie_id) DO NOTHING;
+> ```

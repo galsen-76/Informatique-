@@ -79,3 +79,32 @@ uv run main.py              # lance dans l'environnement du projet
 - **Installer sans environnement activé** : la bibliothèque part dans le Python du système.
 - **Oublier d'activer** le `.venv` en rouvrant le terminal : « ModuleNotFoundError ».
 - **Commiter `.venv/`.**
+
+## Exercices
+
+### Exercice 1 · Démarrer un projet
+
+Écris les commandes pour : créer un environnement virtuel, l'activer (Linux / WSL), installer `requests`, et enregistrer les dépendances.
+
+> [!success]- Solution
+> ```bash
+> python3 -m venv .venv
+> source .venv/bin/activate
+> pip install requests
+> pip freeze > requirements.txt
+> ```
+>
+> Et ajouter `.venv/` au `.gitignore`.
+
+### Exercice 2 · Récupérer le projet d'un collègue
+
+Tu clones un projet Python qui contient un `requirements.txt`. Quelles commandes pour pouvoir le lancer ? Quel est l'équivalent en Node ?
+
+> [!success]- Solution
+> ```bash
+> python3 -m venv .venv
+> source .venv/bin/activate
+> pip install -r requirements.txt
+> ```
+>
+> L'équivalent Node : `npm install`, qui lit `package.json` et remplit `node_modules`.
