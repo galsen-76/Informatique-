@@ -31,6 +31,17 @@ aliases:
 7. [[TEST-07-Code-Review|Code Review]] — Intermédiaire · M10
 8. [[TEST-08-Qualite-Lint-SonarQube|Qualité, Lint et SonarQube]] — Intermédiaire · M10
 
+## Squash TM (outil de gestion des tests, en entreprise)
+
+1. [[Squash TM]] — la note principale
+2. [[Vocabulaire du test]]
+3. [[API Squash TM]]
+4. [[Squash Orchestrator]]
+5. [[Playwright]]
+6. [[Orchestrator vs API]]
+7. [[Squash TM et GitLab]]
+8. [[Docker pour Squash TM|Docker]]
+
 ---
 
 ## Progression
