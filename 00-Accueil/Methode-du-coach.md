@@ -48,7 +48,7 @@ Pour chaque notion, reviens toujours à ces questions :
 Chaque dossier a aussi une **carte du domaine** dans sa note principale : fondamentaux, indispensables, intermédiaire, avancé, compétences pratiques, confusions fréquentes, prérequis, ce qu'on peut ignorer au début, et les dépendances.
 
 > [!info] Dossiers déjà au format coach
-> [[JavaScript]], [[Docker]], [[Réseaux]], CI/CD (dans [[Infrastructure]]) et la note [[TEST-09-Playwright|Playwright de A à Z]]. Les autres suivront.
+> [[JavaScript]], [[Docker]], [[Réseaux]], CI/CD (dans [[Infrastructure]]), [[NODE-01-Node-npm|Node.js et npm]] et la note [[TEST-09-Playwright|Playwright de A à Z]]. Les autres suivront.
 
 ## Les exercices : ne pas regarder la solution tout de suite
 
