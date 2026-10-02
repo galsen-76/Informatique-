@@ -2,18 +2,18 @@
 created: 2026-09-24
 modified: 2026-09-26
 type: knowledge
-status: "🔴 Not Started"
+status: 🟡 In Progress
 level: Fondamental
 month: M01
 tags:
   - outils/terminal
 aliases:
-  - "Terminal et Bash"
+  - Terminal et Bash
 parent: "[[Outils]]"
 related_theory:
   - "[[LNX-01-Linux-Essentiels|Linux Essentiels]]"
 related_projects: []
-source: "https://www.gnu.org/software/bash/manual/"
+source: https://www.gnu.org/software/bash/manual/
 ---
 
 # Terminal et Bash

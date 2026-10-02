@@ -2,20 +2,20 @@
 created: 2026-09-24
 modified: 2026-09-26
 type: knowledge
-status: "🔴 Not Started"
+status: 🟡 In Progress
 level: Intermédiaire
 month: M03
 tags:
   - outils/build
 aliases:
-  - "Outils de Build et Bundlers"
+  - Outils de Build et Bundlers
 parent: "[[Outils]]"
 related_theory:
   - "[[JS-09-Modules-ESM|Modules ES JavaScript]]"
   - "[[NODE-01-Node-npm|Node.js et npm]]"
   - "[[TG-01-Comment-fonctionne-un-programme|Comment fonctionne un programme]]"
 related_projects: []
-source: "https://vite.dev/guide/"
+source: https://vite.dev/guide/
 ---
 
 # Outillage de Build Vite et Bundlers

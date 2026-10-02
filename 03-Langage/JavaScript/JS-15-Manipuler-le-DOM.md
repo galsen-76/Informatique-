@@ -25,20 +25,20 @@ source: "https://developer.mozilla.org/fr/docs/Web/API/Element"
 
 ## Aide-mémoire
 
-| Besoin | Code |
-|---|---|
-| Changer le texte | `el.textContent = 'Dune'` |
-| Ajouter / retirer une classe | `el.classList.add('actif')`, `.remove('actif')` |
-| Basculer une classe selon une condition | `el.classList.toggle('favori', estFavori)` |
-| Tester une classe | `el.classList.contains('actif')` |
-| Changer un attribut | `el.setAttribute('aria-expanded', 'true')` |
-| Lire / écrire un `data-*` | `el.dataset.id = '42'` (→ `data-id="42"`) |
-| Changer un style | `el.style.display = 'none'` (préfère une classe) |
-| Créer un élément | `document.createElement('li')` |
-| L'ajouter dans un parent | `parent.append(el)` (à la fin), `parent.prepend(el)` (au début) |
-| Le placer avant / après | `el.before(autre)`, `el.after(autre)` |
-| Le supprimer | `el.remove()` |
-| Vider un parent | `parent.replaceChildren()` |
+| Besoin                                  | Code                                                            |
+| --------------------------------------- | --------------------------------------------------------------- |
+| Changer le texte                        | `el.textContent = 'Dune'`                                       |
+| Ajouter / retirer une classe            | `el.classList.add('actif')`, `.remove('actif')`                 |
+| Basculer une classe selon une condition | `el.classList.toggle('favori', estFavori)`                      |
+| Tester une classe                       | `el.classList.contains('actif')`                                |
+| Changer un attribut                     | `el.setAttribute('aria-expanded', 'true')`                      |
+| Lire / écrire un `data-*`               | `el.dataset.id = '42'` (→ `data-id="42"`)                       |
+| Changer un style                        | `el.style.display = 'none'` (préfère une classe)                |
+| Créer un élément                        | `document.createElement('li')`                                  |
+| L'ajouter dans un parent                | `parent.append(el)` (à la fin), `parent.prepend(el)` (au début) |
+| Le placer avant / après                 | `el.before(autre)`, `el.after(autre)`                           |
+| Le supprimer                            | `el.remove()`                                                   |
+| Vider un parent                         | `parent.replaceChildren()`                                      |
 
 ## Exemple : afficher une liste de films
 

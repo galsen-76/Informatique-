@@ -2,18 +2,18 @@
 created: 2026-09-24
 modified: 2026-09-26
 type: knowledge
-status: "🔴 Not Started"
+status: 🟢 Done
 level: Fondamental
 month: M01
 tags:
   - outils/apprendre
 aliases:
-  - "Chercher et Lire la Documentation"
+  - Chercher et Lire la Documentation
 parent: "[[Outils]]"
 related_theory:
   - "[[METH-05-Resolution-Problemes-Debug|Résolution de Problèmes et Débogage]]"
 related_projects: []
-source: "https://developer.mozilla.org/fr/"
+source: https://developer.mozilla.org/fr/
 ---
 
 # Recherche et Documentation

@@ -2,18 +2,18 @@
 created: 2026-09-24
 modified: 2026-09-26
 type: knowledge
-status: "🔴 Not Started"
+status: 🟢 Done
 level: Fondamental
 month: M01
 tags:
   - outils/vscode
 aliases:
-  - "VS Code et Productivité"
+  - VS Code et Productivité
 parent: "[[Outils]]"
 related_theory:
   - "[[IJ-10-Transition-VSCode|Transition vers VS Code]]"
 related_projects: []
-source: "https://code.visualstudio.com/docs"
+source: https://code.visualstudio.com/docs
 ---
 
 # VS Code Productivité

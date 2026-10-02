@@ -22,15 +22,15 @@ aliases:
 
 ### À maîtriser avant de commencer
 
-| Dossier | Pourquoi |
-|---|---|
-| [[Outils]] | terminal, Node / npm, éditeur, ESLint : l'environnement de travail |
-| [[Git]] | versionner le projet et l'envoyer sur GitLab |
-| [[HTML-CSS]] | la structure et le style des pages |
-| [[JavaScript]] | le langage que le navigateur exécute |
-| [[TypeScript]] | JavaScript avec des types : la langue d'Angular |
+| Dossier              | Pourquoi                                                                 |
+| -------------------- | ------------------------------------------------------------------------ |
+| [[Outils]]           | terminal, Node / npm, éditeur, ESLint : l'environnement de travail       |
+| [[Git]]              | versionner le projet et l'envoyer sur GitLab                             |
+| [[HTML-CSS]]         | la structure et le style des pages                                       |
+| [[JavaScript]]       | le langage que le navigateur exécute                                     |
+| [[TypeScript]]       | JavaScript avec des types : la langue d'Angular                          |
 | [[Théorie Générale]] | mémoire, asynchrone, POO, lisibilité : les bases qui expliquent le reste |
-| [[Angular]] | le framework du projet |
+| [[Angular]]          | le framework du projet                                                   |
 
 La fiche du projet détaille ensuite, étape par étape, la note à ouvrir pour chaque tâche.
 

@@ -70,14 +70,14 @@ npm run dev                       # http://localhost:5173
 
 Ce qui est généré :
 
-| Fichier | Rôle |
-|---|---|
-| `src/main.ts` | démarre l'application (`createApp(App).mount('#app')`) |
-| `src/App.vue` | le composant racine |
-| `src/router/index.ts` | les routes (pages) |
-| `src/components/` | tes composants (à réorganiser selon la [[VUE-22-Template-Architecture-Vue\|structure du projet]]) |
-| `index.html` | la page où l'application s'affiche |
-| `vite.config.ts` | la configuration de Vite, l'outil de build |
+| Fichier               | Rôle                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------------------------- |
+| `src/main.ts`         | démarre l'application (`createApp(App).mount('#app')`)                                            |
+| `src/App.vue`         | le composant racine                                                                               |
+| `src/router/index.ts` | les routes (pages)                                                                                |
+| `src/components/`     | tes composants (à réorganiser selon la [[VUE-22-Template-Architecture-Vue\|structure du projet]]) |
+| `index.html`          | la page où l'application s'affiche                                                                |
+| `vite.config.ts`      | la configuration de Vite, l'outil de build                                                        |
 
 ## Les notions, dans l'ordre où tu en auras besoin
 

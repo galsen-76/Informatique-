@@ -2,18 +2,18 @@
 created: 2026-09-24
 modified: 2026-09-26
 type: knowledge
-status: "🔴 Not Started"
+status: 🟡 In Progress
 level: Fondamental
 month: M01
 tags:
   - outils/git/fondamentaux
 aliases:
-  - "Git Fondamentaux"
+  - Git Fondamentaux
 parent: "[[Git]]"
 related_theory:
   - "[[01-GitLab|Fondamentaux GitLab]]"
 related_projects: []
-source: "https://git-scm.com/book/fr/v2"
+source: https://git-scm.com/book/fr/v2
 ---
 
 # Git Fondamentaux

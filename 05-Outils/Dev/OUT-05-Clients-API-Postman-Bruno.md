@@ -2,19 +2,19 @@
 created: 2026-09-24
 modified: 2026-09-26
 type: knowledge
-status: "🔴 Not Started"
+status: 🟢 Done
 level: Fondamental
 month: M07
 tags:
   - outils/api
 aliases:
-  - "Clients API Postman Bruno curl"
+  - Clients API Postman Bruno curl
 parent: "[[Outils]]"
 related_theory:
   - "[[ARCH-04-API-REST-Design|API REST Design]]"
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
 related_projects: []
-source: "https://www.usebruno.com/"
+source: https://www.usebruno.com/
 ---
 
 # Clients API Postman et Bruno

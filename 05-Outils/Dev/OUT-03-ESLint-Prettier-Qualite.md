@@ -2,19 +2,19 @@
 created: 2026-09-24
 modified: 2026-09-26
 type: knowledge
-status: "🔴 Not Started"
+status: 🟢 Done
 level: Fondamental
 month: M03
 tags:
   - outils/qualite
 aliases:
-  - "ESLint Prettier et Hooks"
+  - ESLint Prettier et Hooks
 parent: "[[Outils]]"
 related_theory:
   - "[[TEST-08-Qualite-Lint-SonarQube|Qualité Linting et Analyse Statique]]"
   - "[[GIT-07-Conventions-Commits-SemVer|Conventions de Commits et SemVer]]"
 related_projects: []
-source: "https://eslint.org/docs/latest/"
+source: https://eslint.org/docs/latest/
 ---
 
 # ESLint Prettier et Qualité
