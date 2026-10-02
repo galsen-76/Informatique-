@@ -140,8 +140,134 @@ deploy-prod:
 
 Le script `deploy.sh` dépend de l'hébergement : mettre à jour l'image sur un serveur avec Docker Compose, ou chez un hébergeur (voir [[CLOUD-03-Heberger-API-BDD|Héberger l'API]]).
 
+## Pourquoi ça marche
+
+Les **stages** (`lint`, `test`, `build`, `deploy`) s'exécutent dans l'ordre ; les jobs d'un même stage tournent **en parallèle**. Si un stage échoue, les suivants ne démarrent pas : rien n'est construit ni déployé à partir de code cassé.
+
+Les **règles** (`rules`) permettent de faire tourner les vérifications sur toutes les MR, mais de construire et déployer **seulement** depuis `main`.
+
+L'image est étiquetée avec l'**id du commit** et construite **une seule fois** : c'est exactement cet artefact qui va en staging puis en production. Reconstruire à chaque étape produirait un artefact différent de celui qui a été testé.
+
+## Contre-exemple
+
+**Intuition fausse : « les jobs d'un même stage s'exécutent l'un après l'autre ».**
+
+```yaml
+test-web:
+  stage: test
+test-api:
+  stage: test
+```
+
+`test-web` et `test-api` tournent **en même temps**. S'ils dépendent l'un de l'autre (une base partagée, un fichier produit par l'autre), ils doivent être dans des stages différents, ou liés par `needs`.
+
 ## Pièges
 
 - **Un pipeline de 30 minutes** : cache les dépendances, parallélise les jobs, lance les tests lents seulement quand il faut.
 - **Des tests qui dépendent du réseau** (vraie API TMDB) : instables, simule l'API.
 - **Déployer une image reconstruite** au lieu de celle testée : ce n'est plus le même artefact.
+
+## Vérifie sans tes notes
+
+Réponds de tête, à voix haute ou par écrit, **avant** d’ouvrir la réponse.
+
+**1. Pourquoi le build et le déploiement ne tournent-ils que sur `main` ?**
+
+> [!check]- Réponse
+> Pour avoir un retour rapide sur les MR, et pour que rien ne parte en ligne sans avoir été fusionné.
+
+**2. Pourquoi étiqueter l'image avec `$CI_COMMIT_SHORT_SHA` ?**
+
+> [!check]- Réponse
+> Pour savoir exactement quel code tourne, et pouvoir revenir à une version précise.
+
+**3. Où mettre les secrets d'un pipeline GitLab ?**
+
+> [!check]- Réponse
+> Dans les variables CI/CD du projet GitLab (masquées et protégées), jamais dans `.gitlab-ci.yml`.
+
+## Exercices
+
+> [!info] Comment t’entraîner
+> 1. Cherche seul, sans regarder la note.
+> 2. Bloqué ? Ouvre l’**indice 1**, puis l’**indice 2**.
+> 3. Seulement ensuite, la **solution**.
+> 4. Referme tout et **refais l’exercice sans regarder**.
+
+### Exercice 1 · Un job de lint
+
+Écris un job GitLab CI `lint-web` dans le stage `lint`, avec l'image `node:22-alpine`, qui installe les dépendances puis lance `npm run lint` dans le dossier `apps/web`. Il doit tourner sur toutes les branches.
+
+> [!tip]- Indice 1
+> Un job = un nom, puis `stage`, `image` et `script`.
+
+> [!tip]- Indice 2
+> `script` est une liste de commandes ; sans `rules`, le job tourne partout.
+
+> [!success]- Solution
+> ```yaml
+> lint-web:
+>   stage: lint
+>   image: node:22-alpine
+>   script:
+>     - cd apps/web
+>     - npm ci
+>     - npm run lint
+> ```
+
+### Exercice 2 · Déploiement manuel
+
+Le job `deploy-prod` doit : tourner seulement sur `main`, attendre un clic manuel, et afficher l'URL `https://cinetrack.fr` dans l'onglet Environnements de GitLab. Écris ses `rules` et son `environment`.
+
+> [!tip]- Indice 1
+> La condition sur la branche se fait avec `$CI_COMMIT_BRANCH`.
+
+> [!tip]- Indice 2
+> Dans la règle, `when: manual` ajoute le bouton ; `environment` prend un `name` et une `url`.
+
+> [!success]- Solution
+> ```yaml
+> deploy-prod:
+>   stage: deploy
+>   script: ./scripts/deploy.sh production $CI_COMMIT_SHORT_SHA
+>   environment:
+>     name: production
+>     url: https://cinetrack.fr
+>   rules:
+>     - if: $CI_COMMIT_BRANCH == "main"
+>       when: manual
+> ```
+
+### Transfert · Le test qui casse une fois sur trois
+
+Un problème différent : il vérifie que tu as compris le principe, pas seulement l’exemple.
+
+Le job `test-api` échoue de temps en temps sans changement de code. Les tests appellent la vraie API TMDB, et la base PostgreSQL du job n'est parfois pas prête quand les migrations démarrent. Propose une correction pour chaque cause.
+
+> [!tip]- Indice 1
+> Un test qui dépend d'un service extérieur dépend aussi de sa disponibilité et de sa vitesse.
+
+> [!tip]- Indice 2
+> Pour la base : attendre qu'elle réponde avant de lancer les migrations.
+
+> [!success]- Solution
+> 1. **TMDB** : ne pas appeler la vraie API dans les tests ; la **simuler** (réponse enregistrée, faux service injecté) pour des tests rapides et stables.
+> 2. **La base** : attendre qu'elle soit prête avant les migrations, par exemple :
+>
+> ```yaml
+> script:
+>   - until nc -z db 5432; do sleep 1; done
+>   - npx prisma migrate deploy --schema apps/api/prisma/schema.prisma
+>   - npm run test:e2e --workspace apps/api
+> ```
+
+## Je maîtrise quand…
+
+Coche quand tu sais le faire **sans aide**. Une notion n’est maîtrisée que si les 6 cases sont cochées (voir [[Methode-du-coach|Méthode du coach]]).
+
+- [ ] **Expliquer** : Expliquer le fonctionnement des stages, des jobs et des règles
+- [ ] **Rappeler** : Dire de mémoire pourquoi on construit une seule image par commit et où vont les secrets
+- [ ] **Utiliser** : Écrire un job GitLab CI avec image, script et règles sans modèle
+- [ ] **Résoudre un problème nouveau** : Prévoir quels jobs tournent sur une MR et lesquels sur `main`
+- [ ] **Repérer les erreurs** : Diagnostiquer un job instable ou un pipeline qui reconstruit l'artefact
+- [ ] **Savoir quand ne pas l’utiliser** : Savoir quand ne pas automatiser la production : tant que les tests ne donnent pas assez confiance

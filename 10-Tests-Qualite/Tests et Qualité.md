@@ -30,6 +30,7 @@ aliases:
 6. [[TEST-06-TDD|TDD (Test-Driven Development)]] — Intermédiaire · M10
 7. [[TEST-07-Code-Review|Code Review]] — Intermédiaire · M10
 8. [[TEST-08-Qualite-Lint-SonarQube|Qualité, Lint et SonarQube]] — Intermédiaire · M10
+9. [[TEST-09-Playwright|Playwright de A à Z]] — Intermédiaire · format coach (exercices, indices, transfert)
 
 ## Squash TM (outil de gestion des tests, en entreprise)
 
