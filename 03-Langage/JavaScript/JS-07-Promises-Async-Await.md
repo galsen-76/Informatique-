@@ -89,6 +89,25 @@ fetch('/api/films')
   .catch(err => console.error(err));
 ```
 
+## Pourquoi ça marche
+
+Une Promise est un **objet qui représente un résultat futur**. Au lieu de bloquer en attendant, la fonction renvoie tout de suite cet objet ; le résultat le remplira plus tard.
+
+`await` met **en pause la fonction `async`**, laisse le reste du programme tourner (voir [[JS-06-Event-Loop|Event Loop]]), puis reprend quand la Promise est terminée. Si la Promise échoue, `await` **lève l'erreur** à cet endroit : c'est pour ça qu'un simple `try / catch` suffit à la gérer.
+
+## Contre-exemple
+
+**Intuition fausse : « `await` dans un `forEach` attend chaque élément ».**
+
+```js
+ids.forEach(async (id) => {
+  await saveRating(id);
+});
+console.log('Tout est enregistré');   // s'affiche AVANT la fin des enregistrements
+```
+
+`forEach` n'attend pas les fonctions `async` qu'on lui donne. Utilise `for (const id of ids) { await … }` (l'un après l'autre) ou `await Promise.all(ids.map(...))` (tous ensemble).
+
 ## Pièges
 
 - **`fetch` ne plante pas sur une erreur 404 ou 500** : il faut vérifier `reponse.ok` toi-même.
@@ -99,7 +118,32 @@ fetch('/api/films')
 > [!note] Promise ou Observable ?
 > Une Promise donne **une seule** valeur et ne s'annule pas. Angular utilise plutôt des **Observables** (RxJS), qui peuvent donner plusieurs valeurs dans le temps et s'annuler : voir [[ANG-08-RxJS|RxJS]].
 
+## Vérifie sans tes notes
+
+Réponds de tête, à voix haute ou par écrit, **avant** d’ouvrir la réponse.
+
+**1. Quels sont les 3 états d'une Promise ?**
+
+> [!check]- Réponse
+> `pending` (en attente), `fulfilled` (réussie, avec une valeur), `rejected` (échouée, avec une erreur).
+
+**2. Que renvoie toujours une fonction `async` ?**
+
+> [!check]- Réponse
+> Une Promise.
+
+**3. Quand utiliser `Promise.all` ?**
+
+> [!check]- Réponse
+> Quand plusieurs appels ne dépendent pas l'un de l'autre : ils partent en même temps.
+
 ## Exercices
+
+> [!info] Comment t’entraîner
+> 1. Cherche seul, sans regarder la note.
+> 2. Bloqué ? Ouvre l’**indice 1**, puis l’**indice 2**.
+> 3. Seulement ensuite, la **solution**.
+> 4. Referme tout et **refais l’exercice sans regarder**.
 
 ### Exercice 1 · Réécrire avec async / await
 
@@ -113,6 +157,12 @@ function loadMovie(id) {
     .catch((err) => console.error('Échec', err));
 }
 ```
+
+> [!tip]- Indice 1
+> Chaque `.then(x => ...)` devient une ligne `const x = await ...`.
+
+> [!tip]- Indice 2
+> Le `.catch` devient un bloc `try { } catch (err) { }` autour des `await`.
 
 > [!success]- Solution
 > ```js
@@ -131,6 +181,12 @@ function loadMovie(id) {
 
 `loadMovie(id)` et `loadCredits(id)` prennent chacune 1 seconde et ne dépendent pas l'une de l'autre. Écris `loadPage(id)` qui renvoie `{ movie, credits }` en environ **1 seconde** au lieu de 2.
 
+> [!tip]- Indice 1
+> Les deux appels doivent **partir** avant qu'on attende le résultat.
+
+> [!tip]- Indice 2
+> Quelle fonction prend un tableau de Promises et attend qu'elles soient toutes terminées ?
+
 > [!success]- Solution
 > ```js
 > async function loadPage(id) {
@@ -140,3 +196,43 @@ function loadMovie(id) {
 > ```
 >
 > Les deux appels sont lancés **avant** d'attendre, donc ils voyagent en même temps. Si l'un échoue, `Promise.all` échoue aussi (à attraper avec `try / catch`).
+
+### Transfert · Réessayer en cas d'échec
+
+Un problème différent : il vérifie que tu as compris le principe, pas seulement l’exemple.
+
+Écris `withRetry(fn, attempts)` qui appelle la fonction asynchrone `fn`. Si elle échoue, on réessaie, jusqu'à `attempts` fois au total. Si tous les essais échouent, on lève la dernière erreur.
+
+> [!tip]- Indice 1
+> Une boucle `for` de 1 à `attempts`, avec un `try / catch` à l'intérieur.
+
+> [!tip]- Indice 2
+> Dans le `try`, un `return await fn()` sort de la fonction dès que ça marche. Dans le `catch`, garde l'erreur et continue la boucle.
+
+> [!success]- Solution
+> ```js
+> async function withRetry(fn, attempts) {
+>   let lastError;
+>   for (let i = 1; i <= attempts; i++) {
+>     try {
+>       return await fn();
+>     } catch (err) {
+>       lastError = err;
+>     }
+>   }
+>   throw lastError;
+> }
+>
+> const movie = await withRetry(() => loadMovie(42), 3);
+> ```
+
+## Je maîtrise quand…
+
+Coche quand tu sais le faire **sans aide**. Une notion n’est maîtrisée que si les 6 cases sont cochées (voir [[Methode-du-coach|Méthode du coach]]).
+
+- [ ] **Expliquer** : Expliquer ce qu'est une Promise avec l'image du bipeur
+- [ ] **Rappeler** : Dire de mémoire les 3 états et ce que renvoie une fonction `async`
+- [ ] **Utiliser** : Écrire un appel `fetch` avec `await`, vérification de `ok` et `try / catch` sans modèle
+- [ ] **Résoudre un problème nouveau** : Prédire le comportement d'un `await` oublié ou d'un `forEach` async
+- [ ] **Repérer les erreurs** : Transformer des appels séquentiels en appels parallèles avec `Promise.all`
+- [ ] **Savoir quand ne pas l’utiliser** : Savoir quand une Promise ne suffit pas : plusieurs valeurs dans le temps ou annulation → Observable
