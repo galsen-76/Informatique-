@@ -13,6 +13,9 @@ aliases:
 > [!abstract] Le principe
 > **On apprend en construisant des projets.** Les notes ne se lisent pas de A à Z : on ouvre une note **au moment où le projet en a besoin**, on comprend l'essentiel, on l'applique tout de suite.
 
+> [!tip] Pour apprendre en profondeur
+> Le projet dit **quoi** apprendre. La [[Methode-du-coach|Méthode du coach]] dit **comment** le retenir et le maîtriser : rappel actif, indices progressifs, transfert, répétition espacée.
+
 ## La boucle
 
 ```mermaid

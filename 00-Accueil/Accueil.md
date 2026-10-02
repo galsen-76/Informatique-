@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-09-27
+modified: 2026-10-02
 type: home
 tags:
   - accueil
@@ -36,6 +36,7 @@ La fiche du projet détaille ensuite, étape par étape, la note à ouvrir pour 
 
 ## 🚀 Commencer ici
 1. [[Methode-d-apprentissage|Méthode d'apprentissage]] — apprendre par le projet : tâche → note → code
+   - [[Methode-du-coach|Méthode du coach]] — apprendre en profondeur : rappel actif, indices, transfert, maîtrise
 2. [[02_Projects/CinéTrack|CinéTrack]] — le projet, ses prérequis et ses jalons
 3. [[Tableau-de-bord|Tableau de bord]] — progression et tâches en cours
 4. [[Conventions-du-coffre|Conventions du coffre]] — format des notes, statuts, tags, modèles

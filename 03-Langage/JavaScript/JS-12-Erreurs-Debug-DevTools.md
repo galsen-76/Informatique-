@@ -104,13 +104,59 @@ Au lieu de mettre des `console.log` partout : dans **Sources**, clique sur un nu
 
 Voir aussi [[METH-05-Resolution-Problemes-Debug|Résolution de problèmes]].
 
+## Pourquoi ça marche
+
+`throw` **interrompt** l'exécution et remonte la pile d'appels jusqu'au premier `try / catch` rencontré. Une erreur non attrapée remonte jusqu'en haut, et le navigateur l'affiche dans la console : c'est un **signal**, pas une catastrophe.
+
+Une erreur attrapée puis ignorée supprime ce signal : le programme continue avec des données fausses, et le bug apparaît plus loin, loin de sa cause. D'où la règle : n'attrape que ce que tu sais traiter.
+
+Le point d'arrêt fonctionne parce que le navigateur peut **figer** l'exécution sur une ligne : tu vois toutes les variables à cet instant, au lieu de deviner.
+
+## Contre-exemple
+
+**Intuition fausse : « un `try / catch` autour de tout rend le code plus robuste ».**
+
+```js
+try {
+  const movie = movies.find((m) => m.id === id);
+  render(movie.title);
+} catch {}
+```
+
+Le code ne plante plus… mais n'affiche rien, et personne ne sait pourquoi. L'erreur était utile : elle disait « film introuvable ». Mieux vaut vérifier (`if (!movie)`) ou laisser l'erreur remonter.
+
 ## Pièges
 
 - **`catch (e) {}` vide** : l'erreur disparaît, le bug devient introuvable.
 - **`throw 'erreur'`** (un texte) : pas de pile d'appels. Lance toujours `new Error(…)`.
 - **Des `console.log` oubliés** en production.
 
+## Vérifie sans tes notes
+
+Réponds de tête, à voix haute ou par écrit, **avant** d’ouvrir la réponse.
+
+**1. Dans une pile d'appels (stack trace), quelle ligne regarder en premier ?**
+
+> [!check]- Réponse
+> La première qui vient de ton propre fichier, pas d'une librairie.
+
+**2. Que signifie `TypeError: Cannot read properties of undefined` ?**
+
+> [!check]- Réponse
+> On lit une propriété sur quelque chose qui vaut `undefined` : donnée pas encore arrivée, ou mauvais nom de champ.
+
+**3. Quel onglet des DevTools pour un problème de données ? pour un problème de logique ?**
+
+> [!check]- Réponse
+> Network pour les données ; Sources (point d'arrêt) pour la logique.
+
 ## Exercices
+
+> [!info] Comment t’entraîner
+> 1. Cherche seul, sans regarder la note.
+> 2. Bloqué ? Ouvre l’**indice 1**, puis l’**indice 2**.
+> 3. Seulement ensuite, la **solution**.
+> 4. Referme tout et **refais l’exercice sans regarder**.
 
 ### Exercice 1 · Lire l'erreur
 
@@ -121,6 +167,12 @@ TypeError: Cannot read properties of undefined (reading 'title')
     at renderMovie (app.js:14:22)
 ```
 
+> [!tip]- Indice 1
+> Lis le message : on lit `.title` sur quoi ? Puis lis la ligne et la colonne indiquées.
+
+> [!tip]- Indice 2
+> Pourquoi une donnée pourrait-elle valoir `undefined` à cet endroit ?
+
 > [!success]- Solution
 > À la **ligne 14, colonne 22** de `app.js`, dans la fonction `renderMovie`, le code fait `quelqueChose.title`, mais `quelqueChose` vaut `undefined`.
 >
@@ -129,6 +181,12 @@ TypeError: Cannot read properties of undefined (reading 'title')
 ### Exercice 2 · Lever une erreur utile
 
 Écris une fonction `parseRating(value)` qui convertit un texte en nombre et lève une erreur claire si ce n'est pas un nombre entre 1 et 5. Puis appelle-la dans un `try / catch` qui affiche le message.
+
+> [!tip]- Indice 1
+> Convertis avec `Number(...)`, puis vérifie avec `Number.isInteger` et les bornes.
+
+> [!tip]- Indice 2
+> Lance une `new Error(...)` avec un message qui dit ce qui était attendu.
 
 > [!success]- Solution
 > ```js
@@ -146,3 +204,49 @@ TypeError: Cannot read properties of undefined (reading 'title')
 >   console.error(err.message);   // Note invalide : "7" (attendu : 1 à 5)
 > }
 > ```
+
+### Transfert · L'erreur d'API typée
+
+Un problème différent : il vérifie que tu as compris le principe, pas seulement l’exemple.
+
+Crée une classe `NotFoundError` (qui hérite de `Error`). Écris `getMovie(id)` qui la lève si le film n'existe pas dans une liste. Puis, dans le code appelant, affiche « Film introuvable » pour cette erreur précise, et laisse remonter toutes les autres.
+
+> [!tip]- Indice 1
+> Une classe d'erreur hérite de `Error` et appelle `super(message)` dans son constructeur.
+
+> [!tip]- Indice 2
+> Dans le `catch`, teste `err instanceof NotFoundError` ; sinon, `throw err`.
+
+> [!success]- Solution
+> ```js
+> class NotFoundError extends Error {
+>   constructor(message) {
+>     super(message);
+>     this.name = 'NotFoundError';
+>   }
+> }
+>
+> function getMovie(id) {
+>   const movie = movies.find((m) => m.id === id);
+>   if (!movie) throw new NotFoundError(`Film ${id} introuvable`);
+>   return movie;
+> }
+>
+> try {
+>   getMovie(99);
+> } catch (err) {
+>   if (err instanceof NotFoundError) console.log('Film introuvable');
+>   else throw err;
+> }
+> ```
+
+## Je maîtrise quand…
+
+Coche quand tu sais le faire **sans aide**. Une notion n’est maîtrisée que si les 6 cases sont cochées (voir [[Methode-du-coach|Méthode du coach]]).
+
+- [ ] **Expliquer** : Expliquer pourquoi une erreur visible vaut mieux qu'une erreur cachée
+- [ ] **Rappeler** : Dire de mémoire comment lire un message d'erreur et sa pile d'appels
+- [ ] **Utiliser** : Lever et attraper une erreur personnalisée sans modèle
+- [ ] **Résoudre un problème nouveau** : Prédire où une erreur va être attrapée en suivant la pile d'appels
+- [ ] **Repérer les erreurs** : Enquêter sur un bug avec Network et un point d'arrêt au lieu de deviner
+- [ ] **Savoir quand ne pas l’utiliser** : Savoir quand ne pas mettre de `try / catch` : quand tu ne sais pas traiter l'erreur

@@ -100,13 +100,55 @@ onMounted(() => champ.value?.focus());
 <template><input ref="champ" type="search"></template>
 ```
 
+## Pourquoi ça marche
+
+`querySelector` réutilise le **moteur de sélecteurs CSS** du navigateur : la même syntaxe sert à styler et à sélectionner, donc tu n'as qu'un langage à apprendre.
+
+Il renvoie `null` quand il ne trouve rien, au lieu de lever une erreur : c'est à toi de vérifier. C'est pour ça que TypeScript t'oblige à tester le résultat avant d'utiliser `.value` ou `.focus()`.
+
+## Contre-exemple
+
+**Intuition fausse : « `querySelectorAll` renvoie un tableau ».**
+
+```js
+const cards = document.querySelectorAll('.card');
+cards.map((c) => c.textContent);   // ❌ TypeError : map n'existe pas
+```
+
+C'est une `NodeList` : elle a `forEach` et `length`, mais pas `map` ni `filter`. Pour les utiliser : `Array.from(cards).map(...)`.
+
 ## Pièges
 
 - **Oublier `.` ou `#`** : `querySelector('carte')` cherche une balise `<carte>`, pas la classe.
 - **Chercher trop tôt** : l'élément n'existe pas encore. Script avec `defer`, ou dans `onMounted` (Vue) / `afterNextRender` (Angular).
 - **Sélectionner par une classe de style** : si quelqu'un renomme la classe CSS, ton JS casse. Préfère un attribut dédié (`data-testid`, `id`).
 
+## Vérifie sans tes notes
+
+Réponds de tête, à voix haute ou par écrit, **avant** d’ouvrir la réponse.
+
+**1. Que renvoie `querySelector` s'il ne trouve rien ?**
+
+> [!check]- Réponse
+> `null`.
+
+**2. Quelle différence entre `querySelector('carte')` et `querySelector('.carte')` ?**
+
+> [!check]- Réponse
+> Le premier cherche une balise `<carte>`, le second un élément avec la classe `carte`.
+
+**3. Pourquoi éviter `document.querySelector` dans un composant Angular ou Vue ?**
+
+> [!check]- Réponse
+> Le composant peut exister en plusieurs exemplaires ou être rendu côté serveur ; on passe par une référence de template.
+
 ## Exercices
+
+> [!info] Comment t’entraîner
+> 1. Cherche seul, sans regarder la note.
+> 2. Bloqué ? Ouvre l’**indice 1**, puis l’**indice 2**.
+> 3. Seulement ensuite, la **solution**.
+> 4. Referme tout et **refais l’exercice sans regarder**.
 
 ### Exercice 1 · Choisir le bon sélecteur
 
@@ -115,6 +157,12 @@ onMounted(() => champ.value?.focus());
 2. **tous** les boutons qui ont la classe `favorite` ;
 3. le formulaire dont l'`id` est `search` ;
 4. le lien actif dans `<nav>` (classe `active`).
+
+> [!tip]- Indice 1
+> Pour une classe : `.` ; pour un id : `#` ; pour une balise : son nom seul.
+
+> [!tip]- Indice 2
+> Un sélecteur peut combiner : `nav a.active` = un lien de classe `active` dans un `<nav>`.
 
 > [!success]- Solution
 > ```js
@@ -137,6 +185,12 @@ Au clic sur un bouton « Supprimer » placé dans une carte, on veut supprimer *
 </article>
 ```
 
+> [!tip]- Indice 1
+> Le bouton est dans la carte : il faut remonter vers un parent, pas descendre.
+
+> [!tip]- Indice 2
+> Quelle méthode remonte les parents jusqu'au premier qui correspond à un sélecteur ?
+
 > [!success]- Solution
 > ```js
 > document.querySelectorAll('.delete').forEach((button) => {
@@ -147,3 +201,35 @@ Au clic sur un bouton « Supprimer » placé dans une carte, on veut supprimer *
 > ```
 >
 > `closest` remonte les parents jusqu'au premier qui correspond au sélecteur, quelle que soit la profondeur.
+
+### Transfert · Compter les favoris
+
+Un problème différent : il vérifie que tu as compris le principe, pas seulement l’exemple.
+
+Dans une liste de cartes `<article class="card">`, certaines ont aussi la classe `favorite`. Écris le code qui affiche dans un `<span id="fav-count">` le nombre de cartes favorites, puis qui donne le titre (`<h2>`) de la première carte **non** favorite.
+
+> [!tip]- Indice 1
+> Un sélecteur peut combiner deux classes : `.card.favorite`.
+
+> [!tip]- Indice 2
+> Pour « pas favorite » : la pseudo-classe `:not(...)`. Puis cherche le `<h2>` **à l'intérieur** de cette carte.
+
+> [!success]- Solution
+> ```js
+> const favorites = document.querySelectorAll('.card.favorite');
+> document.querySelector('#fav-count').textContent = String(favorites.length);
+>
+> const firstOther = document.querySelector('.card:not(.favorite)');
+> console.log(firstOther?.querySelector('h2')?.textContent);
+> ```
+
+## Je maîtrise quand…
+
+Coche quand tu sais le faire **sans aide**. Une notion n’est maîtrisée que si les 6 cases sont cochées (voir [[Methode-du-coach|Méthode du coach]]).
+
+- [ ] **Expliquer** : Expliquer pourquoi `querySelector` utilise les sélecteurs CSS
+- [ ] **Rappeler** : Dire de mémoire la différence entre `querySelector`, `querySelectorAll` et `closest`
+- [ ] **Utiliser** : Écrire un sélecteur combiné sans modèle
+- [ ] **Résoudre un problème nouveau** : Prédire ce que renvoie une recherche qui ne trouve rien
+- [ ] **Repérer les erreurs** : Déboguer un `null` dû à un `.` oublié ou à un script chargé trop tôt
+- [ ] **Savoir quand ne pas l’utiliser** : Savoir quand ne pas utiliser `querySelector` : dans un composant, utiliser une référence de template

@@ -90,6 +90,26 @@ Et son cousin `?.` pour lire une propriété sans planter si l'objet est vide :
 film?.realisateur?.nom   // undefined au lieu d'une erreur si realisateur n'existe pas
 ```
 
+## Pourquoi ça marche
+
+JavaScript a été pensé pour **ne jamais s'arrêter** sur une page web : plutôt que d'afficher une erreur quand on mélange un texte et un nombre, il **devine** une conversion. Pratique au début, dangereux ensuite.
+
+- `==` convertit les deux valeurs **avant** de les comparer, avec des règles compliquées. `===` ne convertit rien : si les types sont différents, c'est `false`. Le résultat est donc prévisible.
+- `||` teste si la valeur est « fausse » (et `0`, `''` le sont). `??` teste seulement si elle est **absente** (`null` ou `undefined`). C'est pour ça que `??` est le bon choix pour une valeur par défaut.
+
+## Contre-exemple
+
+**Intuition fausse : « un tableau vide, c'est faux ».**
+
+```js
+const results = [];
+if (results) {
+  console.log('Il y a des résultats');   // s'affiche quand même !
+}
+```
+
+Un tableau, même vide, est un objet, donc « vrai ». Pour tester s'il est vide : `if (results.length > 0)`.
+
 ## Pièges
 
 - `typeof null` renvoie `'object'` (vieux bug du langage) : teste `x === null`.
@@ -98,7 +118,32 @@ film?.realisateur?.nom   // undefined au lieu d'une erreur si realisateur n'exis
 
 TypeScript attrape la plupart de ces erreurs avant même l'exécution : voir [[TS-01-Fondamentaux|Fondamentaux TypeScript]].
 
+## Vérifie sans tes notes
+
+Réponds de tête, à voix haute ou par écrit, **avant** d’ouvrir la réponse.
+
+**1. Quelles sont les 6 valeurs « fausses » (falsy) en JavaScript ?**
+
+> [!check]- Réponse
+> `false`, `0`, `''` (texte vide), `null`, `undefined`, `NaN`.
+
+**2. Quelle est la différence entre `||` et `??` ?**
+
+> [!check]- Réponse
+> `||` remplace toute valeur fausse (dont `0` et `''`) ; `??` remplace seulement `null` et `undefined`.
+
+**3. Pourquoi `{ a: 1 } === { a: 1 }` vaut-il `false` ?**
+
+> [!check]- Réponse
+> Ce sont deux objets différents en mémoire. `===` compare les références (l'adresse), pas le contenu.
+
 ## Exercices
+
+> [!info] Comment t’entraîner
+> 1. Cherche seul, sans regarder la note.
+> 2. Bloqué ? Ouvre l’**indice 1**, puis l’**indice 2**.
+> 3. Seulement ensuite, la **solution**.
+> 4. Referme tout et **refais l’exercice sans regarder**.
 
 ### Exercice 1 · Vrai ou faux ?
 
@@ -112,6 +157,12 @@ Pour chaque ligne, donne le résultat :
 Boolean('')
 Boolean([])
 ```
+
+> [!tip]- Indice 1
+> Pour chaque ligne, demande-toi : y a-t-il une conversion (`==`) ou pas (`===`) ?
+
+> [!tip]- Indice 2
+> Pour `||` et `??` : `0` est-il « faux » ? Est-il `null` ou `undefined` ?
 
 > [!success]- Solution
 > | Expression | Résultat | Pourquoi |
@@ -133,6 +184,12 @@ function showRating(rating) {
 }
 ```
 
+> [!tip]- Indice 1
+> Quelles valeurs l'opérateur `||` considère-t-il comme absentes ? Est-ce que `0` en fait partie ?
+
+> [!tip]- Indice 2
+> Cherche l'opérateur qui ne remplace que `null` et `undefined`.
+
 > [!success]- Solution
 > ```js
 > function showRating(rating) {
@@ -144,3 +201,40 @@ function showRating(rating) {
 > ```
 >
 > `||` remplace toutes les valeurs « fausses » (`0`, `''`, `false`), alors que `??` ne remplace que `null` et `undefined`.
+
+### Transfert · Le formulaire de quantité
+
+Un problème différent : il vérifie que tu as compris le principe, pas seulement l’exemple.
+
+Un champ « nombre de places » peut contenir `'0'`, `''` (vide) ou `'3'` (toujours du texte). Écris `parseSeats(input)` qui renvoie le nombre de places (un nombre), ou `1` si le champ est vide. `'0'` doit donner `0`, pas `1`.
+
+> [!tip]- Indice 1
+> Le champ contient du **texte** : il faudra le convertir avec `Number(...)`. Mais que donne `Number('')` ?
+
+> [!tip]- Indice 2
+> Traite d'abord le cas « vide » avec une comparaison stricte (`input === ''`), puis convertis le reste.
+
+> [!success]- Solution
+> ```js
+> function parseSeats(input) {
+>   if (input === '') return 1;
+>   return Number(input);
+> }
+>
+> parseSeats('');    // 1
+> parseSeats('0');   // 0
+> parseSeats('3');   // 3
+> ```
+>
+> Piège évité : `Number(input) || 1` transformerait `'0'` en `1`, et `Number('')` vaut `0`, pas `null`.
+
+## Je maîtrise quand…
+
+Coche quand tu sais le faire **sans aide**. Une notion n’est maîtrisée que si les 6 cases sont cochées (voir [[Methode-du-coach|Méthode du coach]]).
+
+- [ ] **Expliquer** : Expliquer ce qu'est la coercition et pourquoi JavaScript la fait
+- [ ] **Rappeler** : Citer de mémoire les valeurs falsy et la différence entre `||` et `??`
+- [ ] **Utiliser** : Choisir `===` et `??` sans hésiter dans ton code
+- [ ] **Résoudre un problème nouveau** : Prédire le résultat d'une comparaison ou d'un `||` sur une valeur inattendue (`0`, `''`, `[]`)
+- [ ] **Repérer les erreurs** : Retrouver dans un bug la conversion cachée qui le cause
+- [ ] **Savoir quand ne pas l’utiliser** : Savoir quand `||` reste le bon choix (quand `0` ou `''` doivent vraiment être remplacés)

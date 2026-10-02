@@ -75,6 +75,24 @@ Image : manipuler le DOM à la main, c'est **déplacer les meubles toi-même** �
 
 Tu décris le résultat, le framework fait les `classList` et `append` pour toi.
 
+## Pourquoi ça marche
+
+Chaque modification du DOM peut obliger le navigateur à **recalculer la mise en page** puis à redessiner. Préparer les éléments d'abord, puis les insérer **en une fois** (`replaceChildren(...elements)`), limite ce travail.
+
+`textContent` insère du **texte** : le navigateur ne l'interprète jamais comme du HTML. `innerHTML`, lui, **analyse** le texte comme du HTML, et peut donc exécuter du code caché dedans. D'où la règle : `textContent` pour toute donnée.
+
+## Contre-exemple
+
+**Intuition fausse : « `innerHTML +=` ajoute simplement du contenu à la fin ».**
+
+```js
+button.addEventListener('click', like);
+list.innerHTML += '<li>Nouveau film</li>';
+// le bouton (qui était dans list) ne réagit plus au clic !
+```
+
+`+=` relit **tout** le HTML, le **détruit** puis le **recrée** : les écouteurs posés sur les anciens éléments disparaissent. Utilise `append`.
+
 ## Pièges
 
 - **`innerHTML` avec des données** = faille XSS : un titre contenant `<script>` serait exécuté. Utilise `textContent`.
@@ -82,11 +100,42 @@ Tu décris le résultat, le framework fait les `classList` et `append` pour toi.
 - **Changer dix propriétés `style`** une à une : crée une classe CSS et bascule-la.
 - **Modifier le DOM d'un composant Angular / Vue à la main** : le framework peut écraser tes changements au prochain affichage.
 
+## Vérifie sans tes notes
+
+Réponds de tête, à voix haute ou par écrit, **avant** d’ouvrir la réponse.
+
+**1. Pourquoi préférer `textContent` à `innerHTML` pour afficher une donnée ?**
+
+> [!check]- Réponse
+> `textContent` affiche le texte tel quel ; `innerHTML` l'interprète comme du HTML, ce qui ouvre une faille XSS.
+
+**2. Comment ajouter une classe seulement si une condition est vraie ?**
+
+> [!check]- Réponse
+> `el.classList.toggle('classe', condition)`.
+
+**3. Que fait un framework à ta place ?**
+
+> [!check]- Réponse
+> Tu décris le résultat (le template) ; il fait les créations, classes et insertions dans le DOM, seulement là où ça change.
+
 ## Exercices
+
+> [!info] Comment t’entraîner
+> 1. Cherche seul, sans regarder la note.
+> 2. Bloqué ? Ouvre l’**indice 1**, puis l’**indice 2**.
+> 3. Seulement ensuite, la **solution**.
+> 4. Referme tout et **refais l’exercice sans regarder**.
 
 ### Exercice 1 · Afficher une liste
 
 Avec un `<ul id="list">` vide dans la page, écris la fonction `renderMovies(movies)` qui affiche un `<li>` par film au format `Dune (2021)`, sans utiliser `innerHTML`.
+
+> [!tip]- Indice 1
+> Vide d'abord la liste, puis crée un `<li>` par film avec `createElement`.
+
+> [!tip]- Indice 2
+> Le texte va dans `textContent`, et l'élément s'ajoute avec `append`.
 
 > [!success]- Solution
 > ```js
@@ -111,6 +160,12 @@ Pourquoi ce code est-il dangereux si `review.text` vient d'un utilisateur ? Corr
 card.innerHTML = `<p>${review.text}</p>`;
 ```
 
+> [!tip]- Indice 1
+> Un utilisateur peut écrire du HTML dans sa critique. Que fait `innerHTML` de ce HTML ?
+
+> [!tip]- Indice 2
+> Crée l'élément, mets le texte avec la propriété qui n'interprète rien, puis ajoute-le.
+
 > [!success]- Solution
 > Si un utilisateur écrit `<img src=x onerror="alert(document.cookie)">`, le navigateur **exécute** ce code chez tous les visiteurs : c'est une faille **XSS**.
 >
@@ -121,3 +176,38 @@ card.innerHTML = `<p>${review.text}</p>`;
 > ```
 >
 > Angular et Vue échappent automatiquement le texte dans les templates (`{{ }}`).
+
+### Transfert · Le bouton favori
+
+Un problème différent : il vérifie que tu as compris le principe, pas seulement l’exemple.
+
+Une carte `<article class="card" data-id="42">` contient `<button class="fav" aria-pressed="false">♡</button>`. Au clic, le bouton bascule entre favori et non favori : la carte gagne ou perd la classe `favorite`, le bouton affiche ♥ ou ♡, et `aria-pressed` passe à `"true"` ou `"false"`.
+
+> [!tip]- Indice 1
+> Commence par calculer le nouvel état : la carte a-t-elle déjà la classe `favorite` ?
+
+> [!tip]- Indice 2
+> `classList.toggle` renvoie le nouvel état (`true` si la classe vient d'être ajoutée).
+
+> [!success]- Solution
+> ```js
+> document.querySelectorAll('.card .fav').forEach((button) => {
+>   button.addEventListener('click', () => {
+>     const card = button.closest('.card');
+>     const isFavorite = card.classList.toggle('favorite');
+>     button.textContent = isFavorite ? '♥' : '♡';
+>     button.setAttribute('aria-pressed', String(isFavorite));
+>   });
+> });
+> ```
+
+## Je maîtrise quand…
+
+Coche quand tu sais le faire **sans aide**. Une notion n’est maîtrisée que si les 6 cases sont cochées (voir [[Methode-du-coach|Méthode du coach]]).
+
+- [ ] **Expliquer** : Expliquer pourquoi `innerHTML` est dangereux et coûteux
+- [ ] **Rappeler** : Dire de mémoire les méthodes pour créer, ajouter, supprimer un élément et changer une classe
+- [ ] **Utiliser** : Écrire l'affichage d'une liste sans modèle et sans `innerHTML`
+- [ ] **Résoudre un problème nouveau** : Prédire ce que `innerHTML +=` fait aux écouteurs existants
+- [ ] **Repérer les erreurs** : Traduire une manipulation du DOM en template Angular ou Vue
+- [ ] **Savoir quand ne pas l’utiliser** : Savoir quand ne pas manipuler le DOM à la main : dans un composant de framework

@@ -81,13 +81,56 @@ document.querySelector('ul.films').addEventListener('click', (e) => {
 
 Tu n'écris presque jamais `addEventListener` : tu écris `(click)="ajouter()"` en Angular ou `@click="ajouter"` en Vue, et le framework met à jour le DOM tout seul quand tes données changent. Si tu modifies le DOM directement dans un composant, le framework risque d'écraser tes changements.
 
+## Pourquoi ça marche
+
+Le navigateur lit le HTML et construit en mémoire un **arbre d'objets** : le DOM. Chaque balise devient un objet JavaScript avec des propriétés (`textContent`, `classList`) et des méthodes (`append`, `remove`). Modifier un objet du DOM, c'est modifier la page : le navigateur redessine.
+
+Le **bubbling** existe parce qu'un clic sur un `<li>` est aussi un clic sur la `<ul>` qui le contient : l'événement remonte donc chaque parent. C'est ce qui permet la délégation : un seul écouteur sur le parent.
+
+## Contre-exemple
+
+**Intuition fausse : « `event.target` est toujours l'élément où j'ai mis l'écouteur ».**
+
+```js
+list.addEventListener('click', (e) => {
+  console.log(e.target);   // peut être le <span> à l'intérieur du <li>, pas le <li>
+});
+```
+
+`event.target` est l'élément **réellement cliqué**, souvent un enfant. L'élément de l'écouteur est `event.currentTarget`. D'où l'usage de `e.target.closest('li')`.
+
 ## Pièges
 
 - **`innerHTML` avec un texte venant de l'utilisateur** = faille de sécurité (XSS). Utilise `textContent`. Voir [[SEC-06-XSS-CSRF|XSS et CSRF]].
 - **Script chargé avant la page** : l'élément n'existe pas encore → `null`. Mets `defer` sur ta balise `<script>`.
 - **Écouteurs jamais retirés** : ils s'accumulent en mémoire.
 
+## Vérifie sans tes notes
+
+Réponds de tête, à voix haute ou par écrit, **avant** d’ouvrir la réponse.
+
+**1. Qu'est-ce que le DOM ?**
+
+> [!check]- Réponse
+> La page HTML transformée par le navigateur en arbre d'objets que JavaScript peut lire et modifier.
+
+**2. À quoi sert `event.preventDefault()` ?**
+
+> [!check]- Réponse
+> À bloquer l'action normale du navigateur, par exemple le rechargement de la page à l'envoi d'un formulaire.
+
+**3. Pourquoi un seul écouteur sur la `<ul>` suffit-il pour tous les `<li>` ?**
+
+> [!check]- Réponse
+> Grâce au bubbling : le clic sur un enfant remonte jusqu'au parent.
+
 ## Exercices
+
+> [!info] Comment t’entraîner
+> 1. Cherche seul, sans regarder la note.
+> 2. Bloqué ? Ouvre l’**indice 1**, puis l’**indice 2**.
+> 3. Seulement ensuite, la **solution**.
+> 4. Referme tout et **refais l’exercice sans regarder**.
 
 ### Exercice 1 · Compter les clics
 
@@ -97,6 +140,12 @@ Avec cette page, écris le JavaScript qui augmente le nombre affiché à chaque 
 <button id="like">👍 J'aime</button>
 <span id="count">0</span>
 ```
+
+> [!tip]- Indice 1
+> Il faut sélectionner deux éléments (`querySelector`) et garder le nombre de clics dans une variable.
+
+> [!tip]- Indice 2
+> À chaque clic : augmente la variable, puis mets-la dans `textContent`.
 
 > [!success]- Solution
 > ```js
@@ -121,6 +170,12 @@ Une liste contient des dizaines de films. Au lieu de mettre un écouteur sur cha
 </ul>
 ```
 
+> [!tip]- Indice 1
+> L'écouteur va sur la `<ul>`. Le clic peut tomber sur un enfant du `<li>` : quelle méthode remonte jusqu'au `<li>` ?
+
+> [!tip]- Indice 2
+> L'id est dans `data-id` : il se lit avec `dataset.id`.
+
 > [!success]- Solution
 > ```js
 > document.querySelector('#movies').addEventListener('click', (event) => {
@@ -131,3 +186,38 @@ Une liste contient des dizaines de films. Au lieu de mettre un écouteur sur cha
 > ```
 >
 > C'est la **remontée des événements** (bubbling) : le clic sur un `<li>` remonte jusqu'à la `<ul>`. On parle de **délégation d'événements**. Avantage : ça marche aussi pour les `<li>` ajoutés plus tard.
+
+### Transfert · Le formulaire de recherche
+
+Un problème différent : il vérifie que tu as compris le principe, pas seulement l’exemple.
+
+Avec `<form id="search"><input name="q"><button>OK</button></form>`, affiche dans la console le texte cherché quand on envoie le formulaire (bouton ou touche Entrée), **sans** que la page se recharge. Ignore une recherche vide.
+
+> [!tip]- Indice 1
+> Quel événement couvre à la fois le clic sur le bouton et la touche Entrée ?
+
+> [!tip]- Indice 2
+> L'événement `submit`, `event.preventDefault()`, et le champ se lit avec `form.elements.q.value`.
+
+> [!success]- Solution
+> ```js
+> const form = document.querySelector('#search');
+>
+> form.addEventListener('submit', (event) => {
+>   event.preventDefault();
+>   const query = form.elements.q.value.trim();
+>   if (!query) return;
+>   console.log('Recherche :', query);
+> });
+> ```
+
+## Je maîtrise quand…
+
+Coche quand tu sais le faire **sans aide**. Une notion n’est maîtrisée que si les 6 cases sont cochées (voir [[Methode-du-coach|Méthode du coach]]).
+
+- [ ] **Expliquer** : Expliquer ce qu'est le DOM avec l'image du plan et de la maquette
+- [ ] **Rappeler** : Dire de mémoire la différence entre `target`, `preventDefault` et `stopPropagation`
+- [ ] **Utiliser** : Écrire un écouteur qui modifie la page sans modèle
+- [ ] **Résoudre un problème nouveau** : Prédire quel élément est dans `event.target` après un clic
+- [ ] **Repérer les erreurs** : Utiliser la délégation au lieu de poser cent écouteurs
+- [ ] **Savoir quand ne pas l’utiliser** : Savoir quand ne pas toucher au DOM : dans un composant Angular ou Vue, on passe par le template
