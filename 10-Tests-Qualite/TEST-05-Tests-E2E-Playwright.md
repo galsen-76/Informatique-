@@ -22,6 +22,9 @@ source: "https://playwright.dev/docs/intro"
 > [!abstract] En bref
 > Un test **end-to-end** (E2E) pilote un **vrai navigateur** comme le ferait un utilisateur : ouvrir la page, taper dans la recherche, cliquer sur un film, vérifier qu'il apparaît dans les favoris. **Playwright** est l'outil de référence. On en écrit **peu**, pour les parcours essentiels.
 
+> [!tip] Pour aller plus loin
+> Toutes les commandes, la simulation d'API, la connexion réutilisée, le Page Object et des exercices : [[TEST-09-Playwright|Playwright de A à Z]].
+
 ## Installer
 
 ```bash
