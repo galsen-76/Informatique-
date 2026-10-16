@@ -1,6 +1,5 @@
 // ⚙️ Moteur du coffre (Dataview JS). Ne pas modifier : voir 00-Accueil/Guide.md.
-const RE = /@\{(\d{4}-\d{2}-\d{2})\}/;
-const DOSSIER = { jour: "01_Daily", semaines: "01_Daily/Semaines", modeles: "_Templates", projets: "02_Projects", inbox: "00-Accueil/Inbox.md" };
+const FICHIER = { creuser: "00-Accueil/A-creuser.md", erreurs: "04_Snippets/Erreurs-resolues.md", modele: "_Templates/TPL_Base-Knowledge.md", guide: "00-Accueil/Guide.md" };
 const PALIERS = [1, 3, 7, 15, 30, 60, 120];
 const AUJ = moment().format("YYYY-MM-DD");
 function lien(parent, text, path) {
@@ -8,33 +7,7 @@ function lien(parent, text, path) {
   a.onclick = (e) => { e.preventDefault(); app.workspace.openLinkText(path, "", false); };
   return a;
 }
-async function dossier(dir) {
-  let acc = "";
-  for (const part of dir.split("/").filter(Boolean)) {
-    acc = acc ? acc + "/" + part : part;
-    if (!app.vault.getAbstractFileByPath(acc)) await app.vault.createFolder(acc);
-  }
-}
-async function creerDepuis(path, tpl, d, vars = {}, ouvrir = true) {
-  let f = app.vault.getAbstractFileByPath(path);
-  if (!f) {
-    let c = "";
-    const t = app.vault.getAbstractFileByPath(tpl);
-    if (t) c = await app.vault.read(t);
-    const title = path.split("/").pop().replace(/\.md$/, "");
-    c = c.replace(/\{\{date:([^}]+)\}\}/g, (_, fmt) => d.format(fmt))
-         .replace(/\{\{date\}\}/g, d.format("YYYY-MM-DD"))
-         .replace(/\{\{title\}\}/g, title);
-    for (const [k, v] of Object.entries(vars)) c = c.split("{{" + k + "}}").join(v);
-    await dossier(path.split("/").slice(0, -1).join("/"));
-    f = await app.vault.create(path, c);
-  }
-  if (ouvrir) await app.workspace.getLeaf(false).openFile(f);
-  return f;
-}
 function propre(s) { return String(s || "").replace(/[\\/:*?"<>|#^\[\]]/g, "").replace(/\s+/g, " ").trim(); }
-function section(t) { return String((t.section && t.section.subpath) || ""); }
-function texte(t) { return t.text.replace(RE, "").replace(/#task/g, "").replace(/\s+/g, " ").trim(); }
 function jourDe(v) { if (!v) return ""; if (v.toFormat) return v.toFormat("yyyy-MM-dd"); return String(v).slice(0, 10); }
 function titre(parent, txt) {
   const h = parent.createEl("div", { text: txt });
@@ -68,22 +41,7 @@ function ligne(parent) {
   r.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;";
   return r;
 }
-function puce(parent, t, cle) {
-  const li = parent.createEl("li");
-  li.createEl("span", { text: texte(t) + "  " });
-  const m = t.text.match(RE);
-  if (m) {
-    const chip = li.createEl("span", { text: "📌 " + moment(m[1]).format("ddd D MMM") });
-    const retard = cle && m[1] < cle;
-    chip.style.cssText = "font-size:0.8em;padding:1px 6px;border-radius:10px;margin-right:6px;" +
-      (retard ? "background:#e5484d;color:white;" : "background:var(--background-modifier-hover);");
-  }
-  const nom = t.path.split("/").pop().replace(/\.md$/, "").replace(/^Kanban[ -]/, "");
-  lien(li, "→ " + nom, t.path).style.cssText = "font-size:0.8em;color:var(--text-muted);";
-  return li;
-}
 const TOUT = dv.pages().where(p => !p.file.path.startsWith("_Templates/") && !p.file.path.startsWith("_Systeme/"));
-const KANBANS = TOUT.where(p => p["kanban-plugin"]);
 const NOTES = TOUT.where(p => p.type === "knowledge");
 const estFaite = (p) => String(p.status || "").includes("Done");
 const estEnCours = (p) => String(p.status || "").includes("In Progress");
@@ -123,35 +81,47 @@ function listeRevision(parent, notes, max, actif) {
   }
 }
 const root = dv.container;
-const now = moment();
 
 const r1 = ligne(root);
 r1.style.marginTop = "0";
-bouton(r1, "📝 Aujourd'hui", () => creerDepuis(DOSSIER.jour + "/" + now.format("YYYY-MM-DD") + ".md", DOSSIER.modeles + "/TPL_Daily-Note.md", now));
-bouton(r1, "📆 Revue semaine", () => creerDepuis(DOSSIER.semaines + "/" + now.format("GGGG-[W]WW") + ".md", DOSSIER.modeles + "/TPL_Semaine.md", now));
-bouton(r1, "📥 Inbox", () => app.workspace.openLinkText(DOSSIER.inbox, "", false));
-bouton(r1, "📖 Guide", () => app.workspace.openLinkText("00-Accueil/Guide.md", "", false));
+bouton(r1, "📖 Guide", () => app.workspace.openLinkText(FICHIER.guide, "", false));
+bouton(r1, "❓ À creuser", () => app.workspace.openLinkText(FICHIER.creuser, "", false));
+bouton(r1, "🐞 Carnet d'erreurs", () => app.workspace.openLinkText(FICHIER.erreurs, "", false));
+bouton(r1, "📊 Tableau de bord", () => app.workspace.openLinkText("00-Accueil/Tableau-de-bord.md", "", false));
 
-const r2 = ligne(root);
-const noterInbox = async () => {
-  const v = inbox.value.trim();
+async function ajouter(chemin, champ, ok) {
+  const v = champ.value.trim();
   if (!v) return;
-  const f = app.vault.getAbstractFileByPath(DOSSIER.inbox);
+  const f = app.vault.getAbstractFileByPath(chemin);
   if (!f) return;
-  await app.vault.append(f, "- " + v + " _(" + moment().format("D MMM") + ")_\n");
-  inbox.value = "";
-  inbox.placeholder = "✔ Ajouté à l'Inbox. Autre chose ?";
-};
-const inbox = champ(r2, "Une idée, une question, un truc à voir → Inbox", noterInbox);
-bouton(r2, "📥 Noter", noterInbox);
+  await app.vault.append(f, "- " + v + " _(" + moment().format("D MMM YYYY") + ")_\n");
+  champ.value = "";
+  champ.placeholder = ok;
+}
+const r2 = ligne(root);
+const question = champ(r2, "Une question, une notion à creuser…", () => ajouter(FICHIER.creuser, question, "✔ Ajouté à « À creuser ». Autre chose ?"));
+bouton(r2, "❓ Ajouter", () => ajouter(FICHIER.creuser, question, "✔ Ajouté à « À creuser ». Autre chose ?"));
 
 const r3 = ligne(root);
-const creerProjet = async () => {
-  const nom = propre(projet.value);
-  if (!nom) return;
-  const dir = DOSSIER.projets + "/" + nom;
-  await creerDepuis(dir + "/Kanban " + nom + ".md", DOSSIER.modeles + "/TPL_Kanban-Project.md", now, {}, false);
-  await creerDepuis(dir + "/" + nom + ".md", DOSSIER.modeles + "/TPL_Project.md", now);
+const erreur = champ(r3, "Erreur → cause → solution", () => ajouter(FICHIER.erreurs, erreur, "✔ Ajouté au carnet d'erreurs."));
+bouton(r3, "🐞 Ajouter", () => ajouter(FICHIER.erreurs, erreur, "✔ Ajouté au carnet d'erreurs."));
+
+const r4 = ligne(root);
+const sel = r4.createEl("select");
+sel.style.cssText = "padding:6px;border-radius:8px;max-width:45%;";
+sel.createEl("option", { text: "— Dossier —", value: "" });
+const dossiers = [...new Set(NOTES.map(p => p.file.folder).array())].sort();
+for (const d of dossiers) sel.createEl("option", { text: d.replace(/^\d+[-_]/, ""), value: d });
+const creerNote = async () => {
+  const nom = propre(titreNote.value);
+  if (!nom || !sel.value) { titreNote.placeholder = "Choisis un dossier et écris un titre"; return; }
+  const path = sel.value + "/" + nom + ".md";
+  let f = app.vault.getAbstractFileByPath(path);
+  if (!f) {
+    const t = app.vault.getAbstractFileByPath(FICHIER.modele);
+    f = await app.vault.create(path, t ? await app.vault.read(t) : "# " + nom + "\n");
+  }
+  await app.workspace.getLeaf(false).openFile(f);
 };
-const projet = champ(r3, "Nom d'un nouveau projet", creerProjet);
-bouton(r3, "➕ Projet", creerProjet);
+const titreNote = champ(r4, "Titre d'une nouvelle note de cours", creerNote);
+bouton(r4, "➕ Note", creerNote);

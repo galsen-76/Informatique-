@@ -7,38 +7,44 @@ aliases:
   - "Mode d'emploi"
 ---
 
-# 📖 Guide : comment utiliser le coffre
+# 📖 Guide : comment utiliser ce coffre
 
-> [!abstract] En une phrase
-> Tout part de l'[[Accueil]] : des boutons créent les notes à ta place, avec la bonne date. Toi, tu écris, tu coches et tu révises.
+> [!abstract] Deux coffres, deux rôles
+> - **Informatique** (celui-ci) : la **connaissance**. Des notes de cours, des révisions, des snippets, un carnet d'erreurs.
+> - **Planning** : les **projets et les journées**. Kanban, échéances, réunions, notes du jour.
+>
+> Dans Planning, tu écris *« j'ai appris X »*. Ici, tu écris *ce qu'est X*.
 
 ## ⚙️ Vérification (une seule fois par appareil)
-1. ⚙️ → Modules complémentaires : le *Mode restreint* doit être désactivé, et **Dataview**, **Kanban** et **Calendar** activés.
+1. ⚙️ → Modules complémentaires : le *Mode restreint* doit être désactivé, et **Dataview** et **Templater** activés.
 2. ⚙️ → **Dataview** → **Enable JavaScript Queries** doit être activé (déjà réglé dans le coffre).
-3. Ferme et rouvre Obsidian, puis ouvre l'[[Accueil]]. Si tu vois les boutons et le calendrier, tout marche.
+3. Ferme et rouvre Obsidian, puis ouvre l'[[Accueil]]. Si tu vois les boutons et « À réviser », tout marche.
 
 ## 🔁 La routine
 | Quand | Quoi | Temps |
 |------|------|------|
-| **Matin** | Accueil → **📝 Aujourd'hui**. Écris tes 3 priorités. Regarde 🧠 À réviser et 📌 Échéances en bas de la note. | 2 min |
-| **En apprenant** | Tu ouvres une note de cours → passe son `status` en `🟡 In Progress`. Ce que tu comprends → une ligne dans 💡 *Ce que j'ai appris* avec le lien de la note. | 10 s |
-| **Une erreur résolue** | Une ligne dans 🐞 : `npm ci EUSAGE → pas de package-lock → npm install d'abord`. | 20 s |
-| **Une idée en vrac** | Le champ **📥 Inbox** de l'Accueil, puis Entrée. | 5 s |
-| **Révision** | 🧠 À réviser : ouvre la note, fais son *rappel actif* **sans regarder**, puis **✅ Su** ou **🔁 Pas su**. | 10 min |
-| **Soir** | Remplis ✅ *Ce que j'ai fait*. Coche tes priorités faites. | 2 min |
-| **Fin de semaine** | Accueil → **📆 Revue semaine** : tout ce que tu as fait, appris et révisé s'y affiche seul. Écris ton bilan, vide l'Inbox, mets à jour tes Kanban. | 10 min |
+| **Chaque jour** | Accueil → 🧠 **À réviser** : ouvre la note, fais son *rappel actif* **sans regarder**, puis **✅ Su** ou **🔁 Pas su**. | 10 min |
+| **Tu commences une notion** | Ouvre sa note et passe son `status` en `🟡 In Progress`. Elle apparaît dans « J'apprends en ce moment ». | 5 s |
+| **Tu sais l'expliquer sans regarder** | Passe son `status` en `🟢 Done` (sa grille de maîtrise t'aide à juger). Elle entre toute seule dans les révisions. | 5 s |
+| **Une question te vient** | Champ **❓ Ajouter** de l'Accueil, puis Entrée. | 5 s |
+| **Tu résous une erreur** | Champ **🐞 Ajouter** : `message → cause → solution`. | 20 s |
+| **Une notion n'a pas de note** | Choisis le dossier, écris le titre, **➕ Note**. Le modèle te demande le format (concept, outil…). | 1 min |
+| **Une fois par semaine** | Vide [[A-creuser\|À creuser]] : chaque question devient une réponse dans une note ou une nouvelle note. | 10 min |
 
-## 📌 Les 7 règles
-1. **Une tâche de projet = une carte dans le Kanban du projet.** Jamais ailleurs.
-2. **Une échéance = `@{2026-10-20}` à la fin de la carte.** Elle apparaît dans le calendrier et la note du jour, en rouge si elle est en retard.
-3. **Tu bouges les cartes** : À faire → En cours → Fait. Ce qui est « En cours » s'affiche chaque matin.
-4. **Le statut d'une note de cours dit où tu en es** : `🔴 Not Started` → `🟡 In Progress` quand tu l'apprends → `🟢 Done` quand tu sais l'**expliquer sans regarder** (sa grille de maîtrise).
-5. **Une note 🟢 entre toute seule dans les révisions.** Su : elle revient dans 1, 3, 7, 15, 30, 60 puis 120 jours. Pas su : elle revient demain.
-6. **Ce qui n'est pas coché dans une note du jour te suit** pendant 14 jours (section ↩️).
-7. **L'Inbox est vide à la fin de chaque semaine.**
+## 📌 Les 6 règles
+1. **Une notion = une note.** Si elle existe, complète-la au lieu d'en créer une autre.
+2. **Le statut dit la vérité** : `🔴 Not Started` → `🟡 In Progress` quand tu l'apprends → `🟢 Done` quand tu sais l'**expliquer sans regarder**.
+3. **Pas plus de 5 notes 🟡 à la fois.** Finir avant de commencer.
+4. **Les révisions passent avant les nouvelles notions.** 7 par jour suffisent.
+5. **Une erreur résolue = une ligne dans le carnet.** Si elle revient, ajoute-la aussi dans les *Pièges* de sa note de cours.
+6. **Pas de tâches, de dates ni de projets ici** : ça va dans Planning.
 
 ## 🧠 Comment marchent les révisions
-Les boutons **✅ Su** et **🔁 Pas su** écrivent trois champs dans la note révisée. Tu n'as pas à y toucher :
+Une note `🟢 Done` arrive dans « À réviser ».
+- **✅ Su** : elle revient dans 1, 3, 7, 15, 30, 60, puis 120 jours.
+- **🔁 Pas su** : elle revient demain et repart du début.
+
+Les boutons écrivent trois champs dans la note. Tu n'as pas à y toucher :
 
 ```yaml
 revoir: 2026-10-23        # prochaine révision
@@ -49,10 +55,8 @@ derniere_revision: 2026-10-16
 Pour forcer une révision : mets `revoir:` à la date du jour. Pour sortir une note des révisions : repasse son `status` en `🟡 In Progress` et supprime `revoir:`.
 
 ## 🗂️ Où est quoi
-- [[Accueil]] : les boutons, le calendrier, ta journée, ta progression, tes projets.
-- `01_Daily/` : une note par jour (ta trace). `01_Daily/Semaines/` : tes revues de semaine.
-- `02_Projects/` : un dossier par projet = sa fiche + son Kanban. Nouveau projet → champ **➕ Projet** de l'Accueil.
+- [[Accueil]] : les boutons, les révisions, ce que tu apprends, ta progression, les domaines.
 - `00-` à `13-` : les notes de cours, par domaine.
-- `04_Snippets/` : les morceaux de code à garder. Une erreur résolue deux fois → un snippet.
-- [[Inbox]] : le vrac à trier.
+- `04_Snippets/` : ton code commenté et le [[Erreurs-resolues|carnet d'erreurs]].
+- [[A-creuser|À creuser]] : les questions en attente.
 - `_Templates/` et `_Systeme/` : **n'y touche pas**, c'est le moteur.

@@ -1,6 +1,5 @@
 // ⚙️ Moteur du coffre (Dataview JS). Ne pas modifier : voir 00-Accueil/Guide.md.
-const RE = /@\{(\d{4}-\d{2}-\d{2})\}/;
-const DOSSIER = { jour: "01_Daily", semaines: "01_Daily/Semaines", modeles: "_Templates", projets: "02_Projects", inbox: "00-Accueil/Inbox.md" };
+const FICHIER = { creuser: "00-Accueil/A-creuser.md", erreurs: "04_Snippets/Erreurs-resolues.md", modele: "_Templates/TPL_Base-Knowledge.md", guide: "00-Accueil/Guide.md" };
 const PALIERS = [1, 3, 7, 15, 30, 60, 120];
 const AUJ = moment().format("YYYY-MM-DD");
 function lien(parent, text, path) {
@@ -8,33 +7,7 @@ function lien(parent, text, path) {
   a.onclick = (e) => { e.preventDefault(); app.workspace.openLinkText(path, "", false); };
   return a;
 }
-async function dossier(dir) {
-  let acc = "";
-  for (const part of dir.split("/").filter(Boolean)) {
-    acc = acc ? acc + "/" + part : part;
-    if (!app.vault.getAbstractFileByPath(acc)) await app.vault.createFolder(acc);
-  }
-}
-async function creerDepuis(path, tpl, d, vars = {}, ouvrir = true) {
-  let f = app.vault.getAbstractFileByPath(path);
-  if (!f) {
-    let c = "";
-    const t = app.vault.getAbstractFileByPath(tpl);
-    if (t) c = await app.vault.read(t);
-    const title = path.split("/").pop().replace(/\.md$/, "");
-    c = c.replace(/\{\{date:([^}]+)\}\}/g, (_, fmt) => d.format(fmt))
-         .replace(/\{\{date\}\}/g, d.format("YYYY-MM-DD"))
-         .replace(/\{\{title\}\}/g, title);
-    for (const [k, v] of Object.entries(vars)) c = c.split("{{" + k + "}}").join(v);
-    await dossier(path.split("/").slice(0, -1).join("/"));
-    f = await app.vault.create(path, c);
-  }
-  if (ouvrir) await app.workspace.getLeaf(false).openFile(f);
-  return f;
-}
 function propre(s) { return String(s || "").replace(/[\\/:*?"<>|#^\[\]]/g, "").replace(/\s+/g, " ").trim(); }
-function section(t) { return String((t.section && t.section.subpath) || ""); }
-function texte(t) { return t.text.replace(RE, "").replace(/#task/g, "").replace(/\s+/g, " ").trim(); }
 function jourDe(v) { if (!v) return ""; if (v.toFormat) return v.toFormat("yyyy-MM-dd"); return String(v).slice(0, 10); }
 function titre(parent, txt) {
   const h = parent.createEl("div", { text: txt });
@@ -68,22 +41,7 @@ function ligne(parent) {
   r.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;";
   return r;
 }
-function puce(parent, t, cle) {
-  const li = parent.createEl("li");
-  li.createEl("span", { text: texte(t) + "  " });
-  const m = t.text.match(RE);
-  if (m) {
-    const chip = li.createEl("span", { text: "📌 " + moment(m[1]).format("ddd D MMM") });
-    const retard = cle && m[1] < cle;
-    chip.style.cssText = "font-size:0.8em;padding:1px 6px;border-radius:10px;margin-right:6px;" +
-      (retard ? "background:#e5484d;color:white;" : "background:var(--background-modifier-hover);");
-  }
-  const nom = t.path.split("/").pop().replace(/\.md$/, "").replace(/^Kanban[ -]/, "");
-  lien(li, "→ " + nom, t.path).style.cssText = "font-size:0.8em;color:var(--text-muted);";
-  return li;
-}
 const TOUT = dv.pages().where(p => !p.file.path.startsWith("_Templates/") && !p.file.path.startsWith("_Systeme/"));
-const KANBANS = TOUT.where(p => p["kanban-plugin"]);
 const NOTES = TOUT.where(p => p.type === "knowledge");
 const estFaite = (p) => String(p.status || "").includes("Done");
 const estEnCours = (p) => String(p.status || "").includes("In Progress");
@@ -123,34 +81,27 @@ function listeRevision(parent, notes, max, actif) {
   }
 }
 const root = dv.container;
-const cur = dv.current();
-const kb = dv.pages('"' + cur.file.folder + '"').where(p => p["kanban-plugin"]).first();
 
-if (kb) {
-  const b = root.createEl("div");
-  b.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;align-items:center;";
-  lien(b, "📋 Ouvrir le Kanban", kb.file.path).style.fontWeight = "700";
-  const cols = {};
-  for (const t of kb.file.tasks.where(t => texte(t))) {
-    const s = section(t).replace(/^[^\p{L}]+/u, "");
-    cols[s] = (cols[s] || 0) + 1;
-  }
-  discret(b, Object.entries(cols).map(([k, v]) => k + " " + v).join(" · "));
-
-  titre(root, "🔨 En cours");
-  const ec = kb.file.tasks.where(t => !t.completed && section(t).includes("En cours") && texte(t));
-  if (ec.length) { const ul = root.createEl("ul"); for (const t of ec) puce(ul, t, AUJ); }
-  else vide(root, "Rien en cours.");
-
-  titre(root, "📌 Échéances");
-  const ech = kb.file.tasks.where(t => !t.completed && RE.test(t.text)).sort(t => t.text.match(RE)[1]);
-  if (ech.length) { const ul = root.createEl("ul"); for (const t of ech) puce(ul, t, AUJ); }
-  else vide(root, "Aucune échéance. Ajoute @{AAAA-MM-JJ} à la fin d'une carte.");
-} else vide(root, "Pas de Kanban dans ce dossier.");
-
-titre(root, "📚 Notes à mobiliser");
-const liees = cur.file.outlinks.map(l => dv.page(l.path)).where(p => p && p.type === "knowledge");
-if (liees.length) {
+titre(root, "📚 J'apprends en ce moment");
+const ec = NOTES.where(estEnCours).sort(p => jourDe(p.modified), "desc");
+if (ec.length) {
   const ul = root.createEl("ul");
-  for (const p of liees) { const li = ul.createEl("li", { text: pastille(p) + " " }); lien(li, p.file.name, p.file.path); }
-} else vide(root, "Ajoute des liens [[…]] vers les notes utiles dans la section « Notes à mobiliser ».");
+  for (const p of ec.limit(10)) { const li = ul.createEl("li"); lien(li, p.file.name, p.file.path); discret(li, "  " + nomDomaine(p.file.path)); }
+  if (ec.length > 10) vide(root, "… et " + (ec.length - 10) + " autres. Moins de notes 🟡 à la fois = plus de notes 🟢.");
+} else vide(root, "Aucune note 🟡. Passe une note en « 🟡 In Progress » quand tu commences à l'apprendre.");
+
+titre(root, "🟢 Dernières notes maîtrisées");
+const ok = NOTES.where(estFaite).sort(p => jourDe(p.modified), "desc");
+if (ok.length) {
+  const ul = root.createEl("ul");
+  for (const p of ok.limit(5)) { const li = ul.createEl("li"); lien(li, p.file.name, p.file.path); discret(li, "  " + nomDomaine(p.file.path)); }
+} else vide(root, "Pas encore de note 🟢 : passe une note en « 🟢 Done » quand tu sais l'expliquer sans regarder.");
+
+titre(root, "❓ À creuser");
+const fq = app.vault.getAbstractFileByPath(FICHIER.creuser);
+const qs = fq ? (await app.vault.cachedRead(fq)).split("\n").filter(l => /^\s*-\s+\S/.test(l)) : [];
+if (qs.length) {
+  const ul = root.createEl("ul");
+  for (const l of qs.slice(-5).reverse()) dv.el("li", l.replace(/^\s*-\s+/, ""), { container: ul });
+  const d = root.createEl("div"); lien(d, "→ toutes les questions (" + qs.length + ")", FICHIER.creuser);
+} else vide(root, "Aucune question en attente.");

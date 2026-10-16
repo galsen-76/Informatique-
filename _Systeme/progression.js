@@ -1,6 +1,5 @@
 // ⚙️ Moteur du coffre (Dataview JS). Ne pas modifier : voir 00-Accueil/Guide.md.
-const RE = /@\{(\d{4}-\d{2}-\d{2})\}/;
-const DOSSIER = { jour: "01_Daily", semaines: "01_Daily/Semaines", modeles: "_Templates", projets: "02_Projects", inbox: "00-Accueil/Inbox.md" };
+const FICHIER = { creuser: "00-Accueil/A-creuser.md", erreurs: "04_Snippets/Erreurs-resolues.md", modele: "_Templates/TPL_Base-Knowledge.md", guide: "00-Accueil/Guide.md" };
 const PALIERS = [1, 3, 7, 15, 30, 60, 120];
 const AUJ = moment().format("YYYY-MM-DD");
 function lien(parent, text, path) {
@@ -8,33 +7,7 @@ function lien(parent, text, path) {
   a.onclick = (e) => { e.preventDefault(); app.workspace.openLinkText(path, "", false); };
   return a;
 }
-async function dossier(dir) {
-  let acc = "";
-  for (const part of dir.split("/").filter(Boolean)) {
-    acc = acc ? acc + "/" + part : part;
-    if (!app.vault.getAbstractFileByPath(acc)) await app.vault.createFolder(acc);
-  }
-}
-async function creerDepuis(path, tpl, d, vars = {}, ouvrir = true) {
-  let f = app.vault.getAbstractFileByPath(path);
-  if (!f) {
-    let c = "";
-    const t = app.vault.getAbstractFileByPath(tpl);
-    if (t) c = await app.vault.read(t);
-    const title = path.split("/").pop().replace(/\.md$/, "");
-    c = c.replace(/\{\{date:([^}]+)\}\}/g, (_, fmt) => d.format(fmt))
-         .replace(/\{\{date\}\}/g, d.format("YYYY-MM-DD"))
-         .replace(/\{\{title\}\}/g, title);
-    for (const [k, v] of Object.entries(vars)) c = c.split("{{" + k + "}}").join(v);
-    await dossier(path.split("/").slice(0, -1).join("/"));
-    f = await app.vault.create(path, c);
-  }
-  if (ouvrir) await app.workspace.getLeaf(false).openFile(f);
-  return f;
-}
 function propre(s) { return String(s || "").replace(/[\\/:*?"<>|#^\[\]]/g, "").replace(/\s+/g, " ").trim(); }
-function section(t) { return String((t.section && t.section.subpath) || ""); }
-function texte(t) { return t.text.replace(RE, "").replace(/#task/g, "").replace(/\s+/g, " ").trim(); }
 function jourDe(v) { if (!v) return ""; if (v.toFormat) return v.toFormat("yyyy-MM-dd"); return String(v).slice(0, 10); }
 function titre(parent, txt) {
   const h = parent.createEl("div", { text: txt });
@@ -68,22 +41,7 @@ function ligne(parent) {
   r.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;";
   return r;
 }
-function puce(parent, t, cle) {
-  const li = parent.createEl("li");
-  li.createEl("span", { text: texte(t) + "  " });
-  const m = t.text.match(RE);
-  if (m) {
-    const chip = li.createEl("span", { text: "📌 " + moment(m[1]).format("ddd D MMM") });
-    const retard = cle && m[1] < cle;
-    chip.style.cssText = "font-size:0.8em;padding:1px 6px;border-radius:10px;margin-right:6px;" +
-      (retard ? "background:#e5484d;color:white;" : "background:var(--background-modifier-hover);");
-  }
-  const nom = t.path.split("/").pop().replace(/\.md$/, "").replace(/^Kanban[ -]/, "");
-  lien(li, "→ " + nom, t.path).style.cssText = "font-size:0.8em;color:var(--text-muted);";
-  return li;
-}
 const TOUT = dv.pages().where(p => !p.file.path.startsWith("_Templates/") && !p.file.path.startsWith("_Systeme/"));
-const KANBANS = TOUT.where(p => p["kanban-plugin"]);
 const NOTES = TOUT.where(p => p.type === "knowledge");
 const estFaite = (p) => String(p.status || "").includes("Done");
 const estEnCours = (p) => String(p.status || "").includes("In Progress");

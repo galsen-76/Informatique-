@@ -16,9 +16,10 @@ aliases:
 | `00-Accueil` | Accueil, roadmap, tableau de bord, méthode, conventions |
 | `00-Conception` → `13-Intelligence-Artificielle` | Notes de connaissance, numérotées dans l'ordre logique d'apprentissage |
 | `01_Daily`, `02_Projects`, `04_Snippets` | Espaces de travail (daily notes, projets, extraits de code) |
-| `_Templates` | Modèles (notes du jour, semaine, projet, Kanban…) |
+| `_Templates` | Modèles (note de cours, snippet, fin de session…) |
 | `_Systeme` | Le moteur de l'Accueil (scripts Dataview JS) : ne pas modifier, voir [[Guide]] |
-| `00-Accueil/Inbox.md` | Le vrac à trier chaque semaine |
+| `00-Accueil/A-creuser.md` | Les questions à creuser, à traiter chaque semaine |
+| `04_Snippets/Erreurs-resolues.md` | Le carnet d'erreurs : message → cause → solution |
 
 Chaque domaine a une **note index** (MOC) portant son nom (ex. [[TypeScript]], [[Angular]]) : ordre de lecture + tableau de progression Dataview.
 
@@ -31,7 +32,7 @@ Chaque domaine a une **note index** (MOC) portant son nom (ex. [[TypeScript]], [
 ```yaml
 created: 2026-09-24          # date de création
 modified: 2026-09-24         # mis à jour par le plugin frontmatter-modified-date
-type: knowledge              # knowledge | moc | project | snippet | daily | weekly | guide
+type: knowledge              # knowledge | moc | project | snippet | daily | guide
 status: "🔴 Not Started"     # 🔴 Not Started | 🟡 In Progress | 🟢 Done
 level: Fondamental           # Fondamental | Intermédiaire | Avancé
 month: M03                   # mois de la roadmap (M01…M12, Optionnel)

@@ -9,37 +9,26 @@ aliases:
   - "Home"
 ---
 
-# 🏠 Accueil
+# 🏠 Accueil · Ma base de connaissances
+
+> [!abstract] Ce coffre
+> Tout ce que j'apprends pour devenir **développeur full stack** : front, back, et tout ce qui les relie. Ici, **uniquement la connaissance**. Mes projets et mes journées sont dans mon coffre **Planning**.
 
 ```dataviewjs
 await dv.view("_Systeme/boutons")
 ```
 
 ```dataviewjs
-await dv.view("_Systeme/calendrier")
+await dv.view("_Systeme/revision")
 ```
 
-## ☀️ Aujourd'hui
 ```dataviewjs
-await dv.view("_Systeme/jour", { aujourdhui: true })
+await dv.view("_Systeme/apprentissage")
 ```
 
 ## 📈 Ma progression
 ```dataviewjs
 await dv.view("_Systeme/progression")
-```
-
-## 🛠️ Mes projets
-```dataview
-TABLE WITHOUT ID file.link AS "Projet", status AS "Statut"
-FROM "02_Projects"
-WHERE type = "project"
-SORT status DESC, file.name ASC
-```
-
-## 📆 Mes dernières revues de semaine
-```dataview
-LIST FROM "01_Daily/Semaines" SORT file.name DESC LIMIT 4
 ```
 
 ## 📚 Domaines
@@ -60,9 +49,10 @@ LIST FROM "01_Daily/Semaines" SORT file.name DESC LIMIT 4
 | 11 | Réseaux | [[Réseaux]] |
 | 12 | Infrastructure | [[Infrastructure]] · [[Docker]] |
 | 13 | Intelligence artificielle | [[Intelligence Artificielle]] |
+| — | Code et erreurs | [[_Index-Snippets\|Snippets]] · [[Erreurs-resolues\|Carnet d'erreurs]] |
 
 ## 🧭 Repères
-- [[Guide]] : la routine et les règles du coffre (à lire en premier)
+- [[Guide]] : comment utiliser ce coffre (à lire en premier)
 - [[Methode-d-apprentissage|Méthode d'apprentissage]] et [[Methode-du-coach|Méthode du coach]] : comment apprendre
 - [[Roadmap-12-mois|Roadmap 12 mois]] : le plan d'ensemble
 - [[Tableau-de-bord|Tableau de bord]] : la progression détaillée par mois

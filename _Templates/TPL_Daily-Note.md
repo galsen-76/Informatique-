@@ -1,30 +1,59 @@
 ---
-type: daily
-date: {{date:YYYY-MM-DD}}
 tags:
   - daily
+<%*
+let d = moment(tp.file.title, "YYYY-MM-DD");
+if (!d.isValid()){
+    tR += "date: \"" + tp.file.title + "\"\n";
+} else {
+    tR += "date: " + d.format("YYYY-MM-DD") + "\n";
+    let prev, next;
+    if (d.isoWeekday() === 1) {
+        prev = moment(d).subtract(3, "days");
+    } else {
+        prev = moment(d).subtract(1, "days");
+    }
+    if (d.isoWeekday() === 5) {
+        next = moment(d).add(3, "days");
+    } else {
+        next = moment(d).add(1, "days");
+    }
+    tR += "prev: \"[[01_Daily/" + prev.format("YYYY-MM-DD") + "]]\"\n";
+    tR += "next: \"[[01_Daily/" + next.format("YYYY-MM-DD") + "]]\"\n";
+}
+tR += "type: daily\n";
+%>
 ---
-# {{date:dddd D MMMM YYYY}}
 
-## 🎯 Mes 3 priorités
-- [ ] 
-- [ ] 
-- [ ] 
+# <% tp.file.title %>
 
-## ✅ Ce que j'ai fait
-- 
+## Focus
 
-## 💡 Ce que j'ai appris
-> Mets le lien de la note concernée : `[[DOCKER-01-Fondamentaux]] : image ≠ conteneur`
-- 
-
-## 🐞 Erreurs rencontrées → solution
-- `erreur` → cause → solution
-
-## 🚧 Bloqué sur / à demander
-- 
+_What is the one thing that matters most today?_
 
 ---
-```dataviewjs
-await dv.view("_Systeme/jour")
+
+## Tasks
+> Add a task with `Ctrl+X` — type description, press Enter, then pick a date.
+> In Kanban boards, use the `+` button and `@{}` for dates instead.
+
+
+---
+
+## Notes
+
+_
+
+---
+
+## Code / Ideas
+
+```python
+
 ```
+
+---
+
+## Summary
+
+_What did I accomplish? What carries over to tomorrow?_
