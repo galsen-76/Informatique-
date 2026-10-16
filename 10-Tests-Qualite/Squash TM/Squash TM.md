@@ -25,7 +25,7 @@ Elle est organisée en trois espaces :
 
 Notes liées :
 - [[Vocabulaire du test]]
-- [[API Squash TM]]
+- [[Squash TM/API Squash TM|API Squash TM]]
 - [[Squash Orchestrator]]
 - [[Playwright]]
 - [[Squash TM et GitLab]]
@@ -167,6 +167,6 @@ Squash TM propose aussi un objet **Sprint** : des sprints de 1 à 4 semaines. Il
 | Traçabilité exigences ↔ cas de test ↔ résultats | Certaines fonctionnalités réservées aux versions payantes |
 | Version communautaire gratuite et open source | Installation et hébergement à gérer soi-même (serveur, base de données) |
 | Organisation claire (campagnes, itérations, suites) | Prise en main qui demande du temps |
-| API REST (voir [[API Squash TM]]) | |
+| API REST (voir [[Squash TM/API Squash TM\|API Squash TM]]) | |
 
 Guide : https://tm-fr.doc.squashtest.com/v8/user-guide/presentation-generale/espaces-squash.html

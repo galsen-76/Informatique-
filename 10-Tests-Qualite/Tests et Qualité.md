@@ -36,7 +36,7 @@ aliases:
 
 1. [[Squash TM]] — la note principale
 2. [[Vocabulaire du test]]
-3. [[API Squash TM]]
+3. [[Squash TM/API Squash TM|API Squash TM]]
 4. [[Squash Orchestrator]]
 5. [[Playwright]]
 6. [[Orchestrator vs API]]

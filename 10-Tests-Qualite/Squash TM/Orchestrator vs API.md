@@ -18,7 +18,7 @@ parent: "[[Squash TM]]"
 
 Pour relier des tests automatisés ([[Playwright]]) à [[Squash TM]], il y a deux solutions :
 - le **[[Squash Orchestrator]]** ;
-- l'**[[API Squash TM]]** + un script dans un pipeline GitLab CI.
+- l'**[[Squash TM/API Squash TM|API Squash TM]]** + un script dans un pipeline GitLab CI.
 
 ## 1. Avec l'Orchestrator
 
