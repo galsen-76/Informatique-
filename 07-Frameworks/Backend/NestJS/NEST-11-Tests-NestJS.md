@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[TEST-04-Tests-Integration-API|Tests d'Intégration d'API]]"
   - "[[TEST-03-Mocks-Stubs-Spies|Mocks Stubs et Spies]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/fundamentals/testing"
 ---
 

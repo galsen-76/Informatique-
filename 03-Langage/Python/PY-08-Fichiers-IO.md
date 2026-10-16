@@ -12,8 +12,6 @@ tags:
 parent: "[[Python]]"
 related_theory:
   - "[[PY-07-Exceptions|Gestion des erreurs Python]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.python.org/3/tutorial/inputoutput.html"
 ---
 

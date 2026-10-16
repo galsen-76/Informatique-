@@ -13,8 +13,6 @@ parent: "[[Backend]]"
 related_theory:
   - "[[ARCH-03-Architecture-en-Couches|Architecture en Couches]]"
   - "[[ARCH-02-Monolithe-vs-Microservices|Monolithe vs Microservices]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com"
 ---
 

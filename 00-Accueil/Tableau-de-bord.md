@@ -72,14 +72,6 @@ SORT file.mtime DESC
 LIMIT 10
 ```
 
-## Tâches ouvertes des projets
-
-```tasks
-not done
-path includes 02_Projects
-group by filename
-```
-
 ## Tâches ouvertes des notes en cours
 ```tasks
 not done

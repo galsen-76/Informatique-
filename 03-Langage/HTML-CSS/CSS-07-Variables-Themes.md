@@ -12,8 +12,6 @@ aliases:
 parent: "[[HTML-CSS]]"
 related_theory:
   - "[[CSS-08-SCSS-Sass|SCSS Sass]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties"
 ---
 
@@ -89,7 +87,7 @@ Tous les composants qui utilisent `var(--fond)` changent **en même temps**, san
 
 Si demain le vert devient bleu, `--vert: blue` n'a plus de sens. `--primaire: blue` si.
 
-Toute la charte du Portfolio : [[Portfolio-Maquette|Maquette du Portfolio]].
+Toute la charte du Portfolio : Maquette du Portfolio.
 
 ## Variables CSS ou SCSS ?
 

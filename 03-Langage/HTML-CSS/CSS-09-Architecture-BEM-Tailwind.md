@@ -12,8 +12,6 @@ aliases:
 parent: "[[HTML-CSS]]"
 related_theory:
   - "[[CSS-08-SCSS-Sass|SCSS Sass]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://tailwindcss.com/docs"
 ---
 

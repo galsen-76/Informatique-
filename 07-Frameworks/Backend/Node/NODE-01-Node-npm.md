@@ -13,8 +13,6 @@ parent: "[[Backend]]"
 related_theory:
   - "[[JS-06-Event-Loop|Event Loop JavaScript]]"
   - "[[JS-09-Modules-ESM|Modules ES JavaScript]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://nodejs.org/fr/learn"
 ---
 

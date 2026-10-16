@@ -14,8 +14,6 @@ related_theory:
   - "[[ANG-17-Deploiement-Build|Déploiement & Build Angular]]"
   - "[[NET-06-Cookies-Cache-HTTP|Cookies et Cache HTTP]]"
   - "[[NET-09-Proxy-Reverse-Proxy-Load-Balancer|Proxy Reverse Proxy et Load Balancer]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-Fullstack]]"
 source: "https://angular.dev/tools/cli/deployment"
 ---
 

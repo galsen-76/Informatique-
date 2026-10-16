@@ -13,7 +13,6 @@ parent: "[[Sécurité]]"
 related_theory:
   - "[[NEST-06-Middleware-Guards-Interceptors|Middleware Guards et Interceptors NestJS]]"
   - "[[ANG-21-Guards-Resolvers-Intercepteurs|Guards Resolvers et Intercepteurs Angular]]"
-related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html"
 ---
 

@@ -13,8 +13,6 @@ parent: "[[HTML-CSS]]"
 related_theory:
   - "[[HTML-01-Structure-Semantique|Structure HTML et Sémantique]]"
   - "[[ANG-16-i18n-Accessibilite|Internationalisation & Accessibilité Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.w3.org/WAI/standards-guidelines/wcag/fr"
 ---
 

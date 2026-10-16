@@ -14,8 +14,6 @@ related_theory:
   - "[[VUE-19-Architecture-Projet-Vue|Architecture d'un Projet Vue.js]]"
   - "[[ARCH-14-Architecture-Frontend|Architecture Frontend]]"
   - "[[ARCH-11-SOLID|SOLID]]"
-related_projects:
-  - "[[02_Projects/Portfolio]]"
 source: "https://vuejs.org/style-guide/"
 ---
 

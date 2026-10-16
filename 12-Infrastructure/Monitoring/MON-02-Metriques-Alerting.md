@@ -13,7 +13,6 @@ parent: "[[Infrastructure]]"
 related_theory:
   - "[[MON-01-Logs|Logs]]"
   - "[[ARCH-06-Scalabilite|Scalabilité]]"
-related_projects: []
 source: "https://prometheus.io/docs/introduction/overview/"
 ---
 

@@ -13,7 +13,6 @@ parent: "[[Algorithmes]]"
 related_theory:
   - "[[ALGO-01-Complexite-Big-O|Complexité Big O]]"
   - "[[JS-05-Objets-Tableaux-Methodes|Objets et Tableaux JavaScript]]"
-related_projects: []
 source: "https://leetcode.com/explore/learn/card/array-and-string/"
 ---
 

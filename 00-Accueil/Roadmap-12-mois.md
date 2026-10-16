@@ -90,7 +90,7 @@ flowchart LR
 - Outils : [[OUT-01-Terminal-Bash|Terminal et Bash]], [[OUT-04-VSCode-Productivite|VS Code et Productivité]], [[IJ-01-Interface-Fondamentaux|Interface & Fondamentaux IntelliJ IDEA]], [[OUT-06-Recherche-Documentation|Chercher et Lire la Documentation]], [[IA-07-IA-Assistee-Dev|IA Assistée au Développement]]
 - Méthodo : [[METH-01-Agile-Manifeste|Agile et Manifeste Agile]], [[METH-02-Scrum|Scrum]], [[METH-03-Kanban|Kanban]], [[METH-05-Resolution-Problemes-Debug|Résolution de Problèmes et Débogage]]
 
-**Livrable :** démarrage du [[02_Projects/Portfolio|Portfolio]] en **Vue 3 + TypeScript + PrimeVue** : projet créé, structure comprise, layout généré avec l'IA puis relu, dépôt GitLab avec commits conventionnels. En parallèle, exercices de sélection/manipulation du DOM dans la console.
+**Livrable :** démarrage du Portfolio en **Vue 3 + TypeScript + PrimeVue** : projet créé, structure comprise, layout généré avec l'IA puis relu, dépôt GitLab avec commits conventionnels. En parallèle, exercices de sélection/manipulation du DOM dans la console.
 **Point de contrôle :** je sélectionne et modifie n'importe quel élément du DOM sans aide, je repère une balise mal choisie dans du HTML généré, et je résous un conflit Git seul.
 
 ### M2 · Novembre — JavaScript en profondeur + premiers algorithmes
@@ -112,7 +112,7 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 
 ### M4 · Janvier — Angular I : les fondations modernes
 **Notes :** ANG-01 → ANG-10, [[UI-Librairies-Interfaces-Rapides|Librairies UI pour interfaces rapides]], [[ANG-18-Cycle-de-Vie|Cycle de vie des composants Angular]], [[ANG-19-Communication-Composants|Communication parent-enfant Angular]], [[ANG-20-Pipes|Pipes Angular]]
-**Livrable :** [[02_Projects/CinéTrack|CinéTrack]] (Angular + **API TMDB** + PrimeNG) : films populaires, recherche, fiche détail avec casting, filtre par genre, favoris en localStorage, formulaire réactif « ajouter une critique ».
+**Livrable :** CinéTrack (Angular + **API TMDB** + PrimeNG) : films populaires, recherche, fiche détail avec casting, filtre par genre, favoris en localStorage, formulaire réactif « ajouter une critique ».
 **Point de contrôle :** composants standalone + signals + `@if/@for`, services injectés, routing avec paramètres, HttpClient + gestion d'erreurs, recherche avec `debounceTime` + `switchMap`.
 
 ### M5 · Février — Angular II : niveau confirmé
@@ -122,7 +122,7 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 
 ### M6 · Mars — Vue 3 en profondeur (la 2e stack de l'entreprise)
 **Notes :** toute la section [[Vue]] (VUE-01 → VUE-21) + [[Angular-vs-Vue|Angular vs Vue Correspondances]]
-**Livrable :** [[02_Projects/CinéTrack-Vue|CinéTrack-Vue]] : mêmes fonctionnalités en Vue 3 + TS + Pinia + Vue Router + Vitest.
+**Livrable :** CinéTrack-Vue : mêmes fonctionnalités en Vue 3 + TS + Pinia + Vue Router + Vitest.
 **Point de contrôle :** je passe d'Angular à Vue sans confusion (`.value` vs `()`, composable vs service) ; je sais expliquer `ref`/`reactive`, `computed`/`watch`, props/emits/slots, Pinia.
 
 ---
@@ -136,7 +136,7 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 
 ### M8 · Mai — NestJS + Prisma
 **Notes :** NEST-01 → NEST-05, NEST-08, NEST-09, ORM-01 → ORM-03, [[BDD-03-Transactions-ACID|Transactions et ACID]], [[BDD-04-Indexation-Performance|Indexation et Performance SQL]], [[BDD-05-Migrations|Migrations de Base de Données]], [[BDD-08-ORM-Concepts-N-plus-1|ORM Concepts et Problème N+1]], [[BDD-06-NoSQL-MongoDB|NoSQL et MongoDB]], [[BDD-09-PostgreSQL-Pratique|PostgreSQL en Pratique]]
-**Livrable :** [[02_Projects/CinéTrack-API|CinéTrack-API]] v1 : NestJS + Prisma + PostgreSQL, CRUD films/critiques/favoris, DTO validés, pagination, migrations, seed. Le front Angular consomme l'API.
+**Livrable :** CinéTrack-API v1 : NestJS + Prisma + PostgreSQL, CRUD films/critiques/favoris, DTO validés, pagination, migrations, seed. Le front Angular consomme l'API.
 **Point de contrôle :** controller/service/repository bien séparés ; aucune requête N+1 ; migrations propres.
 
 ### M9 · Juin — Sécurité et API avancée
@@ -155,12 +155,12 @@ Algo : [[ALGO-01-Complexite-Big-O|Complexité Big O]], [[ALGO-02-Tableaux-Chaine
 
 ### M11 · Août — DevOps, cloud et observabilité
 **Notes :** section [[Docker]], [[LNX-01-Linux-Essentiels|Linux Essentiels]], [[LNX-02-Permissions-Processus-Services|Permissions Processus et Services Linux]], toute la sous-section CI/CD, Cloud, Monitoring de [[Infrastructure]], [[NET-08-Pare-feu-Securite-Reseau|Pare-feu et Sécurité Réseau]], [[NET-09-Proxy-Reverse-Proxy-Load-Balancer|Proxy Reverse Proxy et Load Balancer]], [[NET-12-Linux-et-Reseau|Linux et Réseau]], [[03-CI-CD|CI/CD GitLab]], [[05-GitLab-Avance|GitLab Avancé]], [[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]
-**Livrable :** [[02_Projects/CinéTrack-Fullstack|CinéTrack-Fullstack]] : monorepo, images Docker multi-stage, pipeline GitLab complet, déploiement HTTPS (VPS ou PaaS), logs structurés, Sentry, sauvegardes.
+**Livrable :** CinéTrack-Fullstack : monorepo, images Docker multi-stage, pipeline GitLab complet, déploiement HTTPS (VPS ou PaaS), logs structurés, Sentry, sauvegardes.
 **Point de contrôle :** une MR mergée part en recette automatiquement ; je sais diagnostiquer un incident avec logs/métriques.
 
 ### M12 · Septembre — IA, entretiens et projet final
 **Notes :** toute la section [[Intelligence Artificielle]], [[ALGO-09-Techniques-Resolution|Techniques de Résolution d'Algorithmes]], révision des notes « Questions d'entretien »
-**Livrable :** [[02_Projects/Capstone|Capstone]] (fonctionnalité IA : résumé de critiques / recherche sémantique pgvector / temps réel), portfolio mis à jour avec tous les projets, CV technique, bilan des 12 mois.
+**Livrable :** Capstone (fonctionnalité IA : résumé de critiques / recherche sémantique pgvector / temps réel), portfolio mis à jour avec tous les projets, CV technique, bilan des 12 mois.
 **Point de contrôle :** simulation d'entretien technique (algo + conception + questions Angular/Vue/Nest) ; présentation de CinéTrack en 10 minutes.
 
 ---

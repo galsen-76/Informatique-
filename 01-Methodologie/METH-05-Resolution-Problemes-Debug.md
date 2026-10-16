@@ -13,7 +13,6 @@ parent: "[[Méthodologie]]"
 related_theory:
   - "[[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]]"
   - "[[OUT-06-Recherche-Documentation|Chercher et Lire la Documentation]]"
-related_projects: []
 source: "https://jvns.ca/blog/2022/12/08/a-debugging-manifesto/"
 ---
 

@@ -13,7 +13,6 @@ parent: "[[Tests et Qualité]]"
 related_theory:
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]"
   - "[[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]"
-related_projects: []
 source: "https://playwright.dev/docs/intro"
 ---
 

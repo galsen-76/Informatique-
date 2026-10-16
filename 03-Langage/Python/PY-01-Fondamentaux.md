@@ -12,8 +12,6 @@ tags:
 parent: "[[Python]]"
 related_theory:
   - "[[TS-01-Fondamentaux|TypeScript - Fondamentaux]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.python.org/3/"
 ---
 

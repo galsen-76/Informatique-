@@ -29,7 +29,7 @@ flowchart LR
   F --> A
 ```
 
-1. **Pars du projet.** Chaque projet de `02_Projects` liste ses tâches et, pour chacune, les notes utiles.
+1. **Pars du projet.** Tes projets vivent dans ton coffre **Planning** : chaque tâche indique la note utile d'ici.
 2. **Lis juste ce qu'il faut.** Le « En bref » + l'exemple suffisent souvent. Le reste sert quand tu bloques.
 3. **Tape le code toi-même** dans ton projet (jamais de copier-coller aveugle, y compris depuis l'IA).
 4. **Écris avec tes mots** ce que tu as compris : une ligne dans la note ou un snippet dans `04_Snippets`.

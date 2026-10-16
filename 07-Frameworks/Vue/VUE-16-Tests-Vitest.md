@@ -13,8 +13,6 @@ parent: "[[Vue]]"
 related_theory:
   - "[[TEST-02-Tests-Unitaires-Vitest-Jest|Tests Unitaires avec Vitest et Jest]]"
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://test-utils.vuejs.org/guide/"
 ---
 

@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[TS-19-Validation-Runtime-Zod|Validation runtime avec Zod]]"
   - "[[SEC-08-Injection-SQL-Validation|Injection SQL et Validation des Entrées]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/techniques/validation"
 ---
 

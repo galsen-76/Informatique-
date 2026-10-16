@@ -12,7 +12,6 @@ aliases:
 parent: "[[Git]]"
 related_theory:
   - "[[01-GitLab|Fondamentaux GitLab]]"
-related_projects: []
 source: "https://git-scm.com/book/fr/v2"
 ---
 

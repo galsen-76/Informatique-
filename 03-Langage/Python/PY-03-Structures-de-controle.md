@@ -12,8 +12,6 @@ tags:
 parent: "[[Python]]"
 related_theory:
   - "[[PY-01-Fondamentaux|Fondamentaux Python]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.python.org/3/tutorial/controlflow.html"
 ---
 

@@ -13,7 +13,6 @@ parent: "[[Infrastructure]]"
 related_theory:
   - "[[CLOUD-01-Fondamentaux-Cloud|Fondamentaux du Cloud]]"
   - "[[CICD-01-Fondamentaux|Fondamentaux CI/CD]]"
-related_projects: []
 source: "https://developer.hashicorp.com/terraform/intro"
 ---
 

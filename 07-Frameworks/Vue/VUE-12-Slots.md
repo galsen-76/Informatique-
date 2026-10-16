@@ -12,8 +12,6 @@ aliases:
 parent: "[[Vue]]"
 related_theory:
   - "[[VUE-03-Composants-SFC|Composants & SFC Vue.js]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/components/slots.html"
 ---
 

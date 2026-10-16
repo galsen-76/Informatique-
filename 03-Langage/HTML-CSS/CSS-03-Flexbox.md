@@ -12,8 +12,6 @@ aliases:
 parent: "[[HTML-CSS]]"
 related_theory:
   - "[[CSS-02-Box-Model|Box Model CSS]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
 ---
 

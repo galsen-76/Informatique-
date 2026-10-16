@@ -13,8 +13,6 @@ parent: "[[SQL]]"
 related_theory:
   - "[[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]]"
   - "[[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/ddl-constraints.html"
 ---
 

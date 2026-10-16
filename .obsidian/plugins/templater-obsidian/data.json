@@ -22,10 +22,6 @@
   "enable_file_templates": true,
   "file_templates": [
     {
-      "regex": "01_Daily/\\d{4}-\\d{2}-\\d{2}",
-      "template": "_Templates/TPL_Daily-Note.md"
-    },
-    {
       "regex": "00_Dashboard/.*",
       "template": "_Templates/TPL_Dashboard.md"
     },
@@ -36,10 +32,6 @@
     {
       "regex": "04_Snippets/.*",
       "template": "_Templates/TPL_Snippet.md"
-    },
-    {
-      "regex": "02_Projects/.*",
-      "template": "_Templates/TPL_Project.md"
     }
   ],
   "syntax_highlighting": true,

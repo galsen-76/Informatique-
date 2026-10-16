@@ -13,7 +13,6 @@ parent: "[[Sécurité]]"
 related_theory:
   - "[[NEST-10-Authentification-JWT|Authentification JWT NestJS]]"
   - "[[SEC-09-HTTPS-TLS|HTTPS et TLS]]"
-related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html"
 ---
 

@@ -13,7 +13,6 @@ parent: "[[Sécurité]]"
 related_theory:
   - "[[NEST-08-Configuration-Environnements|Configuration et Environnements NestJS]]"
   - "[[03-CI-CD|CI/CD GitLab]]"
-related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
 ---
 

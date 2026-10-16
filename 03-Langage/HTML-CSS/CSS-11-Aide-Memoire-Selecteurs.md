@@ -13,7 +13,6 @@ parent: "[[HTML-CSS]]"
 related_theory:
   - "[[CSS-01-Selecteurs-Cascade-Specificite|Sélecteurs Cascade et Spécificité CSS]]"
   - "[[JS-14-Selectionner-Elements-DOM|Sélectionner des Éléments du DOM]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/CSS/CSS_selectors"
 ---
 

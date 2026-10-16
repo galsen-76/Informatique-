@@ -13,7 +13,6 @@ parent: "[[Algorithmes]]"
 related_theory:
   - "[[ALGO-02-Tableaux-Chaines|Tableaux et Chaînes]]"
   - "[[JS-06-Event-Loop|Event Loop JavaScript]]"
-related_projects: []
 source: "https://www.geeksforgeeks.org/stack-data-structure/"
 ---
 

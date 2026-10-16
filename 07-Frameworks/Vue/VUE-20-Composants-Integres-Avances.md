@@ -13,8 +13,6 @@ parent: "[[Vue]]"
 related_theory:
   - "[[VUE-04-Directives-Templates|Directives & Templates Vue.js]]"
   - "[[CSS-06-Positionnement-Z-Index|Positionnement et Z-Index CSS]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/built-ins/teleport.html"
 ---
 

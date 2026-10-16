@@ -12,8 +12,6 @@ aliases:
 parent: "[[SQL]]"
 related_theory:
   - "[[SQL-04-Agregation-GROUP-BY|Agrégation et GROUP BY]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/queries-with.html"
 ---
 

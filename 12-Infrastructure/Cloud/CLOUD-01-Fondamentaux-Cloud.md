@@ -11,7 +11,6 @@ aliases:
   - "Fondamentaux du Cloud"
 parent: "[[Infrastructure]]"
 related_theory: []
-related_projects: []
 source: "https://aws.amazon.com/fr/what-is-cloud-computing/"
 ---
 

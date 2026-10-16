@@ -13,8 +13,6 @@ parent: "[[Théorie Générale]]"
 related_theory:
   - "[[JS-02-Types-Coercition-Egalite|Types et Coercition JavaScript]]"
   - "[[ANG-11-Detection-de-changement|Détection de Changement Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Memory_management"
 ---
 

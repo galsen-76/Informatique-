@@ -13,8 +13,6 @@ parent: "[[Python]]"
 related_theory:
   - "[[PY-04-Fonctions|Fonctions Python]]"
   - "[[PY-07-Exceptions|Gestion des erreurs Python]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.pytest.org/"
 ---
 

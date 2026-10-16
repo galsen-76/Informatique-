@@ -13,8 +13,6 @@ parent: "[[Angular]]"
 related_theory:
   - "[[ANG-10-Signals|Signals Angular]]"
   - "[[ANG-08-RxJS|Programmation Réactive RxJS Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/signals"
 ---
 

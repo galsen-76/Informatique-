@@ -13,7 +13,6 @@ parent: "[[Algorithmes]]"
 related_theory:
   - "[[ALGO-07-Tri|Algorithmes de Tri]]"
   - "[[BDD-04-Indexation-Performance|Indexation et Performance SQL]]"
-related_projects: []
 source: "https://leetcode.com/explore/learn/card/binary-search/"
 ---
 

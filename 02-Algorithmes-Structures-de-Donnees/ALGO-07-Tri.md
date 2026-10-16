@@ -13,7 +13,6 @@ parent: "[[Algorithmes]]"
 related_theory:
   - "[[ALGO-01-Complexite-Big-O|Complexité Big O]]"
   - "[[ALGO-02-Tableaux-Chaines|Tableaux et Chaînes]]"
-related_projects: []
 source: "https://visualgo.net/fr/sorting"
 ---
 

@@ -12,7 +12,6 @@ aliases:
 parent: "[[Tests et Qualité]]"
 related_theory:
   - "[[TEST-06-TDD|TDD]]"
-related_projects: []
 source: "https://martinfowler.com/articles/practical-test-pyramid.html"
 ---
 

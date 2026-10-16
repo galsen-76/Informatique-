@@ -13,8 +13,6 @@ parent: "[[Bases de Données]]"
 related_theory:
   - "[[CONC-07-Modelisation-Donnees-MCD-MLD|Modélisation des Données MCD MLD]]"
   - "[[SQL-07-DDL-Contraintes-Types|DDL Contraintes et Types SQL]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://fr.wikipedia.org/wiki/Forme_normale_(bases_de_donn%C3%A9es_relationnelles)"
 ---
 

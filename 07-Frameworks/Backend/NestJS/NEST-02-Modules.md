@@ -12,8 +12,6 @@ aliases:
 parent: "[[NestJS]]"
 related_theory:
   - "[[NEST-01-Fondamentaux|Fondamentaux NestJS]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/modules"
 ---
 

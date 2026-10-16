@@ -14,7 +14,6 @@ related_theory:
   - "[[TG-05-Paradigmes-POO|Programmation Orientée Objet]]"
   - "[[NEST-04-Providers-DI|Providers et Injection de Dépendances NestJS]]"
   - "[[ARCH-07-Design-Patterns-Fondamentaux|Design Patterns Fondamentaux]]"
-related_projects: []
 source: "https://fr.wikipedia.org/wiki/SOLID_(informatique)"
 ---
 

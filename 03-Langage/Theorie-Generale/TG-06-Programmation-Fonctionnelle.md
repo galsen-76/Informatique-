@@ -13,8 +13,6 @@ parent: "[[Théorie Générale]]"
 related_theory:
   - "[[PY-12-Fonctionnel-Lambda|Programmation Fonctionnelle Lambda Python]]"
   - "[[JS-05-Objets-Tableaux-Methodes|Objets et Tableaux JavaScript]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"
 ---
 

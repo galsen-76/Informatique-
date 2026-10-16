@@ -13,8 +13,6 @@ parent: "[[Angular]]"
 related_theory:
   - "[[HTML-03-Accessibilite-Web|Accessibilité Web]]"
   - "[[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://material.angular.dev"
 ---
 

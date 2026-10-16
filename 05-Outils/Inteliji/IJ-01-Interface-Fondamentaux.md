@@ -11,8 +11,6 @@ tags:
   - outils/intellij/fondamentaux
 parent: "[[IntelliJ IDEA]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.jetbrains.com/help/idea/"
 ---
 

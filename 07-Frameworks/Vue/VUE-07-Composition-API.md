@@ -11,8 +11,6 @@ tags:
   - frameworks/vue/composition-api
 parent: "[[Vue]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack-Vue]]"
 source: "https://vuejs.org/guide/reusability/composables.html"
 ---
 

@@ -14,7 +14,6 @@ related_theory:
   - "[[METH-03-Kanban|Kanban]]"
   - "[[METH-02-Scrum|Scrum]]"
   - "[[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]"
-related_projects: []
 source: "https://docs.gitlab.com/user/project/issues/"
 ---
 

@@ -13,8 +13,6 @@ parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-05-Classes|Classes TypeScript]]"
   - "[[ANG-02-Composants|Composants Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/decorators.html"
 ---
 

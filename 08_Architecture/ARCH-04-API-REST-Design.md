@@ -13,8 +13,6 @@ parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[ANG-09-HTTP-Communication-Serveur|HTTP et Communication Serveur]]"
   - "[[ARCH-03-Architecture-en-Couches|Architecture en Couches]]"
-related_projects:
-  - "[[02_Projects/app-planification-sprints]]"
 source: "https://restfulapi.net/"
 ---
 

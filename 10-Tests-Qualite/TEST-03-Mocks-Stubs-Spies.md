@@ -13,7 +13,6 @@ parent: "[[Tests et Qualité]]"
 related_theory:
   - "[[TEST-02-Tests-Unitaires-Vitest-Jest|Tests Unitaires avec Vitest et Jest]]"
   - "[[NEST-04-Providers-DI|Providers et Injection de Dépendances NestJS]]"
-related_projects: []
 source: "https://martinfowler.com/articles/mocksArentStubs.html"
 ---
 

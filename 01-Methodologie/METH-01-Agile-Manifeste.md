@@ -12,7 +12,6 @@ aliases:
 parent: "[[Méthodologie]]"
 related_theory:
   - "[[CONC-01-Recueil-des-Besoins|Recueil des Besoins et Cahier des Charges]]"
-related_projects: []
 source: "https://agilemanifesto.org/iso/fr/manifesto.html"
 ---
 

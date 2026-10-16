@@ -13,7 +13,6 @@ parent: "[[Réseaux]]"
 related_theory:
   - "[[NET-01-Fondamentaux-OSI-TCP-IP|Fondamentaux Réseaux Modèles OSI et TCP IP]]"
   - "[[NET-07-HTTP2-HTTP3|HTTP2 et HTTP3]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Glossary/TCP"
 ---
 

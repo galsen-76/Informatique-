@@ -12,8 +12,6 @@ aliases:
 parent: "[[Vue]]"
 related_theory:
   - "[[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/ecosystem/"
 ---
 

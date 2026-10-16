@@ -12,8 +12,6 @@ aliases:
 parent: "[[NestJS]]"
 related_theory:
   - "[[NET-10-WebSockets-SSE|WebSockets et Server-Sent Events]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/websockets/gateways"
 ---
 

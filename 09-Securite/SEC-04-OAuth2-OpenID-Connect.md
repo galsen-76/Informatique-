@@ -13,7 +13,6 @@ parent: "[[Sécurité]]"
 related_theory:
   - "[[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]"
   - "[[SEC-11-Autorisation-RBAC|Autorisation RBAC]]"
-related_projects: []
 source: "https://oauth.net/2/"
 ---
 

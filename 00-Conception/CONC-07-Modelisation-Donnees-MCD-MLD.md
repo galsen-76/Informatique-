@@ -13,7 +13,6 @@ parent: "[[Conception]]"
 related_theory:
   - "[[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]]"
   - "[[CONC-04-UML-Diagramme-de-Classes|UML Diagramme de Classes]]"
-related_projects: []
 source: "https://fr.wikipedia.org/wiki/Merise_(informatique)"
 ---
 

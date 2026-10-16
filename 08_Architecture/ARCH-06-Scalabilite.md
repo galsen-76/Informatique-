@@ -13,8 +13,6 @@ parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[ARCH-02-Monolithe-vs-Microservices|Monolithe vs Microservices]]"
   - "[[TG-04-Synchrone-vs-Asynchrone|Concurrence Parallelisme]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://en.wikipedia.org/wiki/Scalability"
 ---
 

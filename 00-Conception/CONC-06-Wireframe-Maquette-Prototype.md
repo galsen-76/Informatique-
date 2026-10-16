@@ -13,7 +13,6 @@ parent: "[[Conception]]"
 related_theory:
   - "[[HTML-01-Structure-Semantique|Structure HTML et Sémantique]]"
   - "[[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]]"
-related_projects: []
 source: "https://help.figma.com/"
 ---
 
@@ -30,7 +29,7 @@ source: "https://help.figma.com/"
 | **Maquette** | le rendu final | valider le visuel | Figma |
 | **Prototype** | maquette cliquable | tester le parcours | Figma |
 
-Exemple : ta [[Portfolio-Maquette|maquette du portfolio]].
+Exemple : ta maquette du portfolio.
 
 ## De la maquette au code, en 4 étapes
 

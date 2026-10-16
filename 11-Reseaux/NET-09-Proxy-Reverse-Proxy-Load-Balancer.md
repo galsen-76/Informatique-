@@ -14,7 +14,6 @@ related_theory:
   - "[[CLOUD-02-Heberger-Front|Héberger un Front]]"
   - "[[ARCH-06-Scalabilite|Scalabilité]]"
   - "[[SEC-09-HTTPS-TLS|HTTPS et TLS]]"
-related_projects: []
 source: "https://nginx.org/en/docs/"
 ---
 

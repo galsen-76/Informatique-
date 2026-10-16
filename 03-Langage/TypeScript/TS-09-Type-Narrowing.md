@@ -12,8 +12,6 @@ tags:
 parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-07-Union-Intersection|Union et Intersection Types]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html"
 ---
 

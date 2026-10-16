@@ -14,7 +14,6 @@ related_theory:
   - "[[ARCH-04-API-REST-Design|API REST Design]]"
   - "[[JS-10-Fetch-JSON-HTTP|Fetch API et JSON]]"
   - "[[SEC-07-CORS-Same-Origin|CORS et Same-Origin Policy]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/HTTP"
 ---
 

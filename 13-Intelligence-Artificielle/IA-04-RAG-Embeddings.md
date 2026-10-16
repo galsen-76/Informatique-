@@ -13,7 +13,6 @@ parent: "[[Intelligence Artificielle]]"
 related_theory:
   - "[[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]"
   - "[[BDD-09-PostgreSQL-Pratique|PostgreSQL en Pratique]]"
-related_projects: []
 source: "https://docs.anthropic.com/fr/docs/build-with-claude/embeddings"
 ---
 

@@ -13,7 +13,6 @@ parent: "[[Méthodologie]]"
 related_theory:
   - "[[METH-01-Agile-Manifeste|Agile et Manifeste Agile]]"
   - "[[04-Issues-Boards|Issues et Boards GitLab]]"
-related_projects: []
 source: "https://www.atlassian.com/fr/agile/kanban"
 ---
 
@@ -62,7 +61,7 @@ Beaucoup d'équipes mélangent : sprints Scrum **et** tableau Kanban.
 
 ## Pour tes projets
 
-- Un **board GitLab** (voir [[04-Issues-Boards|Issues et Boards]]) ou le plugin Kanban du coffre (modèle `TPL_Kanban-Project`).
+- Un **board GitLab** (voir [[04-Issues-Boards|Issues et Boards]]) ou le plugin Kanban de ton coffre **Planning**.
 - **Maximum 2 tâches en cours** : une principale, une de secours si tu es bloqué.
 - Pour l'apprentissage aussi : « À apprendre | En cours (max 2) | Utilisé dans un projet ».
 

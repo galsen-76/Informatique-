@@ -11,8 +11,6 @@ tags:
   - infrastructure/docker/volumes
 parent: "[[Docker]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.docker.com/storage/volumes/"
 ---
 

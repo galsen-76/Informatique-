@@ -13,8 +13,6 @@ parent: "[[HTML-CSS]]"
 related_theory:
   - "[[CSS-03-Flexbox|Flexbox CSS]]"
   - "[[CSS-04-Grid|Grid CSS]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://web.dev/learn/design"
 ---
 

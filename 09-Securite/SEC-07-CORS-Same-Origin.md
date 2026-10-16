@@ -13,7 +13,6 @@ parent: "[[Sécurité]]"
 related_theory:
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
   - "[[NEST-01-Fondamentaux|Fondamentaux NestJS]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/HTTP/CORS"
 ---
 

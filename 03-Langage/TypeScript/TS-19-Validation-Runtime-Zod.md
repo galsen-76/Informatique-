@@ -13,8 +13,6 @@ parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-16-Assertions-satisfies-unknown|Assertions satisfies et unknown]]"
   - "[[NEST-05-DTO-Validation-Pipes|DTO et Validation NestJS]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://zod.dev"
 ---
 

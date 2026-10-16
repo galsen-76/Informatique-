@@ -13,7 +13,6 @@ parent: "[[Infrastructure]]"
 related_theory:
   - "[[LNX-01-Linux-Essentiels|Linux Essentiels]]"
   - "[[DK-02-Dockerfile|Dockerfile]]"
-related_projects: []
 source: "https://linuxjourney.com/lesson/file-permissions"
 ---
 

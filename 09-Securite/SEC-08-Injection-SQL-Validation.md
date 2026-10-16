@@ -14,7 +14,6 @@ related_theory:
   - "[[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]]"
   - "[[NEST-05-DTO-Validation-Pipes|DTO et Validation NestJS]]"
   - "[[ORM-02-Prisma-Client-Requetes-Relations|Prisma Client Requêtes et Relations]]"
-related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
 ---
 

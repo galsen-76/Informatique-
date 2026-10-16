@@ -13,7 +13,6 @@ parent: "[[Intelligence Artificielle]]"
 related_theory:
   - "[[IA-05-APIs-LLM|APIs de LLM]]"
   - "[[IA-04-RAG-Embeddings|RAG et Embeddings]]"
-related_projects: []
 source: "https://www.anthropic.com/engineering/building-effective-agents"
 ---
 

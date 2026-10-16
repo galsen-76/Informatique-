@@ -11,8 +11,6 @@ aliases:
   - "Comment fonctionne un programme"
 parent: "[[Théorie Générale]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://fr.wikipedia.org/wiki/Compilateur"
 ---
 

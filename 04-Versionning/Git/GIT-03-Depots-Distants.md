@@ -13,7 +13,6 @@ parent: "[[Git]]"
 related_theory:
   - "[[01-GitLab|Fondamentaux GitLab]]"
   - "[[02-Merge-Requests|Merge Requests]]"
-related_projects: []
 source: "https://git-scm.com/book/fr/v2/Les-bases-de-Git-Travailler-avec-des-d%C3%A9p%C3%B4ts-distants"
 ---
 

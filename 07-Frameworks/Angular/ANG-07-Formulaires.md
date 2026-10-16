@@ -11,8 +11,6 @@ tags:
   - frameworks/angular/formulaires
 parent: "[[Angular]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/forms"
 ---
 

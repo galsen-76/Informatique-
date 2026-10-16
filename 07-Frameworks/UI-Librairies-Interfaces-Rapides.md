@@ -14,8 +14,6 @@ related_theory:
   - "[[ANG-29-Angular-Material-CDK|Angular Material et CDK]]"
   - "[[VUE-21-Ecosysteme-UI-Vue|Écosystème UI Vue.js]]"
   - "[[CSS-09-Architecture-BEM-Tailwind|Architecture CSS BEM et Tailwind]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://primeng.org"
 ---
 
@@ -58,7 +56,7 @@ createApp(App)
   .mount('#app');
 ```
 
-La couleur verte du Portfolio : voir la configuration « Avec PrimeVue » dans [[Portfolio-Maquette|Maquette du Portfolio]].
+La couleur verte du Portfolio : voir la configuration « Avec PrimeVue » dans Maquette du Portfolio.
 
 ```vue
 <script setup lang="ts">

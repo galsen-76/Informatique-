@@ -13,7 +13,6 @@ parent: "[[Réseaux]]"
 related_theory:
   - "[[SEC-01-Fondamentaux-Securite|Fondamentaux de la Sécurité]]"
   - "[[SEC-09-HTTPS-TLS|HTTPS et TLS]]"
-related_projects: []
 source: "https://fr.wikipedia.org/wiki/Pare-feu_(informatique)"
 ---
 

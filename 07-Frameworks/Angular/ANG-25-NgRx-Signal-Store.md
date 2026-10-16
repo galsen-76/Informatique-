@@ -13,8 +13,6 @@ parent: "[[Angular]]"
 related_theory:
   - "[[ANG-12-State-Management|State Management Angular]]"
   - "[[ANG-23-Signals-Avances|Signals Avancés Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://ngrx.io/guide/signals"
 ---
 

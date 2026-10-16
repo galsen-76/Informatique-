@@ -14,7 +14,6 @@ related_theory:
   - "[[JS-09-Modules-ESM|Modules ES JavaScript]]"
   - "[[NODE-01-Node-npm|Node.js et npm]]"
   - "[[TG-01-Comment-fonctionne-un-programme|Comment fonctionne un programme]]"
-related_projects: []
 source: "https://vite.dev/guide/"
 ---
 

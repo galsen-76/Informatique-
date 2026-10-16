@@ -14,8 +14,6 @@ related_theory:
   - "[[ANG-06-Routing|Routing Angular]]"
   - "[[ANG-09-HTTP-Communication-Serveur|HTTP & Communication Serveur Angular]]"
   - "[[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/routing/route-guards"
 ---
 

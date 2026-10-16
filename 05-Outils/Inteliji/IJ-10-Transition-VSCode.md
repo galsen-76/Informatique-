@@ -11,8 +11,6 @@ tags:
   - outils/intellij/transition-vscode
 parent: "[[IntelliJ IDEA]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.jetbrains.com/help/idea/migrating-from-vscode.html"
 ---
 

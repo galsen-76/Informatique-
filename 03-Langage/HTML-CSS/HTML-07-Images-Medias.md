@@ -13,7 +13,6 @@ parent: "[[HTML-CSS]]"
 related_theory:
   - "[[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]]"
   - "[[CSS-05-Responsive-Design|Responsive Design]]"
-related_projects: []
 source: "https://web.dev/learn/images"
 ---
 

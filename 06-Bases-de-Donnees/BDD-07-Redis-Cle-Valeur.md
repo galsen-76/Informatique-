@@ -13,8 +13,6 @@ parent: "[[Bases de Données]]"
 related_theory:
   - "[[ARCH-09-Cache-Performance|Cache et Performance]]"
   - "[[NEST-13-Cache-Queues-Taches|Cache Queues et Tâches Planifiées NestJS]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://redis.io/docs/latest/"
 ---
 

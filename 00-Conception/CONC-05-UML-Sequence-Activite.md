@@ -13,7 +13,6 @@ parent: "[[Conception]]"
 related_theory:
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
   - "[[NEST-10-Authentification-JWT|Authentification JWT NestJS]]"
-related_projects: []
 source: "https://mermaid.js.org/syntax/sequenceDiagram.html"
 ---
 

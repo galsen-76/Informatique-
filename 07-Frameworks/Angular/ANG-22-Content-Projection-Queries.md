@@ -12,8 +12,6 @@ aliases:
 parent: "[[Angular]]"
 related_theory:
   - "[[ANG-19-Communication-Composants|Communication parent-enfant Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/components/content-projection"
 ---
 

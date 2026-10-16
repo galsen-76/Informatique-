@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]"
   - "[[ORM-02-Prisma-Client-Requetes-Relations|Prisma Client Requêtes et Relations]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/recipes/prisma"
 ---
 

@@ -11,8 +11,6 @@ tags:
   - frameworks/vue/props-emits
 parent: "[[Vue]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack-Vue]]"
 source: "https://vuejs.org/guide/components/props.html"
 ---
 

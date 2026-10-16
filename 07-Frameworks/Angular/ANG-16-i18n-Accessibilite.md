@@ -11,8 +11,6 @@ tags:
   - frameworks/angular/i18n-a11y
 parent: "[[Angular]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/i18n"
 ---
 

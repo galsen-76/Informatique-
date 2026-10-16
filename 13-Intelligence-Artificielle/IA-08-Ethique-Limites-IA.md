@@ -13,7 +13,6 @@ parent: "[[Intelligence Artificielle]]"
 related_theory:
   - "[[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]"
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
-related_projects: []
 source: "https://artificialintelligenceact.eu/fr/"
 ---
 

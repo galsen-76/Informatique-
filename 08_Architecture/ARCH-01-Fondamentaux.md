@@ -12,8 +12,6 @@ tags:
 parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[TG-05-Paradigmes-POO|Paradigmes de Programmation]]"
-related_projects:
-  - "[[02_Projects/app-planification-sprints]]"
 source: "https://en.wikipedia.org/wiki/Software_architecture"
 ---
 

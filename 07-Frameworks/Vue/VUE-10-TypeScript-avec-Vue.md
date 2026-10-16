@@ -13,8 +13,6 @@ parent: "[[Vue]]"
 related_theory:
   - "[[VUE-05-Props-Emits|Props & Emits Vue.js (Communication Parent-Enfant)]]"
   - "[[TS-17-Fichiers-Declaration-Types-Tiers|Fichiers de Déclaration et Types Tiers]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/typescript/composition-api.html"
 ---
 

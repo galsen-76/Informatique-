@@ -13,7 +13,6 @@ parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[ARCH-12-Clean-Architecture-Hexagonale|Architecture Hexagonale et Clean Architecture]]"
   - "[[ARCH-02-Monolithe-vs-Microservices|Monolithe vs Microservices]]"
-related_projects: []
 source: "https://martinfowler.com/bliki/DomainDrivenDesign.html"
 ---
 

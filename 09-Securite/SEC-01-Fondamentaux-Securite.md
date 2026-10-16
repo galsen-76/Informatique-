@@ -11,7 +11,6 @@ aliases:
   - "Fondamentaux de la Sécurité"
 parent: "[[Sécurité]]"
 related_theory: []
-related_projects: []
 source: "https://cheatsheetseries.owasp.org/"
 ---
 

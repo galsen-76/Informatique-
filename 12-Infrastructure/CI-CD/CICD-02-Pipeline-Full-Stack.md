@@ -14,8 +14,6 @@ related_theory:
   - "[[CICD-01-Fondamentaux|Fondamentaux CI/CD]]"
   - "[[03-CI-CD|CI/CD GitLab]]"
   - "[[DK-08-Multi-stage-Builds|Multi-stage Builds Docker]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-Fullstack]]"
 source: "https://docs.gitlab.com/ci/yaml/"
 ---
 

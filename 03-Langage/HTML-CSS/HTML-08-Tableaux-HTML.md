@@ -13,7 +13,6 @@ parent: "[[HTML-CSS]]"
 related_theory:
   - "[[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]]"
   - "[[UI-Librairies-Interfaces-Rapides|Librairies UI pour Interfaces Rapides]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Learn/HTML/Tables"
 ---
 

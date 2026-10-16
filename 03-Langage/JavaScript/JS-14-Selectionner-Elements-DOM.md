@@ -14,7 +14,6 @@ related_theory:
   - "[[JS-08-DOM-Evenements|DOM et Événements JavaScript]]"
   - "[[HTML-05-Attributs-Globaux-Data|Attributs HTML et data]]"
   - "[[CSS-01-Selecteurs-Cascade-Specificite|Sélecteurs Cascade et Spécificité CSS]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/API/Document/querySelector"
 ---
 

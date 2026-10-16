@@ -13,7 +13,6 @@ parent: "[[Conception]]"
 related_theory:
   - "[[METH-02-Scrum|Scrum]]"
   - "[[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]"
-related_projects: []
 source: "https://www.mountaingoatsoftware.com/agile/planning-poker"
 ---
 

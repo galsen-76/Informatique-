@@ -13,7 +13,6 @@ parent: "[[Réseaux]]"
 related_theory:
   - "[[NET-02-Adresses-IP-Ports|Adresses IP et Ports]]"
   - "[[CLOUD-02-Heberger-Front|Héberger un Front]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Glossary/DNS"
 ---
 

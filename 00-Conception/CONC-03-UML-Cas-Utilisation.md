@@ -12,7 +12,6 @@ aliases:
 parent: "[[Conception]]"
 related_theory:
   - "[[CONC-02-User-Stories-Criteres-Acceptation|User Stories et Critères d'Acceptation]]"
-related_projects: []
 source: "https://www.uml-diagrams.org/use-case-diagrams.html"
 ---
 

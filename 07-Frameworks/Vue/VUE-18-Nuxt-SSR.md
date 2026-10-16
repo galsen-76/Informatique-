@@ -13,8 +13,6 @@ parent: "[[Vue]]"
 related_theory:
   - "[[VUE-08-Vue-Router|Vue Router]]"
   - "[[VUE-15-Appels-API|Appels API Vue.js]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://nuxt.com/docs/getting-started/introduction"
 ---
 

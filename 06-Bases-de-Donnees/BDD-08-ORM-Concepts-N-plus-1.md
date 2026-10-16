@@ -13,8 +13,6 @@ parent: "[[Bases de Données]]"
 related_theory:
   - "[[ORM-03-Comparatif-ORM-TypeScript|Comparatif ORM TypeScript]]"
   - "[[ORM-02-Prisma-Client-Requetes-Relations|Prisma Client Requêtes et Relations]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.prisma.io/docs/orm/prisma-client/queries/query-optimization-performance"
 ---
 

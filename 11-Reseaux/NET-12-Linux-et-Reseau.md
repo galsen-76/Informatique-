@@ -14,7 +14,6 @@ related_theory:
   - "[[LNX-01-Linux-Essentiels|Linux Essentiels]]"
   - "[[NET-08-Pare-feu-Securite-Reseau|Pare-feu et Sécurité Réseau]]"
   - "[[NET-11-Outils-Diagnostic|Outils de Diagnostic Réseau]]"
-related_projects: []
 source: "https://wiki.archlinux.org/title/Network_configuration"
 ---
 

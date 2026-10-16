@@ -13,7 +13,6 @@ parent: "[[Méthodologie]]"
 related_theory:
   - "[[CONC-08-ADR-Architecture-Decision-Records|Architecture Decision Records ADR]]"
   - "[[NEST-12-OpenAPI-Swagger|OpenAPI et Swagger NestJS]]"
-related_projects: []
 source: "https://diataxis.fr/"
 ---
 

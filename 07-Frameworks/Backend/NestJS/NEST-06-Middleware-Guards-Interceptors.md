@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[ANG-21-Guards-Resolvers-Intercepteurs|Guards Resolvers et Intercepteurs Angular]]"
   - "[[SEC-11-Autorisation-RBAC|Autorisation RBAC]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/guards"
 ---
 

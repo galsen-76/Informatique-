@@ -14,7 +14,6 @@ related_theory:
   - "[[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]]"
   - "[[VUE-19-Architecture-Projet-Vue|Architecture d'un Projet Vue.js]]"
   - "[[ARCH-02-Monolithe-vs-Microservices|Monolithe vs Microservices]]"
-related_projects: []
 source: "https://martinfowler.com/articles/micro-frontends.html"
 ---
 

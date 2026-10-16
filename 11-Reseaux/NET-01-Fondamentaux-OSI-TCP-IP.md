@@ -11,7 +11,6 @@ aliases:
   - "Fondamentaux Réseaux Modèles OSI et TCP IP"
 parent: "[[Réseaux]]"
 related_theory: []
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Learn/Common_questions/Web_mechanics/How_does_the_Internet_work"
 ---
 

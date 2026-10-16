@@ -13,7 +13,6 @@ parent: "[[Tests et Qualité]]"
 related_theory:
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]"
   - "[[ARCH-10-Clean-Code|Clean Code]]"
-related_projects: []
 source: "https://martinfowler.com/bliki/TestDrivenDevelopment.html"
 ---
 

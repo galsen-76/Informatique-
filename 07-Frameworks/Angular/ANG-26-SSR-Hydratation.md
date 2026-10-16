@@ -13,8 +13,6 @@ parent: "[[Angular]]"
 related_theory:
   - "[[ANG-17-Deploiement-Build|Déploiement & Build Angular]]"
   - "[[ANG-15-Performance-Bonnes-Pratiques|Performance & Bonnes Pratiques Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/ssr"
 ---
 

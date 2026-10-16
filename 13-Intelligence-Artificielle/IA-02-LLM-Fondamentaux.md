@@ -12,7 +12,6 @@ aliases:
 parent: "[[Intelligence Artificielle]]"
 related_theory:
   - "[[IA-01-Fondamentaux-IA-ML|Fondamentaux IA et Machine Learning]]"
-related_projects: []
 source: "https://docs.anthropic.com/fr/docs/intro-to-claude"
 ---
 

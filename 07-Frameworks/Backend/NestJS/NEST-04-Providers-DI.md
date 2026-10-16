@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[TG-05-Paradigmes-POO|Programmation Orientée Objet]]"
   - "[[ARCH-11-SOLID|SOLID]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/providers"
 ---
 

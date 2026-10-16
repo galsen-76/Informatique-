@@ -12,7 +12,6 @@ aliases:
 parent: "[[Git]]"
 related_theory:
   - "[[GIT-02-Branches-Merge-Rebase|Branches Merge et Rebase]]"
-related_projects: []
 source: "https://git-scm.com/book/fr/v2/Les-branches-avec-Git-Branches-et-fusions%C2%A0%3A-les-bases"
 ---
 

@@ -14,7 +14,6 @@ related_theory:
   - "[[JS-14-Selectionner-Elements-DOM|Sélectionner des Éléments du DOM]]"
   - "[[JS-08-DOM-Evenements|DOM et Événements JavaScript]]"
   - "[[SEC-06-XSS-CSRF|XSS et CSRF]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/API/Element"
 ---
 

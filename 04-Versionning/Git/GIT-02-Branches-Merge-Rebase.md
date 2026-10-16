@@ -13,7 +13,6 @@ parent: "[[Git]]"
 related_theory:
   - "[[GIT-01-Fondamentaux|Git Fondamentaux]]"
   - "[[GIT-04-Conflits|Résoudre les Conflits Git]]"
-related_projects: []
 source: "https://git-scm.com/book/fr/v2/Les-branches-avec-Git-Rebaser-Rebasing"
 ---
 

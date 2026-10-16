@@ -13,7 +13,6 @@ parent: "[[Tests et Qualité]]"
 related_theory:
   - "[[02-Merge-Requests|Merge Requests]]"
   - "[[ARCH-10-Clean-Code|Clean Code]]"
-related_projects: []
 source: "https://google.github.io/eng-practices/review/"
 ---
 

@@ -12,8 +12,6 @@ tags:
 parent: "[[Python]]"
 related_theory:
   - "[[PY-06-Modules-Packages|Modules et Packages Python]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: https://docs.python.org/3/library/venv.html
 ---
 

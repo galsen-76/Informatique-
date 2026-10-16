@@ -13,8 +13,6 @@ parent: "[[JavaScript]]"
 related_theory:
   - "[[JS-05-Objets-Tableaux-Methodes|Objets et Tableaux JavaScript]]"
   - "[[JS-07-Promises-Async-Await|Promises et Async Await JavaScript]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://github.com/tc39/proposals/blob/main/finished-proposals.md"
 ---
 
