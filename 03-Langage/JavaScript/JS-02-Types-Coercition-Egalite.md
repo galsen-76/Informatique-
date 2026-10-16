@@ -24,14 +24,14 @@ source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Data_structures"
 
 ## Les types
 
-| Type | Exemple | À savoir |
-|---|---|---|
-| `string` | `'Inception'` | du texte |
-| `number` | `42`, `3.14` | entiers et décimaux, un seul type |
-| `boolean` | `true`, `false` | |
-| `undefined` | | « pas encore de valeur » |
-| `null` | | « volontairement vide » |
-| objet | `{ titre: 'Dune' }`, `[1, 2]`, fonctions, `Date` | tout le reste |
+| Type        | Exemple                                          | À savoir                          |
+| ----------- | ------------------------------------------------ | --------------------------------- |
+| `string`    | `'Inception'`                                    | du texte                          |
+| `number`    | `42`, `3.14`                                     | entiers et décimaux, un seul type |
+| `boolean`   | `true`, `false`                                  |                                   |
+| `undefined` |                                                  | « pas encore de valeur »          |
+| `null`      |                                                  | « volontairem no ent vide »       |
+| objet       | `{ titre: 'Dune' }`, `[1, 2]`, fonctions, `Date` | tout le reste                     |
 
 (`bigint` et `symbol` existent aussi, mais tu les croiseras rarement.)
 

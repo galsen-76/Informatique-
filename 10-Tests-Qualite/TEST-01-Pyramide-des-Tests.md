@@ -31,11 +31,11 @@ flowchart TB
   E2E --> INT --> U
 ```
 
-| Niveau | Teste | Exemple CinéTrack | Durée | Outil |
-|---|---|---|---|---|
-| **Unitaire** | une fonction, un service, un composant, **isolés** | le mapper `toMovie`, le filtre, le store | millisecondes | Vitest |
-| **Intégration** | plusieurs pièces **ensemble** | `POST /reviews` avec la vraie base | secondes | Supertest, Testcontainers |
-| **E2E** | l'application **entière** comme un utilisateur | « je cherche un film, je l'ajoute en favori » | dizaines de secondes | Playwright |
+| Niveau          | Teste                                              | Exemple CinéTrack                             | Durée                | Outil                     |
+| --------------- | -------------------------------------------------- | --------------------------------------------- | -------------------- | ------------------------- |
+| **Unitaire**    | une fonction, un service, un composant, **isolés** | le mapper `toMovie`, le filtre, le store      | millisecondes        | Vitest                    |
+| **Intégration** | plusieurs pièces **ensemble**                      | `POST /reviews` avec la vraie base            | secondes             | Supertest, Testcontainers |
+| **E2E**         | l'application **entière** comme un utilisateur     | « je cherche un film, je l'ajoute en favori » | dizaines de secondes | Playwright                |
 
 ## Pourquoi cette forme
 

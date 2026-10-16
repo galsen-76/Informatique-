@@ -55,19 +55,19 @@ Ce que tu dois savoir **faire**, pas seulement connaître :
 
 ### 6. Erreurs et confusions fréquentes
 
-| Confusion | La bonne idée | Note |
-|---|---|---|
-| `==` / `===` | toujours `===` | [[JS-02-Types-Coercition-Egalite\|Types]] |
-| `\|\|` / `??` | `??` pour une valeur par défaut | [[JS-02-Types-Coercition-Egalite\|Types]] |
-| `f` / `f()` | sans parenthèses = la fonction, avec = son résultat | [[JS-03-Fonctions-Scope-Closures\|Fonctions]] |
-| closure = copie | closure = **lien** vers la variable | [[JS-03-Fonctions-Scope-Closures\|Fonctions]] |
-| `this` = l'objet où la méthode est écrite | `this` = qui **appelle** | [[JS-04-this-Prototypes-Classes\|this]] |
-| `find` / `filter` | un élément (ou `undefined`) / un tableau | [[JS-05-Objets-Tableaux-Methodes\|Tableaux]] |
-| `sort` / `toSorted` | `sort` modifie l'original | [[JS-05-Objets-Tableaux-Methodes\|Tableaux]] |
-| `setTimeout(f, 0)` = maintenant | = dès que tout le reste est fini | [[JS-06-Event-Loop\|Event loop]] |
-| `fetch` lève une erreur sur 404 | non : il faut tester `res.ok` | [[JS-10-Fetch-JSON-HTTP\|Fetch]] |
-| `querySelectorAll` = tableau | c'est une `NodeList` | [[JS-14-Selectionner-Elements-DOM\|Sélectionner]] |
-| `innerHTML` / `textContent` | `textContent` pour toute donnée | [[JS-15-Manipuler-le-DOM\|Manipuler]] |
+| Confusion                                 | La bonne idée                                       | Note                                              |
+| ----------------------------------------- | --------------------------------------------------- | ------------------------------------------------- |
+| `==` / `===`                              | toujours `===`                                      | [[JS-02-Types-Coercition-Egalite\|Types]]         |
+| `\|\|` / `??`                             | `??` pour une valeur par défaut                     | [[JS-02-Types-Coercition-Egalite\|Types]]         |
+| `f` / `f()`                               | sans parenthèses = la fonction, avec = son résultat | [[JS-03-Fonctions-Scope-Closures\|Fonctions]]     |
+| closure = copie                           | closure = **lien** vers la variable                 | [[JS-03-Fonctions-Scope-Closures\|Fonctions]]     |
+| `this` = l'objet où la méthode est écrite | `this` = qui **appelle**                            | [[JS-04-this-Prototypes-Classes\|this]]           |
+| `find` / `filter`                         | un élément (ou `undefined`) / un tableau            | [[JS-05-Objets-Tableaux-Methodes\|Tableaux]]      |
+| `sort` / `toSorted`                       | `sort` modifie l'original                           | [[JS-05-Objets-Tableaux-Methodes\|Tableaux]]      |
+| `setTimeout(f, 0)` = maintenant           | = dès que tout le reste est fini                    | [[JS-06-Event-Loop\|Event loop]]                  |
+| `fetch` lève une erreur sur 404           | non : il faut tester `res.ok`                       | [[JS-10-Fetch-JSON-HTTP\|Fetch]]                  |
+| `querySelectorAll` = tableau              | c'est une `NodeList`                                | [[JS-14-Selectionner-Elements-DOM\|Sélectionner]] |
+| `innerHTML` / `textContent`               | `textContent` pour toute donnée                     | [[JS-15-Manipuler-le-DOM\|Manipuler]]             |
 
 ### 7. Prérequis
 - Les bases du HTML et des sélecteurs CSS → [[HTML-01-Structure-Semantique|Structure HTML]], [[CSS-01-Selecteurs-Cascade-Specificite|Sélecteurs CSS]]
