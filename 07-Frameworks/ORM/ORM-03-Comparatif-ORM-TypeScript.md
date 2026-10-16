@@ -12,8 +12,6 @@ aliases:
 parent: "[[ORM]]"
 related_theory:
   - "[[BDD-08-ORM-Concepts-N-plus-1|ORM Concepts et Problème N+1]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://orm.drizzle.team"
 ---
 

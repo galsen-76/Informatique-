@@ -12,8 +12,6 @@ tags:
 parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-03-Interfaces-Types|Interfaces et Types]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/utility-types.html"
 ---
 

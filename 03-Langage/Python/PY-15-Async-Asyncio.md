@@ -12,8 +12,6 @@ tags:
 parent: "[[Python]]"
 related_theory:
   - "[[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.python.org/3/library/asyncio.html"
 ---
 

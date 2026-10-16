@@ -12,8 +12,6 @@ tags:
 parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[ARCH-06-Scalabilite|Scalabilite]]"
-related_projects:
-  - "[[02_Projects/app-planification-sprints]]"
 source: "https://en.wikipedia.org/wiki/Cache_(computing)"
 ---
 

@@ -13,8 +13,6 @@ parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-11-Modules|Modules TypeScript]]"
   - "[[TS-12-Configuration-tsconfig|Configuration (tsconfig.json)]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html"
 ---
 

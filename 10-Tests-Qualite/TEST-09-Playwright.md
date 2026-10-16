@@ -14,8 +14,6 @@ related_theory:
   - "[[TEST-05-Tests-E2E-Playwright|Tests E2E avec Playwright]]"
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des tests]]"
   - "[[TEST-03-Mocks-Stubs-Spies|Mocks]]"
-related_projects:
-  - "[[02_Projects/CinéTrack|CinéTrack]]"
 source: "https://playwright.dev/docs/intro"
 ---
 

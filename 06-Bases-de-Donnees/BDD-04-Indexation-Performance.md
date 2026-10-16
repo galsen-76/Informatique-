@@ -13,8 +13,6 @@ parent: "[[Bases de Données]]"
 related_theory:
   - "[[ARCH-09-Cache-Performance|Cache et Performance]]"
   - "[[SQL-02-Filtrer-Trier-Paginer|Filtrer Trier et Paginer en SQL]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://use-the-index-luke.com/fr"
 ---
 

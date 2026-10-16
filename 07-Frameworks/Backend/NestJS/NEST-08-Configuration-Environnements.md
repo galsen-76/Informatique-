@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
   - "[[ANG-17-Deploiement-Build|Déploiement & Build Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/techniques/configuration"
 ---
 

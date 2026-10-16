@@ -14,7 +14,6 @@ related_theory:
   - "[[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]]"
   - "[[JS-08-DOM-Evenements|DOM et Événements JavaScript]]"
   - "[[JS-11-Stockage-Navigateur|Stockage Navigateur]]"
-related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
 ---
 

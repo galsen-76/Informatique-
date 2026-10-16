@@ -13,7 +13,6 @@ parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[TG-08-Lisibilite-Nommage|Lisibilité et Nommage du Code]]"
   - "[[TEST-07-Code-Review|Code Review]]"
-related_projects: []
 source: "https://refactoring.guru/fr/refactoring/smells"
 ---
 

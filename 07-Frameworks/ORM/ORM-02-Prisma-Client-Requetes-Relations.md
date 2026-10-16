@@ -14,8 +14,6 @@ related_theory:
   - "[[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]"
   - "[[SQL-03-Jointures|Jointures SQL]]"
   - "[[BDD-08-ORM-Concepts-N-plus-1|ORM Concepts et Problème N+1]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.prisma.io/docs/orm/prisma-client/queries"
 ---
 

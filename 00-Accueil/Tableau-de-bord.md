@@ -13,6 +13,12 @@ aliases:
 
 > [!info] Nécessite le plugin **Dataview** (déjà installé). Mettre à jour le champ `status` de chaque note : `🔴 Not Started` → `🟡 In Progress` → `🟢 Done`.
 
+## Par domaine
+
+```dataviewjs
+await dv.view("_Systeme/progression")
+```
+
 ## Progression globale
 
 ```dataview
@@ -64,14 +70,6 @@ TABLE WITHOUT ID file.link AS "Note", file.mtime AS "Modifiée"
 WHERE type = "knowledge"
 SORT file.mtime DESC
 LIMIT 10
-```
-
-## Tâches ouvertes des projets
-
-```tasks
-not done
-path includes 02_Projects
-group by filename
 ```
 
 ## Tâches ouvertes des notes en cours

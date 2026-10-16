@@ -13,8 +13,6 @@ parent: "[[Frameworks]]"
 related_theory:
   - "[[ANG-01-Fondamentaux|Fondamentaux Angular]]"
   - "[[VUE-01-Fondamentaux|Fondamentaux Vue.js]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/introduction.html"
 ---
 

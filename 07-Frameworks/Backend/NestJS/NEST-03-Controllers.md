@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[ARCH-04-API-REST-Design|API REST Design]]"
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/controllers"
 ---
 

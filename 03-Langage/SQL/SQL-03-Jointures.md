@@ -13,8 +13,6 @@ parent: "[[SQL]]"
 related_theory:
   - "[[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]]"
   - "[[ORM-02-Prisma-Client-Requetes-Relations|Prisma Client Requêtes et Relations]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/queries-table-expressions.html"
 ---
 

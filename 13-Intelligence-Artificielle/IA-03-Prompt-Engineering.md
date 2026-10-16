@@ -13,7 +13,6 @@ parent: "[[Intelligence Artificielle]]"
 related_theory:
   - "[[IA-02-LLM-Fondamentaux|Fondamentaux des LLM]]"
   - "[[IA-07-IA-Assistee-Dev|IA Assistée au Développement]]"
-related_projects: []
 source: "https://docs.anthropic.com/fr/docs/build-with-claude/prompt-engineering/overview"
 ---
 

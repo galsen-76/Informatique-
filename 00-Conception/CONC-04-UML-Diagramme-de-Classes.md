@@ -13,7 +13,6 @@ parent: "[[Conception]]"
 related_theory:
   - "[[TG-05-Paradigmes-POO|Programmation Orientée Objet]]"
   - "[[CONC-07-Modelisation-Donnees-MCD-MLD|Modélisation des Données MCD MLD]]"
-related_projects: []
 source: "https://mermaid.js.org/syntax/classDiagram.html"
 ---
 

@@ -12,8 +12,6 @@ aliases:
 parent: "[[JavaScript]]"
 related_theory:
   - "[[JS-02-Types-Coercition-Egalite|Types et Coercition JavaScript]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array"
 ---
 

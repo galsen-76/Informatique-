@@ -14,7 +14,6 @@ related_theory:
   - "[[MON-01-Logs|Logs]]"
   - "[[MON-02-Metriques-Alerting|Métriques et Alerting]]"
   - "[[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]]"
-related_projects: []
 source: "https://opentelemetry.io/docs/"
 ---
 

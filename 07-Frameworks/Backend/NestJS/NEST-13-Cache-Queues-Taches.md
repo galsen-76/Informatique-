@@ -14,8 +14,6 @@ related_theory:
   - "[[ARCH-09-Cache-Performance|Cache et Performance]]"
   - "[[BDD-07-Redis-Cle-Valeur|Redis Cache Clé-Valeur]]"
   - "[[ARCH-08-Architecture-Evenementielle|Architecture Événementielle]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/techniques/queues"
 ---
 

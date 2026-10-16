@@ -13,7 +13,6 @@ parent: "[[Tests et Qualité]]"
 related_theory:
   - "[[OUT-03-ESLint-Prettier-Qualite|ESLint Prettier et Hooks]]"
   - "[[03-CI-CD|CI/CD GitLab]]"
-related_projects: []
 source: "https://docs.sonarsource.com/sonarqube-server/latest/"
 ---
 

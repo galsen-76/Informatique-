@@ -13,7 +13,6 @@ parent: "[[Algorithmes]]"
 related_theory:
   - "[[ALGO-01-Complexite-Big-O|Complexité Big O]]"
   - "[[BDD-07-Redis-Cle-Valeur|Redis Cache Clé-Valeur]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Map"
 ---
 

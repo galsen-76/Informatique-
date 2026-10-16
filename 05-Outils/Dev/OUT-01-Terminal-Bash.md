@@ -12,7 +12,6 @@ aliases:
 parent: "[[Outils]]"
 related_theory:
   - "[[LNX-01-Linux-Essentiels|Linux Essentiels]]"
-related_projects: []
 source: https://www.gnu.org/software/bash/manual/
 ---
 

@@ -13,8 +13,6 @@ parent: "[[Python]]"
 related_theory:
   - "[[PY-02-Structures-de-donnees|Structures de donnees]]"
   - "[[PY-03-Structures-de-controle|Structures de controle]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions"
 ---
 

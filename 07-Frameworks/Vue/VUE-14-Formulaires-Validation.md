@@ -13,8 +13,6 @@ parent: "[[Vue]]"
 related_theory:
   - "[[VUE-04-Directives-Templates|Directives & Templates Vue.js]]"
   - "[[TS-19-Validation-Runtime-Zod|Validation runtime avec Zod]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vee-validate.logaretm.com/v4/"
 ---
 

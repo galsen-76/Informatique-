@@ -14,8 +14,6 @@ related_theory:
   - "[[ANG-28-Architecture-Projet-Angular|Architecture d'un Projet Angular]]"
   - "[[ARCH-14-Architecture-Frontend|Architecture Frontend]]"
   - "[[ARCH-11-SOLID|SOLID]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/style-guide"
 ---
 

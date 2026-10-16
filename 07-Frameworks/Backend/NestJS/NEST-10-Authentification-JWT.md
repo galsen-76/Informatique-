@@ -14,8 +14,6 @@ related_theory:
   - "[[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]"
   - "[[SEC-05-Hachage-Mots-de-Passe|Hachage des Mots de Passe]]"
   - "[[SEC-04-OAuth2-OpenID-Connect|OAuth2 et OpenID Connect]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/security/authentication"
 ---
 

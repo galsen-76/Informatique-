@@ -13,8 +13,6 @@ parent: "[[Théorie Générale]]"
 related_theory:
   - "[[PY-05-POO-Classes|POO Classes Python]]"
   - "[[ARCH-07-Design-Patterns-Fondamentaux|Design Patterns Fondamentaux]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_objet"
 ---
 

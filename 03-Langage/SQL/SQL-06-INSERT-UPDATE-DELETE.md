@@ -12,8 +12,6 @@ aliases:
 parent: "[[SQL]]"
 related_theory:
   - "[[BDD-03-Transactions-ACID|Transactions et ACID]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/dml.html"
 ---
 

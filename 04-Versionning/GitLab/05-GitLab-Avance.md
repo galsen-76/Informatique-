@@ -14,7 +14,6 @@ related_theory:
   - "[[03-CI-CD|CI/CD GitLab]]"
   - "[[DK-06-Registry-Docker-Hub|Registry & Docker Hub]]"
   - "[[SEC-02-OWASP-Top-10|Vulnérabilités OWASP Top 10]]"
-related_projects: []
 source: "https://docs.gitlab.com/user/application_security/"
 ---
 

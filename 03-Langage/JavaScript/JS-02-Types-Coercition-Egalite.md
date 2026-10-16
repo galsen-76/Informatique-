@@ -12,8 +12,6 @@ aliases:
 parent: "[[JavaScript]]"
 related_theory:
   - "[[JS-01-Fondamentaux|Fondamentaux JavaScript]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Data_structures"
 ---
 
@@ -30,7 +28,7 @@ source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Data_structures"
 | `number`    | `42`, `3.14`                                     | entiers et décimaux, un seul type |
 | `boolean`   | `true`, `false`                                  |                                   |
 | `undefined` |                                                  | « pas encore de valeur »          |
-| `null`      |                                                  | « volontairem no ent vide »       |
+| `null`      |                                                  | « volontairement vide »           |
 | objet       | `{ titre: 'Dune' }`, `[1, 2]`, fonctions, `Date` | tout le reste                     |
 
 (`bigint` et `symbol` existent aussi, mais tu les croiseras rarement.)

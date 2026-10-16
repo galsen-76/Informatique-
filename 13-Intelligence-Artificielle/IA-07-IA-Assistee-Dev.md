@@ -14,7 +14,6 @@ related_theory:
   - "[[IA-03-Prompt-Engineering|Prompt Engineering]]"
   - "[[TEST-07-Code-Review|Code Review]]"
   - "[[OUT-06-Recherche-Documentation|Chercher et Lire la Documentation]]"
-related_projects: []
 source: "https://docs.anthropic.com/fr/docs/claude-code/overview"
 ---
 

@@ -16,10 +16,6 @@ related_theory:
   - "[[ARCH-03-Architecture-en-Couches|Architecture en Couches]]"
   - "[[ANG-30-Template-Architecture-Angular|Template d'Architecture Angular]]"
   - "[[VUE-22-Template-Architecture-Vue|Template d'Architecture Vue]]"
-related_projects:
-  - "[[02_Projects/Portfolio]]"
-  - "[[02_Projects/CinéTrack]]"
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://angular.dev/style-guide"
 ---
 

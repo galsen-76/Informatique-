@@ -12,8 +12,6 @@ aliases:
 parent: "[[SQL]]"
 related_theory:
   - "[[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/tutorial-select.html"
 ---
 

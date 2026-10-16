@@ -13,7 +13,6 @@ parent: "[[Réseaux]]"
 related_theory:
   - "[[NEST-14-WebSockets-Temps-Reel|WebSockets et Temps Réel NestJS]]"
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/API/WebSockets_API"
 ---
 

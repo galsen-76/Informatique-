@@ -12,8 +12,6 @@ aliases:
 parent: "[[HTML-CSS]]"
 related_theory:
   - "[[CSS-01-Selecteurs-Cascade-Specificite|Sélecteurs Cascade et Spécificité CSS]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Learn/CSS/Building_blocks/The_box_model"
 ---
 

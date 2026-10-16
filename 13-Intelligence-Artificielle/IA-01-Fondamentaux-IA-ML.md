@@ -11,7 +11,6 @@ aliases:
   - "Fondamentaux IA et Machine Learning"
 parent: "[[Intelligence Artificielle]]"
 related_theory: []
-related_projects: []
 source: "https://developers.google.com/machine-learning/crash-course?hl=fr"
 ---
 

@@ -11,8 +11,6 @@ tags:
   - infrastructure/docker/multi-stage
 parent: "[[Docker]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.docker.com/build/building/multi-stage/"
 ---
 

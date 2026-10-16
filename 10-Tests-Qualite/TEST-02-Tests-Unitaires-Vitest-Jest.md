@@ -14,7 +14,6 @@ related_theory:
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]"
   - "[[ANG-14-Tests|Tests Angular]]"
   - "[[VUE-16-Tests-Vitest|Tests Vue.js avec Vitest]]"
-related_projects: []
 source: "https://vitest.dev/guide/"
 ---
 

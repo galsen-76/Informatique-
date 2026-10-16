@@ -13,7 +13,6 @@ parent: "[[Git]]"
 related_theory:
   - "[[GIT-06-Workflows-Equipe|Workflows Git en Équipe]]"
   - "[[METH-04-Documentation-Technique|Documentation Technique]]"
-related_projects: []
 source: "https://www.conventionalcommits.org/fr/v1.0.0/"
 ---
 

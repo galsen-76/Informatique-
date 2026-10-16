@@ -13,7 +13,6 @@ parent: "[[HTML-CSS]]"
 related_theory:
   - "[[HTML-01-Structure-Semantique|Structure HTML et Sémantique]]"
   - "[[HTML-05-Attributs-Globaux-Data|Attributs HTML et data]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/HTML/Element"
 ---
 

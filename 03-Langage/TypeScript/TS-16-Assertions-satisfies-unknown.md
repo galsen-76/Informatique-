@@ -13,8 +13,6 @@ parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-09-Type-Narrowing|Type Narrowing]]"
   - "[[TS-02-Types-Primitifs-Litteraux|Types Primitifs et Littéraux]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html"
 ---
 

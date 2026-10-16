@@ -12,8 +12,6 @@ aliases:
 parent: "[[Angular]]"
 related_theory:
   - "[[ANG-03-Templates-Data-Binding|Templates & Data Binding Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/templates/pipes"
 ---
 

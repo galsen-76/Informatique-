@@ -13,8 +13,6 @@ parent: "[[Bases de Données]]"
 related_theory:
   - "[[ORM-01-Prisma-Schema-Migrations|Prisma Schéma et Migrations]]"
   - "[[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://martinfowler.com/articles/evodb.html"
 ---
 

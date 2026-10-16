@@ -11,8 +11,6 @@ tags:
   - outils/intellij/plugins
 parent: "[[IntelliJ IDEA]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://plugins.jetbrains.com/"
 ---
 

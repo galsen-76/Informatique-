@@ -12,7 +12,6 @@ aliases:
 parent: "[[Infrastructure]]"
 related_theory:
   - "[[OUT-01-Terminal-Bash|Terminal et Bash]]"
-related_projects: []
 source: "https://linuxjourney.com/"
 ---
 

@@ -13,8 +13,6 @@ parent: "[[Théorie Générale]]"
 related_theory:
   - "[[ANG-08-RxJS|Programmation Réactive RxJS Angular]]"
   - "[[PY-15-Async-Asyncio|Async en Python (asyncio)]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Introducing"
 ---
 

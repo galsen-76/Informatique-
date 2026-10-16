@@ -13,8 +13,6 @@ parent: "[[Bases de Données]]"
 related_theory:
   - "[[SQL-06-INSERT-UPDATE-DELETE|INSERT UPDATE DELETE]]"
   - "[[NEST-09-Prisma-Base-de-Donnees|Prisma avec NestJS]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/tutorial-transactions.html"
 ---
 

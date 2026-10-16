@@ -12,8 +12,6 @@ aliases:
 parent: "[[HTML-CSS]]"
 related_theory:
   - "[[HTML-01-Structure-Semantique|Structure HTML et Sémantique]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Learn/Forms"
 ---
 

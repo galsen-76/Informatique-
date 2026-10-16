@@ -13,7 +13,6 @@ parent: "[[Algorithmes]]"
 related_theory:
   - "[[ALGO-06-Arbres-Graphes|Arbres et Graphes]]"
   - "[[ALGO-03-Piles-Files-Listes-Chainees|Piles Files et Listes Chaînées]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Glossary/Recursion"
 ---
 

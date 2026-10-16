@@ -13,8 +13,6 @@ parent: "[[Bases de Données]]"
 related_theory:
   - "[[BDD-01-Fondamentaux-SGBD|Fondamentaux des Bases de Données]]"
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/"
 ---
 

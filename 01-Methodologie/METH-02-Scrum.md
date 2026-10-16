@@ -14,7 +14,6 @@ related_theory:
   - "[[METH-01-Agile-Manifeste|Agile et Manifeste Agile]]"
   - "[[CONC-09-Estimation-Planification|Estimation et Planification]]"
   - "[[04-Issues-Boards|Issues et Boards GitLab]]"
-related_projects: []
 source: "https://scrumguides.org/scrum-guide.html"
 ---
 

@@ -13,8 +13,6 @@ parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[ARCH-02-Monolithe-vs-Microservices|Monolithe vs Microservices]]"
   - "[[ARCH-07-Design-Patterns-Fondamentaux|Design Patterns Fondamentaux]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://en.wikipedia.org/wiki/Event-driven_architecture"
 ---
 

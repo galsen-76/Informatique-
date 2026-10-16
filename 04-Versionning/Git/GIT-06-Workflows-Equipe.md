@@ -13,7 +13,6 @@ parent: "[[Git]]"
 related_theory:
   - "[[02-Merge-Requests|Merge Requests]]"
   - "[[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]"
-related_projects: []
 source: "https://www.atlassian.com/git/tutorials/comparing-workflows"
 ---
 

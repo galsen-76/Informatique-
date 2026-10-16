@@ -13,7 +13,6 @@ parent: "[[GitLab]]"
 related_theory:
   - "[[TEST-07-Code-Review|Code Review]]"
   - "[[GIT-02-Branches-Merge-Rebase|Branches Merge et Rebase]]"
-related_projects: []
 source: "https://docs.gitlab.com/user/project/merge_requests/"
 ---
 

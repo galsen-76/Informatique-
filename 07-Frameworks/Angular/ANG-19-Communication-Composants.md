@@ -13,8 +13,6 @@ parent: "[[Angular]]"
 related_theory:
   - "[[ANG-02-Composants|Composants Angular]]"
   - "[[ANG-10-Signals|Signals Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev/guide/components/inputs"
 ---
 

@@ -12,8 +12,6 @@ aliases:
 parent: "[[Vue]]"
 related_theory:
   - "[[VUE-07-Composition-API|Composition API & Composables Vue.js]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/components/provide-inject.html"
 ---
 

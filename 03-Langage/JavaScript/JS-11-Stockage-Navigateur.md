@@ -13,8 +13,6 @@ parent: "[[JavaScript]]"
 related_theory:
   - "[[SEC-03-Authentification-Sessions-JWT|Authentification Sessions vs JWT]]"
   - "[[NET-06-Cookies-Cache-HTTP|Cookies et Cache HTTP]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/API/Web_Storage_API"
 ---
 

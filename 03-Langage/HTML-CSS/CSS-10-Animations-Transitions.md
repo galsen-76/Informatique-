@@ -12,8 +12,6 @@ aliases:
 parent: "[[HTML-CSS]]"
 related_theory:
   - "[[ANG-15-Performance-Bonnes-Pratiques|Performance & Bonnes Pratiques Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://web.dev/learn/css/animations"
 ---
 

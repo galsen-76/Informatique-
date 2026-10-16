@@ -14,7 +14,6 @@ related_theory:
   - "[[DK-01-Fondamentaux|Fondamentaux Docker]]"
   - "[[CICD-03-Strategies-Deploiement|Stratégies de Déploiement]]"
   - "[[ARCH-06-Scalabilite|Scalabilité]]"
-related_projects: []
 source: "https://kubernetes.io/fr/docs/concepts/"
 ---
 

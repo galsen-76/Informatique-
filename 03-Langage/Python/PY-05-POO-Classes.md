@@ -12,8 +12,6 @@ tags:
 parent: "[[Python]]"
 related_theory:
   - "[[PY-04-Fonctions|Fonctions Python]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.python.org/3/tutorial/classes.html"
 ---
 

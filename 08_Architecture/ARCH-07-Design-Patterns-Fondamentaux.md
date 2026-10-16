@@ -13,8 +13,6 @@ parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[ARCH-03-Architecture-en-Couches|Architecture en Couches]]"
   - "[[PY-05-POO-Classes|POO Classes Python]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://refactoring.guru/design-patterns"
 ---
 

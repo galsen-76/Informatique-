@@ -13,8 +13,6 @@ parent: "[[Théorie Générale]]"
 related_theory:
   - "[[TS-01-Fondamentaux|Fondamentaux TypeScript]]"
   - "[[PY-16-Typage-Type-Hints|Typage et Type Hints Python]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://fr.wikipedia.org/wiki/Typage_(informatique)"
 ---
 

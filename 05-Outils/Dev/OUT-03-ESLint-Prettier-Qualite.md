@@ -13,7 +13,6 @@ parent: "[[Outils]]"
 related_theory:
   - "[[TEST-08-Qualite-Lint-SonarQube|Qualité Linting et Analyse Statique]]"
   - "[[GIT-07-Conventions-Commits-SemVer|Conventions de Commits et SemVer]]"
-related_projects: []
 source: https://eslint.org/docs/latest/
 ---
 

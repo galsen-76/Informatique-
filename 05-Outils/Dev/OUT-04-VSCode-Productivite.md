@@ -12,7 +12,6 @@ aliases:
 parent: "[[Outils]]"
 related_theory:
   - "[[IJ-10-Transition-VSCode|Transition vers VS Code]]"
-related_projects: []
 source: https://code.visualstudio.com/docs
 ---
 

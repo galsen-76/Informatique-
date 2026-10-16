@@ -12,8 +12,6 @@ aliases:
 parent: "[[HTML-CSS]]"
 related_theory:
   - "[[CSS-07-Variables-Themes|Variables CSS et Thèmes]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://sass-lang.com/documentation/"
 ---
 

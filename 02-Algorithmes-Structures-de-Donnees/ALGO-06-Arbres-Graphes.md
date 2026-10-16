@@ -13,7 +13,6 @@ parent: "[[Algorithmes]]"
 related_theory:
   - "[[ALGO-05-Recursivite|Récursivité]]"
   - "[[JS-08-DOM-Evenements|DOM et Événements JavaScript]]"
-related_projects: []
 source: "https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/"
 ---
 

@@ -13,7 +13,6 @@ parent: "[[Conception]]"
 related_theory:
   - "[[METH-04-Documentation-Technique|Documentation Technique]]"
   - "[[BACK-00-Choisir-son-Backend|Choisir son Backend]]"
-related_projects: []
 source: "https://adr.github.io/"
 ---
 

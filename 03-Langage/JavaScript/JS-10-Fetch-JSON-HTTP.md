@@ -13,8 +13,6 @@ parent: "[[JavaScript]]"
 related_theory:
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
   - "[[JS-07-Promises-Async-Await|Promises et Async Await JavaScript]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/API/Fetch_API"
 ---
 

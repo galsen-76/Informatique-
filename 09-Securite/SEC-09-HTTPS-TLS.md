@@ -14,7 +14,6 @@ related_theory:
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
   - "[[NET-01-Fondamentaux-OSI-TCP-IP|Fondamentaux Réseaux Modèles OSI et TCP IP]]"
   - "[[NET-09-Proxy-Reverse-Proxy-Load-Balancer|Proxy Reverse Proxy et Load Balancer]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Glossary/HTTPS"
 ---
 

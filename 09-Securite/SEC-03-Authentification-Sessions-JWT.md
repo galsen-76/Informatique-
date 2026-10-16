@@ -14,7 +14,6 @@ related_theory:
   - "[[NEST-10-Authentification-JWT|Authentification JWT NestJS]]"
   - "[[JS-11-Stockage-Navigateur|Stockage Navigateur]]"
   - "[[SEC-04-OAuth2-OpenID-Connect|OAuth2 et OpenID Connect]]"
-related_projects: []
 source: "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
 ---
 

@@ -14,8 +14,6 @@ related_theory:
   - "[[IA-03-Prompt-Engineering|Prompt Engineering]]"
   - "[[NET-10-WebSockets-SSE|WebSockets et Server-Sent Events]]"
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://docs.anthropic.com/fr/api/messages"
 ---
 

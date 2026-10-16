@@ -14,7 +14,6 @@ related_theory:
   - "[[ARCH-03-Architecture-en-Couches|Architecture en Couches]]"
   - "[[ARCH-11-SOLID|SOLID]]"
   - "[[ARCH-13-Domain-Driven-Design|Domain-Driven Design]]"
-related_projects: []
 source: "https://alistair.cockburn.us/hexagonal-architecture/"
 ---
 

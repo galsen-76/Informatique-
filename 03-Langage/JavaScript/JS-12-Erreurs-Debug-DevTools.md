@@ -12,8 +12,6 @@ aliases:
 parent: "[[JavaScript]]"
 related_theory:
   - "[[METH-05-Resolution-Problemes-Debug|Résolution de Problèmes et Débogage]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.chrome.com/docs/devtools"
 ---
 

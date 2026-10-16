@@ -14,8 +14,6 @@ parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-06-Generics|Generics]]"
   - "[[TS-10-Utility-Types|Utility Types]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/2/mapped-types.html"
 ---
 

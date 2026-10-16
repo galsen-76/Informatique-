@@ -13,8 +13,6 @@ parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-04-Fonctions|Fonctions Typées]]"
   - "[[TS-03-Interfaces-Types|Interfaces et Types]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/2/generics.html"
 ---
 

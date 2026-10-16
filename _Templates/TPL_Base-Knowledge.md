@@ -11,7 +11,6 @@ aliases:
   - "<% tp.file.title %>"
 parent: "[[]]"
 related_theory: []
-related_projects: []
 source: ""
 ---
 

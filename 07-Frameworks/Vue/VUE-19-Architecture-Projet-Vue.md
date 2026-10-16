@@ -13,8 +13,6 @@ parent: "[[Vue]]"
 related_theory:
   - "[[ARCH-14-Architecture-Frontend|Architecture Frontend]]"
   - "[[VUE-09-Pinia-State-Management|Pinia (State Management Vue.js)]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/style-guide/"
 ---
 

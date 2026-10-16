@@ -12,8 +12,6 @@ tags:
 parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-01-Fondamentaux|Fondamentaux TypeScript]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/2/modules.html"
 ---
 

@@ -13,7 +13,6 @@ parent: "[[HTML-CSS]]"
 related_theory:
   - "[[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]]"
   - "[[TG-01-Comment-fonctionne-un-programme|Comment fonctionne un programme]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML"
 ---
 

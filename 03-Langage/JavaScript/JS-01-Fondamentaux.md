@@ -12,8 +12,6 @@ aliases:
 parent: "[[JavaScript]]"
 related_theory:
   - "[[TG-01-Comment-fonctionne-un-programme|Comment fonctionne un programme]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide"
 ---
 

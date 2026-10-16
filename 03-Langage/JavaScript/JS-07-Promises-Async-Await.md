@@ -13,8 +13,6 @@ parent: "[[JavaScript]]"
 related_theory:
   - "[[JS-06-Event-Loop|Event Loop JavaScript]]"
   - "[[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Using_promises"
 ---
 

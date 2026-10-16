@@ -11,8 +11,6 @@ tags:
   - frameworks/angular/state-management
 parent: "[[Angular]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://angular.dev"
 ---
 

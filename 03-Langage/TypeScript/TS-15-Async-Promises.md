@@ -13,8 +13,6 @@ parent: "[[TypeScript]]"
 related_theory:
   - "[[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]]"
   - "[[TS-06-Generics|Generics]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/2/functions.html#promises"
 ---
 

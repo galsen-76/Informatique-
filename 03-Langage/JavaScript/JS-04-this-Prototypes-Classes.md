@@ -12,8 +12,6 @@ aliases:
 parent: "[[JavaScript]]"
 related_theory:
   - "[[JS-03-Fonctions-Scope-Closures|Fonctions Scope et Closures JavaScript]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/this"
 ---
 

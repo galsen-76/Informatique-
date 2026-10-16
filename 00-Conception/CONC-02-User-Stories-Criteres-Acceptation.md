@@ -14,7 +14,6 @@ related_theory:
   - "[[METH-02-Scrum|Scrum]]"
   - "[[CONC-09-Estimation-Planification|Estimation et Planification]]"
   - "[[TEST-06-TDD|TDD]]"
-related_projects: []
 source: "https://www.atlassian.com/fr/agile/project-management/user-stories"
 ---
 

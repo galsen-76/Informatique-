@@ -12,8 +12,6 @@ aliases:
 parent: "[[Vue]]"
 related_theory:
   - "[[VUE-02-Reactivite|Réactivité Vue.js]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://vuejs.org/guide/best-practices/performance.html"
 ---
 

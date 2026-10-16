@@ -12,7 +12,6 @@ aliases:
 parent: "[[GitLab]]"
 related_theory:
   - "[[GIT-01-Fondamentaux|Git Fondamentaux]]"
-related_projects: []
 source: "https://docs.gitlab.com/"
 ---
 

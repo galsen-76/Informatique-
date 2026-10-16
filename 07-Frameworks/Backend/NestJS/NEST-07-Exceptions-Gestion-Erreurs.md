@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[JS-12-Erreurs-Debug-DevTools|Gestion des Erreurs et DevTools]]"
   - "[[MON-01-Logs|Logs]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/exception-filters"
 ---
 

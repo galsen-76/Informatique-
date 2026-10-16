@@ -8,20 +8,6 @@
   "collapse-color-groups": false,
   "colorGroups": [
     {
-      "query": "path:01_Daily  ",
-      "color": {
-        "a": 1,
-        "rgb": 14725458
-      }
-    },
-    {
-      "query": "path:02_Projects  ",
-      "color": {
-        "a": 1,
-        "rgb": 9130720
-      }
-    },
-    {
       "query": "path:03_Knowledge  ",
       "color": {
         "a": 1,

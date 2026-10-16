@@ -13,7 +13,6 @@ parent: "[[GitLab]]"
 related_theory:
   - "[[CICD-01-Fondamentaux|Fondamentaux CI/CD]]"
   - "[[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]"
-related_projects: []
 source: "https://docs.gitlab.com/ci/"
 ---
 

@@ -132,7 +132,7 @@ Dans l'ordre des dépendances, pas des numéros :
 3. **Fermer la note** et répondre à « Vérifie sans tes notes ».
 4. **Faire les exercices** : seul d'abord, puis indice 1, indice 2, solution. Refaire ensuite sans regarder.
 5. **Faire le transfert** : le vrai test de compréhension.
-6. **L'utiliser dans [[02_Projects/CinéTrack|CinéTrack]]**.
+6. **L'utiliser dans CinéTrack**.
 7. **Cocher** « Je maîtrise quand… » seulement quand les 6 cases sont vraies, puis passer le statut à 🟢.
 8. **Revenir** sur la note à J+1, J+3, J+7 et J+21 : refaire « Vérifie sans tes notes » et le transfert, de mémoire.
 

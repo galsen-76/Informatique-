@@ -12,7 +12,6 @@ aliases:
 parent: "[[Infrastructure]]"
 related_theory:
   - "[[03-CI-CD|CI/CD GitLab]]"
-related_projects: []
 source: "https://martinfowler.com/articles/continuousIntegration.html"
 ---
 

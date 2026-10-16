@@ -13,7 +13,6 @@ parent: "[[HTML-CSS]]"
 related_theory:
   - "[[HTML-04-Aide-Memoire-Balises|Aide-mémoire des Balises HTML]]"
   - "[[JS-14-Selectionner-Elements-DOM|Sélectionner des Éléments du DOM]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes"
 ---
 

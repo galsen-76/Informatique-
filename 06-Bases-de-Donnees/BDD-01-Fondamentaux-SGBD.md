@@ -11,8 +11,6 @@ aliases:
   - "Fondamentaux des Bases de Données"
 parent: "[[Bases de Données]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack-API]]"
 source: "https://www.postgresql.org/docs/current/tutorial-concepts.html"
 ---
 

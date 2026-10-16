@@ -13,7 +13,6 @@ parent: "[[Infrastructure]]"
 related_theory:
   - "[[CICD-01-Fondamentaux|Fondamentaux CI/CD]]"
   - "[[NET-09-Proxy-Reverse-Proxy-Load-Balancer|Proxy Reverse Proxy et Load Balancer]]"
-related_projects: []
 source: "https://martinfowler.com/bliki/BlueGreenDeployment.html"
 ---
 

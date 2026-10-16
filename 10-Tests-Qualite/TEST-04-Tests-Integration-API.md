@@ -13,7 +13,6 @@ parent: "[[Tests et Qualité]]"
 related_theory:
   - "[[NEST-11-Tests-NestJS|Tests NestJS]]"
   - "[[TEST-01-Pyramide-des-Tests|Pyramide des Tests]]"
-related_projects: []
 source: "https://testcontainers.com/"
 ---
 

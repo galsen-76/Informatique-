@@ -12,7 +12,6 @@ aliases:
 parent: "[[Conception]]"
 related_theory:
   - "[[METH-02-Scrum|Scrum]]"
-related_projects: []
 source: "https://fr.wikipedia.org/wiki/Cahier_des_charges"
 ---
 

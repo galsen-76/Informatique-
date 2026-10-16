@@ -11,8 +11,6 @@ tags:
   - infrastructure/docker/dockerfile
 parent: "[[Docker]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.docker.com/engine/reference/builder/"
 ---
 

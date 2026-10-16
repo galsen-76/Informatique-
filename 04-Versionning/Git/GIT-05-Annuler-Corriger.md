@@ -13,7 +13,6 @@ parent: "[[Git]]"
 related_theory:
   - "[[GIT-01-Fondamentaux|Git Fondamentaux]]"
   - "[[GIT-08-Git-Avance|Git Avancé]]"
-related_projects: []
 source: "https://git-scm.com/book/fr/v2/Les-bases-de-Git-Annuler-des-actions"
 ---
 

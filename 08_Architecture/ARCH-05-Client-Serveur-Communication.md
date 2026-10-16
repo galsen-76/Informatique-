@@ -13,8 +13,6 @@ parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[ARCH-04-API-REST-Design|API REST Design]]"
   - "[[TG-04-Synchrone-vs-Asynchrone|Synchrone vs Asynchrone]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://en.wikipedia.org/wiki/Client%E2%80%93server_model"
 ---
 

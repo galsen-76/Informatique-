@@ -68,7 +68,7 @@ Comprendre -> Reproduire -> Appliquer -> Modifier -> Résoudre -> Créer
 
 - Les **exercices** font reproduire et appliquer.
 - Le **transfert** fait résoudre un problème différent.
-- Le **projet** ([[02_Projects/CinéTrack|CinéTrack]]) fait créer, en combinant plusieurs notions.
+- Le **projet** (CinéTrack) fait créer, en combinant plusieurs notions.
 
 Quand une notion est acquise, arrête les exercices faciles : cherche des problèmes qui mélangent plusieurs notions.
 

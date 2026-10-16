@@ -13,8 +13,6 @@ parent: "[[ORM]]"
 related_theory:
   - "[[BDD-02-Modelisation-Normalisation|Modélisation Relationnelle et Normalisation]]"
   - "[[BDD-05-Migrations|Migrations de Base de Données]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.prisma.io/docs/orm/prisma-schema"
 ---
 

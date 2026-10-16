@@ -14,7 +14,6 @@ related_theory:
   - "[[SEC-01-Fondamentaux-Securite|Fondamentaux de la Sécurité]]"
   - "[[SEC-06-XSS-CSRF|XSS et CSRF]]"
   - "[[SEC-08-Injection-SQL-Validation|Injection SQL et Validation des Entrées]]"
-related_projects: []
 source: "https://owasp.org/Top10/fr/"
 ---
 

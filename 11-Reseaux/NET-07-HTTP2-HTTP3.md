@@ -13,7 +13,6 @@ parent: "[[Réseaux]]"
 related_theory:
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
   - "[[NET-03-TCP-vs-UDP|TCP vs UDP]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Glossary/HTTP_2"
 ---
 

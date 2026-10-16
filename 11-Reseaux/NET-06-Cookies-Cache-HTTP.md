@@ -14,7 +14,6 @@ related_theory:
   - "[[NET-05-HTTP-Approfondi|HTTP Approfondi]]"
   - "[[JS-11-Stockage-Navigateur|Stockage Navigateur]]"
   - "[[ARCH-09-Cache-Performance|Cache et Performance]]"
-related_projects: []
 source: "https://developer.mozilla.org/fr/docs/Web/HTTP/Caching"
 ---
 

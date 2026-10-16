@@ -12,8 +12,6 @@ tags:
 parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-02-Types-Primitifs-Litteraux|Types Primitifs et Littéraux]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/2/objects.html"
 ---
 

@@ -11,8 +11,6 @@ tags:
   - frameworks/vue/vue-router
 parent: "[[Vue]]"
 related_theory: []
-related_projects:
-  - "[[02_Projects/CinéTrack-Vue]]"
 source: "https://router.vuejs.org/"
 ---
 

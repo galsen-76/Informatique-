@@ -14,8 +14,6 @@ related_theory:
   - "[[CICD-02-Pipeline-Full-Stack|Pipeline CI/CD Full Stack]]"
   - "[[BDD-09-PostgreSQL-Pratique|PostgreSQL en Pratique]]"
   - "[[SEC-10-Gestion-des-Secrets|Gestion des Secrets]]"
-related_projects:
-  - "[[02_Projects/CinéTrack-Fullstack]]"
 source: "https://docs.docker.com/compose/production/"
 ---
 

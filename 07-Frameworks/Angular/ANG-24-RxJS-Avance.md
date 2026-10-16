@@ -13,8 +13,6 @@ parent: "[[Angular]]"
 related_theory:
   - "[[ANG-08-RxJS|Programmation Réactive RxJS Angular]]"
   - "[[ANG-23-Signals-Avances|Signals Avancés Angular]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://rxjs.dev/guide/overview"
 ---
 

@@ -13,8 +13,6 @@ parent: "[[Backend]]"
 related_theory:
   - "[[NODE-01-Node-npm|Node.js et npm]]"
   - "[[ARCH-04-API-REST-Design|API REST Design]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://expressjs.com/fr/"
 ---
 

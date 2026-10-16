@@ -13,8 +13,6 @@ parent: "[[TypeScript]]"
 related_theory:
   - "[[TS-13-Types-Avances|Types Avancés TypeScript]]"
   - "[[TS-07-Union-Intersection|Union & Intersection Types]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking"
 ---
 

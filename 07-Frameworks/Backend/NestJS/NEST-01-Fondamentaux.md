@@ -13,8 +13,6 @@ parent: "[[NestJS]]"
 related_theory:
   - "[[NODE-02-Express-Middleware|Express et Middleware]]"
   - "[[ARCH-03-Architecture-en-Couches|Architecture en Couches]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://docs.nestjs.com/first-steps"
 ---
 

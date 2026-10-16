@@ -13,8 +13,6 @@ parent: "[[Théorie Générale]]"
 related_theory:
   - "[[ARCH-10-Clean-Code|Clean Code]]"
   - "[[TEST-07-Code-Review|Code Review]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://martinfowler.com/bliki/TwoHardThings.html"
 ---
 

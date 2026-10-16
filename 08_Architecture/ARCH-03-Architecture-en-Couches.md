@@ -12,8 +12,6 @@ tags:
 parent: "[[Architecture Logicielle]]"
 related_theory:
   - "[[ARCH-01-Fondamentaux|Fondamentaux Architecture]]"
-related_projects:
-  - "[[02_Projects/CinéTrack]]"
 source: "https://en.wikipedia.org/wiki/Multitier_architecture"
 ---
 
