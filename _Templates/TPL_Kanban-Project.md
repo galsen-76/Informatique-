@@ -3,50 +3,24 @@ kanban-plugin: basic
 tags: [kanban, project]
 ---
 
-## Backlog
+## 📥 À faire
 
-- [ ] Requirements analysis
-- [ ] Read documentation
-- [ ] Environment setup
+- [ ] Écrire l'objectif et la stack dans la fiche du projet
 
-## This Sprint
+## 🔨 En cours
 
-- [ ] Build the core structure
 
-## 🟡 In Progress
 
-- [ ] Task being worked on
+## ⏸️ Bloqué / en revue
 
-## Review
 
-- [ ] Task to be reviewed
 
-## Done
+## ✅ Fait
 
-- [x] Project started
+
 
 %% kanban:settings
 ```
-{
-  "kanban-plugin": "basic",
-  "list-collapse": [false, false, false, false, false],
-  "date-trigger": "@",
-  "date-format": "YYYY-MM-DD",
-  "date-display-format": "YYYY-MM-DD",
-  "show-checkboxes": true,
-  "new-card-insertion-method": "prepend-compact",
-  "lane-width": 270,
-  "show-archive-all-button": true,
-  "inline-metadata-position": "body",
-  "move-tags-to-footer": true,
-  "metadata-keys": [
-    {
-      "metadataKey": "due",
-      "label": "",
-      "shouldHideLabel": true,
-      "containsMarkdown": false
-    }
-  ]
-}
+{"kanban-plugin":"basic","list-collapse":[false,false,false,false],"date-trigger":"@","date-format":"YYYY-MM-DD","show-checkboxes":true,"show-relative-date":true,"lane-width":270}
 ```
 %%

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-24
-modified: 2026-10-02
+modified: 2026-10-16
 type: home
 tags:
   - accueil
@@ -9,40 +9,40 @@ aliases:
   - "Home"
 ---
 
-# 🏠 Accueil — Apprentissage Full Stack
+# 🏠 Accueil
 
-> [!abstract] Ce coffre
-> Mon parcours pour devenir **développeur full stack** : front (TypeScript, **Angular**, Vue), back (NestJS, PostgreSQL), et tout ce qui les relie (réseaux, sécurité, tests, architecture, DevOps, IA).
-> J'apprends **en faisant des projets** : une tâche du projet → la note qui explique → je code.
+```dataviewjs
+await dv.view("_Systeme/boutons")
+```
 
-## 🎬 Mon projet : CinéTrack
+```dataviewjs
+await dv.view("_Systeme/calendrier")
+```
 
-> [!tip] [[02_Projects/CinéTrack|CinéTrack]] · le premier projet
-> Une application **Angular** qui affiche les films de l'**API TMDB** (populaires, recherche, fiche détaillée), avec la librairie UI **PrimeNG**. On peut **se connecter avec son compte TMDB** pour gérer ses favoris, sa liste « à voir » et noter des films.
+## ☀️ Aujourd'hui
+```dataviewjs
+await dv.view("_Systeme/jour", { aujourdhui: true })
+```
 
-### À maîtriser avant de commencer
+## 📈 Ma progression
+```dataviewjs
+await dv.view("_Systeme/progression")
+```
 
-| Dossier | Pourquoi |
-|---|---|
-| [[Outils]] | terminal, Node / npm, éditeur, ESLint : l'environnement de travail |
-| [[Git]] | versionner le projet et l'envoyer sur GitLab |
-| [[HTML-CSS]] | la structure et le style des pages |
-| [[JavaScript]] | le langage que le navigateur exécute |
-| [[TypeScript]] | JavaScript avec des types : la langue d'Angular |
-| [[Théorie Générale]] | mémoire, asynchrone, POO, lisibilité : les bases qui expliquent le reste |
-| [[Angular]] | le framework du projet |
+## 🛠️ Mes projets
+```dataview
+TABLE WITHOUT ID file.link AS "Projet", status AS "Statut"
+FROM "02_Projects"
+WHERE type = "project"
+SORT status DESC, file.name ASC
+```
 
-La fiche du projet détaille ensuite, étape par étape, la note à ouvrir pour chaque tâche.
+## 📆 Mes dernières revues de semaine
+```dataview
+LIST FROM "01_Daily/Semaines" SORT file.name DESC LIMIT 4
+```
 
-## 🚀 Commencer ici
-1. [[Methode-d-apprentissage|Méthode d'apprentissage]] — apprendre par le projet : tâche → note → code
-   - [[Methode-du-coach|Méthode du coach]] — apprendre en profondeur : rappel actif, indices, transfert, maîtrise
-2. [[02_Projects/CinéTrack|CinéTrack]] — le projet, ses prérequis et ses jalons
-3. [[Tableau-de-bord|Tableau de bord]] — progression et tâches en cours
-4. [[Conventions-du-coffre|Conventions du coffre]] — format des notes, statuts, tags, modèles
-5. [[Roadmap-12-mois|Roadmap 12 mois]] — le plan d'ensemble
-
-## 📚 Index des domaines
+## 📚 Domaines
 
 | # | Domaine | Index |
 |---|---|---|
@@ -61,8 +61,9 @@ La fiche du projet détaille ensuite, étape par étape, la note à ouvrir pour 
 | 12 | Infrastructure | [[Infrastructure]] · [[Docker]] |
 | 13 | Intelligence artificielle | [[Intelligence Artificielle]] |
 
-## 🗂️ Espaces de travail
-- `01_Daily/` — notes quotidiennes (modèle `TPL_Daily-Note`)
-- `02_Projects/` — les fiches projets et le tableau Kanban
-- `04_Snippets/` — extraits de code (modèle `TPL_Snippet`)
-- `_Templates/` — modèles
+## 🧭 Repères
+- [[Guide]] : la routine et les règles du coffre (à lire en premier)
+- [[Methode-d-apprentissage|Méthode d'apprentissage]] et [[Methode-du-coach|Méthode du coach]] : comment apprendre
+- [[Roadmap-12-mois|Roadmap 12 mois]] : le plan d'ensemble
+- [[Tableau-de-bord|Tableau de bord]] : la progression détaillée par mois
+- [[Conventions-du-coffre|Conventions du coffre]] : format des notes, statuts, tags, modèles

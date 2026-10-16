@@ -1,49 +1,36 @@
 ---
-created: <% tp.date.now("YYYY-MM-DD") %>
-modified: <% tp.date.now("YYYY-MM-DD") %>
+created: {{date}}
+modified: {{date}}
 type: project
-status: "🔴 Not Started"
+status: "🟡 In Progress"
 tags:
   - projet
 aliases:
-  - "<% tp.file.title %>"
+  - "{{title}}"
 ---
 
-# 🛠️ <% tp.file.title %>
+# 🛠️ {{title}}
 
 > [!abstract] Objectif
 > _Quel problème ce projet résout-il, pour qui ?_
 
-**Période :** _M.. de la [[Roadmap-12-mois|Roadmap 12 mois]]_  
 **Stack :** _…_
 
----
-
-## Jalons
-
-### Étape 1
-- [ ] #task 
+```dataviewjs
+await dv.view("_Systeme/projet")
+```
 
 ---
 
 ## Notes à mobiliser
+> Les liens ajoutés ici apparaissent plus haut avec leur statut 🔴 🟡 🟢.
 
 - [[]]
 
----
-
 ## Définition de « terminé »
-
-- Code sur GitLab, MR relues, pipeline vert
+- Code sur GitLab, pipeline vert
 - README : objectif, captures, démarrage en 5 minutes, choix techniques
 - Tests sur la logique importante
 
----
-
-## Journal
-
-- <% tp.date.now("YYYY-MM-DD") %> : projet créé
-
-## Notes libres
-
-- ?
+## 📝 Décisions et journal
+- {{date}} : projet créé

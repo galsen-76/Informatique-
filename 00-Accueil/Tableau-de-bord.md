@@ -13,6 +13,12 @@ aliases:
 
 > [!info] Nécessite le plugin **Dataview** (déjà installé). Mettre à jour le champ `status` de chaque note : `🔴 Not Started` → `🟡 In Progress` → `🟢 Done`.
 
+## Par domaine
+
+```dataviewjs
+await dv.view("_Systeme/progression")
+```
+
 ## Progression globale
 
 ```dataview

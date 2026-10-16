@@ -16,7 +16,9 @@ aliases:
 | `00-Accueil` | Accueil, roadmap, tableau de bord, méthode, conventions |
 | `00-Conception` → `13-Intelligence-Artificielle` | Notes de connaissance, numérotées dans l'ordre logique d'apprentissage |
 | `01_Daily`, `02_Projects`, `04_Snippets` | Espaces de travail (daily notes, projets, extraits de code) |
-| `_Templates` | Modèles Templater |
+| `_Templates` | Modèles (notes du jour, semaine, projet, Kanban…) |
+| `_Systeme` | Le moteur de l'Accueil (scripts Dataview JS) : ne pas modifier, voir [[Guide]] |
+| `00-Accueil/Inbox.md` | Le vrac à trier chaque semaine |
 
 Chaque domaine a une **note index** (MOC) portant son nom (ex. [[TypeScript]], [[Angular]]) : ordre de lecture + tableau de progression Dataview.
 
@@ -29,7 +31,7 @@ Chaque domaine a une **note index** (MOC) portant son nom (ex. [[TypeScript]], [
 ```yaml
 created: 2026-09-24          # date de création
 modified: 2026-09-24         # mis à jour par le plugin frontmatter-modified-date
-type: knowledge              # knowledge | moc | project | snippet | daily | guide
+type: knowledge              # knowledge | moc | project | snippet | daily | weekly | guide
 status: "🔴 Not Started"     # 🔴 Not Started | 🟡 In Progress | 🟢 Done
 level: Fondamental           # Fondamental | Intermédiaire | Avancé
 month: M03                   # mois de la roadmap (M01…M12, Optionnel)
@@ -40,6 +42,10 @@ related_theory: []
 related_snippets: ["[[04_Snippets/ts-06-generics]]"]
 related_projects: ["[[02_Projects/CinéTrack]]"]
 source: "https://…"          # documentation officielle
+# Ajoutés tout seuls par les boutons ✅ Su / 🔁 Pas su (voir [[Guide]]) :
+revoir: 2026-10-23           # prochaine révision
+palier: 2                    # 0 = demain, puis 3, 7, 15, 30, 60, 120 jours
+derniere_revision: 2026-10-16
 ```
 > [!warning] Clés en anglais
 > Les clés restent en anglais car les plugins en dépendent (`modified` pour frontmatter-modified-date, `status`/`type` pour Dataview, `#task` pour le plugin Tasks). Le contenu, lui, est en français.
