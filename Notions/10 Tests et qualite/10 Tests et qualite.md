@@ -36,5 +36,5 @@ await dv.view("Systeme/domaine")
     - [ ] [[05 Agent Squash]]
     - [ ] [[06 Référence du test automatisé]]
     - [ ] [[07 API Squash TM]]
-    - [ ] [[09 Orchestrator vs API Squash]]
-    - [ ] [[10 Squash TM et GitLab]]
+    - [ ] [[08 Orchestrator vs API Squash]]
+    - [ ] [[09 Squash TM et GitLab]]

@@ -78,7 +78,7 @@ Programme -> requête HTTP + jeton -> API Squash TM -> réponse JSON -> Programm
 
 - **Créer des cas de test** depuis un fichier.
 - **Récupérer les résultats** d'une campagne pour faire du reporting.
-- **Mettre à jour des exécutions** depuis un pipeline CI/CD (voir [[09 Orchestrator vs API Squash|Orchestrator vs API Squash]]).
+- **Mettre à jour des exécutions** depuis un pipeline CI/CD (voir [[08 Orchestrator vs API Squash|Orchestrator vs API Squash]]).
 
 L'API automatise l'**import**, pas la **réflexion** : quelqu'un doit toujours rédiger le contenu des tests.
 
