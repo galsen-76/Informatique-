@@ -1,0 +1,155 @@
+---
+type: notion
+statut: a apprendre
+resume: "Les types TypeScript disparaissent quand le code tourne."
+revu:
+sources:
+  - "https://zod.dev"
+---
+# Validation runtime avec Zod
+
+```dataviewjs
+await dv.view("Systeme/notion")
+```
+
+> **En une phrase** : Les types TypeScript **disparaissent** quand le code tourne.
+
+## Le problème
+
+**Pourquoi c'est utile ?**
+Pour vérifier pendant l'exécution les données qui viennent de l'extérieur, et en déduire leur type.
+
+**Qu'est-ce qui se passait sans ça ?**
+Les types TypeScript disparaissent à l'exécution : une API qui renvoyait autre chose que prévu faisait planter l'application plus loin.
+
+## Comment ça marche
+*Explique avec tes mots, comme à un collègue.*
+
+Ils ne peuvent donc pas vérifier ce qu'envoie une API ou ce que tape un utilisateur. **Zod** fait cette vérification pendant l'exécution, et en déduit le type TypeScript : tu écris la règle **une seule fois**.
+
+### Le problème
+
+```ts
+const film = (await r.json()) as Film;   // TypeScript te croit
+film.titre.toUpperCase();                // 💥 si l'API a renvoyé { title: … } au lieu de { titre: … }
+```
+
+Le bug apparaît loin de sa cause, parfois des écrans plus tard.
+
+### Les briques
+
+| Zod | Vérifie |
+|---|---|
+| `z.string()`, `.min(3)`, `.email()`, `.url()` | texte |
+| `z.number()`, `.int()`, `.positive()` | nombre |
+| `z.boolean()` | booléen |
+| `z.enum(['vue', 'angular'])` | une valeur parmi une liste |
+| `z.array(FilmSchema)` | une liste |
+| `.optional()` / `.nullable()` | peut être absent / `null` |
+| `z.coerce.number()` | convertit (utile pour les formulaires et les URL) |
+| `.default('fr')` | valeur par défaut |
+
+### Où l'utiliser dans tes projets
+
+- **Réponses d'API** (TMDB, ton API) : valider avant de stocker.
+- **Formulaire de contact** du Portfolio : le même schéma valide le formulaire (VeeValidate + Zod) et donne le type.
+  ```ts
+  export const ContactSchema = z.object({
+    nom: z.string().min(2, 'Au moins 2 caractères'),
+    email: z.string().email('E-mail invalide'),
+    message: z.string().min(20, 'Au moins 20 caractères'),
+  });
+  ```
+- **Variables d'environnement** : vérifier au démarrage que `VITE_API_URL` existe.
+- **Back-end NestJS** : on utilise plutôt `class-validator` sur les DTO (voir [[DTO validation et pipes NestJS|DTO et validation]]), mais Zod fonctionne aussi.
+
+## 🧪 Exemple
+
+### La solution : un schéma
+
+```ts
+import { z } from 'zod';
+
+export const FilmSchema = z.object({
+  id: z.number(),
+  titre: z.string().min(1),
+  annee: z.number().int().min(1888),
+  note: z.number().min(0).max(10).nullable(),
+});
+
+export type Film = z.infer<typeof FilmSchema>;   // le type est déduit du schéma
+```
+
+```ts
+const film = FilmSchema.parse(await r.json());   // lève une erreur claire si la forme est fausse
+```
+
+Ou sans lever d'erreur :
+
+```ts
+const resultat = FilmSchema.safeParse(donnees);
+if (!resultat.success) {
+  console.error(resultat.error.issues);   // liste des champs invalides
+} else {
+  resultat.data.titre;                    // ✅ typé Film
+}
+```
+
+## ⚠️ Limites et pièges
+
+- **Valider partout, tout le temps** : valide aux **frontières** (ce qui entre dans l'app), pas entre tes propres fonctions.
+- **Écrire le type à la main à côté du schéma** : ils finiront par diverger. Utilise `z.infer`.
+
+## 🏋️ S'entraîner
+
+### Exercices
+
+#### Exercice 1 · Écrire un schéma
+
+Écris le schéma Zod d'un film TMDB (`id`, `title`, `release_date`, `vote_average`, `poster_path` nullable), puis déduis-en le type `Movie`.
+
+> [!success]- Solution
+> ```ts
+> import { z } from 'zod';
+>
+> const MovieSchema = z.object({
+>   id: z.number(),
+>   title: z.string(),
+>   release_date: z.string(),
+>   vote_average: z.number(),
+>   poster_path: z.string().nullable(),
+> });
+>
+> type Movie = z.infer<typeof MovieSchema>;
+> ```
+>
+> Une seule source de vérité : le schéma vérifie à l'exécution, le type en découle.
+
+#### Exercice 2 · `parse` ou `safeParse` ?
+
+Valide la réponse d'une recherche (`{ results: Movie[] }`) sans faire planter l'application si les données sont invalides : affiche plutôt un message.
+
+> [!success]- Solution
+> ```ts
+> const SearchSchema = z.object({ results: z.array(MovieSchema) });
+>
+> const result = SearchSchema.safeParse(await res.json());
+> if (!result.success) {
+>   console.error(result.error.issues);
+>   showError('Réponse inattendue du serveur');
+> } else {
+>   displayMovies(result.data.results);   // typé Movie[]
+> }
+> ```
+>
+> `parse` lève une exception, `safeParse` renvoie un objet `{ success, data | error }` à tester.
+
+## 🔗 Liens
+
+- **Prérequis :** [[Fondamentaux TypeScript]]
+- **Voir aussi :** [[Assertions satisfies et unknown]], [[DTO validation et pipes NestJS]]
+- **Utilisé dans :** 
+
+## 📚 Notes
+
+- Source : https://zod.dev

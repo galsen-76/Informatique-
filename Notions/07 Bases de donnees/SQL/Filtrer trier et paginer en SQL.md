@@ -1,0 +1,144 @@
+---
+type: notion
+statut: a apprendre
+resume: "Trois besoins que tu retrouveras dans chaque écran de liste : filtrer (WHERE), trier (ORDER BY) et paginer (LIMIT / OFFSET)."
+revu:
+sources:
+  - "https://www.postgresql.org/docs/current/functions-comparison.html"
+---
+# Filtrer trier et paginer en SQL
+
+```dataviewjs
+await dv.view("Systeme/notion")
+```
+
+> **En une phrase** : Trois besoins que tu retrouveras dans chaque écran de liste : **filtrer** (`WHERE`), **trier** (`ORDER BY`) et **paginer** (`LIMIT` / `OFFSET`).
+
+## Le problème
+
+**Pourquoi c'est utile ?**
+Pour ne récupérer que les lignes utiles, dans le bon ordre, page par page.
+
+**Qu'est-ce qui se passait sans ça ?**
+On chargeait toute la table côté application pour filtrer et trier en mémoire : lent et lourd.
+
+## Comment ça marche
+*Explique avec tes mots, comme à un collègue.*
+
+C'est ce que fait la page de CinéTrack quand on choisit un genre, trie par note et passe à la page 2.
+
+### Filtrer : `WHERE`
+
+| Opérateur | Exemple |
+|---|---|
+| `=`, `<>` (différent) | `release_year = 2021` |
+| `<`, `<=`, `>`, `>=` | `rating >= 7` |
+| `BETWEEN a AND b` | `release_year BETWEEN 2000 AND 2010` |
+| `IN (…)` | `genre IN ('action', 'sf')` |
+| `LIKE` / `ILIKE` | `title ILIKE '%dune%'` (ILIKE : sans tenir compte des majuscules, PostgreSQL) |
+| `IS NULL` / `IS NOT NULL` | `poster_path IS NULL` |
+| `AND`, `OR`, `NOT` | combiner |
+
+```sql
+SELECT title, rating
+FROM movies
+WHERE (genre = 'sf' OR genre = 'thriller')
+  AND rating >= 7.5
+  AND poster_path IS NOT NULL;
+```
+
+Dans `LIKE`, `%` = « n'importe quels caractères » : `'%dune%'` = contient « dune ».
+
+### Paginer : `LIMIT` et `OFFSET`
+
+```sql
+-- page 3, 20 films par page
+SELECT id, title FROM movies
+ORDER BY rating DESC, id          -- un ordre stable est obligatoire pour paginer
+LIMIT 20 OFFSET 40;               -- sauter 2 pages de 20
+```
+
+Formule : `OFFSET = (page - 1) × taille`. C'est exactement `skip` / `take` en Prisma.
+
+#### Sur de très grandes tables : la pagination par curseur
+
+Avec un `OFFSET` énorme, la base doit quand même parcourir toutes les lignes sautées. On reprend plutôt **après le dernier élément vu** :
+
+```sql
+SELECT id, title FROM reviews
+WHERE id < 15230                  -- le dernier id de la page précédente
+ORDER BY id DESC
+LIMIT 20;
+```
+
+Idéal pour un défilement infini.
+
+### Le piège de `NULL`
+
+`NULL` veut dire « valeur inconnue ». On ne peut **pas** le comparer avec `=` :
+
+```sql
+WHERE poster_path = NULL        -- ❌ ne renvoie jamais rien
+WHERE poster_path IS NULL       -- ✅
+```
+
+Et `rating <> 5` **exclut** les lignes où `rating` est `NULL`.
+
+## 🧪 Exemple
+
+### Trier : `ORDER BY`
+
+```sql
+ORDER BY rating DESC, title ASC     -- d'abord par note décroissante, puis par titre
+ORDER BY release_year DESC NULLS LAST
+```
+
+`ASC` = croissant (par défaut), `DESC` = décroissant.
+
+## ⚠️ Limites et pièges
+
+- **Paginer sans `ORDER BY`** : l'ordre n'est pas garanti, des lignes apparaissent sur deux pages ou jamais.
+- **`LIKE '%texte%'` sur une grosse table** : ne peut pas utiliser un index classique, donc lent. Pour une vraie recherche : recherche plein texte de PostgreSQL.
+- **Construire le `WHERE` en collant du texte venant de l'utilisateur** : injection SQL. Voir [[Injection SQL et validation|Injection SQL]].
+
+## 🏋️ S'entraîner
+
+### Exercices
+
+#### Exercice 1 · Filtrer et trier
+
+Écris la requête qui affiche les films de science-fiction (`genre = 'SF'`) sortis entre 2000 et 2020, du mieux noté au moins bien noté, puis par titre.
+
+> [!success]- Solution
+> ```sql
+> SELECT title, release_year, rating
+> FROM movies
+> WHERE genre = 'SF'
+>   AND release_year BETWEEN 2000 AND 2020
+> ORDER BY rating DESC, title ASC;
+> ```
+
+#### Exercice 2 · Page 3 et valeurs vides
+
+1. Écris la requête qui affiche la **3ᵉ page** de films (20 par page), triés par titre.
+2. Pourquoi `WHERE rating = NULL` ne renvoie-t-il jamais rien ?
+
+> [!success]- Solution
+> ```sql
+> SELECT id, title
+> FROM movies
+> ORDER BY title
+> LIMIT 20 OFFSET 40;      -- on saute les 2 premières pages (2 × 20)
+> ```
+>
+> `NULL` signifie « inconnu » : `NULL = NULL` n'est ni vrai ni faux. Il faut écrire `WHERE rating IS NULL`.
+
+## 🔗 Liens
+
+- **Prérequis :** [[Fondamentaux SQL et SELECT]]
+- **Voir aussi :** 
+- **Utilisé dans :** 
+
+## 📚 Notes
+
+- Source : https://www.postgresql.org/docs/current/functions-comparison.html

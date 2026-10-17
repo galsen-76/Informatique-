@@ -1,0 +1,158 @@
+---
+type: notion
+statut: a apprendre
+resume: "Synchrone : chaque ligne attend que la précédente soit finie. Asynchrone : on lance une opération longue (appel réseau, lecture de fichier, minuteur) et on continue, le résultat arrivera plus tard."
+revu:
+sources:
+  - "https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Introducing"
+---
+# Synchrone vs asynchrone
+
+```dataviewjs
+await dv.view("Systeme/notion")
+```
+
+> **En une phrase** : **Synchrone** : chaque ligne attend que la précédente soit finie. **Asynchrone** : on lance une opération longue (appel réseau, lecture de fichier, minuteur) et on **continue**, le résultat arrivera plus tard.
+
+## Le problème
+
+**Pourquoi c'est utile ?**
+Pour lancer une opération longue sans bloquer le reste du programme.
+
+**Qu'est-ce qui se passait sans ça ?**
+Un appel réseau gelait toute l'interface ou tout le serveur pendant l'attente.
+
+## Comment ça marche
+*Explique avec tes mots, comme à un collègue.*
+
+C'est comme au restaurant : tu passes commande, puis tu discutes en attendant le plat, au lieu de fixer la cuisine sans bouger. Toute application web repose là-dessus.
+
+### Voir la différence
+
+```ts
+console.log('1 : je commande');
+setTimeout(() => console.log('3 : le plat arrive'), 1000);
+console.log('2 : je discute en attendant');
+```
+
+Affiche `1`, `2`, puis `3` une seconde plus tard. Le programme n'a **pas attendu**.
+
+### Comment on écrit de l'asynchrone
+
+| Outil | Pour | Note |
+|---|---|---|
+| **callback** | ancienne façon | à éviter aujourd'hui |
+| **Promise** + `async` / `await` | **une** valeur qui arrivera plus tard | Promises et async/await |
+| **Observable** (RxJS) | un **flux** de valeurs (saisie, WebSocket) | RxJS |
+
+```ts
+async function loadMovie(id: number) {
+  const response = await fetch(`/api/movies/${id}`);   // on attend ici, sans bloquer la page
+  return response.json();
+}
+```
+
+### Lancer en parallèle quand c'est possible
+
+```ts
+// ❌ l'un après l'autre : ~2 s
+const movies = await loadMovies();
+const genres = await loadGenres();
+
+// ✅ les deux en même temps : ~1 s
+const [movies, genres] = await Promise.all([loadMovies(), loadGenres()]);
+```
+
+Si les deux appels ne dépendent pas l'un de l'autre, lance-les **ensemble**.
+
+### Concurrence et parallélisme
+
+- **Concurrence** : plusieurs tâches **avancent en alternance** sur un seul fil. C'est ce que fait JavaScript avec l'[[Event loop JavaScript|event loop]] : pendant qu'une requête attend le réseau, il s'occupe d'autre chose.
+- **Parallélisme** : plusieurs tâches tournent **vraiment en même temps** sur plusieurs cœurs (threads, Web Workers).
+
+JavaScript est asynchrone mais **pas parallèle** : un gros calcul bloque quand même la page.
+
+## 🧪 Exemple
+
+### Pourquoi c'est indispensable
+
+Un appel réseau prend 100 à 1 000 ms. Le processeur, lui, fait des millions d'opérations pendant ce temps.
+
+Si le navigateur **attendait** la réponse, la page serait **figée** : impossible de cliquer, de défiler, de taper. Avec l'asynchrone, l'interface reste fluide pendant le chargement.
+
+```mermaid
+sequenceDiagram
+  participant App as Front
+  participant API as API
+  App->>API: GET /movies
+  Note over App: l'interface reste utilisable<br/>(spinner, clics, défilement)
+  API-->>App: réponse
+  App->>App: affiche les films
+```
+
+## ⚠️ Limites et pièges
+
+- **Utiliser la donnée avant qu'elle arrive** : elle vaut `undefined`.
+- **Oublier `await`** : tu obtiens une Promise au lieu de la valeur.
+- **Enchaîner des appels indépendants** au lieu de les lancer ensemble.
+- **Un calcul très lourd** dans le navigateur : l'asynchrone ne l'empêche pas de figer la page.
+
+## 🏋️ S'entraîner
+
+### Exercices
+
+#### Exercice 1 · Dans quel ordre ?
+
+Qu'affiche ce code, et dans quel ordre ?
+
+```js
+async function load() {
+  console.log('2');
+  await new Promise((r) => setTimeout(r, 500));
+  console.log('4');
+}
+
+console.log('1');
+load();
+console.log('3');
+```
+
+> [!success]- Solution
+> **1, 2, 3, 4**
+>
+> - `1` puis l'appel de `load()` qui affiche `2` tout de suite.
+> - Au `await`, la fonction se met en pause et **rend la main** : `3` s'affiche.
+> - 500 ms plus tard, la fonction reprend : `4`.
+
+#### Exercice 2 · Accélérer une page
+
+Cette page charge un film, ses acteurs et ses films similaires. Chaque appel prend 300 ms et ils sont indépendants. Combien de temps prend ce code ? Réécris-le pour qu'il soit 3 fois plus rapide.
+
+```ts
+const movie = await api.movie(id);
+const credits = await api.credits(id);
+const similar = await api.similar(id);
+```
+
+> [!success]- Solution
+> Environ **900 ms** : chaque appel attend le précédent.
+>
+> ```ts
+> const [movie, credits, similar] = await Promise.all([
+>   api.movie(id),
+>   api.credits(id),
+>   api.similar(id),
+> ]);
+> ```
+>
+> Environ **300 ms** : les trois requêtes partent en même temps.
+
+## 🔗 Liens
+
+- **Prérequis :** 
+- **Voir aussi :** [[RxJS Observables et opérateurs]], [[Async en Python avec asyncio]]
+- **Utilisé dans :** 
+
+## 📚 Notes
+
+- Source : https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Introducing

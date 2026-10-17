@@ -1,9 +1,9 @@
-# Apprentissage — Développeur Full Stack TypeScript (Angular · Vue · NestJS)
+# Savoir — Dev full-stack
 
-Coffre [Obsidian](https://obsidian.md) de notes d'apprentissage sur 12 mois.
+Coffre [Obsidian](https://obsidian.md) de connaissances : **une note = une notion**, rangées en 14 domaines.
 
-- Point d'entrée : `00-Accueil/Accueil.md`
-- Plan mois par mois : `00-Accueil/Roadmap-12-mois.md`
-- Ce qui a été corrigé dans les notes d'origine : `00-Accueil/Corrections-apportees.md`
+- Point d'entrée : `Accueil.md` · mode d'emploi : `Guide.md`
+- `Notions/01 Conception` → `Notions/14 Intelligence artificielle` : chaque domaine a sa page et son plan d'apprentissage
+- `Templates/Notion.md` : le modèle d'une notion · `Systeme/` : les vues Dataview (ne pas modifier)
 
-Ouvrir ce dossier comme coffre dans Obsidian (plugins utilisés : Dataview, Tasks, Templater, Kanban, QuickAdd…). Les schémas sont en Mermaid.
+Plugins nécessaires : **Dataview** (avec *Enable JavaScript Queries*) et **Templater**.

@@ -1,6 +1,6 @@
 {
   "command_timeout": 5,
-  "templates_folder": "_Templates",
+  "templates_folder": "Templates",
   "templates_pairs": [
     [
       "",
@@ -20,20 +20,7 @@
     }
   ],
   "enable_file_templates": true,
-  "file_templates": [
-    {
-      "regex": "00_Dashboard/.*",
-      "template": "_Templates/TPL_Dashboard.md"
-    },
-    {
-      "regex": "03_Knowledge/.*",
-      "template": "_Templates/TPL_Base-Knowledge.md"
-    },
-    {
-      "regex": "04_Snippets/.*",
-      "template": "_Templates/TPL_Snippet.md"
-    }
-  ],
+  "file_templates": [],
   "syntax_highlighting": true,
   "syntax_highlighting_mobile": false,
   "enabled_templates_hotkeys": [
