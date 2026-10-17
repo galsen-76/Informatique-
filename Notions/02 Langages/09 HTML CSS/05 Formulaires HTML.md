@@ -1,0 +1,151 @@
+---
+type: notion
+statut: a apprendre
+resume: "Un formulaire collecte ce que tape l'utilisateur."
+revu:
+sources:
+  - "https://developer.mozilla.org/fr/docs/Learn/Forms"
+---
+# Formulaires HTML
+
+```dataviewjs
+await dv.view("Systeme/notion")
+```
+
+> **En une phrase** : Un formulaire collecte ce que tape l'utilisateur.
+
+## Le problème
+
+**Pourquoi c'est utile ?**
+Pour récupérer proprement les saisies de l'utilisateur, avec un formulaire accessible et pratique sur mobile.
+
+**Qu'est-ce qui se passait sans ça ?**
+Des champs sans étiquette, le mauvais clavier sur mobile, aucune validation : des formulaires pénibles à remplir et inutilisables au lecteur d'écran.
+
+## Comment ça marche
+*Explique avec tes mots, comme à un collègue.*
+
+Bien écrit en HTML, il est déjà **accessible** (chaque champ a son étiquette) et **pratique** (bon clavier sur mobile, remplissage automatique). Les formulaires Angular et Vue reposent sur ces mêmes balises.
+
+### Un formulaire propre
+
+```html
+<form>
+  <label for="email">E-mail</label>
+  <input id="email" name="email" type="email" autocomplete="email" required>
+
+  <label for="sujet">Sujet</label>
+  <select id="sujet" name="sujet" required>
+    <option value="">Choisir…</option>
+    <option value="job">Opportunité</option>
+  </select>
+
+  <label for="message">Message</label>
+  <textarea id="message" name="message" minlength="20" required></textarea>
+
+  <label>
+    <input type="checkbox" name="rgpd" required>
+    J'accepte que mes données servent à me répondre
+  </label>
+
+  <button type="submit">Envoyer</button>
+</form>
+```
+
+### Les règles d'or
+
+1. **Chaque champ a un `<label>`** relié par `for` = `id`. Cliquer sur l'étiquette active le champ, et le lecteur d'écran lit l'étiquette. Un `placeholder` **ne remplace pas** un label (il disparaît quand on tape).
+2. **Le bon `type`** : il affiche le bon clavier sur mobile et active une validation de base.
+3. **`autocomplete`** : le navigateur peut remplir le champ tout seul.
+4. **Les boutons ont un `type`** : `submit` envoie le formulaire, `button` ne fait rien par défaut. Sans `type`, un bouton dans un formulaire **envoie** le formulaire.
+
+### Les types de champs
+
+| `type` | Pour | Bonus |
+|---|---|---|
+| `text` | texte court | |
+| `email` | e-mail | clavier avec @, vérifie le format |
+| `password` | mot de passe | caché |
+| `number` | nombre | flèches +/- |
+| `tel` | téléphone | clavier numérique |
+| `url` | adresse web | |
+| `search` | recherche | croix pour effacer |
+| `date` | date | calendrier natif |
+| `checkbox` | oui / non, choix multiples | |
+| `radio` | un choix parmi plusieurs (même `name`) | |
+| `file` | envoi de fichier | `accept="image/*"` |
+
+### Validation intégrée
+
+| Attribut | Règle |
+|---|---|
+| `required` | obligatoire |
+| `minlength` / `maxlength` | longueur du texte |
+| `min` / `max` | valeur d'un nombre ou d'une date |
+| `pattern="[0-9]{5}"` | forme imposée (expression régulière) |
+
+C'est un premier filet. Dans tes projets, la vraie validation se fait en TypeScript (Angular Reactive Forms, ou VeeValidate + Zod en Vue) **et** côté serveur, car la validation du navigateur se contourne facilement.
+
+## 🧪 Exemple
+
+> À compléter avec un exemple tiré de ton travail.
+
+## ⚠️ Limites et pièges
+
+- **Un bouton sans `type`** qui envoie le formulaire par surprise.
+- **Pas de `label`**, seulement un `placeholder`.
+- **Oublier `event.preventDefault()`** quand tu gères l'envoi en JavaScript : la page se recharge. (Angular et Vue le gèrent avec `(ngSubmit)` et `@submit.prevent`.)
+- **Faire confiance à la validation HTML** pour la sécurité : le serveur doit toujours revérifier.
+
+## 🏋️ S'entraîner
+
+### Exercices
+
+#### Exercice 1 · Un formulaire de connexion propre
+
+Écris un formulaire de connexion avec e-mail et mot de passe : labels reliés aux champs, bons types, champs obligatoires, et aide du navigateur pour remplir automatiquement.
+
+> [!success]- Solution
+> ```html
+> <form>
+>   <label for="email">E-mail</label>
+>   <input id="email" name="email" type="email" autocomplete="email" required />
+>
+>   <label for="password">Mot de passe</label>
+>   <input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" />
+>
+>   <button type="submit">Se connecter</button>
+> </form>
+> ```
+
+#### Exercice 2 · Trouver les erreurs
+
+Trouve les 3 problèmes de ce champ de recherche.
+
+```html
+<input placeholder="Rechercher un film">
+<div onclick="search()">OK</div>
+```
+
+> [!success]- Solution
+> 1. **Pas de `<label>`** : le `placeholder` disparaît à la saisie et n'est pas un vrai label. Ajoute un label (éventuellement masqué visuellement).
+> 2. **Un `div` cliquable** au lieu d'un `<button>` : impossible à atteindre au clavier, pas annoncé comme bouton.
+> 3. **Pas de `<form>`** : la touche Entrée ne lance pas la recherche. Et `type="search"` serait plus adapté.
+>
+> ```html
+> <form role="search">
+>   <label for="q">Rechercher un film</label>
+>   <input id="q" name="q" type="search" />
+>   <button type="submit">OK</button>
+> </form>
+> ```
+
+## 🔗 Liens
+
+- **Prérequis :** [[01 Structure HTML et sémantique|Structure HTML et sémantique]]
+- **Voir aussi :** 
+- **Utilisé dans :** 
+
+## 📚 Notes
+
+- Source : https://developer.mozilla.org/fr/docs/Learn/Forms

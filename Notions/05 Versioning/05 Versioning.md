@@ -10,11 +10,19 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Fonctionnement interne de Git (commits, arbre, HEAD) → [[Git fondamentaux]]
-- [ ] Branches, merge, rebase → [[Branches merge et rebase]]
-- [ ] Résoudre un conflit → [[Conflits Git]]
-- [ ] Git flow / trunk based → [[Workflows Git en équipe]]
-- [ ] Merge requests et revue de code → [[Merge requests]] · [[Code review]]
-- [ ] Conventions de commit → [[Conventions de commits et SemVer]]
+- **01 Git**
+    - [ ] [[01 Git fondamentaux]]
+    - [ ] [[02 Branches merge et rebase]]
+    - [ ] [[03 Dépôts distants]]
+    - [ ] [[04 Conflits Git]]
+    - [ ] [[05 Annuler et corriger avec Git]]
+    - [ ] [[06 Conventions de commits et SemVer]]
+    - [ ] [[07 Workflows Git en équipe]]
+    - [ ] [[08 Git avancé]]
+- **02 GitLab**
+    - [ ] [[01 Fondamentaux GitLab]]
+    - [ ] [[02 Merge requests]]
+    - [ ] [[03 Issues et boards]]
+    - [ ] [[04 GitLab avancé]]

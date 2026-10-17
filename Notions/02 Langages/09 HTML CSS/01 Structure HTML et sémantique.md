@@ -1,0 +1,172 @@
+---
+type: notion
+statut: a apprendre
+resume: "HTML décrit ce qu'est chaque morceau de la page : un titre, un menu, un article, un bouton."
+revu:
+sources:
+  - "https://developer.mozilla.org/fr/docs/Learn/HTML"
+---
+# Structure HTML et sémantique
+
+```dataviewjs
+await dv.view("Systeme/notion")
+```
+
+> **En une phrase** : HTML décrit **ce qu'est** chaque morceau de la page : un titre, un menu, un article, un bouton.
+
+## Le problème
+
+**Pourquoi c'est utile ?**
+Pour donner un sens à chaque morceau de page, utile aux lecteurs d'écran, à Google et aux tests.
+
+**Qu'est-ce qui se passait sans ça ?**
+Tout était en <div> : les lecteurs d'écran ne savaient pas où étaient le menu ou le contenu, et le référencement en souffrait.
+
+## Comment ça marche
+*Explique avec tes mots, comme à un collègue.*
+
+Choisir la balise qui a le bon **sens** (on dit « sémantique ») rend la page lisible par les lecteurs d'écran, par Google, et plus facile à styliser. Même si l'IA écrit ton HTML, tu dois savoir le relire et le corriger.
+
+### Le squelette d'une page
+
+```html
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon portfolio</title>
+</head>
+<body>
+  <header>   <!-- en-tête : logo, menu -->
+    <nav>…</nav>
+  </header>
+  <main>     <!-- le contenu principal, un seul par page -->
+    <section>…</section>
+  </main>
+  <footer>…</footer>  <!-- pied de page -->
+</body>
+</html>
+```
+
+Le détail du `<head>` : [[04 Head meta et chargement des scripts|Head, meta et scripts]].
+
+### Les titres : une vraie hiérarchie
+
+Un seul `<h1>` par page (le sujet principal), puis `<h2>` pour les sections, `<h3>` à l'intérieur… **sans sauter de niveau**. On choisit le niveau pour le **sens**, pas pour la taille : la taille se règle en CSS.
+
+### `<div>` ou balise sémantique ?
+
+```html
+<!-- ❌ que des div : personne ne comprend la structure -->
+<div class="header"><div class="menu">…</div></div>
+<div class="bouton" onclick="…">Envoyer</div>
+
+<!-- ✅ -->
+<header><nav>…</nav></header>
+<button type="button">Envoyer</button>
+```
+
+**Règle :** utilise la balise qui a du sens. `<div>` (bloc) et `<span>` (dans une ligne) ne servent qu'à regrouper pour le style, quand aucune autre balise ne convient.
+
+Le cas le plus important : **un élément cliquable est un `<button>` (action) ou un `<a>` (navigation vers une autre page)**, jamais un `<div>`. Un `<button>` fonctionne au clavier et avec les lecteurs d'écran, un `<div>` non.
+
+## 🧪 Exemple
+
+### Les zones de la page
+
+```mermaid
+flowchart TB
+  H["header<br/>(logo + nav)"] --> M["main"]
+  M --> S1["section : Projets"]
+  M --> S2["section : Contact"]
+  S1 --> A1["article : une carte projet"]
+  M --> F["footer"]
+```
+
+| Balise | Pour |
+|---|---|
+| `<header>` | en-tête de la page (ou d'un article) |
+| `<nav>` | un menu de navigation |
+| `<main>` | le contenu principal (un seul) |
+| `<section>` | une partie avec un titre (« Projets », « Contact ») |
+| `<article>` | un contenu autonome : une carte projet, un post |
+| `<aside>` | contenu annexe : barre latérale |
+| `<footer>` | pied de page |
+
+## ⚠️ Limites et pièges
+
+- **Plusieurs `<h1>`** ou des niveaux sautés (`h2` puis `h4`).
+- **Oublier `lang="fr"`** sur `<html>` : les lecteurs d'écran prononcent mal.
+- **Un `<a>` sans `href`** utilisé comme bouton : utilise `<button>`.
+
+La liste complète des balises : [[02 Aide-mémoire des balises HTML|Aide-mémoire des balises]].
+
+## 🏋️ S'entraîner
+
+### Exercices
+
+#### Exercice 1 · Remplacer les `div`
+
+Réécris cette page avec les balises sémantiques adaptées.
+
+```html
+<div class="header">
+  <div class="logo">CinéTrack</div>
+  <div class="nav"><a href="/">Films</a> <a href="/favorites">Favoris</a></div>
+</div>
+<div class="main">
+  <div class="title">Films populaires</div>
+  <div class="card">Dune</div>
+</div>
+<div class="footer">© 2026</div>
+```
+
+> [!success]- Solution
+> ```html
+> <header>
+>   <a href="/" class="logo">CinéTrack</a>
+>   <nav>
+>     <a href="/">Films</a>
+>     <a href="/favorites">Favoris</a>
+>   </nav>
+> </header>
+> <main>
+>   <h1>Films populaires</h1>
+>   <article class="card">Dune</article>
+> </main>
+> <footer>© 2026</footer>
+> ```
+
+#### Exercice 2 · Corriger la hiérarchie des titres
+
+Qu'est-ce qui ne va pas dans ces titres ? Propose une correction.
+
+```html
+<h1>CinéTrack</h1>
+<h1>Films populaires</h1>
+<h4>Dune</h4>
+<h4>Alien</h4>
+```
+
+> [!success]- Solution
+> - **Deux `<h1>`** : une page n'a qu'un titre principal.
+> - **On saute de `h1` à `h4`** : les lecteurs d'écran s'en servent comme d'un sommaire, il ne doit pas y avoir de trou.
+>
+> ```html
+> <h1>Films populaires</h1>
+> <h2>Dune</h2>
+> <h2>Alien</h2>
+> ```
+>
+> Le nom du site peut être un simple lien dans le `<header>`. Pour une taille de texte différente, on utilise le CSS, pas un autre niveau de titre.
+
+## 🔗 Liens
+
+- **Prérequis :** 
+- **Voir aussi :** [[11 DOM et événements JavaScript|DOM et événements JavaScript]]
+- **Utilisé dans :** 
+
+## 📚 Notes
+
+- Source : https://developer.mozilla.org/fr/docs/Learn/HTML

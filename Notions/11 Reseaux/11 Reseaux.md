@@ -10,12 +10,21 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Modèle OSI et TCP/IP → [[Modèle OSI et TCP IP]]
-- [ ] Adresse IP, masque, sous-réseau → [[Adresse IP]]
-- [ ] DNS → [[DNS]]
-- [ ] TCP vs UDP → [[TCP vs UDP]]
-- [ ] HTTP : méthodes, codes, en-têtes → [[HTTP]]
-- [ ] Ports, proxy, NAT → [[Port]] · [[Proxy]] · [[Adresse IP]]
-- [ ] WebSockets → [[WebSockets]]
+- [ ] [[01 Client et serveur]]
+- [ ] [[02 Modèle OSI et TCP IP]]
+- [ ] [[03 Adresse IP]]
+- [ ] [[04 Port]]
+- [ ] [[05 TCP vs UDP]]
+- [ ] [[06 DNS]]
+- [ ] [[07 HTTP]]
+- [ ] [[08 Cookies et cache HTTP]]
+- [ ] [[09 HTTP2 et HTTP3]]
+- [ ] [[10 Certificat et HTTPS]]
+- [ ] [[11 WebSockets]]
+- [ ] [[12 Pare-feu]]
+- [ ] [[13 Proxy]]
+- [ ] [[14 Reverse proxy et load balancer]]
+- [ ] [[15 Linux et réseau]]
+- [ ] [[16 Outils de diagnostic réseau]]

@@ -10,12 +10,23 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Modèle relationnel → [[Modèle relationnel et SGBD]]
-- [ ] SQL : SELECT, JOIN, GROUP BY → [[Fondamentaux SQL et SELECT]] · [[Jointures SQL]] · [[Agrégation et GROUP BY]]
-- [ ] Clés, index, contraintes → [[Clés index et performance]] · [[DDL contraintes et types]]
-- [ ] Normalisation → [[Normalisation]]
-- [ ] Transactions et ACID → [[Transactions et ACID]]
-- [ ] NoSQL : document, clé-valeur → [[NoSQL et MongoDB]] · [[Redis clé-valeur]]
-- [ ] Requêtes N+1 et performance → [[ORM et problème N+1]]
+- [ ] [[01 Modèle relationnel et SGBD]]
+- **02 SQL**
+    - [ ] [[01 Fondamentaux SQL et SELECT]]
+    - [ ] [[02 Filtrer trier et paginer en SQL]]
+    - [ ] [[03 Jointures SQL]]
+    - [ ] [[04 Agrégation et GROUP BY]]
+    - [ ] [[05 Sous-requêtes et CTE]]
+    - [ ] [[06 INSERT UPDATE et DELETE]]
+    - [ ] [[07 DDL contraintes et types]]
+    - [ ] [[08 Window functions SQL]]
+- [ ] [[03 Normalisation]]
+- [ ] [[04 Clés index et performance]]
+- [ ] [[05 Transactions et ACID]]
+- [ ] [[06 Migrations]]
+- [ ] [[07 PostgreSQL en pratique]]
+- [ ] [[08 ORM et problème N+1]]
+- [ ] [[09 NoSQL et MongoDB]]
+- [ ] [[10 Redis clé-valeur]]

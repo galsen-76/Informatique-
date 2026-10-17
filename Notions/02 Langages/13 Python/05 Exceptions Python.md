@@ -1,0 +1,146 @@
+---
+type: notion
+statut: a apprendre
+resume: "C'est le try / catch de JavaScript, avec d'autres mots : try / except."
+revu:
+sources:
+  - "https://docs.python.org/3/tutorial/errors.html"
+---
+# Exceptions Python
+
+```dataviewjs
+await dv.view("Systeme/notion")
+```
+
+> **En une phrase** : C'est le `try / catch` de JavaScript, avec d'autres mots : `try / except`.
+
+## Le problème
+
+**Pourquoi c'est utile ?**
+Pour gérer les erreurs proprement, en attrapant seulement celles qu'on sait traiter.
+
+**Qu'est-ce qui se passait sans ça ?**
+Des except trop larges cachaient tous les bugs, ou le script plantait au premier fichier manquant.
+
+## Comment ça marche
+*Explique avec tes mots, comme à un collègue.*
+
+En plus, on peut attraper **un type d'erreur précis** (`except KeyError`), ce qui évite de masquer les autres bugs. Et `raise` remplace `throw`.
+
+### JavaScript → Python
+
+| JavaScript | Python |
+|---|---|
+| `try { } catch (e) { }` | `try: … except Exception as e: …` |
+| `finally` | `finally` |
+| `throw new Error('…')` | `raise ValueError("…")` |
+| `class NotFoundError extends Error` | `class NotFoundError(Exception)` |
+
+### Les erreurs courantes
+
+| Erreur | Quand |
+|---|---|
+| `ValueError` | valeur invalide : `int("abc")` |
+| `KeyError` | clé absente d'un dictionnaire |
+| `IndexError` | index hors de la liste |
+| `TypeError` | mauvais type : `"5" + 1` |
+| `AttributeError` | attribut inexistant (souvent sur `None`) |
+| `FileNotFoundError` | fichier introuvable |
+
+### Lever ses propres erreurs
+
+```python
+class MovieNotFoundError(Exception):
+    pass
+
+def find_movie(movie_id):
+    movie = movies.get(movie_id)
+    if movie is None:
+        raise MovieNotFoundError(f"Film {movie_id} introuvable")
+    return movie
+```
+
+### Lire une erreur Python
+
+La cause est **en bas** du message (*traceback*), contrairement à JavaScript :
+
+```text
+Traceback (most recent call last):
+  File "main.py", line 12, in <module>
+    find_movie(99)
+  File "main.py", line 7, in find_movie
+    raise MovieNotFoundError(...)
+MovieNotFoundError: Film 99 introuvable      ← lire ici en premier
+```
+
+## 🧪 Exemple
+
+### Attraper une erreur précise
+
+```python
+try:
+    rating = int(user_input)          # peut échouer si ce n'est pas un nombre
+except ValueError:
+    print("Ce n'est pas un nombre")
+except Exception as e:                # toute autre erreur
+    print(f"Erreur inattendue : {e}")
+else:
+    print("Aucune erreur")            # seulement si tout s'est bien passé
+finally:
+    print("Toujours exécuté")
+```
+
+## ⚠️ Limites et pièges
+
+- **`except:` tout seul** ou `except Exception: pass` : l'erreur disparaît, le bug devient invisible.
+- **Lire le traceback par le haut** : la vraie erreur est à la dernière ligne.
+
+## 🏋️ S'entraîner
+
+### Exercices
+
+#### Exercice 1 · Attraper la bonne erreur
+
+Écris une fonction `ask_rating(text)` qui convertit le texte en entier et renvoie `None` si ce n'est pas un nombre (sans attraper les autres erreurs).
+
+> [!success]- Solution
+> ```python
+> def ask_rating(text):
+>     try:
+>         return int(text)
+>     except ValueError:
+>         return None
+>
+> ask_rating("4")    # 4
+> ask_rating("abc")  # None
+> ```
+
+#### Exercice 2 · Lever sa propre erreur
+
+Crée une exception `InvalidRatingError` et lève-la dans `check_rating(value)` si la note n'est pas entre 1 et 5. Puis attrape-la et affiche le message.
+
+> [!success]- Solution
+> ```python
+> class InvalidRatingError(Exception):
+>     pass
+>
+> def check_rating(value):
+>     if not 1 <= value <= 5:
+>         raise InvalidRatingError(f"Note invalide : {value}")
+>     return value
+>
+> try:
+>     check_rating(9)
+> except InvalidRatingError as e:
+>     print(e)   # Note invalide : 9
+> ```
+
+## 🔗 Liens
+
+- **Prérequis :** [[01 Fondamentaux Python|Fondamentaux Python]]
+- **Voir aussi :** [[04 Fonctions Python|Fonctions Python]]
+- **Utilisé dans :** 
+
+## 📚 Notes
+
+- Source : https://docs.python.org/3/tutorial/errors.html

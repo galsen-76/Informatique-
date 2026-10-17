@@ -1,6 +1,6 @@
 ---
 type: notion
-statut: {{statut}}
+statut: a apprendre
 resume:
 revu:
 sources:

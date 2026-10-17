@@ -10,10 +10,14 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Recueil du besoin et user stories → [[Recueil des besoins et cahier des charges]] · [[User stories et critères d'acceptation]]
-- [ ] UML : cas d'utilisation, classes, séquence → [[UML diagramme de cas d'utilisation]] · [[UML diagramme de classes]] · [[UML séquence et activité]]
-- [ ] Maquettes et wireframes → [[Wireframe maquette et prototype]]
-- [ ] Modélisation des données (MCD / MLD) → [[Modélisation des données MCD et MLD]]
-- [ ] Cahier des charges et spécifications → [[Recueil des besoins et cahier des charges]]
+- [ ] [[01 Recueil des besoins et cahier des charges]]
+- [ ] [[02 User stories et critères d'acceptation]]
+- [ ] [[03 UML diagramme de cas d'utilisation]]
+- [ ] [[04 UML diagramme de classes]]
+- [ ] [[05 UML séquence et activité]]
+- [ ] [[06 Wireframe maquette et prototype]]
+- [ ] [[07 Modélisation des données MCD et MLD]]
+- [ ] [[08 Architecture Decision Records]]
+- [ ] [[09 Estimation et planification]]

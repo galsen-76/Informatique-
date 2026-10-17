@@ -10,10 +10,11 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Agile et Scrum → [[Agile et manifeste agile]] · [[Scrum]]
-- [ ] Sprint, backlog, rituels → [[Scrum]]
-- [ ] Kanban → [[Kanban]]
-- [ ] Estimation et story points → [[Estimation et planification]]
-- [ ] Définition of Done → [[Definition of Done]]
+- [ ] [[01 Agile et manifeste agile]]
+- [ ] [[02 Scrum]]
+- [ ] [[03 Kanban]]
+- [ ] [[04 Definition of Done]]
+- [ ] [[05 Documentation technique]]
+- [ ] [[06 Résolution de problèmes et débogage]]

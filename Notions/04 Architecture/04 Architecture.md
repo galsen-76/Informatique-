@@ -10,12 +10,19 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Client / serveur → [[Client et serveur]]
-- [ ] API REST → [[API REST]]
-- [ ] MVC et architecture en couches → [[MVC et architecture en couches]]
-- [ ] Principes SOLID → [[Principes SOLID]]
-- [ ] Design patterns courants → [[Design patterns courants]]
-- [ ] Monolithe vs microservices → [[Monolithe vs microservices]]
-- [ ] Clean / hexagonal architecture → [[Clean architecture et hexagonale]]
+- [ ] [[01 Fondamentaux de l'architecture logicielle]]
+- [ ] [[02 API REST]]
+- [ ] [[03 MVC et architecture en couches]]
+- [ ] [[04 Structure de projet]]
+- [ ] [[05 Architecture frontend]]
+- [ ] [[06 Clean code]]
+- [ ] [[07 Principes SOLID]]
+- [ ] [[08 Design patterns courants]]
+- [ ] [[09 Clean architecture et hexagonale]]
+- [ ] [[10 Domain-Driven Design]]
+- [ ] [[11 Monolithe vs microservices]]
+- [ ] [[12 Architecture événementielle]]
+- [ ] [[13 Cache et performance]]
+- [ ] [[14 Scalabilité]]

@@ -10,11 +10,13 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Comment fonctionne un LLM → [[Comment fonctionne un LLM]]
-- [ ] Prompt engineering → [[Prompt engineering]]
-- [ ] Appeler une API de LLM → [[Appeler une API de LLM]]
-- [ ] RAG → [[RAG]]
-- [ ] Agents et multi-agents → [[Agents et multi-agents]]
-- [ ] Limites : hallucinations, coût, sécurité → [[Limites hallucinations coût et sécurité]]
+- [ ] [[01 Fondamentaux IA et machine learning]]
+- [ ] [[02 Comment fonctionne un LLM]]
+- [ ] [[03 Prompt engineering]]
+- [ ] [[04 Appeler une API de LLM]]
+- [ ] [[05 RAG]]
+- [ ] [[06 Agents et multi-agents]]
+- [ ] [[07 IA assistée au développement]]
+- [ ] [[08 Limites hallucinations coût et sécurité]]

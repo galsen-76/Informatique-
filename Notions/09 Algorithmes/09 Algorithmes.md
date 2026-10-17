@@ -10,11 +10,14 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Complexité (Big O) → [[Complexité Big O]]
-- [ ] Tableaux, listes, piles, files → [[Tableaux et chaînes]] · [[Piles files et listes chaînées]]
-- [ ] Tables de hachage → [[Tables de hachage Map et Set]]
-- [ ] Arbres et graphes → [[Arbres et graphes]]
-- [ ] Récursivité → [[Récursivité]]
-- [ ] Tris et recherche → [[Algorithmes de tri]] · [[Recherche binaire]]
+- [ ] [[01 Complexité Big O]]
+- [ ] [[02 Tableaux et chaînes]]
+- [ ] [[03 Piles files et listes chaînées]]
+- [ ] [[04 Tables de hachage Map et Set]]
+- [ ] [[05 Récursivité]]
+- [ ] [[06 Algorithmes de tri]]
+- [ ] [[07 Recherche binaire]]
+- [ ] [[08 Arbres et graphes]]
+- [ ] [[09 Techniques de résolution d'algorithmes]]

@@ -10,12 +10,39 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [ ] Linux : fichiers, permissions, processus → [[Linux fichiers et commandes essentielles]] · [[Linux permissions processus et services]]
-- [ ] Docker : image, conteneur, Dockerfile → [[Docker]] · [[Dockerfile]]
-- [ ] Docker Compose → [[Docker Compose]]
-- [ ] CI/CD : pipeline GitLab → [[Intégration et déploiement continus]] · [[Pipeline GitLab CI]]
-- [ ] Reverse proxy et API gateway (APISIX, Nginx) → [[Reverse proxy et load balancer]] · [[API gateway]]
-- [ ] Cloud : notions de base → [[Cloud notions de base]]
-- [ ] Variables d'environnement et secrets → [[Variables d'environnement]] · [[Gestion des secrets]]
+- **01 Linux**
+    - [ ] [[01 Linux fichiers et commandes essentielles]]
+    - [ ] [[02 Linux permissions processus et services]]
+- **02 Docker**
+    - [ ] [[01 Docker]]
+    - [ ] [[02 Commandes Docker CLI]]
+    - [ ] [[03 Dockerfile]]
+    - [ ] [[04 Dockerignore]]
+    - [ ] [[05 Build multi-stage]]
+    - [ ] [[06 Variables d'environnement]]
+    - [ ] [[07 Variables d'environnement Docker]]
+    - [ ] [[08 Volumes Docker]]
+    - [ ] [[09 Ports et réseau Docker]]
+    - [ ] [[10 Docker Compose]]
+    - [ ] [[11 Registry Docker]]
+    - [ ] [[12 Docker dans la CI]]
+- **03 CI**
+    - [ ] [[01 Intégration et déploiement continus]]
+    - [ ] [[02 Pipeline GitLab CI]]
+    - [ ] [[03 Runner GitLab]]
+    - [ ] [[04 Artifacts GitLab]]
+    - [ ] [[05 Pipeline CI CD full stack]]
+    - [ ] [[06 Stratégies de déploiement]]
+- [ ] [[04 API gateway]]
+- **05 Cloud**
+    - [ ] [[01 Cloud notions de base]]
+    - [ ] [[02 Héberger un front]]
+    - [ ] [[03 Héberger une API et une base de données]]
+    - [ ] [[04 Infrastructure as Code]]
+    - [ ] [[05 Kubernetes]]
+- **06 Monitoring**
+    - [ ] [[01 Logs]]
+    - [ ] [[02 Métriques et alerting]]
+    - [ ] [[03 Tracing Sentry et OpenTelemetry]]

@@ -10,12 +10,31 @@ await dv.view("Systeme/domaine")
 ```
 
 ## 🗺️ Plan d'apprentissage
-> Coche quand la notion a sa note et que tu l'as comprise. Ajoute tes propres lignes.
+> Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
-- [x] Pyramide des tests → [[Pyramide des tests]]
-- [ ] Tests unitaires → [[Tests unitaires]]
-- [ ] Tests d'intégration → [[Tests d'intégration]]
-- [ ] Tests end-to-end (Playwright) → [[Tests end-to-end]] · [[Playwright]]
-- [ ] Mocks et stubs → [[Mocks et stubs]]
-- [ ] Recette fonctionnelle (Squash TM) → [[Squash TM]]
-- [ ] Linting, formatage, code review → [[ESLint et Prettier]] · [[Qualité lint et SonarQube]] · [[Code review]]
+- [ ] [[01 Pyramide des tests]]
+- [ ] [[02 Tests unitaires]]
+- [ ] [[03 Mocks et stubs]]
+- [ ] [[04 Tests d'intégration]]
+- [ ] [[05 Tests end-to-end]]
+- **06 Playwright**
+    - [ ] [[01 Test automatisé]]
+    - [ ] [[02 Playwright]]
+    - [ ] [[03 Locators Playwright]]
+    - [ ] [[04 Assertions web-first]]
+    - [ ] [[05 Hooks Playwright]]
+    - [ ] [[06 Configuration Playwright]]
+    - [ ] [[07 Test flaky]]
+- [ ] [[07 TDD]]
+- [ ] [[08 Code review]]
+- [ ] [[09 Qualité lint et SonarQube]]
+- **10 squash**
+    - [ ] [[01 Vocabulaire du test]]
+    - [ ] [[02 Squash TM]]
+    - [ ] [[03 Squash TM avec Docker]]
+    - [ ] [[04 Squash Orchestrator]]
+    - [ ] [[05 Agent Squash]]
+    - [ ] [[06 Référence du test automatisé]]
+    - [ ] [[07 API Squash TM]]
+    - [ ] [[09 Orchestrator vs API Squash]]
+    - [ ] [[10 Squash TM et GitLab]]

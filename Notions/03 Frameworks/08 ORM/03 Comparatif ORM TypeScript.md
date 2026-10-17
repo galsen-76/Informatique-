@@ -1,0 +1,80 @@
+---
+type: notion
+statut: a apprendre
+resume: "Un ORM fait le lien entre ta base SQL et ton code TypeScript : tu manipules des objets, il écrit le SQL."
+revu:
+sources:
+  - "https://orm.drizzle.team"
+---
+# Comparatif ORM TypeScript
+
+```dataviewjs
+await dv.view("Systeme/notion")
+```
+
+> **En une phrase** : Un **ORM** fait le lien entre ta base SQL et ton code TypeScript : tu manipules des objets, il écrit le SQL.
+
+## Le problème
+
+**Pourquoi c'est utile ?**
+Pour reconnaître les différents ORM qu'on croise dans les projets et choisir le bon.
+
+**Qu'est-ce qui se passait sans ça ?**
+En arrivant sur un projet avec un autre ORM, on ne savait pas le lire.
+
+## Comment ça marche
+*Explique avec tes mots, comme à un collègue.*
+
+Prisma est ton choix principal, mais tu croiseras d'autres outils dans les projets existants. Cette note t'aide à les **reconnaître** et à **justifier** un choix.
+
+### Les principaux
+
+| Outil | Style | Le reconnaître | Points forts | Points faibles |
+|---|---|---|---|---|
+| **Prisma** | schéma dans un fichier `.prisma` | `prisma.user.findMany()` | typage excellent, simple, migrations incluses | SQL très avancé moins naturel |
+| **TypeORM** | classes décorées | `@Entity()`, `@Column()`, `repository.find()` | ressemble à Java / Spring, très répandu avec NestJS | typage moins sûr, pièges connus |
+| **Drizzle** | schéma en TypeScript, proche du SQL | `db.select().from(users).where(eq(users.id, 1))` | léger, rapide, proche du SQL | plus jeune |
+| **MikroORM** | classes décorées | `em.find(User, …)` | modèle riche, unité de travail | plus complexe |
+| **Kysely** | générateur de requêtes typé | `db.selectFrom('user').selectAll()` | SQL typé, aucune magie | pas un ORM complet |
+| SQL brut (`pg`) | requêtes écrites à la main | `pool.query('SELECT …')` | contrôle total | pas de typage, tout à la main |
+
+### Comment choisir
+
+| Situation | Choix |
+|---|---|
+| nouveau projet, priorité à la simplicité et au typage | **Prisma** |
+| tu veux rester proche du SQL, projet léger | Drizzle |
+| projet NestJS existant en TypeORM | TypeORM (suis l'existant) |
+| requêtes SQL très complexes (rapports, statistiques) | SQL brut ou Kysely, **en plus** de l'ORM |
+
+**Quel que soit l'ORM, connaître le SQL reste indispensable** : pour comprendre ce qui est exécuté, écrire les requêtes complexes et déboguer les lenteurs. Voir [[01 Fondamentaux SQL et SELECT|SQL]].
+
+## 🧪 Exemple
+
+### Le même besoin, trois écritures
+
+```ts
+// Prisma
+await prisma.review.findMany({ where: { movieId: 42 }, include: { user: true } });
+
+// TypeORM
+await reviewRepo.find({ where: { movieId: 42 }, relations: { user: true } });
+
+// Drizzle
+await db.select().from(reviews).innerJoin(users, eq(reviews.userId, users.id)).where(eq(reviews.movieId, 42));
+```
+
+## ⚠️ Limites et pièges
+
+- **Changer d'ORM en cours de projet** « parce qu'un autre est à la mode » : coût énorme, gain faible.
+- **Croire que l'ORM dispense de réfléchir aux index et aux jointures** : les lenteurs viennent de la base, pas de l'ORM.
+
+## 🔗 Liens
+
+- **Prérequis :** [[01 Prisma schéma et migrations|Prisma schéma et migrations]]
+- **Voir aussi :** [[08 ORM et problème N+1|ORM et problème N+1]]
+- **Utilisé dans :** 
+
+## 📚 Notes
+
+- Source : https://orm.drizzle.team

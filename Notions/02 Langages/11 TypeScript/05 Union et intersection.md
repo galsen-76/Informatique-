@@ -1,0 +1,142 @@
+---
+type: notion
+statut: a apprendre
+resume: "Une union (A | B) veut dire « ceci ou cela »."
+revu:
+sources:
+  - "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types"
+---
+# Union et intersection
+
+```dataviewjs
+await dv.view("Systeme/notion")
+```
+
+> **En une phrase** : Une **union** (`A | B`) veut dire « ceci **ou** cela ».
+
+## Le problème
+
+**Pourquoi c'est utile ?**
+Pour dire « ceci ou cela » (union) ou « ceci et cela » (intersection) dans un type.
+
+**Qu'est-ce qui se passait sans ça ?**
+On ne pouvait pas décrire une donnée qui prend plusieurs formes (chargement, succès, erreur), alors on mettait tout en optionnel.
+
+## Comment ça marche
+*Explique avec tes mots, comme à un collègue.*
+
+Une **intersection** (`A & B`) veut dire « ceci **et** cela à la fois ». L'union est l'outil le plus utile de TypeScript pour décrire les différents états d'une donnée.
+
+### Union : l'un ou l'autre
+
+```ts
+let id: string | number;
+id = 'abc';   // ✅
+id = 42;      // ✅
+id = true;    // ❌
+```
+
+Avec une union, TypeScript ne te laisse utiliser que ce qui est **commun** aux deux, tant que tu n'as pas vérifié lequel c'est :
+
+```ts
+function afficher(id: string | number) {
+  id.toUpperCase();                   // ❌ n'existe pas sur number
+  if (typeof id === 'string') {
+    id.toUpperCase();                 // ✅ ici c'est forcément un string
+  }
+}
+```
+
+Cette vérification s'appelle le **narrowing** : voir [[06 Type narrowing|Type Narrowing]].
+
+### Intersection : tout à la fois
+
+```ts
+type AvecId = { id: number };
+type AvecDates = { createdAt: Date; updatedAt: Date };
+
+type FilmEnBase = Film & AvecId & AvecDates;   // doit avoir TOUS les champs
+```
+
+Utile pour assembler des morceaux réutilisables. Pour un objet simple, `interface … extends` fait la même chose.
+
+### Pour s'en souvenir
+
+- `|` ressemble à un **aiguillage** : un chemin **ou** l'autre.
+- `&` se lit « **et** » : tout ensemble.
+
+## 🧪 Exemple
+
+### L'union « avec étiquette » : l'outil star
+
+On donne à chaque cas un champ commun (souvent `status` ou `type`) qui dit de quel cas il s'agit :
+
+```ts
+type LoadState =
+  | { status: 'loading' }
+  | { status: 'error'; message: string }
+  | { status: 'success'; films: Film[] };
+
+function afficher(etat: LoadState) {
+  switch (etat.status) {
+    case 'loading': return 'Chargement…';
+    case 'error':   return `Erreur : ${etat.message}`;       // message existe ici
+    case 'success': return `${etat.films.length} films`;     // films existe ici
+  }
+}
+```
+
+**Pourquoi c'est génial :** impossible d'avoir `films` pendant le chargement, ou d'oublier le cas d'erreur. Avec trois booléens séparés (`loading`, `error`, `data`), rien n'empêche des combinaisons absurdes comme « en chargement ET en erreur ».
+
+Tu utiliseras ce modèle pour chaque appel API de tes projets.
+
+## ⚠️ Limites et pièges
+
+- **Lire un champ qui n'existe que dans un cas** sans avoir vérifié le cas : erreur TypeScript (et c'est tant mieux).
+- **Intersection impossible** (`string & number`) : donne le type `never`, qui ne peut contenir aucune valeur.
+
+## 🏋️ S'entraîner
+
+### Exercices
+
+#### Exercice 1 · Décrire l'état d'un chargement
+
+Crée un type `LoadState` qui représente les 3 états : chargement, succès (avec la liste de films), erreur (avec un message). Utilise une union avec étiquette `status`.
+
+> [!success]- Solution
+> ```ts
+> type LoadState =
+>   | { status: 'loading' }
+>   | { status: 'success'; movies: Movie[] }
+>   | { status: 'error'; message: string };
+> ```
+>
+> Impossible d'avoir à la fois `movies` et `message`, ou un état « succès » sans films.
+
+#### Exercice 2 · Utiliser l'union
+
+Écris `render(state: LoadState): string` qui renvoie « Chargement… », le nombre de films, ou le message d'erreur.
+
+> [!success]- Solution
+> ```ts
+> function render(state: LoadState): string {
+>   switch (state.status) {
+>     case 'loading':
+>       return 'Chargement…';
+>     case 'success':
+>       return `${state.movies.length} films`;   // TypeScript sait que movies existe ici
+>     case 'error':
+>       return `Erreur : ${state.message}`;
+>   }
+> }
+> ```
+
+## 🔗 Liens
+
+- **Prérequis :** [[01 Fondamentaux TypeScript|Fondamentaux TypeScript]]
+- **Voir aussi :** [[02 Types primitifs et littéraux|Types primitifs et littéraux]]
+- **Utilisé dans :** 
+
+## 📚 Notes
+
+- Source : https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types
