@@ -67,7 +67,7 @@ Puis simplement `ssh cinetrack`.
 - Un serveur lancé dans WSL (`npm run dev`) est accessible depuis le navigateur Windows sur `localhost`.
 - Pour qu'un serveur soit joignable depuis ton téléphone (tester le responsive) : `npm run dev -- --host` puis l'IP de ton PC sur le réseau local.
 
-Commandes Linux générales : [[01 Linux fichiers et commandes essentielles|Linux essentiels]].
+Commandes Linux générales : [[04 Linux fichiers et commandes essentielles|Linux essentiels]].
 
 ### Pourquoi ça marche
 
@@ -206,7 +206,7 @@ Coche quand tu sais le faire **sans aide**. Une notion n’est maîtrisée que s
 ## 🔗 Liens
 
 - **Prérequis :** [[02 Modèle OSI et TCP IP|Modèle OSI et TCP IP]]
-- **Voir aussi :** [[01 Linux fichiers et commandes essentielles|Linux fichiers et commandes essentielles]], [[12 Pare-feu|Pare-feu]], [[16 Outils de diagnostic réseau|Outils de diagnostic réseau]]
+- **Voir aussi :** [[04 Linux fichiers et commandes essentielles|Linux fichiers et commandes essentielles]], [[12 Pare-feu|Pare-feu]], [[16 Outils de diagnostic réseau|Outils de diagnostic réseau]]
 - **Utilisé dans :** 
 
 ## 📚 Notes

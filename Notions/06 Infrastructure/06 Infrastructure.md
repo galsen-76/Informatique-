@@ -13,8 +13,12 @@ await dv.view("Systeme/domaine")
 > Dans l'ordre logique : coche quand tu as compris la notion et que tu sais l'expliquer sans relire.
 
 - **01 Linux**
-    - [ ] [[01 Linux fichiers et commandes essentielles]]
-    - [ ] [[02 Linux permissions processus et services]]
+    - [ ] [[01 Système d'exploitation et noyau]]
+    - [ ] [[02 Pourquoi les serveurs tournent sous Linux]]
+    - [ ] [[03 Distributions Linux]]
+    - [ ] [[04 Linux fichiers et commandes essentielles]]
+    - [ ] [[05 Linux permissions processus et services]]
+    - [ ] [[06 Conteneurs et noyau Linux]]
 - **02 Docker**
     - [ ] [[01 Docker]]
     - [ ] [[02 Commandes Docker CLI]]

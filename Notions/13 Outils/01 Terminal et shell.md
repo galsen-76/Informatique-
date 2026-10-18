@@ -97,7 +97,7 @@ Puis `source ~/.bashrc`.
 
 ### Pour aller plus vite
 
-**Starship** (prompt qui affiche la branche Git et la version de Node), **fzf** (recherche floue), **zoxide** (`z portfolio` pour sauter dans un dossier), **fnm** (versions de Node). Voir aussi les commandes Linux de [[01 Linux fichiers et commandes essentielles|Linux essentiels]].
+**Starship** (prompt qui affiche la branche Git et la version de Node), **fzf** (recherche floue), **zoxide** (`z portfolio` pour sauter dans un dossier), **fnm** (versions de Node). Voir aussi les commandes Linux de [[04 Linux fichiers et commandes essentielles|Linux essentiels]].
 
 ## 🧪 Exemple
 
@@ -119,7 +119,7 @@ npm test > resultat.txt 2>&1      # > : écrire dans un fichier (erreurs compris
 ## 🔗 Liens
 
 - **Prérequis :** 
-- **Voir aussi :** [[01 Linux fichiers et commandes essentielles|Linux fichiers et commandes essentielles]]
+- **Voir aussi :** [[04 Linux fichiers et commandes essentielles|Linux fichiers et commandes essentielles]]
 - **Utilisé dans :** 
 
 ## 📚 Notes

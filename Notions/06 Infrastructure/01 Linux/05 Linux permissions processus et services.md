@@ -96,7 +96,7 @@ Avec Docker, tes applications sont gérées par Docker (`restart: unless-stopped
 
 ## 🔗 Liens
 
-- **Prérequis :** [[01 Linux fichiers et commandes essentielles|Linux fichiers et commandes essentielles]]
+- **Prérequis :** [[04 Linux fichiers et commandes essentielles|Linux fichiers et commandes essentielles]]
 - **Voir aussi :** [[03 Dockerfile|Dockerfile]]
 - **Utilisé dans :** 
 

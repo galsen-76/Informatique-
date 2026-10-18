@@ -78,7 +78,7 @@ tar -xzf sauvegarde.tar.gz              # décompresser
 scp fichier ubuntu@serveur:/tmp/        # copier vers un serveur
 ```
 
-La suite : utilisateurs, droits, processus et services dans [[02 Linux permissions processus et services|Permissions, processus et services]].
+La suite : utilisateurs, droits, processus et services dans [[05 Linux permissions processus et services|Permissions, processus et services]].
 
 ## 🧪 Exemple
 
