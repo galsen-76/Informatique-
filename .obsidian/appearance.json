@@ -1,0 +1,8 @@
+{
+  "theme": "obsidian",
+  "cssTheme": "",
+  "accentColor": "#9787ff",
+  "enabledCssSnippets": [
+    "developer-workspace"
+  ]
+}
