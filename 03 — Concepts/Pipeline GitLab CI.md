@@ -1,0 +1,110 @@
+---
+type: concept
+domain: devops
+module: "[[Module 14 - DevOps et déploiement]]"
+status: a-decouvrir
+level: intermediaire
+prerequisites:
+  - "[[Git]]"
+parents: []
+related:
+  - "[[Variables CI-CD GitLab]]"
+  - "[[Construire une image dans la CI]]"
+next_review: 
+method: []
+tags:
+  - concept
+  - devops
+---
+# Pipeline GitLab CI
+
+> [!info] En une phrase
+> Une suite de tâches automatiques (tester, construire, publier) que GitLab lance à chaque push, décrite dans .gitlab-ci.yml.
+
+```dataviewjs
+await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
+```
+
+## 1 · Comprendre
+### Définition
+Une **pipeline** est l'ensemble des **jobs** que GitLab exécute pour un commit. Tout est décrit dans le fichier `.gitlab-ci.yml`, à la racine du dépôt.
+
+### Pourquoi ça existe
+Vérifier et construire chaque modification automatiquement, toujours de la même façon.
+
+### Le problème résolu
+Chacun lançait (ou oubliait) les tests et les builds sur son poste : du code cassé arrivait sur `main`.
+
+## 2 · Explorer
+### Comment ça fonctionne
+```mermaid
+flowchart LR
+  P[git push] --> PL[Pipeline]
+  PL --> S1[stage test : jobs en parallèle] --> S2[stage build] --> S3[stage publish]
+```
+
+### Exemple concret
+| Terme | Définition |
+| --- | --- |
+| **stage** | une étape ; les stages s'exécutent dans l'ordre |
+| **job** | une tâche : des commandes shell sous `script:` |
+| **runner** | la machine qui exécute les jobs, souvent dans un conteneur choisi par `image:` |
+| **rules** | quand lancer un job ; sans `rules`, à chaque push |
+
+```yaml
+stages:
+  - test
+  - build
+
+tests:
+  stage: test
+  image: python:3.11-slim
+  script:
+    - pip install -r requirements.txt
+    - pytest
+
+premier-job:
+  stage: build
+  image: docker:24
+  script:
+    - docker version
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+```
+
+### Cas d'utilisation
+- Lancer les tests à chaque push
+- Construire et publier des images
+- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
+
+> [!warning] À ne pas confondre
+> GitLab CI (`.gitlab-ci.yml`) et GitHub Actions (`.github/workflows/`) : un projet repris de GitHub garde sa CI GitHub, que GitLab **ignore**.
+
+## 3 · Pratiquer
+- Écris un `.gitlab-ci.yml` avec un seul job qui affiche `docker version`, et fais-le passer au vert.
+- Vérifie la syntaxe dans *Build > Pipeline editor* avant de pousser.
+
+## 4 · Expliquer
+> [!quote] Mon résumé, avec mes mots
+> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+
+## 5 · Relier
+- **Prérequis** : [[Git]]
+- **Complémentaires** : [[Variables CI-CD GitLab]]
+- **Utilisé par** : [[Construire une image dans la CI]] · [[Kaniko]]
+
+## 6 · Réviser
+> [!question]- Deux jobs du même stage s'exécutent-ils l'un après l'autre ?
+> Non, en parallèle. Ce sont les stages qui s'enchaînent dans l'ordre.
+
+> [!question]- Un fichier créé dans un job existe-t-il dans le job suivant ?
+> Non : chaque job repart de zéro, sauf avec `artifacts` ou `cache`.
+
+> [!question]- Où chercher la cause d'un job rouge ?
+> Dans son log, presque toujours dans les dernières lignes.
+
+### Validation de la maîtrise
+- [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas
+- [ ] J'ai réussi un exercice qui l'utilise
+- [ ] Je l'ai utilisé dans un projet
+- [ ] Je sais dire quand ne pas l'utiliser (ou ce qu'il ne faut pas confondre)
