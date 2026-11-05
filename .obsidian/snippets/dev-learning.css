@@ -1,0 +1,228 @@
+/* ==========================================================================
+   Dev Learning — snippet CSS (même identité que Dev Workspace)
+   Principe : AUCUNE bordure. Les zones se distinguent seulement par leur fond.
+   Couleurs appliquées en thème sombre ; mise en page valable partout.
+   ========================================================================== */
+
+/* ---------- 1. Couleurs -------------------------------------------------- */
+body {
+  --dw-violet-rgb: 109, 92, 232;
+  --dw-blue-rgb:   47, 111, 214;
+  --dw-green-rgb:  31, 154, 99;
+  --dw-orange-rgb: 201, 116, 28;
+  --dw-red-rgb:    210, 63, 76;
+  --dw-grey-rgb:   120, 128, 145;
+  --dw-surface:   var(--background-secondary);
+  --dw-surface-2: var(--background-modifier-hover);
+}
+.theme-dark {
+  --dw-violet-rgb: 151, 135, 255;
+  --dw-blue-rgb:   84, 150, 255;
+  --dw-green-rgb:  70, 200, 130;
+  --dw-orange-rgb: 245, 165, 80;
+  --dw-red-rgb:    245, 100, 110;
+  --dw-grey-rgb:   140, 148, 165;
+
+  --dw-bg:        #0c0e13;
+  --dw-surface:   #14171f;   /* panneaux, propriétés */
+  --dw-surface-2: #1b1f29;   /* cartes posées sur un panneau */
+
+  --background-primary:     var(--dw-bg);
+  --background-primary-alt: #101219;
+  --background-secondary:   #090b0f;
+  --background-secondary-alt: #0e1016;
+  --background-modifier-border: #1a1d26;        /* séparateurs de l'interface quasi invisibles */
+  --background-modifier-border-hover: #232734;
+  --background-modifier-border-focus: rgb(var(--dw-violet-rgb));
+  --background-modifier-hover: rgba(151, 135, 255, 0.07);
+
+  --text-normal: #e6e8ef;
+  --text-muted:  #9aa1b2;
+  --text-faint:  #666d7e;
+  --text-accent: #ab9dff;
+  --text-accent-hover: #c6bcff;
+  --interactive-accent: rgb(var(--dw-violet-rgb));
+  --interactive-accent-hover: #a99bff;
+  --text-selection: rgba(151, 135, 255, 0.25);
+}
+
+/* ---------- 2. Typographie ---------------------------------------------- */
+body {
+  --font-text-theme: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-interface-theme: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-monospace-theme: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
+  --line-height-normal: 1.6;
+  --h1-size: 1.8em;  --h1-weight: 700;
+  --h2-size: 1.35em; --h2-weight: 650;
+  --h3-size: 1.12em; --h3-weight: 600;
+  --h4-size: 1em;    --h4-weight: 600;
+}
+.theme-dark { --h1-color: #f4f5f9; --h2-color: #eceef4; --h3-color: #e1e4ec; --h4-color: var(--text-muted); }
+.markdown-rendered h1, .HyperMD-header-1 { letter-spacing: -0.015em; }
+.markdown-rendered h2 { margin-top: 1.8em; }
+
+/* ---------- 3. Liens ------------------------------------------------------ */
+body { --link-decoration: none; --link-external-decoration: none; --link-unresolved-decoration-style: dotted; }
+.theme-dark { --link-color: #ab9dff; --link-color-hover: #cbc2ff; --link-external-color: rgb(var(--dw-blue-rgb)); --link-unresolved-color: var(--text-faint); --link-unresolved-opacity: 1; }
+
+/* ---------- 4. Callouts : fond teinté, sans bordure ---------------------- */
+body { --callout-radius: 10px; --callout-padding: 14px 18px; --callout-title-weight: 600; --callout-border-width: 0; }
+.callout { border: none; background-color: rgba(var(--callout-color), 0.09); }
+.callout-title { color: rgb(var(--callout-color)); }
+.callout[data-callout="note"], .callout[data-callout="info"]       { --callout-color: var(--dw-blue-rgb); }
+.callout[data-callout="tip"], .callout[data-callout="hint"]        { --callout-color: var(--dw-violet-rgb); }
+.callout[data-callout="success"], .callout[data-callout="check"], .callout[data-callout="done"] { --callout-color: var(--dw-green-rgb); }
+.callout[data-callout="warning"], .callout[data-callout="caution"] { --callout-color: var(--dw-orange-rgb); }
+.callout[data-callout="danger"], .callout[data-callout="error"], .callout[data-callout="bug"] { --callout-color: var(--dw-red-rgb); }
+.callout[data-callout="quote"]    { --callout-color: var(--dw-grey-rgb); }
+.callout[data-callout="decision"] { --callout-color: var(--dw-green-rgb);  --callout-icon: lucide-check; }
+.callout[data-callout="risk"]     { --callout-color: var(--dw-red-rgb);    --callout-icon: lucide-shield; }
+
+/* ---------- 5. Propriétés : un seul bloc, fond uni, aligné ------------- */
+.theme-dark { --metadata-label-text-color: var(--text-muted); --metadata-property-background-hover: var(--dw-surface-2); }
+body { --metadata-background: transparent; --metadata-border-width: 0; --metadata-border-radius: 0; --metadata-padding: 0; }
+.metadata-container {
+  background: var(--dw-surface);
+  border: none;
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-inline: 0;
+}
+.metadata-container .metadata-properties-heading,
+.metadata-container .metadata-content,
+.metadata-container .metadata-properties { background: transparent; margin-inline: 0; padding-inline: 0; }
+
+/* ---------- 6. Tableaux : fond d'en-tête + lignes alternées -------------- */
+body { --table-border-width: 0; --table-header-weight: 600; --table-header-size: 0.86em; }
+.theme-dark { --table-header-background: var(--dw-surface); --table-header-color: var(--text-muted); --table-row-alt-background: rgba(255,255,255,0.02); --table-row-background-hover: rgba(151,135,255,0.06); }
+.markdown-rendered table, .markdown-rendered th, .markdown-rendered td { border: none; }
+.markdown-rendered th, .markdown-rendered td { padding: 7px 12px; }
+.markdown-rendered th:first-child { border-radius: 8px 0 0 8px; }
+.markdown-rendered th:last-child  { border-radius: 0 8px 8px 0; }
+
+/* ---------- 7. Tags, code, cases à cocher -------------------------------- */
+body { --tag-radius: 6px; --tag-padding-x: 8px; --tag-padding-y: 2px; --tag-border-width: 0; --tag-size: 0.82em; }
+.theme-dark { --tag-background: rgba(151,135,255,0.14); --tag-background-hover: rgba(151,135,255,0.22); --tag-color: #bfb4ff; --tag-color-hover: #d8d1ff; }
+
+body { --code-radius: 8px; --code-size: 0.88em; }
+.theme-dark {
+  --code-background: #12151c;
+  --code-normal: #d6dae4; --code-comment: #6b7385; --code-function: #8fb8ff; --code-keyword: #c3a6ff;
+  --code-string: #7fd6a4; --code-value: #f0b37a; --code-property: #8fd0e8; --code-punctuation: #8a93a6; --code-tag: #ef8b95;
+}
+.markdown-rendered pre, .markdown-rendered code { border: none; }
+
+body { --checkbox-radius: 5px; --checklist-done-decoration: line-through; }
+.theme-dark { --checkbox-color: rgb(var(--dw-green-rgb)); --checkbox-border-color: #4a5164; --checkbox-border-color-hover: rgb(var(--dw-violet-rgb)); --checkbox-marker-color: #0c0e13; --checklist-done-color: var(--text-faint); }
+
+.markdown-rendered hr { border-color: transparent; height: 1px; background: var(--dw-surface-2); }
+.markdown-rendered blockquote:not(.callout) { border-inline-start: none; background: var(--dw-surface); border-radius: 10px; padding: 10px 16px; }
+
+/* ---------- 8. Vues générées (dashboard, boards, journal) ---------------- */
+.dw-dashboard, .dw-wide { --file-line-width: 1240px; }
+.dw-root { margin: 4px 0 16px; }
+.dw-root p { margin: 0; }
+
+.dw-hero-title { font-size: 1.4em; font-weight: 650; }
+.dw-hero-sub   { color: var(--text-muted); margin-bottom: 14px; }
+
+.dw-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 6px 0 14px; }
+.dw-stat  { background: var(--dw-surface); border-radius: 12px; padding: 12px 16px; }
+.dw-stat-value { font-size: 1.75em; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; color: rgb(var(--tone)); }
+.dw-stat-label { font-size: 0.82em; color: var(--text-muted); }
+
+.dw-grid  { display: flex; flex-direction: column; gap: 10px; }   /* blocs pleine largeur empilés */
+.dw-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px; }
+.dw-items.is-wide { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 4px 16px; }
+.dw-items .dw-card { margin: 0; }
+.dw-list ul { columns: 2 300px; column-gap: 28px; }
+.dw-list li { break-inside: avoid; }
+.dw-panel { background: var(--dw-surface); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.dw-panel-title { font-weight: 650; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.dw-panel-title::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: rgb(var(--tone)); }
+
+:where(.dw-badge, .dw-dot, .dw-cal-item, .dw-panel, .dw-stat) { --tone: var(--dw-grey-rgb); }
+.is-violet { --tone: var(--dw-violet-rgb); }
+.is-blue   { --tone: var(--dw-blue-rgb); }
+.is-green  { --tone: var(--dw-green-rgb); }
+.is-orange { --tone: var(--dw-orange-rgb); }
+.is-red    { --tone: var(--dw-red-rgb); }
+.is-grey   { --tone: var(--dw-grey-rgb); }
+
+.dw-list ul { margin: 0; padding-inline-start: 1.1em; }
+.dw-list li { margin: 3px 0; }
+.dw-empty { color: var(--text-faint); font-size: 0.9em; padding: 2px 0; }
+.dw-more  { font-size: 0.88em; margin-top: 6px; }
+.dw-links .internal-link { display: inline-block; margin: 3px 2px; padding: 4px 11px; border-radius: 8px; background: var(--dw-surface-2); color: var(--text-normal); }
+.dw-links .internal-link:hover { background: rgba(var(--dw-violet-rgb), 0.18); }
+
+.dw-card { background: var(--dw-surface-2); border-radius: 9px; padding: 8px 10px; margin: 6px 0; font-size: 0.9em; }
+.dw-card.is-done { opacity: 0.55; }
+.dw-card-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; margin-top: 4px; font-size: 0.85em; color: var(--text-muted); }
+.dw-badge { font-size: 0.82em; font-weight: 600; padding: 0 7px; border-radius: 5px; color: rgb(var(--tone)); background: rgba(var(--tone), 0.14); white-space: nowrap; }
+
+.dw-row { padding: 6px 0 8px; }
+.dw-row-top { display: flex; justify-content: space-between; gap: 8px; }
+.dw-row-pct, .dw-row-meta { color: var(--text-muted); font-size: 0.85em; }
+.dw-progress { height: 6px; border-radius: 99px; background: var(--dw-surface-2); margin: 5px 0 4px; overflow: hidden; }
+.dw-progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, rgb(var(--dw-violet-rgb)), rgb(var(--dw-blue-rgb))); }
+
+/* Board : colonnes empilées, cartes alignées horizontalement */
+.dw-board { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.dw-col { background: var(--dw-surface); border-radius: 12px; padding: 10px 12px; }
+.dw-col-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+.dw-col-items .dw-card { margin: 0; }
+.dw-col-head { display: flex; gap: 8px; align-items: center; font-weight: 650; font-size: 0.9em; color: rgb(var(--tone)); padding: 0 2px 6px; }
+.dw-col-count { color: var(--text-faint); font-weight: 500; }
+.dw-col.is-backlog { --tone: var(--dw-grey-rgb); }
+.dw-col.is-todo    { --tone: var(--dw-blue-rgb); }
+.dw-col.is-doing   { --tone: var(--dw-orange-rgb); }
+.dw-col.is-review  { --tone: var(--dw-violet-rgb); }
+.dw-col.is-done    { --tone: var(--dw-green-rgb); }
+
+.dw-day-title { font-weight: 650; margin: 14px 0 2px; }
+.dw-h h2 { margin-top: 1.4em; }
+.dw-sub h3 { margin: 1em 0 0.1em; }
+.dw-sub p { color: var(--text-muted); font-size: 0.88em; }
+
+/* Calendrier : jours + points de couleur */
+.dw-cal-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.dw-cal-title { font-weight: 650; font-size: 1.1em; flex: 1; text-align: center; }
+.dw-cal-nav button { background: var(--dw-surface); border: none; box-shadow: none; }
+.dw-cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.dw-cal-head { font-size: 0.78em; color: var(--text-muted); text-align: center; padding: 2px; }
+.dw-cal-cell {
+  background: var(--dw-surface); border-radius: 10px; min-height: 50px; padding: 6px 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer;
+}
+.dw-cal-cell:hover { background: var(--dw-surface-2); }
+.dw-cal-cell.is-out { opacity: 0.3; }
+.dw-cal-cell.is-today { background: rgba(var(--dw-violet-rgb), 0.2); }
+.dw-cal-cell.is-today .dw-cal-num { color: rgb(var(--dw-violet-rgb)); }
+.dw-cal-num { font-weight: 600; font-size: 0.92em; }
+.dw-cal-cell.has-note .dw-cal-num { text-decoration: underline; text-decoration-color: var(--text-faint); text-underline-offset: 3px; }
+.dw-cal-dots { display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; min-height: 7px; }
+.dw-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: rgb(var(--tone)); }
+.dw-cal-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0 4px; font-size: 0.82em; color: var(--text-muted); }
+
+/* ---------- 9. Plugin Kanban : mêmes règles (fonds, pas de bordures) ----- */
+.kanban-plugin__lane { border: none !important; background: var(--dw-surface) !important; border-radius: 12px; }
+.kanban-plugin__item { border: none !important; background: var(--dw-surface-2) !important; border-radius: 9px; box-shadow: none !important; }
+.kanban-plugin__item-content-wrapper, .kanban-plugin__item-title-wrapper { background: transparent !important; border: none !important; }
+.kanban-plugin__lane-header-wrapper { border: none !important; }
+.kanban-plugin__item-button-wrapper, .kanban-plugin__lane-button-wrapper button { border: none !important; }
+
+/* ---------- 10. Spécifique à l'apprentissage ----------------------------- */
+.callout[data-callout="question"] { --callout-color: var(--dw-violet-rgb); --callout-icon: lucide-help-circle; }
+.callout[data-callout="example"]  { --callout-color: var(--dw-blue-rgb); }
+.callout[data-callout="abstract"], .callout[data-callout="summary"] { --callout-color: var(--dw-green-rgb); }
+
+.dl-steps { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+.dl-step {
+  font-size: 0.8em; font-weight: 600; padding: 2px 10px; border-radius: 99px;
+  background: var(--dw-surface-2); color: var(--text-faint);
+}
+.dl-step.is-done { background: rgba(var(--dw-violet-rgb), 0.18); color: rgb(var(--dw-violet-rgb)); }
+.dl-current { font-size: 1.05em; margin-bottom: 2px; }
+.dl-concept { background: var(--dw-surface); border-radius: 14px; padding: 12px 16px; margin: 8px 0 18px; }
+.dl-concept .dw-list ul { columns: 1; }

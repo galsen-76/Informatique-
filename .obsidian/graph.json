@@ -1,0 +1,52 @@
+{
+  "colorGroups": [
+    {
+      "query": "path:\"03 \u2014 Concepts\"",
+      "color": {
+        "a": 1,
+        "rgb": 9930751
+      }
+    },
+    {
+      "query": "path:\"04 \u2014 Commandes\"",
+      "color": {
+        "a": 1,
+        "rgb": 5543679
+      }
+    },
+    {
+      "query": "path:\"07 \u2014 Exercices et projets\"",
+      "color": {
+        "a": 1,
+        "rgb": 4638850
+      }
+    },
+    {
+      "query": "path:\"06 \u2014 Erreurs et solutions\"",
+      "color": {
+        "a": 1,
+        "rgb": 16082030
+      }
+    },
+    {
+      "query": "path:\"02 \u2014 Cours\"",
+      "color": {
+        "a": 1,
+        "rgb": 16098640
+      }
+    },
+    {
+      "query": "path:\"01 \u2014 Parcours\"",
+      "color": {
+        "a": 1,
+        "rgb": 14078207
+      }
+    }
+  ],
+  "search": "-path:\"10 \u2014 Templates\" -path:\"99 \u2014 Archives\"",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": true,
+  "showArrow": true
+}
