@@ -57,16 +57,20 @@ body {
   --h3-size: 1.12em; --h3-weight: 600;
   --h4-size: 1em;    --h4-weight: 600;
 }
-/* Titres : blancs et sobres. # et ## ont un trait gris très fin dessous,
-   ### et #### sont un peu plus gris pour marquer la hiérarchie. */
-.theme-light { --h1-color: var(--text-normal); --h2-color: var(--text-normal); --h3-color: #3b4150; --h4-color: #5c6372; }
-.theme-dark  { --h1-color: #f4f5f9; --h2-color: #eceef4; --h3-color: #c9cdd8; --h4-color: #a3a9b8; }
-.markdown-rendered :is(h1, h2) { padding-bottom: 6px; border-bottom: 1px solid var(--background-modifier-border-hover); }
-.markdown-source-view.mod-cm6 .cm-line:is(.HyperMD-header-1, .HyperMD-header-2) { padding-bottom: 6px; border-bottom: 1px solid var(--background-modifier-border-hover); }
+/* Titres : tous en blanc, avec un trait discret dessous */
+.theme-light { --h1-color: var(--text-normal); --h2-color: var(--text-normal); --h3-color: var(--text-normal); --h4-color: var(--text-normal); }
+.theme-dark  { --h1-color: #f4f5f9; --h2-color: #f4f5f9; --h3-color: #f4f5f9; --h4-color: #f4f5f9; }
+/* Soulignement discret : un trait fin pleine largeur, plus visible pour les grands titres */
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) { padding-bottom: 6px; border-bottom: 1px solid rgba(var(--dw-violet-rgb), 0.18); }
+.markdown-rendered h1 { border-bottom-color: rgba(var(--dw-violet-rgb), 0.55); }
+.markdown-rendered h2 { border-bottom-color: rgba(var(--dw-violet-rgb), 0.35); }
+.markdown-source-view.mod-cm6 .cm-line:is(.HyperMD-header-1, .HyperMD-header-2, .HyperMD-header-3, .HyperMD-header-4, .HyperMD-header-5, .HyperMD-header-6) { padding-bottom: 6px; border-bottom: 1px solid rgba(var(--dw-violet-rgb), 0.18); }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-1 { border-bottom-color: rgba(var(--dw-violet-rgb), 0.55); }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-2 { border-bottom-color: rgba(var(--dw-violet-rgb), 0.35); }
 
-/* Gras (**texte**) : violet doux, la couleur d'accent du coffre */
-.theme-light { --bold-color: #5b4bd6; }
-.theme-dark  { --bold-color: #c6bcff; }
+/* Gras (**texte**) : couleur ambrée pour ressortir du texte normal */
+.theme-light { --bold-color: #b45309; }
+.theme-dark  { --bold-color: #ffc66d; }
 .markdown-rendered h1, .HyperMD-header-1 { letter-spacing: -0.015em; }
 .markdown-rendered h2 { margin-top: 1.8em; }
 
