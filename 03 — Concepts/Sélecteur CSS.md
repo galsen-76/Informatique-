@@ -52,7 +52,7 @@ Mettre des attributs `style` sur chaque élément.
 ### Comment ça fonctionne
 ```mermaid
 flowchart TD
-  ID[#id] --> W[Gagne]
+  ID["#id"] --> W[Gagne]
   CL[.classe] --> W2[Puis]
   B[balise] --> W3[Puis]
 ```
