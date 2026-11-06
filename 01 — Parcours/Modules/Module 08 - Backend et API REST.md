@@ -15,8 +15,10 @@ tags:
 > Construire un serveur qui répond à des requêtes HTTP : il faut comprendre HTTP (module 1) et Node.js (module 7).
 
 ## Objectifs
-- Concevoir une API REST cohérente
-- La construire avec Express et des middlewares
+- Comprendre en détail une requête et une réponse HTTP
+- Concevoir des endpoints REST cohérents
+- Construire une API avec Express
+- Valider les entrées, gérer les erreurs et CORS
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })

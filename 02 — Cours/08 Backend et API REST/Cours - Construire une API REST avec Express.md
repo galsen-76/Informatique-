@@ -1,5 +1,6 @@
 ---
 type: course
+order: 2
 module: "[[Module 08 - Backend et API REST]]"
 concepts:
   - "[[API REST]]"
