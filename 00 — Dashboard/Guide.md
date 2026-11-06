@@ -25,11 +25,11 @@ tags:
 | Espace | Contient | Template |
 | --- | --- | --- |
 | 00 — Dashboard | [[Dashboard]], [[Focus]], ce guide | — |
-| 01 — Parcours | [[Parcours]] (15 modules), [[Méthode d'apprentissage]], [[Chemins de compréhension]] | Module |
+| 01 — Parcours | [[Parcours]] (21 modules), [[Méthode d'apprentissage]], [[Chemins de compréhension]] | Module |
 | 02 — Cours | Un dossier par module, un cours par chapitre | Cours |
 | 03 — Concepts | Une fiche par notion, suivant les 6 étapes | Concept |
 | 04 — Commandes | Un sous-dossier par outil | Commande |
-| 05 — Fiches pratiques | Procédures pas à pas | Fiche pratique |
+| 05 — Fiches pratiques | Procédures pas à pas, et [[Bonnes pratiques]] par langage et outil (à faire, à éviter, pourquoi) | Fiche pratique · Bonnes pratiques |
 | 06 — Erreurs et solutions | Erreurs rencontrées et résolues | Erreur |
 | 07 — Exercices et projets | Exercices, projet fil rouge | Exercice · Projet |
 | 08 — Ressources | Documentation officielle et outils | — |
@@ -154,6 +154,9 @@ Dev Learning/
 │       ├── npm init.md
 │       └── npm install.md
 ├── 05 — Fiches pratiques/
+│   ├── Bonnes pratiques/
+│   │   ├── Bonnes pratiques - Python.md (une fiche par langage ou outil)
+│   │   └── Bonnes pratiques.md
 │   ├── Fiche - Démarrer un projet Node.js.md
 │   ├── Fiche - Lancer PostgreSQL avec Docker.md
 │   ├── Fiche - Publier un dépôt sur GitHub.md
