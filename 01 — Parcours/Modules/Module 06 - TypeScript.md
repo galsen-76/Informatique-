@@ -14,8 +14,10 @@ tags:
 > JavaScript avec des types : on ne type bien que ce qu'on comprend déjà en JavaScript.
 
 ## Objectifs
-- Typer fonctions et objets
-- Comprendre ce que le compilateur vérifie
+- Typer variables, fonctions et objets
+- Modéliser des cas avec les unions
+- Lire et écrire des génériques
+- Configurer et vérifier un projet avec tsc
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })

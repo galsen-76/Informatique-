@@ -11,7 +11,7 @@ concepts:
 tags:
   - cours
 ---
-# Cours - Asynchrone : Promesses, async/await et fetch
+# Cours - L'asynchrone avec Promesses, async, await et fetch
 
 > [!abstract] Objectifs
 > - Comprendre pourquoi le code asynchrone s'exécute plus tard
@@ -19,7 +19,7 @@ tags:
 > - Appeler une API, vérifier le statut et lire le JSON
 > - Lancer des appels en série ou en parallèle
 
-**Prérequis :** [[Cours - JavaScript dans la page : DOM et événements]] · [[Cours - Comment fonctionne le web]]
+**Prérequis :** [[Cours - JavaScript dans la page, DOM et événements]] · [[Cours - Comment fonctionne le web]]
 
 ## 1. Le problème
 Un appel réseau prend du temps. JavaScript n'a qu'un fil : s'il attendait, la page serait figée. Il lance donc l'opération et continue ; la [[Boucle d'événements]] rappelle ton code quand la réponse arrive.

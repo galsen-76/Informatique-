@@ -15,8 +15,10 @@ tags:
 > Exécuter du JavaScript hors du navigateur. Il faut le terminal (lancer, installer) et le langage.
 
 ## Objectifs
-- Exécuter du JavaScript côté serveur
-- Gérer un projet avec npm
+- Installer et choisir sa version de Node
+- Écrire des scripts Node (arguments, fichiers, code de sortie)
+- Gérer un projet avec npm et package.json
+- Comprendre semver et l'installation reproductible
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })

@@ -8,7 +8,7 @@ concepts:
 tags:
   - cours
 ---
-# Cours - JavaScript dans la page : DOM et événements
+# Cours - JavaScript dans la page, DOM et événements
 
 > [!abstract] Objectifs
 > - Trouver et modifier des éléments de la page

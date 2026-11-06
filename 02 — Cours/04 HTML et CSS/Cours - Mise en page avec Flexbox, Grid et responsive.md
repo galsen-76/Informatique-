@@ -9,7 +9,7 @@ concepts:
 tags:
   - cours
 ---
-# Cours - Mise en page : Flexbox, Grid et responsive
+# Cours - Mise en page avec Flexbox, Grid et responsive
 
 > [!abstract] Objectifs
 > - Aligner et répartir avec Flexbox
