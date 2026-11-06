@@ -1,6 +1,3 @@
-/* Police des titres : Space Grotesk (Google Fonts, chargée en ligne ; sinon repli sur Segoe UI) */
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap");
-
 /* ==========================================================================
    Dev Learning — snippet CSS (même identité que Dev Workspace)
    Principe : AUCUNE bordure. Les zones se distinguent seulement par leur fond.
@@ -61,12 +58,6 @@ body {
   --h4-size: 1em;    --h4-weight: 600;
 }
 /* Titres : tous en blanc, sans soulignement */
-body {
-  --dl-heading-font: "Space Grotesk", "Segoe UI Semibold", "Segoe UI", system-ui, sans-serif;
-  --h1-font: var(--dl-heading-font); --h2-font: var(--dl-heading-font); --h3-font: var(--dl-heading-font);
-  --h4-font: var(--dl-heading-font); --h5-font: var(--dl-heading-font); --h6-font: var(--dl-heading-font);
-  --inline-title-font: var(--dl-heading-font);
-}
 .theme-light { --h1-color: var(--text-normal); --h2-color: var(--text-normal); --h3-color: var(--text-normal); --h4-color: var(--text-normal); }
 .theme-dark  { --h1-color: #f4f5f9; --h2-color: #f4f5f9; --h3-color: #f4f5f9; --h4-color: #f4f5f9; }
 
