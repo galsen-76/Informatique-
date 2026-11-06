@@ -1,5 +1,6 @@
 ---
 type: course
+order: 3
 module: "[[Module 01 - Fondamentaux informatiques]]"
 concepts:
   - "[[Port]]"

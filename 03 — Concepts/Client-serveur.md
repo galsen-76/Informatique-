@@ -46,7 +46,7 @@ sequenceDiagram
 > **Client** ≠ « l'utilisateur ». Le client est un *programme*. Et un **serveur** n'est pas forcément une grosse machine : `node server.js` sur ton PC est un serveur.
 
 ## 3 · Pratiquer
-- _Pas encore d’exercice : en créer un avec le template **Exercice**._
+- Les exercices de cette notion sont listés en haut de la fiche et dans *Validation de la maîtrise*.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

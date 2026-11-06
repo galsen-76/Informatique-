@@ -24,7 +24,7 @@ Tout part de `/`. Les dossiers ont un rôle fixe : configuration dans `/etc`, do
 ## 2. Schéma
 ```mermaid
 flowchart TD
-  R[/] --> E[etc : config]
+  R["/"] --> E[etc : config]
   R --> V[var : données, logs]
   R --> U[usr : programmes]
   R --> H[home : utilisateurs]

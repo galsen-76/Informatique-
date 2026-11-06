@@ -40,7 +40,7 @@ Sans runner privilégié, Docker-in-Docker est impossible, donc pas de build d'i
 ### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  DF[Dockerfile + code] --> K[/kaniko/executor/] -- push direct --> R[(Registre)]
+  DF[Dockerfile + code] --> K["/kaniko/executor/"] -- push direct --> R[(Registre)]
 ```
 
 ### Exemple concret

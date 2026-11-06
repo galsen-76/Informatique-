@@ -47,7 +47,7 @@ erDiagram
 > **Relationnelle** (tables + SQL) et **NoSQL** (documents, clé-valeur… comme MongoDB).
 
 ## 3 · Pratiquer
-- _Pas encore d’exercice : en créer un avec le template **Exercice**._
+- Les exercices de cette notion sont listés en haut de la fiche et dans *Validation de la maîtrise*.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

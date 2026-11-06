@@ -36,7 +36,7 @@ Un **JWT** (JSON Web Token) a trois parties encodées en base64 : `en-tête.cont
 > Le contenu d'un JWT est **encodé, pas chiffré** : n'importe qui peut le lire. Ne jamais y mettre de mot de passe. La signature garantit seulement qu'il n'a pas été modifié.
 
 ## 3 · Pratiquer
-- _Pas encore d’exercice : en créer un avec le template **Exercice**._
+- Les exercices de cette notion sont listés en haut de la fiche et dans *Validation de la maîtrise*.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

@@ -37,7 +37,7 @@ Comme un serveur de restaurant : tu ne vas pas en cuisine (le code interne), tu 
 > **API** (le contrat d'échange) et **base de données** (où sont stockées les données). L'API se place devant la base et contrôle qui accède à quoi.
 
 ## 3 · Pratiquer
-- _Pas encore d’exercice : en créer un avec le template **Exercice**._
+- Les exercices de cette notion sont listés en haut de la fiche et dans *Validation de la maîtrise*.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

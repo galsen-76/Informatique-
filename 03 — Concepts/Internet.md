@@ -48,7 +48,7 @@ flowchart LR
 > **Internet** (le réseau) et **le Web** (un service qui fonctionne *sur* Internet, avec HTTP et des pages). L'e-mail ou les jeux en ligne utilisent Internet sans être « le Web ».
 
 ## 3 · Pratiquer
-- _Pas encore d’exercice : en créer un avec le template **Exercice**._
+- Les exercices de cette notion sont listés en haut de la fiche et dans *Validation de la maîtrise*.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

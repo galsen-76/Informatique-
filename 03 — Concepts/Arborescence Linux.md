@@ -53,7 +53,7 @@ Chercher au hasard où un logiciel met sa configuration ou ses journaux.
 ### Comment ça fonctionne
 ```mermaid
 flowchart TD
-  R[/] --> H[home]
+  R["/"] --> H[home]
   R --> E[etc]
   R --> V[var]
   R --> U[usr]

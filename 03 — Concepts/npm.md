@@ -38,7 +38,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 > **npm** (l'outil) et **npx** (exécute un paquet sans l'installer globalement). Et on ne versionne **jamais** `node_modules` (il est dans `.gitignore`).
 
 ## 3 · Pratiquer
-- _Pas encore d’exercice : en créer un avec le template **Exercice**._
+- Les exercices de cette notion sont listés en haut de la fiche et dans *Validation de la maîtrise*.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

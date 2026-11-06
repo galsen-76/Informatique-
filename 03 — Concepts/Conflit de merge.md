@@ -28,6 +28,12 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ### Définition
 Git marque les zones en conflit dans le fichier avec `<<<<<<<`, `=======` et `>>>>>>>`. Tu choisis le bon contenu, supprimes les marqueurs, puis `git add` et `git commit`.
 
+### Pourquoi ça existe
+Git ne peut pas deviner quelle version garder quand deux personnes ont modifié les mêmes lignes.
+
+### Le problème résolu
+Écraser silencieusement le travail de quelqu'un.
+
 ## 2 · Explorer
 ### Comment ça fonctionne
 ```text
@@ -38,11 +44,26 @@ const PORT = 8080;
 >>>>>>> feature/config
 ```
 
+### Exemple concret
+```bash
+git merge feat/config        # CONFLICT (content): Merge conflict in config.js
+git status                   # liste les fichiers en conflit
+# éditer le fichier : garder la bonne version, supprimer <<<<<<< ======= >>>>>>>
+git add config.js
+git commit                   # ou git rebase --continue pendant un rebase
+git merge --abort            # tout annuler si besoin
+```
+VS Code propose *Accept Current / Incoming / Both* au-dessus de chaque conflit.
+
+### Cas d'utilisation
+- Après un `git pull`, un `merge` ou un `rebase`
+- Voir [[Erreur - CONFLICT lors d'un git merge]]
+
 > [!warning] À ne pas confondre
 > Un conflit n'est **pas une erreur** ni une perte de données : c'est Git qui te demande d'arbitrer.
 
 ## 3 · Pratiquer
-- _Pas encore d’exercice : en créer un avec le template **Exercice**._
+- Les exercices de cette notion sont listés en haut de la fiche et dans *Validation de la maîtrise*.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

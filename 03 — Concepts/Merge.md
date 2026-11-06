@@ -29,6 +29,12 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ### Définition
 Le **merge** (fusion) combine l'historique de deux branches. Deux cas : **fast-forward** (la branche cible n'a pas bougé, Git avance simplement le pointeur) ou **commit de fusion** (les deux ont avancé, Git crée un commit à deux parents).
 
+### Pourquoi ça existe
+Réunir le travail fait en parallèle sur des branches différentes.
+
+### Le problème résolu
+Recopier à la main les changements d'une branche dans une autre.
+
 ## 2 · Explorer
 ### Comment ça fonctionne
 ```mermaid
@@ -42,11 +48,24 @@ gitGraph
   merge feature id: "Merge"
 ```
 
+### Exemple concret
+```bash
+git switch main
+git pull
+git merge feat/dry-run        # fast-forward ou commit de fusion
+git log --oneline --graph -n 10
+```
+En équipe, on fusionne surtout via une [[Merge request]] sur GitLab.
+
+### Cas d'utilisation
+- Intégrer une fonctionnalité terminée dans `main`
+- Récupérer `main` dans sa branche (ou [[Rebase]])
+
 > [!warning] À ne pas confondre
 > **merge** et **rebase** : le rebase réécrit l'historique pour le rendre linéaire, le merge le conserve tel quel.
 
 ## 3 · Pratiquer
-- _Pas encore d’exercice : en créer un avec le template **Exercice**._
+- Les exercices de cette notion sont listés en haut de la fiche et dans *Validation de la maîtrise*.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

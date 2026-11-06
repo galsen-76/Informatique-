@@ -42,7 +42,7 @@ Copier les fichiers dans l'image à chaque fois (lent, et l'image change à chaq
 ```mermaid
 flowchart TD
   H[Dossier hôte] --> M[Montage -v]
-  M --> C[/data conteneur]
+  M --> C["/data conteneur"]
 ```
 Syntaxe : `-v <hôte>:<conteneur>[:ro]`. Le chemin conteneur est **toujours absolu** (`/data`). `:ro` = lecture seule.
 

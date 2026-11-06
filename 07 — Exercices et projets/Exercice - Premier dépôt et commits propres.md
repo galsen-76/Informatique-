@@ -6,6 +6,8 @@ concepts:
   - "[[Dépôt Git]]"
   - "[[Commit]]"
   - "[[Convention de commit]]"
+  - "[[Index Git (staging)]]"
+  - "[[Ignorer des fichiers (gitignore)]]"
 tags:
   - exercice
 ---
@@ -13,7 +15,7 @@ tags:
 
 > [!info] Objectif
 > Créer un dépôt et un historique lisible, en relisant chaque changement.
-> Notions : [[Dépôt Git]] · [[Commit]] · [[Convention de commit]]
+> Notions : [[Dépôt Git]] · [[Commit]] · [[Convention de commit]] · [[Index Git (staging)]] · [[Ignorer des fichiers (gitignore)]]
 
 ## Consignes
 - [ ] Crée un dépôt `essai-zip` dans `~/projets` avec un `README.md` et un `.gitignore` (`.venv/`, `__pycache__/`)

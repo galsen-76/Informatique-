@@ -42,7 +42,7 @@ Deviner la cause d'une panne sans aucune trace.
 ```mermaid
 flowchart TD
   S[Services] --> J[journald]
-  S --> V[/var/log]
+  S --> V["/var/log"]
   C[Conteneurs] --> DL[docker logs]
 ```
 
