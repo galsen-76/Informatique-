@@ -16,8 +16,10 @@ tags:
 > Automatiser tests et mise en ligne : il faut Git (déclencheur), des tests et des images Docker.
 
 ## Objectifs
-- Automatiser tests et build (CI)
-- Déployer une application
+- Écrire des pipelines GitLab CI complètes (lint, tests, build, déploiement)
+- Construire et publier des images dans un registre (Nexus)
+- Gérer plusieurs environnements et le retour arrière
+- Superviser une application en production
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })

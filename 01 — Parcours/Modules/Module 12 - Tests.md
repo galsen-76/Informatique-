@@ -15,8 +15,10 @@ tags:
 > Tester du code suppose d'en avoir écrit : on teste des fonctions Node et des routes d'API.
 
 ## Objectifs
-- Écrire des tests unitaires et d'API
-- Comprendre ce qu'un test protège
+- Écrire des tests unitaires avec Vitest et pytest
+- Isoler les dépendances avec des doublures
+- Tester une API avec sa base et une interface avec Playwright
+- Faire tourner les tests dans la CI
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })
