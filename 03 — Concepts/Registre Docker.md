@@ -9,6 +9,7 @@ prerequisites:
 parents:
   - "[[Docker]]"
 related:
+  - "[[Démon Docker]]"
   - "[[Nexus]]"
   - "[[Dockerfile]]"
 next_review: 
@@ -59,6 +60,21 @@ docker build -t registry.gitlab.com/equipe/projet/api:1.2.0 .
 docker push registry.gitlab.com/equipe/projet/api:1.2.0
 docker pull registry.gitlab.com/equipe/projet/api:1.2.0   # sur une autre machine
 ```
+
+### Les registres que tu croiseras
+| Registre | Préfixe | Exemple |
+| --- | --- | --- |
+| Docker Hub | rien, ou `docker.io/` | `python:3.12-slim`, `cvat/server` |
+| GitHub Container Registry | `ghcr.io/` | `ghcr.io/organisation/image:tag` |
+| Registre GitLab | `registry.gitlab.com/` ou celui de ton GitLab | `$CI_REGISTRY_IMAGE` |
+| Nexus de l'entreprise | `nexus.mon-entreprise.com:8082/` | voir [[Nexus]] |
+
+### Miroir de registre
+Un **miroir** (*mirror*) est un registre qui garde une copie d'un autre (souvent Docker Hub). Deux façons de s'en servir :
+- **Écrire son adresse dans le nom** de l'image : `nexus…:8082/library/python:3.12-slim`. Explicite, marche partout.
+- **Configurer le démon** (`registry-mirrors` dans `daemon.json`) : `docker pull python` passe par le miroir sans changer les noms. Ne marche que pour Docker Hub, et seulement là où le [[Démon Docker|démon]] est configuré.
+
+Un projet open source peut publier ses images sur **plusieurs** registres (Docker Hub et ghcr.io) : le nom indiqué dans son `docker-compose.yml` dit lequel il utilise.
 
 ### Cas d'utilisation
 - Publier les images construites par la CI

@@ -100,5 +100,34 @@ flowchart LR
 
 [[Node.js]] → [[npm]] → [[Docker]] → [[Image Docker]] → [[Conteneur]]
 
+## Du script Python à l'image testée en CI
+Comment un script écrit sur ton poste devient une image construite et testée automatiquement.
+
+```mermaid
+flowchart TD
+  N0["Python"]
+  N1["Fonction"]
+  N2["Archive zip (zipfile)"]
+  N3["pip"]
+  N4["Python dans Docker"]
+  N5["Pipeline GitLab CI"]
+  N6["Tester l'image, pas le dépôt"]
+  N0 --> N1
+  N1 --> N2
+  N2 --> N3
+  N3 --> N4
+  N4 --> N5
+  N5 --> N6
+  class N0 internal-link;
+  class N1 internal-link;
+  class N2 internal-link;
+  class N3 internal-link;
+  class N4 internal-link;
+  class N5 internal-link;
+  class N6 internal-link;
+```
+
+[[Python]] → [[Fonction]] → [[Archive zip (zipfile)]] → [[pip]] → [[Python dans Docker]] → [[Pipeline GitLab CI]] → [[Tester l'image, pas le dépôt]]
+
 > [!tip] Vue graphique
 > Ouvre la vue graphique (`Ctrl+G`) : concepts en violet, commandes en bleu, exercices en vert, erreurs en rouge, cours en orange.

@@ -1,0 +1,97 @@
+---
+tags:
+  - index
+---
+# Parcours - Python, Docker et CI
+
+> [!info] À quoi sert ce parcours
+> L'ordre conseillé pour construire des bases solides avant le projet CVAT : écrire un script Python qui manipule et zippe des fichiers, le faire tourner dans Docker, puis le construire et le tester dans GitLab CI. Chaque étape s'appuie sur la précédente. Pour chaque fiche : lire, pratiquer, écrire **avec mes mots**, puis demander à Claude de m'interroger.
+
+```mermaid
+flowchart TD
+  E0[0 · Prérequis] --> E1[1 · Python bases]
+  E1 --> E2[2 · Fichiers]
+  E2 --> E3[3 · Outillage]
+  E3 --> E4[4 · Docker]
+  E4 --> E5[5 · Réseau]
+  E5 --> E6[6 · Git]
+  E6 --> E7[7 · GitLab CI]
+  E7 --> E8[8 · Outils CVAT]
+```
+
+## Étape 0 · Prérequis
+**Cours** : [[Cours - Ce que tout programme reçoit et renvoie]]
+1. [[Terminal]] et [[Système de fichiers]] (déjà dans le coffre, à revoir si besoin)
+2. [[Variable d'environnement]]
+3. [[Code de sortie]]
+4. [[JSON]] puis [[YAML]]
+5. [[Fichiers entre Windows et Linux]]
+
+## Étape 1 · Python, les bases
+**Cours** : [[Cours - Python, premiers pas]] puis [[Cours - Fonctions, modules et erreurs]]
+1. [[Python]] · commande [[python script.py]]
+2. [[Variables et types en Python]]
+3. [[Condition (if)]]
+4. [[Boucle (for, while)]]
+5. [[Liste et dictionnaire]]
+6. [[Fonction]]
+7. [[Module et import Python]]
+8. [[Exception]]
+
+## Étape 2 · Python et les fichiers
+**Cours** : [[Cours - Manipuler des fichiers et des archives]]
+1. [[Chemin de fichier en Python (pathlib)]]
+2. [[Lire et écrire un fichier]]
+3. [[Copier et déplacer des fichiers (shutil)]]
+4. [[Archive zip (zipfile)]]
+5. [[Arguments de ligne de commande]]
+
+## Étape 3 · Outillage Python
+**Cours** : [[Cours - Installer des dépendances et tester]]
+1. [[Environnement virtuel Python]]
+2. [[pip]] · commande [[pip install]]
+3. [[pytest]]
+4. [[Pillow]]
+
+## Étape 4 · Docker
+**Cours** : [[Cours - Docker, les bases solides]] puis [[Cours - Faire tourner un script Python dans Docker]]
+1. [[Docker]] et [[Démon Docker]]
+2. [[Dockerfile]] et [[Image Docker]] (couches, cache, image dérivée)
+3. [[Conteneur]]
+4. [[Volume Docker]]
+5. [[Python dans Docker]]
+6. [[Docker Compose]] · commande [[docker compose up]]
+7. [[Registre Docker]] (Docker Hub, ghcr.io, miroirs) et [[Nexus]]
+
+## Étape 5 · Réseau
+**Cours** : [[Cours - Ports, proxy et reverse proxy]]
+1. [[Port]]
+2. [[Proxy]]
+3. [[Reverse proxy]] (Traefik et `CVAT_HOST`)
+
+## Étape 6 · Git dans un vrai projet
+**Cours** : [[Cours - Git propre dans un vrai projet]]
+1. [[Convention de commit]] (`fix`, `ci`…)
+2. [[Tag Git]] · commande [[git tag]]
+3. Commandes [[git diff]] et [[git grep]]
+4. [[Changelog]]
+
+## Étape 7 · GitLab CI
+**Cours** : [[Cours - Maîtriser le fichier de pipeline GitLab]] puis [[Cours - Construire et publier les images d'un projet avec GitLab CI]]
+1. [[Pipeline GitLab CI]] (jobs, stages, `needs`, états)
+2. [[Variables CI-CD GitLab]]
+3. [[Règles d'un job GitLab (rules)]] (manuel, `allow_failure`, skipped)
+4. [[Artefacts GitLab CI]]
+5. [[extends GitLab CI]]
+6. [[Construire une image dans la CI]] (Docker-in-Docker) et [[Kaniko]]
+7. [[Tester l'image, pas le dépôt]]
+
+## Étape 8 · Outils du projet CVAT
+1. [[OpenAPI]]
+2. [[SDK]]
+
+## Les réflexes, à relire avant chaque séance de débogage
+[[Fiche - Réflexes pour déboguer une pipeline]] : lire le log depuis la première erreur, partir des fichiers de ta version, un changement = un commit = un pipeline, vérifier ce qu'un test teste avant de le débloquer.
+
+> [!tip] Le fil rouge
+> Le même petit projet traverse tout le parcours : ton script de zip. Écrit en étape 2, testé en étape 3, conteneurisé en étape 4, versionné proprement en étape 6, construit et testé par la CI en étape 7.

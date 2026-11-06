@@ -26,6 +26,7 @@ flowchart TD
   M13["Module 13 - Docker"]
   M14["Module 14 - DevOps et déploiement"]
   M15["Module 15 - Architecture logicielle"]
+  M16["Module 16 - Python"]
   M1 --> M2
   M2 --> M3
   M1 --> M4
@@ -50,6 +51,9 @@ flowchart TD
   M8 --> M15
   M9 --> M15
   M12 --> M15
+  M1 --> M16
+  M2 --> M16
+  M16 --> M13
   class M1 internal-link;
   class M2 internal-link;
   class M3 internal-link;
@@ -65,10 +69,11 @@ flowchart TD
   class M13 internal-link;
   class M14 internal-link;
   class M15 internal-link;
+  class M16 internal-link;
 ```
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "parcours" })
 ```
 
-Voir aussi : [[Méthode d'apprentissage]] · [[Chemins de compréhension]] · [[Suivi des acquis]]
+Voir aussi : [[Parcours - Python, Docker et CI]] · [[Méthode d'apprentissage]] · [[Chemins de compréhension]] · [[Suivi des acquis]]

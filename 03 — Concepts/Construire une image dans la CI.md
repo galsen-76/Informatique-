@@ -11,6 +11,7 @@ prerequisites:
 parents:
   - "[[Pipeline GitLab CI]]"
 related:
+  - "[[Démon Docker]]"
   - "[[Kaniko]]"
   - "[[Nexus]]"
 next_review: 
@@ -46,6 +47,20 @@ flowchart LR
   D -- build --> I[Image]
   I -- push --> R[(Registre)]
 ```
+
+### Pourquoi il faut un démon à côté
+La commande `docker` n'est qu'un **client** : elle envoie des ordres au [[Démon Docker]]. Le job tourne lui-même dans un conteneur, sans démon. Le service `docker:dind` en lance un dans un conteneur voisin, et le client s'y connecte par le réseau via la variable `DOCKER_HOST`.
+
+```mermaid
+flowchart TD
+  C[docker CLI] --> H[DOCKER_HOST]
+  H --> D[dind]
+```
+- `DOCKER_HOST: tcp://docker:2376` : où est le démon (le service s'appelle `docker`).
+- `DOCKER_TLS_CERTDIR: "/certs"` : chiffre la connexion client-démon (valeur par défaut des images récentes).
+- Le runner doit être en mode **privilégié** pour dind ; sinon, [[Kaniko]].
+- Le démon dind est **neuf à chaque job** : pas de cache d'un job à l'autre, sauf `--cache-from` avec une image déjà poussée.
+- Les images des services (`docker:dind`) viennent aussi d'un registre : derrière un Nexus, il faut les préfixer aussi.
 
 ### Exemple concret
 ```yaml
