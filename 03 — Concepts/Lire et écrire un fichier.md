@@ -91,7 +91,7 @@ print(len(octets), "octets")
 ## 5 · Relier
 - **Prérequis** : [[Chemin de fichier en Python (pathlib)]]
 - **Complémentaires** : [[JSON]] · [[Exception]]
-- **Utilisé par** : [[Archive zip (zipfile)]] · [[Pillow]]
+- **Utilisé par** : [[Archive zip (zipfile)]] · [[Lire et écrire du CSV]]
 
 ## 6 · Réviser
 > [!question] Me faire interroger

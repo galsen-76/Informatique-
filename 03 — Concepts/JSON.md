@@ -2,19 +2,15 @@
 type: concept
 domain: web
 module: "[[Module 05 - JavaScript]]"
-status: compris
+status: a-decouvrir
 level: debutant
 prerequisites: []
 parents: []
 related:
   - "[[HTTP]]"
   - "[[API REST]]"
-next_review: 2026-11-10
-method:
-  - Comprendre
-  - Explorer
-  - Pratiquer
-  - Expliquer
+next_review: 
+method: []
 tags:
   - concept
   - web

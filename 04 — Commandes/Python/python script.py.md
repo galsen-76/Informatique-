@@ -46,7 +46,7 @@ Le script s'exécute ; son code de sortie vaut 0 s'il a réussi.
 ## Variantes utiles
 - `py` (Windows) ou `python3` (Linux) selon l'installation
 - `python -m venv .venv`, `python -m pip install …`
-- `python -c "import PIL; print(PIL.__version__)"` pour vérifier qu'un paquet est installé
+- `python -c "import requests; print(requests.__version__)"` pour vérifier qu'un paquet est installé
 
 > [!warning] Erreurs fréquentes
 > - `python` introuvable sous Windows : essayer `py`, ou réinstaller en cochant *Add to PATH*

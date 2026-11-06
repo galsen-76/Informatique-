@@ -6,7 +6,7 @@ concepts:
   - "[[Environnement virtuel Python]]"
   - "[[pip]]"
   - "[[pytest]]"
-  - "[[Pillow]]"
+  - "[[Appeler une API HTTP (requests)]]"
 tags:
   - cours
 ---
@@ -16,12 +16,12 @@ tags:
 > - Isoler les dépendances d'un projet dans un venv
 > - Installer et figer des paquets avec pip et requirements.txt
 > - Écrire et lancer des tests avec pytest
-> - Utiliser une bibliothèque externe : Pillow
+> - Utiliser une bibliothèque externe : requests
 
 **Prérequis :** [[Cours - Fonctions, modules et erreurs]]
 
 ## 1. Bibliothèque standard ou paquet externe
-`pathlib`, `zipfile`, `json` sont livrés avec Python. Pillow, requests ou pytest sont des **paquets externes** : il faut les installer avec [[pip]].
+`pathlib`, `zipfile`, `json` sont livrés avec Python. requests ou pytest sont des **paquets externes** : il faut les installer avec [[pip]].
 
 ## 2. Schéma
 ```mermaid
@@ -47,13 +47,13 @@ def test_zip_ne_contient_que_les_png(tmp_path):
     # vérification : assert sur la liste des noms dans l'archive
 ```
 
-## 6. Une bibliothèque externe : Pillow
-[[Pillow]] crée et dessine des images. C'est la brique de la fonction « annotations → PNG » du projet CVAT.
+## 6. Une bibliothèque externe : requests
+[[Appeler une API HTTP (requests)|requests]] appelle des API web en quelques lignes. C'est le paquet externe le plus installé de Python ; il sert aussi à récupérer les annotations de CVAT. La suite des usages courants est dans [[Cours - Python au quotidien]].
 
 ## Mise en pratique
-- Crée un projet `essai-zip/` avec un venv, installe pytest et Pillow, génère `requirements.txt`.
+- Crée un projet `essai-zip/` avec un venv, installe pytest et requests, génère `requirements.txt`.
 - Écris trois tests pour tes fonctions du cours précédent, dont un avec `tmp_path`.
-- Avec Pillow, dessine un rectangle et un polygone et enregistre le PNG.
+- Avec requests, appelle `https://api.github.com/repos/python/cpython` et affiche le nombre d'étoiles.
 
 > [!warning] Erreurs fréquentes
 > - Installer les paquets sans activer le venv : ils partent dans le Python de la machine
@@ -65,4 +65,4 @@ def test_zip_ne_contient_que_les_png(tmp_path):
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[Environnement virtuel Python]] · [[pip]] · [[pytest]] · [[Pillow]]
+[[Environnement virtuel Python]] · [[pip]] · [[pytest]] · [[Appeler une API HTTP (requests)]]

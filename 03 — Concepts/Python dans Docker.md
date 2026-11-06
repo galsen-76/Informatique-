@@ -34,7 +34,7 @@ On part d'une image officielle `python:<version>-slim`, on y installe les dépen
 Le script tourne avec la même version de Python et les mêmes paquets partout : ton poste, la CI, le serveur, sans venv ni installation.
 
 ### Le problème résolu
-« Il me manque Pillow », « j'ai Python 3.8 » : l'image embarque tout.
+« Il me manque requests », « j'ai Python 3.8 » : l'image embarque tout.
 
 ## 2 · Explorer
 ### Comment ça fonctionne

@@ -2,7 +2,7 @@
 type: concept
 domain: web
 module: "[[Module 01 - Fondamentaux informatiques]]"
-status: compris
+status: a-decouvrir
 level: debutant
 prerequisites:
   - "[[Client-serveur]]"
@@ -12,12 +12,8 @@ related:
   - "[[JSON]]"
   - "[[API]]"
   - "[[API REST]]"
-next_review: 2026-11-12
-method:
-  - Comprendre
-  - Explorer
-  - Pratiquer
-  - Expliquer
+next_review: 
+method: []
 tags:
   - concept
   - web

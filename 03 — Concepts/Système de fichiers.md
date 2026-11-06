@@ -2,21 +2,15 @@
 type: concept
 domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: maitrise
+status: a-decouvrir
 level: debutant
 prerequisites:
   - "[[Terminal]]"
 parents: []
 related:
   - "[[Git]]"
-next_review: 2026-11-20
-method:
-  - Comprendre
-  - Explorer
-  - Pratiquer
-  - Expliquer
-  - Relier
-  - Réviser
+next_review: 
+method: []
 tags:
   - concept
   - terminal

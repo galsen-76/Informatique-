@@ -10,7 +10,7 @@ prerequisites:
 parents: []
 related:
   - "[[OpenAPI]]"
-  - "[[Pillow]]"
+  - "[[Appeler une API HTTP (requests)]]"
 next_review: 
 method: []
 tags:
@@ -77,7 +77,7 @@ with make_client("http://localhost:8080", credentials=("user", "motdepasse")) as
 ## 5 · Relier
 - **Prérequis** : [[API REST]] · [[pip]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[OpenAPI]] · [[JSON]]
-- **Utilisé par** : [[Pillow]] (tracer les annotations récupérées)
+- **Complémentaires** : [[Appeler une API HTTP (requests)]] (le même appel, sans SDK)
 
 ## 6 · Réviser
 > [!question] Me faire interroger

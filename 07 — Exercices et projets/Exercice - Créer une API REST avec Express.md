@@ -1,6 +1,6 @@
 ---
 type: exercise
-status: en-cours
+status: a-faire
 difficulty: moyen
 concepts:
   - "[[API REST]]"
@@ -28,8 +28,8 @@ tags:
 | DELETE | `/livres/:id` | `204`, ou `404` |
 
 ## Étapes
-- [x] Initialiser le projet ([[Fiche - Démarrer un projet Node.js]]) et installer Express
-- [x] Route `GET /livres`
+- [ ] Initialiser le projet ([[Fiche - Démarrer un projet Node.js]]) et installer Express
+- [ ] Route `GET /livres`
 - [ ] Route `GET /livres/:id` avec `404`
 - [ ] Route `POST /livres` avec validation (`400`)
 - [ ] Routes `PATCH` et `DELETE`

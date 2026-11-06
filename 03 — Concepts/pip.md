@@ -30,7 +30,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 **pip** télécharge et installe des paquets depuis **PyPI**, le dépôt public de Python. Le fichier `requirements.txt` liste les paquets d'un projet, un par ligne, avec leur version. C'est l'équivalent de [[npm]] et `package.json` pour Node.
 
 ### Pourquoi ça existe
-Réutiliser des bibliothèques écrites par d'autres (Pillow, requests, pytest) au lieu de tout coder.
+Réutiliser des bibliothèques écrites par d'autres (requests, pytest) au lieu de tout coder.
 
 ### Le problème résolu
 Télécharger et installer les bibliothèques à la main, sans savoir quelles versions utilisent les collègues.
@@ -47,11 +47,11 @@ flowchart TD
 ### Exemple concret
 ```text
 # requirements.txt
-Pillow==11.0.0
+requests==2.32.3
 requests>=2.32,<3
 ```
 ```bash
-python -m pip install Pillow         # installer un paquet
+python -m pip install requests        # installer un paquet
 pip install -r requirements.txt      # tout installer
 pip list                             # ce qui est installé
 pip freeze > requirements.txt        # figer les versions actuelles
@@ -63,14 +63,14 @@ pip install -r requirements.txt --index-url https://nexus.mon-entreprise.com/rep
 (ou la variable d'environnement `PIP_INDEX_URL`).
 
 ### Cas d'utilisation
-- Installer Pillow pour générer des images, pytest pour tester
+- Installer requests pour appeler des API, pytest pour tester
 - Ligne `RUN pip install -r requirements.txt` d'un [[Dockerfile]]
 
 > [!warning] À ne pas confondre
 > `pip` peut viser un autre Python que celui que tu crois. `python -m pip` garantit que c'est celui de la commande `python`. Et un paquet sans version fixée peut changer du jour au lendemain : fixe les versions dans `requirements.txt`.
 
 ## 3 · Pratiquer
-- Dans un venv, installe `Pillow`, puis génère un `requirements.txt` avec `pip freeze` et lis-le.
+- Dans un venv, installe `requests`, puis génère un `requirements.txt` avec `pip freeze` et lis-le.
 - Supprime le venv, recrée-le, et réinstalle tout avec `-r requirements.txt`.
 
 ## 4 · Expliquer
@@ -80,7 +80,7 @@ pip install -r requirements.txt --index-url https://nexus.mon-entreprise.com/rep
 ## 5 · Relier
 - **Prérequis** : [[Environnement virtuel Python]]
 - **Complémentaires** : [[npm]] · [[Nexus]] · [[Proxy]]
-- **Utilisé par** : [[Pillow]] · [[pytest]] · [[Python dans Docker]]
+- **Utilisé par** : [[Appeler une API HTTP (requests)]] · [[pytest]] · [[Python dans Docker]]
 - **Commandes** : [[pip install]]
 
 ## 6 · Réviser

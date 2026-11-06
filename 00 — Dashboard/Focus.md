@@ -1,10 +1,10 @@
 ---
-current: "[[Express]]"
-goal: "Écrire seul une API CRUD avec Express et expliquer le trajet d'une requête"
+current: "[[Terminal]]"
+goal: "Savoir où je suis (PowerShell, Bash, WSL) et travailler sans souris"
 next:
-  - "[[Middleware]]"
-  - "[[SQL]]"
-  - "[[Authentification]]"
+  - "[[Shell]]"
+  - "[[WSL]]"
+  - "[[Bash]]"
 tags:
   - focus
 ---
@@ -19,9 +19,7 @@ tags:
 
 ## Parking (idées pour plus tard)
 Tout ce qui attire mon attention mais n'est **pas** le sujet actuel. Je le note ici, et je reviens au sujet.
-- GraphQL, ça remplace REST ?
-- Comment marche le `package-lock.json` exactement ?
-- Tester une API avec Postman ou Bruno
+-
 
 ## Quand je change de sujet
 1. Le sujet actuel est au moins *compris* (expliqué + pratiqué).

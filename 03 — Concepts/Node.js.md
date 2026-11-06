@@ -2,7 +2,7 @@
 type: concept
 domain: backend
 module: "[[Module 07 - Node.js]]"
-status: compris
+status: a-decouvrir
 level: debutant
 prerequisites:
   - "[[Terminal]]"
@@ -10,12 +10,8 @@ parents: []
 related:
   - "[[npm]]"
   - "[[Express]]"
-next_review: 2026-11-06
-method:
-  - Comprendre
-  - Explorer
-  - Pratiquer
-  - Expliquer
+next_review: 
+method: []
 tags:
   - concept
   - backend

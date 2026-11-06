@@ -2,18 +2,15 @@
 type: concept
 domain: reseau
 module: "[[Module 01 - Fondamentaux informatiques]]"
-status: compris
+status: a-decouvrir
 level: debutant
 prerequisites: []
 parents: []
 related:
   - "[[Client-serveur]]"
   - "[[HTTP]]"
-next_review: 2026-11-14
-method:
-  - Comprendre
-  - Explorer
-  - Expliquer
+next_review: 
+method: []
 tags:
   - concept
   - reseau

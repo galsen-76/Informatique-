@@ -2,7 +2,7 @@
 type: concept
 domain: git
 module: "[[Module 03 - Git et GitHub]]"
-status: compris
+status: a-decouvrir
 level: debutant
 prerequisites:
   - "[[Commit]]"
@@ -11,11 +11,8 @@ parents:
 related:
   - "[[Merge]]"
   - "[[Conflit de merge]]"
-next_review: 2026-11-09
-method:
-  - Comprendre
-  - Explorer
-  - Pratiquer
+next_review: 
+method: []
 tags:
   - concept
   - git

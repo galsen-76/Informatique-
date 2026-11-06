@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
 ### Cas d'utilisation
 - `import zipfile, shutil, os, sys` pour ton script
-- `from PIL import Image` avec [[Pillow]]
+- `import requests` avec [[Appeler une API HTTP (requests)]]
 
 > [!warning] À ne pas confondre
 > `ModuleNotFoundError` a deux causes : le paquet n'est pas installé **dans l'environnement utilisé** (voir [[Environnement virtuel Python]]), ou tu n'es pas dans le bon dossier. Et ne nomme jamais ton fichier comme un module existant (`zipfile.py`) : il cacherait le vrai.

@@ -1,6 +1,6 @@
 ---
 type: exercise
-status: en-cours
+status: a-faire
 difficulty: moyen
 concepts:
   - "[[Git]]"
@@ -17,13 +17,13 @@ tags:
 > Notions : [[Branche Git]] · [[Merge]] · [[Conflit de merge]] · Commandes : [[git switch]] · [[git merge]]
 
 ## Étape 1 — Préparer
-- [x] Créer un dossier `labo-git`, puis `git init -b main`
-- [x] Créer `menu.txt` avec trois lignes (`entrée`, `plat`, `dessert`) et le committer
+- [ ] Créer un dossier `labo-git`, puis `git init -b main`
+- [ ] Créer `menu.txt` avec trois lignes (`entrée`, `plat`, `dessert`) et le committer
 
 ## Étape 2 — Une fonctionnalité sans conflit
-- [x] Créer la branche `feature/boisson` et ajouter une ligne `boisson` à la fin
-- [x] Committer, revenir sur `main`, fusionner
-- [x] Observer le message : était-ce un *fast-forward* ? Pourquoi ?
+- [ ] Créer la branche `feature/boisson` et ajouter une ligne `boisson` à la fin
+- [ ] Committer, revenir sur `main`, fusionner
+- [ ] Observer le message : était-ce un *fast-forward* ? Pourquoi ?
 
 ## Étape 3 — Provoquer un conflit
 - [ ] Créer `feature/plat` et remplacer `plat` par `plat du jour`, committer

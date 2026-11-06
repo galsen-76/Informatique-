@@ -67,7 +67,14 @@ flowchart TD
 1. [[Environnement virtuel Python]]
 2. [[pip]] · commande [[pip install]]
 3. [[pytest]]
-4. [[Pillow]]
+
+**Cours** : [[Cours - Python au quotidien]]
+4. [[Appeler une API HTTP (requests)]]
+5. [[Lire et écrire du CSV]]
+6. [[Dates et heures (datetime)]]
+7. [[Journaliser avec logging]]
+8. [[Lancer une commande (subprocess)]]
+9. [[Expressions régulières (re)]]
 
 ## Étape 4 · Docker
 **Cours** : [[Cours - Docker, les bases solides]] puis [[Cours - Faire tourner un script Python dans Docker]]

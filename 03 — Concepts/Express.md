@@ -2,7 +2,7 @@
 type: concept
 domain: backend
 module: "[[Module 08 - Backend et API REST]]"
-status: en-cours
+status: a-decouvrir
 level: intermediaire
 prerequisites:
   - "[[Node.js]]"
@@ -15,8 +15,7 @@ related:
   - "[[Endpoint]]"
   - "[[JSON]]"
 next_review: 
-method:
-  - Comprendre
+method: []
 tags:
   - concept
   - backend

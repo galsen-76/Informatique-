@@ -59,11 +59,12 @@ python bonjour.py
 
 ### Cas d'utilisation
 - Scripts d'automatisation (ton script de zip)
-- Fonctions Nuclio et traitement d'images ([[Pillow]])
+- Appeler des API ([[Appeler une API HTTP (requests)]]), traiter des données ([[Lire et écrire du CSV]])
+- Fonctions Nuclio
 - Le back-end de CVAT est écrit en Python (Django)
 
 > [!warning] À ne pas confondre
-> **Python 2** (abandonné en 2020) et **Python 3** : tout ce que tu apprends est Python 3. Et la **bibliothèque standard** (déjà incluse : `pathlib`, `zipfile`) et les **paquets externes** (à installer avec [[pip]] : `Pillow`, `requests`).
+> **Python 2** (abandonné en 2020) et **Python 3** : tout ce que tu apprends est Python 3. Et la **bibliothèque standard** (déjà incluse : `pathlib`, `zipfile`) et les **paquets externes** (à installer avec [[pip]] : `requests`, `pytest`).
 
 ## 3 · Pratiquer
 - Installe Python 3, puis vérifie avec `python --version` (ou `py --version` sous Windows).

@@ -1,6 +1,6 @@
 ---
 type: exercise
-status: reussi
+status: a-faire
 difficulty: facile
 concepts:
   - "[[Terminal]]"
@@ -22,10 +22,10 @@ labo/
 ```
 
 ## Consignes
-- [x] Créer les dossiers en une seule commande ([[mkdir]])
-- [x] Créer `git.md` (`New-Item` en PowerShell, `touch` en Bash)
-- [x] Aller dans `code/api`, puis revenir à `labo` avec un chemin relatif ([[cd]])
-- [x] Afficher le contenu de `labo`, fichiers cachés compris ([[ls]] / [[Get-ChildItem]])
+- [ ] Créer les dossiers en une seule commande ([[mkdir]])
+- [ ] Créer `git.md` (`New-Item` en PowerShell, `touch` en Bash)
+- [ ] Aller dans `code/api`, puis revenir à `labo` avec un chemin relatif ([[cd]])
+- [ ] Afficher le contenu de `labo`, fichiers cachés compris ([[ls]] / [[Get-ChildItem]])
 
 > [!question]- Solution (PowerShell)
 > ```powershell

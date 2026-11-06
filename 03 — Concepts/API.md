@@ -2,7 +2,7 @@
 type: concept
 domain: backend
 module: "[[Module 08 - Backend et API REST]]"
-status: compris
+status: a-decouvrir
 level: debutant
 prerequisites:
   - "[[HTTP]]"
@@ -10,11 +10,8 @@ parents:
   - "[[Client-serveur]]"
 related:
   - "[[API REST]]"
-next_review: 2026-11-11
-method:
-  - Comprendre
-  - Explorer
-  - Expliquer
+next_review: 
+method: []
 tags:
   - concept
   - backend
