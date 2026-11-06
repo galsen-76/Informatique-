@@ -40,7 +40,7 @@ Chacun lançait (ou oubliait) les tests et les builds sur son poste : du code ca
 ```mermaid
 flowchart LR
   P[git push] --> PL[Pipeline]
-  PL --> S1[stage test : jobs en parallèle] --> S2[stage build] --> S3[stage publish]
+  PL --> S1[test] --> S2[build] --> S3[publish]
 ```
 
 ### Exemple concret

@@ -40,8 +40,8 @@ Préparer un serveur à la main en suivant un document : une étape oubliée et 
 ### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  F[FROM : image de départ] --> W[WORKDIR / COPY] --> R[RUN : installation] --> C[CMD : commande au démarrage]
-  C -- docker build --> I[Image]
+  F[FROM] --> W[COPY] --> R[RUN] --> C[CMD]
+  C -- build --> I[Image]
 ```
 
 ### Exemple concret

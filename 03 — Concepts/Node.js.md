@@ -44,9 +44,9 @@ Avant Node, le JavaScript était limité au navigateur : impossible de lire un f
 Node fonctionne avec **une boucle d'événements** : au lieu d'attendre bloqué qu'une opération lente se termine (lecture de fichier, requête réseau), il continue et traite le résultat quand il arrive (callbacks, Promises, `async/await`).
 ```mermaid
 flowchart LR
-  A[Requête reçue] --> B[Lancer la lecture en base]
-  B --> C[Traiter d'autres requêtes]
-  C --> D[Résultat prêt → envoyer la réponse]
+  A[Requête] --> B[Lecture base]
+  B --> C[Autres requêtes]
+  C --> D[Réponse]
 ```
 
 ### Exemple concret

@@ -39,9 +39,9 @@ Les mots de passe écrits dans le fichier de CI étaient lisibles par tous et re
 ### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  GL[GitLab : variables prédéfinies] --> J[Job]
-  Y[.gitlab-ci.yml : variables non secrètes] --> J
-  S[Settings > CI/CD > Variables : secrets] --> J
+  GL[Prédéfinies] --> J[Job]
+  Y[.gitlab-ci.yml] --> J
+  S[Secrets projet] --> J
 ```
 
 ### Exemple concret

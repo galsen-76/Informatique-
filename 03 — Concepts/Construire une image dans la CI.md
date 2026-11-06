@@ -42,7 +42,7 @@ Les images étaient construites à la main sur un poste et poussées sans trace 
 ### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  J[Job : image docker] -- commandes --> D[Service docker:dind]
+  J[Job] --> D[docker:dind]
   D -- build --> I[Image]
   I -- push --> R[(Registre)]
 ```

@@ -43,13 +43,13 @@ Avec le module `http` brut de Node, il faut analyser soi-même l'URL, la méthod
 ## 2 · Explorer
 ### Comment ça fonctionne
 ```mermaid
-flowchart LR
-  R[Requête HTTP] --> M1[express.json]
+flowchart TD
+  R[Requête] --> M1[express.json]
   M1 --> M2[Logger]
-  M2 --> H{Route correspondante ?}
-  H -- oui --> C[Handler de la route]
+  M2 --> H{Route ?}
+  H -- oui --> C[Handler]
   H -- non --> N[404]
-  C --> S[res.json / res.status]
+  C --> S[Réponse]
 ```
 Chaque requête traverse les middlewares **dans l'ordre où ils sont déclarés**, puis le handler de la première route qui correspond.
 

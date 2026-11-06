@@ -39,9 +39,9 @@ Sans middleware, chaque route recopie les mêmes vérifications : oublis, incoh�
 ## 2 · Explorer
 ### Comment ça fonctionne
 ```mermaid
-flowchart LR
+flowchart TD
   A[Requête] --> B[logger] --> C[express.json] --> D[auth] --> E[Route]
-  D -- jeton invalide --> X[401 Unauthorized]
+  D -- invalide --> X[401]
 ```
 - Oublier `next()` sans répondre = la requête reste **bloquée** indéfiniment.
 - Un middleware d'erreur a **4 paramètres** : `(err, req, res, next)`, et se déclare après les routes.

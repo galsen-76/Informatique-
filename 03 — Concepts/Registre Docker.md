@@ -40,8 +40,8 @@ Chaque machine reconstruisait l'image, avec le risque d'obtenir un résultat dif
 ### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  B[docker build] --> T[docker tag] --> P[docker push] --> Reg[(Registre)]
-  Reg -- docker pull --> S[Serveur ou CI]
+  B[build] --> T[tag] --> P[push] --> Reg[(Registre)]
+  Reg -- pull --> S[Serveur]
 ```
 
 ### Exemple concret

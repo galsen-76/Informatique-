@@ -38,10 +38,10 @@ Permettre à des ordinateurs éloignés, de constructeurs différents, de commun
 ### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  A[Mon ordinateur] --> B[Box / routeur]
-  B --> C[Fournisseur d'accès]
-  C --> D[Réseaux intermédiaires]
-  D --> E[Serveur distant]
+  A[Mon PC] --> B[Box]
+  B --> C[FAI]
+  C --> D[Réseaux]
+  D --> E[Serveur]
 ```
 - **IP** : adresse d'une machine.
 - **DNS** : traduit un nom (`github.com`) en adresse IP.

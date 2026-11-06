@@ -39,8 +39,8 @@ On copiait le Dockerfile pour chaque variante, ou on le modifiait à la main ava
 ### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  BA[--build-arg PYTHON_VERSION=3.12] --> A[ARG PYTHON_VERSION]
-  A --> FR[FROM python:3.12-slim] --> I[Image]
+  BA[--build-arg] --> A[ARG]
+  A --> FR[FROM] --> I[Image]
 ```
 
 ### Exemple concret

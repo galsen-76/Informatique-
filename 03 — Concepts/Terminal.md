@@ -45,9 +45,9 @@ Répéter des actions à la souris est lent et impossible à automatiser. Une co
 ### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  A[Je tape une commande] --> B[Le shell l'interprète]
-  B --> C[Le programme s'exécute]
-  C --> D[Le résultat s'affiche]
+  A[Commande] --> B[Shell]
+  B --> C[Programme]
+  C --> D[Résultat]
 ```
 Une commande suit presque toujours la forme : `programme sous-commande --option argument`
 - `git commit -m "message"` → programme `git`, sous-commande `commit`, option `-m`, argument `"message"`.
