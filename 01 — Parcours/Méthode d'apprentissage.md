@@ -22,7 +22,7 @@ Chaque fiche concept suit exactement ces six étapes. Quand tu termines une éta
 | **3 · Pratiquer** | Faire un exercice, taper les commandes moi-même | [[Exercices et projets]] · [[Commandes]] |
 | **4 · Expliquer** | Écrire le résumé **avec mes mots, sans regarder** | Fiche concept, section 4 |
 | **5 · Relier** | Vérifier les prérequis et les notions voisines | Fiche concept, section 5 · vue graphique |
-| **6 · Réviser** | Répondre aux questions repliées, planifier la prochaine révision | [[Révisions]] |
+| **6 · Réviser** | Me faire interroger par Claude sur la notion, planifier la prochaine révision | [[Révisions]] |
 
 ## Les quatre états d'une notion
 

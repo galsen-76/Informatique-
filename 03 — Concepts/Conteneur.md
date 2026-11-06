@@ -42,8 +42,8 @@ Un **conteneur** a son propre système de fichiers, ses processus et son réseau
 - **Commandes** : [[docker run]] · [[docker ps]]
 
 ## 6 · Réviser
-> [!question]- Que deviennent les fichiers écrits dans un conteneur supprimé ?
-> Ils sont perdus, sauf s'ils sont dans un volume.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

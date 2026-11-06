@@ -82,11 +82,8 @@ build-image:
 - **Complémentaires** : [[Registre Docker]] · [[Nexus]] · [[Variable de build Docker (ARG)]]
 
 ## 6 · Réviser
-> [!question]- Pourquoi prendre la variante `:debug` ?
-> L'image normale n'a pas de shell, et le `script:` de GitLab ne peut pas s'exécuter.
-
-> [!question]- Kaniko est-il toujours maintenu ?
-> Le dépôt d'origine de Google a été archivé en 2025 : vérifie avec ton équipe quelle image elle utilise (un fork maintenu, ou une alternative comme Buildah).
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

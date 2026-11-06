@@ -88,14 +88,8 @@ curl -X POST http://localhost:3000/notes \
 - **Cours** : [[Cours - Construire une API REST avec Express]]
 
 ## 6 · Réviser
-> [!question]- Quelle route pour supprimer la note 42 ?
-> `DELETE /notes/42`, réponse `204 No Content`.
-
-> [!question]- Pourquoi `/notes` plutôt que `/getNotes` ?
-> En REST, l'URL désigne la ressource ; l'action est portée par la méthode HTTP.
-
-> [!question]- PUT ou PATCH pour changer seulement le titre ?
-> PATCH (modification partielle).
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

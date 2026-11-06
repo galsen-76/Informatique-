@@ -52,8 +52,8 @@ Comme un serveur de restaurant : tu ne vas pas en cuisine (le code interne), tu 
 - **Mène à** : [[API REST]] → [[Endpoint]]
 
 ## 6 · Réviser
-> [!question]- Pourquoi ne pas laisser le front lire directement la base de données ?
-> L'API contrôle l'accès, valide les données et cache les détails internes.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

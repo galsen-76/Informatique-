@@ -47,8 +47,8 @@ Un **JWT** (JSON Web Token) a trois parties encodées en base64 : `en-tête.cont
 - **Vérifié par** : un [[Middleware]]
 
 ## 6 · Réviser
-> [!question]- Peut-on lire le contenu d'un JWT sans la clé ?
-> Oui, il est seulement encodé en base64. La clé sert à vérifier la signature.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

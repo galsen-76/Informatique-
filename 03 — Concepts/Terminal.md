@@ -83,11 +83,8 @@ node --version           # vérifier qu'un outil est installé
 - **Commandes** : [[cd]] · [[ls]] · [[mkdir]] · [[Get-ChildItem]]
 
 ## 6 · Réviser
-> [!question]- Quelle est la différence entre terminal et shell ?
-> Le terminal est la fenêtre ; le shell est le programme qui interprète les commandes (PowerShell, Bash…).
-
-> [!question]- Pourquoi une commande échoue-t-elle avec « fichier introuvable » alors que le fichier existe ?
-> Le plus souvent, on n'est pas dans le bon dossier courant : vérifier avec `pwd` puis `cd`.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [x] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

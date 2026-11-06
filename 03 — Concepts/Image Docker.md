@@ -44,8 +44,8 @@ Une **image** est construite à partir d'un `Dockerfile`, couche par couche. Ell
 - **Commande** : [[docker build]]
 
 ## 6 · Réviser
-> [!question]- Pourquoi copier `package.json` avant le reste du code dans un Dockerfile ?
-> Pour profiter du cache : `npm ci` n'est relancé que si les dépendances changent.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

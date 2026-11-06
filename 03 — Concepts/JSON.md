@@ -82,11 +82,8 @@ const objet = JSON.parse('{"id":1,"done":false}');   // texte → objet
 - **Utilisé par** : [[Express]] (`res.json()`), [[npm]] (`package.json`), [[JWT]] (contenu du jeton)
 
 ## 6 · Réviser
-> [!question]- `{ 'id': 1 }` est-il du JSON valide ?
-> Non : les chaînes et clés doivent être entre guillemets doubles.
-
-> [!question]- Que fait `JSON.parse` ?
-> Il transforme une chaîne JSON en valeur JavaScript.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [x] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

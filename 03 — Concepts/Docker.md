@@ -85,14 +85,8 @@ docker run -p 3000:3000 api-notes
 - **Commandes** : [[docker build]] · [[docker run]] · [[docker ps]]
 
 ## 6 · Réviser
-> [!question]- Différence entre image et conteneur ?
-> L'image est le modèle figé ; le conteneur est une instance en cours d'exécution de cette image.
-
-> [!question]- Que fait `-p 3000:3000` ?
-> Relie le port 3000 de ta machine au port 3000 du conteneur.
-
-> [!question]- Où garder les données d'une base qui tourne en conteneur ?
-> Dans un volume, sinon elles disparaissent avec le conteneur.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

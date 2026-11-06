@@ -100,14 +100,8 @@ Content-Type: application/json
 - **Cours** : [[Cours - Comment fonctionne le web]]
 
 ## 6 · Réviser
-> [!question]- Que signifie « HTTP est sans état » ?
-> Le serveur ne garde aucune mémoire entre deux requêtes : chaque requête doit contenir tout le contexte nécessaire.
-
-> [!question]- 401 ou 404 : lequel quand l'utilisateur n'est pas connecté ?
-> 401 Unauthorized. 404 signifie que la ressource n'existe pas.
-
-> [!question]- Quelle méthode pour créer une ressource ?
-> POST (réponse typique : 201 Created).
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [x] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

@@ -85,11 +85,8 @@ node hello.js
 - **Commandes** : [[node]] · [[npm init]] · [[npm install]]
 
 ## 6 · Réviser
-> [!question]- Pourquoi `document` n'existe-t-il pas dans Node ?
-> C'est un objet du navigateur (le DOM). Node n'affiche pas de page.
-
-> [!question]- Qu'apporte la boucle d'événements ?
-> Node peut traiter d'autres tâches pendant qu'une opération lente est en attente, sans bloquer.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [x] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

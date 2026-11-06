@@ -99,14 +99,8 @@ app.listen(3000, () => console.log('API sur http://localhost:3000'));
 - **Cours** : [[Cours - Construire une API REST avec Express]]
 
 ## 6 · Réviser
-> [!question]- Que se passe-t-il si on oublie `app.use(express.json())` ?
-> `req.body` est `undefined` pour les requêtes JSON.
-
-> [!question]- Dans quel ordre Express exécute-t-il middlewares et routes ?
-> Dans l'ordre de déclaration dans le code.
-
-> [!question]- Quel code renvoyer après une création ?
-> `201 Created`, avec la ressource créée.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

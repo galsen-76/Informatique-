@@ -94,14 +94,8 @@ premier-job:
 - **Utilisé par** : [[Construire une image dans la CI]] · [[Kaniko]]
 
 ## 6 · Réviser
-> [!question]- Deux jobs du même stage s'exécutent-ils l'un après l'autre ?
-> Non, en parallèle. Ce sont les stages qui s'enchaînent dans l'ordre.
-
-> [!question]- Un fichier créé dans un job existe-t-il dans le job suivant ?
-> Non : chaque job repart de zéro, sauf avec `artifacts` ou `cache`.
-
-> [!question]- Où chercher la cause d'un job rouge ?
-> Dans son log, presque toujours dans les dernières lignes.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

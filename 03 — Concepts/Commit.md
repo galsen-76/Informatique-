@@ -58,11 +58,8 @@ gitGraph
 - **Commandes** : [[git add]] · [[git commit]]
 
 ## 6 · Réviser
-> [!question]- Qu'est-ce qu'un bon message de commit ?
-> Une phrase courte à l'impératif qui dit ce que fait le changement : « Ajoute la route POST /notes ».
-
-> [!question]- Pourquoi faire des petits commits ?
-> Pour comprendre l'historique, et pouvoir annuler un changement précis sans perdre le reste.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

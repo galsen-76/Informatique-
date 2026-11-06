@@ -84,14 +84,8 @@ git log --oneline
 - **Cours** : [[Cours - Git, les bases]] · [[Cours - Branches et fusion]]
 
 ## 6 · Réviser
-> [!question]- À quoi sert l'index (staging) ?
-> À choisir précisément quelles modifications iront dans le prochain commit.
-
-> [!question]- Git ou GitHub : lequel est indispensable ?
-> Git. GitHub n'est qu'un hébergeur de dépôts Git.
-
-> [!question]- Que contient le dossier `.git` ?
-> Tout l'historique et la configuration du dépôt. Le supprimer efface l'historique.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [x] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

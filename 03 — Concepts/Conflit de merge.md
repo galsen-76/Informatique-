@@ -54,8 +54,8 @@ const PORT = 8080;
 - **Commandes** : [[git merge]] · [[git status]]
 
 ## 6 · Réviser
-> [!question]- Comment sortir d'un merge qu'on ne veut plus finir ?
-> `git merge --abort` revient à l'état d'avant le merge.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

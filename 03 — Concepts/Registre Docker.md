@@ -83,11 +83,8 @@ docker pull registry.gitlab.com/equipe/projet/api:1.2.0   # sur une autre machin
 - **Commandes** : [[docker login]] · [[docker tag]] · [[docker push]]
 
 ## 6 · Réviser
-> [!question]- Que se passe-t-il si le nom d'une image ne contient pas de registre ?
-> Docker va la chercher sur Docker Hub.
-
-> [!question]- Pourquoi éviter `latest` ?
-> Il ne désigne pas une version précise : deux `pull` à des jours différents peuvent donner deux images différentes.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

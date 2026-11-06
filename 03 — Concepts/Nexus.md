@@ -86,14 +86,8 @@ docker pull nexus.mon-entreprise.com:8082/library/python:3.11-slim
 - **Commandes** : [[docker login]] · [[docker push]]
 
 ## 6 · Réviser
-> [!question]- Pourquoi `library/` dans le chemin d'une image officielle via Nexus ?
-> Les images officielles de Docker Hub sont rangées sous `library/` ; l'oublier donne « not found ».
-
-> [!question]- Changer le `FROM` d'un Dockerfile suffit-il pour ne plus sortir sur Internet ?
-> Pas toujours : les `apt-get`, `pip install` ou `npm ci` du Dockerfile téléchargent aussi des paquets, qui doivent passer par leurs propres proxys Nexus.
-
-> [!question]- Comment le runner récupère-t-il l'`image:` d'un job depuis Nexus ?
-> Il doit s'authentifier, avec la variable `DOCKER_AUTH_CONFIG` (voir [[Variables CI-CD GitLab]]).
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

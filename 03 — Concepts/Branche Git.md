@@ -88,14 +88,8 @@ git merge feature/login
 - **Cours** : [[Cours - Branches et fusion]]
 
 ## 6 · Réviser
-> [!question]- Qu'est-ce qu'une branche, techniquement ?
-> Un pointeur vers un commit, qui avance à chaque nouveau commit sur cette branche.
-
-> [!question]- Que représente HEAD ?
-> La position actuelle : en général la branche sur laquelle tu travailles.
-
-> [!question]- Créer une branche duplique-t-il les fichiers ?
-> Non, c'est un simple pointeur.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [x] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

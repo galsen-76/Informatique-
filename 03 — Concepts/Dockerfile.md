@@ -87,14 +87,8 @@ Un Dockerfile peut contenir **plusieurs `FROM`** (*multi-stage build*) : une ét
 - **Commandes** : [[docker build]]
 
 ## 6 · Réviser
-> [!question]- Quelle est la différence entre `RUN` et `CMD` ?
-> `RUN` s'exécute pendant la construction de l'image ; `CMD` est la commande lancée quand le conteneur démarre.
-
-> [!question]- D'où vient l'image d'un `FROM python:3.11-slim` ?
-> De Docker Hub, car aucun registre n'est précisé : c'est `docker.io/library/python:3.11-slim`.
-
-> [!question]- Pourquoi copier le fichier des dépendances avant le reste du code ?
-> Pour profiter du cache : l'installation n'est relancée que si les dépendances changent.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

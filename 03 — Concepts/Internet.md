@@ -62,11 +62,8 @@ flowchart LR
 - **Cours** : [[Cours - Comment fonctionne le web]]
 
 ## 6 · Réviser
-> [!question]- Quelle est la différence entre Internet et le Web ?
-> Internet est le réseau physique et logique ; le Web est un service qui l'utilise, basé sur HTTP.
-
-> [!question]- À quoi sert le DNS ?
-> À traduire un nom de domaine en adresse IP.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

@@ -53,8 +53,8 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 - **Commandes** : [[npm init]] · [[npm install]]
 
 ## 6 · Réviser
-> [!question]- Pourquoi ne pas committer `node_modules` ?
-> Il est énorme et se reconstruit avec `npm install` à partir de `package.json` et `package-lock.json`.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

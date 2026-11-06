@@ -81,11 +81,8 @@ docker build --build-arg PYTHON_VERSION=3.12 --build-arg APP_VERSION=1.4.0 -t mo
 - **Commandes** : [[docker build]]
 
 ## 6 · Réviser
-> [!question]- Peut-on mettre un secret dans un `ARG` ?
-> Non : sa valeur reste visible dans l'historique de l'image (`docker history`).
-
-> [!question]- Que devient un `--build-arg` qui ne correspond à aucun `ARG` ?
-> Il est ignoré avec un simple avertissement : une faute de frappe passe inaperçue.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

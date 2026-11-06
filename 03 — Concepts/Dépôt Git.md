@@ -55,8 +55,8 @@ Un **dépôt** (repository, « repo ») est créé par [[git init]] ou récupér
 - **Fiche** : [[Fiche - Publier un dépôt sur GitHub]]
 
 ## 6 · Réviser
-> [!question]- Comment savoir si un dossier est un dépôt Git ?
-> Il contient un dossier caché `.git` ; `git status` répond sans erreur.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

@@ -60,8 +60,8 @@ gitGraph
 - **Commande** : [[git merge]]
 
 ## 6 · Réviser
-> [!question]- Qu'est-ce qu'un fast-forward ?
-> Un merge où la branche cible n'a pas avancé : Git déplace juste son pointeur, sans commit de fusion.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

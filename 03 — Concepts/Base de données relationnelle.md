@@ -58,8 +58,8 @@ erDiagram
 - **Fiche** : [[Fiche - Lancer PostgreSQL avec Docker]]
 
 ## 6 · Réviser
-> [!question]- À quoi sert une clé étrangère ?
-> À relier une ligne d'une table à une ligne d'une autre table, en garantissant que la cible existe.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

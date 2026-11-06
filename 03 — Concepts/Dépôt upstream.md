@@ -79,11 +79,8 @@ GitLab propose aussi le **mirroring** (*Settings > Repository > Mirroring reposi
 - **Commandes** : [[git merge]]
 
 ## 6 · Réviser
-> [!question]- Pourquoi suivre des tags plutôt que la branche de développement du projet d'origine ?
-> Les tags sont des versions publiées et stables ; la branche de développement change tout le temps.
-
-> [!question]- Comment limiter les conflits à chaque mise à jour ?
-> Garder ses modifications petites et regroupées dans peu de fichiers.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

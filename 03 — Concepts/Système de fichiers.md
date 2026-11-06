@@ -59,11 +59,8 @@ Retrouver n'importe quel fichier sans ambiguïté, pour soi comme pour les progr
 - **Commandes** : [[cd]] · [[ls]] · [[mkdir]]
 
 ## 6 · Réviser
-> [!question]- Que désigne `..` ?
-> Le dossier parent du dossier courant.
-
-> [!question]- Pourquoi `.git` n'apparaît-il pas dans l'explorateur ?
-> C'est un dossier caché (nom commençant par un point).
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [x] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

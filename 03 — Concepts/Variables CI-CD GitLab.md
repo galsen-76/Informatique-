@@ -90,11 +90,8 @@ La variable spéciale **`DOCKER_AUTH_CONFIG`** permet au runner de récupérer l
 - **Commandes** : [[docker login]]
 
 ## 6 · Réviser
-> [!question]- Pourquoi un secret ne va-t-il jamais dans le `.gitlab-ci.yml` ?
-> Il serait lisible par toute personne ayant accès au dépôt, et resterait dans l'historique Git même après suppression.
-
-> [!question]- Pourquoi `--password-stdin` plutôt que `-p` ?
-> Le mot de passe ne passe pas dans la ligne de commande.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

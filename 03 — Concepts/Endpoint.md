@@ -50,8 +50,8 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 - **Mène à** : [[Express]] (qui permet de les déclarer)
 
 ## 6 · Réviser
-> [!question]- `GET /notes` et `POST /notes` : un ou deux endpoints ?
-> Deux : même route, méthodes différentes.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

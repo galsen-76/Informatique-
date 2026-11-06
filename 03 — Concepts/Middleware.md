@@ -87,14 +87,8 @@ app.get('/profil', requireAuth, handler); // une seule route
 - **Cours** : [[Cours - Construire une API REST avec Express]]
 
 ## 6 · Réviser
-> [!question]- Que fait `next()` ?
-> Passe la main au middleware ou à la route suivante.
-
-> [!question]- Pourquoi une requête peut-elle rester « en attente » indéfiniment ?
-> Un middleware n'a ni répondu ni appelé `next()`.
-
-> [!question]- Comment Express reconnaît-il un middleware d'erreur ?
-> Il a quatre paramètres : `(err, req, res, next)`.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

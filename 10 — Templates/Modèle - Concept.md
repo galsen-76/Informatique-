@@ -76,11 +76,8 @@ flowchart LR
 - **Commandes** :
 
 ## 6 · Réviser
-> [!question]- Question 1
-> Réponse
-
-> [!question]- Question 2
-> Réponse
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas

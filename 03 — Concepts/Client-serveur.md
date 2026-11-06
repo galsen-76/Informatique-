@@ -62,11 +62,8 @@ sequenceDiagram
 - **En pratique** : [[Express]] sert à écrire le côté serveur
 
 ## 6 · Réviser
-> [!question]- Ton navigateur est-il client ou serveur ?
-> Client : il envoie des requêtes et affiche les réponses.
-
-> [!question]- Un serveur peut-il être client ?
-> Oui : une API qui interroge une base de données est cliente de cette base.
+> [!question] Me faire interroger
+> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
 - [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas
