@@ -58,8 +58,8 @@ body {
   --h4-size: 1em;    --h4-weight: 600;
 }
 /* Titres : une couleur par niveau pour distinguer #, ##, ###, #### */
-.theme-light { --h1-color: #5b4bd6; --h2-color: #2f6fd6; --h3-color: #1f9a63; --h4-color: #c2416c; }
-.theme-dark  { --h1-color: #ab9dff; --h2-color: #6ea8ff; --h3-color: #5fd39a; --h4-color: #f08cab; }
+.theme-light { --h1-color: var(--text-normal); --h2-color: #2f6fd6; --h3-color: var(--text-normal); --h4-color: #c2416c; }
+.theme-dark  { --h1-color: #f4f5f9; --h2-color: #6ea8ff; --h3-color: #e1e4ec; --h4-color: #f08cab; }
 
 /* Gras (**texte**) : couleur ambrée pour ressortir du texte normal */
 .theme-light { --bold-color: #b45309; }
