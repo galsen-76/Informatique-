@@ -14,8 +14,11 @@ tags:
 > Une API sans stockage oublie tout à chaque redémarrage : la base de données vient quand le serveur existe.
 
 ## Objectifs
-- Modéliser des données en tables
-- Écrire des requêtes SQL (CRUD, jointures)
+- Écrire des requêtes SQL (lire, insérer, modifier, supprimer)
+- Concevoir des tables reliées par des clés
+- Utiliser jointures, index et transactions
+- Travailler depuis le code avec un ORM et des migrations
+- Savoir quand utiliser Redis ou une base NoSQL
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })
