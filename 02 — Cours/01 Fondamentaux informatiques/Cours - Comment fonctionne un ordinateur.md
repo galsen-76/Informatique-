@@ -7,6 +7,7 @@ concepts:
   - "[[Processeur, mémoire et disque]]"
   - "[[Encodage des caractères]]"
   - "[[Système d'exploitation et noyau]]"
+  - "[[Noyau (kernel)]]"
 tags:
   - cours
 ---
@@ -35,7 +36,7 @@ flowchart TD
 Le processeur calcule, la mémoire vive garde ce qui sert maintenant, le disque garde tout. Voir [[Processeur, mémoire et disque]].
 
 ## 4. Le chef d'orchestre
-Le [[Système d'exploitation et noyau|système d'exploitation]] partage le matériel entre les programmes et offre les fichiers, le réseau, les processus.
+Le [[Système d'exploitation et noyau|système d'exploitation]] partage le matériel entre les programmes et offre les fichiers, le réseau, les processus. Son cœur, le [[Noyau (kernel)|noyau]], est le seul à toucher au matériel : les programmes lui demandent tout par des appels système.
 
 ## 5. Le texte
 Un caractère devient des octets selon un [[Encodage des caractères|encodage]]. Règle d'or : **UTF-8 partout**, et toujours préciser l'encodage quand on lit ou écrit un fichier.
@@ -52,4 +53,4 @@ Un caractère devient des octets selon un [[Encodage des caractères|encodage]].
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[Binaire et octet]] · [[Processeur, mémoire et disque]] · [[Encodage des caractères]] · [[Système d'exploitation et noyau]]
+[[Binaire et octet]] · [[Processeur, mémoire et disque]] · [[Encodage des caractères]] · [[Système d'exploitation et noyau]] · [[Noyau (kernel)]]
