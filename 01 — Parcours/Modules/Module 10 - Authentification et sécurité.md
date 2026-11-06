@@ -15,8 +15,11 @@ tags:
 > Protéger une API suppose d'avoir une API (module 8) et des utilisateurs stockés quelque part (module 9).
 
 ## Objectifs
-- Distinguer authentification et autorisation
-- Protéger une API avec des jetons
+- Authentifier : mots de passe hachés, sessions, JWT
+- Autoriser par rôle et par propriété
+- Comprendre OAuth 2 et OpenID Connect
+- Reconnaître et corriger injection SQL, XSS et CSRF
+- Gérer les secrets
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })
