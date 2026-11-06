@@ -36,7 +36,7 @@ body {
   --background-modifier-border-focus: rgb(var(--dw-violet-rgb));
   --background-modifier-hover: rgba(151, 135, 255, 0.07);
 
-  --text-normal: #b4bbc9;   /* texte courant : gris bleuté doux, pour que les titres blancs ressortent */
+  --text-normal: #c8ced9;   /* texte courant : gris bleuté doux, pour que les titres blancs ressortent */
   --text-muted:  #9aa1b2;
   --text-faint:  #666d7e;
   --text-accent: #ab9dff;
