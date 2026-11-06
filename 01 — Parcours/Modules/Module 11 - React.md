@@ -15,8 +15,10 @@ tags:
 > Bibliothèque d'interfaces en JavaScript/TypeScript : elle demande un JavaScript solide.
 
 ## Objectifs
-- Construire une interface en composants
-- Gérer état et effets
+- Construire une interface en composants avec des props
+- Gérer état, effets et hooks
+- Construire une SPA avec routage, branchée sur une API
+- Comprendre le frontend de CVAT pour y ajouter un bouton
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })
