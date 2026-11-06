@@ -50,9 +50,9 @@ Une liaison déclarative : on ne touche jamais au DOM directement.
 ### Comment ça fonctionne
 ```mermaid
 flowchart TD
-C[Classe] -->|{{ }} et [ ]| V[Vue]
-  V -->|( )| C
-  V <-->|[( )]| C
+C[Classe] -->|affiche| V[Vue]
+  V -->|événements| C
+  V <-->|ngModel| C
 ```
 
 ### Exemple concret

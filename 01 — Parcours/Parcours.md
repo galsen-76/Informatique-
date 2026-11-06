@@ -27,6 +27,10 @@ flowchart TD
   M14["Module 14 - DevOps et déploiement"]
   M15["Module 15 - Architecture logicielle"]
   M16["Module 16 - Python"]
+  M17["Module 17 - Réseau"]
+  M18["Module 18 - Linux et serveurs"]
+  M19["Module 19 - Vue.js"]
+  M20["Module 20 - Angular"]
   M1 --> M2
   M2 --> M3
   M1 --> M4
@@ -54,6 +58,14 @@ flowchart TD
   M1 --> M16
   M2 --> M16
   M16 --> M13
+  M1 --> M17
+  M2 --> M17
+  M2 --> M18
+  M17 --> M18
+  M5 --> M19
+  M6 --> M19
+  M6 --> M20
+  M11 --> M20
   class M1 internal-link;
   class M2 internal-link;
   class M3 internal-link;
@@ -70,7 +82,18 @@ flowchart TD
   class M14 internal-link;
   class M15 internal-link;
   class M16 internal-link;
+  class M17 internal-link;
+  class M18 internal-link;
+  class M19 internal-link;
+  class M20 internal-link;
 ```
+
+## Ordre conseillé
+> [!tip] Deux temps
+> **D'abord ce dont ton projet CVAT a besoin**, en suivant [[Parcours - Python, Docker et CI]] : 01 Fondamentaux, 02 Terminal, 17 Réseau, 18 Linux, 03 Git, 16 Python, 13 Docker, 14 DevOps.
+> **Ensuite la base complète du développeur web** : 04 HTML et CSS, 05 JavaScript, 06 TypeScript, 07 Node.js, 08 API, 09 Bases de données, 10 Sécurité, 12 Tests, 11 React, puis 19 Vue.js ou 20 Angular selon les projets que tu rencontres, et 15 Architecture pour finir.
+
+Dans chaque module, suis les cours dans l'ordre affiché, puis fais les exercices : une notion n'est maîtrisée que quand tous ses exercices sont réussis.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "parcours" })
