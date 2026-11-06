@@ -9,7 +9,8 @@ tags:
 
 ```mermaid
 flowchart TD
-  E0[0 · Prérequis] --> E1[1 · Python bases]
+  T[Terminal] --> E0[0 · Prérequis]
+  E0 --> E1[1 · Python bases]
   E1 --> E2[2 · Fichiers]
   E2 --> E3[3 · Outillage]
   E3 --> E4[4 · Docker]
@@ -19,9 +20,24 @@ flowchart TD
   E7 --> E8[8 · Outils CVAT]
 ```
 
+## Avant tout · Maîtriser le terminal
+**Cours**, dans l'ordre : [[Cours - Terminal, shell et système]] → [[Cours - WSL, Linux dans Windows]] → [[Cours - Bash, les commandes essentielles]] → [[Cours - Linux, utilisateurs, permissions et paquets]] → [[Cours - Écrire un script shell]] → [[Cours - PowerShell et Bash côte à côte]]
+1. [[Terminal]] et [[Shell]]
+2. [[Système d'exploitation et noyau]]
+3. [[PowerShell]] et [[Bash]]
+4. [[WSL]] · commande [[wsl.exe]]
+5. Commandes : [[pwd]] · [[ls]] · [[cd]] · [[mkdir]] · [[cp]] · [[mv]] · [[rm]] · [[cat]] · [[grep]]
+6. [[Redirection et pipe]]
+7. [[Processus]]
+8. [[Permissions Linux]] · [[chmod]] · [[sudo]]
+9. [[Gestionnaire de paquets]] · [[apt]]
+10. [[Script shell]]
+
+**Exercice** : [[Exercice - Prendre en main WSL et Bash]]
+
 ## Étape 0 · Prérequis
 **Cours** : [[Cours - Ce que tout programme reçoit et renvoie]]
-1. [[Terminal]] et [[Système de fichiers]] (déjà dans le coffre, à revoir si besoin)
+1. [[Système de fichiers]]
 2. [[Variable d'environnement]]
 3. [[Code de sortie]]
 4. [[JSON]] puis [[YAML]]

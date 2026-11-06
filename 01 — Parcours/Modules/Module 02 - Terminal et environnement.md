@@ -16,6 +16,10 @@ tags:
 ## Objectifs
 - Se déplacer et manipuler des fichiers sans souris
 - Comprendre chemins relatifs et absolus
+- Distinguer terminal, shell et système ; savoir où je suis (PowerShell, Bash, WSL)
+- Comprendre WSL et y travailler au quotidien
+- Enchaîner des commandes, gérer les droits et les paquets sous Linux
+- Écrire un petit script shell
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })

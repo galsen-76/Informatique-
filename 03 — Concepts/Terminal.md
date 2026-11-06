@@ -81,6 +81,7 @@ node --version           # vérifier qu'un outil est installé
 - **Mène à** : [[Système de fichiers]] → [[Git]]
 - **Utilisé par** : [[Node.js]], [[npm]], [[Docker]]
 - **Commandes** : [[cd]] · [[ls]] · [[mkdir]] · [[Get-ChildItem]]
+- **Approfondir** : [[Shell]] · [[PowerShell]] · [[Bash]] · [[WSL]]
 
 ## 6 · Réviser
 > [!question] Me faire interroger
