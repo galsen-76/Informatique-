@@ -100,7 +100,8 @@ Un projet avec plusieurs Dockerfile demande un `docker build -f` par image, souv
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-- [ ] Je l'explique sans notes, en 3 phrases, à quelqu'un qui ne connaît pas
-- [ ] J'ai réussi un exercice qui l'utilise
-- [ ] Je l'ai utilisé dans un projet
-- [ ] Je sais dire quand ne pas l'utiliser (ou ce qu'il ne faut pas confondre)
+La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+
+```dataviewjs
+await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
+```

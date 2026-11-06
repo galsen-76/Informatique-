@@ -1,5 +1,6 @@
 ---
 type: course
+order: 1
 module: "[[Module 14 - DevOps et déploiement]]"
 concepts:
   - "[[Pipeline GitLab CI]]"

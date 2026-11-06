@@ -1,5 +1,6 @@
 ---
 type: course
+order: 2
 module: "[[Module 13 - Docker]]"
 concepts:
   - "[[Python dans Docker]]"

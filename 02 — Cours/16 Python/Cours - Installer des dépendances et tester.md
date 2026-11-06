@@ -1,5 +1,6 @@
 ---
 type: course
+order: 4
 module: "[[Module 16 - Python]]"
 concepts:
   - "[[Environnement virtuel Python]]"

@@ -1,5 +1,6 @@
 ---
 type: course
+order: 7
 module: "[[Module 02 - Terminal et environnement]]"
 concepts:
   - "[[Variable d'environnement]]"

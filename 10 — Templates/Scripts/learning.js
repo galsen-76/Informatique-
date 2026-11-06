@@ -5,7 +5,7 @@
      ```dataviewjs
      await dv.view("10 — Templates/Scripts/learning", { view: "dashboard" })
      ```
-   Vues : dashboard · parcours · module · concept · revisions · acquis
+   Vues : dashboard · parcours · module · concept · maitrise · revisions · acquis
    Prérequis : plugin Dataview + « Enable JavaScript Queries ».
    ===================================================================== */
 
@@ -85,10 +85,12 @@ const modules = () => dv.pages(`"${CFG.modules}"`).where((p) => p.type === "modu
 const exercises = () => dv.pages(`"${CFG.exercises}"`).where((p) => p.type === "exercise" || p.type === "project").array();
 const pageOf = (path) => dv.page(path);
 
+// Exercices (type « exercise ») qui citent la notion dans leur propriété « concepts »
+const exercisesOf = (page) => exercises().filter((e) => e.type === "exercise" && linkPaths(e.concepts).includes(page.file.path));
 function mastery(page) {
-  // Cases de la section « Validation de la maîtrise »
-  const tasks = arr(page.file.tasks).filter((t) => t.section && /Validation/i.test(t.section.subpath || ""));
-  return { done: tasks.filter((t) => t.completed).length, total: tasks.length };
+  // La maîtrise est validée quand tous les exercices liés à la notion sont réussis
+  const ex = exercisesOf(page);
+  return { done: ex.filter((e) => e.status === "reussi").length, total: ex.length, ex };
 }
 function progress(list) {
   if (!list.length) return 0;
@@ -103,9 +105,9 @@ function readiness(page) {
 const linking = (path, list) => list.filter((p) => arr(p.file.outlinks).some((l) => resolve(l.path) === path));
 
 /* ---------- blocs réutilisés ---------- */
-function conceptLine(c) {
+function conceptLine(c, showPre = true) {
   const r = readiness(c);
-  const warn = !r.ready && c.status !== "maitrise" ? ` · prérequis : ${r.missing.map((p) => wiki(p.file.path)).join(", ")}` : "";
+  const warn = showPre && !r.ready && c.status !== "maitrise" ? ` · prérequis : ${r.missing.map((p) => wiki(p.file.path)).join(", ")}` : "";
   return `${wiki(c.file.path)} ${sbadge(c.status)}${warn}`;
 }
 function moduleRow(parent, mod) {
@@ -165,7 +167,7 @@ function vDashboard() {
     const ex = linking(current.file.path, exercises());
     if (ex.length) lines.push("Pratiquer : " + ex.map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`).join(" · "));
     const m = mastery(current);
-    if (m.total) lines.push(`Validation de la maîtrise : ${m.done}/${m.total}`);
+    if (m.total) lines.push(`Validation de la maîtrise : ${m.done}/${m.total} exercices réussis`);
     bullets(f, lines);
     if (!r.ready) md(f, `> [!warning] Prérequis à consolider\n> ${r.missing.map((p) => wiki(p.file.path)).join(", ")} ${r.missing.length > 1 ? "ne sont" : "n'est"} pas encore compris : reviens-y avant d'aller plus loin.`);
   }
@@ -189,7 +191,7 @@ function vDashboard() {
   const toConfirm = all.filter((c) => c.status === "maitrise" && (() => { const m = mastery(c); return m.total && m.done < m.total; })());
   bullets(rv, [
     ...due.map((c) => `${wiki(c.file.path)} ${sbadge(c.status)} · prévue le ${toM(c.next_review).format("DD/MM")}`),
-    ...toConfirm.map((c) => `${wiki(c.file.path)} · maîtrise à confirmer (${mastery(c).done}/${mastery(c).total} critères)`),
+    ...toConfirm.map((c) => `${wiki(c.file.path)} · maîtrise à confirmer (${mastery(c).done}/${mastery(c).total} exercices réussis)`),
   ], "Rien à réviser aujourd'hui");
 
   // Exercices
@@ -216,19 +218,34 @@ function vParcours() {
 }
 
 function vModule() {
-  const list = conceptsOfModule(cur).sort((a, b) => st(b.status).score - st(a.status).score);
+  const list = conceptsOfModule(cur);
   const grid = root.createDiv({ cls: "dw-grid" });
   const pr = panel(grid, "Progression", "violet");
   moduleRow(pr, cur);
   const pre = linkPaths(cur.prerequisites).map(pageOf).filter(Boolean);
   if (pre.length) bullets(pr, pre.map((m) => `Prérequis : ${wiki(m.file.path)} · ${progress(conceptsOfModule(m))} %`));
-  const c = panel(grid, "Notions du module", "blue");
-  bullets(c, list.map(conceptLine), "Aucune notion rattachée — template *Concept* avec ce module");
-  const co = panel(grid, "Cours", "orange");
-  bullets(co, dv.pages(`"${CFG.courses}"`).where((p) => p.type === "course" && linkPaths(p.module).includes(cur.file.path)).array()
-    .map((p) => wiki(p.file.path)), "Aucun cours pour l'instant");
+
+  // Chaque cours, puis les notions qu'il aborde (dans l'ordre de sa propriété « concepts »)
+  const courses = dv.pages(`"${CFG.courses}"`).where((p) => p.type === "course" && linkPaths(p.module).includes(cur.file.path)).array()
+    .sort((a, b) => (a.order ?? 99) - (b.order ?? 99) || base(a.file.path).localeCompare(base(b.file.path)));
+  const seen = new Set();
+  courses.forEach((co, i) => {
+    const p = panel(grid, `Cours ${i + 1}`, "orange");
+    md(p, `**${wiki(co.file.path, base(co.file.path).replace(/^Cours - /, ""))}**`, "dl-current");
+    const notions = linkPaths(co.concepts).map(pageOf).filter((x) => x && x.type === "concept");
+    notions.forEach((x) => seen.add(x.file.path));
+    bullets(p, notions.map((x) => conceptLine(x, false)), "Aucune notion listée dans ce cours");
+  });
+  if (!courses.length) empty(panel(grid, "Cours", "orange"), "Aucun cours pour l'instant");
+
+  const rest = list.filter((x) => !seen.has(x.file.path)).sort((a, b) => st(b.status).score - st(a.status).score);
+  if (rest.length || !list.length) {
+    const c = panel(grid, courses.length ? "Autres notions du module" : "Notions du module", "blue");
+    bullets(c, rest.map((x) => conceptLine(x, false)), "Aucune notion rattachée — template *Concept* avec ce module");
+  }
+
   const ex = panel(grid, "Exercices et projets", "green");
-  const paths = new Set(list.map((x) => x.file.path));
+  const paths = new Set([...list.map((x) => x.file.path), ...seen]);
   bullets(ex, exercises().filter((e) => linkPaths(e.concepts).some((p) => paths.has(p)))
     .map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`), "Aucun exercice relié");
 }
@@ -249,11 +266,24 @@ function vConcept() {
   const cmds = linking(cur.file.path, dv.pages(`"${CFG.commands}"`).where((p) => p.type === "command").array());
   if (cmds.length) lines.push("**Commandes** : " + cmds.map((c) => wiki(c.file.path)).join(" · "));
   const m = mastery(cur);
-  if (m.total) lines.push(`**Maîtrise** : ${m.done}/${m.total} critères validés` +
+  if (!m.total) lines.push("**Maîtrise** : aucun exercice lié pour l'instant");
+  else lines.push(`**Maîtrise** : ${m.done}/${m.total} exercices réussis` +
     (cur.status === "maitrise" && m.done < m.total ? " — statut « Maîtrisé » à confirmer" : "") +
     (m.done === m.total && cur.status !== "maitrise" ? " — tu peux passer en « Maîtrisé »" : ""));
   if (cur.next_review) lines.push(`**Prochaine révision** : ${toM(cur.next_review).format("DD/MM/YYYY")}`);
   bullets(box, lines);
+}
+
+function vMaitrise() {
+  const m = mastery(cur);
+  if (!m.total) return empty(root, "Aucun exercice lié pour l'instant : la maîtrise ne peut pas encore être validée.");
+  bullets(root, m.ex.map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`));
+  if (m.done === m.total) {
+    md(root, cur.status === "maitrise" ? "> [!success] Maîtrise validée\n> Tous les exercices liés sont réussis."
+      : "> [!success] Maîtrise validée\n> Tous les exercices liés sont réussis : tu peux passer le statut en « Maîtrisé ».");
+  } else {
+    md(root, `> [!todo] Pas encore validée\n> ${m.done}/${m.total} exercice${m.total > 1 ? "s" : ""} réussi${m.done > 1 ? "s" : ""}.`);
+  }
 }
 
 function vRevisions() {
@@ -269,7 +299,7 @@ function vRevisions() {
     .map((c) => `**${toM(c.next_review).clone().locale("fr").format("ddd DD/MM")}** ${wiki(c.file.path)}`), "Rien cette semaine");
   const conf = panel(grid, "Maîtrise à confirmer", "red");
   bullets(conf, all.filter((c) => c.status === "maitrise").filter((c) => { const m = mastery(c); return m.total && m.done < m.total; })
-    .map((c) => `${wiki(c.file.path)} · ${mastery(c).done}/${mastery(c).total} critères`), "Toutes les maîtrises sont validées");
+    .map((c) => `${wiki(c.file.path)} · ${mastery(c).done}/${mastery(c).total} exercices réussis`), "Toutes les maîtrises sont validées");
   const up = panel(grid, "Prêtes à passer en « Maîtrisé »", "green");
   bullets(up, all.filter((c) => c.status !== "maitrise").filter((c) => { const m = mastery(c); return m.total && m.done === m.total; })
     .map((c) => wiki(c.file.path)), "Aucune pour l'instant");
@@ -291,7 +321,7 @@ function vAcquis() {
 }
 
 /* ---------- routage ---------- */
-const VIEWS = { dashboard: vDashboard, parcours: vParcours, module: vModule, concept: vConcept, revisions: vRevisions, acquis: vAcquis };
+const VIEWS = { dashboard: vDashboard, parcours: vParcours, module: vModule, concept: vConcept, maitrise: vMaitrise, revisions: vRevisions, acquis: vAcquis };
 const fn = VIEWS[opts.view];
 if (!fn) empty(root, "Vue inconnue : " + opts.view);
 else {

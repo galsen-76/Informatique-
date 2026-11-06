@@ -1,5 +1,6 @@
 ---
 type: course
+order: 2
 module: "[[Module 16 - Python]]"
 concepts:
   - "[[Fonction]]"

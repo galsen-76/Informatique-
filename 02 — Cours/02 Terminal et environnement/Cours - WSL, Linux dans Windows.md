@@ -1,5 +1,6 @@
 ---
 type: course
+order: 2
 module: "[[Module 02 - Terminal et environnement]]"
 concepts:
   - "[[WSL]]"

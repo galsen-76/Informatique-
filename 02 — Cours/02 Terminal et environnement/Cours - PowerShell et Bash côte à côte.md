@@ -1,5 +1,6 @@
 ---
 type: course
+order: 6
 module: "[[Module 02 - Terminal et environnement]]"
 concepts:
   - "[[PowerShell]]"

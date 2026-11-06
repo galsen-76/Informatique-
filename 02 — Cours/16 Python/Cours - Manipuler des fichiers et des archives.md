@@ -1,5 +1,6 @@
 ---
 type: course
+order: 3
 module: "[[Module 16 - Python]]"
 concepts:
   - "[[Chemin de fichier en Python (pathlib)]]"

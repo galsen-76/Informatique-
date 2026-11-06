@@ -1,5 +1,6 @@
 ---
 type: course
+order: 5
 module: "[[Module 02 - Terminal et environnement]]"
 concepts:
   - "[[Script shell]]"

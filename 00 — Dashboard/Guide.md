@@ -41,7 +41,7 @@ tags:
 - **Créer une fiche** : `Alt+N` (Templater) → choisir le modèle → répondre aux questions.
 - **Avancer dans la méthode** : dans les propriétés de la fiche, ajoute l'étape terminée à `method` (Comprendre, Explorer, Pratiquer, Expliquer, Relier, Réviser).
 - **Changer l'état** d'une notion : propriété `status` → `a-decouvrir`, `en-cours`, `compris` ou `maitrise`.
-- **Prouver la maîtrise** : cocher les 4 critères de la section *Validation de la maîtrise*. Tant qu'ils ne le sont pas, le statut *Maîtrisé* est signalé « à confirmer ».
+- **Prouver la maîtrise** : réussir tous les exercices liés à la notion (un exercice se lie à une notion par sa propriété `concepts`, et passe en `reussi` quand il est fait). Tant qu'ils ne le sont pas, le statut *Maîtrisé* est signalé « à confirmer ».
 - **Planifier une révision** : propriété `next_review` (+1 j, +3, +7, +14, +30).
 - **Relier** : remplir `prerequisites`, `parents` et `related` dans les propriétés (le dashboard vérifie les prérequis) **et** expliquer les liens dans la section 5.
 - **Changer de sujet** : dans [[Focus]], `current` reçoit la prochaine notion de `next`.

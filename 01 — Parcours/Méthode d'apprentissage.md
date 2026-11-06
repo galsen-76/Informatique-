@@ -31,10 +31,10 @@ Chaque fiche concept suit exactement ces six étapes. Quand tu termines une éta
 | **À découvrir** | Je ne l'ai pas encore étudiée |
 | **En cours** | Je suis en train de l'apprendre (idéalement une ou deux notions à la fois) |
 | **Compris** | Je l'explique avec mes mots et j'ai fait au moins un exercice |
-| **Maîtrisé** | Les **4 critères** de la section *Validation de la maîtrise* sont cochés |
+| **Maîtrisé** | **Tous les exercices** liés à la notion sont réussis (section *Validation de la maîtrise*) |
 
 > [!warning] Lire n'est pas maîtriser
-> Une fiche lue reste *en cours*. Passer en *compris* demande d'avoir **expliqué** (section 4) et **pratiqué** (section 3). Passer en *maîtrisé* demande d'avoir validé les 4 critères : le [[Dashboard]] et la page [[Révisions]] signalent toute maîtrise non confirmée.
+> Une fiche lue reste *en cours*. Passer en *compris* demande d'avoir **expliqué** (section 4) et **pratiqué** (section 3). Passer en *maîtrisé* demande d'avoir réussi tous les exercices qui utilisent la notion : le [[Dashboard]] et la page [[Révisions]] signalent toute maîtrise non confirmée.
 
 ## Une session type (45 min)
 1. Ouvrir le [[Dashboard]] : regarder le **sujet actuel** et les **révisions du jour**.

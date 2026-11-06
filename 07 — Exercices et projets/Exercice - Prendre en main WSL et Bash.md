@@ -8,6 +8,7 @@ concepts:
   - "[[Redirection et pipe]]"
   - "[[Permissions Linux]]"
   - "[[Script shell]]"
+  - "[[Gestionnaire de paquets]]"
 tags:
   - exercice
 ---
@@ -15,7 +16,7 @@ tags:
 
 > [!info] Objectif
 > Faire tout un petit travail dans Linux, sans souris et sans PowerShell une fois entré dans WSL.
-> Notions : [[WSL]] · [[Bash]] · [[Redirection et pipe]] · [[Permissions Linux]] · [[Script shell]]
+> Notions : [[WSL]] · [[Bash]] · [[Redirection et pipe]] · [[Permissions Linux]] · [[Script shell]] · [[Gestionnaire de paquets]]
 
 ## Consignes
 - [ ] Depuis PowerShell, vérifie que ta distribution est en WSL 2, puis entre dedans

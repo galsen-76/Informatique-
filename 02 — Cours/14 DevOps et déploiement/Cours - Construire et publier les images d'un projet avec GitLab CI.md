@@ -1,5 +1,6 @@
 ---
 type: course
+order: 2
 module: "[[Module 14 - DevOps et déploiement]]"
 concepts:
   - "[[Dépôt upstream]]"

@@ -1,5 +1,6 @@
 ---
 type: course
+order: 1
 module: "[[Module 03 - Git et GitHub]]"
 concepts:
   - "[[Git]]"

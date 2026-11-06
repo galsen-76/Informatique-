@@ -18,6 +18,7 @@ await tp.file.move("02 — Cours/" + folder + "/Cours - " + title);
 -%>
 ---
 type: course
+order:
 module: <% mod ? `"[[${mod}]]"` : "" %>
 concepts:
 <% picked.length ? picked.map(c => `  - "[[${c}]]"`).join("\n") : "  []" %>

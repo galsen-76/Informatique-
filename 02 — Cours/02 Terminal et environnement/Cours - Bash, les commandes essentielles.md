@@ -1,5 +1,6 @@
 ---
 type: course
+order: 3
 module: "[[Module 02 - Terminal et environnement]]"
 concepts:
   - "[[Bash]]"
