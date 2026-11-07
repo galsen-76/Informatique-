@@ -28,7 +28,7 @@ Faire tourner `app.py` **sans installer Python sur ta machine** : dans un conten
 - [x] Lance l'application dans un conteneur `python:3.12-slim`, en partageant ton dossier de projet avec le conteneur, pour qu'elle analyse `exemple/` et écrive son rapport dans un dossier `sortie/` **de ta machine**
 - [x] Lance-la une seconde fois et observe ce qui change dans les messages de Docker
 - [x] Liste les conteneurs, même arrêtés : combien y en a-t-il ? Fais en sorte que le prochain lancement ne laisse pas de conteneur derrière lui
-- [ ] Arrête le moteur Docker, relance la commande, lis l'erreur, puis relance le moteur
+- [x] Arrête le moteur Docker, relance la commande, lis l'erreur, puis relance le moteur
 
 > [!success] Ça marche si…
 > `sortie/rapport.json` existe **sur ta machine** et compte bien les fichiers de `exemple/`, alors que tu n'as rien installé d'autre que Docker.

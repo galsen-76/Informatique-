@@ -24,9 +24,9 @@ Ne plus taper une longue commande : construire **ta propre image** `rapport-doss
 ## Ce que tu fais
 - [x] Écris un `Dockerfile` : image de base Python, dossier de travail, copie du code, et la commande lancée par défaut
 - [x] Construis l'image sous le nom `rapport-dossier:0.1` et lance-la sur `exemple/`, en récupérant le rapport chez toi
-- [ ] Ajoute `test_app.py` et un `requirements.txt` qui contient `pytest`, et installe les dépendances dans l'image **avant** de copier le code
+- [x] Ajoute `test_app.py` et un `requirements.txt` qui contient `pytest`, et installe les dépendances dans l'image **avant** de copier le code
 - [x] Modifie une ligne de `app.py`, reconstruis, et note quelles étapes sont refaites et lesquelles viennent du cache
-- [ ] Ajoute une version du programme passée **au moment du build**, et rends-la lisible dans le conteneur au lancement
+- [x] Ajoute une version du programme passée **au moment du build**, et rends-la lisible dans le conteneur au lancement
 - [x] Ajoute un `.dockerignore` pour ne pas envoyer `sortie/` ni `.git/` au build
 
 > [!note] Au travail, derrière le proxy
@@ -48,7 +48,7 @@ Réponds par écrit, en dessous, **sans regarder la solution**. Ensuite, demande
 > 3. Avec `CMD`, ce que je tape après l'image remplace la commande (`unittest` tout seul → introuvable dans le PATH, il faut `python -m unittest`). Avec `ENTRYPOINT`, ça s'ajoute derrière (`python app.py unittest` → « Dossier introuvable : unittest »).
 > 4. `ARG` n'existe qu'au build, `ENV` reste dans l'image. Un mot de passe dans un `ARG` reste visible dans l'image (`docker history`) : un secret se donne au lancement.
 >
-> _Adapté au travail : pas de `requirements.txt` ni de `pytest` (pip bloqué par le proxy), tests en `unittest`. Version passée au build pas encore faite._
+> _Adapté au travail : pas de `requirements.txt` ni de `pytest` (pip bloqué par le proxy), tests en `unittest`._
 
 > [!question]- Indice
 > Ordre conseillé des instructions : `FROM` → `WORKDIR` → `COPY requirements.txt` → `RUN pip install` → `COPY . .` → `CMD`. Pour la version : un `ARG` recopié dans un `ENV`, et l'option `--build-arg` de `docker build`.
