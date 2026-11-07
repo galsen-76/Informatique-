@@ -1,6 +1,6 @@
 ---
 type: exercise
-status: a-faire
+status: reussi
 difficulty: moyen
 concepts:
   - "[[Dockerfile]]"
@@ -22,12 +22,12 @@ tags:
 Ne plus taper une longue commande : construire **ta propre image** `rapport-dossier`, qui contient déjà l'application et se lance avec un simple `docker run`.
 
 ## Ce que tu fais
-- [ ] Écris un `Dockerfile` : image de base Python, dossier de travail, copie du code, et la commande lancée par défaut
-- [ ] Construis l'image sous le nom `rapport-dossier:0.1` et lance-la sur `exemple/`, en récupérant le rapport chez toi
+- [x] Écris un `Dockerfile` : image de base Python, dossier de travail, copie du code, et la commande lancée par défaut
+- [x] Construis l'image sous le nom `rapport-dossier:0.1` et lance-la sur `exemple/`, en récupérant le rapport chez toi
 - [ ] Ajoute `test_app.py` et un `requirements.txt` qui contient `pytest`, et installe les dépendances dans l'image **avant** de copier le code
-- [ ] Modifie une ligne de `app.py`, reconstruis, et note quelles étapes sont refaites et lesquelles viennent du cache
+- [x] Modifie une ligne de `app.py`, reconstruis, et note quelles étapes sont refaites et lesquelles viennent du cache
 - [ ] Ajoute une version du programme passée **au moment du build**, et rends-la lisible dans le conteneur au lancement
-- [ ] Ajoute un `.dockerignore` pour ne pas envoyer `sortie/` ni `.git/` au build
+- [x] Ajoute un `.dockerignore` pour ne pas envoyer `sortie/` ni `.git/` au build
 
 > [!note] Au travail, derrière le proxy
 > `pip install` est bloqué tant que le proxy PyPI du Nexus n'est pas configuré (voir [[Fiche - Images Docker au travail via le Nexus]]). En attendant, les tests sont écrits avec `unittest`, livré avec Python : saute la tâche `requirements.txt` et `pytest`, et lance les tests avec `python -m unittest`. Pour la question 2, raisonne avec le cache des couches.
@@ -43,7 +43,12 @@ Réponds par écrit, en dessous, **sans regarder la solution**. Ensuite, demande
 4. Quelle est la différence entre ton `ARG` et un `ENV` ? Pourquoi ne jamais mettre de mot de passe dans un `ARG` ?
 
 > [!quote] Mes réponses
-> _À écrire._
+> 1. `ARG` sert seulement pendant le build, `ENV` reste quand le conteneur tourne. `CMD` et `ENTRYPOINT` s'exécutent au lancement.
+> 2. Quand on rebuild, Docker refait toutes les étapes après l'endroit où il y a la différence, il n'utilise plus le cache. Donc on installe les dépendances avant de copier le code.
+> 3. Avec `CMD`, ce que je tape après l'image remplace la commande (`unittest` tout seul → introuvable dans le PATH, il faut `python -m unittest`). Avec `ENTRYPOINT`, ça s'ajoute derrière (`python app.py unittest` → « Dossier introuvable : unittest »).
+> 4. `ARG` n'existe qu'au build, `ENV` reste dans l'image. Un mot de passe dans un `ARG` reste visible dans l'image (`docker history`) : un secret se donne au lancement.
+>
+> _Adapté au travail : pas de `requirements.txt` ni de `pytest` (pip bloqué par le proxy), tests en `unittest`. Version passée au build pas encore faite._
 
 > [!question]- Indice
 > Ordre conseillé des instructions : `FROM` → `WORKDIR` → `COPY requirements.txt` → `RUN pip install` → `COPY . .` → `CMD`. Pour la version : un `ARG` recopié dans un `ENV`, et l'option `--build-arg` de `docker build`.
@@ -77,5 +82,5 @@ Réponds par écrit, en dessous, **sans regarder la solution**. Ensuite, demande
 > 4. `ARG` n'existe qu'au build, `ENV` reste dans l'image. Les `ARG` restent visibles dans `docker history`.
 
 ## Validation
-- [ ] Le projet marche comme décrit dans « Ça marche si… »
-- [ ] J'ai répondu aux questions et Claude les a vérifiées
+- [x] Le projet marche comme décrit dans « Ça marche si… »
+- [x] J'ai répondu aux questions et Claude les a vérifiées

@@ -2,7 +2,7 @@
 type: concept
 domain: devops
 module: "[[Module 13 - Docker]]"
-status: a-decouvrir
+status: maitrise
 level: debutant
 prerequisites:
   - "[[Conteneur]]"
@@ -68,6 +68,12 @@ docker volume rm pg-data  # supprime (définitif)
 
 > [!warning] À ne pas confondre
 > `COPY` dans le Dockerfile (fichiers figés **dans l'image** au build) et `-v` (fichiers branchés **au lancement**). Et sous Linux, les fichiers créés par le conteneur dans un bind mount appartiennent souvent à `root`.
+
+> [!tip] Ce que j'ai vu en pratique (fil rouge, 7 novembre)
+> - `-v "$PWD/sortie:/sortie"` s'écrit **côté PC : côté conteneur**.
+> - Le dossier n'a **pas besoin d'exister dans l'image** : Docker le crée au lancement. S'il existe, le volume se pose **par-dessus** et cache son contenu (ne jamais monter sur `/app`, là où est le code).
+> - Le chemin côté conteneur doit être **celui où le programme écrit** (`SORTIE=/sortie`). Sinon, rien n'apparaît sur le PC, et avec `--rm` le fichier disparaît avec le conteneur.
+> - Côté PC, créer les dossiers soi-même (`mkdir`) pour qu'ils ne soient pas à `root`.
 
 ## 3 · Pratiquer
 - Monte un dossier de test dans `python:3.12-slim` et liste son contenu avec `ls /data`.

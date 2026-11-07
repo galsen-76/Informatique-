@@ -2,7 +2,7 @@
 type: concept
 domain: devops
 module: "[[Module 13 - Docker]]"
-status: a-decouvrir
+status: maitrise
 level: intermediaire
 prerequisites:
   - "[[Docker]]"
@@ -61,7 +61,18 @@ CMD ["python", "main.py"]             # exécuté au démarrage du conteneur
 | `COPY` | copie des fichiers du projet dans l'image |
 | `RUN` | commande exécutée **pendant le build** |
 | `ARG` | variable de build, voir [[Variable de build Docker (ARG)]] |
-| `CMD` | commande lancée **au démarrage** du conteneur |
+| `CMD` | commande lancée **au démarrage** du conteneur, **remplacée** par ce que tu tapes après l'image |
+| `ENTRYPOINT` | programme lancé **au démarrage**, toujours : ce que tu tapes après l'image **s'ajoute** derrière |
+| `ENV` | variable d'environnement gardée dans l'image, lisible par le programme au lancement |
+
+### Ce que j'ai vu en pratique (fil rouge, 7 novembre)
+- **`COPY . .`** : le 1er `.` est **sur mon PC** (le contexte de build, le dossier donné à `docker build .`), le 2e est **dans l'image** (le `WORKDIR`). `COPY` va toujours du PC vers l'image. Ce qui ne doit pas partir dans l'image va dans `.dockerignore`.
+- **`WORKDIR` plutôt que `RUN cd`** : `WORKDIR` crée le dossier et reste valable pour toutes les lignes suivantes et pour le conteneur. Un `RUN cd` est oublié à la ligne suivante, car chaque `RUN` est un nouveau shell.
+- **`CMD` contre `ENTRYPOINT`** :
+  - avec `ENTRYPOINT ["python", "app.py"]`, `docker run image unittest` lance `python app.py unittest` → « Dossier introuvable : unittest » ;
+  - avec `CMD ["python", "app.py"]`, la même commande lance `unittest` tout seul → « executable file not found in $PATH ». La bonne commande : `python -m unittest`.
+- **Le cache** : chaque instruction est une couche. Si une couche change, elle et toutes celles d'en dessous sont refaites. D'où : dépendances avant `COPY . .`.
+- **Au travail**, le `FROM` passe par le Nexus : [[Fiche - Images Docker au travail via le Nexus]].
 
 Un Dockerfile peut contenir **plusieurs `FROM`** (*multi-stage build*) : une étape compile, la suivante ne garde que le résultat. Un projet peut aussi avoir **plusieurs Dockerfile** (`Dockerfile`, `Dockerfile.ui`…), construits avec `docker build -f`.
 

@@ -2,7 +2,7 @@
 type: concept
 domain: devops
 module: "[[Module 13 - Docker]]"
-status: a-decouvrir
+status: maitrise
 level: intermediaire
 prerequisites:
   - "[[Dockerfile]]"

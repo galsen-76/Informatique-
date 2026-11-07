@@ -1,6 +1,6 @@
 ---
 type: exercise
-status: a-faire
+status: reussi
 difficulty: moyen
 concepts:
   - "[[Docker]]"
@@ -24,10 +24,10 @@ tags:
 Faire tourner `app.py` **sans installer Python sur ta machine** : dans un conteneur créé à partir de l'image officielle `python:3.12-slim`, qui lit un dossier de ta machine et y dépose son rapport. Pas encore de Dockerfile.
 
 ## Ce que tu fais
-- [ ] Dans WSL, crée `~/projets/rapport-dossier` avec `app.py` (code dans [[Projet fil rouge - Rapport de dossier]]) et un dossier `exemple/` contenant quelques fichiers vides de types différents
-- [ ] Lance l'application dans un conteneur `python:3.12-slim`, en partageant ton dossier de projet avec le conteneur, pour qu'elle analyse `exemple/` et écrive son rapport dans un dossier `sortie/` **de ta machine**
-- [ ] Lance-la une seconde fois et observe ce qui change dans les messages de Docker
-- [ ] Liste les conteneurs, même arrêtés : combien y en a-t-il ? Fais en sorte que le prochain lancement ne laisse pas de conteneur derrière lui
+- [x] Dans WSL, crée `~/projets/rapport-dossier` avec `app.py` (code dans [[Projet fil rouge - Rapport de dossier]]) et un dossier `exemple/` contenant quelques fichiers vides de types différents
+- [x] Lance l'application dans un conteneur `python:3.12-slim`, en partageant ton dossier de projet avec le conteneur, pour qu'elle analyse `exemple/` et écrive son rapport dans un dossier `sortie/` **de ta machine**
+- [x] Lance-la une seconde fois et observe ce qui change dans les messages de Docker
+- [x] Liste les conteneurs, même arrêtés : combien y en a-t-il ? Fais en sorte que le prochain lancement ne laisse pas de conteneur derrière lui
 - [ ] Arrête le moteur Docker, relance la commande, lis l'erreur, puis relance le moteur
 
 > [!success] Ça marche si…
@@ -41,7 +41,12 @@ Réponds par écrit, en dessous, **sans regarder la solution**. Ensuite, demande
 4. Quelle est la différence entre l'image `python:3.12-slim` et le conteneur que tu as lancé ?
 
 > [!quote] Mes réponses
-> _À écrire._
+> 1. _Pas encore répondu à l'écrit._
+> 2. Mon dossier `sortie` est relié à `/sortie` dans le conteneur (côté PC : côté conteneur) : ce que le programme écrit dans `/sortie` arrive chez moi. Le chemin doit être celui où le programme écrit. Sans le partage, le rapport reste dans le conteneur et part avec lui (`--rm`).
+> 3. Si le moteur est arrêté, ça met une erreur de socket : la commande `docker` n'arrive plus à parler au démon (`/var/run/docker.sock`).
+> 4. L'ID change à chaque fois : ce sont des instances différentes, créées à partir de la même image. `--rm` permet de ne pas laisser les conteneurs arrêtés.
+>
+> _Fait au travail : image de base récupérée via le Nexus ([[Fiche - Images Docker au travail via le Nexus]])._
 
 > [!question]- Indice
 > Il te faut : l'option qui partage un dossier (`-v dossier_machine:dossier_conteneur`), le dossier de travail dans le conteneur (`-w`), la commande à lancer à la fin (`python app.py …`), et les variables `SORTIE` ou un argument pour dire où lire et écrire. L'option qui supprime le conteneur à la fin commence par deux tirets.
@@ -61,5 +66,5 @@ Réponds par écrit, en dessous, **sans regarder la solution**. Ensuite, demande
 > 4. L'image est le modèle figé (Debian + Python) ; le conteneur est une exécution de ce modèle, jetable. Sans `--rm`, chaque lancement laisse un conteneur arrêté.
 
 ## Validation
-- [ ] Le projet marche comme décrit dans « Ça marche si… »
-- [ ] J'ai répondu aux questions et Claude les a vérifiées
+- [x] Le projet marche comme décrit dans « Ça marche si… »
+- [x] J'ai répondu aux questions et Claude les a vérifiées
