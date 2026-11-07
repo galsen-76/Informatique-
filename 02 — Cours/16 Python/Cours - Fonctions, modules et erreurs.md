@@ -73,7 +73,7 @@ if __name__ == "__main__":
 Ce squelette (`main()` qui renvoie un code, `sys.exit(main())`) est une bonne base pour tous tes scripts.
 
 ## Mise en pratique
-Le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]], les étapes 04 à 06 : un vrai petit outil qui lit la liste de tes conteneurs Docker et te prépare le ménage.
+Le mini-projet [[Projet - Suivre ses dépenses en Python]], les étapes 04 à 06 : un petit suivi de dépenses, avec les données fournies.
 
 > [!warning] Erreurs fréquentes
 > - Afficher un résultat avec `print` dans la fonction au lieu de le renvoyer avec `return`

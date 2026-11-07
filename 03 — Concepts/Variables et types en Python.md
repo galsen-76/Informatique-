@@ -77,7 +77,7 @@ print(len(nom))             # 11
 > `=` (je range une valeur) et `==` (je compare deux valeurs). Et `"42"` (texte) ≠ `42` (nombre) : ce que tu lis dans un fichier ou une variable d'environnement est **toujours du texte**.
 
 ## 3 · Pratiquer
-Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 01 - Lire la liste des conteneurs]].
+Dans le mini-projet [[Projet - Suivre ses dépenses en Python]] : [[Dépenses 01 - Lire les dépenses]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

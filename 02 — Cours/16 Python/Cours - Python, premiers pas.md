@@ -82,7 +82,7 @@ for ext, nb in compte.items():
 Lis-le ligne par ligne et dis à voix haute ce que fait chacune avant de le lancer.
 
 ## Mise en pratique
-Le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]], les étapes 01 à 03 : un vrai petit outil qui lit la liste de tes conteneurs Docker et te prépare le ménage.
+Le mini-projet [[Projet - Suivre ses dépenses en Python]], les étapes 01 à 03 : un petit suivi de dépenses, avec les données fournies.
 
 > [!warning] Erreurs fréquentes
 > - Oublier les deux-points `:` à la fin d'un `if`, `for` ou `def`

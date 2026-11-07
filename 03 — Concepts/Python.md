@@ -67,7 +67,7 @@ python bonjour.py
 > **Python 2** (abandonné en 2020) et **Python 3** : tout ce que tu apprends est Python 3. Et la **bibliothèque standard** (déjà incluse : `pathlib`, `zipfile`) et les **paquets externes** (à installer avec [[pip]] : `requests`, `pytest`).
 
 ## 3 · Pratiquer
-Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 01 - Lire la liste des conteneurs]].
+Dans le mini-projet [[Projet - Suivre ses dépenses en Python]] : [[Dépenses 01 - Lire les dépenses]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

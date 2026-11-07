@@ -57,7 +57,7 @@ flowchart TD
 7. [[Module et import Python]]
 8. [[Exception]]
 
-**Mini-projet** : [[Projet - Faire le ménage dans ses conteneurs Docker]]
+**Mini-projet** : [[Projet - Suivre ses dépenses en Python]]
 
 ## Étape 2 · Docker
 **Cours** : [[Cours - Docker, les bases solides]] puis [[Cours - Faire tourner un script Python dans Docker]]

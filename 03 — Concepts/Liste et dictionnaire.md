@@ -69,7 +69,7 @@ for nom, taille in tailles.items():
 > Les positions commencent à **0** : le dernier élément d'une liste de 3 est `liste[2]` (ou `liste[-1]`). Et `d["cle"]` plante avec `KeyError` si la clé manque, `d.get("cle")` renvoie `None`.
 
 ## 3 · Pratiquer
-Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 03 - Préparer le ménage]].
+Dans le mini-projet [[Projet - Suivre ses dépenses en Python]] : [[Dépenses 03 - Totaux par catégorie]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

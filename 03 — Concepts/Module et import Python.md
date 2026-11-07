@@ -76,7 +76,7 @@ if __name__ == "__main__":
 > `ModuleNotFoundError` a deux causes : le paquet n'est pas installé **dans l'environnement utilisé** (voir [[Environnement virtuel Python]]), ou tu n'es pas dans le bon dossier. Et ne nomme jamais ton fichier comme un module existant (`zipfile.py`) : il cacherait le vrai.
 
 ## 3 · Pratiquer
-Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 05 - Un module réutilisable]].
+Dans le mini-projet [[Projet - Suivre ses dépenses en Python]] : [[Dépenses 05 - Un module réutilisable]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
