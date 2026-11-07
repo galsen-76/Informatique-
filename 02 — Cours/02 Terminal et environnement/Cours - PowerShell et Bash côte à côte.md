@@ -37,6 +37,10 @@ flowchart TD
 | Lister, même caché | `ls -la` | `Get-ChildItem -Force` |
 | Changer de dossier | `cd ~/projets` | `cd ~\projets` |
 | Créer des dossiers | `mkdir -p a/b` | `New-Item -ItemType Directory -Force a\b` (`mkdir a\b`) |
+| Créer un fichier vide | `touch f.txt` | `New-Item f.txt` (`ni f.txt`) |
+| Écrire dans un fichier | `echo "x" > f.txt` | `Set-Content f.txt "x"` (ou `"x" > f.txt`) |
+| Ajouter une ligne | `echo "x" >> f.txt` | `Add-Content f.txt "x"` |
+| Éditer un fichier | `nano f.txt` · `code f.txt` | `notepad f.txt` · `code f.txt` |
 | Copier un dossier | `cp -r src dst` | `Copy-Item -Recurse src dst` |
 | Déplacer / renommer | `mv a b` | `Move-Item a b` |
 | Supprimer un dossier | `rm -rf d` | `Remove-Item -Recurse -Force d` |
@@ -73,3 +77,5 @@ En 3 phrases, avec mes mots.
 
 ## Concepts du cours
 [[PowerShell]] · [[Bash]] · [[Shell]] · [[Variable d'environnement]]
+
+Commandes : [[touch]] · [[echo]] · [[nano]] · [[New-Item]] · [[Set-Content]]

@@ -14,7 +14,7 @@ tags:
 > Crée un fichier vide, ou met à jour la date d'un fichier existant.
 
 ## Pourquoi l'utiliser
-Créer vite des fichiers de test.
+Créer vite un ou plusieurs fichiers vides, par exemple pour préparer un exercice ou un fichier qu'on remplira ensuite.
 
 ## Dans quel contexte
 Préparer un exercice, déclencher un outil qui surveille les dates.
@@ -38,11 +38,13 @@ touch a.png b.png notes.txt
 Les fichiers existent (taille 0).
 
 ## Variantes utiles
-- PowerShell : `New-Item fichier`
+- PowerShell : [[New-Item]] `fichier`
+- Créer **avec** du contenu : `echo "texte" > fichier` (voir [[echo]])
+- Créer et écrire dans un éditeur : [[nano]] `fichier` ou [[code]] `fichier`
 
 > [!warning] Erreurs fréquentes
 > - Croire que `touch` vide un fichier existant (il ne change que sa date)
 
 ## Relier
-- **Commandes complémentaires** : [[mkdir]] · [[ls]]
+- **Commandes complémentaires** : [[mkdir]] · [[ls]] · [[echo]] · [[nano]] · [[New-Item]]
 - **Concepts associés** : [[Système de fichiers]]

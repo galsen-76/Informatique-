@@ -45,9 +45,49 @@ cp f.txt copie.txt        # copier ; cp -r pour un dossier
 mv f.txt docs/            # déplacer ou renommer
 rm f.txt                  # supprimer ; rm -r dossier — définitif, pas de corbeille
 ```
-Voir [[mkdir]] · [[cp]] · [[mv]] · [[rm]].
+Voir [[mkdir]] · [[touch]] · [[cp]] · [[mv]] · [[rm]].
 
-## 4. Lire
+## 4. Créer un fichier et écrire dedans
+Il y a trois façons, selon ce que tu veux mettre dedans.
+
+**Un fichier vide** : [[touch]]
+```bash
+touch notes.txt                  # crée notes.txt (vide)
+touch a.png b.png c.png          # plusieurs d'un coup
+```
+
+**Une ou quelques lignes** : [[echo]] et une redirection
+```bash
+echo "# Mes notes" > notes.txt      # > crée le fichier, ou ÉCRASE son contenu
+echo "ligne 2" >> notes.txt         # >> AJOUTE à la fin
+cat notes.txt                       # vérifier
+```
+Plusieurs lignes d'un coup, avec un *here document* (tout jusqu'au mot `EOF`) :
+```bash
+cat > config.txt <<'EOF'
+CVAT_URL=http://localhost:8080
+DOSSIER=./images
+EOF
+```
+
+**Un vrai contenu (un script, du code)** : un éditeur
+```bash
+nano archiver.sh     # éditeur dans le terminal : Ctrl+O puis Entrée pour enregistrer, Ctrl+X pour quitter
+code archiver.sh     # ou VS Code, plus confortable sur ta machine
+```
+Voir [[nano]] · [[code]].
+
+| Je veux… | Bash (WSL) | PowerShell |
+| --- | --- | --- |
+| un fichier vide | `touch f.txt` | `New-Item f.txt` |
+| écrire (remplacer) | `echo "x" > f.txt` | `Set-Content f.txt "x"` |
+| ajouter une ligne | `echo "x" >> f.txt` | `Add-Content f.txt "x"` |
+| éditer | `nano f.txt` · `code f.txt` | `notepad f.txt` · `code f.txt` |
+
+> [!warning] Le piège du `>`
+> `>` vide le fichier **avant** d'écrire, sans demander. `echo "x" > notes.txt` sur un fichier rempli efface tout. Pour ajouter, c'est `>>`.
+
+## 5. Lire
 ```bash
 cat court.txt             # tout afficher
 less long.log             # page par page (q pour quitter, / pour chercher)
@@ -55,7 +95,7 @@ head -20 f.log ; tail -20 f.log ; tail -f f.log   # début, fin, suivre en direc
 ```
 Voir [[cat]].
 
-## 5. Chercher
+## 6. Chercher
 ```bash
 grep -rn "CVAT_HOST" .            # un texte dans les fichiers
 find . -name "*.png"              # des fichiers par nom
@@ -63,7 +103,7 @@ find . -name "*.log" -size +1M    # par taille
 ```
 Voir [[grep]].
 
-## 6. Enchaîner
+## 7. Enchaîner
 ```bash
 ls *.png | wc -l
 grep -rn "ERROR" logs/ | sort | uniq | head
@@ -71,12 +111,13 @@ python script.py > sortie.txt 2>&1
 cmd1 && cmd2      # cmd2 seulement si cmd1 réussit
 cmd1 || cmd2      # cmd2 seulement si cmd1 échoue
 ```
+`wc -l` compte les lignes (voir [[wc]]) : `ls *.png | wc -l` compte les PNG.
 Voir [[Redirection et pipe]] et [[Code de sortie]].
 
-## 7. Les programmes qui tournent
+## 8. Les programmes qui tournent
 `Ctrl+C` interrompt, `&` lance en arrière-plan, `ps aux | grep nom` retrouve, `kill PID` arrête. Voir [[Processus]].
 
-## 8. S'aider soi-même
+## 9. S'aider soi-même
 `commande --help`, `man commande`, `type commande` (intégrée ou programme ?), `which commande` (où est le programme).
 
 ## Mise en pratique

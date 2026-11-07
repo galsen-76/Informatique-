@@ -32,6 +32,7 @@ tags:
 
 > [!question]- Indice
 > Les commandes utiles sont dans [[Cours - Bash, les commandes essentielles]], [[Cours - Linux, utilisateurs, permissions et paquets]] et [[Cours - Écrire un script shell]]. Pour compter : `find` puis un pipe vers une commande qui compte les lignes. Pour le code de sortie : `$?`.
+> Créer des fichiers vides : [[touch]] ; écrire du texte dedans : [[echo]] avec `>` ; écrire le script : [[nano]] ou [[code]] ; compter : [[wc]].
 
 > [!question]- Solution
 > ```bash
