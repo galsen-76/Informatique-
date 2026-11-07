@@ -2,7 +2,7 @@
 type: concept
 domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: a-decouvrir
+status: compris
 level: debutant
 prerequisites:
   - "[[Shell]]"

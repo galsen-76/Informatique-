@@ -2,7 +2,7 @@
 type: concept
 domain: systeme
 module: "[[Module 01 - Fondamentaux informatiques]]"
-status: a-decouvrir
+status: compris
 level: debutant
 prerequisites:
   - "[[Processeur, mémoire et disque]]"
