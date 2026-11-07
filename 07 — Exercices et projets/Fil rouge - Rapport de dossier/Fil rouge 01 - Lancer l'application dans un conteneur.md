@@ -41,7 +41,7 @@ Réponds par écrit, en dessous, **sans regarder la solution**. Ensuite, demande
 4. Quelle est la différence entre l'image `python:3.12-slim` et le conteneur que tu as lancé ?
 
 > [!quote] Mes réponses
-> 1. _Pas encore répondu à l'écrit._
+> 1. Le premier build a pris du temps : Docker n'avait pas l'image de base, il l'a téléchargée (via le Nexus). Ensuite elle est en cache sur ma machine, et c'est rapide.
 > 2. Mon dossier `sortie` est relié à `/sortie` dans le conteneur (côté PC : côté conteneur) : ce que le programme écrit dans `/sortie` arrive chez moi. Le chemin doit être celui où le programme écrit. Sans le partage, le rapport reste dans le conteneur et part avec lui (`--rm`).
 > 3. Si le moteur est arrêté, ça met une erreur de socket : la commande `docker` n'arrive plus à parler au démon (`/var/run/docker.sock`).
 > 4. L'ID change à chaque fois : ce sont des instances différentes, créées à partir de la même image. `--rm` permet de ne pas laisser les conteneurs arrêtés.
