@@ -153,7 +153,7 @@ Avec l'exécuteur **shell**, les jobs tournent directement sur la machine, avec 
 ## 3 · Pratiquer
 - Ouvre le journal d'un job de ta pipeline et repère : le nom du runner, l'exécuteur, l'image, le clone et le début de ton script
 - Dans *Settings → CI/CD → Runners* de ton projet, note les runners disponibles et leurs tags
-- Fais l'[[Exercice - Faire tourner son propre runner]]
+- Fais l'étape [[Fil rouge 05 - Première pipeline, les tests]] du projet fil rouge
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

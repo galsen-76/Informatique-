@@ -70,10 +70,7 @@ flowchart TD
 6. [[Docker Compose]] · commande [[docker compose up]]
 7. [[Registre Docker]] (Docker Hub, ghcr.io, miroirs) et [[Nexus]]
 
-**Exercices**, un par notion, dans l'ordre :
-[[Exercice - À quoi sert Docker]] → [[Exercice - Qui fait vraiment le travail]] → [[Exercice - Une image, c'est un empilement]] → [[Exercice - Vie et mort d'un conteneur]] → [[Exercice - Écrire sa recette]] → [[Exercice - Paramétrer un build]] → [[Exercice - Ce qui survit au conteneur]] → [[Exercice - Ton script Python dans une boîte]] → [[Exercice - Plusieurs conteneurs, un seul fichier]] → [[Exercice - Où vivent les images]] → [[Exercice - Le registre de l'entreprise]]
-
-**Mises en situation**, à la fin : [[Exercice - Lancer et inspecter des conteneurs]] · [[Exercice - Conteneuriser son script Python]] · [[Exercice - Registres, tags et ARG]] · [[Exercice - Une application avec docker compose]]
+**Projet fil rouge** : [[Fil rouge 01 - Lancer l'application dans un conteneur]] puis [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## Étape 3 · Réseau
 **Cours** : [[Cours - Ports, proxy et reverse proxy]]
@@ -81,12 +78,16 @@ flowchart TD
 2. [[Proxy]]
 3. [[Reverse proxy]] (Traefik et `CVAT_HOST`)
 
+**Projet fil rouge** : [[Fil rouge 03 - Une page web pour le rapport]]
+
 ## Étape 4 · Git dans un vrai projet
 **Cours** : [[Cours - Git propre dans un vrai projet]]
 1. [[Convention de commit]] (`fix`, `ci`…)
 2. [[Tag Git]] · commande [[git tag]]
 3. Commandes [[git diff]] et [[git grep]]
 4. [[Changelog]]
+
+**Projet fil rouge** : [[Fil rouge 04 - Ranger le projet dans Git]]
 
 ## Étape 5 · GitLab CI
 **Cours** : [[Cours - Maîtriser le fichier de pipeline GitLab]] puis [[Cours - Construire et publier les images d'un projet avec GitLab CI]]
@@ -97,6 +98,8 @@ flowchart TD
 5. [[extends GitLab CI]]
 6. [[Construire une image dans la CI]] (Docker-in-Docker) et [[Kaniko]]
 7. [[Tester l'image, pas le dépôt]]
+
+**Projet fil rouge** : [[Fil rouge 05 - Première pipeline, les tests]] → [[Fil rouge 06 - Construire l'image dans la CI]] → [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## Étape 6 · Outils du projet CVAT
 1. [[OpenAPI]]
@@ -131,4 +134,5 @@ flowchart TD
 [[Fiche - Réflexes pour déboguer une pipeline]] : lire le log depuis la première erreur, partir des fichiers de ta version, un changement = un commit = un pipeline, vérifier ce qu'un test teste avant de le débloquer.
 
 > [!tip] Le fil rouge
+> Le projet [[Projet fil rouge - Rapport de dossier]] remplace les exercices des étapes Docker, Réseau, Git et GitLab CI.
 > Le même petit projet traverse tout le parcours : ton script de zip. Conteneurisé en étape 2, versionné proprement en étape 4, construit par la CI en étape 5, puis réécrit et testé à fond en étapes 7 et 8, quand tu maîtriseras Python.
