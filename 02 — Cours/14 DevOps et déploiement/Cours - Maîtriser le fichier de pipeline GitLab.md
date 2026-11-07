@@ -4,6 +4,7 @@ order: 1
 module: "[[Module 14 - DevOps et déploiement]]"
 concepts:
   - "[[Pipeline GitLab CI]]"
+  - "[[Runner GitLab]]"
   - "[[Règles d'un job GitLab (rules)]]"
   - "[[Artefacts GitLab CI]]"
   - "[[extends GitLab CI]]"
@@ -25,7 +26,7 @@ tags:
 **Prérequis :** [[YAML]] · [[Code de sortie]] · [[Cours - Construire et publier les images d'un projet avec GitLab CI]]
 
 ## 1. Ce qu'est un job, vraiment
-Un job = un conteneur neuf (`image:`) où le runner lance les lignes de `script:` une par une. Dès qu'une ligne renvoie un [[Code de sortie]] non nul, le job échoue. Tout ce que le job crée disparaît à la fin, sauf les [[Artefacts GitLab CI|artefacts]] et ce qu'il pousse dans un registre.
+Un job = un conteneur neuf (`image:`) où le [[Runner GitLab|runner]] lance les lignes de `script:` une par une. Dès qu'une ligne renvoie un [[Code de sortie]] non nul, le job échoue. Tout ce que le job crée disparaît à la fin, sauf les [[Artefacts GitLab CI|artefacts]] et ce qu'il pousse dans un registre.
 
 ## 2. Schéma : d'un push à une image testée
 ```mermaid

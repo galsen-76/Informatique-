@@ -51,7 +51,7 @@ flowchart LR
 | --- | --- |
 | **stage** | une étape ; les stages s'exécutent dans l'ordre |
 | **job** | une tâche : des commandes shell sous `script:` |
-| **runner** | la machine qui exécute les jobs, souvent dans un conteneur choisi par `image:` |
+| **[[Runner GitLab|runner]]** | la machine qui exécute les jobs, souvent dans un conteneur choisi par `image:` |
 | **rules** | quand lancer un job ; sans `rules`, à chaque push |
 
 ```yaml
