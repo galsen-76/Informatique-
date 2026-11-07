@@ -1,7 +1,7 @@
 ---
 type: concept
 domain: architecture
-module: "[[Module 15 - Architecture logicielle]]"
+module: "[[Module 22 - Design patterns]]"
 status: a-decouvrir
 level: intermediaire
 prerequisites:
@@ -88,6 +88,9 @@ class SourceFichier(SourceAnnotations):          # pour les tests
 ## 5 · Relier
 - **Prérequis** : [[Principes SOLID]]
 - **Complémentaires** : [[Middleware]] · [[Observable et RxJS]]
+- **Créationnels** : [[Patron Fabrique (Factory)]] · [[Patron Monteur (Builder)]] · [[Patron Singleton]]
+- **Structurels** : [[Patron Adaptateur (Adapter)]] · [[Patron Décorateur (Decorator)]] · [[Patron Façade (Facade)]] · [[Patron Proxy]] · [[Patron Dépôt (Repository)]]
+- **Comportementaux** : [[Patron Stratégie (Strategy)]] · [[Patron Observateur (Observer)]] · [[Patron Commande (Command)]] · [[Patron État (State)]] · [[Patron Chaîne de responsabilité]] · [[Patron Méthode modèle (Template Method)]]
 
 ## 6 · Réviser
 > [!question] Me faire interroger

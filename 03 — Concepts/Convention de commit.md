@@ -38,7 +38,15 @@ Les **Conventional Commits** imposent la forme `type(portée facultative): descr
 | `docs` | la documentation |
 | `test` | les tests |
 | `refactor` | réorganiser le code sans changer son comportement |
-| `chore` | l'entretien divers |
+| `style` | la mise en forme du code (espaces, formatage), sans changer le comportement |
+| `perf` | rendre plus rapide ou plus léger |
+| `chore` | l'entretien divers (`.gitignore`, nettoyage) |
+| `revert` | annuler un commit précédent |
+
+Un `!` après le type (`feat!:`) ou un pied de page `BREAKING CHANGE:` signale un changement **cassant**.
+
+> [!example] Plein d'exemples
+> Tous les types, des messages complets et des « mauvais → bons » : [[Exemples de commits conventionnels]].
 
 ### Pourquoi ça existe
 Comprendre d'un coup d'œil ce que fait chaque commit, et automatiser (changelog, numéro de version).
@@ -82,6 +90,7 @@ Règles pratiques : l'impératif ou le présent, pas de point final, une ligne c
 - **Prérequis** : [[Commit]]
 - **Complémentaires** : [[Changelog]] · [[Tag Git]]
 - **Commandes** : [[git commit]] · [[git diff]]
+- **Ressource** : [[Exemples de commits conventionnels]]
 
 ## 6 · Réviser
 > [!question] Me faire interroger

@@ -24,7 +24,7 @@ tags:
 Faciles à relire, à annuler et à comprendre dans six mois.
 
 ### 2. Des messages qui disent quoi et pourquoi
-Une ligne courte à l'impératif, puis le pourquoi si besoin. Voir [[Convention de commit]].
+Une ligne courte à l'impératif, puis le pourquoi si besoin. Voir [[Convention de commit]] et les [[Exemples de commits conventionnels]].
 
 ```bash
 feat(export): ajoute l'export PNG des annotations

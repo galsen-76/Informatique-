@@ -20,6 +20,8 @@ tags:
 - Appliquer DRY, KISS, YAGNI et SOLID avec mesure
 - Organiser une application en couches
 - Comprendre MVC, monolithe et microservices, et l'architecture de CVAT
+- Connaître l'architecture hexagonale, les événements, le serverless, la passerelle d'API, les douze facteurs et le cache
+- Approfondir avec les design patterns ([[Module 22 - Design patterns]])
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })
