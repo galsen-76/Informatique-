@@ -1,7 +1,7 @@
 ---
 type: exercise
-status: a-faire
-difficulty: facile
+status: reussi
+difficulty: reussi
 concepts:
   - "[[Terminal]]"
   - "[[Système de fichiers]]"
@@ -22,12 +22,12 @@ labo/
 ```
 
 ## Consignes
-- [ ] Créer les dossiers en une seule commande ([[mkdir]])
-- [ ] Créer `git.md` vide ([[New-Item]] en PowerShell, [[touch]] en Bash)
-- [ ] Écrire la ligne `# Mes notes Git` dans `git.md`, puis **ajouter** une deuxième ligne sans effacer la première ([[Set-Content]] et `Add-Content` en PowerShell, [[echo]] avec `>` et `>>` en Bash), et afficher le fichier ([[cat]])
-- [ ] Ouvrir `git.md` dans un éditeur, ajouter une troisième ligne et enregistrer ([[nano]] en Bash, `notepad` ou `code` en PowerShell)
-- [ ] Aller dans `code/api`, puis revenir à `labo` avec un chemin relatif ([[cd]])
-- [ ] Afficher le contenu de `labo`, fichiers cachés compris ([[ls]] / [[Get-ChildItem]])
+- [x] Créer les dossiers en une seule commande ([[mkdir]])
+- [x] Créer `git.md` vide ([[New-Item]] en PowerShell, [[touch]] en Bash)
+- [x] Écrire la ligne `# Mes notes Git` dans `git.md`, puis **ajouter** une deuxième ligne sans effacer la première ([[Set-Content]] et `Add-Content` en PowerShell, [[echo]] avec `>` et `>>` en Bash), et afficher le fichier ([[cat]])
+- [x] Ouvrir `git.md` dans un éditeur, ajouter une troisième ligne et enregistrer ([[nano]] en Bash, `notepad` ou `code` en PowerShell)
+- [x] Aller dans `code/api`, puis revenir à `labo` avec un chemin relatif ([[cd]])
+- [x] Afficher le contenu de `labo`, fichiers cachés compris ([[ls]] / [[Get-ChildItem]])
 
 > [!question]- Solution (PowerShell)
 > ```powershell
