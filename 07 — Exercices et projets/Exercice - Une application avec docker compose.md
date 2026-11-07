@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: moyen
 concepts:
@@ -9,6 +9,10 @@ tags:
   - exercice
 ---
 # Exercice — Une application avec docker compose
+
+> [!abstract] Mise en situation
+> Une application complète avec Compose.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Décrire et lancer plusieurs services qui se parlent.

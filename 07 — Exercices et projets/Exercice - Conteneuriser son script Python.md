@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: moyen
 concepts:
@@ -10,6 +10,10 @@ tags:
   - exercice
 ---
 # Exercice — Conteneuriser son script Python
+
+> [!abstract] Mise en situation
+> Conteneuriser ton vrai script de zip de bout en bout.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Faire tourner ton script de zip dans un conteneur, sur des fichiers de ta machine.

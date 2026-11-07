@@ -70,6 +70,11 @@ flowchart TD
 6. [[Docker Compose]] · commande [[docker compose up]]
 7. [[Registre Docker]] (Docker Hub, ghcr.io, miroirs) et [[Nexus]]
 
+**Exercices**, un par notion, dans l'ordre :
+[[Exercice - À quoi sert Docker]] → [[Exercice - Qui fait vraiment le travail]] → [[Exercice - Une image, c'est un empilement]] → [[Exercice - Vie et mort d'un conteneur]] → [[Exercice - Écrire sa recette]] → [[Exercice - Paramétrer un build]] → [[Exercice - Ce qui survit au conteneur]] → [[Exercice - Ton script Python dans une boîte]] → [[Exercice - Plusieurs conteneurs, un seul fichier]] → [[Exercice - Où vivent les images]] → [[Exercice - Le registre de l'entreprise]]
+
+**Mises en situation**, à la fin : [[Exercice - Lancer et inspecter des conteneurs]] · [[Exercice - Conteneuriser son script Python]] · [[Exercice - Registres, tags et ARG]] · [[Exercice - Une application avec docker compose]]
+
 ## Étape 3 · Réseau
 **Cours** : [[Cours - Ports, proxy et reverse proxy]]
 1. [[Port]]

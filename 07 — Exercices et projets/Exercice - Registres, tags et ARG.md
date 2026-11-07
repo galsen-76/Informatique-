@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: moyen
 concepts:
@@ -10,6 +10,10 @@ tags:
   - exercice
 ---
 # Exercice — Registres, tags et ARG
+
+> [!abstract] Mise en situation
+> Construire, étiqueter et pousser une image comme dans un vrai projet.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Nommer, taguer et pousser une image, et rendre son image de base paramétrable.
