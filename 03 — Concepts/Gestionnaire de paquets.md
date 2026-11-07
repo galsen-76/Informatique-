@@ -65,6 +65,7 @@ Dans un Dockerfile basé sur Debian :
 RUN apt-get update && apt-get install -y --no-install-recommends zip \
  && rm -rf /var/lib/apt/lists/*
 ```
+Dans un script ou un Dockerfile, on écrit **`apt-get`** plutôt que `apt` : même travail, mais une sortie stable faite pour les scripts (`apt` est fait pour un humain devant le terminal). Détail dans [[apt]].
 ```powershell
 winget install Python.Python.3.12    # sous Windows
 ```
