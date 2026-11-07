@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: moyen
 concepts:
@@ -8,6 +8,10 @@ tags:
   - exercice
 ---
 # Exercice — Pièges Windows et Linux
+
+> [!abstract] Mise en situation
+> Les pièges Windows et Linux dans un vrai dépôt Git.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Reproduire puis corriger les trois pièges classiques entre Windows et Linux.

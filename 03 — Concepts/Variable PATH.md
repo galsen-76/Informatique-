@@ -82,7 +82,7 @@ Sous Windows, la modification permanente se fait dans « Modifier les variables 
 > Le **PATH** (où chercher les programmes) n'est pas un **chemin** (l'adresse d'un fichier). Et l'ordre compte : si deux dossiers contiennent `python`, c'est le premier de la liste qui gagne.
 
 ## 3 · Pratiquer
-- Fais l'[[Exercice - Explorer son PATH]]
+- Fais l'[[Exercice - Comment le shell trouve un programme]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

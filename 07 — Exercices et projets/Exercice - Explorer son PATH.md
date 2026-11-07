@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: facile
 concepts:
@@ -8,6 +8,10 @@ tags:
   - exercice
 ---
 # Exercice — Explorer son PATH
+
+> [!abstract] Mise en situation
+> Une version guidée de l'exercice sur le PATH.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Comprendre comment le shell trouve les programmes, et le modifier.

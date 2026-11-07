@@ -6,7 +6,6 @@ concepts:
   - "[[Utilisateur et groupe]]"
   - "[[SSH]]"
   - "[[Pare-feu]]"
-  - "[[Gestionnaire de paquets]]"
 tags:
   - exercice
 ---

@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: facile
 concepts:
@@ -8,6 +8,10 @@ tags:
   - exercice
 ---
 # Exercice — Distribution, noyau et conteneur
+
+> [!abstract] Mise en situation
+> Une version guidée de l'exercice sur les distributions.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Voir de tes yeux la différence entre le noyau et la distribution.

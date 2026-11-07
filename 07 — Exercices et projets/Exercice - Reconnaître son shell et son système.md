@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: facile
 concepts:
@@ -10,6 +10,10 @@ tags:
   - exercice
 ---
 # Exercice — Reconnaître son shell et son système
+
+> [!abstract] Mise en situation
+> Faire le tour de tes shells et de ton système en conditions réelles.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Savoir à tout moment dans quel shell et quel système je travaille.

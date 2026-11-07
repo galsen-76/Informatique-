@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: facile
 concepts:
@@ -13,6 +13,10 @@ tags:
   - exercice
 ---
 # Exercice — Prendre en main WSL et Bash
+
+> [!abstract] Mise en situation
+> Un premier vrai parcours dans WSL : installer, créer, chercher, écrire un script et le lancer.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Faire tout un petit travail dans Linux, sans souris et sans PowerShell une fois entré dans WSL.

@@ -5,7 +5,6 @@ difficulty: moyen
 concepts:
   - "[[Exception]]"
   - "[[Arguments de ligne de commande]]"
-  - "[[Code de sortie]]"
 tags:
   - exercice
 ---

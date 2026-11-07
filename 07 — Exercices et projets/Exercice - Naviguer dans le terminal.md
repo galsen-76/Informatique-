@@ -3,7 +3,6 @@ type: exercise
 status: reussi
 difficulty: facile
 concepts:
-  - "[[Terminal]]"
   - "[[Système de fichiers]]"
 tags:
   - exercice

@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: facile
 concepts:
@@ -10,6 +10,10 @@ tags:
   - exercice
 ---
 # Exercice — Observer le noyau au travail
+
+> [!abstract] Mise en situation
+> Observer les processus et le noyau sur ta propre machine.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Voir de ses propres yeux que les programmes passent par le noyau, et faire la différence entre noyau, distribution et shell.

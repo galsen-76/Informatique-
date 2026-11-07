@@ -85,7 +85,7 @@ docker run --rm alpine cat /etc/os-release # mais distribution Alpine
 > **Linux** (le noyau) et **Ubuntu** (une distribution). Et sur Alpine, `apt` et `bash` n'existent pas par défaut : c'est `apk` et `sh`.
 
 ## 3 · Pratiquer
-- Fais l'[[Exercice - Distribution, noyau et conteneur]]
+- Fais l'[[Exercice - Moteur et carrosserie]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

@@ -5,12 +5,9 @@ const difficulty = (await tp.system.suggester(["Facile", "Moyen", "Difficile"], 
 const conceptFiles = app.vault.getMarkdownFiles()
   .filter(f => f.path.startsWith("03 — Concepts/") && f.basename !== "Concepts")
   .map(f => f.basename).sort();
-const picked = [];
-while (true) {
-  const c = await tp.system.suggester(["✓ Terminé", ...conceptFiles.filter(x => !picked.includes(x))], ["", ...conceptFiles.filter(x => !picked.includes(x))], false, "Concepts liés (un par un)");
-  if (!c) break;
-  picked.push(c);
-}
+// Une seule notion par exercice
+const concept = await tp.system.suggester(conceptFiles, conceptFiles, false, "Notion travaillée (une seule)");
+const picked = concept ? [concept] : [];
 await tp.file.move("07 — Exercices et projets/Exercice - " + title);
 -%>
 ---
@@ -24,21 +21,37 @@ tags:
 ---
 # Exercice — <% title %>
 
-> [!info] Objectif
-> Ce que je dois être capable de faire à la fin.
-> Notions : <% picked.map(c => `[[${c}]]`).join(" · ") %>
+> [!info] Avant de commencer
+> **Notion travaillée :** <% picked.map(c => `[[${c}]]`).join("") %>
+> **À voir avant :** rien d'autre que cette notion (ou seulement les prérequis indispensables).
+> **Objectif :** ce que je dois comprendre à la fin.
 
-## Consignes
-- [ ]
-- [ ]
-- [ ]
+> [!tip] Comment faire cet exercice
+> Les consignes donnent un **but**, pas la commande. Quand on te demande de **prédire**, écris ta réponse *avant* de lancer quoi que ce soit. Tu peux chercher dans la fiche de la notion, pas dans la solution.
 
-> [!question]- Indice
+## Étapes
+### 1. 🔮 Prédire
+Ce qui va se passer, et pourquoi.
+- [ ] Fait
+### 2. 🧪 Vérifier
+Essayer, comparer à la prédiction.
+- [ ] Fait
+### 3. 💬 Expliquer
+Pourquoi c'est comme ça.
+- [ ] Fait
+### 4. 🔧 Réparer
+Un cas cassé à diagnostiquer.
+- [ ] Fait
+### 5. 🧩 Résoudre
+Un but à atteindre sans que la commande soit donnée.
+- [ ] Fait
+
+> [!question]- Indice (l'idée, pas la réponse)
 >
 
-> [!question]- Solution
+> [!question]- Solution et raisonnement
 >
 
 ## Validation
-- [ ] Je refais l'exercice de mémoire, sans regarder la solution
-- [ ] Je sais expliquer chaque étape
+- [ ] Mes prédictions : justes, ou je sais maintenant pourquoi elles étaient fausses
+- [ ] Je sais expliquer la notion à quelqu'un, sans la fiche

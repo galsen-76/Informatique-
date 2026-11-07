@@ -77,7 +77,7 @@ man ls                      # le manuel (q pour quitter) ; ou ls --help
 > **Bash** (shell complet) et **sh** (shell minimal des petites images comme Alpine) : certaines syntaxes Bash n'existent pas dans `sh`. Et Linux est **sensible à la casse** : `Projets` ≠ `projets`.
 
 ## 3 · Pratiquer
-- Fais l'[[Exercice - Prendre en main WSL et Bash]].
+- Fais l'[[Exercice - Lire une commande Bash avant de la lancer]], puis la mise en situation [[Exercice - Prendre en main WSL et Bash]].
 - Utilise `Ctrl+R` pour retrouver une commande tapée plus tôt.
 
 ## 4 · Expliquer

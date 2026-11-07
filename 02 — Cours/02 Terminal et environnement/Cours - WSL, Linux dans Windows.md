@@ -57,7 +57,7 @@ Docker Desktop tourne **sur** WSL 2. Active *Settings > Resources > WSL integrat
 Un serveur lancé dans WSL (`python -m http.server 8000`) est joignable depuis le navigateur Windows sur `http://localhost:8000`. En entreprise, WSL peut avoir besoin du [[Proxy]] (variables `HTTPS_PROXY` dans `~/.bashrc`).
 
 ## Mise en pratique
-- Fais l'[[Exercice - Prendre en main WSL et Bash]].
+- Fais l'[[Exercice - Deux systèmes dans un PC]], puis la mise en situation [[Exercice - Prendre en main WSL et Bash]].
 - Clone un dépôt dans `~/projets`, ouvre-le avec `code .`, vérifie l'indication `WSL: Ubuntu` dans VS Code.
 - Lance `docker version` depuis Ubuntu.
 

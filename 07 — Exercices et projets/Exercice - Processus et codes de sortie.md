@@ -1,5 +1,5 @@
 ---
-type: exercise
+type: project
 status: a-faire
 difficulty: facile
 concepts:
@@ -9,6 +9,10 @@ tags:
   - exercice
 ---
 # Exercice — Processus et codes de sortie
+
+> [!abstract] Mise en situation
+> Faire tourner un serveur, l'arrêter, et lire les codes de sortie comme le ferait une CI.
+> Elle mélange plusieurs notions : fais-la **après** les exercices de chacune. Elle ne compte pas dans la validation de la maîtrise.
 
 > [!info] Objectif
 > Lancer, retrouver et arrêter des programmes, et lire leur verdict.
