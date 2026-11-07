@@ -17,23 +17,23 @@ tags:
 > **Notions validées par cette étape :** [[Exception]]
 
 ## Le but
-Dans la vraie vie, le texte reçu n'est pas toujours propre : une ligne coupée, une ligne vide, ou rien du tout parce que la commande avant le `|` a raté. Le script doit **le dire clairement** au lieu de planter, et indiquer qu'il a échoué avec son **code de sortie**.
+Un texte n'est pas toujours propre : une ligne coupée, une ligne vide, ou rien du tout. Le script doit **le dire clairement** au lieu de planter, et indiquer qu'il a échoué avec son **code de sortie**.
 
 ## Ce que tu fais
-- [ ] Crée `exemple-abime.txt` (contenu dans la note du projet) et lance le script dessus. Lis le **traceback** en entier : quelle erreur, à quelle ligne, dans quelle fonction ?
-- [ ] Fais en sorte qu'une ligne mal formée soit **ignorée** et signalée (sur la sortie d'erreur), sans arrêter le traitement des autres. Les lignes vides sont ignorées sans rien dire
-- [ ] Si aucun conteneur n'a été lu, le script affiche un message clair sur la sortie d'erreur et se termine avec le code **1**. Sinon, code 0
-- [ ] Vérifie le code de sortie dans les trois cas : `exemple.txt`, `exemple-abime.txt`, et une entrée vide (`< /dev/null`)
-- [ ] Essaie de remplacer ton `except ...` précis par un `except:` tout seul, puis tape Ctrl+C pendant que le script attend une saisie au clavier. Remets la version précise
+- [ ] Ajoute `TEXTE_ABIME` (donné dans la note du projet) dans `donnees.py`, et fais tourner l'analyse dessus. Lis le **traceback** en entier : quelle erreur, à quelle ligne, dans quelle fonction ?
+- [ ] Fais en sorte qu'une ligne mal formée soit **ignorée** et signalée sur la sortie d'erreur, sans arrêter le traitement des autres. Les lignes vides sont ignorées sans rien dire
+- [ ] Essaie avec un texte vide (`""`) : si aucun conteneur n'a été lu, le script affiche un message clair sur la sortie d'erreur et se termine avec le code **1**. Sinon, code 0. Il te faut `sys`, un module livré avec Python
+- [ ] Vérifie le code de sortie avec `echo $?` dans les trois cas : `TEXTE`, `TEXTE_ABIME` et le texte vide
+- [ ] Fais exprès une faute de frappe dans le `try` (par exemple `ligne.splt`), et remplace ton `except ...` précis par un `except:` tout seul. Que voit-on ? Remets la version précise
 
 > [!success] Ça marche si…
-> `exemple-abime.txt` → 2 conteneurs analysés et `Ligne ignorée : 'ligne cassée sans séparateur'` ; une entrée vide → un message et `echo $?` affiche `1`.
+> Avec `TEXTE_ABIME` : 2 conteneurs analysés et `Ligne ignorée : 'ligne cassée sans séparateur'`. Avec un texte vide : un message, et `echo $?` affiche `1`.
 
 ## Est-ce que j'ai compris ?
 Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 1. Dans un traceback, quelle ligne lis-tu en premier, et pourquoi ?
-2. Pourquoi `except ValueError` plutôt que `except:` tout seul ? Qu'as-tu vu avec Ctrl+C ?
-3. Pourquoi le message d'erreur va sur la sortie d'erreur, et pourquoi le code 1 compte, par exemple dans une CI ?
+2. Pourquoi `except ValueError` plutôt que `except:` tout seul ? Qu'est devenue ta faute de frappe ?
+3. Pourquoi le message d'erreur va sur la sortie d'erreur, et à quoi sert le code 1 ?
 
 > [!quote] Mes réponses
 > _À écrire._
@@ -60,12 +60,18 @@ Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 > ```
 > Dans `conteneurs.py` :
 > ```python
+> import sys
+>
+> from analyse import analyser, lire_conteneurs
+> from donnees import TEXTE_ABIME
+>
+>
 > def main():
->     conteneurs, ignorees = lire_conteneurs(sys.stdin.read())
+>     conteneurs, ignorees = lire_conteneurs(TEXTE_ABIME)
 >     for ligne in ignorees:
 >         print(f"Ligne ignorée : {ligne!r}", file=sys.stderr)
 >     if not conteneurs:
->         print("Aucun conteneur lu. As-tu bien utilisé --format ?", file=sys.stderr)
+>         print("Aucun conteneur lu.", file=sys.stderr)
 >         return 1
 >     afficher(analyser(conteneurs))
 >     return 0
@@ -75,8 +81,8 @@ Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 >     sys.exit(main())
 > ```
 > 1. La **dernière** : `ValueError: not enough values to unpack (expected 4, got 1)` dit ce qui s'est passé. Les lignes au-dessus disent où (fichier, ligne, fonction), de l'appel le plus lointain au plus proche.
-> 2. `except:` attrape **tout**, même les erreurs que tu n'avais pas prévues (une faute de frappe, un `KeyboardInterrupt` quand tu fais Ctrl+C) : elles sont cachées, et le script ne s'arrête même plus proprement. On attrape seulement l'erreur qu'on sait traiter.
-> 3. La sortie standard est le **résultat** : on peut la rediriger dans un fichier ou un `|` sans y mélanger les messages d'erreur. Le code 1 dit à celui qui a lancé le script (le shell, `&&`, une pipeline GitLab) que ça a raté, sans avoir à lire le texte.
+> 2. `except:` attrape **tout**, même les erreurs que tu n'avais pas prévues : ta faute de frappe (`AttributeError`) est avalée, et chaque ligne est « ignorée » sans que tu saches pourquoi. On attrape seulement l'erreur qu'on sait traiter.
+> 3. La sortie standard est le **résultat**, la sortie d'erreur les problèmes : on peut garder l'un sans l'autre (`> rapport.txt`). Le code 1 dit à celui qui a lancé le script (le shell, `&&`, une pipeline) que ça a raté, sans avoir à lire le texte.
 
 ## Validation
 - [ ] Le projet marche comme décrit dans « Ça marche si… »

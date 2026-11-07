@@ -24,10 +24,9 @@ Que le script **prépare la commande** qui supprime tous les conteneurs qui ne t
 - [ ] Affiche la commande toute prête : `docker rm gallant_hopper vibrant_curie …`, sur une seule ligne
 - [ ] Compte, dans un **dictionnaire**, combien de ces conteneurs viennent de chaque image, et affiche-le trié par nom d'image
 - [ ] Pour le dictionnaire, essaie d'abord le plus simple, `par_image[image] += 1`. Lis l'erreur, comprends-la, puis corrige
-- [ ] Facultatif, mais concret : lance le script sur ta vraie liste et exécute la commande proposée. Vérifie ensuite avec `docker ps -a`
 
 > [!success] Ça marche si…
-> Sur `exemple.txt` : la commande liste les 5 conteneurs `gallant_hopper vibrant_curie eager_turing quirky_lamport test_python`, et `script-py:1.3` en compte 2.
+> La commande liste les 5 conteneurs `gallant_hopper vibrant_curie eager_turing quirky_lamport test_python`, et `script-py:1.3` en compte 2.
 
 ## Est-ce que j'ai compris ?
 Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.

@@ -42,9 +42,6 @@ Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 
 > [!question]- Solution
 > ```python
-> import sys
->
->
 > def lire_conteneurs(texte):
 >     conteneurs = []
 >     for ligne in texte.splitlines():
@@ -81,7 +78,7 @@ Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 >         print(f"  {image} : {nombre}")
 >
 >
-> afficher(analyser(lire_conteneurs(sys.stdin.read())))
+> afficher(analyser(lire_conteneurs(TEXTE)))
 > ```
 > 1. `print` **montre** une valeur à l'écran, puis elle est perdue. `return` la **rend** à celui qui a appelé la fonction, qui peut la ranger et s'en servir.
 > 2. Elle a renvoyé `None`. Python ne se plaint pas tout de suite : l'erreur arrive quand on essaie de **se servir** du résultat (`TypeError: 'NoneType' object is not subscriptable`), donc plus loin que la vraie cause.

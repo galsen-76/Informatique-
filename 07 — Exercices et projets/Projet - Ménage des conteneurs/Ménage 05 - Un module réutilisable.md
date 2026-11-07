@@ -17,26 +17,26 @@ tags:
 > **Notions validées par cette étape :** [[Module et import Python]]
 
 ## Le but
-Mettre la partie « analyse » dans **son propre fichier**, pour qu'un autre script (ou un test) puisse s'en servir sans lancer tout le programme. Et comprendre enfin ce `import sys` du début.
+Ranger le projet en **plusieurs fichiers** : les données d'un côté, l'analyse de l'autre, et le programme qui les assemble. Un autre script pourrait alors réutiliser l'analyse sans lancer tout le programme.
 
 ## Ce que tu fais
-- [ ] Déplace `lire_conteneurs`, `etat` et `analyser` dans un nouveau fichier `analyse.py`. `conteneurs.py` garde `afficher` et le lancement, et **importe** ce dont il a besoin
+- [ ] Déplace `TEXTE` dans un fichier `donnees.py`, et `lire_conteneurs`, `etat` et `analyser` dans `analyse.py`. `conteneurs.py` garde `afficher` et le lancement, et **importe** ce dont il a besoin
 - [ ] Ajoute un `print("analyse.py chargé")` tout en haut de `analyse.py`, lance le script, et observe. Puis enlève-le
-- [ ] Dans `python3`, lancé depuis le dossier du projet, importe `analyse` et appelle `analyse.etat("Up 3 days")`
-- [ ] Importe aussi `conteneurs` dans `python3` : que se passe-t-il ? Protège le lancement de `conteneurs.py` pour qu'il ne se lance **que** quand on exécute le fichier
+- [ ] Ouvre `python3` dans le dossier du projet, importe `analyse` et appelle `analyse.etat("Up 3 days")`
+- [ ] Toujours dans `python3`, importe `conteneurs` : que se passe-t-il ? Protège le lancement de `conteneurs.py` pour qu'il ne se lance **que** quand on exécute le fichier
 - [ ] Lance `python3 -c "import analyse"` depuis ton dossier personnel `~` : lis l'erreur
 
 > [!warning] Le piège de cette étape
 > N'appelle jamais un de tes fichiers comme un module de Python (`sys.py`, `json.py`, `random.py`…) : ton fichier passe devant le vrai, et les imports cassent de façon très bizarre.
 
 > [!success] Ça marche si…
-> `python3 conteneurs.py < exemple.txt` marche comme avant, et `import conteneurs` dans `python3` n'affiche rien et n'attend rien.
+> `python3 conteneurs.py` affiche la même chose qu'avant, et `import conteneurs` dans `python3` n'affiche rien.
 
 ## Est-ce que j'ai compris ?
 Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 1. Que fait Python, exactement, quand il rencontre `import analyse` ? Combien de fois le code du module s'exécute-t-il ?
 2. À quoi sert `if __name__ == "__main__":` ?
-3. Pourquoi `import analyse` échoue depuis `~` ? Et d'où vient `sys`, que tu n'as jamais écrit ?
+3. Pourquoi `import analyse` échoue depuis `~` ?
 
 > [!quote] Mes réponses
 > _À écrire._
@@ -45,11 +45,10 @@ Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 > Un module, c'est simplement un fichier `.py`. L'importer, c'est **exécuter** ce fichier une fois et récupérer ce qu'il définit. Python cherche les modules dans une liste de dossiers, comme le shell cherche les programmes dans le PATH. `__name__` vaut `"__main__"` seulement pour le fichier qu'on a lancé.
 
 > [!question]- Solution
-> `analyse.py` contient les trois fonctions. `conteneurs.py` :
+> `donnees.py` contient `TEXTE`, `analyse.py` les trois fonctions. `conteneurs.py` :
 > ```python
-> import sys
->
 > from analyse import analyser, lire_conteneurs
+> from donnees import TEXTE
 >
 >
 > def afficher(resultat):
@@ -57,11 +56,11 @@ Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 >
 >
 > if __name__ == "__main__":
->     afficher(analyser(lire_conteneurs(sys.stdin.read())))
+>     afficher(analyser(lire_conteneurs(TEXTE)))
 > ```
 > 1. Il cherche `analyse.py`, l'**exécute** de haut en bas (d'où le message), et range ce qu'il a défini dans un objet `analyse`. Une seule fois : un second `import` réutilise le module déjà chargé.
-> 2. Sans cette ligne, importer `conteneurs` lance le programme, qui attend du texte sur l'entrée standard (il a l'air bloqué). Avec elle, le lancement n'a lieu que si on exécute **ce** fichier, pas quand on l'importe.
-> 3. Python cherche d'abord dans le dossier du script lancé (ou le dossier courant pour `python3 -c`), puis dans ses propres dossiers : depuis `~`, `analyse.py` n'est dans aucun → `ModuleNotFoundError`. `sys` est un module **livré avec Python** (la bibliothèque standard), rangé dans ces dossiers-là.
+> 2. Sans cette ligne, importer `conteneurs` lance tout le programme, qui affiche son résultat. Avec elle, le lancement n'a lieu que si on exécute **ce** fichier, pas quand on l'importe.
+> 3. Python cherche d'abord dans le dossier du script lancé (ou le dossier courant pour `python3 -c`), puis dans ses propres dossiers. Depuis `~`, `analyse.py` n'est dans aucun → `ModuleNotFoundError`.
 
 ## Validation
 - [ ] Le projet marche comme décrit dans « Ça marche si… »
