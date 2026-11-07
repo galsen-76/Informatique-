@@ -29,6 +29,9 @@ Ne plus taper une longue commande : construire **ta propre image** `rapport-doss
 - [ ] Ajoute une version du programme passée **au moment du build**, et rends-la lisible dans le conteneur au lancement
 - [ ] Ajoute un `.dockerignore` pour ne pas envoyer `sortie/` ni `.git/` au build
 
+> [!note] Au travail, derrière le proxy
+> `pip install` est bloqué tant que le proxy PyPI du Nexus n'est pas configuré (voir [[Fiche - Images Docker au travail via le Nexus]]). En attendant, les tests sont écrits avec `unittest`, livré avec Python : saute la tâche `requirements.txt` et `pytest`, et lance les tests avec `python -m unittest`. Pour la question 2, raisonne avec le cache des couches.
+
 > [!success] Ça marche si…
 > `docker run --rm -v "$PWD/exemple":/data -v "$PWD/sortie":/sortie rapport-dossier:0.1` produit le rapport, et modifier `app.py` ne réinstalle pas `pytest`.
 
