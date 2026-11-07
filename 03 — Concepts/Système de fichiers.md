@@ -2,7 +2,7 @@
 type: concept
 domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: reussi
+status: maitrise
 level: debutant
 prerequisites:
   - "[[Terminal]]"

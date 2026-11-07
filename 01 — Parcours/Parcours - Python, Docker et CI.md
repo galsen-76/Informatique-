@@ -23,7 +23,7 @@ flowchart TD
 ## Avant tout · Maîtriser le terminal
 **Cours**, dans l'ordre : [[Cours - Terminal, shell et système]] → [[Cours - WSL, Linux dans Windows]] → [[Cours - Bash, les commandes essentielles]] → [[Cours - Linux, utilisateurs, permissions et paquets]] → [[Cours - Écrire un script shell]] → [[Cours - PowerShell et Bash côte à côte]]
 1. [[Terminal]] et [[Shell]]
-2. [[Système d'exploitation et noyau]]
+2. [[Système d'exploitation et noyau]] · [[Distribution Linux]] · [[Variable PATH]]
 3. [[PowerShell]] et [[Bash]]
 4. [[WSL]] · commande [[wsl.exe]]
 5. Commandes : [[pwd]] · [[ls]] · [[cd]] · [[mkdir]] · [[cp]] · [[mv]] · [[rm]] · [[cat]] · [[grep]]

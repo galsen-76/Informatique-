@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: reussi
-difficulty: reussi
+difficulty: facile
 concepts:
   - "[[Terminal]]"
   - "[[Système de fichiers]]"

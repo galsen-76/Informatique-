@@ -44,7 +44,7 @@ flowchart TD
 ```
 - Elles se transmettent **du parent à l'enfant**, jamais dans l'autre sens.
 - Par convention, les noms sont en MAJUSCULES : `PATH`, `HOME`, `HTTP_PROXY`.
-- `PATH` est spéciale : la liste des dossiers où le shell cherche les programmes. « commande introuvable » veut souvent dire « pas dans le PATH ».
+- `PATH` est spéciale : la liste des dossiers où le shell cherche les programmes. « commande introuvable » veut souvent dire « pas dans le PATH ». Voir [[Variable PATH]].
 
 ### Exemple concret
 ```bash

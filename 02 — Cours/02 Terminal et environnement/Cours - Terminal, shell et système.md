@@ -8,6 +8,8 @@ concepts:
   - "[[PowerShell]]"
   - "[[Bash]]"
   - "[[Système d'exploitation et noyau]]"
+  - "[[Distribution Linux]]"
+  - "[[Variable PATH]]"
 tags:
   - cours
 ---
@@ -25,6 +27,8 @@ tags:
 - Le **terminal** : la fenêtre (Windows Terminal). Il ne comprend rien, il affiche.
 - Le **shell** : le programme qui lit tes commandes ([[PowerShell]], [[Bash]], cmd). Voir [[Shell]].
 - Le **système** : Windows ou Linux, et son noyau, qui exécute vraiment. Voir [[Système d'exploitation et noyau]].
+
+Le noyau, c'est le **moteur** ; une [[Distribution Linux]] (Ubuntu, Debian, Alpine) est la **voiture complète** : le noyau, plus les outils, plus un gestionnaire de paquets.
 
 ## 2. Schéma
 ```mermaid
@@ -47,6 +51,9 @@ Lis l'invite avant chaque commande :
 ## 4. Ce qui change et ce qui ne change pas
 - **Ne change pas** : les programmes externes (`git`, `python`, `docker`) et leurs options. `git status` est identique partout.
 - **Change** : la syntaxe autour (variables, chemins, guillemets, enchaînements) et les commandes intégrées (`ls`, `rm`, `cp` n'ont pas les mêmes options).
+
+### Comment le shell trouve un programme
+Quand tu tapes `git`, le shell cherche un fichier `git` dans les dossiers listés par la [[Variable PATH]], dans l'ordre. Le dossier courant n'en fait pas partie : un script se lance avec `./script.sh`. Pour savoir ce que cache un nom : `type ls` en Bash, `Get-Alias ls` ou `Get-Command git` en PowerShell.
 
 ## 5. Quel shell choisir
 - **PowerShell** : pour Windows lui-même, et quand tout l'outillage est installé côté Windows.
