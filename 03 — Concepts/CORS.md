@@ -75,8 +75,12 @@ Ou faire passer les appels par le même domaine (proxy de Vite en développement
 > [!warning] À ne pas confondre
 > CORS est appliqué **par le navigateur** : curl, Python ou Postman ne sont pas concernés. Ce n'est donc pas une protection du serveur. Et `Access-Control-Allow-Origin: *` ne fonctionne pas avec des cookies.
 
+> [!note] CORS, API, API REST
+> L'[[API]] (REST ou non) est ce qu'on appelle. CORS ne change rien à l'API : c'est le **navigateur** qui vérifie si la page a le droit de lire sa réponse. Une API REST parfaite peut quand même être bloquée par CORS si elle n'envoie pas `Access-Control-Allow-Origin`.
+
 ## 3 · Pratiquer
-- Lance une petite API sur le port 3000 et appelle-la depuis une page sur le port 5173 : observe l'erreur, puis corrige-la
+- [[Exercice - Distinguer API, API REST et CORS]]
+- [[Exercice - Rendre une API robuste]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
@@ -84,7 +88,7 @@ Ou faire passer les appels par le même domaine (proxy de Vite en développement
 
 ## 5 · Relier
 - **Prérequis** : [[En-tête HTTP]] · [[Appeler une API avec fetch]]
-- **Complémentaires** : [[Reverse proxy]] · [[Middleware]]
+- **Complémentaires** : [[Reverse proxy]] · [[Middleware]] · [[API]] · [[API REST]]
 
 ## 6 · Réviser
 > [!question] Me faire interroger

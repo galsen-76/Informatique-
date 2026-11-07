@@ -13,6 +13,7 @@ parents:
 related:
   - "[[Endpoint]]"
   - "[[Express]]"
+  - "[[CORS]]"
 next_review: 
 method: []
 tags:
@@ -72,6 +73,7 @@ curl -X POST http://localhost:3000/notes \
 
 ## 3 · Pratiquer
 - [[Exercice - Créer une API REST avec Express]]
+- [[Exercice - Distinguer API, API REST et CORS]]
 - [[Projet - API Notes]]
 
 ## 4 · Expliquer

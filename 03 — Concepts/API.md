@@ -12,6 +12,7 @@ related:
   - "[[API REST]]"
   - "[[OpenAPI]]"
   - "[[SDK]]"
+  - "[[CORS]]"
 next_review: 
 method: []
 tags:
@@ -68,8 +69,32 @@ Même API, trois clients possibles : curl, Python, le frontend React de CVAT.
 > [!warning] À ne pas confondre
 > **API** (le contrat) et **serveur** (le programme qui l'implémente). Et une API web n'est pas forcément REST : il existe aussi GraphQL, gRPC, les webhooks.
 
+### API ou API REST ?
+**API** est le mot général : n'importe quelle façon convenue de demander un service à un programme. **API REST** est **une sorte** d'API web, qui suit des règles précises. Toute API REST est une API, mais toutes les API ne sont pas REST.
+
+```mermaid
+flowchart TD
+  A[API] --> B[Bibliothèque]
+  A --> W[API web]
+  W --> R[REST]
+  W --> G[GraphQL]
+  W --> P[gRPC]
+```
+
+| | API (en général) | API REST |
+| --- | --- | --- |
+| C'est quoi | Un contrat entre programmes | Un style précis d'API web |
+| Passe par | Appel de fonction, réseau, fichier… | [[HTTP]] uniquement |
+| Organisation | Libre | Des **ressources** (`/notes/42`) + des [[Méthode HTTP\|méthodes HTTP]] |
+| Exemple | `zipfile.ZipFile(...)` en Python | `GET /api/tasks/12` sur CVAT |
+
+Une API web **non REST** : `POST /api` avec `{"action": "supprimerNote", "id": 42}`. Ça marche, c'est une API, mais ce n'est pas REST (le verbe est dans le corps, pas dans la méthode HTTP).
+
+Et [[CORS]] n'est **ni l'un ni l'autre** : c'est une règle du navigateur qui décide si une page a le droit de lire la réponse d'une API située sur une autre origine.
+
 ## 3 · Pratiquer
-- Choisis une API publique (GitHub, jsonplaceholder) et appelle trois de ses endpoints avec curl
+- [[Exercice - Explorer une API avec curl]]
+- [[Exercice - Distinguer API, API REST et CORS]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
@@ -77,7 +102,7 @@ Même API, trois clients possibles : curl, Python, le frontend React de CVAT.
 
 ## 5 · Relier
 - **Prérequis** : [[Client-serveur]] · [[HTTP]]
-- **Complémentaires** : [[API REST]] · [[OpenAPI]] · [[SDK]]
+- **Complémentaires** : [[API REST]] · [[OpenAPI]] · [[SDK]] · [[CORS]]
 - **Utilisé par** : [[Endpoint]]
 
 ## 6 · Réviser
