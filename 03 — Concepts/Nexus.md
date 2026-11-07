@@ -84,6 +84,7 @@ docker pull nexus.mon-entreprise.com:8082/library/python:3.11-slim
 - **Complémentaires** : [[Variable de build Docker (ARG)]] · [[Variables CI-CD GitLab]]
 - **Utilisé par** : [[Construire une image dans la CI]] · [[Kaniko]]
 - **Commandes** : [[docker login]] · [[docker push]]
+- **Au travail** : [[Fiche - Images Docker au travail via le Nexus]]
 
 ## 6 · Réviser
 > [!question] Me faire interroger
