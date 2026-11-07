@@ -69,7 +69,7 @@ node --version           # vérifier qu'un outil est installé
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> Un terminal c'est juste l'interface : la fenêtre qui affiche le texte et envoie ce que je tape. Ce n'est pas lui qui comprend les commandes, c'est le shell qui tourne dedans.
 
 ## 5 · Relier
 - **Mène à** : [[Système de fichiers]] → [[Git]]

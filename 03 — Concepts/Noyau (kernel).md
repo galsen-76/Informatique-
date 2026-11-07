@@ -144,7 +144,7 @@ sudo dmesg | tail     # le journal du noyau (matériel, pilotes, erreurs)
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> Le noyau fait le lien entre les logiciels et le matériel : c'est par lui que tout passe. Même quand le shell crée un fichier, il le demande au noyau. Il gère aussi les permissions (est-ce que j'ai le droit d'écrire ici ?) et partage les ressources entre les programmes.
 
 ## 5 · Relier
 - **Prérequis** : [[Processeur, mémoire et disque]]

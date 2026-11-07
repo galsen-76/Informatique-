@@ -80,7 +80,7 @@ Windows Terminal peut ouvrir des onglets PowerShell, cmd et Ubuntu (WSL) côte �
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> Le shell comprend les commandes si j'utilise son langage, et il les exécute. Une même commande peut être différente selon le shell : dans PowerShell `ls` est un alias de `Get-ChildItem`, alors que dans Bash c'est un vrai programme Linux. `git`, lui, est un programme à part que le shell trouve grâce au PATH, donc il marche pareil dans les deux.
 
 ## 5 · Relier
 - **Prérequis** : [[Terminal]]
