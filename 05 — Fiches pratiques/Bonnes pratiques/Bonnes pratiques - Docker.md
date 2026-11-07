@@ -63,8 +63,23 @@ Pour savoir ce qui tourne et pouvoir revenir en arrière.
 ## À éviter
 
 ### 1. Mettre un secret dans le Dockerfile (`ENV`, `ARG`, `COPY .env`)
-**Pourquoi c'est un problème :** il est lisible par quiconque a l'image (`docker history`).
-**À la place :** variables d'environnement au lancement, secrets de la CI ou de l'orchestrateur.
+> [!danger] Important
+> Un secret (mot de passe, jeton, clé d'API) ne va **jamais dans l'image**.
+
+**Pourquoi c'est un problème :** la valeur reste **enregistrée dans l'image**, même si le conteneur ne la voit plus.
+- `ARG` disparaît au lancement, mais Docker garde l'historique de chaque couche avec les valeurs utilisées. `docker history mon-image` affiche par exemple `RUN |1 MDP=secret123 ...` en clair.
+- `ENV` est encore pire : la valeur est dans l'image **et** dans chaque conteneur (`docker inspect`).
+- `COPY .env` : le fichier est dans une couche de l'image. Le supprimer dans une couche suivante ne l'efface pas de la précédente.
+- La commande `docker build --build-arg MDP=...` reste aussi dans l'historique du terminal et dans les logs de la CI.
+
+Toute personne qui récupère l'image, sur le Nexus ou dans la CI, peut donc lire le secret.
+
+**À la place :** donner le secret **au lancement**, jamais au build.
+```bash
+docker run -e MDP="$MDP" mon-image          # variable au lancement
+docker run --env-file .env mon-image        # fichier .env, jamais copié dans l'image
+```
+Dans la CI : une variable GitLab **masquée et protégée** ([[Variables CI-CD GitLab]]). Et toujours `.env` dans le `.dockerignore` et le `.gitignore`.
 
 ### 2. `COPY . .` avant l'installation des dépendances
 **Pourquoi c'est un problème :** chaque modification du code réinstalle tout.
