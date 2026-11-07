@@ -72,8 +72,7 @@ Les `: str` et `-> bool` sont des **annotations de type** : facultatives, elles 
 > `print` (affiche à l'écran, ne renvoie rien d'utilisable) et `return` (renvoie une valeur au code qui appelle). Et `est_image` (la fonction elle-même) vs `est_image("a.png")` (l'appel).
 
 ## 3 · Pratiquer
-- Écris une fonction `extension(nom)` qui renvoie l'extension en minuscules, et teste-la sur trois noms.
-- Réécris le comptage d'extensions de la fiche [[Liste et dictionnaire]] en fonction.
+Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 04 - Ranger en fonctions]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

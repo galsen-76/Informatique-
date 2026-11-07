@@ -3,7 +3,6 @@ type: exercise
 status: a-faire
 difficulty: moyen
 concepts:
-  - "[[Exception]]"
   - "[[Arguments de ligne de commande]]"
 tags:
   - exercice

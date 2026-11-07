@@ -67,9 +67,7 @@ python bonjour.py
 > **Python 2** (abandonné en 2020) et **Python 3** : tout ce que tu apprends est Python 3. Et la **bibliothèque standard** (déjà incluse : `pathlib`, `zipfile`) et les **paquets externes** (à installer avec [[pip]] : `requests`, `pytest`).
 
 ## 3 · Pratiquer
-- Installe Python 3, puis vérifie avec `python --version` (ou `py --version` sous Windows).
-- Ouvre le mode interactif et calcule `7 * 6`, puis quitte avec `exit()`.
-- Écris et lance un fichier `bonjour.py`.
+Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 01 - Lire la liste des conteneurs]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

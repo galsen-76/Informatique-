@@ -71,8 +71,7 @@ while essais < 3:
 > `for` (on connaît la collection) et `while` (on s'arrête sur une condition). Un `while` dont la condition ne devient jamais fausse tourne **à l'infini** : `Ctrl+C` pour l'arrêter.
 
 ## 3 · Pratiquer
-- Parcours une liste de noms de fichiers et compte combien finissent par `.png`.
-- Avec `range`, affiche les nombres de 1 à 10.
+Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 02 - Trier les conteneurs]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

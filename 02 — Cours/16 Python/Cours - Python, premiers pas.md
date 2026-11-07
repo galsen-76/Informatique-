@@ -82,9 +82,7 @@ for ext, nb in compte.items():
 Lis-le ligne par ligne et dis à voix haute ce que fait chacune avant de le lancer.
 
 ## Mise en pratique
-- Recopie le programme complet **sans copier-coller**, lance-le, puis ajoute un fichier `.jpg` à la liste.
-- Modifie-le pour n'afficher que les extensions présentes au moins deux fois.
-- Écris un script qui affiche les nombres de 1 à 20 et « pair » ou « impair » à côté.
+Le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]], les étapes 01 à 03 : un vrai petit outil qui lit la liste de tes conteneurs Docker et te prépare le ménage.
 
 > [!warning] Erreurs fréquentes
 > - Oublier les deux-points `:` à la fin d'un `if`, `for` ou `def`

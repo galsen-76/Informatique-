@@ -69,7 +69,7 @@ else:
 > L'indentation fait partie du code : une ligne mal indentée sort du bloc `if` ou provoque `IndentationError`. Et `if x = 3` (erreur) au lieu de `if x == 3`.
 
 ## 3 · Pratiquer
-- Écris un test qui affiche « image », « document » ou « autre » selon l'extension d'un nom de fichier.
+Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 02 - Trier les conteneurs]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

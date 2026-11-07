@@ -69,8 +69,7 @@ for nom, taille in tailles.items():
 > Les positions commencent à **0** : le dernier élément d'une liste de 3 est `liste[2]` (ou `liste[-1]`). Et `d["cle"]` plante avec `KeyError` si la clé manque, `d.get("cle")` renvoie `None`.
 
 ## 3 · Pratiquer
-- Crée une liste de noms de fichiers, ajoute-en un, puis affiche le dernier avec `[-1]`.
-- Crée un dictionnaire `{extension: nombre}` qui compte les extensions d'une liste de fichiers.
+Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 03 - Préparer le ménage]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

@@ -82,8 +82,7 @@ FileNotFoundError: [Errno 2] No such file or directory: 'donnees/config.json'
 > Attraper une erreur précise (`except FileNotFoundError`) et **tout** attraper (`except Exception: pass`) : ce dernier cache les bugs, le script « réussit » sans rien faire.
 
 ## 3 · Pratiquer
-- Provoque volontairement trois exceptions différentes et lis leur traceback en partant de la fin.
-- Écris un `try/except` qui affiche un message clair quand un fichier n'existe pas, puis sort avec le code 1.
+Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 06 - Un script qui ne plante pas]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

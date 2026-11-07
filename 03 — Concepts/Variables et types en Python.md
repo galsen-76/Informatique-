@@ -77,8 +77,7 @@ print(len(nom))             # 11
 > `=` (je range une valeur) et `==` (je compare deux valeurs). Et `"42"` (texte) ≠ `42` (nombre) : ce que tu lis dans un fichier ou une variable d'environnement est **toujours du texte**.
 
 ## 3 · Pratiquer
-- Crée trois variables (un nom de dossier, un nombre de fichiers, un booléen) et affiche-les dans une seule f-string.
-- Essaie `"2" + 2` : lis le message d'erreur, puis corrige de deux façons.
+Dans le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]] : [[Ménage 01 - Lire la liste des conteneurs]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

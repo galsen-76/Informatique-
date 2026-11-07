@@ -73,9 +73,7 @@ if __name__ == "__main__":
 Ce squelette (`main()` qui renvoie un code, `sys.exit(main())`) est une bonne base pour tous tes scripts.
 
 ## Mise en pratique
-- Reprends le programme du cours précédent et range-le en deux fonctions : `compter_extensions(noms)` et `afficher(compte)`.
-- Déplace `compter_extensions` dans un fichier `outils.py` et importe-la.
-- Lance le squelette du point 5 sans argument, puis avec un dossier qui n'existe pas : vérifie le code de sortie à chaque fois.
+Le mini-projet [[Projet - Faire le ménage dans ses conteneurs Docker]], les étapes 04 à 06 : un vrai petit outil qui lit la liste de tes conteneurs Docker et te prépare le ménage.
 
 > [!warning] Erreurs fréquentes
 > - Afficher un résultat avec `print` dans la fonction au lieu de le renvoyer avec `return`
