@@ -25,7 +25,7 @@ tags:
 | Espace | Contient | Template |
 | --- | --- | --- |
 | 00 — Dashboard | [[Dashboard]], [[Focus]], ce guide | — |
-| 01 — Parcours | [[Parcours]] (22 modules), [[Méthode d'apprentissage]], [[Chemins de compréhension]] | Module |
+| 01 — Parcours | [[Parcours]] (23 modules), [[Méthode d'apprentissage]], [[Chemins de compréhension]] | Module |
 | 02 — Cours | Un dossier par module, un cours par chapitre | Cours |
 | 03 — Concepts | Une fiche par notion, suivant les 6 étapes | Concept |
 | 04 — Commandes | Un sous-dossier par outil | Commande |
