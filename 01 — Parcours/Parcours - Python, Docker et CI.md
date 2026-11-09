@@ -81,6 +81,7 @@ flowchart TD
 3. [[Reverse proxy]] (Traefik et `CVAT_HOST`)
 
 **Projet fil rouge** : [[Fil rouge 03 - Une page web pour le rapport]]
+**Exercices** : [[Exercice - Le proxy de l'entreprise]] · [[Exercice - Un reverse proxy nginx]]
 
 ## Étape 4 · Git dans un vrai projet
 **Cours** : [[Cours - Git propre dans un vrai projet]]
