@@ -41,7 +41,7 @@ DATABASE_URL=
 JWT_SECRET=
 CVAT_TOKEN=
 ```
-- Lecture : `process.env.JWT_SECRET` (Node 20+ : `node --env-file=.env app.js`), `os.environ["JWT_SECRET"]` (Python, avec `python-dotenv`), `env_file:` dans [[Docker Compose]].
+- Lecture : `process.env.JWT_SECRET` (Node 20+ : `node --env-file=.env app.js`), `os.environ["JWT_SECRET"]` (Python, après `load_dotenv()` : voir [[Charger un fichier .env (python-dotenv)]]), `env_file:` dans [[Docker Compose]].
 - En CI : [[Variables CI-CD GitLab]] **masquées** et **protégées**.
 - En production : un gestionnaire de secrets (Vault, secrets Kubernetes, coffre du cloud).
 - Un secret **commité une fois** est compromis, même supprimé ensuite (il reste dans l'historique) : il faut le **révoquer** et en créer un nouveau.
@@ -81,7 +81,7 @@ Les outils comme **gitleaks** le vérifient automatiquement dans la CI.
 > Mettre un secret dans un `ARG` ou un `ENV` de [[Dockerfile]] : il reste lisible dans l'image (`docker history`). Et `.env` n'est pas chiffré : il protège seulement contre le partage par Git.
 
 ## 3 · Pratiquer
-- Déplace les secrets d'un petit projet dans un `.env`, ajoute un `.env.example`, et vérifie avec `git status` que `.env` n'apparaît pas
+- [[Exercice - Charger les identifiants CVAT depuis un .env]] (étapes sur `.gitignore` et `.env.example`)
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
@@ -89,7 +89,7 @@ Les outils comme **gitleaks** le vérifient automatiquement dans la CI.
 
 ## 5 · Relier
 - **Prérequis** : [[Variable d'environnement]] · [[Ignorer des fichiers (gitignore)]]
-- **Complémentaires** : [[Variables CI-CD GitLab]] · [[Docker Compose]]
+- **Complémentaires** : [[Variables CI-CD GitLab]] · [[Docker Compose]] · [[Charger un fichier .env (python-dotenv)]]
 
 ## 6 · Réviser
 > [!question] Me faire interroger

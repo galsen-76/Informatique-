@@ -9,6 +9,7 @@ concepts:
   - "[[Journaliser avec logging]]"
   - "[[Lancer une commande (subprocess)]]"
   - "[[Expressions régulières (re)]]"
+  - "[[Charger un fichier .env (python-dotenv)]]"
 tags:
   - cours
 ---
@@ -54,9 +55,13 @@ flowchart TD
 ## 8. Fouiller du texte
 [[Expressions régulières (re)]] : extraire dates, codes, versions d'un log.
 
+## 9. Lire sa configuration
+Un script qui parle à un service (CVAT, une base) a besoin d'une adresse et d'identifiants. Ils ne vont pas dans le code : le code lit `os.environ`, et en local, [[Charger un fichier .env (python-dotenv)]] remplit `os.environ` depuis un fichier `.env` ignoré par Git ([[Secret et fichier .env]]).
+
 ## Mise en pratique
 - Fais l'[[Exercice - Appeler une API et produire un CSV]].
 - Fais l'[[Exercice - Un script qui journalise, lance des commandes et lit des logs]].
+- Fais l'[[Exercice - Charger les identifiants CVAT depuis un .env]].
 
 > [!warning] Erreurs fréquentes
 > - Oublier `timeout=` dans requests : le script peut attendre indéfiniment
@@ -68,4 +73,4 @@ flowchart TD
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[Appeler une API HTTP (requests)]] · [[Lire et écrire du CSV]] · [[Dates et heures (datetime)]] · [[Journaliser avec logging]] · [[Lancer une commande (subprocess)]] · [[Expressions régulières (re)]]
+[[Appeler une API HTTP (requests)]] · [[Lire et écrire du CSV]] · [[Dates et heures (datetime)]] · [[Journaliser avec logging]] · [[Lancer une commande (subprocess)]] · [[Expressions régulières (re)]] · [[Charger un fichier .env (python-dotenv)]]
