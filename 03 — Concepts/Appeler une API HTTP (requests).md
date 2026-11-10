@@ -68,6 +68,7 @@ print(r.status_code, r.json()["json"])
 | `headers=...` | en-têtes (authentification) |
 | `auth=("user", "mdp")` | authentification simple |
 | `timeout=10` | n'attend pas indéfiniment |
+| `files={"fichier": (nom, octets, type)}` | envoie un fichier en formulaire multipart (voir [[Envoyer et recevoir un fichier en HTTP]]) |
 
 ### Cas d'utilisation
 - Récupérer les annotations d'une tâche CVAT (voir aussi [[SDK]])
@@ -87,7 +88,7 @@ print(r.status_code, r.json()["json"])
 
 ## 5 · Relier
 - **Prérequis** : [[pip]] · [[HTTP]] · [[JSON]] · [[Liste et dictionnaire]]
-- **Complémentaires** : [[SDK]] · [[API REST]]
+- **Complémentaires** : [[SDK]] · [[API REST]] · [[Envoyer et recevoir un fichier en HTTP]] (envoyer un zip ou une image) · [[Appeler une API sans pip (urllib.request)]] (quand pip est bloqué)
 
 ## 6 · Réviser
 > [!question] Me faire interroger

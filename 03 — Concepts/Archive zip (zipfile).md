@@ -87,7 +87,7 @@ with zipfile.ZipFile("images.zip") as z:
 ## 5 · Relier
 - **Prérequis** : [[Chemin de fichier en Python (pathlib)]] · [[Boucle (for, while)]]
 - **Complémentaires** : [[Copier et déplacer des fichiers (shutil)]] · [[Exception]]
-- **Utilisé par** : [[Cours - Manipuler des fichiers et des archives]]
+- **Utilisé par** : [[Cours - Manipuler des fichiers et des archives]] · [[Fichier en mémoire (io.BytesIO)]] (un zip sans fichier) · [[Cours - Envoyer et recevoir des fichiers par HTTP]]
 
 ## 6 · Réviser
 > [!question] Me faire interroger

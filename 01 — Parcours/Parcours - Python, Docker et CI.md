@@ -133,6 +133,17 @@ flowchart TD
 8. [[Lancer une commande (subprocess)]]
 9. [[Expressions régulières (re)]]
 
+**Cours** : [[Cours - Envoyer et recevoir des fichiers par HTTP]]
+10. [[Fichier en mémoire (io.BytesIO)]]
+11. [[Envoyer et recevoir un fichier en HTTP]]
+12. [[Appeler une API sans pip (urllib.request)]]
+13. [[Base64]]
+
+**Mini-projet** : [[Projet - Envoyer un zip ou une image en Python]]
+
+> [!tip] Besoin tout de suite pour le POC CVAT
+> Tu peux faire ce cours dès maintenant, sans attendre la fin du parcours : il suffit d'avoir lu [[Archive zip (zipfile)]] et [[Appeler une API HTTP (requests)]].
+
 ## Les réflexes, à relire avant chaque séance de débogage
 [[Fiche - Réflexes pour déboguer une pipeline]] : lire le log depuis la première erreur, partir des fichiers de ta version, un changement = un commit = un pipeline, vérifier ce qu'un test teste avant de le débloquer.
 
