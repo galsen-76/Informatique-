@@ -29,6 +29,7 @@ Chaque étape devient une petite fonction qu'on peut tester seule.
 
 ### 4. Lire le message d'erreur en entier
 Le type d'erreur, le message, puis la **dernière** ligne de **ton** code dans la trace (*stack trace*) : c'est là que commencer.
+Méthode pas à pas et erreurs fréquentes : [[Fiche - Lire un message d'erreur]].
 
 ```text
 Traceback (most recent call last):
