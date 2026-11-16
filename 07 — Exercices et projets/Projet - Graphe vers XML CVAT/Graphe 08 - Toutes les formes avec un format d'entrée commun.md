@@ -30,7 +30,7 @@ Ton convertisseur sait faire des tuyaux et des cotes. Maintenant il doit savoir 
 - [ ] Ajoute le tag. Où doit-il aller dans `<image>` ? Que n'a-t-il pas, par rapport aux formes ?
 - [ ] Gère la rotation : l'attribut n'apparaît que s'il est différent de 0
 - [ ] Compare avec `reference_formes.xml` (mets de côté masque et squelette en les retirant d'une copie)
-- [ ] Fais repasser ton graphe de l'étape 05 par ce nouveau chemin (graphe → liste de formes → XML) : `comparer.py attendu.xml sortie.xml` doit toujours dire `Identiques`
+- [ ] Fais repasser ton graphe des étapes 01 à 05 par ce nouveau chemin (graphe → liste de formes → XML) : `comparer.py attendu.xml sortie.xml` doit toujours dire `Identiques`
 
 > [!warning] Le piège de cette étape
 > Mélanger « lire le graphe » et « écrire le XML » dans les mêmes fonctions : chaque nouveau type t'obligerait à toucher au code du graphe. Avec un format commun au milieu, ajouter une forme = ajouter **une** fonction et **une** ligne dans le dictionnaire.

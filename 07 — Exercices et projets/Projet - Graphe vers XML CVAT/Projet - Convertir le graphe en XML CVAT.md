@@ -16,52 +16,44 @@ tags:
 # Projet - Convertir le graphe en XML CVAT
 
 > [!info] Le principe
-> Le module `replication` produit un **graphe géométrique** en JSON (nœuds, tuyaux, cotes). CVAT, lui, ne lit que des **formes** dans son XML d'annotations. Tu écris `convertir.py`, qui transforme le premier en second, pour pouvoir réimporter le résultat dans CVAT.
-> Le but : comprendre la **différence** entre les deux fichiers et savoir passer de l'un à l'autre, en tombant sur les vraies erreurs et en les corrigeant.
+> `convertir.py` part de `modele.xml`, vide la balise `<image>` et la remplit avec les formes du JSON (tuyaux, lignes de cote, étiquettes), pour réimporter le résultat dans CVAT.
 
 **À lire d'abord :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]]
 
 ```mermaid
 flowchart TD
-  A[Lire le JSON] --> B[Image vide]
+  A[Lire le JSON] --> B[Vider l'image]
   B --> C[Tuyaux]
   C --> D[Cotes]
-  D --> E[Meta et comparaison]
-  E --> F[Fonction propre]
-  F --> G[Référence CVAT]
-  G --> H[Toutes les formes]
-  H --> I[Masque et squelette]
+  D --> E[Comparer]
+  E --> F[Fonction Nuclio]
 ```
 
 ## Les étapes
 | # | Étape | Notions validées |
 | --- | --- | --- |
 | 1 | [[Graphe 01 - Lire et explorer le JSON]] | JSON, Liste et dictionnaire |
-| 2 | [[Graphe 02 - Une image vide en XML]] | XML, XML en Python (ElementTree) |
+| 2 | [[Graphe 02 - Charger le modèle et vider l'image]] | XML, XML en Python (ElementTree) |
 | 3 | [[Graphe 03 - Les tuyaux]] | XML en Python (ElementTree), Format CVAT for images 1.1 |
 | 4 | [[Graphe 04 - Les cotes et leurs étiquettes]] | Format CVAT for images 1.1 |
-| 5 | [[Graphe 05 - Le bloc meta et la comparaison]] | Format CVAT for images 1.1 |
+| 5 | [[Graphe 05 - Comparer et importer dans CVAT]] | Format CVAT for images 1.1 |
 | 6 | [[Graphe 06 - Une fonction prête pour Nuclio]] | Exception, Journaliser avec logging |
-| 7 | [[Graphe 07 - Un fichier de référence exporté de CVAT]] | Format CVAT for images 1.1 |
-| 8 | [[Graphe 08 - Toutes les formes avec un format d'entrée commun]] | Format CVAT for images 1.1, Patron Stratégie (Strategy) |
-| 9 | [[Graphe 09 - Le masque et le squelette]] | Format CVAT for images 1.1 |
 
-Les étapes 1 à 6 traitent ton graphe (tuyaux et cotes). Les étapes 7 à 9 étendent le convertisseur à **toutes** les formes de CVAT.
+**Ensuite, pour couvrir toutes les formes de CVAT :** [[Graphe 07 - Un fichier de référence exporté de CVAT]] · [[Graphe 08 - Toutes les formes avec un format d'entrée commun]] · [[Graphe 09 - Le masque et le squelette]]
 
 ## Pour démarrer
-Dans WSL :
 ```bash
 mkdir -p ~/projets/graphe-xml
 cd ~/projets/graphe-xml
 ```
-Crée les trois fichiers ci-dessous **tels quels** : `graph.json` (l'entrée), `attendu.xml` (ce que tu dois obtenir) et `comparer.py` (l'outil de vérification, tu n'as pas à le modifier). Tu écris seulement `convertir.py`.
+Crée les fichiers ci-dessous **tels quels** : `graph.json` (l'entrée), `attendu.xml` (le résultat voulu) et `comparer.py` (l'outil de vérification). Puis fais ton modèle : `cp attendu.xml modele.xml`. Tu écris seulement `convertir.py`.
 
-Pour vérifier à tout moment :
+Pour vérifier :
 ```bash
 python3 convertir.py            # produit sortie.xml
 python3 comparer.py attendu.xml sortie.xml
 ```
-`comparer.py` ignore la mise en forme (retraits, `'` ou `"`, `<a/>` ou `<a></a>`) et montre la **première** différence. Tant que tu n'as pas fini, il y en aura forcément : c'est normal, avance étape par étape.
+`comparer.py` ignore la mise en forme et montre la **première** différence.
 
 ### comparer.py
 ```python

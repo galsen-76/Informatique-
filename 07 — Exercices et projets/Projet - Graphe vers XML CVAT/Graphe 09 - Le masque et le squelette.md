@@ -30,7 +30,7 @@ Ajouter les deux formes les plus différentes : le **masque** (des pixels, encod
 **Le squelette**
 - [ ] Décide comment ton format commun décrit un squelette : un label et une liste de points nommés
 - [ ] Écris `ecrire_skeleton` : la balise `skeleton`, puis un `<points>` **dedans** pour chaque point. Compare les attributs du parent et des enfants avec ta référence : lesquels n'ont pas `occluded`, `outside`, `z_order` ?
-- [ ] Ajoute le bloc `<meta>` du squelette en le recopiant de ta référence
+- [ ] Ajoute le label du squelette dans le `<meta>` de ton modèle, en le recopiant de ta référence
 
 **Pour finir**
 - [ ] Compare ta sortie complète avec `reference_formes.xml` : `Identiques`

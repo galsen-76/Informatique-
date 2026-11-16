@@ -13,7 +13,7 @@ tags:
 
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
-> **Étape précédente :** [[Graphe 05 - Le bloc meta et la comparaison]]
+> **Étape précédente :** [[Graphe 05 - Comparer et importer dans CVAT]]
 > **Notions validées par cette étape :** [[Exception]], [[Journaliser avec logging]]
 
 ## Le but
