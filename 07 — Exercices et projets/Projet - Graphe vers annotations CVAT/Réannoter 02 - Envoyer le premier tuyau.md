@@ -22,7 +22,9 @@ Ton `data` (celui que tu as testé dans Bruno) devient du vrai code : les `point
 ## Ce que tu fais
 - [ ] Récupère le premier tuyau du JSON dans une variable `edge`
 - [ ] Transforme `edge["geometry"]` (liste de paires) en liste plate `[x1, y1, x2, y2, ...]`. Affiche-la et compare avec ton `data`
-- [ ] Remets `data` dans le code (plus en commentaire) et mets cette liste dans `"points"`. Prends `"frame"` dans `graph["image"]["id"]` : attention au type
+- [ ] Remets `data` dans le code (plus en commentaire). Change **deux clés différentes** :
+  - `"points"` : la liste plate que tu viens de faire ;
+  - `"frame"` : le numéro de l'image, lu dans `graph["image"]["id"]` (attention au type)
 - [ ] Envoie `data` avec `requests.patch` sur `/api/jobs/{job_id}/annotations`, `action=create`, avec `auth=(username, password)`. Affiche le code de statut
 - [ ] Regarde dans CVAT. Relance le script : combien de tuyaux maintenant ? (normal, on corrige à l'étape 06)
 
