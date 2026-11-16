@@ -267,6 +267,10 @@ flowchart TD
 ```
 Les étapes détaillées : [[Projet - Convertir le graphe en XML CVAT]].
 
+## 8. Et les autres formes de CVAT ?
+Ton graphe ne donne que des `polyline` et des `box`. CVAT en connaît **9** : `box`, `polygon`, `polyline`, `points`, `ellipse`, `cuboid`, `mask`, `skeleton` et `tag`. Leur format, avec un exemple de chacune, est dans [[Format CVAT for images 1.1]].
+L'idée pour toutes les couvrir sans tout mélanger : d'abord transformer le graphe en une **liste de formes simples** (un format à toi, le même pour tous les types), puis écrire chaque forme avec **une fonction par type**. C'est l'objet des étapes 07 à 09 du projet.
+
 > [!warning] Erreurs fréquentes
 > - Mettre un nombre dans un attribut XML : `TypeError: cannot serialize 800 (type int)`.
 > - `str(100.0)` → `"100.0"` au lieu de `"100.00"`.

@@ -28,6 +28,9 @@ flowchart TD
   C --> D[Cotes]
   D --> E[Meta et comparaison]
   E --> F[Fonction propre]
+  F --> G[Référence CVAT]
+  G --> H[Toutes les formes]
+  H --> I[Masque et squelette]
 ```
 
 ## Les étapes
@@ -39,6 +42,11 @@ flowchart TD
 | 4 | [[Graphe 04 - Les cotes et leurs étiquettes]] | Format CVAT for images 1.1 |
 | 5 | [[Graphe 05 - Le bloc meta et la comparaison]] | Format CVAT for images 1.1 |
 | 6 | [[Graphe 06 - Une fonction prête pour Nuclio]] | Exception, Journaliser avec logging |
+| 7 | [[Graphe 07 - Un fichier de référence exporté de CVAT]] | Format CVAT for images 1.1 |
+| 8 | [[Graphe 08 - Toutes les formes avec un format d'entrée commun]] | Format CVAT for images 1.1, Patron Stratégie (Strategy) |
+| 9 | [[Graphe 09 - Le masque et le squelette]] | Format CVAT for images 1.1 |
+
+Les étapes 1 à 6 traitent ton graphe (tuyaux et cotes). Les étapes 7 à 9 étendent le convertisseur à **toutes** les formes de CVAT.
 
 ## Pour démarrer
 Dans WSL :
