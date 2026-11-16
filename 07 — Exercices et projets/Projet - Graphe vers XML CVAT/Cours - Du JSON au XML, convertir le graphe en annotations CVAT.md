@@ -14,7 +14,7 @@ tags:
 # Cours - Du JSON au XML, convertir le graphe en annotations CVAT
 
 > [!abstract] Objectif
-> Partir d'un XML modèle, garder son en-tête, et remplacer le contenu de `<image>` par les formes calculées depuis le JSON.
+> Partir d'un XML modèle, remplacer le contenu de `<image>` par les formes calculées depuis le JSON, puis renvoyer ce XML (CVAT 1.1) dans le job pour remplacer ses annotations.
 
 ## 1. La stratégie
 Le haut du XML (`<version>` et `<meta>`) est **toujours le même**. Seul le contenu de `<image>` dépend du JSON. Donc :
@@ -23,7 +23,8 @@ Le haut du XML (`<version>` et `<meta>`) est **toujours le même**. Seul le cont
 2. trouver la balise `<image>` et **enlever toutes les formes** de l'exemple ;
 3. mettre à jour les attributs de `<image>` (`id`, `name`, `width`, `height`) avec le JSON ;
 4. ajouter **une forme par élément** du JSON : les tuyaux, puis les lignes de cote, puis les étiquettes ;
-5. écrire `sortie.xml`.
+5. écrire `sortie.xml` ;
+6. **l'importer dans le job** au format `"CVAT 1.1"` : ses annotations sont remplacées par les tiennes.
 
 Le nombre de formes n'est écrit nulle part ailleurs : CVAT lit tout ce qu'il trouve dans `<image>`. 6 tuyaux dans le JSON = 6 polylines, c'est tout.
 
@@ -110,12 +111,21 @@ ET.indent(racine, space="  ")
 arbre.write("sortie.xml", encoding="utf-8", xml_declaration=True)
 ```
 
+**Renvoyer le XML dans le job (SDK)**
+```python
+from cvat_sdk import make_client
+with make_client(host, credentials=(user, password)) as client:
+    job = client.jobs.retrieve(job_id)
+    job.import_annotations("CVAT 1.1", "sortie.xml")   # remplace les annotations du job
+```
+
 ## 5. Les pièges
 > [!warning] À connaître avant de coder
 > - `for enfant in image: image.remove(enfant)` en enlève **un sur deux** : on modifie la liste pendant qu'on la parcourt. Parcours `list(image)`.
 > - `image.clear()` enlève les formes **et aussi** les attributs `id`, `name`… de `<image>`.
 > - Un nombre dans `.set()` ou `.text` : `TypeError: cannot serialize 800 (type int)`, seulement au moment d'écrire.
 > - Le premier coin de `label_geometry` est en haut à **droite** : prends min et max.
+> - L'import remplace **tout le job** : une forme absente de ton XML disparaît de CVAT. Garde l'`id` et le `name` de l'image tels qu'ils sont dans l'export.
 > - Tuyaux non triés : le XML marche dans CVAT, mais n'est pas identique à l'exemple.
 
 ## Résumé

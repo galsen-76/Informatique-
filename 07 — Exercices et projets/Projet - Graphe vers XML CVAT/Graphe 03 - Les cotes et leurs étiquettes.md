@@ -8,11 +8,11 @@ tags:
   - exercice
   - mini-projet
 ---
-# Graphe 04 - Les cotes et leurs étiquettes
+# Graphe 03 - Les cotes et leurs étiquettes
 
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
-> **Étape précédente :** [[Graphe 03 - Les tuyaux]]
+> **Étape précédente :** [[Graphe 02 - Tous les tuyaux]]
 > **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (parties 2 et 3)
 > **Notions validées par cette étape :** [[Format CVAT for images 1.1]]
 
@@ -25,12 +25,13 @@ Pour chaque élément de `dimension_constraints`, ajouter une `<polyline label="
 - [ ] Corrige pour que ça marche **quel que soit** l'ordre des coins dans le JSON
 - [ ] Mets `nom` à `str(dc["length"])` : compare avec l'attendu et corrige. Et si une longueur valait `1500.5` un jour, que voudrais-tu écrire ?
 - [ ] Attention à l'ordre : dans l'attendu, **toutes** les lignes de cote viennent avant **toutes** les étiquettes. Est-ce le cas chez toi ?
+- [ ] Lance le script et ouvre le job : chaque étiquette est-elle sur son chiffre, avec le bon `nom` ?
 
 > [!warning] Le piège de cette étape
 > Un rectangle CVAT, c'est 2 coins (haut gauche, bas droite). Le JSON en donne 5, dans un ordre qui commence en haut à **droite**. Et `2000.0` n'est pas `2000`.
 
 > [!success] Ça marche si…
-> Les 3 lignes de cote et les 3 étiquettes sont identiques à l'attendu (`210.00 378.00 240.00 392.00` et `nom` = `2000` pour la première).
+> Les 3 lignes de cote et les 3 étiquettes sont identiques à l'attendu (`210.00 378.00 240.00 392.00` et `nom` = `2000` pour la première), et le job les affiche.
 
 > [!quote] Mes notes
 > _Ce que j'ai compris, les erreurs rencontrées._

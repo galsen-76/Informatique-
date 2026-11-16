@@ -34,6 +34,7 @@ Faire le chemin complet avec **un seul tuyau** : le script lit le JSON, écrit `
 
 > [!warning] Les pièges de cette étape
 > - Supprimer les formes en parcourant `image` directement en saute une sur deux : parcours `list(image)`.
+> - `image.clear()` enlève aussi les attributs `id`, `name`… de `<image>`.
 > - Tout ce qui va dans `.set()` ou un dictionnaire d'attributs doit être une chaîne.
 > - L'import **remplace** par défaut toutes les annotations du job. Fais tes essais sur un job de test.
 

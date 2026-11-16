@@ -16,17 +16,16 @@ tags:
 # Projet - Convertir le graphe en XML CVAT
 
 > [!info] Le principe
-> `convertir.py` part de `modele.xml`, vide la balise `<image>` et la remplit avec les formes du JSON (tuyaux, lignes de cote, étiquettes), pour réimporter le résultat dans CVAT.
+> `convertir.py` part de `modele.xml`, vide la balise `<image>`, la remplit avec les formes du JSON (tuyaux, lignes de cote, étiquettes), puis **réimporte** le XML (CVAT 1.1) dans le job, à la place de ses annotations.
 
 **À lire d'abord :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]]
 
 ```mermaid
 flowchart TD
-  Z[Un tuyau] --> A[Lire le JSON]
-  A --> B[Vider l'image]
-  B --> C[Tuyaux]
+  A[Un tuyau] --> B[Lire le JSON]
+  B --> C[Tous les tuyaux]
   C --> D[Cotes]
-  D --> E[Comparer]
+  D --> E[Remplacer le job]
   E --> F[Fonction Nuclio]
 ```
 
@@ -35,13 +34,14 @@ flowchart TD
 | --- | --- | --- |
 | 0 | [[Graphe 00 - Un tuyau, du JSON jusqu'à CVAT]] : **commence ici** | XML en Python (ElementTree), Format CVAT for images 1.1 |
 | 1 | [[Graphe 01 - Lire et explorer le JSON]] | JSON, Liste et dictionnaire |
-| 2 | [[Graphe 02 - Charger le modèle et vider l'image]] | XML, XML en Python (ElementTree) |
-| 3 | [[Graphe 03 - Les tuyaux]] | XML en Python (ElementTree), Format CVAT for images 1.1 |
-| 4 | [[Graphe 04 - Les cotes et leurs étiquettes]] | Format CVAT for images 1.1 |
-| 5 | [[Graphe 05 - Comparer et importer dans CVAT]] | Format CVAT for images 1.1 |
-| 6 | [[Graphe 06 - Une fonction prête pour Nuclio]] | Exception, Journaliser avec logging |
+| 2 | [[Graphe 02 - Tous les tuyaux]] | XML en Python (ElementTree), Format CVAT for images 1.1 |
+| 3 | [[Graphe 03 - Les cotes et leurs étiquettes]] | Format CVAT for images 1.1 |
+| 4 | [[Graphe 04 - Remplacer les annotations du job]] | Format CVAT for images 1.1 |
+| 5 | [[Graphe 05 - Une fonction prête pour Nuclio]] | Exception, Journaliser avec logging |
 
-**Ensuite, pour couvrir toutes les formes de CVAT :** [[Graphe 07 - Un fichier de référence exporté de CVAT]] · [[Graphe 08 - Toutes les formes avec un format d'entrée commun]] · [[Graphe 09 - Le masque et le squelette]]
+À chaque étape, le script se termine par l'import dans le job : tu vérifies toujours le résultat dans CVAT.
+
+**Ensuite, pour couvrir toutes les formes de CVAT :** [[Graphe 06 - Un fichier de référence exporté de CVAT]] · [[Graphe 07 - Toutes les formes avec un format d'entrée commun]] · [[Graphe 08 - Le masque et le squelette]]
 
 ## Pour démarrer
 ```bash
@@ -52,7 +52,7 @@ Crée les fichiers ci-dessous **tels quels** : `graph.json` (l'entrée), `attend
 
 Pour vérifier :
 ```bash
-python3 convertir.py            # produit sortie.xml
+python3 convertir.py            # produit sortie.xml et l'importe dans le job
 python3 comparer.py attendu.xml sortie.xml
 ```
 `comparer.py` ignore la mise en forme et montre la **première** différence.

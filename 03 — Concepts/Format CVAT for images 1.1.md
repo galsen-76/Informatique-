@@ -59,7 +59,7 @@ Chaque forme porte `label`, `source` (`manual`, `auto`…), `occluded` (`0`/`1`)
 Les coordonnées sont en **pixels**, origine en **haut à gauche**, `y` vers le **bas**, toujours écrites avec 2 décimales (sauf le masque, en entiers).
 
 ### Les 9 formes, une par une
-Vérifié dans le code de l'export CVAT (`cvat/apps/dataset_manager/formats/cvat.py`). Pour être sûr à 100 % sur **ta** version, exporte un exemple de chaque forme depuis ton CVAT : [[Graphe 07 - Un fichier de référence exporté de CVAT]].
+Vérifié dans le code de l'export CVAT (`cvat/apps/dataset_manager/formats/cvat.py`). Pour être sûr à 100 % sur **ta** version, exporte un exemple de chaque forme depuis ton CVAT : [[Graphe 06 - Un fichier de référence exporté de CVAT]].
 
 | Balise | Type dans meta | Géométrie |
 | --- | --- | --- |
@@ -146,7 +146,7 @@ Dans `<meta>`, un label `skeleton` a des **sous-labels** (un par point, avec `<p
 > - Le masque est en **entiers** et son `rle` est une liste de nombres séparés par `, ` (virgule **et** espace), pas par `;`.
 
 ## 3 · Pratiquer
-- [[Projet - Convertir le graphe en XML CVAT]] (étapes 03 à 05, puis 07 à 09 pour toutes les formes)
+- [[Projet - Convertir le graphe en XML CVAT]] (étapes 00 à 04, puis 06 à 08 pour toutes les formes)
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

@@ -9,16 +9,16 @@ tags:
   - exercice
   - mini-projet
 ---
-# Graphe 08 - Toutes les formes avec un format d'entrée commun
+# Graphe 07 - Toutes les formes avec un format d'entrée commun
 
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
-> **Étape précédente :** [[Graphe 07 - Un fichier de référence exporté de CVAT]]
+> **Étape précédente :** [[Graphe 06 - Un fichier de référence exporté de CVAT]]
 > **Fiche à avoir lue :** [[Format CVAT for images 1.1]]
 > **Notions validées par cette étape :** [[Format CVAT for images 1.1]], [[Patron Stratégie (Strategy)]]
 
 ## Le but
-Ton convertisseur sait faire des tuyaux et des cotes. Maintenant il doit savoir écrire **n'importe quelle** forme CVAT (sauf masque et squelette, à l'étape 09). Pour ça, tu sépares le travail en deux :
+Ton convertisseur sait faire des tuyaux et des cotes. Maintenant il doit savoir écrire **n'importe quelle** forme CVAT (sauf masque et squelette, à l'étape 08). Pour ça, tu sépares le travail en deux :
 1. le graphe est d'abord transformé en une **liste de formes simples**, toutes au même format, par exemple `{"type": "polyline", "label": "tuyau", "points": [[100.0, 400.0], [300.0, 284.53]], "attributes": {"debut": "true"}}` ;
 2. une seconde partie, qui ne connaît **rien** du graphe, écrit chaque forme de cette liste en XML.
 
@@ -30,7 +30,7 @@ Ton convertisseur sait faire des tuyaux et des cotes. Maintenant il doit savoir 
 - [ ] Ajoute le tag. Où doit-il aller dans `<image>` ? Que n'a-t-il pas, par rapport aux formes ?
 - [ ] Gère la rotation : l'attribut n'apparaît que s'il est différent de 0
 - [ ] Compare avec `reference_formes.xml` (mets de côté masque et squelette en les retirant d'une copie)
-- [ ] Fais repasser ton graphe des étapes 01 à 05 par ce nouveau chemin (graphe → liste de formes → XML) : `comparer.py attendu.xml sortie.xml` doit toujours dire `Identiques`
+- [ ] Fais repasser ton graphe des étapes 00 à 04 par ce nouveau chemin (graphe → liste de formes → XML) : `comparer.py attendu.xml sortie.xml` doit toujours dire `Identiques`
 
 > [!warning] Le piège de cette étape
 > Mélanger « lire le graphe » et « écrire le XML » dans les mêmes fonctions : chaque nouveau type t'obligerait à toucher au code du graphe. Avec un format commun au milieu, ajouter une forme = ajouter **une** fonction et **une** ligne dans le dictionnaire.

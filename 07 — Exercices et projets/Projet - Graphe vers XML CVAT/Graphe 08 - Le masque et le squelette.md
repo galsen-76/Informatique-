@@ -8,11 +8,11 @@ tags:
   - exercice
   - mini-projet
 ---
-# Graphe 09 - Le masque et le squelette
+# Graphe 08 - Le masque et le squelette
 
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
-> **Étape précédente :** [[Graphe 08 - Toutes les formes avec un format d'entrée commun]]
+> **Étape précédente :** [[Graphe 07 - Toutes les formes avec un format d'entrée commun]]
 > **Fiche à avoir lue :** [[Format CVAT for images 1.1]] (masque et squelette)
 > **Notions validées par cette étape :** [[Format CVAT for images 1.1]]
 

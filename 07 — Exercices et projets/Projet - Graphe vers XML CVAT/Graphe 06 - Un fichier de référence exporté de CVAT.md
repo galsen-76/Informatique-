@@ -8,16 +8,16 @@ tags:
   - exercice
   - mini-projet
 ---
-# Graphe 07 - Un fichier de référence exporté de CVAT
+# Graphe 06 - Un fichier de référence exporté de CVAT
 
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
-> **Étape précédente :** [[Graphe 06 - Une fonction prête pour Nuclio]]
+> **Étape précédente :** [[Graphe 05 - Une fonction prête pour Nuclio]]
 > **Fiche à avoir lue :** [[Format CVAT for images 1.1]] (partie « Les 9 formes, une par une »)
 > **Notions validées par cette étape :** [[Format CVAT for images 1.1]]
 
 ## Le but
-Avant de coder les 9 formes, avoir **la vérité** : un `reference_formes.xml` exporté par **ton** CVAT (v2.81), avec un exemple de chaque forme. C'est ton `attendu.xml` pour les étapes 08 et 09.
+Avant de coder les 9 formes, avoir **la vérité** : un `reference_formes.xml` exporté par **ton** CVAT (v2.81), avec un exemple de chaque forme. C'est ton `attendu.xml` pour les étapes 07 et 08.
 
 ## Ce que tu fais
 - [ ] Dans ton CVAT local, crée un projet ou une tâche avec 9 labels, un par type : `rectangle`, `polygon`, `polyline`, `points`, `ellipse`, `cuboid`, `mask`, `skeleton` (avec 2 points : `entree` et `sortie`), `tag`. Mets un attribut texte sur l'un d'eux
