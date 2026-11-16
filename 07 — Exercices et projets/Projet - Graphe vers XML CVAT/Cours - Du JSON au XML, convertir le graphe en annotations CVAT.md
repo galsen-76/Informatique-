@@ -19,6 +19,66 @@ tags:
 
 **Prérequis :** [[Liste et dictionnaire]] · [[Boucle (for, while)]]
 
+## 0. La carte complète : je garde, j'enlève, j'ajoute
+C'est **la** partie à avoir en tête. Les parties suivantes montrent chaque morceau en détail.
+
+### Le chemin en un coup d'œil
+```text
+graph.json
+├── image                         →  <image id name width height>
+├── pipe_edges (4)                →  4 × <polyline label="tuyau">
+├── dimension_constraints (3)
+│   ├── dimension_geometry        →  3 × <polyline label="ligne de cote">
+│   └── label_geometry + length   →  3 × <box label="etiquette de cote">
+├── nodes                         →  jeté
+└── graph_type, length_unit,
+    diagnostics                   →  jetés
+
+écrit en dur, sans le JSON        →  <version>, <meta>, source, occluded, z_order
+```
+
+### ✅ Je garde, et je convertis comme ça
+| Dans le JSON | Devient dans le XML | Conversion | Outil Python |
+| --- | --- | --- | --- |
+| `image.id`, `image.name` | attributs `id`, `name` de `<image>` | recopiés en texte | `str()` |
+| `image.width`, `image.height` | attributs `width`, `height` | `800` → `"800"` | `str()` |
+| la liste `pipe_edges` | **une** `<polyline label="tuyau">` par élément | une boucle, dans l'ordre des `segment_id` | `for`, `sorted(key=...)` |
+| `pipe_edges[i].geometry` | attribut `points` | `[[100.0, 400.0], [300.0, 284.53]]` → `"100.00,400.00;300.00,284.53"` | `f"{x:.2f}"`, `";".join` |
+| `pipe_edges[i].attributes.debut` | `<attribute name="debut">true</attribute>` | recopié tel quel (c'est déjà `"true"` ou `"false"`) | `.get("debut", "false")` |
+| `pipe_edges[i].segment_id` | rien d'écrit | sert **seulement** à trier | `sorted` |
+| la liste `dimension_constraints` | **une** ligne de cote **et une** étiquette par élément | deux boucles (toutes les lignes, puis toutes les étiquettes) | `for` |
+| `dimension_constraints[i].dimension_geometry` | `points` de la `<polyline label="ligne de cote">` | même conversion que `geometry` | la même fonction |
+| `dimension_constraints[i].label_geometry` | `xtl ytl xbr ybr` de la `<box>` | 5 coins → 2 coins : le plus petit x et y, le plus grand x et y | `min`, `max`, `f"{x:.2f}"` |
+| `dimension_constraints[i].length` | `<attribute name="nom">2000</attribute>` | `2000.0` → `"2000"` | `is_integer()` ou `f"{n:g}"` |
+
+### ❌ J'enlève, et pourquoi
+**La règle :** si une donnée ne sert ni à **dessiner** une forme sur l'image, ni à remplir un **attribut CVAT** (`debut`, `nom`), elle ne va pas dans le XML. CVAT ne connaît que des formes isolées : il n'a aucune place pour les liens entre elles, ni pour les résultats de calcul.
+
+| Dans le JSON | Pourquoi je l'enlève |
+| --- | --- |
+| `graph_type`, `length_unit`, `diagnostics` | des infos sur le calcul, pas sur le dessin |
+| `nodes` (toute la liste) | les coordonnées des nœuds sont **déjà** dans les `geometry` des tuyaux |
+| `pipe_edges[i].source`, `target`, `key` | ils disent quel nœud est relié à quel nœud : CVAT ne connaît pas les liens |
+| `pipe_edges[i].pixel_length` | un résultat de calcul |
+| `pipe_edges[i].constraint_ids` | le lien tuyau ↔ cote : CVAT ne le connaît pas |
+| `dimension_constraints[i].id`, `dimension_line_id`, `label_id` | des numéros internes au calcul |
+| `dimension_constraints[i].start_node`, `end_node`, `path_nodes`, `path_edges` | le lien cote ↔ tuyaux |
+| `dimension_constraints[i].label_distance`, `angular_error_degrees`, `forced_match` | la qualité du calcul |
+| `dimension_constraints[i].unit` | vide (`null`) ici, et CVAT n'a pas de champ pour ça |
+
+### ➕ J'ajoute, alors que ce n'est pas dans le JSON
+| Dans le XML | D'où ça vient |
+| --- | --- |
+| `<version>1.1</version>` | toujours pareil |
+| tout le bloc `<meta>` (les 3 labels, leur type, leurs attributs) | fixe pour ce projet : recopié depuis `attendu.xml` |
+| le nom de la tâche (`iso_080_test`) | impossible à deviner : un **paramètre** de ta fonction |
+| `label="tuyau"`, `"ligne de cote"`, `"etiquette de cote"` | dépend de la **liste** d'où vient la forme |
+| `source="manual"`, `occluded="0"`, `z_order="0"` | toujours pareils, écrits en dur |
+| les noms `debut` et `nom` dans `<attribute name="...">` | déclarés dans `<meta>` |
+
+> [!tip] Pour vérifier que c'est clair
+> Prends une clé au hasard dans `graph.json` et réponds sans regarder : je la garde ou je l'enlève ? Si je la garde, elle devient quoi, et avec quel outil ? Si tu sais répondre pour toutes, tu peux coder.
+
 ## 1. Les deux fichiers décrivent la même image
 `graph.json` et `attendu.xml` parlent de la même image `iso_080.jpg` : 4 tuyaux, 3 cotes. Ils ne rangent pas les données de la même façon, et le JSON contient beaucoup de données **en plus** qui ne passent pas dans le XML.
 
