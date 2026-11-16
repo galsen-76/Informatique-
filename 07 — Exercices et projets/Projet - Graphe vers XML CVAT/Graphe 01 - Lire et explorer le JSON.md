@@ -13,7 +13,7 @@ tags:
 
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
-> **Étape précédente :** rien, c'est le début
+> **Étape précédente :** [[Graphe 00 - Un tuyau, du JSON jusqu'à CVAT]]
 > **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (parties 2 et 4)
 > **Notions validées par cette étape :** [[JSON]], [[Liste et dictionnaire]]
 

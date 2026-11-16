@@ -22,7 +22,8 @@ tags:
 
 ```mermaid
 flowchart TD
-  A[Lire le JSON] --> B[Vider l'image]
+  Z[Un tuyau] --> A[Lire le JSON]
+  A --> B[Vider l'image]
   B --> C[Tuyaux]
   C --> D[Cotes]
   D --> E[Comparer]
@@ -32,6 +33,7 @@ flowchart TD
 ## Les étapes
 | # | Étape | Notions validées |
 | --- | --- | --- |
+| 0 | [[Graphe 00 - Un tuyau, du JSON jusqu'à CVAT]] : **commence ici** | XML en Python (ElementTree), Format CVAT for images 1.1 |
 | 1 | [[Graphe 01 - Lire et explorer le JSON]] | JSON, Liste et dictionnaire |
 | 2 | [[Graphe 02 - Charger le modèle et vider l'image]] | XML, XML en Python (ElementTree) |
 | 3 | [[Graphe 03 - Les tuyaux]] | XML en Python (ElementTree), Format CVAT for images 1.1 |
