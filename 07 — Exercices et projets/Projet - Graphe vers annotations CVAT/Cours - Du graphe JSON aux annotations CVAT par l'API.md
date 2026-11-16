@@ -64,7 +64,7 @@ L'API ne connaît pas les noms, seulement des numéros. La réponse de `GET /api
 
 Tout le reste du JSON est ignoré (`nodes`, `source`, `target`, `pixel_length`, `path_nodes`, `diagnostics`…).
 
-Chaque forme a aussi, toujours pareil : `"occluded": false`, `"z_order": 0`, `"source": "manual"`.
+Facultatifs (valeurs par défaut) : `"occluded": false` (forme cachée en partie ?), `"z_order": 0` (ordre d'empilement), `"source"` (qui l'a créée). Mets `"source": "auto"` : tes formes viennent d'un calcul, pas d'un humain (`"manual"`).
 
 ## 5. Les conversions
 **Aplatir les points** : `[[x1, y1], [x2, y2]]` → `[x1, y1, x2, y2]`.
