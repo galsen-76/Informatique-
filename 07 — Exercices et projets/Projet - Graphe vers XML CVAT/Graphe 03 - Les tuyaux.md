@@ -14,7 +14,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
 > **Étape précédente :** [[Graphe 02 - Une image vide en XML]]
-> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (parties 4 et 5 a, b, d)
+> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (parties 3 et 6)
 > **Notions validées par cette étape :** [[XML en Python (ElementTree)]], [[Format CVAT for images 1.1]]
 
 ## Le but

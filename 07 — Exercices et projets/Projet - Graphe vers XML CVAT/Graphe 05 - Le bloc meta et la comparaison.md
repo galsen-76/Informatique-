@@ -13,7 +13,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
 > **Étape précédente :** [[Graphe 04 - Les cotes et leurs étiquettes]]
-> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (partie 3) · [[Format CVAT for images 1.1]]
+> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (partie 5) · [[Format CVAT for images 1.1]]
 > **Notions validées par cette étape :** [[Format CVAT for images 1.1]]
 
 ## Le but

@@ -13,7 +13,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
 > **Étape précédente :** [[Graphe 03 - Les tuyaux]]
-> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (partie 5 c)
+> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (partie 4)
 > **Notions validées par cette étape :** [[Format CVAT for images 1.1]]
 
 ## Le but

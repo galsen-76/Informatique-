@@ -14,7 +14,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
 > **Étape précédente :** [[Graphe 01 - Lire et explorer le JSON]]
-> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (parties 2, 3 et 6)
+> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (parties 2 et 6)
 > **Notions validées par cette étape :** [[XML]], [[XML en Python (ElementTree)]]
 
 ## Le but

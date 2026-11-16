@@ -14,159 +14,270 @@ tags:
 # Cours - Du JSON au XML, convertir le graphe en annotations CVAT
 
 > [!abstract] Objectifs
-> - Voir ce qui change vraiment entre le JSON du graphe et le XML de CVAT : la **syntaxe** et surtout le **sens**
-> - Savoir, pour chaque forme du XML, de quelle partie du JSON elle vient
-> - Connaître les 4 transformations à faire en chemin (points, nombres, rectangle, ordre)
-> - Savoir lire du JSON et fabriquer du XML en Python, sans rien installer
+> - Voir, morceau par morceau, ce que devient chaque donnée du JSON dans le XML
+> - Avoir sous la main les outils Python pour faire chaque transformation soi-même
 
-**Prérequis :** [[Cours - Manipuler des fichiers et des archives]] · [[Liste et dictionnaire]] · [[Boucle (for, while)]]
+**Prérequis :** [[Liste et dictionnaire]] · [[Boucle (for, while)]]
 
-## 1. Deux formats, deux questions différentes
-La différence n'est pas seulement « accolades contre balises ». Les deux fichiers ne répondent pas à la même question.
+## 1. Les deux fichiers décrivent la même image
+`graph.json` et `attendu.xml` parlent de la même image `iso_080.jpg` : 4 tuyaux, 3 cotes. Ils ne rangent pas les données de la même façon, et le JSON contient beaucoup de données **en plus** qui ne passent pas dans le XML.
 
-**Le JSON du graphe répond à : « comment le réseau de tuyaux est-il construit ? »**
-Il décrit un **graphe** : des **nœuds** (les points de jonction `PC_0`, `PC_1`…), des **arêtes** (`pipe_edges` : quel nœud est relié à quel nœud) et des **contraintes de cote** (`dimension_constraints` : telle cote mesure tel chemin). Il contient beaucoup d'informations de calcul : `pixel_length`, `label_distance`, `angular_error_degrees`, `path_nodes`…
+On les compare ici en 4 morceaux : l'image, un tuyau, une cote, et ce qui n'a pas d'équivalent.
 
-**Le XML de CVAT répond à : « qu'est-ce qu'il faut dessiner sur l'image ? »**
-CVAT ne connaît pas les graphes. Il ne connaît que des **formes** posées sur une image : des polylignes, des rectangles, chacune avec un **label** (son type) et éventuellement des **attributs**. Une forme ne sait pas qu'elle est reliée à une autre.
-
-> [!tip] La conséquence
-> Convertir, ici, c'est **aplatir** : on garde la géométrie et deux informations (le début du réseau, la longueur des cotes), et on **jette** tout le reste (ids des nœuds, liens entre arêtes et cotes, longueurs en pixels, diagnostics). Le chemin inverse (XML → graphe) est bien plus dur : il faut **recalculer** les liens, c'est le travail du module `replication`.
-
-## 2. La syntaxe : comment chaque format range les données
-| Idée | JSON | XML |
-| --- | --- | --- |
-| Un objet qui a des champs | `{"name": "iso_080.jpg", "width": 800}` | `<image name="iso_080.jpg" width="800"/>` (attributs) ou des balises enfants |
-| Une liste | `[ ... , ... ]` | des balises **répétées** : plusieurs `<polyline>` à la suite |
-| Un nombre | `800`, `284.53` (vrai nombre) | **toujours du texte** : `"800"`, `"284.53"` |
-| Un booléen | `true` | du texte : `"true"`, `"0"`, `"False"`… selon ce que l'outil attend |
-| Rien | `null` | balise vide `<values/>` ou attribut absent |
-
-Point clé : en XML, **tout est texte**. Ce qui fait d'une valeur un nombre, c'est le programme qui la lit (ici CVAT). C'est pour ça qu'il faudra convertir chaque nombre en chaîne, avec le bon format.
-
-Un élément XML a 3 endroits où ranger des choses :
+## 2. Morceau 1 : l'image
+**JSON**
+```json
+"image": {
+  "id": "0",
+  "name": "iso_080.jpg",
+  "width": 800,
+  "height": 600
+}
+```
+**XML**
 ```xml
-<box label="etiquette de cote" xtl="210.00">   <!-- attributs : nom="valeur" -->
-  <attribute name="nom">2000</attribute>       <!-- élément enfant, avec du texte dedans -->
+<image id="0" name="iso_080.jpg" width="800" height="600">
+  ... toutes les formes sont ici, à l'intérieur ...
+</image>
+```
+**Ce qui change**
+- Les 4 clés deviennent 4 **attributs** de la balise `<image>`, avec le même nom.
+- `800` (un nombre en JSON) devient `"800"` (du texte) : en XML, **toutes les valeurs sont du texte**.
+- La balise `<image>` est une **boîte** : toutes les formes (tuyaux, cotes) sont rangées dedans.
+
+## 3. Morceau 2 : un tuyau
+Prenons le premier élément de la liste `pipe_edges`.
+
+**JSON**
+```json
+{
+  "source": "PC_0",
+  "target": "PC_1",
+  "key": 0,
+  "segment_id": 0,
+  "geometry": [[100.0, 400.0], [300.0, 284.53]],
+  "pixel_length": 230.94008075689246,
+  "constraint_ids": ["DC_0"],
+  "attributes": { "debut": "true" }
+}
+```
+**XML**
+```xml
+<polyline label="tuyau" source="manual" occluded="0"
+          points="100.00,400.00;300.00,284.53" z_order="0">
+  <attribute name="debut">true</attribute>
+</polyline>
+```
+**Clé par clé**
+
+| Clé JSON | Dans le XML |
+| --- | --- |
+| `geometry` | ✅ devient `points="100.00,400.00;300.00,284.53"` |
+| `attributes.debut` | ✅ devient `<attribute name="debut">true</attribute>` |
+| `segment_id` | ⚠️ n'apparaît pas, mais sert à **ranger** les tuyaux dans l'ordre 0, 1, 2, 3 |
+| `source`, `target`, `key` | ❌ ignorés |
+| `pixel_length`, `constraint_ids` | ❌ ignorés |
+| rien | ➕ `label="tuyau"`, `source="manual"`, `occluded="0"`, `z_order="0"` : **toujours les mêmes**, tu les écris en dur |
+
+> [!warning] Attention au mot `source`
+> Dans le JSON, `source` = le nœud de départ (`PC_0`). Dans le XML, `source="manual"` = « annotation faite à la main ». Même mot, rien à voir : on ne recopie pas l'un dans l'autre.
+
+**Comment `geometry` devient `points`**
+```text
+[[100.0, 400.0], [300.0, 284.53]]      liste de points, chaque point = [x, y]
+  [100.0, 400.0]  ->  "100.00,400.00"  un point : x et y à 2 décimales, séparés par ","
+  [300.0, 284.53] ->  "300.00,284.53"
+"100.00,400.00;300.00,284.53"          les points mis bout à bout, séparés par ";"
+```
+
+**Règle :** 1 élément de `pipe_edges` = 1 `<polyline label="tuyau">`. 4 tuyaux dans le JSON → 4 polylines dans le XML.
+
+## 4. Morceau 3 : une cote
+Une cote, sur le dessin, c'est **deux choses** : le trait avec ses flèches (la ligne de cote) et le petit cadre où est écrit le chiffre (l'étiquette). C'est pour ça qu'**un** élément du JSON donne **deux** formes dans le XML.
+
+**JSON** (premier élément de `dimension_constraints`, sans les clés ignorées)
+```json
+{
+  "id": "DC_0",
+  "dimension_geometry": [[115.0, 425.98], [315.0, 310.51]],
+  "label_geometry": [[240.0, 378.0], [240.0, 392.0], [210.0, 392.0], [210.0, 378.0], [240.0, 378.0]],
+  "length": 2000.0
+}
+```
+**XML : forme 1, la ligne de cote**
+```xml
+<polyline label="ligne de cote" source="manual" occluded="0"
+          points="115.00,425.98;315.00,310.51" z_order="0">
+</polyline>
+```
+**XML : forme 2, l'étiquette**
+```xml
+<box label="etiquette de cote" source="manual" occluded="0"
+     xtl="210.00" ytl="378.00" xbr="240.00" ybr="392.00" z_order="0">
+  <attribute name="nom">2000</attribute>
 </box>
 ```
-- son **nom** (`box`) ;
-- ses **attributs** (`label`, `xtl`…), toujours des chaînes ;
-- son **contenu** : du texte et/ou des éléments enfants.
+**Clé par clé**
 
-> [!warning] À ne pas confondre
-> Le mot « attribut » a deux sens dans ce projet. Un **attribut XML** est un `nom="valeur"` dans une balise (`xtl="210.00"`). Un **attribut CVAT** est une donnée métier d'une forme (`debut`, `nom`), écrite dans le XML sous forme d'**élément** `<attribute name="debut">true</attribute>`.
+| Clé JSON | Dans le XML |
+| --- | --- |
+| `dimension_geometry` | ✅ `points` de la ligne de cote (même transformation que les tuyaux) |
+| `label_geometry` | ✅ les 4 valeurs `xtl ytl xbr ybr` de la box |
+| `length` | ✅ `<attribute name="nom">2000</attribute>` : `2000.0` devient `2000` |
+| `id`, `start_node`, `end_node`, `path_nodes`, `path_edges`, `label_distance`, `angular_error_degrees`, `forced_match`, `unit`, `label_id`, `dimension_line_id` | ❌ ignorés |
 
-## 3. Le plan du XML CVAT
-```mermaid
-flowchart TD
-  A[annotations] --> V[version]
-  A --> M[meta]
-  M --> L[labels]
-  A --> I[image]
-  I --> F[formes]
+**Comment `label_geometry` devient une box**
+Le JSON donne les **5 coins** d'un rectangle (le 5e = le 1er, pour refermer le tracé). Une box CVAT ne garde que **2 coins** : en haut à gauche (`xtl`, `ytl`) et en bas à droite (`xbr`, `ybr`).
+```text
+x des coins : 240, 240, 210, 210, 240   ->  plus petit = 210 (xtl), plus grand = 240 (xbr)
+y des coins : 378, 392, 392, 378, 378   ->  plus petit = 378 (ytl), plus grand = 392 (ybr)
 ```
-- `<version>1.1</version>` : toujours la même.
-- `<meta>` : la **déclaration** des labels (nom, type de forme, attributs possibles). Elle ne dépend **pas** du JSON : c'est un bloc fixe, le même pour tous les graphes.
-- `<image>` : une par image, avec `id`, `name`, `width`, `height`, et **dedans** toutes les formes.
+Sur une image, `y` **descend** : le haut, c'est le plus **petit** `y`. Le premier coin du JSON (`240, 378`) est en haut à **droite**, donc on ne peut pas le prendre tel quel.
 
-Détails du format : [[Format CVAT for images 1.1]].
+**Règle :** 1 élément de `dimension_constraints` = 1 `<polyline label="ligne de cote">` + 1 `<box label="etiquette de cote">`. Dans le fichier attendu, toutes les lignes de cote viennent d'abord, puis toutes les étiquettes.
 
-## 4. Qui vient d'où : la table de correspondance
-C'est le cœur du projet. Garde ce tableau sous les yeux en codant.
+## 5. Morceau 4 : ce qui n'a pas d'équivalent
+**Dans le JSON, mais pas dans le XML**
+- `nodes` : les coordonnées des nœuds sont **déjà** dans les `geometry` des tuyaux, donc on n'en a pas besoin.
+- `graph_type`, `length_unit`, `diagnostics` : des infos pour le calcul, pas pour le dessin.
 
-| Dans le XML | Vient du JSON | Remarque |
-| --- | --- | --- |
-| `<image id name width height>` | `image` | recopie directe, en texte |
-| `<polyline label="tuyau">` | **une par** élément de `pipe_edges` | `points` ← `geometry` |
-| son `<attribute name="debut">` | `pipe_edges[i]["attributes"]["debut"]` | déjà une chaîne `"true"` / `"false"` |
-| `<polyline label="ligne de cote">` | **une par** élément de `dimension_constraints` | `points` ← `dimension_geometry` |
-| `<box label="etiquette de cote">` | **une par** élément de `dimension_constraints` | rectangle ← `label_geometry` |
-| son `<attribute name="nom">` | `dimension_constraints[i]["length"]` | `2000.0` doit devenir `2000` |
-| partout | rien | `source="manual"`, `occluded="0"`, `z_order="0"` sont fixes |
-| `<meta>` | rien | bloc fixe |
+**Dans le XML, mais pas dans le JSON**
+- `<version>1.1</version>`
+- tout le bloc `<meta>` : il **déclare** les 3 labels (`tuyau`, `ligne de cote`, `etiquette de cote`), leur type de forme et leurs attributs. Il ne dépend pas du JSON : tu le recopies depuis `attendu.xml` et tu le fabriques en dur. Seul le nom de la tâche (`iso_080_test`) pourrait changer.
 
-Ce qui **n'apparaît pas** dans le XML : `nodes` (les points sont déjà dans les `geometry`), `key`, `constraint_ids`, `pixel_length`, `label_distance`, `path_edges`, `diagnostics`… Ils ne servent pas au dessin.
+**Le compte final**
+```text
+JSON : 4 pipe_edges + 3 dimension_constraints
+XML  : 4 polylines tuyau + 3 polylines ligne de cote + 3 boxes etiquette de cote = 10 formes
+```
 
-## 5. Les 4 transformations en chemin
-### a) Une liste de points devient une chaîne
-JSON : `[[100.0, 400.0], [300.0, 284.53]]`
-XML : `"100.00,400.00;300.00,284.53"`
-Règle : `x,y` pour un point, `;` entre deux points. C'est une **jointure** de chaînes : regarde `str.join`.
+## 6. La boîte à outils
+Chaque outil est montré sur **d'autres** données que le projet : à toi de l'appliquer.
 
-### b) Un nombre devient un texte à 2 décimales
-`str(100.0)` donne `"100.0"`, pas `"100.00"`. CVAT exporte toujours avec 2 décimales, donc pour obtenir **le même fichier** que l'exemple il faut formater :
+### Lire le JSON
 ```python
-prix = 3.5
-f"{prix:.2f}"     # '3.50'
-"%.2f" % prix     # '3.50' (ancienne écriture, même résultat)
+import json
+
+with open("eleves.json", encoding="utf-8") as f:
+    data = json.load(f)        # fichier ouvert -> dict / list Python
+# json.loads(texte) fait pareil à partir d'une chaîne
 ```
-CVAT accepterait `100.0` à l'import ; le format compte surtout pour **comparer** ton résultat avec le fichier attendu.
 
-### c) Un polygone devient un rectangle
-`label_geometry` donne les **5 coins** d'un rectangle (le dernier = le premier, pour fermer le tracé). Une `box` CVAT, elle, se décrit par **2 coins** : en haut à gauche (`xtl`, `ytl`) et en bas à droite (`xbr`, `ybr`).
-Sur une image, l'axe `y` **descend** : le haut, c'est le plus **petit** `y`. Donc :
-- `xtl` = le plus petit des `x`, `xbr` = le plus grand ;
-- `ytl` = le plus petit des `y`, `ybr` = le plus grand.
+### Aller chercher une valeur
+```python
+data = {"classe": "B2", "eleves": [{"nom": "Ana", "notes": [12, 15]}]}
 
-Ne compte pas sur l'ordre des coins dans le JSON (il commence en haut à **droite**) : prends le min et le max. Regarde `min()` et `max()` sur une liste.
+data["classe"]                  # 'B2'          clé d'un dict
+data["eleves"][0]               # {...}         numéro dans une liste
+data["eleves"][0]["notes"][1]   # 15            on enchaîne
+data.get("salle", "inconnue")   # 'inconnue'    clé absente -> valeur par défaut
+```
 
-### d) L'ordre des formes
-Dans le JSON, l'arête `PC_1 → PC_4` (`segment_id` 3) arrive **avant** `PC_2 → PC_3` (`segment_id` 2). Dans le XML attendu, les tuyaux sont rangés par `segment_id` : 0, 1, 2, 3. Pour CVAT l'ordre ne change rien, mais pour obtenir exactement l'exemple il faut **trier**. Regarde `sorted(liste, key=...)`.
+### Parcourir une liste
+```python
+for eleve in data["eleves"]:
+    nom = eleve["nom"]
+```
 
-## 6. Les outils Python
-Tout est dans la bibliothèque standard.
+### Écrire un nombre avec 2 décimales
+```python
+x = 7.5
+str(x)          # '7.5'
+f"{x:.2f}"      # '7.50'
+"%.2f" % x      # '7.50'  (ancienne écriture, même résultat)
+```
 
-**Lire le JSON** : le module `json`. `json.load(f)` lit un **fichier ouvert**, `json.loads(texte)` lit une **chaîne**. Tu obtiens des dictionnaires et des listes Python ([[Liste et dictionnaire]]).
+### Enlever le `.0` d'un nombre entier
+```python
+n = 42.0
+int(n)          # 42      attention : int(42.7) donne 42, on perd le .7
+n.is_integer()  # True    pour savoir si on peut enlever le .0 sans rien perdre
+f"{n:g}"        # '42'    et f"{42.7:g}" donne '42.7'
+```
 
-**Fabriquer le XML** : `xml.etree.ElementTree`, importé d'habitude sous le nom `ET`. Exemple sur un tout autre sujet, une bibliothèque :
+### Coller des morceaux de texte
+```python
+mots = ["a", "b", "c"]
+"-".join(mots)                       # 'a-b-c'
+paires = [[1, 2], [3, 4]]
+[f"{a}+{b}" for a, b in paires]      # ['1+2', '3+4']   compréhension de liste
+```
+
+### Plus petit, plus grand
+```python
+points = [[5, 9], [2, 7], [8, 1]]
+xs = [p[0] for p in points]   # [5, 2, 8]
+min(xs), max(xs)              # (2, 8)
+```
+
+### Trier une liste de dictionnaires
+```python
+eleves = [{"nom": "Léo", "rang": 3}, {"nom": "Ana", "rang": 1}]
+sorted(eleves, key=lambda e: e["rang"])   # Ana puis Léo
+```
+
+### Fabriquer du XML : `xml.etree.ElementTree`
 ```python
 import xml.etree.ElementTree as ET
 
-racine = ET.Element("bibliotheque")
-livre = ET.SubElement(racine, "livre", {"isbn": "978-2", "pages": "320"})
-ET.SubElement(livre, "titre").text = "Dune"
+racine = ET.Element("classe")                                  # la balise de départ
+eleve = ET.SubElement(racine, "eleve", {"nom": "Ana", "age": "17"})  # enfant + attributs
+ET.SubElement(eleve, "note", {"matiere": "maths"}).text = "15"      # enfant avec du texte
+ET.SubElement(racine, "vide")                                  # balise sans contenu
 
-ET.indent(racine, space="  ")   # joli retrait (Python 3.9+)
-ET.ElementTree(racine).write("biblio.xml", encoding="utf-8", xml_declaration=True)
+ET.indent(racine, space="  ")                                  # retraits
+ET.ElementTree(racine).write("classe.xml", encoding="utf-8", xml_declaration=True)
 ```
-Résultat :
+Donne :
 ```xml
 <?xml version='1.0' encoding='utf-8'?>
-<bibliotheque>
-  <livre isbn="978-2" pages="320">
-    <titre>Dune</titre>
-  </livre>
-</bibliotheque>
+<classe>
+  <eleve nom="Ana" age="17">
+    <note matiere="maths">15</note>
+  </eleve>
+  <vide />
+</classe>
 ```
-- `ET.Element(nom)` crée la racine, `ET.SubElement(parent, nom, attributs)` crée un enfant **et l'accroche** au parent.
-- `.text` est le texte à l'intérieur de la balise.
-- Les attributs et `.text` doivent être des **chaînes** : `{"pages": 320}` plante à l'écriture.
+- `ET.SubElement(parent, "nom", {attributs})` crée la balise **dans** le parent et la renvoie : garde-la dans une variable si tu dois lui ajouter des enfants.
+- `.text` = le texte entre `<note>` et `</note>`.
+- Attributs et `.text` : **uniquement des chaînes**. `{"age": 17}` plante.
+- `<vide />` et `<vide></vide>` veulent dire la même chose.
+- `ET.tostring(racine, encoding="utf-8", xml_declaration=True)` donne les octets sans écrire de fichier (utile dans Nuclio).
 
-Détails : [[XML en Python (ElementTree)]].
+### Récap : quel outil pour quoi
+| Besoin dans le projet | Outil |
+| --- | --- |
+| Charger `graph.json` | `open` + `json.load` |
+| Accéder à `image`, `pipe_edges`, `debut`… | `data["clé"]`, `liste[0]`, `.get()` |
+| Une forme par tuyau / par cote | `for` |
+| `geometry` → `"x,y;x,y"` | `f"{x:.2f}"`, compréhension de liste, `";".join` |
+| Tuyaux dans l'ordre 0, 1, 2, 3 | `sorted(..., key=...)` |
+| `label_geometry` → box | `min`, `max` |
+| `2000.0` → `"2000"` | `is_integer()` ou `f"{n:g}"` |
+| Écrire le XML | `ET.Element`, `ET.SubElement`, `.text`, `ET.indent`, `write` |
 
-## 7. La démarche conseillée
+## 7. Par où commencer
+Ne fais pas tout d'un coup. Une forme à la fois, et tu compares avec `attendu.xml` à chaque fois :
 ```mermaid
 flowchart TD
-  A[Lire le JSON] --> B[Racine et image]
+  A[Lire le JSON] --> B[Image vide]
   B --> C[Tuyaux]
   C --> D[Cotes]
   D --> E[Bloc meta]
-  E --> F[Comparer]
 ```
-Avance **une forme à la fois** et vérifie le fichier produit à chaque étape. C'est exactement le découpage du projet : [[Projet - Convertir le graphe en XML CVAT]].
+Les étapes détaillées : [[Projet - Convertir le graphe en XML CVAT]].
 
 > [!warning] Erreurs fréquentes
-> - Donner un `int` ou un `float` à ElementTree : `TypeError: cannot serialize 800 (type int)`.
+> - Mettre un nombre dans un attribut XML : `TypeError: cannot serialize 800 (type int)`.
 > - `str(100.0)` → `"100.0"` au lieu de `"100.00"`.
-> - `xtl`/`ytl` pris sur le premier coin de `label_geometry` au lieu du min.
-> - `"2000.0"` au lieu de `"2000"` dans l'attribut `nom`.
+> - Prendre le premier coin de `label_geometry` pour `xtl`/`ytl` au lieu du min.
+> - `"2000.0"` au lieu de `"2000"`.
 > - `json.load("graph.json")` : `load` veut un fichier ouvert, pas un nom.
-> - Oublier de trier les tuyaux : le fichier est valide mais différent de l'exemple.
+> - Recopier le `source` du JSON (`PC_0`) dans le `source` du XML.
 
 ## Résumé
 > [!quote] Avec mes mots
-> _À écrire après le projet : quelle est la différence de **sens** entre les deux fichiers, et comment je passe de l'un à l'autre._
+> _À écrire après le projet : ce que contient chaque fichier, ce qui passe de l'un à l'autre, et ce qui est jeté._
 
 ## Concepts du cours
 [[JSON]] · [[XML]] · [[XML en Python (ElementTree)]] · [[Format CVAT for images 1.1]] · [[Liste et dictionnaire]]

@@ -14,7 +14,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Convertir le graphe en XML CVAT]]
 > **Étape précédente :** rien, c'est le début
-> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (parties 1, 4 et 6)
+> **Cours à avoir lu :** [[Cours - Du JSON au XML, convertir le graphe en annotations CVAT]] (parties 1, 5 et 6)
 > **Notions validées par cette étape :** [[JSON]], [[Liste et dictionnaire]]
 
 ## Le but
@@ -26,7 +26,7 @@ Avant de fabriquer quoi que ce soit, savoir **où sont les données** dont le XM
 - [ ] Pour chaque tuyau, affiche une ligne `segment 0 : PC_0 -> PC_1, debut=true, 2 points`. Regarde l'ordre des `segment_id` : que remarques-tu ?
 - [ ] Pour chaque cote, affiche son id, sa longueur et le **nombre** de points de `label_geometry`. Pourquoi 5 points pour un rectangle ?
 - [ ] Essaie `graph["pipe_edges"]["geometry"]` : lis l'erreur. Qu'est-ce que `pipe_edges`, une liste ou un dictionnaire ?
-- [ ] Dans le cours, partie 4, coche dans ta tête ce que tu viens d'afficher qui servira au XML, et ce qui ne servira pas
+- [ ] Dans le cours, parties 2 à 5, repère dans ta tête ce que tu viens d'afficher qui servira au XML, et ce qui ne servira pas
 
 > [!warning] Le piège de cette étape
 > `json.load` veut un **fichier ouvert**, `json.loads` veut une **chaîne**. Et dans ce JSON, les listes (`[...]`) contiennent des dictionnaires (`{...}`) qui contiennent des listes : il faut savoir à chaque niveau si on indexe avec un **numéro** ou une **clé**.
