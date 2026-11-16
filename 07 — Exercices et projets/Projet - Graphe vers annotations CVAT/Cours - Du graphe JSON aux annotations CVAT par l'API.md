@@ -73,7 +73,7 @@ paires = [[1, 2], [3, 4]]
 [v for p in paires for v in p]     # [1, 2, 3, 4]
 ```
 
-**Rectangle** : `y` descend sur une image, donc le haut = le plus petit `y`.
+**Rectangle droit** : `y` descend sur une image, donc le haut = le plus petit `y`. (Pour un rectangle penché, voir l'étape 07.)
 ```text
 x : 240, 240, 210, 210, 240  →  xtl = 210, xbr = 240
 y : 378, 392, 392, 378, 378  →  ytl = 378, ybr = 392
