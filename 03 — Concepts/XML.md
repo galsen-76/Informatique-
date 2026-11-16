@@ -71,7 +71,7 @@ flowchart TD
 > - XML **n'est pas** HTML : en XML, les balises sont libres, mais toute balise ouverte doit être fermée, sinon le fichier est invalide.
 
 ## 3 · Pratiquer
-- [[Projet - Convertir le graphe en XML CVAT]]
+- Pas d'exercice pour l'instant.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

@@ -95,7 +95,7 @@ for livre in racine.iter("livre"):       # tous les <livre>, à toute profondeur
 > - Python écrit la déclaration avec des apostrophes `<?xml version='1.0' ...?>` et les éléments vides en `<values />` : c'est du XML équivalent.
 
 ## 3 · Pratiquer
-- [[Projet - Convertir le graphe en XML CVAT]]
+- Pas d'exercice pour l'instant.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots

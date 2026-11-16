@@ -59,7 +59,7 @@ Chaque forme porte `label`, `source` (`manual`, `auto`…), `occluded` (`0`/`1`)
 Les coordonnées sont en **pixels**, origine en **haut à gauche**, `y` vers le **bas**, toujours écrites avec 2 décimales (sauf le masque, en entiers).
 
 ### Les 9 formes, une par une
-Vérifié dans le code de l'export CVAT (`cvat/apps/dataset_manager/formats/cvat.py`). Pour être sûr à 100 % sur **ta** version, exporte un exemple de chaque forme depuis ton CVAT : [[Graphe 06 - Un fichier de référence exporté de CVAT]].
+Vérifié dans le code de l'export CVAT (`cvat/apps/dataset_manager/formats/cvat.py`). Pour être sûr à 100 % sur **ta** version, exporte un exemple de chaque forme depuis ton CVAT.
 
 | Balise | Type dans meta | Géométrie |
 | --- | --- | --- |
@@ -136,7 +136,7 @@ Dans `<meta>`, un label `skeleton` a des **sous-labels** (un par point, avec `<p
 
 ### Cas d'utilisation
 - Le POC CVAT : la fonction Nuclio reçoit ce format à l'export.
-- La conversion du graphe géométrique en annotations : [[Projet - Convertir le graphe en XML CVAT]].
+- Lire un export CVAT pour en extraire les formes.
 
 > [!warning] À ne pas confondre
 > - Dans `<meta>`, un rectangle a le type `rectangle` ; dans `<image>`, la forme s'appelle `<box>`.
@@ -146,7 +146,7 @@ Dans `<meta>`, un label `skeleton` a des **sous-labels** (un par point, avec `<p
 > - Le masque est en **entiers** et son `rle` est une liste de nombres séparés par `, ` (virgule **et** espace), pas par `;`.
 
 ## 3 · Pratiquer
-- [[Projet - Convertir le graphe en XML CVAT]] (étapes 00 à 04, puis 06 à 08 pour toutes les formes)
+- Pas d'exercice pour l'instant : le projet du graphe passe par l'API, voir [[Annotations dans l'API CVAT]].
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
@@ -155,7 +155,7 @@ Dans `<meta>`, un label `skeleton` a des **sous-labels** (un par point, avec `<p
 ## 5 · Relier
 - **Prérequis** : [[XML]]
 - **Notion parente** :
-- **Complémentaires** : [[XML en Python (ElementTree)]]
+- **Complémentaires** : [[XML en Python (ElementTree)]], [[Annotations dans l'API CVAT]]
 - **Utilisé par** :
 - **Commandes** :
 
