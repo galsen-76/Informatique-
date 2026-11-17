@@ -84,7 +84,7 @@ Séparer les deux rend le code plus lisible : `main.py` dit *quoi faire*, `funct
 
 ```json
 {
-  "image": {"id": "3", "name": "trang_74_page_1.jpg", "width": 6622, "height": 4678},
+  "image": {"id": "3", "name": "...jpg", "width": ..., "height": ...},
   "pipe_edges": [
     {"geometry": [[101.03, 397.94], [300.0, 281.44]],
      "attributes": {"axe": "X", "debut": "false", "nom": "", "...": ""}}
