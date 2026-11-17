@@ -12,6 +12,15 @@ Les longs contenus collés (JSON, réponses d'API) sont coupés au-delà de 3 00
 
 Notes liées : [[Récap - Ce qu'on a fait et pourquoi]], [[Comprendre le script de réannotation]], [[Labels CVAT du projet]].
 
+## Décisions finales (17/11 au soir)
+
+- **Un seul bouton « Générer »**, une seule fonction Nuclio (`main.py`) : export du job → `replication` → réannotation du folio → renvoie le PNG du graphique.
+- **Relancer = remplacer** : à chaque lancement, la fonction **supprime d'abord les annotations `auto`** de ce folio (labels tuyau, ligne de cote, etiquette), puis recrée les nouvelles. Pas de doublons, et les annotations faites à la main (`manual`) ne sont jamais touchées.
+- **Vérifier** : l'utilisateur filtre sur **Source == Auto** dans CVAT (Filters) pour ne voir que les annotations générées.
+- **Rien n'est téléchargé tout de suite** : le PNG est rangé dans **IndexedDB** du navigateur (clé `job-X-folio-Y`, survit au F5, une seule image par folio, toujours la dernière).
+- **Bouton « Télécharger »** : relit l'image dans IndexedDB et la télécharge, sans nouvelle requête.
+- Reste à faire : brancher les deux boutons dans le plugin (`src/ts/index.tsx`), tester la fonction sur le serveur, faire valider le parcours par le tuteur.
+
 
 ## 16/11/2026
 
@@ -5546,3 +5555,7 @@ Pour le reste, oui : tu gardes **une image par folio**, toujours la dernière g�
 **Oumar** · 21:17
 
 > Ok push toute notre conversation sur un fichier créer dans le repo
+
+**Oumar** · 21:18
+
+> Enlever les annotations auto si je refais, mets ça aussi
