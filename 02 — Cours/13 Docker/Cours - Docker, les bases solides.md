@@ -63,9 +63,6 @@ docker system prune       # supprime ce qui ne sert plus (demande confirmation)
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Explique à voix haute, sans notes, la différence entre image, conteneur et registre.
-- Construis une petite image Python, lance-la deux fois avec des arguments différents.
-- Lis le `docker-compose.yml` de CVAT et dessine (sur papier) les services et leurs liens.
 
 > [!warning] Erreurs fréquentes
 > - Modifier un fichier dans un conteneur en pensant modifier l'image

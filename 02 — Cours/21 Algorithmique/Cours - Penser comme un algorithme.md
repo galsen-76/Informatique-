@@ -36,7 +36,7 @@ flowchart TD
 ```
 
 ## 3. Une méthode pour chaque problème
-[[Décomposer un problème]] : entrées, sortie, exemples, cas limites, sous-problèmes. C'est la même méthode pour un exercice, un bug ou une fonctionnalité du projet CVAT.
+[[Décomposer un problème]] : entrées, sortie, exemples, cas limites, sous-problèmes. C'est la même méthode pour un exercice, un bug ou une fonctionnalité d'un projet.
 
 ## 4. Réfléchir sans la syntaxe
 [[Pseudo-code et trace d'exécution]] : écrire la logique en français, puis la faire tourner à la main avec un tableau des variables. Le débogueur fait la même chose pour toi.

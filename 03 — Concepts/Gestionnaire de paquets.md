@@ -76,7 +76,7 @@ winget install Python.Python.3.12    # sous Windows
 
 ### Cas d'utilisation
 - Installer des outils dans WSL (`zip`, `tree`, `jq`)
-- Les lignes `RUN apt-get install` des Dockerfile de CVAT (en entreprise, elles passent par le [[Nexus]] ou un [[Proxy]])
+- Les lignes `RUN apt-get install` des Dockerfile (derrière un [[Proxy]], elles passent par un miroir interne)
 
 > [!warning] À ne pas confondre
 > `apt update` (rafraîchit la liste, n'installe rien) et `apt upgrade` (installe les mises à jour). Et `apt` (paquets du **système**) avec `pip` (paquets **Python**).

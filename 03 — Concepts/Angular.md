@@ -11,7 +11,7 @@ fil_rouge: false
 prerequisites:
   - "[[TypeScript]]"
   - "[[HTML]]"
-  - "[[Module JavaScript (import et export)]]"
+  - "[[Module et import]]"
 parents: []
 related:
   - "[[React]]"
@@ -101,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 10 - Angular, afficher la liste]]
 
 ## 4 · Relier
-- **Prérequis** : [[TypeScript]] · [[HTML]] · [[Module JavaScript (import et export)]]
+- **Prérequis** : [[TypeScript]] · [[HTML]] · [[Module et import]]
 - **Complémentaires** : [[React]] · [[Vue.js]]
 - **Utilisé par** : [[Composant Angular]]
 

@@ -78,7 +78,7 @@ code .
 ```
 
 ### Cas d'utilisation
-- Travailler sur CVAT et ses scripts dans le même environnement que la CI
+- Travailler dans le même environnement Linux que la CI et les serveurs
 - Lancer des scripts `.sh` sans les problèmes de [[Fichiers entre Windows et Linux]]
 - Moteur de Docker Desktop
 

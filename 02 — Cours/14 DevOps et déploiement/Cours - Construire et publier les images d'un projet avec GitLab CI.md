@@ -60,10 +60,6 @@ Commandes : [[docker login]] · [[docker build]] · [[docker tag]] · [[docker p
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Dans le dépôt CVAT, liste les Dockerfile et leurs lignes `FROM`.
-- Décide : modifier les `FROM` en dur, ou les rendre paramétrables ? Pourquoi ?
-- Dessine (liste ou schéma) les stages et jobs de ta pipeline avant d'écrire le YAML.
-- Écris un premier `.gitlab-ci.yml` avec un seul job `docker version`, et fais-le passer au vert.
 
 > [!warning] Erreurs fréquentes
 > - Changer le `FROM` mais oublier que l'`image:` des jobs vient aussi de Docker Hub

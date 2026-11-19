@@ -3,7 +3,7 @@ niveau_actuel: 0
 current: "[[Python]]"
 goal: "Niveau 0 : écrire un petit script Python dans WSL et le ranger dans Git (fil rouge « Suivre ses dépenses en Python »)"
 next:
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
   - "[[Condition (if)]]"
   - "[[Boucle (for, while)]]"
 tags:

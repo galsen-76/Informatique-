@@ -26,6 +26,9 @@ tags:
 ---
 # Fichiers et chemins avec Node (fs et path)
 
+> [!warning] Fiche fusionnée le 19/11/2026
+> Un concept = une fiche, quel que soit le langage : voir [[Lire et écrire un fichier]].
+
 > [!info] En une phrase
 > Les modules intégrés fs et path permettent à un programme Node de lire, écrire, lister des fichiers et construire des chemins sans erreur.
 

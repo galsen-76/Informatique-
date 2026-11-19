@@ -105,7 +105,7 @@ class Annotation:
 ```
 
 ### Cas d'utilisation
-- Le SDK de CVAT (`client.tasks.retrieve(12)` renvoie un objet tâche)
+- Un SDK d'API (`client.users.get(12)` renvoie un objet utilisateur)
 - Les composants Angular et les services
 - Tous les design patterns
 

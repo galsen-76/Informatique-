@@ -11,7 +11,7 @@ fil_rouge: false
 prerequisites:
   - "[[npm]]"
   - "[[package.json]]"
-  - "[[Module JavaScript (import et export)]]"
+  - "[[Module et import]]"
 parents:
   - "[[React]]"
 related:
@@ -95,7 +95,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 06 - Le front Vue dans Docker]]
 
 ## 4 · Relier
-- **Prérequis** : [[npm]] · [[package.json]] · [[Module JavaScript (import et export)]]
+- **Prérequis** : [[npm]] · [[package.json]] · [[Module et import]]
 - **Complémentaires** : [[Compilation TypeScript (tsc et tsconfig)]] · [[Dockerfile]]
 
 ## 5 · Réviser

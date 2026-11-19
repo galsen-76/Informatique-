@@ -13,7 +13,7 @@ prerequisites:
 parents:
   - "[[JavaScript]]"
 related:
-  - "[[Module JavaScript (import et export)]]"
+  - "[[Module et import]]"
 next_review: 
 method: []
 tags:
@@ -104,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ## 4 · Relier
 - **Prérequis** : [[Fonction fléchée et callback]]
-- **Complémentaires** : [[Module JavaScript (import et export)]]
+- **Complémentaires** : [[Module et import]]
 - **Utilisé par** : [[React]]
 
 ## 5 · Réviser

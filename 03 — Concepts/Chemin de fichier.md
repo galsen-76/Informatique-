@@ -21,7 +21,7 @@ tags:
   - concept
   - python
 ---
-# Chemin de fichier en Python (pathlib)
+# Chemin de fichier
 
 > [!info] En une phrase
 > pathlib représente un chemin comme un objet Path : on le construit avec /, on teste s'il existe, on liste un dossier, sans se soucier de Windows ou Linux.
@@ -73,6 +73,35 @@ for fichier in source.rglob("*.png"):
     print("  relatif :", fichier.relative_to(source))
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> from pathlib import Path
+> ici = Path(__file__).parent          # dossier du script
+> fichier = ici / "data" / "depenses.csv"
+> fichier.suffix, fichier.name, fichier.exists()
+> ```
+>
+> **JavaScript (Node)**
+> ```js
+> import path from "node:path";
+> const fichier = path.join("data", "depenses.csv");
+> path.extname(fichier);   // ".csv"
+> path.basename(fichier);  // "depenses.csv"
+> new URL("./data.json", import.meta.url);  // à partir du script
+> ```
+> Un chemin relatif part du dossier où la commande est lancée (`process.cwd()`), pas du fichier du script.
+>
+> **Bash**
+> ```bash
+> ici="$(dirname "$0")"           # dossier du script
+> fichier="$ici/data/depenses.csv"
+> basename "$fichier"             # depenses.csv
+> [ -f "$fichier" ] && echo "existe"
+> ```
+
 ### Cas d'utilisation
 - Trouver tous les fichiers à zipper dans un dossier et ses sous-dossiers
 - Construire le chemin de l'archive de sortie
@@ -95,7 +124,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ### Mon schéma
 
 > [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Chemin de fichier en Python (pathlib) » et je l'intègre ici avec `![[Schéma - Chemin de fichier en Python (pathlib).excalidraw]]`, puis je coche `schema`._
+> _Je crée le dessin « Schéma - Chemin de fichier » et je l'intègre ici avec `![[Schéma - Chemin de fichier.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 08 - Lire un vrai fichier]]

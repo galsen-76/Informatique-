@@ -3,7 +3,7 @@ type: howto
 concepts:
   - "[[Exception]]"
   - "[[Variable d'environnement]]"
-  - "[[Module et import Python]]"
+  - "[[Module et import]]"
 tags:
   - fiche-pratique
   - erreurs

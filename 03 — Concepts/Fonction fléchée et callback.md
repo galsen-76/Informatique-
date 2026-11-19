@@ -10,7 +10,7 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[Fonction]]"
-  - "[[Variables et types en JavaScript]]"
+  - "[[Variables et types]]"
 parents:
   - "[[JavaScript]]"
 related:
@@ -97,7 +97,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[Fonction]] · [[Variables et types en JavaScript]]
+- **Prérequis** : [[Fonction]] · [[Variables et types]]
 - **Complémentaires** : [[Portée et closure]] · [[Méthodes de tableau (map, filter, reduce)]]
 - **Utilisé par** : [[Événement JavaScript]]
 

@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
 parents: []
 related:
   - "[[Boucle (for, while)]]"
@@ -65,6 +65,45 @@ else:
     print("Pas une image")
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> if montant > 100:
+>     print("grosse")
+> elif montant > 20:
+>     print("moyenne")
+> else:
+>     print("petite")
+> ```
+> Le bloc est défini par l'**indentation**.
+>
+> **JavaScript / TypeScript**
+> ```js
+> if (montant > 100) {
+>   console.log("grosse");
+> } else if (montant > 20) {
+>   console.log("moyenne");
+> } else {
+>   console.log("petite");
+> }
+> const taille = montant > 100 ? "grosse" : "petite";  // ternaire
+> ```
+> Accolades et parenthèses obligatoires ; compare avec `===`.
+>
+> **Bash**
+> ```bash
+> if [ "$montant" -gt 100 ]; then
+>   echo "grosse"
+> elif [ "$montant" -gt 20 ]; then
+>   echo "moyenne"
+> else
+>   echo "petite"
+> fi
+> ```
+> Espaces obligatoires dans `[ … ]` ; `-gt`, `-lt`, `-eq` pour les nombres, `=` pour le texte. `if` teste en fait le **code de sortie** d'une commande.
+
 ### Cas d'utilisation
 - Ne traiter que certains types de fichiers
 - Vérifier qu'un dossier existe avant de travailler dedans
@@ -93,7 +132,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Dépenses 02 - Classer les dépenses]]
 
 ## 4 · Relier
-- **Prérequis** : [[Variables et types en Python]]
+- **Prérequis** : [[Variables et types]]
 - **Complémentaires** : [[Boucle (for, while)]]
 - **Utilisé par** : [[Fonction]] · [[Exception]]
 

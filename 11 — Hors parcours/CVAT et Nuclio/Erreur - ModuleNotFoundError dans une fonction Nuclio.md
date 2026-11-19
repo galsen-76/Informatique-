@@ -3,7 +3,7 @@ type: error
 tool: Python / Nuclio
 date: 2026-11-12
 concepts:
-  - "[[Module et import Python]]"
+  - "[[Module et import]]"
   - "[[pip]]"
   - "[[Charger un fichier .env (python-dotenv)]]"
 tags:

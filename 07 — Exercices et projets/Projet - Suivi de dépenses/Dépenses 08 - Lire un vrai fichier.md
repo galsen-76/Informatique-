@@ -6,7 +6,7 @@ difficulty: moyen
 concepts:
   - "[[Lire et écrire un fichier]]"
   - "[[Lire et écrire du CSV]]"
-  - "[[Chemin de fichier en Python (pathlib)]]"
+  - "[[Chemin de fichier]]"
   - "[[Encodage des caractères]]"
   - "[[Dates et heures (datetime)]]"
   - "[[Fichiers entre Windows et Linux]]"
@@ -20,7 +20,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Suivre ses dépenses en Python]] · **Niveau :** 0
 > **Étape précédente :** [[Dépenses 07 - Le projet dans Git]]
-> **Notions appliquées ici :** [[Lire et écrire un fichier]] · [[Lire et écrire du CSV]] · [[Chemin de fichier en Python (pathlib)]] · [[Encodage des caractères]] · [[Dates et heures (datetime)]] · [[Fichiers entre Windows et Linux]] · [[Classe et objet]]
+> **Notions appliquées ici :** [[Lire et écrire un fichier]] · [[Lire et écrire du CSV]] · [[Chemin de fichier]] · [[Encodage des caractères]] · [[Dates et heures (datetime)]] · [[Fichiers entre Windows et Linux]] · [[Classe et objet]]
 > **Ordre :** pour chaque notion, je lis la fiche, je fais son dessin et ses exercices visuels, puis je fais le morceau de cette étape qui l'utilise.
 
 ## Le but

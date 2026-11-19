@@ -4,7 +4,7 @@ sujet: "Python"
 concepts:
   - "[[Python]]"
   - "[[Environnement virtuel Python]]"
-  - "[[Chemin de fichier en Python (pathlib)]]"
+  - "[[Chemin de fichier]]"
   - "[[Exception]]"
   - "[[Journaliser avec logging]]"
   - "[[Lancer une commande (subprocess)]]"
@@ -32,7 +32,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. Utiliser pathlib pour les chemins
-Portable entre Windows et Linux, lisible. Voir [[Chemin de fichier en Python (pathlib)]].
+Portable entre Windows et Linux, lisible. Voir [[Chemin de fichier]].
 
 ```python
 from pathlib import Path
@@ -125,4 +125,4 @@ total = sum(f.stat().st_size for f in fichiers)
 - [ ] `pytest` passe
 
 ## Notions liées
-[[Python]] · [[Environnement virtuel Python]] · [[Chemin de fichier en Python (pathlib)]] · [[Exception]] · [[Journaliser avec logging]] · [[Lancer une commande (subprocess)]]
+[[Python]] · [[Environnement virtuel Python]] · [[Chemin de fichier]] · [[Exception]] · [[Journaliser avec logging]] · [[Lancer une commande (subprocess)]]

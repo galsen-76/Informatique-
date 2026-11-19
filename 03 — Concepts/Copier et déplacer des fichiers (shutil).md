@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Chemin de fichier en Python (pathlib)]]"
+  - "[[Chemin de fichier]]"
 parents: []
 related:
   - "[[Archive zip (zipfile)]]"
@@ -100,7 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[Chemin de fichier en Python (pathlib)]]
+- **Prérequis** : [[Chemin de fichier]]
 - **Complémentaires** : [[Archive zip (zipfile)]]
 - **Utilisé par** : [[Cours - Manipuler des fichiers et des archives]]
 

@@ -73,8 +73,6 @@ Le script renvoie le [[Code de sortie]] de sa dernière commande, ou celui de `e
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Écris `compter.sh <dossier>` qui affiche le nombre de fichiers par extension et sort en erreur si le dossier n'existe pas.
-- Lis l'`entrypoint.sh` (ou un script `.sh`) du dépôt CVAT et explique chaque ligne.
 
 > [!warning] Erreurs fréquentes
 > - Mettre des espaces autour du `=` : `NOM = x` est lu comme une commande `NOM`

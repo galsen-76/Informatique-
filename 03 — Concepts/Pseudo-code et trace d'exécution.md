@@ -10,7 +10,7 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[Algorithme]]"
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
 parents:
   - "[[Algorithme]]"
 related:
@@ -84,7 +84,7 @@ def somme_pairs(nombres):
 
 ### Cas d'utilisation
 - Préparer un algorithme
-- Comprendre du code existant (par exemple celui de CVAT)
+- Comprendre du code existant (un projet open source, le code d'un collègue)
 - Déboguer sans tâtonner
 
 > [!warning] À ne pas confondre
@@ -118,7 +118,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Dépenses 02 - Classer les dépenses]]
 
 ## 4 · Relier
-- **Prérequis** : [[Algorithme]] · [[Variables et types en Python]]
+- **Prérequis** : [[Algorithme]] · [[Variables et types]]
 - **Complémentaires** : [[Motifs de boucle]]
 
 ## 5 · Réviser

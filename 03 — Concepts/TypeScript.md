@@ -10,7 +10,7 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[JavaScript]]"
-  - "[[Variables et types en JavaScript]]"
+  - "[[Variables et types]]"
 parents: []
 related:
   - "[[Type et interface TypeScript]]"
@@ -99,7 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[JavaScript]] · [[Variables et types en JavaScript]]
+- **Prérequis** : [[JavaScript]] · [[Variables et types]]
 - **Complémentaires** : [[Type et interface TypeScript]] · [[Compilation TypeScript (tsc et tsconfig)]]
 - **Utilisé par** : [[Angular]] · [[React]]
 

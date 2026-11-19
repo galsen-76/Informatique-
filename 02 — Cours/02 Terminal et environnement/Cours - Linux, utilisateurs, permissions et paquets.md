@@ -57,9 +57,6 @@ Voir [[Gestionnaire de paquets]] et [[apt]]. Ce sont les mêmes commandes que da
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Ajoute à ton `~/.bashrc` un alias `ll='ls -la'`, recharge-le et teste.
-- Crée un script, rends-le exécutable, lance-le avec `./`.
-- Installe `tree` et `zip` avec apt, puis zippe un dossier de test en ligne de commande.
 
 > [!warning] Erreurs fréquentes
 > - Tout lancer avec `sudo` « pour que ça passe »

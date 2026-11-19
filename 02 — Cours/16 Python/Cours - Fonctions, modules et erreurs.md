@@ -4,7 +4,7 @@ order: 2
 module: "[[Module 16 - Python]]"
 concepts:
   - "[[Fonction]]"
-  - "[[Module et import Python]]"
+  - "[[Module et import]]"
   - "[[Exception]]"
   - "[[Code de sortie]]"
 tags:
@@ -47,7 +47,7 @@ import sys                     # bibliothèque standard
 from pathlib import Path       # un nom précis d'un module
 from outils import extension   # ton propre fichier outils.py
 ```
-Voir [[Module et import Python]]. Garde le point d'entrée dans un bloc `if __name__ == "__main__":`.
+Voir [[Module et import]]. Garde le point d'entrée dans un bloc `if __name__ == "__main__":`.
 
 ## 5. Quand ça casse
 Une [[Exception]] arrête le script et affiche un traceback. Méthode : lire **la dernière ligne** (type et message), puis remonter jusqu'à la première ligne qui appartient à **ton** fichier.
@@ -75,7 +75,6 @@ Ce squelette (`main()` qui renvoie un code, `sys.exit(main())`) est une bonne ba
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-Le mini-projet [[Projet - Suivre ses dépenses en Python]], les étapes 04 à 06 : un petit suivi de dépenses, avec les données fournies.
 
 > [!warning] Erreurs fréquentes
 > - Afficher un résultat avec `print` dans la fonction au lieu de le renvoyer avec `return`
@@ -87,4 +86,4 @@ Le mini-projet [[Projet - Suivre ses dépenses en Python]], les étapes 04 à 06
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[Fonction]] · [[Module et import Python]] · [[Exception]] · [[Code de sortie]]
+[[Fonction]] · [[Module et import]] · [[Exception]] · [[Code de sortie]]

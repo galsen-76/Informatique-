@@ -23,6 +23,9 @@ tags:
 ---
 # Tableau et objet JavaScript
 
+> [!warning] Fiche fusionnée le 19/11/2026
+> Un concept = une fiche, quel que soit le langage : voir [[Liste et dictionnaire]].
+
 > [!info] En une phrase
 > Le tableau range des valeurs dans l'ordre ([1, 2, 3]) ; l'objet associe des clés à des valeurs ({ nom: "a", taille: 12 }).
 

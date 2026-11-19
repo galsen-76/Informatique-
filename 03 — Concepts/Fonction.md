@@ -9,11 +9,11 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
   - "[[Condition (if)]]"
 parents: []
 related:
-  - "[[Module et import Python]]"
+  - "[[Module et import]]"
 next_review: 
 method: []
 tags:
@@ -68,9 +68,39 @@ print(compter_images(["a.PNG", "b.txt", "c.jpg"]))   # 2
 ```
 Les `: str` et `-> bool` sont des **annotations de type** : facultatives, elles documentent ce que la fonction attend.
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> def total(depenses, categorie="courses"):
+>     return sum(d["montant"] for d in depenses if d["categorie"] == categorie)
+> ```
+>
+> **JavaScript / TypeScript**
+> ```js
+> function total(depenses, categorie = "courses") {
+>   return depenses.filter((d) => d.categorie === categorie)
+>                  .reduce((s, d) => s + d.montant, 0);
+> }
+> const double = (x) => x * 2;   // fonction fléchée
+> // TypeScript : function total(depenses: Depense[], categorie = "courses"): number
+> ```
+> Voir aussi [[Fonction fléchée et callback]] : une fonction est une valeur qu'on peut passer à une autre.
+>
+> **Bash**
+> ```bash
+> total() {
+>   echo "Catégorie : $1"   # $1, $2 : les arguments
+>   return 0                # code de sortie, pas une valeur
+> }
+> resultat="$(total courses)"   # on récupère ce qui est affiché
+> ```
+> En Bash, une fonction **affiche** son résultat ; `return` ne renvoie qu'un code de sortie (0 à 255).
+
 ### Cas d'utilisation
 - Découper ton script : lire les arguments, lister, zipper, nettoyer
-- Une fonction Nuclio est une fonction `handler(context, event)` que la plateforme appelle
+- Une fonction serverless est une fonction `handler(event)` que la plateforme appelle à ta place
 
 > [!warning] À ne pas confondre
 > `print` (affiche à l'écran, ne renvoie rien d'utilisable) et `return` (renvoie une valeur au code qui appelle). Et `est_image` (la fonction elle-même) vs `est_image("a.png")` (l'appel).
@@ -102,8 +132,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Dépenses 04 - Ranger en fonctions]]
 
 ## 4 · Relier
-- **Prérequis** : [[Variables et types en Python]] · [[Condition (if)]]
-- **Complémentaires** : [[Module et import Python]]
+- **Prérequis** : [[Variables et types]] · [[Condition (if)]]
+- **Complémentaires** : [[Module et import]]
 - **Utilisé par** : [[pytest]] · [[Arguments de ligne de commande]]
 
 ## 5 · Réviser

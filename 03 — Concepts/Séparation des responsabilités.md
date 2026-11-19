@@ -10,7 +10,7 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[Fonction]]"
-  - "[[Module et import Python]]"
+  - "[[Module et import]]"
 parents: []
 related:
   - "[[Architecture en couches]]"
@@ -104,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[Fonction]] · [[Module et import Python]]
+- **Prérequis** : [[Fonction]] · [[Module et import]]
 - **Complémentaires** : [[Architecture en couches]] · [[Principes SOLID]]
 - **Utilisé par** : [[Architecture en couches]]
 

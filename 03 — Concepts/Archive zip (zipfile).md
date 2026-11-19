@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Chemin de fichier en Python (pathlib)]]"
+  - "[[Chemin de fichier]]"
   - "[[Boucle (for, while)]]"
 parents: []
 related:
@@ -100,7 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[Chemin de fichier en Python (pathlib)]] · [[Boucle (for, while)]]
+- **Prérequis** : [[Chemin de fichier]] · [[Boucle (for, while)]]
 - **Complémentaires** : [[Copier et déplacer des fichiers (shutil)]] · [[Exception]]
 - **Utilisé par** : [[Cours - Manipuler des fichiers et des archives]] · [[Fichier en mémoire (io.BytesIO)]] (un zip sans fichier) · [[Cours - Envoyer et recevoir des fichiers par HTTP]]
 

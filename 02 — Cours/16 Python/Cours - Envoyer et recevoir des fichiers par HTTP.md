@@ -89,7 +89,6 @@ Si `HTTP_PROXY` ou `HTTPS_PROXY` sont définis (fréquent au travail), requests 
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-Le mini-projet [[Projet - Envoyer un zip ou une image en Python]] : un serveur de test est fourni, tu écris le script qui lui envoie un zip et une image, de trois façons, puis qui en reçoit.
 
 > [!warning] Erreurs fréquentes
 > - Ouvrir un zip ou une image en `"r"` au lieu de `"rb"`

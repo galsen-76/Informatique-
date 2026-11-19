@@ -20,7 +20,7 @@ tags:
   - concept
   - python
 ---
-# Module et import Python
+# Module et import
 
 > [!info] En une phrase
 > Un module est un fichier .py dont on importe le contenu ; import permet d'utiliser le code d'un autre fichier ou d'une bibliothèque.
@@ -72,6 +72,34 @@ if __name__ == "__main__":
 ```
 `if __name__ == "__main__":` veut dire « seulement si ce fichier est **lancé** directement, pas s'il est **importé** ». Ça permet d'importer `main.py` dans un test sans lancer le script.
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> import json
+> from pathlib import Path
+> from budget import totaux_par_categorie   # ton fichier budget.py
+> ```
+> Un fichier `.py` est un module ; `if __name__ == "__main__":` sépare le code lancé directement.
+>
+> **JavaScript / TypeScript**
+> ```js
+> // outils.js
+> export function formater(o) { return `${o} o`; }
+> export default function principal() {}
+> // app.js
+> import principal, { formater } from "./outils.js";
+> // vieux Node (CommonJS) : const fs = require("fs");
+> ```
+> Export **nommé** : importé entre accolades, sous son nom. Export **par défaut** : un seul par fichier, sans accolades. Ne mélange pas `import` et `require`.
+>
+> **Bash**
+> ```bash
+> source ./outils.sh      # ou : . ./outils.sh
+> mafonction              # définie dans outils.sh
+> ```
+
 ### Cas d'utilisation
 - `import zipfile, shutil, os, sys` pour ton script
 - `import requests` avec [[Appeler une API HTTP (requests)]]
@@ -94,7 +122,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ### Mon schéma
 
 > [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Module et import Python » et je l'intègre ici avec `![[Schéma - Module et import Python.excalidraw]]`, puis je coche `schema`._
+> _Je crée le dessin « Schéma - Module et import » et je l'intègre ici avec `![[Schéma - Module et import.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 05 - Un module réutilisable]]

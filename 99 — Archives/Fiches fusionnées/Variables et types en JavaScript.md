@@ -23,6 +23,9 @@ tags:
 ---
 # Variables et types en JavaScript
 
+> [!warning] Fiche fusionnée le 19/11/2026
+> Un concept = une fiche, quel que soit le langage : voir [[Variables et types]].
+
 > [!info] En une phrase
 > On déclare une valeur avec const (ne sera pas réaffectée) ou let (pourra changer) ; les types de base sont nombre, chaîne, booléen, null, undefined, objet.
 

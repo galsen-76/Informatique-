@@ -4,7 +4,7 @@ order: 1
 module: "[[Module 07 - Node.js]]"
 concepts:
   - "[[Node.js]]"
-  - "[[Fichiers et chemins avec Node (fs et path)]]"
+  - "[[Lire et écrire un fichier]]"
   - "[[Boucle d'événements]]"
   - "[[Gestionnaire de versions de Node (nvm)]]"
 tags:
@@ -36,7 +36,7 @@ flowchart TD
 ```
 
 ## 4. Un script utile
-[[Fichiers et chemins avec Node (fs et path)]] : `process.argv`, `fs/promises`, `path.join`, `process.exit(1)` en cas d'erreur.
+[[Lire et écrire un fichier]] : `process.argv`, `fs/promises`, `path.join`, `process.exit(1)` en cas d'erreur.
 
 ## 5. Un seul fil, beaucoup de clients
 La [[Boucle d'événements]] : tant que ton code ne fait pas de gros calcul synchrone, Node sert des milliers de requêtes en parallèle. C'est pour ça qu'il est populaire pour les API.
@@ -53,4 +53,4 @@ La [[Boucle d'événements]] : tant que ton code ne fait pas de gros calcul sync
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[Node.js]] · [[Fichiers et chemins avec Node (fs et path)]] · [[Boucle d'événements]] · [[Gestionnaire de versions de Node (nvm)]]
+[[Node.js]] · [[Lire et écrire un fichier]] · [[Boucle d'événements]] · [[Gestionnaire de versions de Node (nvm)]]

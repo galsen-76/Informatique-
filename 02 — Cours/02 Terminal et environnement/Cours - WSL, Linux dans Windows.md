@@ -59,8 +59,6 @@ Un serveur lancé dans WSL (`python -m http.server 8000`) est joignable depuis l
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Clone un dépôt dans `~/projets`, ouvre-le avec `code .`, vérifie l'indication `WSL: Ubuntu` dans VS Code.
-- Lance `docker version` depuis Ubuntu.
 
 > [!warning] Erreurs fréquentes
 > - Travailler dans `/mnt/c/...` depuis WSL : lent, et problèmes de droits et de fins de ligne

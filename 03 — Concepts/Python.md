@@ -13,7 +13,7 @@ prerequisites:
   - "[[Système de fichiers]]"
 parents: []
 related:
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
 next_review: 
 method: []
 tags:
@@ -64,8 +64,8 @@ python bonjour.py
 ### Cas d'utilisation
 - Scripts d'automatisation (ton script de zip)
 - Appeler des API ([[Appeler une API HTTP (requests)]]), traiter des données ([[Lire et écrire du CSV]])
-- Fonctions Nuclio
-- Le back-end de CVAT est écrit en Python (Django)
+- Fonctions serverless (une fonction appelée par une plateforme)
+- Des back-ends web (Django, FastAPI)
 
 > [!warning] À ne pas confondre
 > **Python 2** (abandonné en 2020) et **Python 3** : tout ce que tu apprends est Python 3. Et la **bibliothèque standard** (déjà incluse : `pathlib`, `zipfile`) et les **paquets externes** (à installer avec [[pip]] : `requests`, `pytest`).
@@ -92,8 +92,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ## 4 · Relier
 - **Prérequis** : [[Terminal]] · [[Système de fichiers]]
-- **Complémentaires** : [[Variables et types en Python]]
-- **Utilisé par** : [[Fonction]] · [[Module et import Python]] · [[Environnement virtuel Python]]
+- **Complémentaires** : [[Variables et types]]
+- **Utilisé par** : [[Fonction]] · [[Module et import]] · [[Environnement virtuel Python]]
 - **Commandes** : [[python script.py]]
 
 ## 5 · Réviser

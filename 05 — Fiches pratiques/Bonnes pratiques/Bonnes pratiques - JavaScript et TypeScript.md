@@ -4,7 +4,7 @@ sujet: "JavaScript et TypeScript"
 concepts:
   - "[[JavaScript]]"
   - "[[TypeScript]]"
-  - "[[Variables et types en JavaScript]]"
+  - "[[Variables et types]]"
   - "[[async et await]]"
   - "[[Appeler une API avec fetch]]"
   - "[[Validation des données]]"
@@ -20,7 +20,7 @@ tags:
 ## À faire
 
 ### 1. const par défaut, let si besoin, jamais var
-Moins de réaffectations accidentelles, portée claire. Voir [[Variables et types en JavaScript]].
+Moins de réaffectations accidentelles, portée claire. Voir [[Variables et types]].
 
 ### 2. Toujours === et !==
 Pas de conversion cachée (`"0" == 0` est vrai).
@@ -65,7 +65,7 @@ const nom = tache?.projet?.nom ?? "sans projet";
 ```
 
 ### 9. Un module par responsabilité, avec des imports explicites
-Voir [[Module JavaScript (import et export)]].
+Voir [[Module et import]].
 
 ## À éviter
 
@@ -101,4 +101,4 @@ Voir [[Module JavaScript (import et export)]].
 - [ ] Les tests passent
 
 ## Notions liées
-[[JavaScript]] · [[TypeScript]] · [[Variables et types en JavaScript]] · [[async et await]] · [[Appeler une API avec fetch]] · [[Validation des données]]
+[[JavaScript]] · [[TypeScript]] · [[Variables et types]] · [[async et await]] · [[Appeler une API avec fetch]] · [[Validation des données]]

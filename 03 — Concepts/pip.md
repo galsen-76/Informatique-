@@ -13,7 +13,6 @@ prerequisites:
 parents: []
 related:
   - "[[npm]]"
-  - "[[Nexus]]"
 next_review: 
 method: []
 tags:
@@ -23,7 +22,7 @@ tags:
 # pip
 
 > [!info] En une phrase
-> Le gestionnaire de paquets de Python : il installe les bibliothèques externes depuis PyPI (ou le Nexus de l'entreprise).
+> Le gestionnaire de paquets de Python : il installe les bibliothèques externes depuis PyPI (ou un miroir interne).
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
@@ -44,7 +43,7 @@ Télécharger et installer les bibliothèques à la main, sans savoir quelles ve
 ```mermaid
 flowchart TD
   R[requirements.txt] --> P[pip]
-  P --> I[PyPI / Nexus]
+  P --> I[PyPI ou miroir]
   P --> E[Environnement]
 ```
 
@@ -60,9 +59,9 @@ pip install -r requirements.txt      # tout installer
 pip list                             # ce qui est installé
 pip freeze > requirements.txt        # figer les versions actuelles
 ```
-En entreprise, pip passe souvent par le [[Nexus]] :
+Sur un réseau d'entreprise, pip passe souvent par un miroir interne :
 ```bash
-pip install -r requirements.txt --index-url https://nexus.mon-entreprise.com/repository/pypi-proxy/simple
+pip install -r requirements.txt --index-url https://miroir.exemple.com/pypi/simple
 ```
 (ou la variable d'environnement `PIP_INDEX_URL`).
 
@@ -95,7 +94,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ## 4 · Relier
 - **Prérequis** : [[Environnement virtuel Python]]
-- **Complémentaires** : [[npm]] · [[Nexus]] · [[Proxy]]
+- **Complémentaires** : [[npm]] · [[Proxy]]
 - **Utilisé par** : [[Appeler une API HTTP (requests)]] · [[pytest]] · [[Python dans Docker]]
 - **Commandes** : [[pip install]]
 

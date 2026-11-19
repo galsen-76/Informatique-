@@ -8,7 +8,7 @@ concepts:
   - "[[WSL]]"
   - "[[Système de fichiers]]"
   - "[[Python]]"
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
 tags:
   - exercice
   - mini-projet
@@ -19,7 +19,7 @@ tags:
 > **Projet :** [[Projet - Suivre ses dépenses en Python]] · **Étape du parcours :** 1 · Python, les bases
 > **Étape précédente :** [[Dépenses 00 - Découvrir son poste]]
 > **Cours à avoir lus :** [[Cours - Python, premiers pas]] · [[Cours - Fonctions, modules et erreurs]]
-> **Notions validées par cette étape :** [[Python]] · [[Variables et types en Python]]
+> **Notions validées par cette étape :** [[Python]] · [[Variables et types]]
 
 ## Le but
 Partir du texte `TEXTE`, déjà écrit dans le fichier de départ, pour dire combien il y a de dépenses, et faire un premier calcul avec deux montants.

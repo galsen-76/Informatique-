@@ -4,7 +4,7 @@ order: 2
 module: "[[Module 05 - JavaScript]]"
 concepts:
   - "[[Portée et closure]]"
-  - "[[Module JavaScript (import et export)]]"
+  - "[[Module et import]]"
 tags:
   - cours
 niveau: 2
@@ -32,7 +32,7 @@ flowchart TD
 ```
 
 ## 4. Les modules
-[[Module JavaScript (import et export)]] : un fichier par responsabilité, `export` ce qu'on partage, `import` ce qu'on utilise. Tu rencontreras aussi l'ancien `require()` de Node (CommonJS).
+[[Module et import]] : un fichier par responsabilité, `export` ce qu'on partage, `import` ce qu'on utilise. Tu rencontreras aussi l'ancien `require()` de Node (CommonJS).
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
@@ -46,4 +46,4 @@ flowchart TD
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[Portée et closure]] · [[Module JavaScript (import et export)]]
+[[Portée et closure]] · [[Module et import]]

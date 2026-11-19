@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Chemin de fichier en Python (pathlib)]]"
+  - "[[Chemin de fichier]]"
 parents: []
 related:
   - "[[JSON]]"
@@ -76,10 +76,38 @@ octets = Path("image.png").read_bytes()
 print(len(octets), "octets")
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> with open("notes.txt", encoding="utf-8") as f:
+>     texte = f.read()
+> with open("sortie.txt", "w", encoding="utf-8") as f:
+>     f.write("fini\n")
+> ```
+>
+> **JavaScript (Node)**
+> ```js
+> import { readFile, writeFile, mkdir } from "node:fs/promises";
+> const texte = await readFile("notes.txt", "utf8");
+> await mkdir("sortie", { recursive: true });
+> await writeFile("sortie/rapport.txt", "fini\n");
+> ```
+> Préfère la version promesses (`fs/promises` + `await`) : les versions `…Sync` bloquent le programme.
+>
+> **Bash**
+> ```bash
+> cat notes.txt                 # lire
+> echo "fini" > sortie.txt      # écrire (écrase)
+> echo "suite" >> sortie.txt    # ajouter à la fin
+> while read -r ligne; do echo "$ligne"; done < notes.txt
+> ```
+
 ### Cas d'utilisation
 - Lire un fichier de configuration JSON
 - Écrire un rapport ou un journal de ce que le script a fait
-- Lire les octets d'une image pour la renvoyer (fonction Nuclio)
+- Lire les octets d'une image pour la renvoyer (dans une réponse HTTP)
 
 > [!warning] À ne pas confondre
 > Mode `"w"` (efface le fichier puis écrit) et `"a"` (ajoute à la fin). Et **texte** vs **binaire** : ouvrir une image en mode texte provoque `UnicodeDecodeError`. Préciser `encoding="utf-8"` évite les accents cassés sous Windows.
@@ -111,7 +139,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Dépenses 08 - Lire un vrai fichier]]
 
 ## 4 · Relier
-- **Prérequis** : [[Chemin de fichier en Python (pathlib)]]
+- **Prérequis** : [[Chemin de fichier]]
 - **Complémentaires** : [[JSON]] · [[Exception]]
 - **Utilisé par** : [[Archive zip (zipfile)]] · [[Lire et écrire du CSV]]
 

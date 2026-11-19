@@ -20,7 +20,7 @@ tags:
   - concept
   - python
 ---
-# Variables et types en Python
+# Variables et types
 
 > [!info] En une phrase
 > Une variable est un nom posé sur une valeur ; le type de la valeur (texte, nombre, booléen…) dit ce qu'on peut en faire.
@@ -73,6 +73,36 @@ print(nom.endswith(".PDF")) # True
 print(len(nom))             # 11
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> nom = "photos"     # str
+> total = 0          # int
+> actif = True       # bool
+> rien = None
+> ```
+> Pas de mot-clé. `type(x)` donne le type, `==` compare.
+>
+> **JavaScript / TypeScript**
+> ```js
+> const nom = "photos";   // ne sera pas réaffectée
+> let total = 0;           // pourra changer
+> const actif = true;
+> let rien = null;         // undefined = jamais rempli
+> // TypeScript : let total: number = 0;
+> ```
+> `const` par défaut, `let` si la valeur change, jamais `var`. Compare avec `===` (strict) : `==` convertit les types (`"0" == 0` vaut `true`). `const liste = []` peut quand même recevoir `push` : seule la réaffectation est interdite.
+>
+> **Bash**
+> ```bash
+> NOM="photos"        # pas d'espace autour du =
+> echo "$NOM"         # $ pour lire la valeur
+> TOTAL=$((TOTAL + 1)) # calcul entier
+> ```
+> En Bash tout est du texte ; les guillemets autour de `"$NOM"` évitent les surprises avec les espaces.
+
 ### Cas d'utilisation
 - Retenir le dossier à traiter, le nom de l'archive, un compteur
 - Construire des noms de fichiers : `f"export_{date}.zip"`
@@ -101,7 +131,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ### Mon schéma
 
 > [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Variables et types en Python » et je l'intègre ici avec `![[Schéma - Variables et types en Python.excalidraw]]`, puis je coche `schema`._
+> _Je crée le dessin « Schéma - Variables et types » et je l'intègre ici avec `![[Schéma - Variables et types.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 01 - Lire les dépenses]]

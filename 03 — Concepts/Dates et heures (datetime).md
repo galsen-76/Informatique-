@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
 parents: []
 related:
   - "[[Journaliser avec logging]]"
@@ -106,8 +106,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Dépenses 08 - Lire un vrai fichier]]
 
 ## 4 · Relier
-- **Prérequis** : [[Variables et types en Python]]
-- **Complémentaires** : [[Journaliser avec logging]] · [[Chemin de fichier en Python (pathlib)]]
+- **Prérequis** : [[Variables et types]]
+- **Complémentaires** : [[Journaliser avec logging]] · [[Chemin de fichier]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger

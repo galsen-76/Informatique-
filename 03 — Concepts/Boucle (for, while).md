@@ -67,8 +67,42 @@ while essais < 3:
     essais += 1                  # sinon la boucle ne s'arrête jamais
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> for d in depenses:
+>     print(d["montant"])
+> for i in range(3):
+>     print(i)
+> while essais < 3:
+>     essais += 1
+> ```
+>
+> **JavaScript / TypeScript**
+> ```js
+> for (const d of depenses) {
+>   console.log(d.montant);
+> }
+> for (let i = 0; i < 3; i++) { console.log(i); }
+> while (essais < 3) { essais++; }
+> depenses.forEach((d) => console.log(d.montant));
+> ```
+> `for … of` parcourt les **valeurs** ; `for … in` parcourt les **clés** (piège classique).
+>
+> **Bash**
+> ```bash
+> for f in *.txt; do
+>   echo "$f"
+> done
+> while read -r ligne; do
+>   echo "$ligne"
+> done < depenses.csv
+> ```
+
 ### Cas d'utilisation
-- Parcourir les fichiers d'un dossier (`for f in dossier.iterdir():`, voir [[Chemin de fichier en Python (pathlib)]])
+- Parcourir les fichiers d'un dossier (`for f in dossier.iterdir():`, voir [[Chemin de fichier]])
 - Réessayer une opération quelques fois
 
 > [!warning] À ne pas confondre
@@ -103,7 +137,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ## 4 · Relier
 - **Prérequis** : [[Condition (if)]]
 - **Complémentaires** : [[Liste et dictionnaire]]
-- **Utilisé par** : [[Chemin de fichier en Python (pathlib)]] · [[Archive zip (zipfile)]]
+- **Utilisé par** : [[Chemin de fichier]] · [[Archive zip (zipfile)]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger

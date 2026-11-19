@@ -78,7 +78,7 @@ echo "Archive créée : $SORTIE"
 | `>&2` | écrire sur stderr |
 
 ### Cas d'utilisation
-- Les `entrypoint.sh` des images Docker (CVAT en a)
+- Les `entrypoint.sh` des images Docker (beaucoup d'images officielles en ont)
 - Les blocs `script:` de GitLab CI sont, en pratique, du shell
 - Petits automatismes ; dès que ça devient complexe, passer à [[Python]]
 

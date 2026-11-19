@@ -78,6 +78,37 @@ FileNotFoundError: [Errno 2] No such file or directory: 'donnees/config.json'
 | `TypeError` | mauvais type (`"2" + 2`) |
 | `ModuleNotFoundError` | paquet non installé |
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> try:
+>     montant = float(texte)
+> except ValueError:
+>     print("Montant invalide", file=sys.stderr)
+> raise ValueError("montant négatif")   # lever une erreur
+> ```
+>
+> **JavaScript / TypeScript**
+> ```js
+> try {
+>   const data = JSON.parse(texte);
+> } catch (e) {
+>   console.error("JSON invalide :", e.message);
+> }
+> throw new Error("montant négatif");
+> // avec une Promesse : try { await fetch(url) } catch (e) { … }
+> ```
+> Attention : `fetch` ne lève **pas** d'erreur sur un 404 ; il faut tester `res.ok`.
+>
+> **Bash**
+> ```bash
+> set -e                     # le script s'arrête à la première commande qui échoue
+> cp a.txt b/ || { echo "copie ratée" >&2; exit 1; }
+> ```
+> Bash n'a pas d'exceptions : il a des [[Code de sortie|codes de sortie]], qu'on teste avec `||`, `&&` ou `if`.
+
 ### Cas d'utilisation
 - Gérer un fichier absent ou un dossier non accessible
 - Sortir proprement en erreur pour que la CI ou Docker voient l'échec ([[Code de sortie]])

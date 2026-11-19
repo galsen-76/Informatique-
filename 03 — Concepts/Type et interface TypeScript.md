@@ -10,7 +10,7 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[TypeScript]]"
-  - "[[Tableau et objet JavaScript]]"
+  - "[[Liste et dictionnaire]]"
 parents:
   - "[[TypeScript]]"
 related:
@@ -104,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[TypeScript]] · [[Tableau et objet JavaScript]]
+- **Prérequis** : [[TypeScript]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[Union et type littéral]]
 - **Utilisé par** : [[Générique TypeScript]]
 

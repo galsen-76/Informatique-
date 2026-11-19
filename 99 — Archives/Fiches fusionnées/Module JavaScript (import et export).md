@@ -23,6 +23,9 @@ tags:
 ---
 # Module JavaScript (import et export)
 
+> [!warning] Fiche fusionnée le 19/11/2026
+> Un concept = une fiche, quel que soit le langage : voir [[Module et import]].
+
 > [!info] En une phrase
 > Chaque fichier JS est un module : il exporte ce qu'il partage et importe ce dont il a besoin, au lieu de tout mettre dans un seul fichier.
 

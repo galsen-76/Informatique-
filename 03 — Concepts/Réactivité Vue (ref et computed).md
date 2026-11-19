@@ -10,7 +10,7 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[Composant monofichier Vue (SFC)]]"
-  - "[[Tableau et objet JavaScript]]"
+  - "[[Liste et dictionnaire]]"
 parents:
   - "[[Vue.js]]"
 related:
@@ -109,7 +109,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 03 - Vue, afficher la liste]]
 
 ## 4 · Relier
-- **Prérequis** : [[Composant monofichier Vue (SFC)]] · [[Tableau et objet JavaScript]]
+- **Prérequis** : [[Composant monofichier Vue (SFC)]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[État React (useState)]] · [[Directives Vue]]
 
 ## 5 · Réviser

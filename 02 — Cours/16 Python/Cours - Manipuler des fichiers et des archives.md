@@ -3,7 +3,7 @@ type: course
 order: 3
 module: "[[Module 16 - Python]]"
 concepts:
-  - "[[Chemin de fichier en Python (pathlib)]]"
+  - "[[Chemin de fichier]]"
   - "[[Lire et écrire un fichier]]"
   - "[[Copier et déplacer des fichiers (shutil)]]"
   - "[[Archive zip (zipfile)]]"
@@ -28,7 +28,7 @@ Tout est dans la bibliothèque standard, rien à installer :
 
 | Module | Rôle |
 | --- | --- |
-| `pathlib` | représenter et explorer des chemins ([[Chemin de fichier en Python (pathlib)]]) |
+| `pathlib` | représenter et explorer des chemins ([[Chemin de fichier]]) |
 | `open`, `read_text`… | lire et écrire ([[Lire et écrire un fichier]]) |
 | `shutil` | copier, déplacer, supprimer, archiver vite ([[Copier et déplacer des fichiers (shutil)]]) |
 | `zipfile` | contrôle fin d'une archive zip ([[Archive zip (zipfile)]]) |
@@ -65,11 +65,6 @@ Ton script de projet combine ces briques. Avant de coder, écris en français (e
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Prépare un dossier de test : 3 `.png`, 2 `.txt`, un sous-dossier avec 1 `.png`, un fichier vide.
-- Écris un script qui affiche, pour chaque fichier, son chemin relatif, son extension et sa taille.
-- Ajoute la création d'un zip contenant **seulement** les `.png`, en gardant les sous-dossiers.
-- Ajoute `argparse` (`dossier`, `--sortie`, `--extension`) et une option `--dry-run`.
-- Écris un test pytest avec `tmp_path` qui vérifie le contenu de l'archive.
 
 > [!warning] Erreurs fréquentes
 > - Écrire les chemins avec des `\` en dur : le script casse dans un conteneur Linux
@@ -81,4 +76,4 @@ Ton script de projet combine ces briques. Avant de coder, écris en français (e
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[Chemin de fichier en Python (pathlib)]] · [[Lire et écrire un fichier]] · [[Copier et déplacer des fichiers (shutil)]] · [[Archive zip (zipfile)]] · [[Arguments de ligne de commande]]
+[[Chemin de fichier]] · [[Lire et écrire un fichier]] · [[Copier et déplacer des fichiers (shutil)]] · [[Archive zip (zipfile)]] · [[Arguments de ligne de commande]]

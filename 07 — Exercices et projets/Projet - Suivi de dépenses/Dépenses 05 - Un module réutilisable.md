@@ -4,7 +4,7 @@ status: a-faire
 niveau: 0
 difficulty: moyen
 concepts:
-  - "[[Module et import Python]]"
+  - "[[Module et import]]"
 tags:
   - exercice
   - mini-projet
@@ -15,7 +15,7 @@ tags:
 > **Projet :** [[Projet - Suivre ses dépenses en Python]] · **Étape du parcours :** 1 · Python, les bases
 > **Étape précédente :** [[Dépenses 04 - Ranger en fonctions]]
 > **Cours à avoir lus :** [[Cours - Python, premiers pas]] · [[Cours - Fonctions, modules et erreurs]]
-> **Notions validées par cette étape :** [[Module et import Python]]
+> **Notions validées par cette étape :** [[Module et import]]
 
 ## Le but
 Ranger le projet en **plusieurs fichiers** : les données d'un côté, les calculs de l'autre, et le programme qui les assemble. Un autre script pourrait alors réutiliser les calculs sans lancer tout le programme.

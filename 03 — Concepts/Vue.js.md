@@ -11,7 +11,7 @@ fil_rouge: false
 prerequisites:
   - "[[JavaScript]]"
   - "[[HTML]]"
-  - "[[Module JavaScript (import et export)]]"
+  - "[[Module et import]]"
 parents: []
 related:
   - "[[React]]"
@@ -99,7 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 03 - Vue, afficher la liste]]
 
 ## 4 · Relier
-- **Prérequis** : [[JavaScript]] · [[HTML]] · [[Module JavaScript (import et export)]]
+- **Prérequis** : [[JavaScript]] · [[HTML]] · [[Module et import]]
 - **Complémentaires** : [[React]] · [[Angular]]
 - **Utilisé par** : [[Composant monofichier Vue (SFC)]]
 

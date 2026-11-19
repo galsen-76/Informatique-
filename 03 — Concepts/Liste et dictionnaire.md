@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
 parents: []
 related:
   - "[[Boucle (for, while)]]"
@@ -65,9 +65,41 @@ for nom, taille in tailles.items():
     print(nom, taille)
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> fichiers = ["a.txt", "b.png"]          # liste
+> fichiers.append("c.csv")
+> tache = {"id": 12, "nom": "Chantier"}   # dictionnaire
+> tache["nom"]
+> ```
+>
+> **JavaScript / TypeScript**
+> ```js
+> const fichiers = ["a.txt", "b.png"];    // tableau
+> fichiers.push("c.csv");
+> const tache = { id: 12, nom: "Chantier" }; // objet
+> tache.nom;
+> const { id } = tache;                     // déstructuration
+> const copie = { ...tache, fini: true };   // copie avec étalement
+> ```
+> `const b = a` ne copie pas : c'est le même objet. Pour copier : `{ ...a }` ou `structuredClone(a)` (en Python : `dict(a)` ou `a.copy()`).
+>
+> **Bash**
+> ```bash
+> fichiers=(a.txt b.png)        # tableau
+> echo "${fichiers[0]}"         # premier élément
+> echo "${#fichiers[@]}"        # nombre d'éléments
+> declare -A tache=([id]=12)    # tableau associatif
+> echo "${tache[id]}"
+> ```
+> Possible, mais dès que les données ont une structure, passe à Python ou à un fichier JSON.
+
 ### Cas d'utilisation
 - Liste des fichiers trouvés dans un dossier
-- Un dictionnaire reçu d'une API (les annotations CVAT arrivent en JSON, donc en dictionnaires et listes)
+- Un dictionnaire reçu d'une API (une réponse JSON devient des dictionnaires et des listes)
 
 > [!warning] À ne pas confondre
 > Les positions commencent à **0** : le dernier élément d'une liste de 3 est `liste[2]` (ou `liste[-1]`). Et `d["cle"]` plante avec `KeyError` si la clé manque, `d.get("cle")` renvoie `None`.
@@ -93,7 +125,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Dépenses 03 - Totaux par catégorie]]
 
 ## 4 · Relier
-- **Prérequis** : [[Variables et types en Python]]
+- **Prérequis** : [[Variables et types]]
 - **Complémentaires** : [[Boucle (for, while)]] · [[JSON]]
 - **Utilisé par** : [[Fonction]] · [[SDK]]
 

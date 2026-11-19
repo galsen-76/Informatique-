@@ -52,9 +52,6 @@ Les [[Tag Git|tags]] marquent les versions ; le [[Changelog]] explique ce qui ch
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Avant ton prochain commit, lis `git diff --staged` en entier et retire tout ce qui n'est pas lié au changement.
-- Avec `git grep`, trouve tous les fichiers de CVAT qui mentionnent `CVAT_HOST`, puis toutes les lignes `FROM`.
-- Vérifie le droit d'exécution des scripts `.sh` du projet avec `git ls-files -s`.
 
 > [!warning] Erreurs fréquentes
 > - Committer « tout ce qui a changé » sans relire le diff

@@ -72,6 +72,35 @@ python zipper.py --help            # aide générée
 | option | `--sortie export.zip` | non, valeur par défaut |
 | drapeau | `--verbeux` (`action="store_true"`) | non, vaut `True` si présent |
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python**
+> ```python
+> import sys
+> print(sys.argv[1:])          # liste des arguments
+> # mieux : argparse
+> import argparse
+> p = argparse.ArgumentParser()
+> p.add_argument("fichier")
+> p.add_argument("--categorie")
+> args = p.parse_args()
+> ```
+>
+> **JavaScript (Node)**
+> ```js
+> const [fichier, categorie] = process.argv.slice(2);
+> // process.argv[0] = node, [1] = le script
+> ```
+>
+> **Bash**
+> ```bash
+> echo "$1"     # premier argument
+> echo "$#"     # nombre d'arguments
+> echo "$@"     # tous les arguments
+> [ $# -lt 1 ] && { echo "usage : $0 fichier" >&2; exit 1; }
+> ```
+
 ### Cas d'utilisation
 - Passer le dossier source et le nom de l'archive au script
 - Dans Docker : les arguments après le nom de l'image arrivent au script (voir [[Python dans Docker]])

@@ -46,7 +46,6 @@ L'option `-i` affiche les en-têtes de la réponse : repère le code `200` et `C
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Ouvre les outils de développement du navigateur (F12) → onglet *Réseau*, recharge une page et observe méthodes, codes et types de contenu.
 
 > [!warning] Erreurs fréquentes
 > - Confondre HTTP (le protocole) et HTML (le contenu d'une page)

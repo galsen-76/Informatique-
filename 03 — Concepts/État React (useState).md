@@ -10,7 +10,7 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[Props React]]"
-  - "[[Tableau et objet JavaScript]]"
+  - "[[Liste et dictionnaire]]"
 parents:
   - "[[React]]"
 related:
@@ -109,7 +109,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[Props React]] · [[Tableau et objet JavaScript]]
+- **Prérequis** : [[Props React]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[Effet React (useEffect)]]
 
 ## 5 · Réviser

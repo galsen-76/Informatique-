@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
 parents: []
 related:
   - "[[grep]]"
@@ -101,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[Variables et types en Python]]
+- **Prérequis** : [[Variables et types]]
 - **Complémentaires** : [[grep]] · [[Journaliser avec logging]]
 
 ## 5 · Réviser

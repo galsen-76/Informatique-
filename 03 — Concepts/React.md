@@ -11,7 +11,7 @@ fil_rouge: false
 prerequisites:
   - "[[JavaScript]]"
   - "[[DOM]]"
-  - "[[Module JavaScript (import et export)]]"
+  - "[[Module et import]]"
 parents: []
 related:
   - "[[Vue.js]]"
@@ -94,7 +94,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[JavaScript]] · [[DOM]] · [[Module JavaScript (import et export)]]
+- **Prérequis** : [[JavaScript]] · [[DOM]] · [[Module et import]]
 - **Complémentaires** : [[Vue.js]] · [[Angular]]
 - **Utilisé par** : [[Composant React]]
 

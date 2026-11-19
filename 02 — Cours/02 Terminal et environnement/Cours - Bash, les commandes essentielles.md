@@ -66,7 +66,7 @@ cat notes.txt                       # vérifier
 Plusieurs lignes d'un coup, avec un *here document* (tout jusqu'au mot `EOF`) :
 ```bash
 cat > config.txt <<'EOF'
-CVAT_URL=http://localhost:8080
+API_URL=http://localhost:8000
 DOSSIER=./images
 EOF
 ```
@@ -98,7 +98,7 @@ Voir [[cat]].
 
 ## 6. Chercher
 ```bash
-grep -rn "CVAT_HOST" .            # un texte dans les fichiers
+grep -rn "API_URL" .            # un texte dans les fichiers
 find . -name "*.png"              # des fichiers par nom
 find . -name "*.log" -size +1M    # par taille
 ```
@@ -123,8 +123,6 @@ Voir [[Redirection et pipe]] et [[Code de sortie]].
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Dans un dépôt cloné, trouve en une ligne combien de fichiers `.py` il contient.
-- Trouve les 10 lignes contenant `FROM` dans tous les Dockerfile du dépôt CVAT.
 
 > [!warning] Erreurs fréquentes
 > - `rm -rf` lancé dans le mauvais dossier : toujours `pwd` avant, et jamais `rm -rf /` ou `rm -rf ~`

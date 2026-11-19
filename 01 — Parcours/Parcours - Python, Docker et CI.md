@@ -46,12 +46,12 @@ flowchart TD
 ## Étape 1 · Python, les bases
 **Cours** : [[Cours - Python, premiers pas]] puis [[Cours - Fonctions, modules et erreurs]]
 1. [[Python]] · commande [[python script.py]]
-2. [[Variables et types en Python]]
+2. [[Variables et types]]
 3. [[Condition (if)]]
 4. [[Boucle (for, while)]]
 5. [[Liste et dictionnaire]]
 6. [[Fonction]]
-7. [[Module et import Python]]
+7. [[Module et import]]
 8. [[Exception]]
 
 **Mini-projet** : [[Projet - Suivre ses dépenses en Python]]
@@ -110,7 +110,7 @@ flowchart TD
 
 ## Étape 7 · Python et les fichiers
 **Cours** : [[Cours - Manipuler des fichiers et des archives]]
-1. [[Chemin de fichier en Python (pathlib)]]
+1. [[Chemin de fichier]]
 2. [[Lire et écrire un fichier]]
 3. [[Copier et déplacer des fichiers (shutil)]]
 4. [[Archive zip (zipfile)]]

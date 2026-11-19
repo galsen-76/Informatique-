@@ -49,8 +49,6 @@ Une application faite de plusieurs conteneurs a besoin d'une porte d'entrée uni
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Explique avec tes mots le chemin d'une requête de ton navigateur jusqu'à l'API de CVAT.
-- Liste les endroits où il faudrait déclarer un proxy pour que `docker build` d'une image Python marche.
 
 > [!warning] Erreurs fréquentes
 > - Inverser les deux côtés de `-p`

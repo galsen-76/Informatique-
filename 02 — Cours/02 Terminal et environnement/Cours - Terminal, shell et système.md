@@ -58,15 +58,13 @@ Quand tu tapes `git`, le shell cherche un fichier `git` dans les dossiers listé
 
 ## 5. Quel shell choisir
 - **PowerShell** : pour Windows lui-même, et quand tout l'outillage est installé côté Windows.
-- **Bash dans WSL** : pour tout ce qui finira sous Linux (Docker, CI, scripts `.sh`, serveurs). C'est le choix conseillé pour ton projet CVAT.
+- **Bash dans WSL** : pour tout ce qui finira sous Linux (Docker, CI, scripts `.sh`, serveurs). C'est le choix conseillé pour un projet qui tournera dans Docker ou en CI.
 - **Git Bash** : un dépannage pratique, mais ce n'est pas un vrai Linux.
 
 Règle simple : **un projet = un côté**. Si le projet vit dans WSL, ouvre-le, lance-le et commite-le depuis WSL.
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- Ouvre un onglet de chaque shell et lance `echo $PSVersionTable` / `echo $SHELL` : lequel répond quoi ?
-- Pour chaque ligne du tableau du point 3, dis où tu te trouves sans regarder la colonne de droite.
 
 > [!warning] Erreurs fréquentes
 > - Coller une commande Bash d'un tutoriel dans PowerShell sans regarder l'invite

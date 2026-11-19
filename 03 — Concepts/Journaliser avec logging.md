@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Module et import Python]]"
+  - "[[Module et import]]"
 parents: []
 related:
   - "[[Exception]]"
@@ -107,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Dépenses 09 - Un vrai outil en ligne de commande]]
 
 ## 4 · Relier
-- **Prérequis** : [[Module et import Python]] · [[Variable d'environnement]]
+- **Prérequis** : [[Module et import]] · [[Variable d'environnement]]
 - **Complémentaires** : [[Exception]] · [[Redirection et pipe]]
 
 ## 5 · Réviser

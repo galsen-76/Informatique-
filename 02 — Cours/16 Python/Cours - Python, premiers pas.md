@@ -4,7 +4,7 @@ order: 1
 module: "[[Module 16 - Python]]"
 concepts:
   - "[[Python]]"
-  - "[[Variables et types en Python]]"
+  - "[[Variables et types]]"
   - "[[Condition (if)]]"
   - "[[Boucle (for, while)]]"
   - "[[Liste et dictionnaire]]"
@@ -38,7 +38,7 @@ flowchart TD
 ```
 
 ## 3. Ranger des valeurs
-Une variable donne un nom à une valeur : `dossier = "photos"`. Chaque valeur a un type (`str`, `int`, `bool`…) qui décide de ce qu'on peut en faire. Voir [[Variables et types en Python]].
+Une variable donne un nom à une valeur : `dossier = "photos"`. Chaque valeur a un type (`str`, `int`, `bool`…) qui décide de ce qu'on peut en faire. Voir [[Variables et types]].
 ```python
 dossier = "photos"
 nb = 3
@@ -84,7 +84,6 @@ Lis-le ligne par ligne et dis à voix haute ce que fait chacune avant de le lanc
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-Le mini-projet [[Projet - Suivre ses dépenses en Python]], les étapes 01 à 03 : un petit suivi de dépenses, avec les données fournies.
 
 > [!warning] Erreurs fréquentes
 > - Oublier les deux-points `:` à la fin d'un `if`, `for` ou `def`
@@ -96,4 +95,4 @@ Le mini-projet [[Projet - Suivre ses dépenses en Python]], les étapes 01 à 03
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[Python]] · [[Variables et types en Python]] · [[Condition (if)]] · [[Boucle (for, while)]] · [[Liste et dictionnaire]]
+[[Python]] · [[Variables et types]] · [[Condition (if)]] · [[Boucle (for, while)]] · [[Liste et dictionnaire]]

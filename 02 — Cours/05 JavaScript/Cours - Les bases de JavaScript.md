@@ -4,8 +4,8 @@ order: 1
 module: "[[Module 05 - JavaScript]]"
 concepts:
   - "[[JavaScript]]"
-  - "[[Variables et types en JavaScript]]"
-  - "[[Tableau et objet JavaScript]]"
+  - "[[Variables et types]]"
+  - "[[Liste et dictionnaire]]"
   - "[[Fonction fléchée et callback]]"
   - "[[Méthodes de tableau (map, filter, reduce)]]"
 tags:
@@ -35,7 +35,7 @@ flowchart TD
 ```
 
 ## 3. Variables et types
-[[Variables et types en JavaScript]] : `const` par défaut, `let` si ça change, `===` toujours. Tu connais déjà l'idée grâce à Python ; seule la syntaxe change (accolades, points-virgules, `//` pour les commentaires).
+[[Variables et types]] : `const` par défaut, `let` si ça change, `===` toujours. Tu connais déjà l'idée grâce à Python ; seule la syntaxe change (accolades, points-virgules, `//` pour les commentaires).
 
 | Python | JavaScript |
 | --- | --- |
@@ -48,7 +48,7 @@ flowchart TD
 | liste, dictionnaire | tableau, objet |
 
 ## 4. Tableaux et objets
-[[Tableau et objet JavaScript]] : la forme de presque toutes les données, identique au [[JSON]].
+[[Liste et dictionnaire]] : la forme de presque toutes les données, identique au [[JSON]].
 
 ## 5. Les fonctions sont des valeurs
 [[Fonction fléchée et callback]] : on les range dans des variables et on les passe à d'autres fonctions.
@@ -68,4 +68,4 @@ flowchart TD
 En 3 phrases, avec mes mots.
 
 ## Concepts du cours
-[[JavaScript]] · [[Variables et types en JavaScript]] · [[Tableau et objet JavaScript]] · [[Fonction fléchée et callback]] · [[Méthodes de tableau (map, filter, reduce)]]
+[[JavaScript]] · [[Variables et types]] · [[Liste et dictionnaire]] · [[Fonction fléchée et callback]] · [[Méthodes de tableau (map, filter, reduce)]]
