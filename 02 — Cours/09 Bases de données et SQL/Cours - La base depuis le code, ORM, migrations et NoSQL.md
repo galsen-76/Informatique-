@@ -8,6 +8,7 @@ concepts:
   - "[[Base NoSQL]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - La base depuis le code, ORM, migrations et NoSQL
 
@@ -36,7 +37,7 @@ flowchart TD
 [[Base NoSQL]] : Redis pour le cache et les sessions, MongoDB pour des documents. CVAT combine PostgreSQL et Redis.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Faire évoluer une base avec un ORM et des migrations]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Modifier une migration déjà appliquée

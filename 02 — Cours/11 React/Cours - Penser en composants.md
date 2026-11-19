@@ -10,6 +10,7 @@ concepts:
   - "[[Outil de build front (Vite)]]"
 tags:
   - cours
+niveau: 4
 ---
 # Cours - Penser en composants
 
@@ -46,7 +47,7 @@ flowchart TD
 [[Liste et clé en React]] : `map` et une `key` stable.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Construire une interface en composants React]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - `class` au lieu de `className`

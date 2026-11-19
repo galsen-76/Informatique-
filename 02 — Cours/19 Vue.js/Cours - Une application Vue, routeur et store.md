@@ -7,6 +7,7 @@ concepts:
   - "[[Pinia]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Une application Vue, routeur et store
 
@@ -37,7 +38,7 @@ flowchart TD
 Comme React : `npm run build`, `dist/` servi par Nginx avec repli vers `index.html`.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Construire une application Vue avec routeur et store]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Croire qu'une garde de route protège les données

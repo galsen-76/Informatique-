@@ -9,6 +9,7 @@ concepts:
   - "[[Permissions Linux]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Écrire un script shell
 
@@ -71,6 +72,7 @@ Le script renvoie le [[Code de sortie]] de sa dernière commande, ou celui de `e
 - **Python** : dès qu'il y a de la logique (filtres, calculs, JSON, gestion d'erreurs fine). Ton script de zip est un bon candidat pour Python.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Écris `compter.sh <dossier>` qui affiche le nombre de fichiers par extension et sort en erreur si le dossier n'existe pas.
 - Lis l'`entrypoint.sh` (ou un script `.sh`) du dépôt CVAT et explique chaque ligne.
 

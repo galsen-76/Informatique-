@@ -8,6 +8,7 @@ concepts:
   - "[[Monolithe et microservices]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - Architecture d'une application
 
@@ -39,7 +40,7 @@ flowchart TD
 [[Monolithe et microservices]] : commencer simple, découper seulement quand une partie doit vraiment vivre à part (comme une fonction Nuclio).
 
 ## Mise en pratique
-- Fais l'[[Exercice - Lire et dessiner une architecture]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Découper en microservices dès le départ

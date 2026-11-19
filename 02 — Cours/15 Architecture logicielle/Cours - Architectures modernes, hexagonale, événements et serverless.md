@@ -11,6 +11,7 @@ concepts:
   - "[[Cache applicatif]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - Architectures modernes, hexagonale, événements et serverless
 
@@ -62,8 +63,7 @@ Un [[Cache applicatif]] évite de refaire un calcul ou un appel coûteux. La vra
 Commence toujours simple et ajoute une de ces pièces quand un problème réel l'exige.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Concevoir la fonction d'export CVAT]]
-- Fais l'[[Exercice - Rendre une application déployable et rapide]]
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Ajouter file de messages, passerelle et cache à un petit projet qui n'en a pas besoin

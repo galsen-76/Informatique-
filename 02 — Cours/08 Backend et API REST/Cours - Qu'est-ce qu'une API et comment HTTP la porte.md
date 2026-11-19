@@ -10,6 +10,7 @@ concepts:
   - "[[En-tête HTTP]]"
 tags:
   - cours
+niveau: 1
 ---
 # Cours - Qu'est-ce qu'une API et comment HTTP la porte
 
@@ -50,7 +51,7 @@ flowchart TD
 `curl -i` et `curl -v` dans le terminal, l'onglet *Réseau* du navigateur, et la documentation [[OpenAPI]] (souvent sur `/api/docs`).
 
 ## Mise en pratique
-- Fais l'[[Exercice - Explorer une API avec curl]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Confondre 401 et 403

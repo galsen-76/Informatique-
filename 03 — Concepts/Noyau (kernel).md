@@ -2,8 +2,12 @@
 type: concept
 domain: systeme
 module: "[[Module 01 - Fondamentaux informatiques]]"
-status: compris
+status: en-cours
 level: debutant
+niveau: 0
+schema: false
+exercice_visuel: false
+fil_rouge: false
 prerequisites:
   - "[[Processeur, mémoire et disque]]"
 parents:
@@ -141,7 +145,7 @@ sudo dmesg | tail     # le journal du noyau (matériel, pilotes, erreurs)
 
 ### Exercice visuel
 
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
 
 > [!example] 🧠 Dessine de mémoire
 > Dessine trois étages : les programmes, le noyau, le matériel. Place une flèche pour « Python lit un fichier » et montre par où elle passe.
@@ -152,31 +156,30 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ### Mon schéma
 
 > [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Noyau (kernel) » et je l'intègre ici avec `![[Schéma - Noyau (kernel).excalidraw]]`._
+> _Je crée le dessin « Schéma - Noyau (kernel) » et je l'intègre ici avec `![[Schéma - Noyau (kernel).excalidraw]]`, puis je coche `schema`._
 
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
-
-## 4 · Expliquer
-> [!quote] Mon résumé, avec mes mots
+> [!note] Ce que j'avais écrit avec mes mots
 > Le noyau fait le lien entre les logiciels et le matériel : c'est par lui que tout passe. Même quand le shell crée un fichier, il le demande au noyau. Il gère aussi les permissions (est-ce que j'ai le droit d'écrire ici ?) et partage les ressources entre les programmes.
 
-## 5 · Relier
+### Appliquer dans le fil rouge
+- [[Dépenses 00 - Découvrir son poste]]
+
+## 4 · Relier
 - **Prérequis** : [[Processeur, mémoire et disque]]
 - **Complémentaires** : [[Système d'exploitation et noyau]] · [[Processus]] · [[Shell]]
 - **Utilisé par** : [[WSL]] · [[Docker]] · [[Conteneur]]
 
-## 6 · Réviser
+## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand je sais :
-1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
-2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
-3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+Trois cases à cocher dans les propriétés de la fiche :
+- `schema` : mon dessin du concept est dans « Mon schéma » ;
+- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
+- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
 
-Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
+Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

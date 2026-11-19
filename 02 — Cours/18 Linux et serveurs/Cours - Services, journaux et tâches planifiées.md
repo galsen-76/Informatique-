@@ -8,6 +8,7 @@ concepts:
   - "[[Tâche planifiée (cron)]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Services, journaux et tâches planifiées
 
@@ -46,7 +47,7 @@ flowchart TD
 4. Le port : `ss -tlnp`
 
 ## Mise en pratique
-- Fais l'[[Exercice - Faire tourner et surveiller un service]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Faire `start` sans `enable` : le service ne revient pas après redémarrage

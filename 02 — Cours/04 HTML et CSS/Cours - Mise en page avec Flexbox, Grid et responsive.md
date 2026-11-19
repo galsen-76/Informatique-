@@ -8,6 +8,7 @@ concepts:
   - "[[Responsive design]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Mise en page avec Flexbox, Grid et responsive
 
@@ -40,7 +41,7 @@ flowchart TD
 [[Responsive design]] : viewport, tailles fluides, media queries « mobile d'abord ». Teste avec le mode appareil de F12.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Mettre en page un tableau de bord responsive]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Positionner avec des marges négatives ou `position: absolute` ce que Flexbox ferait proprement

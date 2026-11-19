@@ -8,6 +8,7 @@ concepts:
   - "[[Reverse proxy]]"
 tags:
   - cours
+niveau: 1
 ---
 # Cours - Ports, proxy et reverse proxy
 
@@ -47,8 +48,7 @@ Une application faite de plusieurs conteneurs a besoin d'une porte d'entrée uni
 - Dans un conteneur, un serveur doit écouter sur `0.0.0.0`, pas `127.0.0.1`.
 
 ## Mise en pratique
-- [[Exercice - Le proxy de l'entreprise]] : dessiner le chemin de tes requêtes au travail.
-- [[Exercice - Un reverse proxy nginx]] : mettre nginx devant un site et une API.
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Explique avec tes mots le chemin d'une requête de ton navigateur jusqu'à l'API de CVAT.
 - Liste les endroits où il faudrait déclarer un proxy pour que `docker build` d'une image Python marche.
 

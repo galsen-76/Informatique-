@@ -1,6 +1,7 @@
 ---
 type: exercise
 status: a-faire
+niveau: 1
 difficulty: moyen
 concepts:
   - "[[Dockerfile]]"

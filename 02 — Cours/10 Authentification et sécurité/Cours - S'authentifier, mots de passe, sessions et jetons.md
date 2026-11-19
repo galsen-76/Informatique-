@@ -9,6 +9,7 @@ concepts:
   - "[[JWT]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - S'authentifier, mots de passe, sessions et jetons
 
@@ -41,7 +42,7 @@ flowchart TD
 [[JWT]] : l'état dans le jeton signé, court, dans `Authorization`. Pratique pour les API et les services.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Inscription, connexion et session]], puis l'[[Exercice - Protéger une route avec un JWT]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Stocker des mots de passe en clair ou en SHA-256

@@ -8,6 +8,7 @@ concepts:
   - "[[Union et type littéral]]"
 tags:
   - cours
+niveau: 4
 ---
 # Cours - TypeScript, du JavaScript typé
 
@@ -42,7 +43,7 @@ flowchart TD
 Les types disparaissent à l'exécution : les données qui viennent de l'extérieur (API, formulaire, fichier) doivent être vérifiées par le code.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Typer un petit programme en TypeScript]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Mettre `any` partout pour faire taire les erreurs

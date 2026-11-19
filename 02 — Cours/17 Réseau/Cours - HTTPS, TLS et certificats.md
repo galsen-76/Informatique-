@@ -7,6 +7,7 @@ concepts:
   - "[[Certificat]]"
 tags:
   - cours
+niveau: 1
 ---
 # Cours - HTTPS, TLS et certificats
 
@@ -42,7 +43,7 @@ Le proxy déchiffre souvent le trafic pour l'inspecter, avec sa propre CA. Résu
 Pour un serveur public : Let's Encrypt (gratuit, automatique ; Traefik sait le faire). Pour un serveur interne : la CA de l'entreprise. Pour un test local : un certificat auto-signé.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Lire et faire confiance à un certificat]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Désactiver la vérification TLS (`-k`, `verify=False`) au lieu d'installer la CA

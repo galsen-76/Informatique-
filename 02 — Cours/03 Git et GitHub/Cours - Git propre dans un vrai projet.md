@@ -9,6 +9,7 @@ concepts:
   - "[[Fichiers entre Windows et Linux]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Git propre dans un vrai projet
 
@@ -50,6 +51,7 @@ Le droit d'exécution et la casse des noms ne se voient pas sous Windows mais ca
 Les [[Tag Git|tags]] marquent les versions ; le [[Changelog]] explique ce qui change entre elles.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Avant ton prochain commit, lis `git diff --staged` en entier et retire tout ce qui n'est pas lié au changement.
 - Avec `git grep`, trouve tous les fichiers de CVAT qui mentionnent `CVAT_HOST`, puis toutes les lignes `FROM`.
 - Vérifie le droit d'exécution des scripts `.sh` du projet avec `git ls-files -s`.

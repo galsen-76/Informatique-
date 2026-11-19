@@ -9,6 +9,7 @@ concepts:
   - "[[Appeler une API HTTP (requests)]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Installer des dépendances et tester
 
@@ -51,6 +52,7 @@ def test_zip_ne_contient_que_les_png(tmp_path):
 [[Appeler une API HTTP (requests)|requests]] appelle des API web en quelques lignes. C'est le paquet externe le plus installé de Python ; il sert aussi à récupérer les annotations de CVAT. La suite des usages courants est dans [[Cours - Python au quotidien]].
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Crée un projet `essai-zip/` avec un venv, installe pytest et requests, génère `requirements.txt`.
 - Écris trois tests pour tes fonctions du cours précédent, dont un avec `tmp_path`.
 - Avec requests, appelle `https://api.github.com/repos/python/cpython` et affiche le nombre d'étoiles.

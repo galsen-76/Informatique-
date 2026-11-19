@@ -8,6 +8,7 @@ concepts:
   - "[[Algorithmes de tri]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - Efficacité, recherche et tri
 
@@ -41,7 +42,7 @@ flowchart TD
 Un index SQL, `git bisect`, un `set` Python : ce sont ces idées, déjà écrites pour toi. Savoir pourquoi ils sont rapides t'aide à les utiliser au bon moment.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Mesurer, chercher et trier]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - `x in liste` dans une boucle (O(n²) caché)

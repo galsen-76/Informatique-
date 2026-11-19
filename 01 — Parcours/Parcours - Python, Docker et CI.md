@@ -33,10 +33,7 @@ flowchart TD
 9. [[Gestionnaire de paquets]] · [[apt]]
 10. [[Script shell]]
 
-**Exercices**, un par notion, dans l'ordre :
-[[Exercice - Terminal, la fenêtre et ce qu'il y a dedans]] → [[Exercice - Qui comprend ma commande]] → [[Exercice - Le noyau, le seul qui touche à la machine]] → [[Exercice - Moteur et carrosserie]] → [[Exercice - Comment le shell trouve un programme]] → [[Exercice - Penser comme PowerShell]] → [[Exercice - Lire une commande Bash avant de la lancer]] → [[Exercice - Deux systèmes dans un PC]] → [[Exercice - Où va la sortie]] → [[Exercice - Les programmes qui tournent]] → [[Exercice - Qui a le droit de quoi]] → [[Exercice - Le catalogue et le magasin]] → [[Exercice - Un script qui sait dire non]]
-
-**Mise en situation**, pour tout assembler à la fin : [[Exercice - Prendre en main WSL et Bash]]
+**Pratiquer** : les exercices visuels de chaque fiche, puis le fil rouge du niveau 0 ([[Projet - Suivre ses dépenses en Python]]).
 
 ## Étape 0 · Prérequis
 **Cours** : [[Cours - Ce que tout programme reçoit et renvoie]]
@@ -81,7 +78,7 @@ flowchart TD
 3. [[Reverse proxy]] (Traefik et `CVAT_HOST`)
 
 **Projet fil rouge** : [[Fil rouge 03 - Une page web pour le rapport]]
-**Exercices** : [[Exercice - Le proxy de l'entreprise]] · [[Exercice - Un reverse proxy nginx]]
+**Pratiquer** : les exercices visuels des fiches [[Proxy]] et [[Reverse proxy]].
 
 ## Étape 4 · Git dans un vrai projet
 **Cours** : [[Cours - Git propre dans un vrai projet]]

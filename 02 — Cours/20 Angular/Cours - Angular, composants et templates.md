@@ -9,6 +9,7 @@ concepts:
   - "[[Template et liaison de données Angular]]"
 tags:
   - cours
+niveau: 4
 ---
 # Cours - Angular, composants et templates
 
@@ -48,7 +49,7 @@ flowchart TD
 | `map` | `v-for` | `@for … track` |
 
 ## Mise en pratique
-- Fais l'[[Exercice - Écrire une liste de tâches en Angular]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Suivre un tutoriel AngularJS

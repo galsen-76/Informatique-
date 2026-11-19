@@ -14,6 +14,7 @@ concepts:
   - "[[Kaniko]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Construire et publier les images d'un projet avec GitLab CI
 
@@ -58,6 +59,7 @@ Commandes : [[docker login]] · [[docker build]] · [[docker tag]] · [[docker p
 - Docker-in-Docker autorisé, ou Kaniko à utiliser
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Dans le dépôt CVAT, liste les Dockerfile et leurs lignes `FROM`.
 - Décide : modifier les `FROM` en dur, ou les rendre paramétrables ? Pourquoi ?
 - Dessine (liste ou schéma) les stages et jobs de ta pipeline avant d'écrire le YAML.

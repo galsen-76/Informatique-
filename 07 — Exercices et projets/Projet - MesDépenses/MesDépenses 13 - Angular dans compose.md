@@ -1,6 +1,7 @@
 ---
 type: exercise
 status: a-faire
+niveau: 4
 difficulty: facile
 concepts:
   - "[[Docker Compose]]"

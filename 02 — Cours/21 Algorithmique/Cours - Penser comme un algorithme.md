@@ -9,6 +9,7 @@ concepts:
   - "[[Motifs de boucle]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Penser comme un algorithme
 
@@ -47,7 +48,7 @@ flowchart TD
 La logique se muscle par la pratique régulière : un petit problème par jour vaut mieux qu'une longue séance par mois. Les sites d'exercices (France-IOI, Exercism, Advent of Code) proposent des problèmes progressifs, en français pour France-IOI.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Résoudre des problèmes pas à pas]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Coder avant d'avoir compris

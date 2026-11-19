@@ -10,6 +10,7 @@ concepts:
   - "[[JSON]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - L'asynchrone avec Promesses, async, await et fetch
 
@@ -46,7 +47,7 @@ flowchart TD
 `for … of` avec `await` : l'un après l'autre. `Promise.all` : tous en même temps.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Charger et afficher des données d'une API]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Oublier `await` (on affiche `[object Promise]`)

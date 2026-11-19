@@ -11,6 +11,7 @@ concepts:
   - "[[Patron Méthode modèle (Template Method)]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - Design patterns comportementaux
 
@@ -59,7 +60,7 @@ flowchart TD
 Tu n'as pas besoin de connaître les 23 patrons par cœur. Retiens surtout **les problèmes** qu'ils résolvent ; le jour où tu rencontres le problème, tu sauras qu'une solution existe et tu sauras la chercher.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Patrons comportementaux]], puis l'[[Exercice - Reconnaître le bon patron]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Stratégie pour deux cas stables

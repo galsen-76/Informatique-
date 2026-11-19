@@ -1,6 +1,7 @@
 ---
 type: project
 status: a-faire
+niveau: 0
 tags:
   - projet
   - mini-projet
@@ -11,25 +12,38 @@ tags:
 > Un petit script qui analyse une liste de dépenses : combien, de quelle taille, combien par catégorie.
 > Le but n'est pas l'outil : c'est de **vérifier que tu as compris chaque notion** du Python de base, en tombant sur les erreurs classiques et en les corrigeant. Tout le reste est **fourni** : les données sont déjà dans le fichier de départ, et tu lances seulement `python3 depenses.py`.
 > Chaque étape valide une ou deux notions, à la place des exercices.
+> C'est le **fil rouge du niveau 0** (voir [[Niveaux]]). Pour chaque notion : je lis la fiche, je fais son dessin et ses exercices visuels, puis tout de suite le morceau de l'étape qui l'utilise.
 
 ```mermaid
 flowchart TD
+  Z[Mon poste] --> A
   A[Lire] --> B[Classer]
   B --> C[Par catégorie]
   C --> D[Fonctions]
   D --> E[Module]
   E --> F[Erreurs]
+  F --> G[Git]
+  G --> H[Fichier CSV]
+  H --> I[Outil]
+  I --> J[Environnement]
+  J --> K[Sauvegarde]
 ```
 
 ## Les étapes
 | # | Étape | Notions validées |
 | --- | --- | --- |
+| 0 | [[Dépenses 00 - Découvrir son poste]] | Terminal, Shell, PowerShell, WSL, Bash, système et noyau, matériel, octets, distribution, arborescence, processus |
 | 1 | [[Dépenses 01 - Lire les dépenses]] | Python, Variables et types en Python |
 | 2 | [[Dépenses 02 - Classer les dépenses]] | Condition (if), Boucle (for, while) |
 | 3 | [[Dépenses 03 - Totaux par catégorie]] | Liste et dictionnaire |
 | 4 | [[Dépenses 04 - Ranger en fonctions]] | Fonction |
 | 5 | [[Dépenses 05 - Un module réutilisable]] | Module et import Python |
 | 6 | [[Dépenses 06 - Un script qui ne plante pas]] | Exception |
+| 7 | [[Dépenses 07 - Le projet dans Git]] | Git, Dépôt Git, Index Git (staging), Commit, Ignorer des fichiers (gitignore), Dépôt distant (remote) |
+| 8 | [[Dépenses 08 - Lire un vrai fichier]] | fichiers, CSV, pathlib, encodage, dates, Windows et Linux, classe et objet |
+| 9 | [[Dépenses 09 - Un vrai outil en ligne de commande]] | arguments, logging, variables d'environnement, PATH, script shell, permissions |
+| 10 | [[Dépenses 10 - Un environnement propre]] | environnement virtuel, pip, gestionnaire de paquets |
+| 11 | [[Dépenses 11 - Sauvegarder ses données]] | archive tar, lien symbolique, utilisateur et groupe |
 
 ## Pour démarrer
 Dans WSL :

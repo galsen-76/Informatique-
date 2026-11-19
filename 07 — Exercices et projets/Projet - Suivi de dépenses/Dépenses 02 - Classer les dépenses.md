@@ -1,8 +1,12 @@
 ---
 type: exercise
 status: a-faire
+niveau: 0
 difficulty: moyen
 concepts:
+  - "[[Algorithme]]"
+  - "[[Décomposer un problème]]"
+  - "[[Pseudo-code et trace d'exécution]]"
   - "[[Condition (if)]]"
   - "[[Boucle (for, while)]]"
 tags:
@@ -77,4 +81,5 @@ Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 
 ## Validation
 - [ ] Le projet marche comme décrit dans « Ça marche si… »
+- [ ] Les notions de l'étape ont leurs trois cases (schéma, exercices visuels, fil rouge)
 - [ ] J'ai répondu aux questions et Claude les a vérifiées

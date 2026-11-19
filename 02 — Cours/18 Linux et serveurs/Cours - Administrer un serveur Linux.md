@@ -9,6 +9,7 @@ concepts:
   - "[[Gestionnaire de paquets]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Administrer un serveur Linux
 
@@ -50,7 +51,7 @@ docker system df # place prise par Docker
 - Noter ce qu'on fait (dans ton coffre !).
 
 ## Mise en pratique
-- Fais l'[[Exercice - Préparer un serveur Linux]] (WSL ou une VM).
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Couper l'accès SSH par mot de passe avant d'avoir testé la clé : on se retrouve enfermé dehors

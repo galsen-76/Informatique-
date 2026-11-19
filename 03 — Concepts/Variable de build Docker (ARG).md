@@ -2,8 +2,12 @@
 type: concept
 domain: devops
 module: "[[Module 13 - Docker]]"
-status: maitrise
+status: en-cours
 level: intermediaire
+niveau: 1
+schema: false
+exercice_visuel: false
+fil_rouge: false
 prerequisites:
   - "[[Dockerfile]]"
 parents:
@@ -70,10 +74,10 @@ docker build --build-arg PYTHON_VERSION=3.12 --build-arg APP_VERSION=1.4.0 -t mo
 
 ### Exercice visuel
 
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
 
 > [!example] ⚖️ Avant / après
-> Avant / après : un Dockerfile avec l'adresse du Nexus écrite en dur, puis avec `ARG`. Dessine ce qui change quand tu construis chez toi et au travail.
+> Avant / après : un Dockerfile avec l'adresse du registre écrite en dur, puis avec `ARG`. Dessine ce qui change quand tu construis sur deux réseaux différents.
 
 > [!example] 🔍 Trouve l'erreur
 > Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
@@ -88,35 +92,31 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ### Mon schéma
 
 > [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Variable de build Docker (ARG) » et je l'intègre ici avec `![[Schéma - Variable de build Docker (ARG).excalidraw]]`._
+> _Je crée le dessin « Schéma - Variable de build Docker (ARG) » et je l'intègre ici avec `![[Schéma - Variable de build Docker (ARG).excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
 - [[MesDépenses 02 - L'API dans Docker]]
 - [[MesDépenses 06 - Le front Vue dans Docker]]
 - [[Fil rouge 02 - Écrire le Dockerfile]]
 
-## 4 · Expliquer
-> [!quote] Mon résumé, avec mes mots
-> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
-
-## 5 · Relier
+## 4 · Relier
 - **Prérequis** : [[Dockerfile]]
 - **Notion parente** : [[Dockerfile]]
 - **Complémentaires** : [[Nexus]]
 - **Utilisé par** : [[Construire une image dans la CI]]
 - **Commandes** : [[docker build]]
 
-## 6 · Réviser
+## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand je sais :
-1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
-2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
-3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+Trois cases à cocher dans les propriétés de la fiche :
+- `schema` : mon dessin du concept est dans « Mon schéma » ;
+- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
+- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
 
-Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
+Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

@@ -10,6 +10,7 @@ concepts:
   - "[[Tester l'image, pas le dépôt]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Faire tourner un script Python dans Docker
 
@@ -56,6 +57,7 @@ Lance pytest **dans l'image** : `docker run --rm --entrypoint pytest mon-zipper 
 `FROM` et `pip install` passent par le [[Nexus]] : préfixe l'image de base et donne `PIP_INDEX_URL` au build (`ARG` ou variable de CI).
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Conteneurise ton script de zip : Dockerfile, `.dockerignore`, build, lancement sur un dossier monté.
 - Fais échouer le script exprès (dossier inexistant) et vérifie le code de sortie du conteneur.
 - Ajoute une variable `NIVEAU_LOG` lue avec `os.environ.get` et passe-la avec `-e`.

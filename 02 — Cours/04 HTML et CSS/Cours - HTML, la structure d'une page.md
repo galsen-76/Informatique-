@@ -9,6 +9,7 @@ concepts:
   - "[[Accessibilité web]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - HTML, la structure d'une page
 
@@ -47,7 +48,7 @@ Des [[Élément et attribut HTML|éléments]] imbriqués, avec des attributs (`i
 Les outils de développement du navigateur (F12) : onglet *Éléments* pour voir et modifier l'arbre en direct. Voir [[Fiche - Utiliser les outils de développement du navigateur]].
 
 ## Mise en pratique
-- Fais l'[[Exercice - Écrire une page HTML structurée et accessible]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Des `div` partout au lieu de balises qui ont un sens

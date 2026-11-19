@@ -1,6 +1,7 @@
 ---
 type: exercise
 status: a-faire
+niveau: 3
 difficulty: moyen
 concepts:
   - "[[Pipeline GitLab CI]]"

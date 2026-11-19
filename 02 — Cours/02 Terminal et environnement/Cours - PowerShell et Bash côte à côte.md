@@ -9,6 +9,7 @@ concepts:
   - "[[Variable d'environnement]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - PowerShell et Bash côte à côte
 
@@ -64,6 +65,7 @@ flowchart TD
 Lis l'invite, puis demande-toi : « cette commande est-elle un **programme** (identique partout) ou une **commande du shell** (à traduire) ? »
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Fais la même tâche dans les deux shells : créer `labo/a/b`, y copier un fichier, chercher un mot dedans, tout supprimer.
 - Prends une commande `docker run -v "$PWD/data:/data" ...` trouvée sur Internet et écris sa version PowerShell.
 

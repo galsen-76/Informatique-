@@ -124,7 +124,7 @@ Avant de toucher au code, dis-toi la phrase : « **[fichier:ligne]** a cassé pa
 >
 
 ## Liens
-- [[Fiche - Aide-mémoire des erreurs fréquentes]] · [[Exercice - Provoquer et lire des erreurs]]
+- [[Fiche - Aide-mémoire des erreurs fréquentes]]
 - [[Fiche - Réflexes pour déboguer une pipeline]] · [[Bonnes pratiques - Résoudre un problème et déboguer]]
 - [[Exception]] · [[Code de sortie]] · [[Redirection et pipe]] · [[docker logs]]
 - [[Erreurs et solutions]] : les erreurs déjà rencontrées

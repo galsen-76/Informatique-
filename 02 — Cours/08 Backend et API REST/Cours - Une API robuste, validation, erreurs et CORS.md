@@ -8,6 +8,7 @@ concepts:
   - "[[CORS]]"
 tags:
   - cours
+niveau: 1
 ---
 # Cours - Une API robuste, validation, erreurs et CORS
 
@@ -38,7 +39,7 @@ flowchart TD
 [[CORS]] : réglé **sur le serveur** (ou évité avec un proxy), jamais en désactivant la sécurité du navigateur.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Rendre une API robuste]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Valider seulement côté navigateur

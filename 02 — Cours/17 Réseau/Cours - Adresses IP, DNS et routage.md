@@ -8,6 +8,7 @@ concepts:
   - "[[Routage et NAT]]"
 tags:
   - cours
+niveau: 1
 ---
 # Cours - Adresses IP, DNS et routage
 
@@ -44,7 +45,7 @@ La passerelle (la box) envoie tout ce qui n'est pas local vers Internet ; le NAT
 5. Le service répond-il ? (`curl -v`)
 
 ## Mise en pratique
-- Fais l'[[Exercice - Diagnostiquer une connexion réseau]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Conclure « le serveur est en panne » alors que c'est le DNS qui ne résout pas

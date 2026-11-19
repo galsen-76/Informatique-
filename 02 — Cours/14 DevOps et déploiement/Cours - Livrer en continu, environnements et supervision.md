@@ -9,6 +9,7 @@ concepts:
   - "[[Supervision et observabilité]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Livrer en continu, environnements et supervision
 
@@ -45,7 +46,7 @@ flowchart TD
 [[Supervision et observabilité]] : logs, métriques, `/health`, alertes. Un déploiement n'est fini que quand on a vérifié qu'il va bien.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Pipeline complète jusqu'au déploiement]] puis l'[[Exercice - Superviser une application]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Reconstruire l'image par environnement

@@ -9,6 +9,7 @@ concepts:
   - "[[Liste et dictionnaire]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Du graphe JSON aux annotations CVAT par l'API
 

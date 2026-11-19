@@ -9,6 +9,7 @@ concepts:
   - "[[Couverture de code]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Tester une application entière
 
@@ -43,7 +44,7 @@ flowchart TD
 [[Couverture de code]] : pour trouver les trous, pas comme un objectif en soi.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Tester une API et son interface]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Tout simuler

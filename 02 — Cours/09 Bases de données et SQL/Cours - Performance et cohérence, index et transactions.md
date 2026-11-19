@@ -7,6 +7,7 @@ concepts:
   - "[[Transaction]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Performance et cohérence, index et transactions
 
@@ -36,7 +37,7 @@ flowchart TD
 Mesurer d'abord (`EXPLAIN ANALYZE`), indexer ensuite, et seulement les colonnes réellement filtrées.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Accélérer et sécuriser des requêtes]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Indexer toutes les colonnes

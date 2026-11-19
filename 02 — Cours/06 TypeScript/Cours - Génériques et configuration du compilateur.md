@@ -7,6 +7,7 @@ concepts:
   - "[[Compilation TypeScript (tsc et tsconfig)]]"
 tags:
   - cours
+niveau: 4
 ---
 # Cours - Génériques et configuration du compilateur
 
@@ -35,7 +36,7 @@ flowchart TD
 Angular, Vite (React, Vue) compilent pour toi. Les erreurs de type s'affichent dans l'éditeur et au build.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Configurer un projet TypeScript]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Désactiver `strict` pour aller plus vite

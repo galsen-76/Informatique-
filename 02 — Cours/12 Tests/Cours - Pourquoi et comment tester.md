@@ -9,6 +9,7 @@ concepts:
   - "[[pytest]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Pourquoi et comment tester
 
@@ -42,7 +43,7 @@ Des fonctions qui prennent leurs entrées en paramètres et renvoient un résult
 Avant de corriger un bug, écris le test qui le reproduit. Il échoue ; corrige ; il passe, et le bug ne reviendra pas sans qu'on le sache.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Écrire des tests unitaires et des doublures]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Tester l'implémentation au lieu du comportement

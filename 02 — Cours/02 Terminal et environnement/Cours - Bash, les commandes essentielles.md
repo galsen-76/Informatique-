@@ -9,6 +9,7 @@ concepts:
   - "[[Processus]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Bash, les commandes essentielles
 
@@ -121,7 +122,7 @@ Voir [[Redirection et pipe]] et [[Code de sortie]].
 `commande --help`, `man commande`, `type commande` (intégrée ou programme ?), `which commande` (où est le programme).
 
 ## Mise en pratique
-- Refais l'[[Exercice - Naviguer dans le terminal]], mais dans WSL.
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Dans un dépôt cloné, trouve en une ligne combien de fichiers `.py` il contient.
 - Trouve les 10 lignes contenant `FROM` dans tous les Dockerfile du dépôt CVAT.
 

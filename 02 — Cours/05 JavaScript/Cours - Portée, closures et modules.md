@@ -7,6 +7,7 @@ concepts:
   - "[[Module JavaScript (import et export)]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Portée, closures et modules
 
@@ -34,7 +35,7 @@ flowchart TD
 [[Module JavaScript (import et export)]] : un fichier par responsabilité, `export` ce qu'on partage, `import` ce qu'on utilise. Tu rencontreras aussi l'ancien `require()` de Node (CommonJS).
 
 ## Mise en pratique
-- Fais l'[[Exercice - Découper un programme JavaScript en modules]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Variable globale utilisée partout

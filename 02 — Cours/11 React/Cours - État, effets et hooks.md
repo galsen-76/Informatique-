@@ -8,6 +8,7 @@ concepts:
   - "[[Hook React]]"
 tags:
   - cours
+niveau: 4
 ---
 # Cours - État, effets et hooks
 
@@ -38,7 +39,7 @@ flowchart TD
 [[Hook React]] : `useContext`, `useRef`, `useMemo`, et tes propres `useQuelqueChose`.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Charger et filtrer des données dans React]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Modifier l'état en place

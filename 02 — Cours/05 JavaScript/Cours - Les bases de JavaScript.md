@@ -10,6 +10,7 @@ concepts:
   - "[[Méthodes de tableau (map, filter, reduce)]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Les bases de JavaScript
 
@@ -56,7 +57,7 @@ flowchart TD
 [[Méthodes de tableau (map, filter, reduce)]] : à connaître par cœur, React s'en sert partout.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Manipuler des données en JavaScript]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - `==` au lieu de `===`

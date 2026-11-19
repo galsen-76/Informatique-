@@ -9,6 +9,7 @@ concepts:
   - "[[JSON]]"
 tags:
   - cours
+niveau: 1
 ---
 # Cours - Comment fonctionne le web
 
@@ -44,6 +45,7 @@ curl -i https://api.github.com/users/octocat
 L'option `-i` affiche les en-têtes de la réponse : repère le code `200` et `Content-Type: application/json`.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Ouvre les outils de développement du navigateur (F12) → onglet *Réseau*, recharge une page et observe méthodes, codes et types de contenu.
 
 > [!warning] Erreurs fréquentes

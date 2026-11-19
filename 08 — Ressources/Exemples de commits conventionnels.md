@@ -209,4 +209,4 @@ Ensuite `git commit` (sans `-m`) ouvre l'éditeur avec ce modèle ; les lignes e
 | [commitlint](https://commitlint.js.org/) | vérifier les messages automatiquement |
 | `git log --oneline` sur [CVAT](https://github.com/cvat-ai/cvat) ou [Angular](https://github.com/angular/angular/commits/main) | voir de vrais historiques |
 
-Pratique : [[Exercice - Écrire des messages de commit conventionnels]]
+Pratique : les exercices visuels de la fiche [[Convention de commit]].

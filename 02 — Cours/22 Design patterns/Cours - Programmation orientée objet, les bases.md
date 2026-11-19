@@ -8,6 +8,7 @@ concepts:
   - "[[Interface et polymorphisme]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - Programmation orientée objet, les bases
 
@@ -40,7 +41,7 @@ flowchart TD
 TypeScript : `class`, `implements`, `private`. Angular est entièrement écrit en classes. En JavaScript courant et en React, on utilise surtout des fonctions et des objets simples, mais les mêmes idées s'appliquent.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Modéliser avec des classes]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Des classes pour tout, même pour un petit script

@@ -9,6 +9,7 @@ concepts:
   - "[[Fichiers entre Windows et Linux]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Ce que tout programme reçoit et renvoie
 
@@ -51,6 +52,7 @@ La CI GitLab et docker compose se décrivent en [[YAML]]. Deux règles suffisent
 Ton code tourne dans des conteneurs Linux. Les [[Fichiers entre Windows et Linux]] diffèrent sur trois points : le droit d'exécution, les majuscules dans les noms et les fins de ligne.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Lance `python --version`, puis affiche son code de sortie. Recommence avec une commande inventée.
 - Définis une variable `DOSSIER` et vérifie qu'un programme lancé ensuite la voit.
 - Écris en YAML la liste de tes trois outils préférés, avec pour chacun un nom et une version.

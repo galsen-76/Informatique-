@@ -9,6 +9,7 @@ concepts:
   - "[[Code de sortie]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Fonctions, modules et erreurs
 
@@ -73,6 +74,7 @@ if __name__ == "__main__":
 Ce squelette (`main()` qui renvoie un code, `sys.exit(main())`) est une bonne base pour tous tes scripts.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 Le mini-projet [[Projet - Suivre ses dépenses en Python]], les étapes 04 à 06 : un petit suivi de dépenses, avec les données fournies.
 
 > [!warning] Erreurs fréquentes

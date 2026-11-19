@@ -7,6 +7,7 @@ concepts:
   - "[[Jointure SQL]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Concevoir des tables reliées
 
@@ -39,7 +40,7 @@ flowchart TD
 La [[Fiche - Lancer PostgreSQL avec Docker]] te donne une base en une commande, et [[psql]] pour lui parler.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Modéliser et interroger une base reliée]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Recopier les mêmes informations dans plusieurs tables

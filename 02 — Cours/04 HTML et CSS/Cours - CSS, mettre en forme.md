@@ -8,6 +8,7 @@ concepts:
   - "[[Modèle de boîte]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - CSS, mettre en forme
 
@@ -42,7 +43,7 @@ flowchart TD
 F12 → onglet *Styles* : les règles appliquées, les règles écrasées (barrées), et la possibilité de tester une valeur en direct.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Mettre en forme une page avec CSS]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Utiliser des `id` pour le style : spécificité trop forte, difficile à surcharger

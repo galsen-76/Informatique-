@@ -9,6 +9,7 @@ concepts:
   - "[[Patron Singleton]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - Design patterns créationnels
 
@@ -47,7 +48,7 @@ flowchart TD
 On part du **problème**, jamais du patron. Un patron appliqué sans besoin rend le code plus compliqué.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Patrons créationnels]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Chercher où placer un patron au lieu de partir du problème

@@ -12,6 +12,7 @@ concepts:
   - "[[Variable PATH]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Terminal, shell et système
 
@@ -63,6 +64,7 @@ Quand tu tapes `git`, le shell cherche un fichier `git` dans les dossiers listé
 Règle simple : **un projet = un côté**. Si le projet vit dans WSL, ouvre-le, lance-le et commite-le depuis WSL.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Ouvre un onglet de chaque shell et lance `echo $PSVersionTable` / `echo $SHELL` : lequel répond quoi ?
 - Pour chaque ligne du tableau du point 3, dis où tu te trouves sans regarder la colonne de droite.
 

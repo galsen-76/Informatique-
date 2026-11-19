@@ -4,6 +4,10 @@ domain: javascript
 module: "[[Module 05 - JavaScript]]"
 status: a-decouvrir
 level: debutant
+niveau: 2
+schema: false
+exercice_visuel: false
+fil_rouge: false
 prerequisites:
   - "[[async et await]]"
   - "[[HTTP]]"
@@ -87,7 +91,7 @@ Une API publique pour s'entraîner : `https://jsonplaceholder.typicode.com/todos
 
 ### Exercice visuel
 
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
 
 > [!example] 🛣️ Suis le trajet
 > Dessine le trajet de `fetch("http://localhost:8000/depenses")` dans le front Vue : la Promesse, la requête, la réponse, `res.json()`, l'affichage.
@@ -104,32 +108,28 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ### Mon schéma
 
 > [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Appeler une API avec fetch » et je l'intègre ici avec `![[Schéma - Appeler une API avec fetch.excalidraw]]`._
+> _Je crée le dessin « Schéma - Appeler une API avec fetch » et je l'intègre ici avec `![[Schéma - Appeler une API avec fetch.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
 - [[MesDépenses 03 - Vue, afficher la liste]]
 - [[MesDépenses 05 - Vue, ajouter et supprimer]]
 
-## 4 · Expliquer
-> [!quote] Mon résumé, avec mes mots
-> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
-
-## 5 · Relier
+## 4 · Relier
 - **Prérequis** : [[async et await]] · [[HTTP]] · [[JSON]]
 - **Complémentaires** : [[Appeler une API HTTP (requests)]] · [[Code de statut HTTP]]
 - **Utilisé par** : [[React]]
 
-## 6 · Réviser
+## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand je sais :
-1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
-2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
-3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+Trois cases à cocher dans les propriétés de la fiche :
+- `schema` : mon dessin du concept est dans « Mon schéma » ;
+- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
+- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
 
-Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
+Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

@@ -9,6 +9,7 @@ concepts:
   - "[[Dette technique]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - POC, prototype et MVP
 
@@ -56,8 +57,7 @@ Dans un POC, on code vite exprès : jeton en dur, pas de gestion d'erreur, pas d
 Si la réponse est oui, on écrit les [[Spécification (specs)|specs]] du vrai produit (cours suivant), on prépare le [[MVP (produit minimum viable)|MVP]], et on réécrit proprement ce qui doit l'être.
 
 ## Mise en pratique
-- Fais l'[[Exercice - POC, prototype ou MVP]].
-- Puis l'[[Exercice - Cadrer son POC CVAT]] : c'est ton vrai projet.
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Commencer à coder sans avoir écrit la question ni les critères de succès

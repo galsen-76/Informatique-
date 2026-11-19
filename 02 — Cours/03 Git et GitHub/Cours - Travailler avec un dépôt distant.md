@@ -9,6 +9,7 @@ concepts:
   - "[[Clé SSH]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Travailler avec un dépôt distant
 
@@ -49,7 +50,7 @@ On ne pousse pas sur `main` directement : on ouvre une [[Merge request]], la CI 
 Pour un projet repris (CVAT) : `origin` = ton GitLab, `upstream` = le projet d'origine. Voir [[Dépôt upstream]].
 
 ## Mise en pratique
-- Fais l'[[Exercice - Collaborer avec un dépôt distant]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Travailler directement sur `main`

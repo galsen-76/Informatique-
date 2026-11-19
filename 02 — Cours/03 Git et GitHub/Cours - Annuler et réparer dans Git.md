@@ -9,6 +9,7 @@ concepts:
   - "[[Index Git (staging)]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Annuler et réparer dans Git
 
@@ -45,7 +46,7 @@ Voir le tableau de [[Annuler dans Git]] et la zone d'[[Index Git (staging)|index
 `git reflog` liste tout ce que tu as fait : même après un mauvais `reset`, tu peux revenir en arrière tant que le commit a existé.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Réparer ses erreurs Git]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - `git reset --hard` avec des modifications non commitées : perdues

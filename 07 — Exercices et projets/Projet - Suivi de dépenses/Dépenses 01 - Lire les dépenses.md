@@ -1,8 +1,12 @@
 ---
 type: exercise
 status: a-faire
+niveau: 0
 difficulty: moyen
 concepts:
+  - "[[Terminal]]"
+  - "[[WSL]]"
+  - "[[Système de fichiers]]"
   - "[[Python]]"
   - "[[Variables et types en Python]]"
 tags:
@@ -13,7 +17,7 @@ tags:
 
 > [!info] Où tu en es
 > **Projet :** [[Projet - Suivre ses dépenses en Python]] · **Étape du parcours :** 1 · Python, les bases
-> **Étape précédente :** rien, c'est le début
+> **Étape précédente :** [[Dépenses 00 - Découvrir son poste]]
 > **Cours à avoir lus :** [[Cours - Python, premiers pas]] · [[Cours - Fonctions, modules et erreurs]]
 > **Notions validées par cette étape :** [[Python]] · [[Variables et types en Python]]
 
@@ -67,4 +71,5 @@ Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 
 ## Validation
 - [ ] Le projet marche comme décrit dans « Ça marche si… »
+- [ ] Les notions de l'étape ont leurs trois cases (schéma, exercices visuels, fil rouge)
 - [ ] J'ai répondu aux questions et Claude les a vérifiées

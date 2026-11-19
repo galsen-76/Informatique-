@@ -1,6 +1,7 @@
 ---
 type: exercise
 status: a-faire
+niveau: 2
 difficulty: moyen
 concepts:
   - "[[CORS]]"

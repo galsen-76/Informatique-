@@ -9,6 +9,7 @@ concepts:
   - "[[Gestionnaire de versions de Node (nvm)]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Node.js, JavaScript hors du navigateur
 
@@ -41,7 +42,7 @@ flowchart TD
 La [[Boucle d'événements]] : tant que ton code ne fait pas de gros calcul synchrone, Node sert des milliers de requêtes en parallèle. C'est pour ça qu'il est populaire pour les API.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Écrire un outil en ligne de commande avec Node]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Utiliser `readFileSync` dans un serveur (bloque tout le monde)

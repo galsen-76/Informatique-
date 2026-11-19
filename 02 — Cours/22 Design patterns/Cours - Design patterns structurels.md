@@ -10,6 +10,7 @@ concepts:
   - "[[Patron Dépôt (Repository)]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - Design patterns structurels
 
@@ -59,7 +60,7 @@ flowchart TD
 | Façade | nouvelle, plus simple | cacher la complexité |
 
 ## Mise en pratique
-- Fais l'[[Exercice - Patrons structurels pour la fonction d'export]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Façade qui devient un objet qui fait tout

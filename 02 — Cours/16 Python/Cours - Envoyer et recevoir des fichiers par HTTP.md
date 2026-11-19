@@ -9,6 +9,7 @@ concepts:
   - "[[Base64]]"
 tags:
   - cours
+niveau: 1
 ---
 # Cours - Envoyer et recevoir des fichiers par HTTP
 
@@ -87,6 +88,7 @@ Détails : [[Envoyer et recevoir un fichier en HTTP]].
 Si `HTTP_PROXY` ou `HTTPS_PROXY` sont définis (fréquent au travail), requests et urllib envoient **aussi** tes appels à `localhost` vers le proxy. Tu obtiens alors un 407 ou une page HTML du proxy au lieu de ton serveur. Solution : `export NO_PROXY=localhost,127.0.0.1`. Voir [[Proxy]].
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 Le mini-projet [[Projet - Envoyer un zip ou une image en Python]] : un serveur de test est fourni, tu écris le script qui lui envoie un zip et une image, de trois façons, puis qui en reçoit.
 
 > [!warning] Erreurs fréquentes

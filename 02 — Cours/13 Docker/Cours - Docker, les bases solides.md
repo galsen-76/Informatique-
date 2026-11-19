@@ -13,6 +13,7 @@ concepts:
   - "[[Docker Compose]]"
 tags:
   - cours
+niveau: 1
 ---
 # Cours - Docker, les bases solides
 
@@ -61,6 +62,7 @@ docker system prune       # supprime ce qui ne sert plus (demande confirmation)
 ```
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Explique à voix haute, sans notes, la différence entre image, conteneur et registre.
 - Construis une petite image Python, lance-la deux fois avec des arguments différents.
 - Lis le `docker-compose.yml` de CVAT et dessine (sur papier) les services et leurs liens.

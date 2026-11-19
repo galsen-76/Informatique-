@@ -4,6 +4,10 @@ domain: backend
 module: "[[Module 07 - Node.js]]"
 status: a-decouvrir
 level: debutant
+niveau: 2
+schema: false
+exercice_visuel: false
+fil_rouge: false
 prerequisites:
   - "[[Terminal]]"
 parents: []
@@ -70,7 +74,7 @@ node hello.js
 
 ### Exercice visuel
 
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
 
 > [!example] ⚖️ Avant / après
 > Avant / après : JavaScript uniquement dans le navigateur, puis avec Node.js. Dessine ce qui est devenu possible (fichiers, serveur, outils comme Vite).
@@ -81,35 +85,31 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ### Mon schéma
 
 > [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Node.js » et je l'intègre ici avec `![[Schéma - Node.js.excalidraw]]`._
+> _Je crée le dessin « Schéma - Node.js » et je l'intègre ici avec `![[Schéma - Node.js.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
+- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 Pour m'aider :
 - [[Fiche - Démarrer un projet Node.js]]
 
-## 4 · Expliquer
-> [!quote] Mon résumé, avec mes mots
-> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
-
-## 5 · Relier
+## 4 · Relier
 - **Prérequis** : [[Terminal]] (on lance Node en ligne de commande)
 - **Complémentaires** : [[npm]] (gestionnaire de paquets livré avec Node)
 - **Utilisé par** : [[Express]], [[Docker]] (on conteneurise souvent des apps Node)
 - **Commandes** : [[node]] · [[npm init]] · [[npm install]]
 
-## 6 · Réviser
+## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand je sais :
-1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
-2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
-3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+Trois cases à cocher dans les propriétés de la fiche :
+- `schema` : mon dessin du concept est dans « Mon schéma » ;
+- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
+- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
 
-Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
+Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

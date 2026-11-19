@@ -8,6 +8,7 @@ concepts:
   - "[[Archive tar et compression]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Se repérer dans un système Linux
 
@@ -46,7 +47,7 @@ Les [[Lien symbolique|liens symboliques]] pointent vers un autre chemin : `ln -s
 [[Archive tar et compression]] : `tar -czf` pour créer, `tar -tzf` pour lister, `tar -xzf` pour extraire.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Explorer et sauvegarder un système Linux]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Modifier un fichier de `/etc` sans en faire de copie avant

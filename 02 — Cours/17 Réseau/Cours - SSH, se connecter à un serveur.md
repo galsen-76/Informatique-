@@ -7,6 +7,7 @@ concepts:
   - "[[Clé SSH]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - SSH, se connecter à un serveur
 
@@ -42,7 +43,7 @@ Crée une [[Clé SSH]] (`ssh-keygen -t ed25519`), donne la partie publique au se
 Vérifie l'empreinte à la première connexion ; prends au sérieux l'avertissement « identification has changed ».
 
 ## Mise en pratique
-- Fais l'[[Exercice - Se connecter en SSH avec une clé]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Partager ou commiter sa clé privée

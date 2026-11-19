@@ -6,6 +6,7 @@ concepts:
   - "[[Application monopage et routage]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Une application React complète
 
@@ -40,7 +41,7 @@ Un module `api.ts` avec des fonctions typées ; le jeton dans `Authorization` ; 
 Le frontend de CVAT suit exactement ce schéma ; ajouter un bouton, c'est ajouter un composant qui appelle une API.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Ajouter un bouton qui appelle une API]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - `<a href>` au lieu de `Link`

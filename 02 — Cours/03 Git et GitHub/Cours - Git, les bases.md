@@ -8,6 +8,7 @@ concepts:
   - "[[Commit]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Git, les bases
 
@@ -46,8 +47,8 @@ node_modules/
 ```
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - [[Fiche - Publier un dépôt sur GitHub]]
-- [[Exercice - Branches et merge avec Git]] (étapes 1 à 3)
 
 > [!warning] Erreurs fréquentes
 > - Committer sans `git add` (« nothing to commit »)

@@ -76,7 +76,7 @@ gitGraph
   merge feature/login
 ```
 
-**Pour pratiquer** : [[Exercice - Branches et merge avec Git]] · **Cours** : [[Cours - Branches et fusion]]
+**Pour pratiquer** : les exercices visuels de [[Merge]] · **Cours** : [[Cours - Branches et fusion]]
 
 ## Relier
 - **Commandes complémentaires** : [[git switch]] · [[git branch]] · [[git status]]

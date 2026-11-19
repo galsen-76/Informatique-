@@ -9,6 +9,7 @@ concepts:
   - "[[Directives Vue]]"
 tags:
   - cours
+niveau: 2
 ---
 # Cours - Vue.js, composants, réactivité et directives
 
@@ -48,7 +49,7 @@ flowchart TD
 [[Directives Vue]] : `v-if`, `v-for` avec `:key`, `v-model`, `:attr`, `@événement`.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Écrire une liste de tâches en Vue]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Oublier `.value`

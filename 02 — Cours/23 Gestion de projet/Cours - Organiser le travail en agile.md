@@ -8,6 +8,7 @@ concepts:
   - "[[Définition de terminé]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Organiser le travail en agile
 
@@ -47,8 +48,7 @@ Deux listes complémentaires :
 Une story = un ticket GitLab = une branche = une [[Merge request]]. La pipeline de CI vérifie une partie de la définition de terminé à ta place.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Organiser son projet en backlog]].
-- Puis, à la fin de ton POC, l'[[Exercice - Conclure un POC]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Tout mettre en « Must »

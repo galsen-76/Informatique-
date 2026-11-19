@@ -10,6 +10,7 @@ concepts:
   - "[[Design pattern]]"
 tags:
   - cours
+niveau: 5
 ---
 # Cours - Organiser son code
 
@@ -42,7 +43,7 @@ flowchart TD
 [[Principes SOLID]] (surtout l'inversion des dépendances) et les [[Design pattern|design patterns]] courants : stratégie, adaptateur, observateur, dépôt.
 
 ## Mise en pratique
-- Fais l'[[Exercice - Refactoriser un script en couches]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Abstraire trop tôt

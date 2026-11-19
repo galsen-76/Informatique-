@@ -12,6 +12,7 @@ concepts:
   - "[[Tester l'image, pas le dépôt]]"
 tags:
   - cours
+niveau: 3
 ---
 # Cours - Maîtriser le fichier de pipeline GitLab
 
@@ -56,6 +57,7 @@ Construire une image demande un démon Docker : Docker-in-Docker ou Kaniko ([[Co
 5. En cas de doute : *Build > Pipeline editor > Full configuration* montre la version fusionnée.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Écris une pipeline à trois stages pour ton script Python : `lint` (vérifier que le script se lance avec `--help`), `test` (pytest), `build` (image Docker).
 - Rends le stage `build` automatique sur `main` et manuel ailleurs.
 - Garde le rapport pytest en artefact et affiche-le dans GitLab.

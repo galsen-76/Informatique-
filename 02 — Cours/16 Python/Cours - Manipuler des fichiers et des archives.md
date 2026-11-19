@@ -10,6 +10,7 @@ concepts:
   - "[[Arguments de ligne de commande]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Manipuler des fichiers et des archives
 
@@ -63,6 +64,7 @@ La notion clé est `arcname` : le chemin **dans** l'archive, en général `f.rel
 Ton script de projet combine ces briques. Avant de coder, écris en français (en commentaires) les étapes de **ton** besoin : quels fichiers, quels filtres, quel nom d'archive, que faire des originaux, que faire en cas d'erreur. Chaque commentaire deviendra une fonction.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 - Prépare un dossier de test : 3 `.png`, 2 `.txt`, un sous-dossier avec 1 `.png`, un fichier vide.
 - Écris un script qui affiche, pour chaque fichier, son chemin relatif, son extension et sa taille.
 - Ajoute la création d'un zip contenant **seulement** les `.png`, en gardant les sous-dossiers.

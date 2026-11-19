@@ -12,6 +12,7 @@ concepts:
   - "[[Charger un fichier .env (python-dotenv)]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Python au quotidien
 
@@ -59,9 +60,7 @@ flowchart TD
 Un script qui parle à un service (CVAT, une base) a besoin d'une adresse et d'identifiants. Ils ne vont pas dans le code : le code lit `os.environ`, et en local, [[Charger un fichier .env (python-dotenv)]] remplit `os.environ` depuis un fichier `.env` ignoré par Git ([[Secret et fichier .env]]).
 
 ## Mise en pratique
-- Fais l'[[Exercice - Appeler une API et produire un CSV]].
-- Fais l'[[Exercice - Un script qui journalise, lance des commandes et lit des logs]].
-- Fais l'[[Exercice - Charger les identifiants CVAT depuis un .env]].
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 
 > [!warning] Erreurs fréquentes
 > - Oublier `timeout=` dans requests : le script peut attendre indéfiniment

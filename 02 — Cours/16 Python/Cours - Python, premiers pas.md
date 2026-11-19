@@ -10,6 +10,7 @@ concepts:
   - "[[Liste et dictionnaire]]"
 tags:
   - cours
+niveau: 0
 ---
 # Cours - Python, premiers pas
 
@@ -82,6 +83,7 @@ for ext, nb in compte.items():
 Lis-le ligne par ligne et dis à voix haute ce que fait chacune avant de le lancer.
 
 ## Mise en pratique
+- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
 Le mini-projet [[Projet - Suivre ses dépenses en Python]], les étapes 01 à 03 : un petit suivi de dépenses, avec les données fournies.
 
 > [!warning] Erreurs fréquentes
