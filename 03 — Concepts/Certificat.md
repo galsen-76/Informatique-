@@ -14,7 +14,6 @@ parents: []
 related:
   - "[[Proxy]]"
 next_review: 
-method: []
 tags:
   - concept
   - reseau
@@ -75,7 +74,6 @@ openssl x509 -in cert.pem -noout -subject -issuer -dates     # lire un certifica
 
 ### Cas d'utilisation
 - Résoudre `SSL: CERTIFICATE_VERIFY_FAILED` derrière le proxy de l'entreprise
-- Faire confiance au Nexus ou au GitLab interne dans Docker et la CI
 
 > [!warning] À ne pas confondre
 > **Ajouter la bonne CA** (solution) et **désactiver la vérification** (`verify=False`, `-k`, `sslVerify false`) : cette dernière supprime toute protection, à ne faire que pour un test ponctuel. Et la **clé publique** (dans le certificat, partagée) et la **clé privée** (secrète, jamais dans Git).
@@ -101,6 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Certificat au travail]]
 - **Prérequis** : [[HTTPS et TLS]]
 - **Complémentaires** : [[Proxy]] · [[Clé SSH]]
 - **Commandes** : [[openssl]]
@@ -109,7 +108,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

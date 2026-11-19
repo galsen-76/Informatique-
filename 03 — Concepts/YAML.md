@@ -15,7 +15,6 @@ related:
   - "[[Pipeline GitLab CI]]"
   - "[[Docker Compose]]"
 next_review: 
-method: []
 tags:
   - concept
   - terminal
@@ -71,7 +70,6 @@ Le même contenu en JSON :
 ### Cas d'utilisation
 - `.gitlab-ci.yml` : [[Pipeline GitLab CI]]
 - `docker-compose.yml` : [[Docker Compose]]
-- Fichiers de configuration de beaucoup d'outils (Traefik, Nuclio)
 
 > [!warning] À ne pas confondre
 > Un décalage d'indentation change le sens : une clé mal alignée devient enfant d'une autre ou provoque une erreur. Et `3.10` sans guillemets est lu comme le nombre 3.1 : mettre les versions entre guillemets.
@@ -104,6 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[YAML au travail]]
 - **Prérequis** : [[JSON]]
 - **Utilisé par** : [[Pipeline GitLab CI]] · [[Docker Compose]] · [[Règles d'un job GitLab (rules)]]
 
@@ -111,7 +110,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

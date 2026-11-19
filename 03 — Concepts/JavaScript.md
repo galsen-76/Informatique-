@@ -16,7 +16,6 @@ related:
   - "[[Node.js]]"
   - "[[DOM]]"
 next_review: 
-method: []
 tags:
   - concept
   - javascript
@@ -67,7 +66,6 @@ N[Navigateur] --> J[Moteur JS]
 Pour tester sans page : ouvre la **console** du navigateur (F12, onglet Console) et tape `2 + 3`, ou lance `node` dans le terminal.
 
 ### Cas d'utilisation
-- Le bouton à ajouter dans CVAT (React est du JavaScript)
 - Les scripts `npm` et les outils de build
 - Les API avec Express sur Node.js
 
@@ -95,6 +93,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[JavaScript au travail]]
 - **Prérequis** : [[HTML]] · [[Fonction]]
 - **Complémentaires** : [[Node.js]] · [[DOM]]
 - **Utilisé par** : [[TypeScript]] · [[React]]
@@ -103,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

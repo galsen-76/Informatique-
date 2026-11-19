@@ -3,14 +3,14 @@ type: module
 order: 23
 title: "Gestion de projet"
 prerequisites: []
-why: "Savoir coder ne suffit pas : il faut savoir ce qu'on construit, pourquoi, dans quel ordre, et quand c'est fini. Ce module n'a pas de prérequis technique et se lit dès maintenant, puisque tu mènes déjà un POC (CVAT et Nuclio)."
+why: "Savoir coder ne suffit pas : il faut savoir ce qu'on construit, pourquoi, dans quel ordre, et quand c'est fini. Ce module n'a pas de prérequis technique et se lit dès maintenant, parce qu'un projet, même petit, se cadre avant de se coder."
 tags:
   - module
 ---
 # 23 · Gestion de projet
 
 > [!tip] Pourquoi à cette place dans le parcours
-> Savoir coder ne suffit pas : il faut savoir ce qu'on construit, pourquoi, dans quel ordre, et quand c'est fini. Ce module n'a pas de prérequis technique et se lit dès maintenant, puisque tu mènes déjà un POC (CVAT et Nuclio).
+> Savoir coder ne suffit pas : il faut savoir ce qu'on construit, pourquoi, dans quel ordre, et quand c'est fini. Ce module n'a pas de prérequis technique et se lit dès maintenant, parce qu'un projet, même petit, se cadre avant de se coder.
 
 ## Objectifs
 - Savoir ce qu'est un POC, le cadrer (question, critères de succès, durée) et le conclure

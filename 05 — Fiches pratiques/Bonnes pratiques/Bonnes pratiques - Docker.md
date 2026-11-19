@@ -72,7 +72,7 @@ Pour savoir ce qui tourne et pouvoir revenir en arrière.
 - `COPY .env` : le fichier est dans une couche de l'image. Le supprimer dans une couche suivante ne l'efface pas de la précédente.
 - La commande `docker build --build-arg MDP=...` reste aussi dans l'historique du terminal et dans les logs de la CI.
 
-Toute personne qui récupère l'image, sur le Nexus ou dans la CI, peut donc lire le secret.
+Toute personne qui récupère l'image, dans un registre ou dans la CI, peut donc lire le secret.
 
 **À la place :** donner le secret **au lancement**, jamais au build.
 ```bash

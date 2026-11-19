@@ -5,8 +5,8 @@ module: "[[Module 20 - Angular]]"
 concepts:
   - "[[Angular]]"
   - "[[Angular CLI]]"
-  - "[[Composant Angular]]"
-  - "[[Template et liaison de données Angular]]"
+  - "[[Composant d'interface]]"
+  - "[[Template et liaison de données]]"
 tags:
   - cours
 niveau: 4
@@ -36,10 +36,10 @@ flowchart TD
 ```
 
 ## 4. Les composants
-[[Composant Angular]] : classe + template + style ; `input()` et `output()`.
+[[Composant d'interface]] : classe + template + style ; `input()` et `output()`.
 
 ## 5. Le template
-[[Template et liaison de données Angular]] : `{{ }}`, `[ ]`, `( )`, `[( )]`, `@if`, `@for`, les pipes.
+[[Template et liaison de données]] : `{{ }}`, `[ ]`, `( )`, `[( )]`, `@if`, `@for`, les pipes.
 
 | React | Vue | Angular |
 | --- | --- | --- |
@@ -57,7 +57,7 @@ flowchart TD
 > - Oublier `track` dans `@for`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Angular]] · [[Angular CLI]] · [[Composant Angular]] · [[Template et liaison de données Angular]]
+[[Angular]] · [[Angular CLI]] · [[Composant d'interface]] · [[Template et liaison de données]]

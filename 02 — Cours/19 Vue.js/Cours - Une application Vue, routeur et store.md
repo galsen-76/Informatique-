@@ -3,7 +3,7 @@ type: course
 order: 2
 module: "[[Module 19 - Vue.js]]"
 concepts:
-  - "[[Vue Router]]"
+  - "[[Application monopage et routage]]"
   - "[[Pinia]]"
 tags:
   - cours
@@ -19,7 +19,7 @@ niveau: 2
 **Prérequis :** [[Cours - Vue.js, composants, réactivité et directives]]
 
 ## 1. Plusieurs pages
-[[Vue Router]] : routes, `RouterLink`, `RouterView`, paramètres, gardes.
+[[Application monopage et routage]] : routes, `RouterLink`, `RouterView`, paramètres, gardes.
 
 ## 2. Schéma
 ```mermaid
@@ -45,7 +45,7 @@ Comme React : `npm run build`, `dist/` servi par Nginx avec repli vers `index.ht
 > - Mettre tout l'état dans le store
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Vue Router]] · [[Pinia]]
+[[Application monopage et routage]] · [[Pinia]]

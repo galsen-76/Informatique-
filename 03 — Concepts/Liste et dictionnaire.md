@@ -15,7 +15,6 @@ related:
   - "[[Boucle (for, while)]]"
   - "[[JSON]]"
 next_review: 
-method: []
 tags:
   - concept
   - python
@@ -133,7 +132,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -56,7 +56,7 @@ On part du **problème**, jamais du patron. Un patron appliqué sans besoin rend
 > - Un monteur pour trois paramètres
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Design pattern]] · [[Patron Fabrique (Factory)]] · [[Patron Monteur (Builder)]] · [[Patron Singleton]]

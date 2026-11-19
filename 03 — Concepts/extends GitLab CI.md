@@ -16,7 +16,6 @@ parents:
 related:
   - "[[Règles d'un job GitLab (rules)]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -38,7 +37,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 Plusieurs jobs partagent la même image, les mêmes services, le même `before_script` (connexion au registre).
 
 ### Le problème résolu
-Le même bloc recopié dix fois : un changement (adresse du Nexus) oublié dans un des jobs.
+Le même bloc recopié dix fois : un changement (adresse du registre) oublié dans un des jobs.
 
 ## 2 · Explorer
 ### Comment ça fonctionne
@@ -105,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

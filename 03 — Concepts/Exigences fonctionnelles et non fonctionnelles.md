@@ -17,7 +17,6 @@ related:
   - "[[Cahier des charges]]"
   - "[[Supervision et observabilité]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -39,8 +38,8 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 - **performance** : temps de réponse, volume supporté ;
 - **sécurité** : qui a le droit, données protégées ;
 - **disponibilité** : le service tourne 99 % du temps ;
-- **compatibilité** : navigateurs, versions de CVAT ;
-- **exploitation** : journaux, supervision, déploiement via la CI GitLab, images depuis le Nexus.
+- **compatibilité** : navigateurs, versions des outils dont on dépend ;
+- **exploitation** : journaux, supervision, déploiement via la CI GitLab.
 
 **Une bonne exigence est vérifiable** : on peut écrire un test qui dit oui ou non. « Rapide » n'est pas vérifiable, « moins de 10 s pour 50 images » l'est.
 
@@ -69,13 +68,12 @@ F2  Le PNG montre chaque annotation avec la couleur de son label        obligato
 F3  L'utilisateur peut choisir l'épaisseur du trait                    souhaitable
 NF1 Export en moins de 10 s pour une tâche de 50 images                obligatoire
 NF2 Seuls les utilisateurs ayant accès à la tâche peuvent l'exporter   obligatoire
-NF3 La fonction Nuclio est construite et déployée par la CI GitLab     obligatoire
+NF3 Le service est construit et déployé par la CI GitLab             obligatoire
 NF4 Chaque export est journalisé (utilisateur, tâche, durée)           souhaitable
 ```
 
 ### Cas d'utilisation
 - Rédiger la partie « exigences » d'une spec
-- Vérifier qu'aucune contrainte d'entreprise (Nexus, réseau, sécurité) n'est oubliée
 
 > [!warning] À ne pas confondre
 > Non fonctionnel ne veut pas dire « pas important » : c'est souvent ce qui décide si le produit est utilisable. Et une exigence décrit un besoin, pas une solution (« exporter en moins de 10 s », pas « utiliser un cache Redis »).
@@ -101,6 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Exigences fonctionnelles et non fonctionnelles au travail]]
 - **Prérequis** : [[Spécification (specs)]]
 - **Complémentaires** : [[Critères d'acceptation]] · [[User story]] · [[Cahier des charges]] · [[Supervision et observabilité]]
 
@@ -108,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

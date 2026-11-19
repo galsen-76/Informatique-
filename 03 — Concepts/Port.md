@@ -16,7 +16,6 @@ related:
   - "[[Proxy]]"
   - "[[Reverse proxy]]"
 next_review: 
-method: []
 tags:
   - concept
   - reseau
@@ -39,7 +38,7 @@ Une adresse IP désigne **une machine** ; le **port** désigne **un programme** 
 | 22 | SSH |
 | 80 / 443 | HTTP / HTTPS |
 | 5432 | PostgreSQL |
-| 8080 | serveurs web de développement (CVAT en local) |
+| 8080 | serveurs web de développement (une appli en local) |
 
 ### Pourquoi ça existe
 Une seule machine fait tourner plusieurs services réseau en même temps ; il faut savoir lequel doit recevoir chaque connexion.
@@ -74,7 +73,6 @@ netstat -ano | findstr :8080     # qui occupe le port 8080 (Windows)
 
 ### Cas d'utilisation
 - Accéder à un service lancé dans un conteneur
-- Comprendre `CVAT_HOST` et les ports publiés par Traefik ([[Reverse proxy]])
 
 > [!warning] À ne pas confondre
 > Dans `-p 8080:80`, **gauche = ta machine**, **droite = le conteneur**. Et entre conteneurs d'un même compose, on utilise le port **interne** (`db:5432`), pas le port publié.
@@ -108,6 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 03 - Une page web pour le rapport]]
 
 ## 4 · Relier
+- **Au travail** : [[Port au travail]]
 - **Prérequis** : [[Client-serveur]] · [[Internet]]
 - **Complémentaires** : [[Proxy]]
 - **Utilisé par** : [[Reverse proxy]] · [[Docker Compose]] · [[Conteneur]]
@@ -116,7 +115,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

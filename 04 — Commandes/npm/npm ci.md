@@ -3,7 +3,7 @@ type: command
 tool: npm
 level: debutant
 concepts:
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[package.json]]"
 tags:
   - commande
@@ -47,4 +47,4 @@ npm ci --omit=dev
 
 ## Relier
 - **Commandes complémentaires** : [[npm install]]
-- **Concepts associés** : [[npm]] · [[package.json]]
+- **Concepts associés** : [[Gestionnaire de paquets]] · [[package.json]]

@@ -16,7 +16,6 @@ parents:
 related:
   - "[[Accessibilité web]]"
 next_review: 
-method: []
 tags:
   - concept
   - tests
@@ -69,7 +68,7 @@ npx playwright test
 npx playwright test --ui
 npx playwright show-report
 ```
-Pour le bouton CVAT : un test qui ouvre une tâche, clique sur « Exporter en PNG » et vérifie qu'un fichier est téléchargé (`page.waitForEvent("download")`).
+Pour un bouton d'export : un test qui ouvre une page, clique sur « Exporter en PDF » et vérifie qu'un fichier est téléchargé (`page.waitForEvent("download")`).
 
 ### Cas d'utilisation
 - Parcours de connexion
@@ -107,7 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

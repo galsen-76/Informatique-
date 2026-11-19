@@ -17,7 +17,7 @@ tags:
 Marquer une version, ou se repérer dans les versions d'un projet.
 
 ## Dans quel contexte
-Choisir la version de CVAT de départ ; publier une version de ton projet.
+Choisir la version de départ d'un projet open source ; publier une version de ton projet.
 
 ## Syntaxe
 ```bash

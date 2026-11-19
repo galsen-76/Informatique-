@@ -18,7 +18,6 @@ related:
   - "[[Variables CI-CD GitLab]]"
   - "[[Construire une image dans la CI]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -104,7 +103,6 @@ test-server:
 ### Cas d'utilisation
 - Lancer les tests à chaque push
 - Construire et publier des images
-- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
 
 > [!warning] À ne pas confondre
 > GitLab CI (`.gitlab-ci.yml`) et GitHub Actions (`.github/workflows/`) : un projet repris de GitHub garde sa CI GitHub, que GitLab **ignore**.
@@ -140,6 +138,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Relier
+- **Au travail** : [[Pipeline GitLab CI au travail]]
 - **Prérequis** : [[Git]]
 - **Complémentaires** : [[Variables CI-CD GitLab]] · [[YAML]]
 - **Approfondir** : [[Règles d'un job GitLab (rules)]] · [[Artefacts GitLab CI]] · [[extends GitLab CI]]
@@ -149,7 +148,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

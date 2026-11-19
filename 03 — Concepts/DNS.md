@@ -14,7 +14,6 @@ parents: []
 related:
   - "[[Reverse proxy]]"
 next_review: 
-method: []
 tags:
   - concept
   - reseau
@@ -70,7 +69,6 @@ Dans un réseau Docker (compose), un DNS interne résout les **noms de services*
 ### Cas d'utilisation
 - `Could not resolve host` : problème de DNS, pas de serveur
 - Un nom interne d'entreprise (`nexus.entreprise.local`) résolu seulement sur le VPN
-- `CVAT_HOST` doit être un nom que les clients savent résoudre
 
 > [!warning] À ne pas confondre
 > « le nom ne se résout pas » (DNS) et « le serveur ne répond pas » (réseau, pare-feu, service arrêté). Teste d'abord `nslookup`, puis la connexion.
@@ -96,6 +94,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 07 - Tout lancer avec compose]]
 
 ## 4 · Relier
+- **Au travail** : [[DNS au travail]]
 - **Prérequis** : [[Adresse IP]]
 - **Complémentaires** : [[Reverse proxy]] · [[HTTPS et TLS]]
 - **Commandes** : [[nslookup]]
@@ -104,7 +103,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

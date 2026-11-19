@@ -6,7 +6,7 @@ concepts:
   - "[[TypeScript]]"
   - "[[Variables et types]]"
   - "[[async et await]]"
-  - "[[Appeler une API avec fetch]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Validation des données]]"
 tags:
   - bonnes-pratiques
@@ -42,7 +42,7 @@ async function charger() {
 ```
 
 ### 4. Vérifier rep.ok après fetch
-`fetch` ne lève pas d'erreur pour un 404 ou un 500. Voir [[Appeler une API avec fetch]].
+`fetch` ne lève pas d'erreur pour un 404 ou un 500. Voir [[Appeler une API HTTP]].
 
 ### 5. Ne pas modifier les données, en créer de nouvelles
 `map`, `filter`, l'étalement `{ ...objet }` : moins d'effets de bord, indispensable en React.
@@ -101,4 +101,4 @@ Voir [[Module et import]].
 - [ ] Les tests passent
 
 ## Notions liées
-[[JavaScript]] · [[TypeScript]] · [[Variables et types]] · [[async et await]] · [[Appeler une API avec fetch]] · [[Validation des données]]
+[[JavaScript]] · [[TypeScript]] · [[Variables et types]] · [[async et await]] · [[Appeler une API HTTP]] · [[Validation des données]]

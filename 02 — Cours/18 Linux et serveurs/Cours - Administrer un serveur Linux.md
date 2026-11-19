@@ -59,7 +59,7 @@ docker system df # place prise par Docker
 > - Tout faire en root
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Utilisateur et groupe]] · [[SSH]] · [[Pare-feu]] · [[Gestionnaire de paquets]]

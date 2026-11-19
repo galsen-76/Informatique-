@@ -5,7 +5,7 @@ module: "[[Module 05 - JavaScript]]"
 concepts:
   - "[[Asynchrone et Promesse]]"
   - "[[async et await]]"
-  - "[[Appeler une API avec fetch]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Boucle d'événements]]"
   - "[[JSON]]"
 tags:
@@ -41,7 +41,7 @@ flowchart TD
 [[async et await]] : la même chose, lisible de haut en bas, avec `try / catch`.
 
 ## 5. fetch
-[[Appeler une API avec fetch]] : méthode, en-têtes, corps en [[JSON]] ; **toujours tester `rep.ok`**.
+[[Appeler une API HTTP]] : méthode, en-têtes, corps en [[JSON]] ; **toujours tester `rep.ok`**.
 
 ## 6. Série ou parallèle
 `for … of` avec `await` : l'un après l'autre. `Promise.all` : tous en même temps.
@@ -55,7 +55,7 @@ flowchart TD
 > - `await` dans un `forEach` (ne attend pas) : utilise `for … of`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Asynchrone et Promesse]] · [[async et await]] · [[Appeler une API avec fetch]] · [[Boucle d'événements]] · [[JSON]]
+[[Asynchrone et Promesse]] · [[async et await]] · [[Appeler une API HTTP]] · [[Boucle d'événements]] · [[JSON]]

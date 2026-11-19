@@ -18,32 +18,32 @@ niveau: 5
 > [!abstract] Objectifs
 > - Protéger le cœur métier avec les ports et adaptateurs
 > - Comprendre la communication par événements et files de messages
-> - Savoir ce qu'est une fonction serverless comme Nuclio
+> - Savoir ce qu'est une fonction serverless
 > - Situer une passerelle d'API, les douze facteurs et le cache
 
 **Prérequis :** [[Cours - Organiser son code]], [[Cours - Architecture d'une application]], [[Module 13 - Docker]]
 
-## Le fil rouge : ta fonction d'export CVAT
-Tu vas écrire une fonction Nuclio qui lit des annotations dans CVAT et produit un PNG. Ce cours montre comment l'organiser pour qu'elle soit testable, déployable et rapide. Les mots changent selon les livres, les idées restent les mêmes.
+## L'exemple du cours : un service d'export
+Un service lit des données dans une API et produit un PNG. Ce cours montre comment l'organiser pour qu'elle soit testable, déployable et rapide. Les mots changent selon les livres, les idées restent les mêmes.
 
 ## 1. Protéger le cœur : l'architecture hexagonale
-En couches, le métier dépend souvent de la technique. L'[[Architecture hexagonale]] inverse cela : le code qui dessine le PNG ne connaît ni CVAT ni Nuclio. Il demande une « source d'annotations » (un **port**), et on lui donne une source CVAT en vrai, une source fichier en test (des **adaptateurs**).
+En couches, le métier dépend souvent de la technique. L'[[Architecture hexagonale]] inverse cela : le code qui dessine le PNG ne connaît ni l'API ni la plateforme. Il demande une « source de données » (un **port**), et on lui donne une source API en vrai, une source fichier en test (des **adaptateurs**).
 
 ```mermaid
 flowchart TD
-N[Nuclio] --> C[Cœur export]
+N[Handler] --> C[Cœur export]
   C --> P[Port source]
-  A[Adaptateur CVAT] -.-> P
+  A[Adaptateur API] -.-> P
 ```
 
 ## 2. Ne plus attendre : l'architecture événementielle
-Un export peut prendre du temps. Plutôt que de faire patienter la requête, on publie un message « export demandé » dans une file, et un travailleur le traite : c'est l'[[Architecture événementielle]]. CVAT fait exactement ça avec Redis pour ses tâches lourdes.
+Un export peut prendre du temps. Plutôt que de faire patienter la requête, on publie un message « export demandé » dans une file, et un travailleur le traite : c'est l'[[Architecture événementielle]]. Beaucoup d'applis font exactement ça avec Redis pour leurs tâches lourdes.
 
 ## 3. Ne déployer qu'une fonction : le serverless
-Avec le [[Serverless et FaaS]], tu écris `handler(context, event)` et la plateforme (Nuclio) gère le conteneur, le nombre de copies et l'arrêt. Conséquences : la fonction doit être **sans état**, et ce qui est lourd se charge une fois dans `init_context`.
+Avec le [[Serverless et FaaS]], tu écris `handler(event)` et la plateforme (AWS Lambda, Nuclio, OpenFaaS) gère le conteneur, le nombre de copies et l'arrêt. Conséquences : la fonction doit être **sans état**, et ce qui est lourd se charge une fois, au démarrage.
 
 ## 4. Une seule porte d'entrée : la passerelle d'API
-Quand il y a plusieurs services, une [[Passerelle d'API (API gateway)]] reçoit tout, vérifie l'authentification et route. Dans CVAT c'est Traefik.
+Quand il y a plusieurs services, une [[Passerelle d'API (API gateway)]] reçoit tout, vérifie l'authentification et route. Souvent, c'est Traefik ou nginx.
 
 ## 5. Être déployable partout : les douze facteurs
 L'[[Application douze facteurs]] résume les règles d'une appli « prête pour Docker » : configuration et secrets dans les variables d'environnement, logs sur la sortie standard, processus sans état, même image partout.
@@ -73,7 +73,7 @@ Commence toujours simple et ajoute une de ces pièces quand un problème réel l
 > - Mettre un cache sans prévoir son invalidation
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Architecture hexagonale]] · [[Architecture événementielle]] · [[Serverless et FaaS]] · [[Passerelle d'API (API gateway)]] · [[Application douze facteurs]] · [[Cache applicatif]]

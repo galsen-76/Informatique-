@@ -50,7 +50,7 @@ La [[Boucle d'événements]] : tant que ton code ne fait pas de gros calcul sync
 > - Installer Node avec apt et nvm en même temps
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Node.js]] · [[Lire et écrire un fichier]] · [[Boucle d'événements]] · [[Gestionnaire de versions de Node (nvm)]]

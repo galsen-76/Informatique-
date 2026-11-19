@@ -12,10 +12,8 @@ prerequisites:
   - "[[Permissions Linux]]"
 parents: []
 related:
-  - "[[pip]]"
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
 next_review: 
-method: []
 tags:
   - concept
   - terminal
@@ -23,7 +21,7 @@ tags:
 # Gestionnaire de paquets
 
 > [!info] En une phrase
-> L'outil qui installe, met à jour et désinstalle les logiciels d'un système depuis des dépôts de confiance (apt sous Ubuntu, winget sous Windows).
+> Un gestionnaire de paquets installe, met à jour et retire des logiciels ou des bibliothèques depuis un dépôt de confiance : apt pour le système, pip pour Python, npm pour JavaScript.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
@@ -38,8 +36,8 @@ Un **gestionnaire de paquets** télécharge des logiciels depuis des **dépôts*
 | Ubuntu / Debian (WSL, beaucoup d'images Docker) | `apt` |
 | Alpine (petites images Docker) | `apk` |
 | Windows | `winget` |
-| Python | [[pip]] |
-| Node.js | [[npm]] |
+| Python | [[Gestionnaire de paquets]] |
+| Node.js | [[Gestionnaire de paquets]] |
 
 ### Pourquoi ça existe
 Installer un logiciel en une commande, toujours depuis la même source, et tout mettre à jour d'un coup.
@@ -74,6 +72,31 @@ Dans un script ou un Dockerfile, on écrit **`apt-get`** plutôt que `apt` : mê
 winget install Python.Python.3.12    # sous Windows
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Système (apt, Ubuntu et Debian)**
+> ```bash
+> sudo apt update && sudo apt install curl
+> ```
+> Installe pour toute la machine.
+>
+> **Python (pip)**
+> ```bash
+> python -m pip install requests
+> pip install -r requirements.txt   # tout le projet
+> pip freeze > requirements.txt     # figer les versions
+> ```
+> Dans un [[Environnement virtuel Python|environnement virtuel]], pour ne pas toucher au Python du système. Les détails sont dans [[pip install]].
+>
+> **JavaScript (npm)**
+> ```bash
+> npm install axios        # ajoute à package.json
+> npm ci                   # installe exactement package-lock.json
+> npm run dev              # lance un script de package.json
+> ```
+> Les paquets vont dans `node_modules/` du projet ; la liste est dans [[package.json]].
+
 ### Cas d'utilisation
 - Installer des outils dans WSL (`zip`, `tree`, `jq`)
 - Les lignes `RUN apt-get install` des Dockerfile (derrière un [[Proxy]], elles passent par un miroir interne)
@@ -103,14 +126,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ## 4 · Relier
 - **Prérequis** : [[Permissions Linux]]
-- **Complémentaires** : [[pip]] · [[npm]]
+- **Complémentaires** : [[Gestionnaire de paquets]] · [[Gestionnaire de paquets]]
 - **Commandes** : [[apt]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

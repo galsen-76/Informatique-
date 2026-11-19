@@ -48,19 +48,10 @@ tags:
 | Erreur | Ce que ça veut dire | Premier réflexe |
 |---|---|---|
 | `port is already allocated` | un autre conteneur ou programme écoute déjà sur ce port | `docker ps` |
-| `pull access denied` / `manifest unknown` | l'image ou son tag n'existe pas, ou le registre est bloqué | vérifier le nom ; au travail, passer par le Nexus |
+| `pull access denied` / `manifest unknown` | l'image ou son tag n'existe pas, ou le registre est bloqué | vérifier le nom ; derrière un proxy, passer par le registre interne |
 | `Conflict. The container name "/x" is already in use` | un conteneur arrêté porte déjà ce nom | `docker ps -a`, puis `docker rm x` |
 | `Cannot connect to the Docker daemon` | le démon Docker ne tourne pas | lancer Docker Desktop ou le service |
 | conteneur qui redémarre en boucle | le programme dedans plante au démarrage | `docker logs <conteneur>` : l'erreur Python est là |
-
-## Nuclio (`nuctl`)
-
-| Erreur | Ce que ça veut dire | Premier réflexe |
-|---|---|---|
-| `Project label not found` | le déploiement ne dit pas à quel projet appartient la fonction | ajouter `--project-name cvat` |
-| `Function is being provisioned and cannot be deleted` | la fonction est restée bloquée en `building` | supprimer le conteneur, puis la fiche de la fonction |
-| `Caught unhandled exception while initializing` | ton code Python plante **au chargement** | lire le `"err"` et le `"traceback"` juste après |
-| `panic: Wrapper process … exited unexpectedly` | conséquence : Python est mort | remonter à l'erreur juste au-dessus |
 
 ## HTTP
 
@@ -75,3 +66,6 @@ tags:
 
 ## Liens
 [[Fiche - Lire un message d'erreur]] · [[Erreurs et solutions]] · [[Exception]] · [[Gestion des erreurs d'une API]]
+
+> [!info] Au travail
+> Les erreurs Nuclio (`nuctl`) sont dans [[Erreurs Nuclio, aide-mémoire]].

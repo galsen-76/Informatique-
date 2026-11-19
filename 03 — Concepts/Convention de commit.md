@@ -15,7 +15,6 @@ related:
   - "[[Changelog]]"
   - "[[Tag Git]]"
 next_review: 
-method: []
 tags:
   - concept
   - git
@@ -68,7 +67,7 @@ flowchart TD
 
 ### Exemple concret
 ```text
-ci: récupère les images de base depuis le Nexus
+ci: récupère les images de base depuis le registre interne
 fix(export): corrige le nom de l'archive quand le dossier contient des espaces
 build: rend entrypoint.sh exécutable
 feat(ui): ajoute le bouton « Générer le plan »
@@ -76,7 +75,6 @@ feat(ui): ajoute le bouton « Générer le plan »
 Règles pratiques : l'impératif ou le présent, pas de point final, une ligne courte (≈ 70 caractères). Le détail du **pourquoi** va dans le corps, après une ligne vide.
 
 ### Cas d'utilisation
-- Projet CVAT : les commits de la CI GitLab (`ci:`) et des corrections (`fix:`)
 - Générer le [[Changelog]]
 
 > [!warning] À ne pas confondre
@@ -103,6 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 04 - Ranger le projet dans Git]]
 
 ## 4 · Relier
+- **Au travail** : [[Convention de commit au travail]]
 - **Prérequis** : [[Commit]]
 - **Complémentaires** : [[Changelog]] · [[Tag Git]]
 - **Commandes** : [[git commit]] · [[git diff]]
@@ -112,7 +111,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

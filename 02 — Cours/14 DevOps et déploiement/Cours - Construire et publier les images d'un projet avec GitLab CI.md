@@ -27,7 +27,7 @@ niveau: 3
 **Prérequis :** [[Docker]] · [[Image Docker]] · [[Git]]
 
 ## 1. Le point de départ
-Un projet open source (ici CVAT) vit sur GitHub, avec sa propre CI (GitHub Actions, dans `.github/workflows/`). L'objectif est de le faire vivre sur le GitLab de l'entreprise : le code, mais aussi la construction de ses images. Première étape : garder une copie sur GitLab tout en pouvant suivre les nouvelles versions, voir [[Dépôt upstream]].
+Un projet open source vit souvent sur GitHub, avec sa propre CI (GitHub Actions, dans `.github/workflows/`). L'objectif est de le faire vivre sur le GitLab de l'entreprise : le code, mais aussi la construction de ses images. Première étape : garder une copie sur GitLab tout en pouvant suivre les nouvelles versions, voir [[Dépôt upstream]].
 
 ## 2. Comment le projet construit ses images
 Les images sont décrites par un ou plusieurs [[Dockerfile]]. La ligne clé est `FROM` : elle dit d'où vient l'image de départ. Sans registre précisé, c'est Docker Hub. Le fichier `docker-compose.yml` montre quelles images le projet **construit** et lesquelles il **télécharge** seulement.
@@ -68,7 +68,7 @@ Commandes : [[docker login]] · [[docker build]] · [[docker tag]] · [[docker p
 > - Pousser vers un dépôt proxy au lieu d'un dépôt hosted
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Dépôt upstream]] · [[Dockerfile]] · [[Registre Docker]] · [[Nexus]] · [[Variable de build Docker (ARG)]] · [[Pipeline GitLab CI]] · [[Variables CI-CD GitLab]] · [[Construire une image dans la CI]] · [[Kaniko]]

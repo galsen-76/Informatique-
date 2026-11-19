@@ -43,7 +43,7 @@ flowchart TD
 > - Oublier l'extension `.js` dans un import pour le navigateur
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Portée et closure]] · [[Module et import]]

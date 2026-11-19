@@ -6,7 +6,7 @@ difficulty: moyen
 concepts:
   - "[[Angular]]"
   - "[[Angular CLI]]"
-  - "[[Composant Angular]]"
+  - "[[Composant d'interface]]"
   - "[[Service et injection de dépendances]]"
   - "[[Observable et RxJS]]"
 tags:
@@ -18,7 +18,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 09 - La CI du front Vue]]
 > **Cours :** [[Cours - Angular, composants et templates]] · [[Cours - Services, RxJS et routeur Angular]]
-> **Notions :** [[Angular]] · [[Angular CLI]] · [[Composant Angular]] · [[Template et liaison de données Angular]] · [[Service et injection de dépendances]] · [[Observable et RxJS]] · [[Type et interface TypeScript]]
+> **Notions :** [[Angular]] · [[Angular CLI]] · [[Composant d'interface]] · [[Template et liaison de données]] · [[Service et injection de dépendances]] · [[Observable et RxJS]] · [[Type et interface TypeScript]]
 > **Commande :** [[ng]]
 > **À créer :** HttpClient Angular (fiche dédiée)
 

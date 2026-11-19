@@ -5,7 +5,7 @@ module: "[[Module 20 - Angular]]"
 concepts:
   - "[[Service et injection de dépendances]]"
   - "[[Observable et RxJS]]"
-  - "[[Angular Router]]"
+  - "[[Application monopage et routage]]"
 tags:
   - cours
 niveau: 4
@@ -35,7 +35,7 @@ flowchart TD
 [[Observable et RxJS]] : rien ne part sans abonnement ; `pipe`, `map`, `catchError`, `switchMap` ; le pipe `async`.
 
 ## 4. Les pages
-[[Angular Router]] : routes, paramètres, `loadComponent`, `canActivate`.
+[[Application monopage et routage]] : routes, paramètres, `loadComponent`, `canActivate`.
 
 ## 5. En production
 `ng build`, puis `dist/` servi par Nginx avec repli vers `index.html`, comme toute SPA.
@@ -49,7 +49,7 @@ flowchart TD
 > - S'abonner à la main sans se désabonner
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Service et injection de dépendances]] · [[Observable et RxJS]] · [[Angular Router]]
+[[Service et injection de dépendances]] · [[Observable et RxJS]] · [[Application monopage et routage]]

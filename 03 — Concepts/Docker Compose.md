@@ -17,7 +17,6 @@ parents: []
 related:
   - "[[Reverse proxy]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -36,7 +35,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 `docker compose` lit un fichier `docker-compose.yml` (ou `compose.yaml`) qui décrit des **services**. Chaque service = un conteneur, avec son image (ou son `build`), ses ports, volumes, variables. Compose crée aussi un **réseau** où les services se joignent **par leur nom**.
 
 ### Pourquoi ça existe
-Une vraie application = plusieurs conteneurs (CVAT : serveur, interface, base, Redis, Traefik…). Les lancer un par un avec de longues commandes `docker run` est ingérable.
+Une vraie application = plusieurs conteneurs (par exemple : serveur, interface, base, Redis, reverse proxy). Les lancer un par un avec de longues commandes `docker run` est ingérable.
 
 ### Le problème résolu
 Remplacer dix commandes `docker run` à retenir par un fichier versionné, lisible et partagé.
@@ -76,10 +75,9 @@ docker compose ps             # état des services
 docker compose logs -f api    # suivre les logs d'un service
 docker compose down           # arrête et supprime (ajouter -v supprime aussi les volumes)
 ```
-Plusieurs fichiers peuvent se superposer : `docker compose -f docker-compose.yml -f docker-compose.dev.yml up` (CVAT en a plusieurs).
+Plusieurs fichiers peuvent se superposer : `docker compose -f docker-compose.yml -f docker-compose.dev.yml up` (les gros projets en ont souvent plusieurs).
 
 ### Cas d'utilisation
-- Lancer CVAT en local (son `docker-compose.yml` liste les images, les ports, Traefik)
 - Comprendre quelles images un projet **construit** (`build:`) ou **télécharge** (`image:`)
 
 > [!warning] À ne pas confondre
@@ -114,6 +112,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 03 - Une page web pour le rapport]]
 
 ## 4 · Relier
+- **Au travail** : [[Docker Compose au travail]]
 - **Prérequis** : [[Conteneur]] · [[YAML]] · [[Volume Docker]] · [[Port]]
 - **Complémentaires** : [[Reverse proxy]]
 - **Commandes** : [[docker compose up]]
@@ -122,7 +121,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

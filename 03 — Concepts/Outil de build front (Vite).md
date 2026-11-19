@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[package.json]]"
   - "[[Module et import]]"
 parents:
@@ -18,7 +18,6 @@ related:
   - "[[Compilation TypeScript (tsc et tsconfig)]]"
   - "[[Dockerfile]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -39,7 +38,7 @@ Le navigateur ne comprend ni JSX, ni TypeScript, ni `import React from "react"` 
 - **`npm run build`** : produit le dossier **`dist/`** (HTML, JS et CSS minifiés, noms avec empreinte pour le cache).
 - **`npm run preview`** : sert `dist/` pour tester le build.
 - Variables : `import.meta.env.VITE_API_URL` (seules celles qui commencent par `VITE_` sont exposées, et elles sont **publiques**).
-Autres outils du même rôle : **webpack** (plus ancien, utilisé par CVAT), esbuild, Rollup, le CLI d'Angular.
+Autres outils du même rôle : **webpack** (plus ancien, encore très répandu), esbuild, Rollup, le CLI d'Angular.
 
 ### Pourquoi ça existe
 Le code moderne est écrit en centaines de fichiers et de paquets, dans des syntaxes que le navigateur ne lit pas directement.
@@ -69,7 +68,6 @@ Dans un Dockerfile, on fait souvent un **multi-étapes** : une étape Node qui l
 ### Cas d'utilisation
 - Démarrer un projet React ou Vue
 - Construire l'image Docker d'un frontend
-- Comprendre le build du frontend de CVAT (webpack)
 
 > [!warning] À ne pas confondre
 > Une variable `VITE_…` est **écrite dans le JavaScript livré** : jamais de secret dedans. Et `npm run dev` n'est pas fait pour la production : on sert le résultat de `npm run build`.
@@ -95,14 +93,15 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 06 - Le front Vue dans Docker]]
 
 ## 4 · Relier
-- **Prérequis** : [[npm]] · [[package.json]] · [[Module et import]]
+- **Au travail** : [[Outil de build front (Vite) au travail]]
+- **Prérequis** : [[Gestionnaire de paquets]] · [[package.json]] · [[Module et import]]
 - **Complémentaires** : [[Compilation TypeScript (tsc et tsconfig)]] · [[Dockerfile]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

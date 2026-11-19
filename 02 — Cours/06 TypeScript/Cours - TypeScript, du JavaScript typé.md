@@ -51,7 +51,7 @@ Les types disparaissent à l'exécution : les données qui viennent de l'extéri
 > - Annoter ce qui est déjà inféré (code lourd pour rien)
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[TypeScript]] · [[Type et interface TypeScript]] · [[Union et type littéral]]

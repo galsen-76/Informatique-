@@ -5,7 +5,7 @@ difficulty: moyen
 concepts:
   - "[[JSON]]"
   - "[[Annotations dans l'API CVAT]]"
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Liste et dictionnaire]]"
 tags:
   - projet

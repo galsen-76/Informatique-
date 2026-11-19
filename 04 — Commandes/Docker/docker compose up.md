@@ -15,7 +15,7 @@ tags:
 > Lance, arrête et inspecte d'un coup tous les services décrits dans un fichier compose.
 
 ## Pourquoi l'utiliser
-Démarrer une application faite de plusieurs conteneurs (CVAT) sans taper une commande par conteneur.
+Démarrer une application faite de plusieurs conteneurs (une appli, sa base, son front) sans taper une commande par conteneur.
 
 ## Dans quel contexte
 Développement local, démonstration, petits déploiements.

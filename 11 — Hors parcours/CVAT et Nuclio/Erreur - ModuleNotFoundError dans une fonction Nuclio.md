@@ -4,7 +4,7 @@ tool: Python / Nuclio
 date: 2026-11-12
 concepts:
   - "[[Module et import]]"
-  - "[[pip]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[Charger un fichier .env (python-dotenv)]]"
 tags:
   - erreur

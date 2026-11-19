@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[État React (useState)]]"
+  - "[[État et réactivité]]"
   - "[[Effet React (useEffect)]]"
   - "[[Portée et closure]]"
 parents:
@@ -17,7 +17,6 @@ parents:
 related:
   - "[[Générique TypeScript]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -82,7 +81,6 @@ const { donnees: taches, chargement } = useDonnees<Tache[]>("/api/taches");
 ### Cas d'utilisation
 - Factoriser les appels d'API
 - Contexte d'authentification (`useAuth`)
-- Le code de CVAT utilise beaucoup de hooks
 
 > [!warning] À ne pas confondre
 > Appeler un hook dans un `if` : React les repère par leur **ordre d'appel**, qui doit être identique à chaque rendu. Et un hook personnalisé partage la **logique**, pas l'**état** : chaque composant qui l'appelle a sa propre copie.
@@ -108,14 +106,15 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[État React (useState)]] · [[Effet React (useEffect)]] · [[Portée et closure]]
+- **Au travail** : [[Hook React au travail]]
+- **Prérequis** : [[État et réactivité]] · [[Effet React (useEffect)]] · [[Portée et closure]]
 - **Complémentaires** : [[Générique TypeScript]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

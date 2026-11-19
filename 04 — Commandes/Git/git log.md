@@ -43,7 +43,7 @@ git log --oneline --graph --all -n 20
 `a1b2c3d (HEAD -> main, origin/main) fix: …`.
 
 ## Variantes utiles
-- `git log -S "CVAT_HOST"` : les commits qui ajoutent ou retirent ce texte
+- `git log -S "API_URL"` : les commits qui ajoutent ou retirent ce texte
 - `git show a1b2c3d` : un commit en détail
 - `git blame fichier` : qui a écrit chaque ligne
 

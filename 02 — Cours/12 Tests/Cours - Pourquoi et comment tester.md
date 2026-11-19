@@ -5,8 +5,6 @@ module: "[[Module 12 - Tests]]"
 concepts:
   - "[[Test automatisé]]"
   - "[[Test unitaire]]"
-  - "[[Vitest et Jest]]"
-  - "[[pytest]]"
 tags:
   - cours
 niveau: 3
@@ -34,7 +32,7 @@ flowchart TD
 [[Test unitaire]] : une fonction, isolée ; préparer, agir, vérifier. Cas normal, cas limites, erreurs.
 
 ## 4. Les outils
-[[pytest]] en Python, [[Vitest et Jest]] en JavaScript. Même logique : des fichiers de test, des assertions, un code de sortie.
+[[Test automatisé]] en Python, [[Test automatisé]] en JavaScript. Même logique : des fichiers de test, des assertions, un code de sortie.
 
 ## 5. Écrire du code testable
 Des fonctions qui prennent leurs entrées en paramètres et renvoient un résultat. Si un test est difficile à écrire, c'est souvent le code qu'il faut simplifier.
@@ -51,7 +49,7 @@ Avant de corriger un bug, écris le test qui le reproduit. Il échoue ; corrige 
 > - Oublier les cas d'erreur
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Test automatisé]] · [[Test unitaire]] · [[Vitest et Jest]] · [[pytest]]
+[[Test automatisé]] · [[Test unitaire]] · [[Test automatisé]] · [[Test automatisé]]

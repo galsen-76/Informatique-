@@ -37,8 +37,8 @@ Un module `api.ts` avec des fonctions typées ; le jeton dans `Authorization` ; 
 ## 5. Mettre en production
 `npm run build`, puis servir `dist/` avec Nginx (avec le repli vers `index.html`), souvent dans une image Docker multi-étapes.
 
-## 6. Le lien avec CVAT
-Le frontend de CVAT suit exactement ce schéma ; ajouter un bouton, c'est ajouter un composant qui appelle une API.
+## 6. Dans une vraie appli
+Les grosses interfaces React suivent exactement ce schéma ; ajouter un bouton, c'est ajouter un composant qui appelle une API.
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
@@ -49,7 +49,7 @@ Le frontend de CVAT suit exactement ce schéma ; ajouter un bouton, c'est ajoute
 > - Mettre un secret dans une variable `VITE_`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Application monopage et routage]]

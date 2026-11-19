@@ -33,7 +33,7 @@ Ce qu'on ne fera **pas** est aussi important que ce qu'on fera : c'est ce qui em
 F1, F2, NF1… Une merge request, un test ou une question peut alors citer « NF2 » sans ambiguïté.
 
 ### 5. Ne pas oublier le non fonctionnel
-Performance, droits d'accès, journaux, déploiement (CI GitLab, images du Nexus). C'est souvent là que les projets échouent.
+Performance, droits d'accès, journaux, déploiement (CI GitLab, registre d'images). C'est souvent là que les projets échouent.
 
 ### 6. Décrire le besoin, pas la solution
 « Les résultats s'affichent en moins de 1 s » plutôt que « utiliser un cache Redis ». La solution va dans la [[Spécification technique]], avec ses raisons.

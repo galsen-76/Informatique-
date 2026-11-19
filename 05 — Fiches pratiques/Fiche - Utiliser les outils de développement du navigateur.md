@@ -23,7 +23,7 @@ tags:
 7. **Lighthouse** : audit de performance et d'accessibilité.
 
 > [!success] Vérifier que ça marche
-> Sur une page de CVAT, tu sais retrouver la requête qui charge la liste des tâches, son code de statut, et le JSON renvoyé.
+> Sur une appli web, tu sais retrouver la requête qui charge une liste, son code de statut, et le JSON renvoyé.
 
 ## Liens
 [[HTML]] · [[CSS]] · [[JavaScript]] · [[HTTP]] · [[Code de statut HTTP]] · [[CORS]]

@@ -60,7 +60,7 @@ Ton code tourne dans des conteneurs Linux. Les [[Fichiers entre Windows et Linux
 > - Mélanger tabulations et espaces dans un YAML
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Variable d'environnement]] · [[Code de sortie]] · [[YAML]] · [[Fichiers entre Windows et Linux]]

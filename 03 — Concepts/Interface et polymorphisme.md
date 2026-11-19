@@ -17,7 +17,6 @@ related:
   - "[[Principes SOLID]]"
   - "[[Doublure de test (mock)]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -82,12 +81,11 @@ class SourceCvat:                       # la vraie, en production
 class SourceFactice:                    # pour les tests
     def annotations(self, tache_id): return [{"label": "voiture", "points": [0, 0, 10, 10]}]
 ```
-Ta fonction Nuclio peut recevoir l'une ou l'autre : elle ne voit que l'interface.
+Ta fonction peut recevoir l'une ou l'autre : elle ne voit que l'interface.
 
 ### Cas d'utilisation
 - Injection de dépendances (Angular, NestJS)
 - Tests avec des doublures
-- Brancher plusieurs fournisseurs (stockage local ou S3, CVAT ou fichier)
 
 > [!warning] À ne pas confondre
 > Une **interface** (le contrat, sans code) n'est pas une **classe parent** (qui contient du code partagé). Et créer une interface pour une seule implémentation qui n'en aura jamais d'autre : c'est du travail pour rien (YAGNI).
@@ -113,6 +111,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Interface et polymorphisme au travail]]
 - **Prérequis** : [[Héritage et composition]] · [[Type et interface TypeScript]]
 - **Complémentaires** : [[Principes SOLID]] · [[Doublure de test (mock)]]
 
@@ -120,7 +119,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

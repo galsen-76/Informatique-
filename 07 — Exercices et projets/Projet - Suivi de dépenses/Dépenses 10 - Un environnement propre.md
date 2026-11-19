@@ -5,7 +5,6 @@ niveau: 0
 difficulty: facile
 concepts:
   - "[[Environnement virtuel Python]]"
-  - "[[pip]]"
   - "[[Gestionnaire de paquets]]"
 tags:
   - exercice
@@ -16,7 +15,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Suivre ses dépenses en Python]] · **Niveau :** 0
 > **Étape précédente :** [[Dépenses 09 - Un vrai outil en ligne de commande]]
-> **Notions appliquées ici :** [[Environnement virtuel Python]] · [[pip]] · [[Gestionnaire de paquets]]
+> **Notions appliquées ici :** [[Environnement virtuel Python]] · [[Gestionnaire de paquets]] · [[Gestionnaire de paquets]]
 > **Ordre :** pour chaque notion, je lis la fiche, je fais son dessin et ses exercices visuels, puis je fais le morceau de cette étape qui l'utilise.
 
 ## Le but

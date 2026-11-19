@@ -3,7 +3,7 @@ type: course
 order: 2
 module: "[[Module 11 - React]]"
 concepts:
-  - "[[État React (useState)]]"
+  - "[[État et réactivité]]"
   - "[[Effet React (useEffect)]]"
   - "[[Hook React]]"
 tags:
@@ -20,7 +20,7 @@ niveau: 4
 **Prérequis :** [[Cours - Penser en composants]] · [[Cours - L'asynchrone avec Promesses, async, await et fetch]]
 
 ## 1. Ce qui change
-[[État React (useState)]] : une valeur et sa fonction de mise à jour. Toujours une **nouvelle** valeur.
+[[État et réactivité]] : une valeur et sa fonction de mise à jour. Toujours une **nouvelle** valeur.
 
 ## 2. Schéma
 ```mermaid
@@ -47,7 +47,7 @@ flowchart TD
 > - Hook dans un `if`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[État React (useState)]] · [[Effet React (useEffect)]] · [[Hook React]]
+[[État et réactivité]] · [[Effet React (useEffect)]] · [[Hook React]]

@@ -16,7 +16,6 @@ related:
   - "[[Refactorisation]]"
   - "[[Principes SOLID]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -57,7 +56,7 @@ R[Répétition] --> D[DRY : factoriser]
 # répété
 url = "https://cvat.ex/api/tasks"   # dans 5 fichiers
 # DRY
-API = os.environ["CVAT_URL"]        # un seul endroit (config.py)
+API = os.environ["API_URL"]        # un seul endroit (config.py)
 
 # pas KISS, pas YAGNI
 class FabriqueDeCompresseurs:       # pour un seul format utilisé
@@ -102,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

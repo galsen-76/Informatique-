@@ -65,7 +65,7 @@ Test-NetConnection vortex-nexus.assystem.com -Port 5000
   pip install --index-url <adresse>/simple requests        # une fois
   pip config set global.index-url <adresse>/simple          # pour toujours (ou PIP_INDEX_URL dans le Dockerfile)
   ```
-  En attendant, un script peut se passer de pip avec la bibliothèque standard : [[Appeler une API sans pip (urllib.request)]].
+  En attendant, un script peut se passer de pip avec la bibliothèque standard : [[Appeler une API HTTP]].
 - [ ] Après l'étape 02 du fil rouge : remplacer l'adresse écrite en dur par une [[Variable de build Docker (ARG)]], pour qu'un seul Dockerfile marche au travail, chez moi et dans la CI.
 
 ## Liens

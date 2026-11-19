@@ -17,7 +17,6 @@ related:
   - "[[Proxy]]"
   - "[[Reverse proxy]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -68,7 +67,7 @@ class SourceAvecCache:                       # proxy de cache, même interface q
             self._cache[tache_id] = (valeur, time.time())
         return valeur
 ```
-Proxies que tu connais déjà, au niveau réseau : le [[Proxy]] d'entreprise et le [[Reverse proxy]] (Traefik devant CVAT) font la même chose pour des requêtes HTTP. Les ORM utilisent des proxys pour charger une relation seulement quand on y accède (*lazy loading*).
+Proxies que tu connais déjà, au niveau réseau : le [[Proxy]] d'entreprise et le [[Reverse proxy]] (nginx devant une appli) font la même chose pour des requêtes HTTP. Les ORM utilisent des proxys pour charger une relation seulement quand on y accède (*lazy loading*).
 
 ### Cas d'utilisation
 - Cache devant une API lente
@@ -107,7 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

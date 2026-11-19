@@ -3,7 +3,7 @@ type: course
 order: 2
 module: "[[Module 07 - Node.js]]"
 concepts:
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[package.json]]"
   - "[[Version sémantique (semver)]]"
 tags:
@@ -23,7 +23,7 @@ niveau: 2
 [[package.json]] : nom, version, `scripts`, `dependencies`, `devDependencies`.
 
 ## 2. Installer
-[[npm]] : `npm install` en développement, `npm ci` en CI et dans Docker. `node_modules` n'est jamais versionné, le lock l'est toujours.
+[[Gestionnaire de paquets]] : `npm install` en développement, `npm ci` en CI et dans Docker. `node_modules` n'est jamais versionné, le lock l'est toujours.
 
 ## 3. Schéma
 ```mermaid
@@ -48,7 +48,7 @@ flowchart TD
 > - Mettre une outil de test dans `dependencies` au lieu de `devDependencies`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[npm]] · [[package.json]] · [[Version sémantique (semver)]]
+[[Gestionnaire de paquets]] · [[package.json]] · [[Version sémantique (semver)]]

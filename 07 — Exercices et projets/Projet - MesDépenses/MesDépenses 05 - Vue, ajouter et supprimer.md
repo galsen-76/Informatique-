@@ -4,9 +4,9 @@ status: a-faire
 niveau: 2
 difficulty: moyen
 concepts:
-  - "[[Directives Vue]]"
+  - "[[Template et liaison de données]]"
   - "[[Formulaire HTML]]"
-  - "[[Appeler une API avec fetch]]"
+  - "[[Appeler une API HTTP]]"
   - "[[CORS]]"
 tags:
   - exercice
@@ -17,7 +17,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 04 - Régler CORS]]
 > **Cours :** [[Cours - Vue.js, composants, réactivité et directives]]
-> **Notions :** [[Directives Vue]] · [[Réactivité Vue (ref et computed)]] · [[Formulaire HTML]] · [[Appeler une API avec fetch]] · [[Code de statut HTTP]] · [[CORS]]
+> **Notions :** [[Template et liaison de données]] · [[État et réactivité]] · [[Formulaire HTML]] · [[Appeler une API HTTP]] · [[Code de statut HTTP]] · [[CORS]]
 > **À créer :** props et événements entre composants Vue
 
 ## Le but

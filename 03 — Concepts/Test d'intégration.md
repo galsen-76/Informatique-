@@ -18,7 +18,6 @@ related:
   - "[[Test de bout en bout]]"
   - "[[Pipeline GitLab CI]]"
 next_review: 
-method: []
 tags:
   - concept
   - tests
@@ -78,7 +77,6 @@ test:
 ### Cas d'utilisation
 - Routes d'API
 - Accès à la base
-- Ta fonction Nuclio de bout en bout sur une image de test
 
 > [!warning] À ne pas confondre
 > Partager l'état entre tests (une tâche créée par un test, utilisée par le suivant) : l'ordre compte et tout casse au hasard. Chaque test prépare ses données.
@@ -104,6 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Test d'intégration au travail]]
 - **Prérequis** : [[Test unitaire]] · [[API REST]] · [[SQL]]
 - **Complémentaires** : [[Test de bout en bout]] · [[Pipeline GitLab CI]]
 
@@ -111,7 +110,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

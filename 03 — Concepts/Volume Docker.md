@@ -15,7 +15,6 @@ parents: []
 related:
   - "[[Python dans Docker]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -68,7 +67,6 @@ docker volume rm pg-data  # supprime (définitif)
 
 ### Cas d'utilisation
 - Donner un dossier à traiter à ton script Python, et récupérer l'archive produite
-- Garder les données d'une base ou de CVAT entre deux redémarrages
 
 > [!warning] À ne pas confondre
 > `COPY` dans le Dockerfile (fichiers figés **dans l'image** au build) et `-v` (fichiers branchés **au lancement**). Et sous Linux, les fichiers créés par le conteneur dans un bind mount appartiennent souvent à `root`.
@@ -102,6 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 01 - Lancer l'application dans un conteneur]]
 
 ## 4 · Relier
+- **Au travail** : [[Volume Docker au travail]]
 - **Prérequis** : [[Conteneur]] · [[Système de fichiers]]
 - **Utilisé par** : [[Python dans Docker]] · [[Docker Compose]]
 - **Commandes** : [[docker run]]
@@ -110,7 +109,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

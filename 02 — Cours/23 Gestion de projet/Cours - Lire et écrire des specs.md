@@ -78,7 +78,7 @@ Lire une spec, c'est surtout **chercher ce qui manque** : un cas d'erreur non d�
 > - Ne pas mettre à jour la spec quand la décision change
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Spécification (specs)]] · [[Exigences fonctionnelles et non fonctionnelles]] · [[Cahier des charges]] · [[User story]] · [[Critères d'acceptation]] · [[Spécification technique]] · [[Décision d'architecture (ADR)]]

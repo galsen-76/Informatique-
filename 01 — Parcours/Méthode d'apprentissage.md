@@ -5,42 +5,46 @@ tags:
 # Méthode d'apprentissage
 
 > [!abstract] La règle d'or
-> **Un seul sujet actuel à la fois.** Les autres notions intéressantes vont dans *À apprendre ensuite* ou dans le *Parking* de [[Focus]] : elles ne sont pas perdues, elles attendent leur tour.
+> **Un niveau à la fois, une notion à la fois.** Le [[Dashboard]] ne montre que ton niveau actuel ([[Niveaux]]). Le reste attend dans [[Référence travail]] : rien n'est perdu.
 
 ```mermaid
-flowchart LR
-  A[1 · Comprendre] --> B[2 · Explorer] --> C[3 · Pratiquer] --> D[4 · Expliquer] --> E[5 · Relier] --> F[6 · Réviser]
-  F -. on revient plus tard .-> A
+flowchart TB
+  A[Lire la fiche] --> B[Dessin Excalidraw]
+  B --> C[Exercices visuels]
+  C --> D[Étape fil rouge]
+  D --> E[Compris]
 ```
 
-Chaque fiche concept suit exactement ces six étapes. Quand tu termines une étape, ajoute-la dans la propriété `method` de la fiche : la barre d'étapes se colore.
-
-| Étape | Ce que je fais | Où dans le vault |
+## Pour chaque notion
+| Étape | Ce que je fais | Où |
 | --- | --- | --- |
-| **1 · Comprendre** | Définition, pourquoi la notion existe, quel problème elle résout | Fiche concept, section 1 · [[Cours]] |
-| **2 · Explorer** | Comment ça marche, schéma, exemple, ce qu'il ne faut pas confondre | Fiche concept, section 2 · [[Ressources]] |
-| **3 · Pratiquer** | Faire un exercice, taper les commandes moi-même | [[Exercices et projets]] · [[Commandes]] |
-| **4 · Expliquer** | Écrire le résumé **avec mes mots, sans regarder** | Fiche concept, section 4 |
-| **5 · Relier** | Vérifier les prérequis et les notions voisines | Fiche concept, section 5 · vue graphique |
-| **6 · Réviser** | Me faire interroger par Claude sur la notion, planifier la prochaine révision | [[Révisions]] |
+| **1 · Comprendre** | Pourquoi la notion existe, quel problème elle résout | Fiche, section 1 |
+| **2 · Explorer** | Comment ça marche, ce qu'il ne faut pas confondre. La syntaxe est dans la boîte repliée « Comment ça s'écrit » : à chercher, pas à apprendre | Fiche, section 2 · [[Commandes]] |
+| **3 · Pratiquer** | Faire mon schéma Excalidraw, les exercices visuels, puis **tout de suite** l'étape du fil rouge | Fiche, section 3 · [[Exercices et projets]] |
+| **4 · Relier** | Voir les notions voisines | Fiche, section 4 |
+| **5 · Réviser** | Me faire interroger par Claude dans le chat | [[Révisions]] |
 
-## Les quatre états d'une notion
+> [!tip] Un concept, une fiche
+> Un `if` reste un `if` en Python ou en JavaScript : une seule fiche par concept. Les différences d'écriture sont dans la boîte « Comment ça s'écrit ». Méthode Pareto : comprendre l'idée, chercher la syntaxe quand j'en ai besoin.
 
-| État | Quand l'utiliser |
+## Les trois cases
+Chaque fiche a trois cases dans ses propriétés :
+- `schema` : j'ai fait mon dessin Excalidraw de la notion ;
+- `exercice_visuel` : j'ai fait les exercices visuels de la fiche ;
+- `fil_rouge` : je l'ai appliquée dans l'étape du fil rouge.
+
+| État | Quand |
 | --- | --- |
-| **À découvrir** | Je ne l'ai pas encore étudiée |
-| **En cours** | Je suis en train de l'apprendre (idéalement une ou deux notions à la fois) |
-| **Compris** | Je l'explique avec mes mots et j'ai fait au moins un exercice |
-| **Maîtrisé** | **Tous les exercices** liés à la notion sont réussis (section *Validation de la maîtrise*) |
+| **À découvrir** | Pas encore commencée |
+| **En cours** | Au moins une case cochée |
+| **Compris** | Les trois cases cochées (calculé tout seul) |
+| **Maîtrisé** | **Moi seul** le décide, quand je sens que je l'explique de façon fluide et que je l'adapte à un autre contexte |
 
-> [!warning] Lire n'est pas maîtriser
-> Une fiche lue reste *en cours*. Passer en *compris* demande d'avoir **expliqué** (section 4) et **pratiqué** (section 3). Passer en *maîtrisé* demande d'avoir réussi tous les exercices qui utilisent la notion : le [[Dashboard]] et la page [[Révisions]] signalent toute maîtrise non confirmée.
+## Valider un niveau
+Un niveau est validé quand son fil rouge est terminé et que toutes ses notions sont *compris*. Alors je passe `niveau_actuel` au niveau suivant dans [[Focus]].
 
 ## Une session type (45 min)
-1. Ouvrir le [[Dashboard]] : regarder le **sujet actuel** et les **révisions du jour**.
-2. 10 min de révision : répondre aux questions repliées des fiches dues, sans les ouvrir d'abord.
-3. 30 min sur le sujet actuel : avancer d'une ou deux étapes de la méthode.
-4. 5 min pour finir : mettre à jour `method`, `status` et `next_review`, noter les idées hors sujet dans le *Parking*.
-
-## Espacer les révisions
-Après chaque révision réussie, repousse `next_review` : **+1 jour → +3 → +7 → +14 → +30**. Si tu as séché, reviens à +1 jour.
+1. Ouvrir le [[Dashboard]] : la prochaine notion et la prochaine étape du fil rouge.
+2. 10 min : lire la fiche.
+3. 25 min : dessin, exercices visuels, étape du fil rouge. Cocher les cases.
+4. 10 min : me faire interroger par Claude sur une notion déjà vue.

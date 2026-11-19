@@ -14,9 +14,7 @@ parents:
   - "[[Construire une image dans la CI]]"
 related:
   - "[[Registre Docker]]"
-  - "[[Nexus]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -68,7 +66,6 @@ build-image:
 
 ### Cas d'utilisation
 - Construire une image sur un runner non privilégié
-- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
 
 > [!warning] À ne pas confondre
 > Kaniko **ne lance pas** de conteneurs : il ne sert qu'à construire et pousser. Pour exécuter l'image, il faut Docker ailleurs.
@@ -94,15 +91,16 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Relier
+- **Au travail** : [[Kaniko au travail]]
 - **Prérequis** : [[Construire une image dans la CI]]
 - **Notion parente** : [[Construire une image dans la CI]]
-- **Complémentaires** : [[Registre Docker]] · [[Nexus]] · [[Variable de build Docker (ARG)]]
+- **Complémentaires** : [[Registre Docker]] · [[Variable de build Docker (ARG)]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

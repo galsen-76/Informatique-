@@ -5,10 +5,10 @@ niveau: 2
 difficulty: moyen
 concepts:
   - "[[Vue.js]]"
-  - "[[Composant monofichier Vue (SFC)]]"
-  - "[[Réactivité Vue (ref et computed)]]"
-  - "[[Directives Vue]]"
-  - "[[Appeler une API avec fetch]]"
+  - "[[Composant d'interface]]"
+  - "[[État et réactivité]]"
+  - "[[Template et liaison de données]]"
+  - "[[Appeler une API HTTP]]"
 tags:
   - exercice
   - mini-projet
@@ -18,7 +18,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 02 - L'API dans Docker]]
 > **Cours :** [[Cours - Vue.js, composants, réactivité et directives]]
-> **Notions :** [[Vue.js]] · [[Composant monofichier Vue (SFC)]] · [[Réactivité Vue (ref et computed)]] · [[Directives Vue]] · [[Outil de build front (Vite)]] · [[npm]] · [[Appeler une API avec fetch]]
+> **Notions :** [[Vue.js]] · [[Composant d'interface]] · [[État et réactivité]] · [[Template et liaison de données]] · [[Outil de build front (Vite)]] · [[Gestionnaire de paquets]] · [[Appeler une API HTTP]]
 > **Fiches :** [[Fiche - Utiliser les outils de développement du navigateur]] · [[Bonnes pratiques - React et frameworks front]]
 > **À créer :** cycle de vie d'un composant Vue (`onMounted`)
 

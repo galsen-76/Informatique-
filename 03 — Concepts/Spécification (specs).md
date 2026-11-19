@@ -17,7 +17,6 @@ related:
   - "[[User story]]"
   - "[[Critères d'acceptation]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -65,7 +64,7 @@ flowchart TD
 ## Contexte
 Les annotateurs doivent partager leurs annotations sous forme d'image.
 ## Objectif
-Exporter en un clic une tâche CVAT en PNG avec les tracés.
+Exporter en un clic les dépenses du mois en PDF.
 ## Périmètre
 Dedans : une tâche à la fois, format PNG. Hors périmètre : PDF, export groupé.
 ## Exigences
@@ -78,7 +77,6 @@ Dedans : une tâche à la fois, format PNG. Hors périmètre : PDF, export group
 ```
 
 ### Cas d'utilisation
-- Avant de coder le bouton d'export CVAT, se mettre d'accord avec son responsable
 - Décrire une API avant de l'implémenter (OpenAPI)
 - Répondre à un appel d'offres
 
@@ -106,13 +104,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Spécification (specs) au travail]]
 - **Complémentaires** : [[Exigences fonctionnelles et non fonctionnelles]] · [[Cahier des charges]] · [[Spécification technique]] · [[User story]] · [[Critères d'acceptation]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

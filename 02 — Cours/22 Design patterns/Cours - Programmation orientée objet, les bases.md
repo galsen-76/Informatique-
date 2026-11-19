@@ -49,7 +49,7 @@ TypeScript : `class`, `implements`, `private`. Angular est entièrement écrit e
 > - Accéder partout aux attributs internes (`_x`)
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Classe et objet]] · [[Héritage et composition]] · [[Interface et polymorphisme]]

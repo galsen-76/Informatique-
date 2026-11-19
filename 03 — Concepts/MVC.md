@@ -15,7 +15,6 @@ parents:
 related:
   - "[[Architecture en couches]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -56,7 +55,7 @@ U[Utilisateur] --> C[Contrôleur]
 
 ### Exemple concret
 ```python
-# Django (CVAT est écrit ainsi)
+# Django
 # models.py : le modèle
 class Tache(models.Model):
     nom = models.CharField(max_length=100)
@@ -68,7 +67,6 @@ def liste(request):
 ```
 
 ### Cas d'utilisation
-- Comprendre l'organisation de Django et donc de CVAT
 - Frameworks web serveur
 
 > [!warning] À ne pas confondre
@@ -95,6 +93,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[MVC au travail]]
 - **Prérequis** : [[Séparation des responsabilités]]
 - **Complémentaires** : [[Architecture en couches]]
 
@@ -102,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

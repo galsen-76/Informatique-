@@ -92,7 +92,7 @@ Lis-le ligne par ligne et dis à voix haute ce que fait chacune avant de le lanc
 > - Compter les positions d'une liste à partir de 1 au lieu de 0
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Python]] · [[Variables et types]] · [[Condition (if)]] · [[Boucle (for, while)]] · [[Liste et dictionnaire]]

@@ -47,7 +47,7 @@ Quelqu'un a poussé avant toi : `git pull` (ou `git pull --rebase`), résous les
 On ne pousse pas sur `main` directement : on ouvre une [[Merge request]], la CI tourne, un collègue relit, puis on fusionne.
 
 ## 6. Deux remotes
-Pour un projet repris (CVAT) : `origin` = ton GitLab, `upstream` = le projet d'origine. Voir [[Dépôt upstream]].
+Pour un projet open source repris : `origin` = ton GitLab, `upstream` = le projet d'origine. Voir [[Dépôt upstream]].
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
@@ -58,7 +58,7 @@ Pour un projet repris (CVAT) : `origin` = ton GitLab, `upstream` = le projet d'o
 > - Oublier `git pull` avant de commencer à travailler
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Dépôt distant (remote)]] · [[Merge request]] · [[Dépôt upstream]] · [[Clé SSH]]

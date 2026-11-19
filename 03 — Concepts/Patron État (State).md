@@ -16,7 +16,6 @@ related:
   - "[[Patron Stratégie (Strategy)]]"
   - "[[Union et type littéral]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -73,7 +72,7 @@ class Job:
         except KeyError:
             raise ValueError(f"« {action} » impossible depuis l'état « {self.etat} »")
 ```
-Les jobs de CVAT ont exactement ce genre d'états (*annotation*, *validation*, *acceptance*) ; les jobs de pipeline aussi (*created*, *pending*, *running*, *success*, *failed*).
+Une commande en ligne a exactement ce genre d'états (*payée*, *expédiée*, *livrée*) ; les jobs de pipeline aussi (*created*, *pending*, *running*, *success*, *failed*).
 
 ### Cas d'utilisation
 - Statuts de tâches, de commandes, de jobs
@@ -111,7 +110,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

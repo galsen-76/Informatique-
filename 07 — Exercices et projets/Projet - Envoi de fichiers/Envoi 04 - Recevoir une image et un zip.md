@@ -18,7 +18,7 @@ tags:
 > **Notions validées par cette étape :** [[Envoyer et recevoir un fichier en HTTP]] · [[Fichier en mémoire (io.BytesIO)]]
 
 ## Le but
-Faire le chemin inverse, comme ta fonction avec CVAT : télécharger l'image `GET /image.png` et l'enregistrer dans `recu.png`, puis télécharger `GET /export.zip` et lire `annotations.xml` **sans écrire le zip sur le disque**.
+Faire le chemin inverse, comme un script qui récupère un export : télécharger l'image `GET /image.png` et l'enregistrer dans `recu.png`, puis télécharger `GET /export.zip` et lire `annotations.xml` **sans écrire le zip sur le disque**.
 
 ## Ce que tu fais
 - [ ] Télécharge l'image et enregistre-la en utilisant `r.text`. Ouvre `recu.png` (`explorer.exe .` depuis WSL) : que se passe-t-il ? Corrige
@@ -37,7 +37,7 @@ Faire le chemin inverse, comme ta fonction avec CVAT : télécharger l'image `GE
 Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 1. Pourquoi l'image enregistrée avec `r.text` était-elle cassée ?
 2. Comment ton script sait-il que la réponse est bien une image, avant de l'enregistrer ?
-3. Ta fonction Nuclio devra renvoyer un PNG au bouton React : que mettras-tu dans le corps de la réponse, et dans son `Content-Type` ?
+3. Une API doit renvoyer un PNG à un bouton d'une page web : que mettras-tu dans le corps de la réponse, et dans son `Content-Type` ?
 
 > [!quote] Mes réponses
 > _À écrire._

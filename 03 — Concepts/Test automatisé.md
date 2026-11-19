@@ -13,10 +13,8 @@ prerequisites:
   - "[[Code de sortie]]"
 parents: []
 related:
-  - "[[pytest]]"
-  - "[[Vitest et Jest]]"
+  - "[[Test automatisé]]"
 next_review: 
-method: []
 tags:
   - concept
   - tests
@@ -68,7 +66,27 @@ def test_nom_archive():
     # Vérifier
     assert nom == "export-2026-11-06.zip"
 ```
-Outils : [[pytest]] (Python), [[Vitest et Jest]] (JavaScript), Playwright (navigateur).
+Outils : [[Test automatisé]] (Python), [[Test automatisé]] (JavaScript), Playwright (navigateur).
+
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Python (pytest ou unittest)**
+> ```python
+> def test_total():
+>     assert total([{"montant": 2}, {"montant": 3}]) == 5
+> # lancer : pytest   (il lance aussi les tests unittest)
+> ```
+>
+> **JavaScript / TypeScript (Vitest ou Jest)**
+> ```js
+> import { test, expect } from "vitest";
+> test("total", () => {
+>   expect(total([{ montant: 2 }, { montant: 3 }])).toBe(5);
+> });
+> // lancer : npx vitest run
+> ```
+> Les deux outils trouvent les tests tout seuls (`test_*.py`, `*.test.js`) et rendent un code de sortie : 0 si tout passe, ce que lit la CI.
 
 ### Cas d'utilisation
 - Le job `test` de la pipeline GitLab
@@ -100,14 +118,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ## 4 · Relier
 - **Prérequis** : [[Fonction]] · [[Code de sortie]]
-- **Complémentaires** : [[pytest]] · [[Vitest et Jest]]
+- **Complémentaires** : [[Test automatisé]] · [[Test automatisé]]
 - **Utilisé par** : [[Pipeline GitLab CI]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

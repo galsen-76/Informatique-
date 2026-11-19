@@ -15,7 +15,6 @@ parents:
 related:
   - "[[Service et injection de dépendances]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -59,7 +58,7 @@ En Python, **un module est déjà un singleton** : il n'est exécuté qu'une foi
 ```python
 # config.py
 import os
-API_URL = os.environ["CVAT_URL"]
+API_URL = os.environ["API_URL"]
 TIMEOUT = int(os.environ.get("TIMEOUT", "30"))
 
 # ailleurs
@@ -117,7 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

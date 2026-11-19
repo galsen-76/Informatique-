@@ -9,7 +9,7 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Composant React]]"
+  - "[[Composant d'interface]]"
   - "[[Client-serveur]]"
   - "[[HTTP]]"
 parents:
@@ -17,7 +17,6 @@ parents:
 related:
   - "[[Reverse proxy]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -69,12 +68,39 @@ Conséquence côté serveur : si on ouvre directement `https://app.ex/taches/12`
 ```nginx
 location / { try_files $uri /index.html; }
 ```
-CVAT est une SPA : `/tasks/12/jobs/34` est géré par son routeur React.
+Gmail ou GitLab sont des SPA : l'adresse change sans recharger la page, c'est leur routeur qui choisit l'écran.
+
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change.
+>
+> **Vue (Vue Router)**
+> ```js
+> const routes = [
+>   { path: "/", component: Liste },
+>   { path: "/depenses/:id", component: Detail },
+> ];
+> // <RouterLink to="/depenses/3"> · useRoute().params.id
+> ```
+>
+> **Angular (Router)**
+> ```ts
+> export const routes: Routes = [
+>   { path: "", component: ListeComponent },
+>   { path: "depenses/:id", component: DetailComponent, canActivate: [connecteGuard] },
+> ];
+> // <a routerLink="/depenses/3"> · route.snapshot.paramMap.get("id")
+> ```
+>
+> **React (React Router)**
+> ```jsx
+> <Route path="/depenses/:id" element={<Detail />} />
+> // <Link to="/depenses/3"> · useParams().id
+> ```
+> Partout : une liste « adresse → composant », des paramètres dans l'adresse, et un serveur (nginx) qui renvoie `index.html` pour toutes les adresses.
 
 ### Cas d'utilisation
 - Tout frontend React, Vue ou Angular
 - Configuration du serveur ou du reverse proxy d'une SPA
-- Comprendre les adresses de CVAT
 
 > [!warning] À ne pas confondre
 > `<a href>` recharge toute la page ; dans une SPA, utilise le composant `Link` du routeur. Et une SPA n'est pas idéale pour le référencement : les frameworks comme Next.js ou Nuxt génèrent le HTML côté serveur (SSR).
@@ -101,14 +127,15 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 12 - Le front Angular dans Docker]]
 
 ## 4 · Relier
-- **Prérequis** : [[Composant React]] · [[Client-serveur]] · [[HTTP]]
+- **Au travail** : [[Application monopage et routage au travail]]
+- **Prérequis** : [[Composant d'interface]] · [[Client-serveur]] · [[HTTP]]
 - **Complémentaires** : [[Reverse proxy]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

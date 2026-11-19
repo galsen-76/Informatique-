@@ -131,7 +131,7 @@ Voir [[Redirection et pipe]] et [[Code de sortie]].
 > - Rester bloqué dans `less` ou `man` : `q` pour sortir
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Bash]] · [[Système de fichiers]] · [[Redirection et pipe]] · [[Processus]]

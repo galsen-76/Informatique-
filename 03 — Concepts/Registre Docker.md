@@ -14,10 +14,8 @@ parents:
   - "[[Docker]]"
 related:
   - "[[Démon Docker]]"
-  - "[[Nexus]]"
   - "[[Dockerfile]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -33,7 +31,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 
 ## 1 · Comprendre
 ### Définition
-Un **registre** (*registry*) est un serveur qui stocke des [[Image Docker|images]]. Exemples : **Docker Hub** (public), le **registre GitLab** d'un projet, le [[Nexus]] d'une entreprise.
+Un **registre** (*registry*) est un serveur qui stocke des [[Image Docker|images]]. Exemples : **Docker Hub** (public), le **registre GitLab** d'un projet, le registre interne d'une entreprise (Nexus, Artifactory).
 
 ### Pourquoi ça existe
 Partager une image entre ton poste, la CI et les serveurs, sans la reconstruire partout.
@@ -71,7 +69,7 @@ docker pull registry.gitlab.com/equipe/projet/api:1.2.0   # sur une autre machin
 | Docker Hub | rien, ou `docker.io/` | `python:3.12-slim`, `cvat/server` |
 | GitHub Container Registry | `ghcr.io/` | `ghcr.io/organisation/image:tag` |
 | Registre GitLab | `registry.gitlab.com/` ou celui de ton GitLab | `$CI_REGISTRY_IMAGE` |
-| Nexus de l'entreprise | `nexus.mon-entreprise.com:8082/` | voir [[Nexus]] |
+| Registre interne | `registre.interne.exemple.com:8082/` | miroir de Docker Hub |
 
 ### Miroir de registre
 Un **miroir** (*mirror*) est un registre qui garde une copie d'un autre (souvent Docker Hub). Deux façons de s'en servir :
@@ -83,7 +81,6 @@ Un projet open source peut publier ses images sur **plusieurs** registres (Docke
 ### Cas d'utilisation
 - Publier les images construites par la CI
 - Récupérer les images de base d'un Dockerfile
-- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
 
 > [!warning] À ne pas confondre
 > `latest` n'est **pas** une version : c'est juste le tag par défaut. Préférer un tag précis (`1.2.0`, ou l'identifiant du commit).
@@ -109,9 +106,10 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Relier
+- **Au travail** : [[Registre Docker au travail]]
 - **Prérequis** : [[Image Docker]]
 - **Notion parente** : [[Docker]]
-- **Complémentaires** : [[Nexus]] · [[Dockerfile]]
+- **Complémentaires** : [[Dockerfile]]
 - **Utilisé par** : [[Construire une image dans la CI]]
 - **Commandes** : [[docker login]] · [[docker tag]] · [[docker push]]
 
@@ -119,7 +117,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

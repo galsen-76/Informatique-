@@ -16,7 +16,6 @@ related:
   - "[[Patron Stratégie (Strategy)]]"
   - "[[Patron Monteur (Builder)]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -74,10 +73,8 @@ def creer_stockage():
 ```
 
 ### Cas d'utilisation
-- `creer_exporteur(format)` dans ta fonction Nuclio
 - `logging.getLogger(nom)`
 - `document.createElement("li")`
-- Les fabriques de clients des SDK (`make_client(...)` dans le SDK de CVAT)
 
 > [!warning] À ne pas confondre
 > La **Fabrique** (choisir **quelle** classe créer) n'est pas le **Monteur** (construire **pas à pas** un objet compliqué).
@@ -103,6 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Patron Fabrique (Factory) au travail]]
 - **Prérequis** : [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Stratégie (Strategy)]] · [[Patron Monteur (Builder)]]
 
@@ -110,7 +108,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

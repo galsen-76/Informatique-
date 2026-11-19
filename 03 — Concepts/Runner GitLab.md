@@ -19,7 +19,6 @@ related:
   - "[[Construire une image dans la CI]]"
   - "[[Variables CI-CD GitLab]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -59,7 +58,6 @@ Le **runner** est un agent qui :
 ### Pourquoi ça existe
 Les jobs ont besoin d'une vraie machine : processeur, mémoire, disque, réseau, outils. Séparer le serveur GitLab (qui organise) des runners (qui travaillent) permet :
 - d'avoir **beaucoup** de runners pour exécuter de nombreux jobs en parallèle ;
-- d'avoir des runners **spécialisés** (avec GPU, sous Windows, dans le réseau interne pour atteindre Nexus) ;
 - de garder le serveur GitLab léger et sûr.
 
 ### Les exécuteurs : où tourne le job
@@ -138,11 +136,6 @@ concurrent = 4                      # jobs en parallèle au maximum sur cette ma
     volumes = ["/cache"]
 ```
 
-### Dans ton projet CVAT
-- Les runners de l'entreprise sont probablement dans le **réseau interne** : c'est ce qui leur permet de joindre **Nexus**, que GitLab.com ne peut pas atteindre.
-- Construire une image dans un job demande soit un runner `privileged` (docker-in-docker), soit **[[Kaniko]]**, qui n'a pas besoin de privilège : c'est pour ça qu'on l'utilise sur des runners partagés.
-- Si un job reste **en attente** (*pending*) : aucun runner disponible n'accepte ses tags, ou tous sont occupés.
-
 ### Cas d'utilisation
 - Comprendre où et comment s'exécute ta pipeline
 - Diagnostiquer un job bloqué « pending » ou qui échoue avant même ton script
@@ -176,6 +169,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Relier
+- **Au travail** : [[Runner GitLab au travail]]
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Docker]] · [[Conteneur]]
 - **Complémentaires** : [[Kaniko]] · [[Construire une image dans la CI]] · [[Variables CI-CD GitLab]]
 - **Utilisé par** : [[Intégration et déploiement continus (CI-CD)]]
@@ -184,7 +178,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -36,7 +36,7 @@ Fabriquer dans `envoi.py` un zip qui contient deux petits fichiers texte (`rappo
 Réponds en quelques mots, en dessous, ou demande à Claude de t'interroger.
 1. Pourquoi `getvalue()` marche toujours, alors que `read()` renvoie parfois `b''` ?
 2. Quelle est la différence entre `"w"` et `"wb"`, et pourquoi un zip demande-t-il `"wb"` ?
-3. Dans ta fonction Nuclio, pourquoi est-ce mieux de garder le zip en mémoire que de l'écrire dans un fichier ?
+3. Dans un serveur ou une fonction qui reçoit beaucoup de requêtes, pourquoi est-ce mieux de garder le zip en mémoire que de l'écrire dans un fichier ?
 
 > [!quote] Mes réponses
 > _À écrire._

@@ -16,7 +16,6 @@ related:
   - "[[Patron Commande (Command)]]"
   - "[[Boucle d'événements]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -60,7 +59,7 @@ PR[Producteur] --> BR[Courtier]
 ```
 
 ### Exemple concret
-CVAT fonctionne déjà ainsi : quand tu lances une tâche lourde, la requête HTTP crée un **job** dans une file (Redis + RQ), et un *worker* le traite en arrière-plan. Les webhooks de CVAT publient aussi des événements (`create:job`, `update:task`).
+Beaucoup d'applications web fonctionnent ainsi : une tâche lourde crée un **job** dans une file (Redis, RabbitMQ), et un *worker* le traite en arrière-plan. Les webhooks (GitLab, GitHub) publient aussi des événements (`push`, `merge_request`).
 
 ```python
 # producteur : répond tout de suite
@@ -110,7 +109,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

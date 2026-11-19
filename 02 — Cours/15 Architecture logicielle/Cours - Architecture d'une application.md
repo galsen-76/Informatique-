@@ -23,21 +23,21 @@ niveau: 5
 [[Architecture en couches]] : routes, services, dépôts. Les dépendances vont vers le bas.
 
 ## 2. Le classique des frameworks
-[[MVC]] : modèle, vue, contrôleur. Django (donc CVAT) en est une variante.
+[[MVC]] : modèle, vue, contrôleur. Django en est une variante.
 
-## 3. Schéma de CVAT (simplifié)
+## 3. Schéma d'une appli web typique
 ```mermaid
 flowchart TD
-  N[Navigateur] --> T[Traefik]
-  T --> UI[cvat-ui React]
-  T --> S[cvat-server Django]
+  N[Navigateur] --> T[Reverse proxy]
+  T --> UI[Front]
+  T --> S[API]
   S --> DB[(PostgreSQL)]
   S --> R[(Redis)]
-  S --> F[Fonctions Nuclio]
+  S --> F[Fonctions]
 ```
 
 ## 4. Un seul bloc ou plusieurs services
-[[Monolithe et microservices]] : commencer simple, découper seulement quand une partie doit vraiment vivre à part (comme une fonction Nuclio).
+[[Monolithe et microservices]] : commencer simple, découper seulement quand une partie doit vraiment vivre à part (comme une fonction serverless).
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
@@ -47,7 +47,7 @@ flowchart TD
 > - Couches vides qui ne font que transmettre
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Architecture en couches]] · [[MVC]] · [[Monolithe et microservices]]

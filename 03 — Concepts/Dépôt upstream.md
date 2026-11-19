@@ -16,7 +16,6 @@ related:
   - "[[Merge]]"
   - "[[Conflit de merge]]"
 next_review: 
-method: []
 tags:
   - concept
   - git
@@ -64,7 +63,6 @@ GitLab propose aussi le **mirroring** (*Settings > Repository > Mirroring reposi
 
 ### Cas d'utilisation
 - Reprendre un projet open source et le personnaliser
-- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
 
 > [!warning] À ne pas confondre
 > `origin` (ta copie, tu y pousses) et `upstream` (l'original, tu ne fais qu'y lire).
@@ -90,6 +88,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Dépôt upstream au travail]]
 - **Prérequis** : [[Dépôt Git]]
 - **Notion parente** : [[Dépôt Git]]
 - **Complémentaires** : [[Merge]] · [[Conflit de merge]]
@@ -99,7 +98,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -18,7 +18,7 @@ tags:
 - Construire une interface en composants avec des props
 - Gérer état, effets et hooks
 - Construire une SPA avec routage, branchée sur une API
-- Comprendre le frontend de CVAT pour y ajouter un bouton
+- Lire et modifier une interface React existante
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })

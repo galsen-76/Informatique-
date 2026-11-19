@@ -16,7 +16,6 @@ related:
   - "[[Patron Façade (Facade)]]"
   - "[[Architecture hexagonale]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -60,7 +59,7 @@ T[Ton code] --> I[Ton interface]
 class SourceAnnotations(Protocol):
     def annotations(self, tache_id: int) -> list[Annotation]: ...
 
-class AdaptateurCvat:                                  # adapte le SDK de CVAT à TON besoin
+class AdaptateurApi:                                   # adapte le SDK du service à TON besoin
     def __init__(self, client):
         self._client = client
     def annotations(self, tache_id: int) -> list[Annotation]:
@@ -71,10 +70,9 @@ class AdaptateurXml:                                   # adapte ton ancien scrip
     def __init__(self, chemin): self._chemin = chemin
     def annotations(self, tache_id): return lire_xml(self._chemin)
 ```
-Le reste de ta fonction Nuclio ne manipule que des `Annotation`, quelle que soit la source.
+Le reste de ton code ne manipule que des `Annotation`, quelle que soit la source.
 
 ### Cas d'utilisation
-- Envelopper le SDK de CVAT ou une API externe
 - Faire cohabiter un ancien script et un nouveau code
 - Changer de bibliothèque sans tout réécrire
 
@@ -102,6 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Patron Adaptateur (Adapter) au travail]]
 - **Prérequis** : [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Façade (Facade)]] · [[Architecture hexagonale]]
 
@@ -109,7 +108,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

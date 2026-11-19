@@ -17,7 +17,6 @@ related:
   - "[[Monolithe et microservices]]"
   - "[[Changelog]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -33,7 +32,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 
 ## 1 · Comprendre
 ### Définition
-**Une décision par fichier**, numérotée : `0001-utiliser-nuclio-pour-l-export.md`.
+**Une décision par fichier**, numérotée : `0001-export-pdf-dans-un-service-a-part.md`.
 
 **Structure simple** :
 - *Contexte* : le problème et les contraintes ;
@@ -65,19 +64,19 @@ flowchart TD
 
 ### Exemple concret
 ```markdown
-# 0001 - Faire l'export PNG dans une fonction Nuclio
+# 0001 - Faire l'export PDF dans un service à part
 Statut : acceptée (2026-11-20)
 ## Contexte
-CVAT doit produire une image de ses annotations. Le POC a montré que
-Nuclio peut appeler l'API CVAT et renvoyer un PNG en 4 s pour 50 images.
+L'appli doit produire un PDF mensuel des dépenses. Le POC a montré qu'un
+petit service peut appeler l'API et renvoyer le PDF en 2 s pour 500 dépenses.
 ## Décision
-L'export est une fonction Nuclio appelée par un bouton du front React.
+L'export est un service séparé appelé par un bouton du front.
 ## Alternatives écartées
-- Modifier le backend Django de CVAT : plus difficile à maintenir lors des mises à jour.
+- Ajouter l'export dans l'API : plus simple, mais l'API grossit et dépend d'une bibliothèque PDF lourde.
 - Export dans le navigateur : trop lent sur les grosses tâches.
 ## Conséquences
-+ CVAT reste presque inchangé, la fonction se déploie à part.
-- Il faut gérer un jeton de service et la limite de temps de Nuclio.
++ L'API reste simple, le service se déploie à part.
+- Il faut gérer un jeton de service et un déploiement de plus.
 ```
 
 ### Cas d'utilisation
@@ -116,7 +115,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

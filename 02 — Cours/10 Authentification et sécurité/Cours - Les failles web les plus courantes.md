@@ -48,7 +48,7 @@ Le **Top 10 OWASP** liste les failles les plus fréquentes ; le contrôle d'acc�
 > - Un secret commité « juste pour tester »
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Injection SQL]] · [[XSS]] · [[CSRF]] · [[Secret et fichier .env]]

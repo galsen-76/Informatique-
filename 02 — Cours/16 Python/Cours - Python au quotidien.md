@@ -3,7 +3,7 @@ type: course
 order: 5
 module: "[[Module 16 - Python]]"
 concepts:
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Lire et écrire du CSV]]"
   - "[[Dates et heures (datetime)]]"
   - "[[Journaliser avec logging]]"
@@ -39,7 +39,7 @@ flowchart TD
 ```
 
 ## 3. Récupérer des données
-[[Appeler une API HTTP (requests)]] : `requests.get(url, timeout=10)`, `raise_for_status()`, `.json()`.
+[[Appeler une API HTTP]] : `requests.get(url, timeout=10)`, `raise_for_status()`, `.json()`.
 
 ## 4. Produire un tableau
 [[Lire et écrire du CSV]] : `csv.DictWriter` pour un fichier ouvrable dans Excel.
@@ -69,7 +69,7 @@ Un script qui parle à un service (une API, une base) a besoin d'une adresse et 
 > - Utiliser `shell=True` avec des données venant de l'extérieur
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Appeler une API HTTP (requests)]] · [[Lire et écrire du CSV]] · [[Dates et heures (datetime)]] · [[Journaliser avec logging]] · [[Lancer une commande (subprocess)]] · [[Expressions régulières (re)]] · [[Charger un fichier .env (python-dotenv)]]
+[[Appeler une API HTTP]] · [[Lire et écrire du CSV]] · [[Dates et heures (datetime)]] · [[Journaliser avec logging]] · [[Lancer une commande (subprocess)]] · [[Expressions régulières (re)]] · [[Charger un fichier .env (python-dotenv)]]

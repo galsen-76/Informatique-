@@ -73,7 +73,7 @@ Lis l'invite, puis demande-toi : « cette commande est-elle un **programme** (id
 > - Couper une longue commande avec `\` dans PowerShell (il faut l'accent grave)
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[PowerShell]] · [[Bash]] · [[Shell]] · [[Variable d'environnement]]

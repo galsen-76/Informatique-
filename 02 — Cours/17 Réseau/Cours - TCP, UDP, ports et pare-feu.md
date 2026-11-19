@@ -49,7 +49,7 @@ Il autorise ou bloque par port et par sens. Sur un serveur Ubuntu : `ufw`. En en
 > - Ouvrir tous les ports « pour tester » et oublier de les refermer
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[TCP et UDP]] · [[Port]] · [[Pare-feu]]

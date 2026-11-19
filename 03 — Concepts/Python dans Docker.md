@@ -11,12 +11,11 @@ fil_rouge: false
 prerequisites:
   - "[[Dockerfile]]"
   - "[[Volume Docker]]"
-  - "[[pip]]"
+  - "[[Gestionnaire de paquets]]"
 parents: []
 related:
   - "[[Arguments de ligne de commande]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -76,10 +75,9 @@ Ajoute un `.dockerignore` (`.venv`, `__pycache__`, `.git`, données de test) pou
 ### Cas d'utilisation
 - Ton script de zip, lancé sur un dossier
 - Un job de CI qui utilise `image: python:3.12-slim`
-- Une fonction Nuclio (Nuclio construit lui-même une image Python autour de ta fonction)
 
 > [!warning] À ne pas confondre
-> `ENTRYPOINT` (ce qu'on lance toujours) et `CMD` (valeurs par défaut, remplaçables). Et les chemins : dans le conteneur, c'est `/data`, pas `C:\...`. Derrière un Nexus, `FROM` et `pip install` doivent passer par lui.
+> `ENTRYPOINT` (ce qu'on lance toujours) et `CMD` (valeurs par défaut, remplaçables). Et les chemins : dans le conteneur, c'est `/data`, pas `C:\...`. Derrière un proxy, `FROM` et `pip install` passent souvent par un registre ou un miroir interne.
 
 ## 3 · Pratiquer
 
@@ -103,7 +101,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## 4 · Relier
-- **Prérequis** : [[Dockerfile]] · [[Volume Docker]] · [[pip]]
+- **Au travail** : [[Python dans Docker au travail]]
+- **Prérequis** : [[Dockerfile]] · [[Volume Docker]] · [[Gestionnaire de paquets]]
 - **Complémentaires** : [[Arguments de ligne de commande]]
 - **Utilisé par** : [[Tester l'image, pas le dépôt]]
 - **Commandes** : [[docker build]] · [[docker run]]
@@ -112,7 +111,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -10,7 +10,7 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[Node.js]]"
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[API REST]]"
 parents:
   - "[[Node.js]]"
@@ -19,7 +19,6 @@ related:
   - "[[Endpoint]]"
   - "[[JSON]]"
 next_review: 
-method: []
 tags:
   - concept
   - backend
@@ -108,7 +107,7 @@ Pour m'aider :
 - [[Projet - API Notes]]
 
 ## 4 · Relier
-- **Prérequis** : [[Node.js]], [[npm]], [[API REST]]
+- **Prérequis** : [[Node.js]], [[Gestionnaire de paquets]], [[API REST]]
 - **Notion parente** : [[Node.js]]
 - **Mène à** : [[Middleware]] → [[Authentification]]
 - **Complémentaires** : [[JSON]], [[Endpoint]]
@@ -120,7 +119,7 @@ Pour m'aider :
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

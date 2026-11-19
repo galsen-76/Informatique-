@@ -12,10 +12,9 @@ prerequisites:
   - "[[Terminal]]"
 parents: []
 related:
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[Express]]"
 next_review: 
-method: []
 tags:
   - concept
   - backend
@@ -95,7 +94,7 @@ Pour m'aider :
 
 ## 4 · Relier
 - **Prérequis** : [[Terminal]] (on lance Node en ligne de commande)
-- **Complémentaires** : [[npm]] (gestionnaire de paquets livré avec Node)
+- **Complémentaires** : [[Gestionnaire de paquets]] (gestionnaire de paquets livré avec Node)
 - **Utilisé par** : [[Express]], [[Docker]] (on conteneurise souvent des apps Node)
 - **Commandes** : [[node]] · [[npm init]] · [[npm install]]
 
@@ -103,7 +102,7 @@ Pour m'aider :
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

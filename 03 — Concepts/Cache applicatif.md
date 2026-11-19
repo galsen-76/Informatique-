@@ -16,7 +16,6 @@ related:
   - "[[Patron Décorateur (Decorator)]]"
   - "[[En-tête HTTP]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -42,7 +41,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 **Invalidation** : quand la donnée d'origine change, il faut retirer ou mettre à jour la copie. Méthodes : durée de vie (TTL), suppression explicite, clé qui inclut une version.
 
 ### Pourquoi ça existe
-Recalculer la même image PNG ou relire les mêmes annotations à chaque requête : lent, et ça charge CVAT ou la base pour rien.
+Recalculer la même image PNG ou relire les mêmes annotations à chaque requête : lent, et ça charge l'API ou la base pour rien.
 
 ### Le problème résolu
 Répondre plus vite et soulager les services lents ou payants.
@@ -118,7 +117,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

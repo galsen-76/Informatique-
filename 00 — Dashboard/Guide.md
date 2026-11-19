@@ -5,189 +5,67 @@ tags:
 # Guide
 
 > [!tip] En bref
-> Chaque jour : [[Dashboard]] → sujet actuel → une ou deux étapes de la [[Méthode d'apprentissage]] → mise à jour du statut. Les idées hors sujet vont dans le *Parking* de [[Focus]].
+> Chaque jour : [[Dashboard]] → la prochaine notion de mon niveau → fiche, dessin Excalidraw et exercices visuels → tout de suite l'étape du fil rouge → je coche les cases. Les idées hors sujet vont dans le *Parking* de [[Focus]].
+
+## Où trouver quoi
+| Je cherche… | J'ouvre |
+| --- | --- |
+| ce que je fais maintenant | [[Dashboard]] et [[Focus]] (niveau actuel, notion en cours) |
+| ma progression, niveau par niveau | [[Niveaux]] |
+| une notion (ce que c'est, pourquoi, comment) | **03 — Concepts**, une fiche par notion, quel que soit le langage ; la syntaxe est dans l'encadré replié « Comment ça s'écrit » |
+| une commande précise (docker, git, pip…) | **04 — Commandes**, un sous-dossier par outil |
+| une procédure ou les bonnes pratiques d'un outil | **05 — Fiches pratiques** |
+| une erreur déjà rencontrée | **06 — Erreurs et solutions** (et [[Fiche - Aide-mémoire des erreurs fréquentes]]) |
+| le fil rouge de mon niveau | **07 — Exercices et projets** |
+| mon travail (CVAT, Nuclio, réseau de l'entreprise, mémoire) | **11 — Hors parcours**, et [[Référence travail]] pour tout ce qui est hors de mon niveau |
+| une vieille fiche ou un ancien exercice | **99 — Archives** |
+
+> [!tip] Le plus rapide : la recherche
+> `Ctrl+O` ouvre une note par son nom, `Ctrl+Shift+F` cherche dans tout le coffre. Les noms de fichiers disent ce qu'ils contiennent : `Fiche - …`, `Bonnes pratiques - …`, `Erreur - …`, `Cours - …`, `… au travail` pour le spécifique au travail.
+
+## Comment c'est organisé
+| Dossier | Contient | Modèle |
+| --- | --- | --- |
+| 00 — Dashboard | [[Dashboard]], [[Focus]], [[Révisions]], [[Suivi des acquis]], ce guide | — |
+| 01 — Parcours | [[Niveaux]], [[Référence travail]], [[Parcours]] (les 23 modules, pour retrouver par thème), [[Méthode d'apprentissage]] | Module |
+| 02 — Cours | Un dossier par module, un cours par chapitre | Cours |
+| 03 — Concepts | Une fiche par notion : comprendre, explorer, pratiquer (exercices visuels, mon schéma, fil rouge), relier, réviser | Concept |
+| 04 — Commandes | Un sous-dossier par outil | Commande |
+| 05 — Fiches pratiques | Procédures pas à pas, et [[Bonnes pratiques]] par outil | Fiche pratique · Bonnes pratiques |
+| 06 — Erreurs et solutions | Erreurs rencontrées et résolues (neutres) | Erreur |
+| 07 — Exercices et projets | Les fils rouges (niveau 0 : [[Projet - Suivre ses dépenses en Python]], puis [[Projet - MesDépenses]]) | Exercice · Projet |
+| 08 — Ressources | Liens et exemples utiles, images | — |
+| 10 — Templates | Modèles et le script des vues (`Scripts/learning.js`) | — |
+| 11 — Hors parcours | Travail : CVAT et Nuclio (projets, notes, erreurs, « … au travail »), Environnement entreprise, Mémoire tests Playwright | — |
+| 99 — Archives | Anciens exercices, fiches fusionnées, contenus terminés | — |
 
 ## Installation
-1. **Ouvrir le vault** : Obsidian → *Ouvrir un dossier comme coffre* → `Dev Learning`. C'est un coffre séparé de Dev Workspace.
+1. **Ouvrir le coffre** : Obsidian → *Ouvrir un dossier comme coffre*.
 2. **Plugins communautaires** (*Paramètres → Plugins communautaires* → désactiver le mode restreint) :
 
 | Plugin | Rôle | |
 | --- | --- | --- |
-| [Dataview](https://obsidian.md/plugins?id=dataview) | Dashboard, parcours, progression, révisions | indispensable |
-| [Templater](https://obsidian.md/plugins?id=templater-obsidian) | Templates qui posent les questions et rangent la fiche | recommandé |
+| [Dataview](https://obsidian.md/plugins?id=dataview) | Dashboard, niveaux, progression, révisions | indispensable |
+| [Excalidraw](https://obsidian.md/plugins?id=obsidian-excalidraw-plugin) | Mes schémas et les exercices visuels | indispensable |
+| [Templater](https://obsidian.md/plugins?id=templater-obsidian) | Modèles qui posent les questions et rangent la fiche | recommandé |
 
 3. **Réglages**
    - Dataview : *Enable JavaScript Queries* activé.
    - Templater : *Template folder location* → `10 — Templates` ; *Trigger Templater on new file creation* activé.
-4. **Thème** : *Apparence* → thème **Sombre** → *Extraits CSS* → ↻ → activer **dev-learning** (déjà activé si tu ouvres le vault tel quel). C'est le même design que Dev Workspace.
-
-## Comment c'est organisé
-| Espace | Contient | Template |
-| --- | --- | --- |
-| 00 — Dashboard | [[Dashboard]], [[Focus]], ce guide | — |
-| 01 — Parcours | [[Parcours]] (23 modules), [[Méthode d'apprentissage]], [[Chemins de compréhension]] | Module |
-| 02 — Cours | Un dossier par module, un cours par chapitre | Cours |
-| 03 — Concepts | Une fiche par notion, suivant les 6 étapes | Concept |
-| 04 — Commandes | Un sous-dossier par outil | Commande |
-| 05 — Fiches pratiques | Procédures pas à pas, et [[Bonnes pratiques]] par langage et outil (à faire, à éviter, pourquoi) | Fiche pratique · Bonnes pratiques |
-| 06 — Erreurs et solutions | Erreurs rencontrées et résolues | Erreur |
-| 07 — Exercices et projets | Exercices, projet fil rouge | Exercice · Projet |
-| 08 — Ressources | Documentation officielle et outils | — |
-| 09 — Révisions | [[Révisions]], [[Suivi des acquis]] | — |
-| 10 — Templates | Modèles + le script des vues | — |
-| 99 — Archives | Contenus terminés | — |
+4. **Thème** : *Apparence* → thème **Sombre** → *Extraits CSS* → activer **dev-learning**.
 
 ## Les gestes du quotidien
 - **Créer une fiche** : `Alt+N` (Templater) → choisir le modèle → répondre aux questions.
-- **Avancer dans la méthode** : dans les propriétés de la fiche, ajoute l'étape terminée à `method` (Comprendre, Explorer, Pratiquer, Expliquer, Relier, Réviser).
-- **Changer l'état** d'une notion : propriété `status` → `a-decouvrir`, `en-cours`, `compris` ou `maitrise`.
-- **Prouver la maîtrise** : réussir tous les exercices liés à la notion (un exercice se lie à une notion par sa propriété `concepts`, et passe en `reussi` quand il est fait). Tant qu'ils ne le sont pas, le statut *Maîtrisé* est signalé « à confirmer ».
-- **Planifier une révision** : propriété `next_review` (+1 j, +3, +7, +14, +30).
-- **Relier** : remplir `prerequisites`, `parents` et `related` dans les propriétés (le dashboard vérifie les prérequis) **et** expliquer les liens dans la section 5.
-- **Changer de sujet** : dans [[Focus]], `current` reçoit la prochaine notion de `next`.
-
-## Exemples fournis
-- 26 fiches concepts connectées (11 complètes : [[Git]], [[Branche Git]], [[Terminal]], [[HTTP]], [[API REST]], [[JSON]], [[Node.js]], [[Express]], [[Middleware]], [[Docker]], [[SQL]] ; les autres plus courtes pour compléter les chemins).
-- 18 commandes, dont [[git merge]] détaillée.
-- 4 cours, 3 fiches pratiques, 2 erreurs documentées, 3 exercices et le [[Projet - API Notes]].
-
-> [!warning] Les statuts sont des exemples
-> Les états (*compris*, *en cours*…) et les dates de révision des exemples servent à montrer le fonctionnement. Ajuste-les à ton niveau réel : une notion que tu n'as pas expliquée avec tes mots n'est pas *comprise*.
+- **Dessiner** : dans la fiche, section « Mon schéma », je crée le dessin « Schéma - <notion> » et je l'intègre (`![[Schéma - <notion>.excalidraw]]`).
+- **Cocher les cases** d'une notion, dans ses propriétés : `schema`, `exercice_visuel`, `fil_rouge`. Les trois cochées : la notion est **comprise**.
+- **Maîtrisé** : c'est moi qui mets `status: maitrise`, quand je le sens.
+- **Passer au niveau suivant** : quand [[Niveaux]] dit « validé », je change `niveau_actuel` dans [[Focus]].
+- **Me faire interroger** : je demande à Claude dans le chat.
 
 ## Ce qui demande un plugin
 | Fonction | Nécessite |
 | --- | --- |
-| Dashboard, parcours, progression, révisions, bloc « où j'en suis » des fiches | Dataview (+ JavaScript Queries) |
-| Listes des pages index | Dataview |
-| Templates avec questions et rangement automatique | Templater |
-| Schémas, callouts, questions repliables, vue graphique colorée | Natif |
-
-## Arborescence
-```text
-Dev Learning/
-├── .obsidian/   (snippet CSS, couleurs du graphe, réglages)
-├── 00 — Dashboard/
-│   ├── Dashboard.md
-│   └── Focus.md
-├── 01 — Parcours/
-│   ├── Chemins de compréhension.md
-│   ├── Modules/
-│   │   ├── Module 01 - Fondamentaux informatiques.md
-│   │   ├── Module 02 - Terminal et environnement.md
-│   │   ├── Module 03 - Git et GitHub.md
-│   │   ├── Module 04 - HTML et CSS.md
-│   │   ├── Module 05 - JavaScript.md
-│   │   ├── Module 06 - TypeScript.md
-│   │   ├── Module 07 - Node.js.md
-│   │   ├── Module 08 - Backend et API REST.md
-│   │   ├── Module 09 - Bases de données et SQL.md
-│   │   ├── Module 10 - Authentification et sécurité.md
-│   │   ├── Module 11 - React.md
-│   │   ├── Module 12 - Tests.md
-│   │   ├── Module 13 - Docker.md
-│   │   ├── Module 14 - DevOps et déploiement.md
-│   │   └── Module 15 - Architecture logicielle.md
-│   ├── Méthode d'apprentissage.md
-│   └── Parcours.md
-├── 02 — Cours/
-│   ├── 01 Fondamentaux informatiques/
-│   │   └── Cours - Comment fonctionne le web.md
-│   ├── 03 Git et GitHub/
-│   │   ├── Cours - Branches et fusion.md
-│   │   └── Cours - Git, les bases.md
-│   ├── 08 Backend et API REST/
-│   │   └── Cours - Construire une API REST avec Express.md
-│   └── Cours.md
-├── 03 — Concepts/
-│   ├── API REST.md
-│   ├── API.md
-│   ├── Authentification.md
-│   ├── Base de données relationnelle.md
-│   ├── Branche Git.md
-│   ├── Client-serveur.md
-│   ├── Commit.md
-│   ├── Concepts.md
-│   ├── Conflit de merge.md
-│   ├── Conteneur.md
-│   ├── Docker.md
-│   ├── Dépôt Git.md
-│   ├── Endpoint.md
-│   ├── Express.md
-│   ├── Git.md
-│   ├── HTTP.md
-│   ├── Image Docker.md
-│   ├── Internet.md
-│   ├── JSON.md
-│   ├── JWT.md
-│   ├── Merge.md
-│   ├── Middleware.md
-│   ├── Node.js.md
-│   ├── SQL.md
-│   ├── Système de fichiers.md
-│   ├── Terminal.md
-│   └── npm.md
-├── 04 — Commandes/
-│   ├── Commandes.md
-│   ├── Docker/
-│   │   ├── docker build.md
-│   │   ├── docker ps.md
-│   │   └── docker run.md
-│   ├── Git/
-│   │   ├── git add.md
-│   │   ├── git branch.md
-│   │   ├── git commit.md
-│   │   ├── git init.md
-│   │   ├── git merge.md
-│   │   ├── git status.md
-│   │   └── git switch.md
-│   ├── Node/
-│   │   └── node.md
-│   ├── PowerShell/
-│   │   └── Get-ChildItem.md
-│   ├── SQL/
-│   │   └── SELECT.md
-│   ├── Terminal/
-│   │   ├── cd.md
-│   │   ├── ls.md
-│   │   └── mkdir.md
-│   └── npm/
-│       ├── npm init.md
-│       └── npm install.md
-├── 05 — Fiches pratiques/
-│   ├── Bonnes pratiques/
-│   │   ├── Bonnes pratiques - Python.md (une fiche par langage ou outil)
-│   │   └── Bonnes pratiques.md
-│   ├── Fiche - Démarrer un projet Node.js.md
-│   ├── Fiche - Lancer PostgreSQL avec Docker.md
-│   ├── Fiche - Publier un dépôt sur GitHub.md
-│   └── Fiches pratiques.md
-├── 06 — Erreurs et solutions/
-│   ├── Erreur - CONFLICT lors d'un git merge.md
-│   ├── Erreur - EADDRINUSE port déjà utilisé.md
-│   └── Erreurs et solutions.md
-├── 07 — Exercices et projets/
-│   ├── Exercice - Branches et merge avec Git.md
-│   ├── Exercice - Créer une API REST avec Express.md
-│   ├── Exercice - Naviguer dans le terminal.md
-│   ├── Exercices et projets.md
-│   └── Projet - API Notes.md
-├── 08 — Ressources/
-│   ├── Assets/
-│   └── Ressources.md
-├── 09 — Révisions/
-│   ├── Révisions.md
-│   └── Suivi des acquis.md
-├── 10 — Templates/
-│   ├── Modèle - Commande.md
-│   ├── Modèle - Concept.md
-│   ├── Modèle - Cours.md
-│   ├── Modèle - Erreur.md
-│   ├── Modèle - Exercice.md
-│   ├── Modèle - Fiche pratique.md
-│   ├── Modèle - Module.md
-│   ├── Modèle - Projet.md
-│   └── Scripts/
-│       └── learning.js
-└── 99 — Archives/
-    └── Archives.md
-```
+| Dashboard, niveaux, progression, révisions, bloc « où j'en suis » des fiches | Dataview (+ JavaScript Queries) |
+| Schémas | Excalidraw |
+| Modèles avec questions et rangement automatique | Templater |
+| Callouts, encadrés repliables, Mermaid | Natif |

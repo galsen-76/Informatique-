@@ -4,7 +4,7 @@ status: a-faire
 niveau: 4
 difficulty: moyen
 concepts:
-  - "[[Template et liaison de données Angular]]"
+  - "[[Template et liaison de données]]"
   - "[[Observable et RxJS]]"
   - "[[Formulaire HTML]]"
 tags:
@@ -16,7 +16,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 10 - Angular, afficher la liste]]
 > **Cours :** [[Cours - Angular, composants et templates]] · [[Cours - Services, RxJS et routeur Angular]]
-> **Notions :** [[Template et liaison de données Angular]] · [[Composant Angular]] · [[Observable et RxJS]] · [[Formulaire HTML]] · [[Code de statut HTTP]]
+> **Notions :** [[Template et liaison de données]] · [[Composant d'interface]] · [[Observable et RxJS]] · [[Formulaire HTML]] · [[Code de statut HTTP]]
 > **À créer :** formulaires réactifs Angular · `@Input` et `@Output`
 
 ## Le but

@@ -17,7 +17,6 @@ related:
   - "[[MVC]]"
   - "[[Doublure de test (mock)]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -41,7 +40,7 @@ Pour une API classique :
 | **Dépôts** (*repositories*) | lire et écrire en base | `depots/taches.js` |
 | **Modèles** | la forme des données | `types.ts`, modèles de l'ORM |
 Règle : les dépendances vont **vers le bas**. Un service ne connaît pas `req` et `res` ; un dépôt ne connaît pas les règles métier.
-Variantes plus poussées : **architecture hexagonale** (ports et adaptateurs), **clean architecture** : le métier au centre, l'extérieur (base, HTTP, CVAT) en périphérie et interchangeable.
+Variantes plus poussées : **architecture hexagonale** (ports et adaptateurs), **clean architecture** : le métier au centre, l'extérieur (base, HTTP, API externes) en périphérie et interchangeable.
 
 ### Pourquoi ça existe
 Dans une API qui grandit, mettre SQL, règles et HTTP dans la même route rend tout illisible et non testable.
@@ -72,11 +71,10 @@ export async function terminer(id, utilisateur) {
 // routes/taches.js
 router.patch("/:id/terminer", exigerAuth, async (req, res) => res.json(await service.terminer(req.params.id, req.user)));
 ```
-Django (CVAT) a sa variante : modèles, vues (*views*), sérialiseurs, URLs.
+Django a sa variante : modèles, vues (*views*), sérialiseurs, URLs.
 
 ### Cas d'utilisation
 - Organiser une API Express ou FastAPI
-- Lire le code de CVAT
 - Tester les règles métier
 
 > [!warning] À ne pas confondre
@@ -110,6 +108,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Architecture en couches au travail]]
 - **Prérequis** : [[Séparation des responsabilités]] · [[API REST]]
 - **Complémentaires** : [[MVC]] · [[Doublure de test (mock)]]
 
@@ -117,7 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -83,7 +83,7 @@ Ce squelette (`main()` qui renvoie un code, `sys.exit(main())`) est une bonne ba
 > - Lire un traceback par le haut au lieu de partir de la dernière ligne
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Fonction]] · [[Module et import]] · [[Exception]] · [[Code de sortie]]

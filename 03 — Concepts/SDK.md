@@ -10,13 +10,12 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[API REST]]"
-  - "[[pip]]"
+  - "[[Gestionnaire de paquets]]"
 parents: []
 related:
   - "[[OpenAPI]]"
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
 next_review: 
-method: []
 tags:
   - concept
   - backend
@@ -56,7 +55,7 @@ r = requests.get("http://localhost:8080/api/tasks/12/annotations", auth=("user",
 r.raise_for_status()
 annotations = r.json()
 ```
-Avec le SDK de CVAT (`pip install cvat-sdk`, même version que le serveur) :
+Avec le SDK du service (même version que le serveur) :
 ```python
 from cvat_sdk import make_client
 with make_client("http://localhost:8080", credentials=("user", "motdepasse")) as client:
@@ -65,11 +64,10 @@ with make_client("http://localhost:8080", credentials=("user", "motdepasse")) as
 ```
 
 ### Cas d'utilisation
-- Récupérer les annotations CVAT dans la fonction Nuclio
 - Automatiser la création de tâches
 
 > [!warning] À ne pas confondre
-> **SDK** (bibliothèque côté client) et **API** (le service côté serveur). La version du SDK doit correspondre à celle du serveur CVAT, sinon des champs manquent ou changent.
+> **SDK** (bibliothèque côté client) et **API** (le service côté serveur). La version du SDK doit correspondre à celle du serveur, sinon des champs manquent ou changent.
 
 ## 3 · Pratiquer
 
@@ -92,15 +90,16 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[API REST]] · [[pip]] · [[Liste et dictionnaire]]
+- **Au travail** : [[SDK au travail]]
+- **Prérequis** : [[API REST]] · [[Gestionnaire de paquets]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[OpenAPI]] · [[JSON]]
-- **Complémentaires** : [[Appeler une API HTTP (requests)]] (le même appel, sans SDK)
+- **Complémentaires** : [[Appeler une API HTTP]] (le même appel, sans SDK)
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -17,7 +17,6 @@ related:
   - "[[Décision d'architecture (ADR)]]"
   - "[[Critères d'acceptation]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -33,9 +32,9 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 
 ## 1 · Comprendre
 ### Définition
-**Une question précise** : « Peut-on déclencher une fonction Nuclio depuis un bouton de CVAT et récupérer un PNG des annotations ? ». Pas « faire l'outil d'export ».
+**Une question précise** : « Peut-on produire le PDF mensuel des dépenses en moins de 5 s depuis un bouton ? ». Pas « faire l'outil d'export ».
 
-**Des hypothèses** à vérifier : l'API de CVAT donne bien les annotations, Nuclio peut appeler CVAT, les images passent par le Nexus de l'entreprise.
+**Des hypothèses** à vérifier : l'API donne bien les dépenses du mois, la bibliothèque PDF tourne dans un conteneur, l'image se construit dans la CI.
 
 **Des critères de succès** écrits **avant** de commencer : à quoi saura-t-on que la réponse est oui ? (ex. « un clic produit un PNG correct pour une tâche de 50 images, en moins de 10 s »).
 
@@ -63,12 +62,12 @@ flowchart TD
 
 ### Exemple concret
 ```markdown
-# POC - Export PNG depuis CVAT
-Question : un bouton dans CVAT peut-il produire un PNG des annotations via Nuclio ?
+# POC - Export PDF des dépenses
+Question : un bouton peut-il produire le PDF du mois en moins de 5 s ?
 Durée : 2 semaines (fin le 20/11)
 Critères de succès :
-- l'image CVAT se construit dans la CI GitLab avec les images du Nexus
-- un clic sur le bouton appelle la fonction Nuclio
+- l'image du service se construit dans la CI GitLab
+- un clic sur le bouton appelle le service
 - la fonction renvoie un PNG lisible pour une tâche réelle
 Hors périmètre : droits fins, tests complets, design du bouton
 Résultat : (à remplir à la fin)
@@ -77,7 +76,6 @@ Recommandation : (continuer / changer d'approche / abandonner)
 
 ### Cas d'utilisation
 - Tester une nouvelle bibliothèque ou un nouveau service avant de l'adopter
-- Vérifier qu'un enchaînement de briques fonctionne de bout en bout (ton projet CVAT + Nuclio)
 - Mesurer si une approche est assez rapide
 
 > [!warning] À ne pas confondre
@@ -104,13 +102,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Preuve de concept (POC) au travail]]
 - **Complémentaires** : [[Prototype]] · [[MVP (produit minimum viable)]] · [[Dette technique]] · [[Décision d'architecture (ADR)]] · [[Critères d'acceptation]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -18,7 +18,6 @@ related:
   - "[[Architecture en couches]]"
   - "[[Serverless et FaaS]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -67,7 +66,7 @@ flowchart TD
 ```markdown
 # Spec technique - Export PNG
 ## Architecture
-Front React (bouton) -> fonction Nuclio export-png -> API CVAT
+Front (bouton) -> service export-pdf -> API des dépenses
 ## Contrat de la fonction
 POST /export-png   corps : {"tache_id": 42}
 200 -> image/png     404 -> {"erreur": "tâche introuvable"}
@@ -75,15 +74,14 @@ POST /export-png   corps : {"tache_id": 42}
 - SourceCvat : lit les annotations via l'API (jeton de service)
 - Dessinateur : transforme les annotations en PNG (Pillow)
 ## Déploiement
-Image construite par la CI GitLab, images de base tirées du Nexus.
+Image construite par la CI GitLab.
 ## Alternatives écartées
 Export côté navigateur : trop lent pour 50 images.
 ## Risques
-Limite de temps d'exécution de Nuclio sur les grosses tâches.
+Temps de génération sur les mois très chargés.
 ```
 
 ### Cas d'utilisation
-- Concevoir la fonction Nuclio d'export avant de l'écrire
 - Faire valider une architecture par un développeur plus expérimenté
 
 > [!warning] À ne pas confondre
@@ -110,6 +108,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Spécification technique au travail]]
 - **Prérequis** : [[Spécification (specs)]] · [[Exigences fonctionnelles et non fonctionnelles]]
 - **Complémentaires** : [[Décision d'architecture (ADR)]] · [[OpenAPI]] · [[Architecture en couches]] · [[Serverless et FaaS]]
 
@@ -117,7 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

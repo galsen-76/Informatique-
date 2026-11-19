@@ -16,7 +16,6 @@ related:
   - "[[Patron Adaptateur (Adapter)]]"
   - "[[Architecture en couches]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -50,8 +49,8 @@ Sans ce patron : chaque partie du code répète le même enchaînement compliqu�
 ### Comment ça fonctionne
 ```mermaid
 flowchart TD
-B[Bouton CVAT] --> F[Façade export]
-  F --> C[Client CVAT]
+B[Bouton export] --> F[Façade export]
+  F --> C[Client API]
   F --> D[Dessin]
   F --> S[Stockage]
 ```
@@ -68,14 +67,13 @@ class ServiceExportPng:                     # la façade
         chemin = self._stockage.enregistrer(f"tache-{tache_id}.png", image)
         return chemin
 
-# le handler Nuclio ne voit que la façade
+# le handler ne voit que la façade
 def handler(context, event):
     return service.exporter(event.body["tache_id"])
 ```
 Exemples connus : le module `shutil` (une ligne pour `make_archive` au lieu de manipuler `zipfile` et `os`), `requests` par rapport à `http.client`, la commande `docker compose up` par rapport à une suite de `docker network create`, `docker run`…
 
 ### Cas d'utilisation
-- Le point d'entrée de ta fonction Nuclio
 - Un service qui orchestre plusieurs appels
 - Une bibliothèque qui simplifie une autre
 
@@ -103,6 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Patron Façade (Facade) au travail]]
 - **Prérequis** : [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Adaptateur (Adapter)]] · [[Architecture en couches]]
 
@@ -110,7 +109,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

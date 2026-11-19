@@ -52,7 +52,7 @@ flowchart TD
 > - Viser 100 % de couverture à tout prix
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Doublure de test (mock)]] · [[Test d'intégration]] · [[Test de bout en bout]] · [[Couverture de code]]

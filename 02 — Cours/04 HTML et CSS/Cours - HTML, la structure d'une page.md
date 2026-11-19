@@ -56,7 +56,7 @@ Les outils de développement du navigateur (F12) : onglet *Éléments* pour voir
 > - Un `div` cliquable à la place d'un `button`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[HTML]] · [[Élément et attribut HTML]] · [[Formulaire HTML]] · [[Accessibilité web]]

@@ -16,7 +16,6 @@ related:
   - "[[Spécification technique]]"
   - "[[Méthode agile (Scrum et Kanban)]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -61,11 +60,11 @@ flowchart TD
 ### Exemple concret
 ```markdown
 # Cahier des charges - Outil d'export d'annotations
-1. Contexte : l'équipe annote des plans dans CVAT.
+1. Contexte : l'équipe note ses dépenses dans un tableur partagé.
 2. Objectif : obtenir une image des annotations pour les rapports.
 3. Utilisateurs : 15 annotateurs, 2 responsables.
 4. Besoins fonctionnels : export PNG d'une tâche ; …
-5. Contraintes : hébergé sur l'infrastructure interne ; images Docker via le Nexus ;
+5. Contraintes : hébergé sur un serveur interne ; images Docker construites par la CI ;
    pas d'envoi de données hors de l'entreprise.
 6. Livrables : code source, documentation d'installation, pipeline GitLab.
 7. Réception : démonstration sur 3 tâches réelles.
@@ -108,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

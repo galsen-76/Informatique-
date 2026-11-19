@@ -17,7 +17,6 @@ related:
   - "[[Vue.js]]"
   - "[[Angular]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -34,10 +33,10 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ## 1 · Comprendre
 ### Définition
 Avec le [[DOM]] à la main, tu dis **comment** modifier la page (« ajoute ce `li`, change ce texte »). Avec React, tu dis **quoi** afficher pour un état donné ; React calcule les différences et modifie le DOM pour toi (approche **déclarative**).
-- Une interface = un arbre de [[Composant React|composants]].
-- Les données descendent par les [[Props React|props]] ; ce qui change vit dans l'[[État React (useState)|état]].
+- Une interface = un arbre de [[Composant d'interface|composants]].
+- Les données descendent par les [[Props React|props]] ; ce qui change vit dans l'[[État et réactivité|état]].
 - Écrit en [[JavaScript]] ou [[TypeScript]] avec la syntaxe JSX, construit avec [[Outil de build front (Vite)|Vite]].
-**L'interface de CVAT est une application React** (avec TypeScript) : ton bouton d'export sera un composant React.
+Beaucoup d'interfaces connues (Facebook, GitLab en partie, Notion) sont écrites en React.
 
 ### Pourquoi ça existe
 Les interfaces modernes changent sans arrêt (données qui arrivent, clics, filtres). Mettre à jour le DOM à la main devient vite ingérable et plein de bugs.
@@ -66,7 +65,6 @@ export default function Compteur() {
 Compare avec une page qui modifie le [[DOM]] à la main : ici, aucune manipulation du DOM.
 
 ### Cas d'utilisation
-- L'interface de CVAT (et le bouton à y ajouter)
 - La plupart des frontends d'entreprise
 - Applications mobiles avec React Native
 
@@ -94,15 +92,16 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[React au travail]]
 - **Prérequis** : [[JavaScript]] · [[DOM]] · [[Module et import]]
 - **Complémentaires** : [[Vue.js]] · [[Angular]]
-- **Utilisé par** : [[Composant React]]
+- **Utilisé par** : [[Composant d'interface]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

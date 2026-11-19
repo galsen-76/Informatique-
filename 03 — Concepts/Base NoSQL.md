@@ -16,7 +16,6 @@ parents:
 related:
   - "[[Docker]]"
 next_review: 
-method: []
 tags:
   - concept
   - database
@@ -65,7 +64,7 @@ docker exec -it redis redis-cli
 > TTL session:abc
 (integer) 3598
 ```
-CVAT utilise PostgreSQL pour ses données **et** Redis pour ses files de tâches et son cache.
+Beaucoup d'applications utilisent PostgreSQL pour leurs données **et** Redis pour leurs files de tâches et leur cache.
 
 ### Cas d'utilisation
 - Cache devant une API lente
@@ -103,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

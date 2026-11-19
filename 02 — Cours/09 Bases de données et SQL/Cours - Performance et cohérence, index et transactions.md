@@ -44,7 +44,7 @@ Mesurer d'abord (`EXPLAIN ANALYZE`), indexer ensuite, et seulement les colonnes 
 > - Oublier la transaction pour un import en plusieurs étapes
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Index de base de données]] · [[Transaction]]

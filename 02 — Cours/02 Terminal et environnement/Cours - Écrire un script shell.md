@@ -81,7 +81,7 @@ Le script renvoie le [[Code de sortie]] de sa dernière commande, ou celui de `e
 > - Un script écrit sous Windows avec des fins de ligne CRLF : `bad interpreter`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Script shell]] · [[Code de sortie]] · [[Variable d'environnement]] · [[Permissions Linux]]

@@ -26,18 +26,18 @@ niveau: 5
 ## 1. Assembler sans tout mélanger
 Les patrons structurels disent comment brancher des objets entre eux en gardant chacun simple et remplaçable.
 
-## 2. Schéma de ta fonction Nuclio
+## 2. Schéma d'un service d'export
 ```mermaid
 flowchart TD
   H[Handler] --> F[Façade export]
   F --> C[Proxy cache]
-  C --> A[Adaptateur CVAT]
+  C --> A[Adaptateur API]
   F --> D[Dessin PNG]
   F --> S[Dépôt fichiers]
 ```
 
 ## 3. Traduire
-[[Patron Adaptateur (Adapter)]] : ton interface devant le SDK de CVAT.
+[[Patron Adaptateur (Adapter)]] : ton interface devant le SDK d'un service externe.
 
 ## 4. Envelopper
 [[Patron Décorateur (Decorator)]] : nouveaux essais, mesure, cache, avec `@`.
@@ -68,7 +68,7 @@ flowchart TD
 > - Dépôt qui renvoie des objets de l'ORM
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Patron Adaptateur (Adapter)]] · [[Patron Décorateur (Decorator)]] · [[Patron Façade (Facade)]] · [[Patron Proxy]] · [[Patron Dépôt (Repository)]]

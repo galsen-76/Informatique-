@@ -3,7 +3,7 @@ type: command
 tool: npm
 level: debutant
 concepts:
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
 tags:
   - commande
   - npm
@@ -49,4 +49,4 @@ Le résultat de l'outil.
 
 ## Relier
 - **Commandes complémentaires** : [[npm run]] · [[tsc]]
-- **Concepts associés** : [[npm]]
+- **Concepts associés** : [[Gestionnaire de paquets]]

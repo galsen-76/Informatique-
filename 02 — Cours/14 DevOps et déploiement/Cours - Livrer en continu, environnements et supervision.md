@@ -54,7 +54,7 @@ flowchart TD
 > - Pas de `/health` : on découvre les pannes par les utilisateurs
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Intégration et déploiement continus (CI-CD)]] · [[Linter et formateur]] · [[Environnement de déploiement]] · [[Supervision et observabilité]]

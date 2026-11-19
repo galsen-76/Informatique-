@@ -16,7 +16,6 @@ related:
   - "[[MVP (produit minimum viable)]]"
   - "[[Principes DRY, KISS et YAGNI]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -63,9 +62,9 @@ flowchart TD
 
 ### Exemple concret
 ```text
-Backlog de l'export CVAT (ordonné)
-1. [Must]   Construire l'image CVAT en CI avec le Nexus        (risque élevé)
-2. [Must]   Fonction Nuclio qui renvoie un PNG
+Backlog de l'appli de dépenses (ordonné)
+1. [Must]   Ajouter et lister les dépenses                    (cœur du besoin)
+2. [Must]   Total par catégorie
 3. [Must]   Bouton React qui appelle la fonction
 4. [Must]   Message d'erreur clair si l'export échoue
 5. [Should] Journaliser chaque export
@@ -108,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

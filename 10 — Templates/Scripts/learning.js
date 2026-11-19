@@ -166,11 +166,10 @@ function moduleRow(parent, mod) {
   md(row, `${done}/${list.length} notions comprises${preTxt}`, "dw-row-meta");
 }
 function methodStrip(parent, page) {
-  // Étapes de la méthode cochées dans la propriété « method »
-  const doneSteps = arr(page.method).map((s) => String(s).toLowerCase());
+  // Les trois cases de la notion : dessin, exercices visuels, fil rouge
+  const c = cases(page);
   const strip = parent.createDiv({ cls: "dl-steps" });
-  METHOD.forEach((s, i) => {
-    const ok = doneSteps.includes(s.toLowerCase());
+  [["Schéma", c.schema], ["Exercices visuels", c.visuel], ["Fil rouge", c.filRouge]].forEach(([s, ok], i) => {
     strip.createSpan({ cls: "dl-step" + (ok ? " is-done" : ""), text: `${i + 1} ${s}` });
   });
 }

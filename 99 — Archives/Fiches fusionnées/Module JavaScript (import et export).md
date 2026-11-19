@@ -16,7 +16,6 @@ related:
   - "[[Module et import Python]]"
   - "[[npm]]"
 next_review: 
-method: []
 tags:
   - concept
   - javascript

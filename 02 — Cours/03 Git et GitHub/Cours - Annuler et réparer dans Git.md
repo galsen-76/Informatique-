@@ -54,7 +54,7 @@ Voir le tableau de [[Annuler dans Git]] et la zone d'[[Index Git (staging)|index
 > - Oublier un stash
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Annuler dans Git]] · [[Stash]] · [[Rebase]] · [[Index Git (staging)]]

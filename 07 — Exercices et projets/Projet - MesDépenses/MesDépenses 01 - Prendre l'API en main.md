@@ -18,7 +18,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** rien, c'est le début
 > **Cours :** [[Cours - Qu'est-ce qu'une API et comment HTTP la porte]]
-> **Notions :** [[API REST]] · [[Méthode HTTP]] · [[Code de statut HTTP]] · [[JSON]] · [[Environnement virtuel Python]] · [[pip]] · [[OpenAPI]]
+> **Notions :** [[API REST]] · [[Méthode HTTP]] · [[Code de statut HTTP]] · [[JSON]] · [[Environnement virtuel Python]] · [[Gestionnaire de paquets]] · [[OpenAPI]]
 > **À créer :** fiche Bruno (client HTTP)
 
 ## Le but

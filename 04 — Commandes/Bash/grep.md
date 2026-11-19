@@ -37,7 +37,7 @@ grep [options] "motif" [fichiers...]
 
 ## Exemple concret
 ```bash
-grep -rn "CVAT_HOST" .
+grep -rn "API_URL" .
 docker logs api 2>&1 | grep -i error
 ```
 

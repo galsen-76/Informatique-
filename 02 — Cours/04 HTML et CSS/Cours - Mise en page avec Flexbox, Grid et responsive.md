@@ -49,7 +49,7 @@ flowchart TD
 > - Oublier la balise viewport
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Flexbox]] · [[Grid CSS]] · [[Responsive design]]

@@ -4,7 +4,7 @@ tool: npm
 level: debutant
 concepts:
   - "[[package.json]]"
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
 tags:
   - commande
   - npm
@@ -51,4 +51,4 @@ La sortie de la commande du script ; code de sortie de cette commande.
 
 ## Relier
 - **Commandes complémentaires** : [[npm install]] · [[npx]]
-- **Concepts associés** : [[package.json]] · [[npm]]
+- **Concepts associés** : [[package.json]] · [[Gestionnaire de paquets]]

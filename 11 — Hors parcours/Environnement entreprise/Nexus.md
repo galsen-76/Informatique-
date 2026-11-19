@@ -13,7 +13,6 @@ related:
   - "[[Variable de build Docker (ARG)]]"
   - "[[Variables CI-CD GitLab]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops

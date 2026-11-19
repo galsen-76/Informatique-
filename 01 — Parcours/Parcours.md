@@ -101,13 +101,8 @@ flowchart TD
 ```
 
 ## Ordre conseillé
-> [!tip] Deux temps
-> **D'abord ce dont ton projet CVAT a besoin**, en suivant [[Parcours - Python, Docker et CI]] : 01 Fondamentaux, 02 Terminal, 17 Réseau, 18 Linux, 03 Git, 16 Python (les bases seulement : fichiers, pip et pytest viennent après la CI), 13 Docker, 14 DevOps.
-> **En parallèle, dès que tu sais écrire une boucle en Python : 21 Algorithmique**, un peu chaque semaine, pour la logique et la résolution de problèmes.
-> **Dès maintenant, sans prérequis technique : 23 Gestion de projet**, parce que ton projet CVAT est un POC : comprendre POC, specs et backlog t'aide à le cadrer et à le conclure.
-> **Ensuite la base complète du développeur web** : 04 HTML et CSS, 05 JavaScript, 06 TypeScript, 07 Node.js, 08 API, 09 Bases de données, 10 Sécurité, 12 Tests, 11 React, puis 19 Vue.js ou 20 Angular selon les projets que tu rencontres, et 15 Architecture puis 22 Design patterns pour finir.
-
-Dans chaque module, suis les cours dans l'ordre affiché, puis fais les exercices : une notion n'est maîtrisée que quand tous ses exercices sont réussis.
+> [!tip] Le parcours suit les niveaux
+> L'ordre est donné par les **niveaux** : [[Niveaux]]. Je travaille seulement les notions de mon niveau actuel, dans l'ordre de son fil rouge : pour chaque notion, la fiche, puis le dessin et les exercices visuels, puis tout de suite l'étape du fil rouge. Les modules ci-dessous servent à **retrouver** une notion par thème.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "parcours" })

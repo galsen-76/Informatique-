@@ -16,7 +16,6 @@ related:
   - "[[Format CVAT for images 1.1]]"
   - "[[Élément et attribut HTML]]"
 next_review: 
-method: []
 tags:
   - concept
   - python
@@ -36,7 +35,6 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 
 ### Pourquoi ça existe
 - Échanger des données structurées entre programmes, avec un format lisible par un humain.
-- Plus ancien que [[JSON]] : beaucoup d'outils (CVAT, Office, Maven, SVG, flux RSS) l'utilisent encore.
 
 ### Le problème résolu
 - Donner une structure stricte à un fichier texte, qu'on peut valider et lire avec n'importe quel langage.
@@ -66,7 +64,6 @@ flowchart TD
 - Une **liste** = le même élément répété.
 
 ### Cas d'utilisation
-- Les annotations CVAT ([[Format CVAT for images 1.1]]).
 - Les fichiers de config Java (`pom.xml`), les images SVG, les documents Office (zip de XML).
 
 > [!warning] À ne pas confondre
@@ -95,17 +92,18 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[XML au travail]]
 - **Prérequis** : [[JSON]]
 - **Notion parente** :
 - **Complémentaires** : [[Élément et attribut HTML]]
-- **Utilisé par** : [[XML en Python (ElementTree)]], [[Format CVAT for images 1.1]]
+- **Utilisé par** : [[XML en Python (ElementTree)]]
 - **Commandes** :
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

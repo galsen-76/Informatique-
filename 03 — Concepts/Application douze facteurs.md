@@ -17,7 +17,6 @@ related:
   - "[[Pipeline GitLab CI]]"
   - "[[Journaliser avec logging]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -37,7 +36,7 @@ Les facteurs les plus utiles au début :
 1. **Une base de code** suivie dans Git, plusieurs déploiements (dev, test, prod)
 2. **Dépendances déclarées** (`requirements.txt`, `package.json`), rien d'installé « à la main »
 3. **Configuration dans l'environnement** : adresses, mots de passe, clés via des variables d'environnement, jamais dans le code
-4. **Services externes comme ressources** : la base ou CVAT sont des adresses qu'on change par la configuration
+4. **Services externes comme ressources** : la base ou une API externe sont des adresses qu'on change par la configuration
 5. **Construire, publier, exécuter** séparés (c'est ce que fait ta CI : image, registre, déploiement)
 6. **Processus sans état** : ce qui doit durer va en base ou en stockage
 9. **Démarrage rapide, arrêt propre**
@@ -65,13 +64,13 @@ CO[Code] --> BU[Build image]
 ### Exemple concret
 ```python
 # ❌ configuration dans le code
-CVAT_URL = "http://192.168.1.20:8080"
+API_URL = "http://192.168.1.20:8080"
 MOT_DE_PASSE = "admin123"
 
 # ✅ configuration dans l'environnement
 import os
-CVAT_URL = os.environ["CVAT_URL"]
-MOT_DE_PASSE = os.environ["CVAT_PASSWORD"]   # injecté par Docker ou la CI
+API_URL = os.environ["API_URL"]
+MOT_DE_PASSE = os.environ["API_PASSWORD"]   # injecté par Docker ou la CI
 logging.basicConfig(stream=sys.stdout)      # logs sur la sortie standard
 ```
 
@@ -111,7 +110,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

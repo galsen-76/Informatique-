@@ -1,7 +1,7 @@
 ---
 type: howto
 concepts:
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Authentification]]"
 tags:
   - fiche-pratique
@@ -175,4 +175,4 @@ for f in formats.exporters:
 >
 
 ## Liens
-[[Fiche - CVAT, le SDK Python]] · [[Authentification]] · [[Appeler une API HTTP (requests)]] · [[Archive zip (zipfile)]] · [[Fichier en mémoire (io.BytesIO)]]
+[[Fiche - CVAT, le SDK Python]] · [[Authentification]] · [[Appeler une API HTTP]] · [[Archive zip (zipfile)]] · [[Fichier en mémoire (io.BytesIO)]]

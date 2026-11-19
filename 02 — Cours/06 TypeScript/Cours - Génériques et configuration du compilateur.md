@@ -43,7 +43,7 @@ Angular, Vite (React, Vue) compilent pour toi. Les erreurs de type s'affichent d
 > - Oublier `tsc --noEmit` : Vite ne vérifie pas les types
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Générique TypeScript]] · [[Compilation TypeScript (tsc et tsconfig)]]

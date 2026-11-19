@@ -5,7 +5,7 @@ module: "[[Module 16 - Python]]"
 concepts:
   - "[[JSON]]"
   - "[[Annotations dans l'API CVAT]]"
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Liste et dictionnaire]]"
 tags:
   - cours
@@ -125,4 +125,4 @@ Avec le SDK : `job.get_labels()`, `job.get_annotations()`, `job.update_annotatio
 > _Les 4 étapes du script, ce que je prends dans le JSON, et pourquoi je cherche les ids par leur nom._
 
 ## Concepts du cours
-[[JSON]] · [[Annotations dans l'API CVAT]] · [[Appeler une API HTTP (requests)]] · [[Liste et dictionnaire]]
+[[JSON]] · [[Annotations dans l'API CVAT]] · [[Appeler une API HTTP]] · [[Liste et dictionnaire]]

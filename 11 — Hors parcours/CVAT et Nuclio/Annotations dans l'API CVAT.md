@@ -7,13 +7,12 @@ level: debutant
 niveau: 4
 prerequisites:
   - "[[JSON]]"
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
 parents: []
 related:
   - "[[Format CVAT for images 1.1]]"
   - "[[SDK]]"
 next_review: 
-method: []
 tags:
   - concept
   - python
@@ -127,7 +126,7 @@ Pour m'aider :
 - [[Projet - Réannoter un job CVAT depuis le graphe]]
 
 ## 4 · Relier
-- **Prérequis** : [[JSON]], [[Appeler une API HTTP (requests)]]
+- **Prérequis** : [[JSON]], [[Appeler une API HTTP]]
 - **Notion parente** :
 - **Complémentaires** : [[Format CVAT for images 1.1]], [[SDK]]
 - **Utilisé par** :

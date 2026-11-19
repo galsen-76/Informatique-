@@ -29,7 +29,7 @@ Une ligne courte à l'impératif, puis le pourquoi si besoin. Voir [[Convention 
 ```bash
 feat(export): ajoute l'export PNG des annotations
 
-CVAT ne propose que des formats texte ; l'équipe a besoin d'images.
+L'appli ne propose qu'un export CSV ; les utilisateurs veulent un PDF.
 ```
 
 ### 3. Regarder avant de commiter

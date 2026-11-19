@@ -17,7 +17,6 @@ related:
   - "[[React]]"
   - "[[Vue.js]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -34,7 +33,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ## 1 · Comprendre
 ### Définition
 Là où [[React]] n'est qu'une bibliothèque d'affichage, **Angular fournit tout** et impose une structure :
-- des [[Composant Angular|composants]] (classe TypeScript + template HTML + style) ;
+- des [[Composant d'interface|composants]] (classe TypeScript + template HTML + style) ;
 - des [[Service et injection de dépendances|services]] injectés pour la logique et les appels d'API ;
 - [[Observable et RxJS|RxJS]] pour l'asynchrone ;
 - un routeur, des formulaires, un client HTTP, des tests ;
@@ -103,13 +102,13 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ## 4 · Relier
 - **Prérequis** : [[TypeScript]] · [[HTML]] · [[Module et import]]
 - **Complémentaires** : [[React]] · [[Vue.js]]
-- **Utilisé par** : [[Composant Angular]]
+- **Utilisé par** : [[Composant d'interface]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

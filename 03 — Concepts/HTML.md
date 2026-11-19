@@ -15,7 +15,6 @@ related:
   - "[[CSS]]"
   - "[[Élément et attribut HTML]]"
 next_review: 
-method: []
 tags:
   - concept
   - web
@@ -76,7 +75,6 @@ flowchart TD
 
 ### Cas d'utilisation
 - Toute page web ; les composants React, Vue et Angular produisent du HTML
-- Le bouton à ajouter dans l'interface de CVAT est, au final, un élément HTML
 
 > [!warning] À ne pas confondre
 > **HTML** (structure, le *quoi*) et **CSS** (apparence, le *comment ça s'affiche*). Utiliser `<h1>` pour grossir un texte est une erreur : c'est le CSS qui gère la taille.
@@ -109,6 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[HTML au travail]]
 - **Prérequis** : [[Client-serveur]] · [[HTTP]]
 - **Complémentaires** : [[CSS]] · [[JavaScript]] · [[Élément et attribut HTML]]
 - **Utilisé par** : [[DOM]] · [[React]]
@@ -117,7 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

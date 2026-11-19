@@ -15,7 +15,6 @@ parents: []
 related:
   - "[[Clé SSH]]"
 next_review: 
-method: []
 tags:
   - concept
   - reseau
@@ -65,7 +64,6 @@ Host cvat
 → `ssh cvat`.
 
 ### Cas d'utilisation
-- Déployer CVAT sur un serveur
 - `git clone git@gitlab.com:equipe/projet.git` passe par SSH
 
 > [!warning] À ne pas confondre
@@ -92,6 +90,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[SSH au travail]]
 - **Prérequis** : [[Terminal]] · [[TCP et UDP]]
 - **Complémentaires** : [[Clé SSH]] · [[Pare-feu]]
 - **Commandes** : [[ssh user@hôte]] · [[scp]]
@@ -100,7 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

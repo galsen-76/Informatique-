@@ -3,7 +3,7 @@ type: exercise
 status: a-faire
 difficulty: moyen
 concepts:
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Liste et dictionnaire]]"
 tags:
   - exercice

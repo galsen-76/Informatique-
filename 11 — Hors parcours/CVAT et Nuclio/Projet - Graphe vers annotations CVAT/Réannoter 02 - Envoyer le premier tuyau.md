@@ -4,7 +4,7 @@ status: a-faire
 difficulty: moyen
 concepts:
   - "[[Annotations dans l'API CVAT]]"
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
 tags:
   - exercice
   - mini-projet

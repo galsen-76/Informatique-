@@ -18,7 +18,6 @@ related:
   - "[[HTTPS et TLS]]"
   - "[[Passerelle d'API (API gateway)]]"
 next_review: 
-method: []
 tags:
   - concept
   - reseau
@@ -41,7 +40,7 @@ C'est l'inverse du [[Proxy]] : le proxy agit **pour les clients** (il sort vers 
 Ses trois rôles principaux :
 | Rôle | Ce que ça veut dire |
 | --- | --- |
-| **Router** | envoyer `/` à l'interface et `/api/` à l'API, ou `cvat.local` à CVAT et `nexus.local` au Nexus, selon le chemin ou le nom d'hôte (`Host`) |
+| **Router** | envoyer `/` à l'interface et `/api/` à l'API, ou `app.local` à l'appli et `docs.local` à la doc, selon le chemin ou le nom d'hôte (`Host`) |
 | **Gérer le HTTPS** | il garde le [[Certificat]] et chiffre avec le visiteur ; derrière, les services parlent en HTTP simple (voir [[HTTPS et TLS]]) |
 | **Répartir la charge** | s'il y a deux copies d'un service, il envoie les requêtes à l'une puis à l'autre (*load balancing*) |
 
@@ -80,20 +79,8 @@ server {
 - Dans un conteneur, `localhost` désigne **le conteneur lui-même** : `proxy_pass http://localhost:8000` donne `502 Bad Gateway`.
 - `502 Bad Gateway` = le reverse proxy fonctionne, mais le service derrière ne répond pas.
 
-### Exemple concret : Traefik dans CVAT
-Traefik fait la même chose, mais lit ses règles dans des **labels** posés sur les conteneurs du `docker-compose.yml` :
-```yaml
-cvat_server:
-  labels:
-    - traefik.http.routers.cvat.rule=Host(`${CVAT_HOST:-localhost}`) && PathPrefix(`/api/`)
-```
-- `CVAT_HOST` vaut `localhost` par défaut : CVAT ne répond que si on l'appelle **avec ce nom**.
-- Sur un serveur : `export CVAT_HOST=cvat.mon-entreprise.local` avant `docker compose up -d`, sinon la page renvoie **404**.
-- `${CVAT_HOST:-localhost}` = « la variable `CVAT_HOST`, ou `localhost` si elle est vide ».
-
 ### Cas d'utilisation
 - Mettre une interface et une API derrière une seule adresse
-- Déployer CVAT sur un serveur accessible par un nom, en HTTPS
 - Lancer deux copies d'un service et répartir les visiteurs
 
 > [!warning] À ne pas confondre
@@ -129,6 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Reverse proxy au travail]]
 - **Prérequis** : [[Port]] · [[HTTP]] · [[Docker Compose]]
 - **Complémentaires** : [[Proxy]] · [[HTTPS et TLS]] · [[Variable d'environnement]]
 - **Va plus loin** : [[Passerelle d'API (API gateway)]]
@@ -138,7 +126,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

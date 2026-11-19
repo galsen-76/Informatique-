@@ -4,7 +4,7 @@ order: 1
 module: "[[Module 11 - React]]"
 concepts:
   - "[[React]]"
-  - "[[Composant React]]"
+  - "[[Composant d'interface]]"
   - "[[Props React]]"
   - "[[Liste et clé en React]]"
   - "[[Outil de build front (Vite)]]"
@@ -38,7 +38,7 @@ flowchart TD
 ```
 
 ## 4. Les composants
-[[Composant React]] : une fonction, du JSX, une majuscule, un fichier.
+[[Composant d'interface]] : une fonction, du JSX, une majuscule, un fichier.
 
 ## 5. Les props
 [[Props React]] : les données descendent, les événements remontent par des fonctions.
@@ -55,7 +55,7 @@ flowchart TD
 > - `key={index}` dans une liste qui change
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[React]] · [[Composant React]] · [[Props React]] · [[Liste et clé en React]] · [[Outil de build front (Vite)]]
+[[React]] · [[Composant d'interface]] · [[Props React]] · [[Liste et clé en React]] · [[Outil de build front (Vite)]]

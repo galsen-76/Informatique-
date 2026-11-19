@@ -17,7 +17,7 @@ niveau: 3
 # Cours - Maîtriser le fichier de pipeline GitLab
 
 > [!abstract] Objectifs
-> - Lire un `.gitlab-ci.yml` inconnu (celui de CVAT ou le tien)
+> - Lire un `.gitlab-ci.yml` inconnu (celui d'un projet open source ou le tien)
 > - Ordonner des jobs avec les stages et `needs`
 > - Choisir quand un job tourne avec `rules`
 > - Passer des fichiers entre jobs avec les artefacts
@@ -66,7 +66,7 @@ Construire une image demande un démon Docker : Docker-in-Docker ou Kaniko ([[Co
 > - Corriger un test dans le dépôt sans reconstruire l'image dans laquelle il tourne
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Pipeline GitLab CI]] · [[Règles d'un job GitLab (rules)]] · [[Artefacts GitLab CI]] · [[extends GitLab CI]] · [[Construire une image dans la CI]] · [[Tester l'image, pas le dépôt]]

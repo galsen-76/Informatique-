@@ -17,7 +17,6 @@ related:
   - "[[Principes DRY, KISS et YAGNI]]"
   - "[[Décision d'architecture (ADR)]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -59,12 +58,12 @@ flowchart TD
 ### Exemple concret
 ```python
 # Dans le POC : raccourcis assumés et notés
-CVAT_URL = "http://localhost:8080"   # DETTE : à passer en variable d'environnement
+API_URL = "http://localhost:8080"   # DETTE : à passer en variable d'environnement
 TOKEN = "abc123"                      # DETTE : secret en dur, interdit hors POC
 
 def handler(context, event):
     # DETTE : aucune gestion d'erreur si la tâche n'existe pas
-    xml = telecharger_annotations(CVAT_URL, TOKEN, event.body["tache_id"])
+    xml = telecharger_annotations(API_URL, TOKEN, event.body["tache_id"])
     return dessiner_png(xml)
 ```
 
@@ -103,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -3,7 +3,7 @@ type: command
 tool: npm
 level: debutant
 concepts:
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[Node.js]]"
 tags:
   - commande
@@ -42,4 +42,4 @@ Un fichier `package.json` est créé dans le dossier courant.
 
 ## Relier
 - **Commandes complémentaires** : [[npm install]] · [[node]]
-- **Concepts associés** : [[npm]] · [[Node.js]]
+- **Concepts associés** : [[Gestionnaire de paquets]] · [[Node.js]]

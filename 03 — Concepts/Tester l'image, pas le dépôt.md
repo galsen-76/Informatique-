@@ -10,13 +10,12 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[Image Docker]]"
-  - "[[pytest]]"
+  - "[[Test automatisé]]"
   - "[[Pipeline GitLab CI]]"
 parents: []
 related:
   - "[[Construire une image dans la CI]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -65,7 +64,6 @@ Conséquences :
 - Si le test échoue sur un fichier « qui existe pourtant », vérifie qu'il est bien **dans l'image** (`.dockerignore`, `COPY`).
 
 ### Cas d'utilisation
-- Les jobs de tests de CVAT, lancés dans les images construites
 - Ta propre image de script : `docker run mon-zipper` avec un dossier de test monté
 
 > [!warning] À ne pas confondre
@@ -93,7 +91,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Relier
-- **Prérequis** : [[Image Docker]] · [[pytest]] · [[Pipeline GitLab CI]]
+- **Au travail** : [[Tester l'image, pas le dépôt au travail]]
+- **Prérequis** : [[Image Docker]] · [[Test automatisé]] · [[Pipeline GitLab CI]]
 - **Complémentaires** : [[Construire une image dans la CI]]
 - **Utilisé par** : [[Fiche - Réflexes pour déboguer une pipeline]]
 
@@ -101,7 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

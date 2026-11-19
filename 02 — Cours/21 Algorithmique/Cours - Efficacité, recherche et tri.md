@@ -50,7 +50,7 @@ Un index SQL, `git bisect`, un `set` Python : ce sont ces idées, déjà écrite
 > - Optimiser sans avoir mesuré
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Complexité (notation grand O)]] · [[Recherche linéaire et dichotomique]] · [[Algorithmes de tri]]

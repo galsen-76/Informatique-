@@ -15,7 +15,6 @@ parents: []
 related:
   - "[[Certificat]]"
 next_review: 
-method: []
 tags:
   - concept
   - reseau
@@ -62,8 +61,6 @@ openssl s_client -connect gitlab.com:443 -servername gitlab.com </dev/null | hea
 
 ### Cas d'utilisation
 - Tout site et toute API en production
-- Le registre Docker et le Nexus de l'entreprise (Docker refuse un registre non HTTPS par défaut)
-- Traefik peut gérer le HTTPS devant CVAT
 
 > [!warning] À ne pas confondre
 > **Chiffré** ne veut pas dire **sûr** : un site malveillant peut avoir un HTTPS valide. Le cadenas garantit seulement que tu parles au propriétaire du nom affiché.
@@ -89,6 +86,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[HTTPS et TLS au travail]]
 - **Prérequis** : [[HTTP]] · [[TCP et UDP]]
 - **Complémentaires** : [[Certificat]]
 - **Commandes** : [[curl]] · [[openssl]]
@@ -97,7 +95,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

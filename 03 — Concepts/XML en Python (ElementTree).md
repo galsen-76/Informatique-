@@ -16,7 +16,6 @@ related:
   - "[[JSON]]"
   - "[[Lire et écrire un fichier]]"
 next_review: 
-method: []
 tags:
   - concept
   - python
@@ -86,11 +85,9 @@ for livre in racine.iter("livre"):       # tous les <livre>, à toute profondeur
 | `el.find(tag)` / `el.findall(tag)` / `el.iter(tag)` | chercher des enfants |
 | `ET.indent(el)` | ajouter les retraits pour la lecture |
 | `ET.ElementTree(el).write(...)` | écrire dans un fichier |
-| `ET.tostring(el, ...)` | obtenir les octets (utile dans une fonction Nuclio) |
+| `ET.tostring(el, ...)` | obtenir les octets (utile pour renvoyer le XML dans une réponse HTTP) |
 
 ### Cas d'utilisation
-- Fabriquer un XML d'annotations CVAT depuis un autre format.
-- Lire un export CVAT pour en extraire les formes.
 
 > [!warning] À ne pas confondre
 > - `ET.Element` crée un élément **orphelin** ; `ET.SubElement` l'accroche au parent. Un `Element` créé puis jamais ajouté n'apparaît pas dans le fichier.
@@ -119,17 +116,18 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[XML en Python (ElementTree) au travail]]
 - **Prérequis** : [[XML]], [[Liste et dictionnaire]]
 - **Notion parente** :
 - **Complémentaires** : [[JSON]], [[Lire et écrire un fichier]]
-- **Utilisé par** : [[Format CVAT for images 1.1]]
+- **Au travail** : [[Format CVAT for images 1.1]]
 - **Commandes** :
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

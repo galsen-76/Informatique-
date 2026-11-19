@@ -17,7 +17,6 @@ related:
   - "[[Session et cookie]]"
   - "[[JWT]]"
 next_review: 
-method: []
 tags:
   - concept
   - securite
@@ -62,7 +61,7 @@ curl -X POST https://api.exemple.com/login -H "Content-Type: application/json" \
 # 2. chaque requête suivante présente le jeton
 curl https://api.exemple.com/moi -H "Authorization: Bearer eyJhbGciOi…"
 ```
-CVAT accepte une session (navigateur), un jeton (`Authorization: Token …`) ou une connexion via un fournisseur ([[OAuth 2 et OpenID Connect]]).
+Une API web accepte souvent une session (navigateur), un jeton (`Authorization: Token …`) ou une connexion via un fournisseur ([[OAuth 2 et OpenID Connect]]).
 
 ### Cas d'utilisation
 - Connexion à une application
@@ -101,7 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

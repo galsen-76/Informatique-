@@ -14,10 +14,8 @@ prerequisites:
 parents: []
 related:
   - "[[Reverse proxy]]"
-  - "[[Nexus]]"
   - "[[Certificat]]"
 next_review: 
-method: []
 tags:
   - concept
   - reseau
@@ -73,15 +71,15 @@ flowchart TD
   P[Ton poste] --> X[Proxy]
   X -- autorisé --> I[Internet]
   X -- bloqué --> B[Refus]
-  P --> N[Nexus interne]
+  P --> N[Miroir interne]
 ```
 
 ### Exemple concret
 ```bash
 export HTTPS_PROXY=http://proxy.entreprise:3128
-export NO_PROXY=localhost,127.0.0.1,vortex-nexus.assystem.com
+export NO_PROXY=localhost,127.0.0.1,registre.interne.exemple.com
 pip install requests        # pip passe par le proxy
-curl -I https://vortex-nexus.assystem.com:5000/v2/   # interne : sans proxy grâce à NO_PROXY
+curl -I https://registre.interne.exemple.com:5000/v2/   # interne : sans proxy grâce à NO_PROXY
 ```
 Pour Docker, il y a **trois endroits** différents :
 1. le [[Démon Docker]] (pour `docker pull`) : réglage du démon ou de Docker Desktop ;
@@ -95,7 +93,6 @@ Symptômes typiques :
 
 ### Cas d'utilisation
 - pip, apt, npm ou Docker qui doivent télécharger depuis Internet en entreprise
-- Souvent, le [[Nexus]] évite le proxy : il est interne, il télécharge pour toi et garde une copie
 
 > [!warning] À ne pas confondre
 > - **Proxy** (côté clients, vers Internet) et [[Reverse proxy]] (côté serveurs, reçoit les visiteurs et les envoie au bon service).
@@ -123,16 +120,17 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Proxy au travail]]
 - **Prérequis** : [[Variable d'environnement]] · [[HTTP]]
-- **Complémentaires** : [[Nexus]] · [[Port]] · [[Certificat]] · [[Reverse proxy]]
-- **Utilisé par** : [[pip]] · [[Démon Docker]]
+- **Complémentaires** : [[Port]] · [[Certificat]] · [[Reverse proxy]]
+- **Utilisé par** : [[Gestionnaire de paquets]] · [[Démon Docker]]
 - **Même idée en code** : [[Patron Proxy]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

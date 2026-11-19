@@ -16,7 +16,6 @@ related:
   - "[[Pile et file]]"
   - "[[Architecture événementielle]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -77,7 +76,7 @@ historique = []
 cmd = RenommerTache(depot, 12, "Chantier nord"); cmd.executer(); historique.append(cmd)
 historique.pop().annuler()          # Ctrl+Z
 ```
-Au niveau système, c'est l'idée des **files de tâches** : une demande d'export devient un message (une commande sérialisée en JSON) placé dans Redis, qu'un worker exécute plus tard. CVAT fonctionne ainsi pour ses traitements longs.
+Au niveau système, c'est l'idée des **files de tâches** : une demande d'export devient un message (une commande sérialisée en JSON) placé dans Redis, qu'un worker exécute plus tard. Beaucoup d'applications fonctionnent ainsi pour leurs traitements longs.
 
 ### Cas d'utilisation
 - Annuler et refaire
@@ -116,7 +115,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

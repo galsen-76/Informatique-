@@ -17,7 +17,6 @@ related:
   - "[[Patron État (State)]]"
   - "[[Principes SOLID]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -78,7 +77,6 @@ def exporter(annotations, format):
 En Python et en JavaScript, une **fonction** suffit souvent comme stratégie ; une classe quand la variante a de la configuration ou plusieurs méthodes. `sorted(liste, key=…)` est une stratégie : tu donnes la règle de tri.
 
 ### Cas d'utilisation
-- Formats d'export de ta fonction Nuclio
 - `sorted(key=…)`, `Array.sort(comparateur)`
 - Stratégies d'authentification (Passport.js), de nouvel essai, de tarification
 
@@ -106,6 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Patron Stratégie (Strategy) au travail]]
 - **Prérequis** : [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Fabrique (Factory)]] · [[Patron État (State)]] · [[Principes SOLID]]
 
@@ -113,7 +112,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

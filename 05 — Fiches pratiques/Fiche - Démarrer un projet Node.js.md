@@ -2,7 +2,7 @@
 type: howto
 concepts:
   - "[[Node.js]]"
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
 tags:
   - fiche-pratique
 ---
@@ -33,4 +33,4 @@ tags:
 > `npm run dev` démarre sans erreur et redémarre quand tu modifies `server.js`.
 
 ## Liens
-- [[Node.js]] · [[npm]] · [[npm init]] · [[npm install]] · [[node]]
+- [[Node.js]] · [[Gestionnaire de paquets]] · [[npm init]] · [[npm install]] · [[node]]

@@ -15,7 +15,6 @@ parents: []
 related:
   - "[[SSH]]"
 next_review: 
-method: []
 tags:
   - concept
   - reseau
@@ -58,7 +57,6 @@ sudo ufw enable
 Symptôme typique : `timeout` (le pare-feu jette sans répondre) alors que le service tourne bien sur le serveur (`ss -tlnp` le montre).
 
 ### Cas d'utilisation
-- Ouvrir le port de CVAT sur un serveur
 - Comprendre pourquoi un runner de CI n'atteint pas un service interne (règle réseau de l'entreprise)
 
 > [!warning] À ne pas confondre
@@ -85,6 +83,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Pare-feu au travail]]
 - **Prérequis** : [[TCP et UDP]] · [[Port]]
 - **Complémentaires** : [[SSH]] · [[Routage et NAT]]
 
@@ -92,7 +91,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

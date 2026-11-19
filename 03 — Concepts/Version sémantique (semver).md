@@ -11,12 +11,11 @@ fil_rouge: false
 prerequisites:
   - "[[package.json]]"
 parents:
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
 related:
   - "[[Tag Git]]"
   - "[[Changelog]]"
 next_review: 
-method: []
 tags:
   - concept
   - backend
@@ -72,7 +71,6 @@ npm outdated
 ### Cas d'utilisation
 - Mettre à jour des dépendances
 - Choisir le tag d'une image Docker
-- Versionner ta fonction Nuclio ou tes images dans Nexus
 
 > [!warning] À ne pas confondre
 > `^` et `~` : `^` accepte les nouvelles mineures, `~` seulement les correctifs. Et la promesse SemVer est tenue par les humains : un correctif peut quand même casser, d'où le lock et les tests.
@@ -104,6 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Version sémantique (semver) au travail]]
 - **Prérequis** : [[package.json]]
 - **Complémentaires** : [[Tag Git]] · [[Changelog]]
 
@@ -111,7 +110,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

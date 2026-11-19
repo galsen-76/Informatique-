@@ -16,7 +16,6 @@ related:
   - "[[Encodage des caractères]]"
   - "[[Envoyer et recevoir un fichier en HTTP]]"
 next_review: 
-method: []
 tags:
   - concept
   - python
@@ -38,7 +37,7 @@ Base64 réécrit les octets avec seulement 64 caractères sans danger : `A-Z`, `
 JSON, YAML, une URL ou un e-mail ne transportent que du texte. Des octets d'image au milieu casseraient le format.
 
 ### Le problème résolu
-Envoyer une image **avec** d'autres informations dans un seul JSON : `{"image": "iVBORw0KGgo...", "seuil": 0.5}`. C'est ce que fait CVAT avec ses fonctions Nuclio de détection : il leur envoie l'image en base64 dans le corps JSON.
+Envoyer une image **avec** d'autres informations dans un seul JSON : `{"image": "iVBORw0KGgo...", "seuil": 0.5}`. C'est courant pour les API de reconnaissance d'images : l'image part en base64 dans le corps JSON.
 
 ## 2 · Explorer
 ### Comment ça fonctionne
@@ -67,7 +66,6 @@ print(octets_retrouves == octets)                   # True
 ```
 
 ### Cas d'utilisation
-- Envoyer une image dans un corps JSON (fonctions Nuclio de CVAT)
 - Afficher une image directement dans une page : `<img src="data:image/png;base64,...">`
 - Écrire un fichier dans une variable de CI ou un secret Kubernetes
 
@@ -97,6 +95,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Envoi 05 - Une image dans du JSON]]
 
 ## 4 · Relier
+- **Au travail** : [[Base64 au travail]]
 - **Prérequis** : [[Binaire et octet]] · [[JSON]]
 - **Complémentaires** : [[Encodage des caractères]] · [[Envoyer et recevoir un fichier en HTTP]] · [[Fichier en mémoire (io.BytesIO)]]
 - **Utilisé par** : [[Cours - Envoyer et recevoir des fichiers par HTTP]] · [[Serverless et FaaS]]
@@ -105,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

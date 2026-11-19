@@ -16,7 +16,6 @@ related:
   - "[[Variable de build Docker (ARG)]]"
   - "[[Registre Docker]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -82,7 +81,6 @@ Un Dockerfile peut contenir **plusieurs `FROM`** (*multi-stage build*) : une ét
 
 ### Cas d'utilisation
 - Conteneuriser une application (API, front)
-- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
 
 > [!warning] À ne pas confondre
 > `RUN` (pendant le build) et `CMD` (au démarrage du conteneur). Et le **Dockerfile** (la recette) avec l'**image** (le résultat).
@@ -118,6 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## 4 · Relier
+- **Au travail** : [[Dockerfile au travail]]
 - **Prérequis** : [[Docker]]
 - **Notion parente** : [[Image Docker]]
 - **Complémentaires** : [[Variable de build Docker (ARG)]] · [[Registre Docker]]
@@ -128,7 +127,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

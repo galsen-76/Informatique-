@@ -51,7 +51,7 @@ Un caractère devient des octets selon un [[Encodage des caractères|encodage]].
 > - Laisser l'encodage par défaut et récupérer des `Ã©`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Binaire et octet]] · [[Processeur, mémoire et disque]] · [[Encodage des caractères]] · [[Système d'exploitation et noyau]] · [[Noyau (kernel)]]

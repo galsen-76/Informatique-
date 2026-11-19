@@ -51,7 +51,7 @@ Vérifie l'empreinte à la première connexion ; prends au sérieux l'avertissem
 > - Clé privée avec des droits trop ouverts : SSH la refuse
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[SSH]] · [[Clé SSH]]

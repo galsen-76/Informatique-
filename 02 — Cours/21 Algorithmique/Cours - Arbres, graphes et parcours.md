@@ -44,7 +44,7 @@ Avec les cours précédents, tu as les briques de presque tous les problèmes cl
 > - Pile au lieu de file pour un plus court chemin
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Arbre et graphe]] · [[Parcours en largeur et en profondeur]]

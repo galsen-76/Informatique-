@@ -17,7 +17,6 @@ parents:
 related:
   - "[[extends GitLab CI]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -77,7 +76,6 @@ Un job **manuel** sans `allow_failure: true` **bloque** les stages suivants jusq
 ### Cas d'utilisation
 - Construire à chaque push, publier seulement sur `main` ou un tag
 - Un job manuel de déploiement
-- Projet CVAT : ne lancer que les jobs utiles sur ta branche
 
 > [!warning] À ne pas confondre
 > `when: never` / aucune règle (le job **n'existe pas** dans la pipeline) et `skipped` (le job existe mais n'a pas été lancé). Et l'ancien `only:` / `except:` : même rôle, à ne pas mélanger avec `rules:` dans un même job.
@@ -105,6 +103,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Relier
+- **Au travail** : [[Règles d'un job GitLab (rules) au travail]]
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Variables CI-CD GitLab]] · [[YAML]]
 - **Complémentaires** : [[extends GitLab CI]]
 
@@ -112,7 +111,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

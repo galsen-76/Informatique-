@@ -15,7 +15,6 @@ parents: []
 related:
   - "[[Copier et déplacer des fichiers (shutil)]]"
 next_review: 
-method: []
 tags:
   - concept
   - python
@@ -74,7 +73,6 @@ with zipfile.ZipFile("images.zip") as z:
 
 ### Cas d'utilisation
 - Zipper une sélection de fichiers (ton script)
-- Lire l'export d'un outil (CVAT exporte ses annotations en `.zip`)
 
 > [!warning] À ne pas confondre
 > Sans `arcname`, l'archive garde le chemin complet du disque (`C:/Users/...` ou `/data/...`). Sans `ZIP_DEFLATED`, les fichiers sont seulement **stockés**, pas compressés. Et ne crée pas l'archive **dans** le dossier que tu zippes : elle finirait par s'inclure elle-même.
@@ -100,6 +98,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Archive zip (zipfile) au travail]]
 - **Prérequis** : [[Chemin de fichier]] · [[Boucle (for, while)]]
 - **Complémentaires** : [[Copier et déplacer des fichiers (shutil)]] · [[Exception]]
 - **Utilisé par** : [[Cours - Manipuler des fichiers et des archives]] · [[Fichier en mémoire (io.BytesIO)]] (un zip sans fichier) · [[Cours - Envoyer et recevoir des fichiers par HTTP]]
@@ -108,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

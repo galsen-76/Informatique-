@@ -17,7 +17,7 @@ tags:
 Trouver vite où une variable, une image ou une fonction est utilisée dans un gros projet.
 
 ## Dans quel contexte
-Explorer CVAT : où est défini `CVAT_HOST`, quelles lignes `FROM`, quel job utilise une image.
+Explorer un gros projet : où est définie `API_URL`, quelles lignes `FROM`, quel job utilise une image.
 
 ## Syntaxe
 ```bash
@@ -42,7 +42,7 @@ git grep -n "^FROM" -- "*Dockerfile*"
 Chaque résultat sous la forme `fichier:ligne:contenu`.
 
 ## Variantes utiles
-- `git grep -n CVAT_HOST v2.20.0` : dans une version précise
+- `git grep -n API_URL v2.20.0` : dans une version précise
 - `git grep -l "docker:dind"`
 - `git grep -c TODO` : nombre de résultats par fichier
 

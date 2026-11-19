@@ -16,7 +16,6 @@ related:
   - "[[Middleware]]"
   - "[[Observable et RxJS]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -38,7 +37,7 @@ Les plus utiles à connaître :
 | **Stratégie** | choisir un comportement parmi plusieurs à l'exécution | formats d'export, algorithmes |
 | **Fabrique** (*factory*) | créer le bon objet sans exposer comment | `creerClient(config)` |
 | **Observateur** | prévenir plusieurs abonnés d'un changement | `addEventListener`, Observable RxJS, webhooks |
-| **Adaptateur** | faire parler deux interfaces incompatibles | envelopper le SDK de CVAT derrière ta propre interface |
+| **Adaptateur** | faire parler deux interfaces incompatibles | envelopper le SDK d'un service derrière ta propre interface |
 | **Décorateur** | ajouter un comportement autour d'un existant | décorateurs Python `@`, middleware |
 | **Singleton** | une seule instance partagée | connexion à la base, service `providedIn: "root"` |
 | **Dépôt** (*repository*) | isoler l'accès aux données | couche d'accès en base |
@@ -113,7 +112,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

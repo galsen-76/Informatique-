@@ -9,15 +9,14 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[État React (useState)]]"
+  - "[[État et réactivité]]"
   - "[[async et await]]"
-  - "[[Appeler une API avec fetch]]"
+  - "[[Appeler une API HTTP]]"
 parents:
   - "[[React]]"
 related:
   - "[[Hook React]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -118,14 +117,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[État React (useState)]] · [[async et await]] · [[Appeler une API avec fetch]]
+- **Prérequis** : [[État et réactivité]] · [[async et await]] · [[Appeler une API HTTP]]
 - **Complémentaires** : [[Hook React]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

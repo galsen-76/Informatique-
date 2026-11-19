@@ -18,7 +18,6 @@ related:
   - "[[Variable d'environnement]]"
   - "[[CORS]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -26,7 +25,7 @@ tags:
 # Serverless et FaaS
 
 > [!info] En une phrase
-> Le serverless (FaaS, fonction en tant que service) consiste à écrire seulement une fonction qui réagit à un événement : la plateforme la démarre, la met à l'échelle et l'arrête pour toi. Nuclio, AWS Lambda et Cloud Functions en sont des exemples.
+> Le serverless (FaaS, fonction en tant que service) consiste à écrire seulement une fonction qui réagit à un événement : la plateforme la démarre, la met à l'échelle et l'arrête pour toi. AWS Lambda, Cloud Functions et Nuclio en sont des exemples.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
@@ -44,7 +43,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 
 **Sans état** : chaque appel doit pouvoir tourner sur une copie neuve ; ce qui doit durer va en base ou en stockage.
 
-Nuclio, utilisé par CVAT pour l'annotation automatique, empaquette ta fonction dans une **image Docker** et la déploie.
+Une plateforme comme Nuclio ou OpenFaaS empaquette ta fonction dans une **image Docker** et la déploie.
 
 ### Pourquoi ça existe
 Faire tourner un serveur complet en permanence pour un traitement appelé de temps en temps : il faut l'installer, le surveiller, le mettre à l'échelle.
@@ -61,27 +60,14 @@ EV[Événement] --> PL[Plateforme]
   FN --> RE[Réponse]
 ```
 
-### Nuclio, pièce par pièce
-```mermaid
-flowchart TD
-Y[function.yaml + main.py] -->|nuctl deploy| B[Image Docker]
-B --> F[Conteneur fonction]
-T[Déclencheur HTTP] --> F
-DB[Dashboard :8070] -.gère.-> F
-```
-- **Le dashboard** (port `8070`) : le chef d'orchestre. Il construit les images, lance les conteneurs, liste les fonctions. CVAT lui parle.
-- **`nuctl`** : la commande pour parler au dashboard depuis le terminal (`nuctl deploy`, `nuctl get function`, `nuctl invoke`). Avec CVAT en local : `--platform local`.
-- **La fonction** : un conteneur Docker à part, avec ton code et un « processeur » Nuclio qui reçoit les événements et appelle ton `handler`.
-- **Le déclencheur** (*trigger*) : ce qui réveille la fonction. Pour toi, `http`, sur un port fixe (`32001`).
-
 ### `function.yaml`, ce qui compte
 | Clé | Rôle |
 |---|---|
 | `metadata.name` | nom de la fonction (minuscules et tirets) |
 | `spec.runtime` | langage et version, ex. `python:3.11` |
 | `spec.handler` | `fichier:fonction`, ex. `main:handler` |
-| `spec.env` | variables d'environnement (pas de mot de passe ici : `nuctl deploy --env`) |
-| `spec.build.baseImage` | l'image de départ (via le Nexus au travail) |
+| `spec.env` | variables d'environnement (pas de mot de passe ici : on le passe au déploiement) |
+| `spec.build.baseImage` | l'image de départ (souvent un miroir interne en entreprise) |
 | `spec.build.directives` | des lignes de Dockerfile en plus (`RUN pip install …`) |
 | `spec.triggers` | les déclencheurs : `kind: http`, `numWorkers`, `attributes.port` |
 | `spec.eventTimeout` | temps maximum pour un appel |
@@ -99,16 +85,6 @@ DB[Dashboard :8070] -.gère.-> F
 > [!warning] Sans état, pour de vrai
 > Avec `numWorkers: 2`, il y a **deux** copies de ton code, chacune avec son `init_context` et son `user_data`. Un compteur gardé dans `user_data` ne compte pas tous les appels, et un fichier écrit à un appel n'est pas garanti au suivant. D'où un **dossier temporaire par appel**.
 
-### Deux façons d'appeler une fonction depuis CVAT
-| | Par CVAT (« Models », annotation auto) | En direct (ton bouton) |
-|---|---|---|
-| Qui appelle | le serveur CVAT, via le dashboard Nuclio | le navigateur, sur le port de la fonction |
-| Condition | `metadata.annotations.type` connu de CVAT (`detector`, `interactor`, `tracker`…) | un port fixe dans le déclencheur |
-| [[CORS]] | non (serveur à serveur) | **oui** (autre origine) |
-| Qui vérifie l'utilisateur | CVAT | personne, sauf si ta fonction le fait |
-
-Ta fonction `convert-png` est du second type (`type: external`) : CVAT l'ignore dans « Models », et c'est à toi de gérer CORS.
-
 ### Exemple concret
 ```python
 # main.py, le squelette
@@ -116,20 +92,19 @@ def init_context(context):
     context.logger.info("prête")                 # une fois par worker
 
 def handler(context, event):
-    if event.method == "OPTIONS":                 # preflight CORS (si Nuclio ne le gère pas)
+    if event.method == "OPTIONS":                 # preflight CORS (si la plateforme ne le gère pas)
         return context.Response(body="", headers=CORS, status_code=204)
     data = event.body                             # dict si Content-Type: application/json
     ...
     return context.Response(body=png, headers=CORS, content_type="image/png", status_code=200)
 ```
 ```bash
-nuctl deploy --project-name cvat --path . --file function.yaml --platform local \
-  --env CVAT_PASSWORD="$CVAT_PASSWORD"
+nuctl deploy --project-name demo --path . --file function.yaml --platform local \
+  --env API_PASSWORD="$API_PASSWORD"
 nuctl get function --platform local
 ```
 
 ### Cas d'utilisation
-- Fonctions d'annotation automatique de CVAT (Nuclio)
 - Ta fonction `convert-png` appelée par un bouton
 - Redimensionner une image déposée, tâche planifiée, webhook
 
@@ -159,6 +134,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Serverless et FaaS au travail]]
 - **Prérequis** : [[Conteneur]] · [[Image Docker]]
 - **Complémentaires** : [[Architecture événementielle]] · [[Architecture hexagonale]] · [[Variable d'environnement]] · [[CORS]] · [[Charger un fichier .env (python-dotenv)]]
 
@@ -166,7 +142,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

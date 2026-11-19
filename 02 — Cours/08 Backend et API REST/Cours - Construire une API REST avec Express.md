@@ -19,7 +19,7 @@ niveau: 1
 > - Écrire les cinq endpoints CRUD d'une ressource
 > - Comprendre le rôle des middlewares
 
-**Prérequis :** [[Node.js]] · [[npm]] · [[HTTP]] · [[JSON]]
+**Prérequis :** [[Node.js]] · [[Gestionnaire de paquets]] · [[HTTP]] · [[JSON]]
 
 ## 1. Le plan
 Une ressource `notes`, cinq [[Endpoint|endpoints]] suivant les conventions [[API REST]] :

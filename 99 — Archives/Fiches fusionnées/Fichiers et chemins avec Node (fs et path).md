@@ -19,7 +19,6 @@ related:
   - "[[Arguments de ligne de commande]]"
   - "[[Code de sortie]]"
 next_review: 
-method: []
 tags:
   - concept
   - backend

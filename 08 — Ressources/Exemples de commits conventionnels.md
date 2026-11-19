@@ -95,7 +95,7 @@ build(docker): passe à l'image python:3.12-slim
 
 ### `ci` : la pipeline (GitLab CI, GitHub Actions)
 ```text
-ci: récupère les images de base depuis le Nexus
+ci: récupère les images de base depuis le registre interne
 ci: ajoute une étape de tests avant la construction de l'image
 ci(gitlab): met en cache le dossier .venv entre les jobs
 ```
@@ -129,7 +129,7 @@ Les clients doivent lire `reponse.chemin`.
 ```text
 fix(export): ignore les formes sans points
 
-Certaines tâches CVAT contiennent des polygones vides après une
+Certaines dépenses importées ont un montant vide après une
 suppression partielle. Le dessin plantait avec un IndexError et
 l'export entier échouait.
 
@@ -140,7 +140,7 @@ Closes #27
 ```text
 ci: arrête la pipeline si les tests échouent
 
-Les images étaient publiées sur le Nexus même quand pytest
+Les images étaient publiées dans le registre même quand pytest
 échouait, ce qui a déjà déployé une version cassée.
 
 Refs: #31
@@ -207,6 +207,6 @@ Ensuite `git commit` (sans `-m`) ouvre l'éditeur avec ce modèle ; les lignes e
 | [How to Write a Git Commit Message](https://cbea.ms/git-commit/) | les 7 règles d'un bon message (en anglais) |
 | [Gestion sémantique de version](https://semver.org/lang/fr/) | le lien entre types de commits et numéros de version |
 | [commitlint](https://commitlint.js.org/) | vérifier les messages automatiquement |
-| `git log --oneline` sur [CVAT](https://github.com/cvat-ai/cvat) ou [Angular](https://github.com/angular/angular/commits/main) | voir de vrais historiques |
+| `git log --oneline` sur [Vue](https://github.com/vuejs/core/commits/main) ou [Angular](https://github.com/angular/angular/commits/main) | voir de vrais historiques |
 
 Pratique : les exercices visuels de la fiche [[Convention de commit]].

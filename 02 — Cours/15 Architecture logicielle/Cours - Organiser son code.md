@@ -51,7 +51,7 @@ flowchart TD
 > - Mélanger refactorisation et nouvelle fonctionnalité dans un commit
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Séparation des responsabilités]] · [[Principes DRY, KISS et YAGNI]] · [[Refactorisation]] · [[Principes SOLID]] · [[Design pattern]]

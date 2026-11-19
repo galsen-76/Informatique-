@@ -19,7 +19,7 @@ niveau: 2
 **Prérequis :** [[Cours - Construire une API REST avec Express]]
 
 ## 1. Pourquoi une base
-Un fichier JSON suffit pour dix notes. Pour des milliers de lignes, plusieurs utilisateurs en même temps et des données qui doivent rester cohérentes, il faut une [[Base de données relationnelle]] : PostgreSQL (CVAT), MySQL, SQLite.
+Un fichier JSON suffit pour dix notes. Pour des milliers de lignes, plusieurs utilisateurs en même temps et des données qui doivent rester cohérentes, il faut une [[Base de données relationnelle]] : PostgreSQL, MySQL, SQLite.
 
 ## 2. Schéma
 ```mermaid
@@ -49,7 +49,7 @@ Une table = des colonnes typées et des lignes. Chaque ligne a un identifiant un
 > - Oublier le `;` dans psql
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Base de données relationnelle]] · [[SQL]]

@@ -13,9 +13,7 @@ prerequisites:
 parents:
   - "[[Pipeline GitLab CI]]"
 related:
-  - "[[Nexus]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -74,7 +72,6 @@ La variable spéciale **`DOCKER_AUTH_CONFIG`** permet au runner de récupérer l
 ### Cas d'utilisation
 - Tagger les images avec le commit
 - Se connecter à un registre sans exposer le mot de passe
-- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
 
 > [!warning] À ne pas confondre
 > **Protected** et **Masked** : une variable protégée est **vide** sur une branche non protégée, d'où un job qui échoue sur ta branche et marche sur `main`.
@@ -107,9 +104,9 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Relier
+- **Au travail** : [[Variables CI-CD GitLab au travail]]
 - **Prérequis** : [[Pipeline GitLab CI]]
 - **Notion parente** : [[Pipeline GitLab CI]]
-- **Complémentaires** : [[Nexus]]
 - **Utilisé par** : [[Construire une image dans la CI]] · [[Kaniko]]
 - **Commandes** : [[docker login]]
 
@@ -117,7 +114,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

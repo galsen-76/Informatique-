@@ -66,7 +66,7 @@ Derrière un proxy, `FROM` et `pip install` passent souvent par un registre ou u
 > - Ne pas voir les `print` à temps : oubli de `PYTHONUNBUFFERED=1`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Python dans Docker]] · [[Volume Docker]] · [[Arguments de ligne de commande]] · [[Variable d'environnement]] · [[Tester l'image, pas le dépôt]]

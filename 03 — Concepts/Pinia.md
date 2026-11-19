@@ -9,14 +9,13 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Réactivité Vue (ref et computed)]]"
+  - "[[État et réactivité]]"
 parents:
   - "[[Vue.js]]"
 related:
-  - "[[Vue Router]]"
+  - "[[Application monopage et routage]]"
   - "[[Service et injection de dépendances]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -108,14 +107,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[Réactivité Vue (ref et computed)]]
-- **Complémentaires** : [[Vue Router]] · [[Service et injection de dépendances]]
+- **Prérequis** : [[État et réactivité]]
+- **Complémentaires** : [[Application monopage et routage]] · [[Service et injection de dépendances]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

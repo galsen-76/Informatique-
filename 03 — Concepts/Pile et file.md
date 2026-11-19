@@ -16,7 +16,6 @@ related:
   - "[[Récursivité]]"
   - "[[Parcours en largeur et en profondeur]]"
 next_review: 
-method: []
 tags:
   - concept
   - algorithmique
@@ -41,7 +40,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 | JavaScript | `push` / `pop` | `push` / `shift` (lent sur de grosses files) |
 Où tu les rencontres :
 - **Pile** : la pile d'appels des fonctions (et les traces d'erreur, *stack trace*), annuler/refaire (Ctrl+Z), le bouton Précédent du navigateur, vérifier des parenthèses.
-- **File** : les tâches en attente (les jobs d'une pipeline, les files Redis de CVAT), les impressions, le [[Parcours en largeur et en profondeur|parcours en largeur]].
+- **File** : les tâches en attente (les jobs d'une pipeline, les files Redis d'une appli), les impressions, le [[Parcours en largeur et en profondeur|parcours en largeur]].
 
 ### Pourquoi ça existe
 Beaucoup de problèmes demandent de traiter des éléments dans un ordre précis : le plus récent d'abord, ou le plus ancien d'abord.
@@ -116,7 +115,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

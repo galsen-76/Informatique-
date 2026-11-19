@@ -4,9 +4,9 @@ order: 1
 module: "[[Module 19 - Vue.js]]"
 concepts:
   - "[[Vue.js]]"
-  - "[[Composant monofichier Vue (SFC)]]"
-  - "[[Réactivité Vue (ref et computed)]]"
-  - "[[Directives Vue]]"
+  - "[[Composant d'interface]]"
+  - "[[État et réactivité]]"
+  - "[[Template et liaison de données]]"
 tags:
   - cours
 niveau: 2
@@ -40,13 +40,13 @@ flowchart TD
 ```
 
 ## 3. Le fichier .vue
-[[Composant monofichier Vue (SFC)]] : `<script setup>`, `<template>`, `<style scoped>`.
+[[Composant d'interface]] : `<script setup>`, `<template>`, `<style scoped>`.
 
 ## 4. La réactivité
-[[Réactivité Vue (ref et computed)]] : `.value` dans le script, pas dans le template.
+[[État et réactivité]] : `.value` dans le script, pas dans le template.
 
 ## 5. Les directives
-[[Directives Vue]] : `v-if`, `v-for` avec `:key`, `v-model`, `:attr`, `@événement`.
+[[Template et liaison de données]] : `v-if`, `v-for` avec `:key`, `v-model`, `:attr`, `@événement`.
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
@@ -57,7 +57,7 @@ flowchart TD
 > - Suivre un tutoriel Vue 2 sans le savoir
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Vue.js]] · [[Composant monofichier Vue (SFC)]] · [[Réactivité Vue (ref et computed)]] · [[Directives Vue]]
+[[Vue.js]] · [[Composant d'interface]] · [[État et réactivité]] · [[Template et liaison de données]]

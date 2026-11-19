@@ -4,9 +4,9 @@ order: 4
 module: "[[Module 16 - Python]]"
 concepts:
   - "[[Environnement virtuel Python]]"
-  - "[[pip]]"
-  - "[[pytest]]"
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Gestionnaire de paquets]]"
+  - "[[Test automatisé]]"
+  - "[[Appeler une API HTTP]]"
 tags:
   - cours
 niveau: 0
@@ -22,7 +22,7 @@ niveau: 0
 **Prérequis :** [[Cours - Fonctions, modules et erreurs]]
 
 ## 1. Bibliothèque standard ou paquet externe
-`pathlib`, `zipfile`, `json` sont livrés avec Python. requests ou pytest sont des **paquets externes** : il faut les installer avec [[pip]].
+`pathlib`, `zipfile`, `json` sont livrés avec Python. requests ou pytest sont des **paquets externes** : il faut les installer avec [[Gestionnaire de paquets]].
 
 ## 2. Schéma
 ```mermaid
@@ -39,7 +39,7 @@ On crée un [[Environnement virtuel Python]] dans le dossier du projet (`python 
 `requirements.txt` liste les paquets et leurs versions. Il est commité ; c'est lui que lira le [[Dockerfile]] (`RUN pip install -r requirements.txt`). Sur un réseau d'entreprise, pip passe souvent par un miroir interne ou un [[Proxy]].
 
 ## 5. Tester
-[[pytest]] lance les fonctions `test_…` et vérifie les `assert`. Un bon test : un nom qui dit ce qu'il vérifie, une préparation, une action, une vérification.
+[[Test automatisé]] lance les fonctions `test_…` et vérifie les `assert`. Un bon test : un nom qui dit ce qu'il vérifie, une préparation, une action, une vérification.
 ```python
 def test_zip_ne_contient_que_les_png(tmp_path):
     (tmp_path / "a.png").write_bytes(b"x")
@@ -49,7 +49,7 @@ def test_zip_ne_contient_que_les_png(tmp_path):
 ```
 
 ## 6. Une bibliothèque externe : requests
-[[Appeler une API HTTP (requests)|requests]] appelle des API web en quelques lignes. C'est le paquet externe le plus installé de Python ; il sert à récupérer les données de n'importe quelle API. La suite des usages courants est dans [[Cours - Python au quotidien]].
+[[Appeler une API HTTP|requests]] appelle des API web en quelques lignes. C'est le paquet externe le plus installé de Python ; il sert à récupérer les données de n'importe quelle API. La suite des usages courants est dans [[Cours - Python au quotidien]].
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
@@ -61,7 +61,7 @@ def test_zip_ne_contient_que_les_png(tmp_path):
 > - Croire qu'un test `skipped` est un test réussi
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Environnement virtuel Python]] · [[pip]] · [[pytest]] · [[Appeler une API HTTP (requests)]]
+[[Environnement virtuel Python]] · [[Gestionnaire de paquets]] · [[Test automatisé]] · [[Appeler une API HTTP]]

@@ -12,10 +12,9 @@ prerequisites:
   - "[[Fonction]]"
 parents: []
 related:
-  - "[[pip]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[Environnement virtuel Python]]"
 next_review: 
-method: []
 tags:
   - concept
   - python
@@ -34,7 +33,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 - Un **module** = un fichier `.py`. Un **paquet** (*package*) = un dossier de modules.
 - `import zipfile` charge un module ; on utilise ensuite `zipfile.ZipFile`.
 - `from pathlib import Path` importe un seul nom, utilisable directement : `Path(...)`.
-- Trois origines : la **bibliothèque standard** (déjà là), les **paquets installés** avec [[pip]], et **tes propres fichiers**.
+- Trois origines : la **bibliothèque standard** (déjà là), les **paquets installés** avec [[Gestionnaire de paquets]], et **tes propres fichiers**.
 
 ### Pourquoi ça existe
 Réutiliser du code sans le recopier, et ranger un projet en plusieurs fichiers.
@@ -102,7 +101,7 @@ if __name__ == "__main__":
 
 ### Cas d'utilisation
 - `import zipfile, shutil, os, sys` pour ton script
-- `import requests` avec [[Appeler une API HTTP (requests)]]
+- `import requests` avec [[Appeler une API HTTP]]
 
 > [!warning] À ne pas confondre
 > `ModuleNotFoundError` a deux causes : le paquet n'est pas installé **dans l'environnement utilisé** (voir [[Environnement virtuel Python]]), ou tu n'es pas dans le bon dossier. Et ne nomme jamais ton fichier comme un module existant (`zipfile.py`) : il cacherait le vrai.
@@ -129,14 +128,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ## 4 · Relier
 - **Prérequis** : [[Fonction]]
-- **Complémentaires** : [[pip]] · [[Environnement virtuel Python]]
-- **Utilisé par** : [[Archive zip (zipfile)]] · [[Copier et déplacer des fichiers (shutil)]] · [[pytest]]
+- **Complémentaires** : [[Gestionnaire de paquets]] · [[Environnement virtuel Python]]
+- **Utilisé par** : [[Archive zip (zipfile)]] · [[Copier et déplacer des fichiers (shutil)]] · [[Test automatisé]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

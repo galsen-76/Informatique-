@@ -17,7 +17,7 @@ tags:
 
 ## Objectifs
 - Écrire des pipelines GitLab CI complètes (lint, tests, build, déploiement)
-- Construire et publier des images dans un registre (Nexus)
+- Construire et publier des images dans un registre (Docker Hub, GitLab, registre interne)
 - Gérer plusieurs environnements et le retour arrière
 - Superviser une application en production
 

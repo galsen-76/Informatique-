@@ -40,7 +40,7 @@ flowchart TD
 | Durée | Quelques jours à 3 semaines | Quelques jours | Quelques semaines à mois |
 
 ## 3. Ton projet actuel est un POC
-Ton projet CVAT et Nuclio répond à une question : *peut-on, dans l'infrastructure de l'entreprise (GitLab, Nexus), ajouter un bouton à CVAT qui appelle une fonction Nuclio et renvoie un PNG des annotations ?*
+Un bon POC répond à une seule question, par exemple : *peut-on, avec les outils de l'équipe (GitLab, Docker), ajouter un bouton qui produit le PDF du mois en moins de 5 s ?*
 
 Un POC bien mené suit quatre temps :
 1. **Cadrer** : la question, les hypothèses, les critères de succès, la durée, ce qui est hors périmètre. *Avant* de coder.
@@ -67,7 +67,7 @@ Si la réponse est oui, on écrit les [[Spécification (specs)|specs]] du vrai p
 > - Appeler « MVP » une démo qui ne tient pas en production
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Preuve de concept (POC)]] · [[Prototype]] · [[MVP (produit minimum viable)]] · [[Dette technique]]

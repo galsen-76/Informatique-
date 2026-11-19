@@ -9,16 +9,15 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[En-tête HTTP]]"
   - "[[Fichier en mémoire (io.BytesIO)]]"
 parents: []
 related:
   - "[[Formulaire HTML]]"
-  - "[[Appeler une API sans pip (urllib.request)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Base64]]"
 next_review: 
-method: []
 tags:
   - concept
   - python
@@ -52,7 +51,7 @@ Pour **recevoir** un fichier, c'est le même corps dans l'autre sens : la répon
 HTTP transporte des octets. Le multipart vient des formulaires HTML (`<input type="file">`) : il permet d'envoyer en une seule requête un fichier **et** d'autres champs (un numéro de job, un nom).
 
 ### Le problème résolu
-Faire passer un zip, une image ou un PDF entre un script, une API (CVAT) et une fonction (Nuclio), sans dossier partagé.
+Faire passer un zip, une image ou un PDF entre un script, une API et une fonction serverless, sans dossier partagé.
 
 ## 2 · Explorer
 ### Comment ça fonctionne
@@ -89,8 +88,6 @@ with open("recu.png", "wb") as f:              # wb : on écrit des octets
 Pour un très gros fichier : `requests.get(url, stream=True)` puis `for morceau in r.iter_content(65536): f.write(morceau)`, pour ne pas tout charger en mémoire.
 
 ### Cas d'utilisation
-- Télécharger l'export zip d'une tâche CVAT
-- Renvoyer le PNG généré par ta fonction Nuclio, avec `Content-Type: image/png`
 - Envoyer une image à un service d'analyse
 
 > [!warning] À ne pas confondre
@@ -122,15 +119,16 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Envoi 04 - Recevoir une image et un zip]]
 
 ## 4 · Relier
-- **Prérequis** : [[Appeler une API HTTP (requests)]] · [[En-tête HTTP]] · [[Fichier en mémoire (io.BytesIO)]]
-- **Complémentaires** : [[Appeler une API sans pip (urllib.request)]] · [[Base64]] · [[Formulaire HTML]] · [[Méthode HTTP]] · [[Code de statut HTTP]]
+- **Au travail** : [[Envoyer et recevoir un fichier en HTTP au travail]]
+- **Prérequis** : [[Appeler une API HTTP]] · [[En-tête HTTP]] · [[Fichier en mémoire (io.BytesIO)]]
+- **Complémentaires** : [[Appeler une API HTTP]] · [[Base64]] · [[Formulaire HTML]] · [[Méthode HTTP]] · [[Code de statut HTTP]]
 - **Utilisé par** : [[Cours - Envoyer et recevoir des fichiers par HTTP]] · [[Serverless et FaaS]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

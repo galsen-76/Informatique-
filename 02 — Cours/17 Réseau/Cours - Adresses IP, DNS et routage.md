@@ -53,7 +53,7 @@ La passerelle (la box) envoie tout ce qui n'est pas local vers Internet ; le NAT
 > - Utiliser `localhost` dans un conteneur pour joindre ta machine
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Adresse IP]] · [[DNS]] · [[Routage et NAT]]

@@ -54,7 +54,7 @@ flowchart LR
 > -
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 <% picked.map(c => `[[${c}]]`).join(" · ") %>

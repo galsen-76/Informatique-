@@ -17,7 +17,6 @@ related:
   - "[[React]]"
   - "[[Angular]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -34,10 +33,10 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ## 1 · Comprendre
 ### Définition
 Comme [[React]], Vue construit l'interface en composants et met le DOM à jour quand les données changent. Les différences principales :
-- Les composants s'écrivent dans des **fichiers `.vue`** qui réunissent template HTML, script et style ([[Composant monofichier Vue (SFC)|SFC]]).
+- Les composants s'écrivent dans des **fichiers `.vue`** qui réunissent template HTML, script et style ([[Composant d'interface|SFC]]).
 - Le template utilise des **directives** (`v-if`, `v-for`, `v-model`) plutôt que du JSX.
 - La **réactivité** est automatique : on modifie une valeur (`compteur.value++`) et l'affichage suit, sans fonction `set…`.
-- L'écosystème officiel fournit le routeur ([[Vue Router]]) et le store ([[Pinia]]).
+- L'écosystème officiel fournit le routeur ([[Application monopage et routage]]) et le store ([[Pinia]]).
 Vue 3 avec la **Composition API** (`<script setup>`) est la façon actuelle d'écrire ; tu croiseras aussi l'ancienne **Options API** (`data()`, `methods`).
 
 ### Pourquoi ça existe
@@ -101,13 +100,13 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 ## 4 · Relier
 - **Prérequis** : [[JavaScript]] · [[HTML]] · [[Module et import]]
 - **Complémentaires** : [[React]] · [[Angular]]
-- **Utilisé par** : [[Composant monofichier Vue (SFC)]]
+- **Utilisé par** : [[Composant d'interface]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

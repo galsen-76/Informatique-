@@ -50,7 +50,7 @@ Bien choisir la structure de données, c'est souvent la moitié de l'algorithme 
 > - Liste comme clé de dictionnaire
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Récursivité]] · [[Pile et file]] · [[Table de hachage]]

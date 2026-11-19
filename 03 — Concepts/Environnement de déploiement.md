@@ -17,7 +17,6 @@ related:
   - "[[Tag Git]]"
   - "[[Variables CI-CD GitLab]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -74,8 +73,6 @@ docker compose pull && TAG=1.4.1 docker compose up -d
 Dans GitLab, le mot-clé `environment:` affiche les déploiements de chaque environnement et permet de redéployer une ancienne version.
 
 ### Cas d'utilisation
-- Préproduction de CVAT avant une mise à jour
-- Tester ta fonction Nuclio sans toucher aux vraies annotations
 - Annuler un déploiement raté
 
 > [!warning] À ne pas confondre
@@ -102,6 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Environnement de déploiement au travail]]
 - **Prérequis** : [[Image Docker]] · [[Variable d'environnement]]
 - **Complémentaires** : [[Tag Git]] · [[Variables CI-CD GitLab]]
 
@@ -109,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

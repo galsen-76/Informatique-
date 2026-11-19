@@ -73,7 +73,7 @@ Ton script de projet combine ces briques. Avant de coder, écris en français (e
 > - Supprimer les originaux avant d'avoir vérifié que l'archive est correcte
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Chemin de fichier]] · [[Lire et écrire un fichier]] · [[Copier et déplacer des fichiers (shutil)]] · [[Archive zip (zipfile)]] · [[Arguments de ligne de commande]]

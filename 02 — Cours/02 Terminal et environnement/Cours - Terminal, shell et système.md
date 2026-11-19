@@ -72,7 +72,7 @@ Règle simple : **un projet = un côté**. Si le projet vit dans WSL, ouvre-le, 
 > - Mélanger les côtés : cloner sous Windows, lancer sous WSL, commiter sous Windows
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Terminal]] · [[Shell]] · [[PowerShell]] · [[Bash]] · [[Système d'exploitation et noyau]]

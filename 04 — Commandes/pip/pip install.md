@@ -3,7 +3,7 @@ type: command
 tool: pip
 level: debutant
 concepts:
-  - "[[pip]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[Environnement virtuel Python]]"
 tags:
   - commande
@@ -33,7 +33,7 @@ pip install -r requirements.txt
 | `-r fichier` | installe tout ce que liste le fichier |
 | `--upgrade` | met à jour |
 | `--no-cache-dir` | ne garde pas de cache (images Docker plus légères) |
-| `--index-url URL` | installe depuis un autre dépôt (Nexus) |
+| `--index-url URL` | installe depuis un autre dépôt (miroir interne) |
 
 ## Exemple concret
 ```bash
@@ -54,4 +54,4 @@ Les paquets et leurs dépendances sont téléchargés puis installés ; `pip lis
 
 ## Relier
 - **Commandes complémentaires** : [[python script.py]]
-- **Concepts associés** : [[pip]] · [[Environnement virtuel Python]]
+- **Concepts associés** : [[Gestionnaire de paquets]] · [[Environnement virtuel Python]]

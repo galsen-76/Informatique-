@@ -18,7 +18,7 @@ tags:
 - Écrire des classes, et choisir entre héritage, composition et interface
 - Connaître les patrons créationnels, structurels et comportementaux les plus utiles
 - Reconnaître le problème qu'un patron résout, et savoir quand ne pas l'utiliser
-- Concevoir ta fonction d'export Nuclio avec des patrons
+- Concevoir un petit service (export, import) avec des patrons
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "module" })

@@ -3,7 +3,7 @@ type: command
 tool: npm
 level: debutant
 concepts:
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
   - "[[Node.js]]"
 tags:
   - commande
@@ -48,4 +48,4 @@ npm install -D nodemon
 
 ## Relier
 - **Commandes complémentaires** : [[npm init]] · [[node]]
-- **Concepts associés** : [[npm]] · [[Node.js]]
+- **Concepts associés** : [[Gestionnaire de paquets]] · [[Node.js]]

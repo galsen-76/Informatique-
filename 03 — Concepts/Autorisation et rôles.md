@@ -16,7 +16,6 @@ related:
   - "[[Permissions Linux]]"
   - "[[Middleware]]"
 next_review: 
-method: []
 tags:
   - concept
   - securite
@@ -36,7 +35,7 @@ Deux vérifications, **à chaque requête, côté serveur** :
 1. **Par rôle** (*RBAC*) : un `lecteur` ne peut pas supprimer de tâche.
 2. **Par propriété** : un utilisateur ne peut modifier **que ses** tâches, même s'il a le bon rôle.
 Principe du **moindre privilège** : chaque utilisateur, jeton, compte de service ou conteneur a **le minimum** de droits nécessaires.
-CVAT a des rôles globaux (admin, user, worker) et des rôles par organisation (owner, maintainer, supervisor, worker).
+GitLab a des rôles par projet (guest, reporter, developer, maintainer, owner) : chacun débloque plus d'actions.
 
 ### Pourquoi ça existe
 Être connecté ne veut pas dire avoir tous les droits.
@@ -113,7 +112,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

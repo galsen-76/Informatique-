@@ -8,8 +8,6 @@ concepts:
   - "[[Test de bout en bout]]"
   - "[[Doublure de test (mock)]]"
   - "[[Couverture de code]]"
-  - "[[pytest]]"
-  - "[[Vitest et Jest]]"
 tags:
   - bonnes-pratiques
 ---
@@ -78,4 +76,4 @@ Le bug ne revient pas sans prévenir.
 - [ ] Les tests ne dépendent ni du réseau ni de l'heure
 
 ## Notions liées
-[[Test automatisé]] · [[Test unitaire]] · [[Test d'intégration]] · [[Test de bout en bout]] · [[Doublure de test (mock)]] · [[Couverture de code]] · [[pytest]] · [[Vitest et Jest]]
+[[Test automatisé]] · [[Test unitaire]] · [[Test d'intégration]] · [[Test de bout en bout]] · [[Doublure de test (mock)]] · [[Couverture de code]] · [[Test automatisé]] · [[Test automatisé]]

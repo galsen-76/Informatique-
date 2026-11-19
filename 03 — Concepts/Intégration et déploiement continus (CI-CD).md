@@ -16,7 +16,6 @@ related:
   - "[[Environnement de déploiement]]"
   - "[[Construire une image dans la CI]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -37,7 +36,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 Étapes typiques :
 1. **lint** et formatage ([[Linter et formateur]]) ;
 2. **tests** unitaires et d'intégration ;
-3. **build** de l'image Docker, poussée dans un registre ([[Nexus]]) ;
+3. **build** de l'image Docker, poussée dans un [[Registre Docker|registre]] ;
 4. **déploiement** en préproduction, tests de bout en bout ;
 5. **déploiement** en production (souvent manuel : `when: manual`).
 
@@ -76,7 +75,6 @@ prod:
 ```
 
 ### Cas d'utilisation
-- Ta pipeline CVAT + Nexus
 - Tout projet d'équipe
 - Livrer une correction en quelques minutes
 
@@ -104,6 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Intégration et déploiement continus (CI-CD) au travail]]
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Test automatisé]]
 - **Complémentaires** : [[Environnement de déploiement]] · [[Construire une image dans la CI]]
 - **Utilisé par** : [[Supervision et observabilité]]
@@ -112,7 +111,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

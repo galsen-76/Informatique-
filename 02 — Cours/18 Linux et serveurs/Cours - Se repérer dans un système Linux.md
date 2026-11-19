@@ -55,7 +55,7 @@ Les [[Lien symbolique|liens symboliques]] pointent vers un autre chemin : `ln -s
 > - Confondre `tar -c` et `tar -x`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Arborescence Linux]] · [[Lien symbolique]] · [[Archive tar et compression]]

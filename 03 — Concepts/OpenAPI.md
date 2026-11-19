@@ -16,7 +16,6 @@ parents: []
 related:
   - "[[SDK]]"
 next_review: 
-method: []
 tags:
   - concept
   - backend
@@ -63,10 +62,9 @@ paths:
         "200":
           description: Les annotations au format JSON
 ```
-CVAT publie son schéma : `http://localhost:8080/api/schema/` et la doc interactive sur `/api/docs/`.
+FastAPI publie son schéma sur `/openapi.json` et la doc interactive sur `/docs`.
 
 ### Cas d'utilisation
-- Découvrir quelles routes de CVAT donnent les annotations d'une tâche
 - Tester une route depuis la doc interactive avant de coder
 
 > [!warning] À ne pas confondre
@@ -93,6 +91,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 01 - Prendre l'API en main]]
 
 ## 4 · Relier
+- **Au travail** : [[OpenAPI au travail]]
 - **Prérequis** : [[API REST]] · [[Endpoint]] · [[YAML]]
 - **Utilisé par** : [[SDK]]
 
@@ -100,7 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

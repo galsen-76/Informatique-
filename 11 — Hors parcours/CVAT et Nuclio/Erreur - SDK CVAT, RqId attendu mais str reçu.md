@@ -5,7 +5,7 @@ date: 2026-11-12
 concepts:
   - "[[SDK]]"
   - "[[Version sémantique (semver)]]"
-  - "[[pip]]"
+  - "[[Gestionnaire de paquets]]"
 tags:
   - erreur
 ---

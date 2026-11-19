@@ -17,7 +17,6 @@ related:
   - "[[Test de bout en bout]]"
   - "[[Test automatisé]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -35,7 +34,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ### Définition
 **Format courant (Gherkin)** : *Étant donné* &lt;situation de départ&gt;, *quand* &lt;action&gt;, *alors* &lt;résultat attendu&gt;. En anglais : *Given / When / Then*.
 
-**Couvrir aussi les cas d'erreur**, pas seulement le cas idéal : tâche vide, utilisateur sans droit, fonction Nuclio indisponible.
+**Couvrir aussi les cas d'erreur**, pas seulement le cas idéal : tâche vide, utilisateur sans droit, service externe indisponible.
 
 **Ils sont écrits avant de coder**, avec le demandeur. Ils servent ensuite de base aux tests (manuels ou automatisés, par exemple de bout en bout).
 
@@ -113,7 +112,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

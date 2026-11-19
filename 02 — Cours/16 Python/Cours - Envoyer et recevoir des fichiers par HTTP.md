@@ -5,7 +5,7 @@ module: "[[Module 16 - Python]]"
 concepts:
   - "[[Fichier en mémoire (io.BytesIO)]]"
   - "[[Envoyer et recevoir un fichier en HTTP]]"
-  - "[[Appeler une API sans pip (urllib.request)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Base64]]"
 tags:
   - cours
@@ -20,14 +20,14 @@ niveau: 1
 > - Recevoir une image ou un zip et l'enregistrer
 > - Choisir la bonne bibliothèque, y compris quand pip est bloqué au travail
 
-**Prérequis :** [[Cours - Manipuler des fichiers et des archives]] · [[Appeler une API HTTP (requests)]] · [[HTTP]] · [[En-tête HTTP]]
+**Prérequis :** [[Cours - Manipuler des fichiers et des archives]] · [[Appeler une API HTTP]] · [[HTTP]] · [[En-tête HTTP]]
 
-## 1. Pourquoi tu en as besoin maintenant
-Dans ton POC CVAT, les fichiers voyagent par le réseau :
-1. ton script ou ta fonction **télécharge** l'export zip de CVAT ;
-2. il lit le zip (annotations + images) ;
+## 1. Pourquoi c'est utile
+Dans beaucoup de projets, les fichiers voyagent par le réseau :
+1. un script **télécharge** un export zip depuis une API ;
+2. il lit le zip (données + images) ;
 3. il génère un PNG ;
-4. la fonction Nuclio **renvoie** ce PNG au bouton React.
+4. un service **renvoie** ce PNG à un bouton d'une page web.
 
 Aucune de ces étapes n'a besoin d'écrire sur le disque. Tout ce cours tient en une idée : **un fichier, c'est une suite d'octets, et HTTP sait transporter des octets**.
 
@@ -62,19 +62,19 @@ C'est **le serveur** qui choisit. Sa documentation (ou son [[OpenAPI]]) dit laqu
 
 | Le serveur attend… | Tu envoies | Exemple réel |
 | --- | --- | --- |
-| un formulaire `multipart/form-data` avec un champ nommé | `requests.post(url, files={"champ": (nom, octets, type)})` | importer un jeu de données dans CVAT |
+| un formulaire `multipart/form-data` avec un champ nommé | `requests.post(url, files={"champ": (nom, octets, type)})` | importer un fichier dans une appli web |
 | le fichier seul dans le corps | `data=octets` + `Content-Type: image/png` | une fonction qui reçoit une image brute |
-| du JSON | `json={"image": base64}` ([[Base64]]) | les fonctions Nuclio de détection de CVAT |
+| du JSON | `json={"image": base64}` ([[Base64]]) | les API de reconnaissance d'images |
 
-Et pour **répondre** avec un fichier (ta fonction Nuclio) : les octets dans le corps, et le bon `Content-Type` (`image/png`).
+Et pour **répondre** avec un fichier (une API ou une fonction serverless) : les octets dans le corps, et le bon `Content-Type` (`image/png`).
 
 Détails : [[Envoyer et recevoir un fichier en HTTP]].
 
 ## 6. Quelle bibliothèque ?
 | Bibliothèque | Installée avec Python ? | Quand l'utiliser |
 | --- | --- | --- |
-| `urllib.request` | ✅ oui | pip bloqué, fonction sans dépendance, appel simple ([[Appeler une API sans pip (urllib.request)]]) |
-| `requests` | ❌ `pip install requests` | le choix par défaut : lisible, multipart facile ([[Appeler une API HTTP (requests)]]) |
+| `urllib.request` | ✅ oui | pip bloqué, fonction sans dépendance, appel simple ([[Appeler une API HTTP]]) |
+| `requests` | ❌ `pip install requests` | le choix par défaut : lisible, multipart facile ([[Appeler une API HTTP]]) |
 | `httpx` | ❌ `pip install httpx` | comme requests, avec en plus l'asynchrone. Inutile pour l'instant |
 | `zipfile`, `io`, `base64` | ✅ oui | fabriquer, lire et encoder les fichiers |
 | `Pillow` (`PIL`) | ❌ `pip install pillow` | **fabriquer ou modifier** une image (dessiner, redimensionner). Pas pour l'envoyer |
@@ -99,7 +99,7 @@ Si `HTTP_PROXY` ou `HTTPS_PROXY` sont définis (fréquent au travail), requests 
 > - Avec urllib, oublier qu'une réponse 4xx ou 5xx devient une exception
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
-[[Fichier en mémoire (io.BytesIO)]] · [[Envoyer et recevoir un fichier en HTTP]] · [[Appeler une API sans pip (urllib.request)]] · [[Base64]]
+[[Fichier en mémoire (io.BytesIO)]] · [[Envoyer et recevoir un fichier en HTTP]] · [[Appeler une API HTTP]] · [[Base64]]

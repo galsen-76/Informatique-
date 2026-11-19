@@ -9,14 +9,13 @@ schema: false
 exercice_visuel: false
 fil_rouge: false
 prerequisites:
-  - "[[Composant React]]"
+  - "[[Composant d'interface]]"
   - "[[Type et interface TypeScript]]"
 parents:
-  - "[[Composant React]]"
+  - "[[Composant d'interface]]"
 related:
-  - "[[État React (useState)]]"
+  - "[[État et réactivité]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -109,14 +108,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Prérequis** : [[Composant React]] · [[Type et interface TypeScript]]
-- **Complémentaires** : [[État React (useState)]]
+- **Prérequis** : [[Composant d'interface]] · [[Type et interface TypeScript]]
+- **Complémentaires** : [[État et réactivité]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -50,7 +50,7 @@ flowchart TD
 > - Utiliser `jwt.decode` au lieu de `jwt.verify`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Authentification]] · [[Hachage de mot de passe]] · [[Session et cookie]] · [[JWT]]

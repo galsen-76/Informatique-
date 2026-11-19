@@ -17,7 +17,7 @@ tags:
 > **Notions validées par cette étape :** [[Base64]]
 
 ## Le but
-Envoyer l'image `recu.png` au serveur **à l'intérieur d'un JSON**, sur `POST /json-image`, sous la forme `{"image": "..."}`. C'est la façon dont CVAT envoie une image à ses fonctions Nuclio de détection.
+Envoyer l'image `recu.png` au serveur **à l'intérieur d'un JSON**, sur `POST /json-image`, sous la forme `{"image": "..."}`. C'est la façon courante d'envoyer une image à une API de reconnaissance d'images.
 
 ## Ce que tu fais
 - [ ] Essaie de mettre directement les octets de l'image dans le dictionnaire et de l'envoyer en JSON : lis l'erreur

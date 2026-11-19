@@ -16,7 +16,6 @@ parents:
 related:
   - "[[Migration de base de données]]"
 next_review: 
-method: []
 tags:
   - concept
   - database
@@ -34,7 +33,6 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ### Définition
 **ORM** (*Object-Relational Mapping*) : tu décris un modèle dans ton langage, l'ORM génère les requêtes SQL.
 - Node / TypeScript : **Prisma**, **Drizzle**, **TypeORM**, **Sequelize**.
-- Python : **SQLAlchemy**, l'ORM de **Django** (CVAT est écrit en Django).
 ```ts
 // Prisma
 const taches = await prisma.tache.findMany({
@@ -63,7 +61,7 @@ C[Code objet] --> O[ORM]
 
 ### Exemple concret
 ```python
-# Django (ce que fait CVAT)
+# Django
 class Tache(models.Model):
     projet = models.ForeignKey(Projet, on_delete=models.CASCADE)
     nom = models.CharField(max_length=100)
@@ -74,7 +72,6 @@ Piège classique : le **problème N+1**. Charger 100 tâches puis, dans une bouc
 
 ### Cas d'utilisation
 - Le backend d'une application web
-- Lire le code de CVAT (modèles Django)
 - Prototyper vite
 
 > [!warning] À ne pas confondre
@@ -101,6 +98,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[ORM au travail]]
 - **Prérequis** : [[SQL]] · [[Clé primaire et clé étrangère]]
 - **Complémentaires** : [[Migration de base de données]]
 
@@ -108,7 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

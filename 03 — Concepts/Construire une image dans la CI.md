@@ -17,9 +17,7 @@ parents:
 related:
   - "[[Démon Docker]]"
   - "[[Kaniko]]"
-  - "[[Nexus]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -64,7 +62,6 @@ flowchart TD
 - `DOCKER_TLS_CERTDIR: "/certs"` : chiffre la connexion client-démon (valeur par défaut des images récentes).
 - Le runner doit être en mode **privilégié** pour dind ; sinon, [[Kaniko]].
 - Le démon dind est **neuf à chaque job** : pas de cache d'un job à l'autre, sauf `--cache-from` avec une image déjà poussée.
-- Les images des services (`docker:dind`) viennent aussi d'un registre : derrière un Nexus, il faut les préfixer aussi.
 
 ### Exemple concret
 ```yaml
@@ -81,7 +78,6 @@ Un projet avec plusieurs Dockerfile demande un `docker build -f` par image, souv
 
 ### Cas d'utilisation
 - Publier une image à chaque merge sur `main`
-- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
 
 > [!warning] À ne pas confondre
 > `image:` (le conteneur où tourne le job) et `services:` (des conteneurs annexes à côté du job, ici le démon Docker).
@@ -108,16 +104,17 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Relier
+- **Au travail** : [[Construire une image dans la CI au travail]]
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Dockerfile]] · [[Registre Docker]]
 - **Notion parente** : [[Pipeline GitLab CI]]
-- **Complémentaires** : [[Kaniko]] · [[Nexus]] · [[Variables CI-CD GitLab]]
+- **Complémentaires** : [[Kaniko]] · [[Variables CI-CD GitLab]]
 - **Commandes** : [[docker build]] · [[docker login]] · [[docker push]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

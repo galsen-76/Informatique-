@@ -57,7 +57,7 @@ Une story = un ticket GitLab = une branche = une [[Merge request]]. La pipeline 
 > - Croire qu'agile veut dire sans plan ni documentation
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Méthode agile (Scrum et Kanban)]] · [[Backlog et priorisation]] · [[Définition de terminé]]

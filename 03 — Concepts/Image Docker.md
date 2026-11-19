@@ -17,7 +17,6 @@ related:
   - "[[Dockerfile]]"
   - "[[Registre Docker]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -33,7 +32,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 
 ## 1 · Comprendre
 ### Définition
-Une **image** est construite à partir d'un `Dockerfile`, couche par couche. Elle est en **lecture seule** et peut être partagée via un registre (Docker Hub, Nexus, GitLab Registry).
+Une **image** est construite à partir d'un `Dockerfile`, couche par couche. Elle est en **lecture seule** et peut être partagée via un registre (Docker Hub, GitLab Registry, registre interne).
 
 Une image est un **empilement de couches** : chaque instruction du [[Dockerfile]] (`RUN`, `COPY`…) ajoute une couche par-dessus les précédentes. Une **image dérivée** est une image construite `FROM` une autre : elle réutilise toutes ses couches et n'ajoute que les siennes.
 
@@ -58,7 +57,7 @@ flowchart TD
 
 ### Exemple concret
 ```dockerfile
-# Image dérivée : on part de l'image officielle CVAT et on ajoute un fichier
+# Image dérivée : on part d'une image officielle et on ajoute un fichier
 FROM cvat/server:v2.20.0
 COPY mon_reglage.py /home/django/cvat/settings/
 ```
@@ -71,7 +70,6 @@ docker image inspect mon-image     # tout le détail (env, CMD, couches)
 ### Cas d'utilisation
 - Partir d'une image officielle (`python`, `node`, `postgres`) au lieu d'installer un système complet
 - Ajouter une petite modification à l'image d'un projet (image dérivée)
-- Projet CVAT : construire les images du projet dans la CI
 
 > [!warning] À ne pas confondre
 > **Image** (le modèle figé) et [[Conteneur]] (une instance qui tourne). Modifier un fichier dans un conteneur **ne change pas** l'image : il faut changer le Dockerfile et reconstruire.
@@ -98,6 +96,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 01 - Lancer l'application dans un conteneur]]
 
 ## 4 · Relier
+- **Au travail** : [[Image Docker au travail]]
 - **Notion parente** : [[Docker]]
 - **Prérequis** : [[Dockerfile]]
 - **Donne naissance à** : [[Conteneur]]
@@ -108,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -17,7 +17,6 @@ related:
   - "[[Test automatisé]]"
   - "[[Pipeline GitLab CI]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -65,10 +64,10 @@ flowchart TD
 
 ### Exemple concret
 ```markdown
-## Définition de terminé - projet export CVAT
+## Définition de terminé - appli de dépenses
 - [ ] Les critères d'acceptation du ticket sont vérifiés
 - [ ] Merge request relue et approuvée
-- [ ] Pipeline GitLab verte (lint, tests, image construite depuis le Nexus)
+- [ ] Pipeline GitLab verte (lint, tests, image construite)
 - [ ] Pas de secret dans le code
 - [ ] README mis à jour si l'installation change
 - [ ] Déployé et testé sur l'environnement de recette
@@ -115,7 +114,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

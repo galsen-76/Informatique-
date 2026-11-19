@@ -1,7 +1,7 @@
 ---
 type: howto
 concepts:
-  - "[[Appeler une API HTTP (requests)]]"
+  - "[[Appeler une API HTTP]]"
   - "[[Authentification]]"
 tags:
   - fiche-pratique
@@ -200,4 +200,4 @@ Liste des formats d'export : `client.api_client.server_api.retrieve_annotation_f
 >
 
 ## Liens
-[[Authentification]] · [[Variable d'environnement]] · [[Appeler une API HTTP (requests)]] · [[Archive zip (zipfile)]] · [[Fichier en mémoire (io.BytesIO)]] · [[Fiche - Nuclio, le SDK Python]]
+[[Authentification]] · [[Variable d'environnement]] · [[Appeler une API HTTP]] · [[Archive zip (zipfile)]] · [[Fichier en mémoire (io.BytesIO)]] · [[Fiche - Nuclio, le SDK Python]]

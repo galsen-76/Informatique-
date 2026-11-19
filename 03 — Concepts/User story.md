@@ -17,7 +17,6 @@ related:
   - "[[Méthode agile (Scrum et Kanban)]]"
   - "[[Définition de terminé]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -75,7 +74,6 @@ afin de protéger les plans confidentiels.
 ```
 
 ### Cas d'utilisation
-- Écrire les tickets GitLab de ton projet CVAT
 - Découper un gros besoin en petites livraisons
 
 > [!warning] À ne pas confondre
@@ -108,6 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[User story au travail]]
 - **Prérequis** : [[Spécification (specs)]]
 - **Complémentaires** : [[Critères d'acceptation]] · [[Backlog et priorisation]] · [[Méthode agile (Scrum et Kanban)]] · [[Définition de terminé]]
 
@@ -115,7 +114,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

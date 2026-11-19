@@ -51,7 +51,7 @@ Pour un serveur public : Let's Encrypt (gratuit, automatique ; Traefik sait le f
 > - Oublier qu'un certificat expire : le service tombe du jour au lendemain
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[HTTPS et TLS]] · [[Certificat]]

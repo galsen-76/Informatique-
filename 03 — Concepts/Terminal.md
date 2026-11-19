@@ -15,7 +15,6 @@ related:
   - "[[Git]]"
   - "[[Node.js]]"
 next_review: 
-method: []
 tags:
   - concept
   - terminal
@@ -62,7 +61,7 @@ node --version           # vérifier qu'un outil est installé
 ### Cas d'utilisation
 - Lancer un serveur ([[Node.js]])
 - Versionner du code ([[Git]])
-- Installer des paquets ([[npm]])
+- Installer des paquets ([[Gestionnaire de paquets]])
 - Gérer des conteneurs ([[Docker]])
 
 > [!warning] À ne pas confondre
@@ -94,7 +93,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ## 4 · Relier
 - **Mène à** : [[Système de fichiers]] → [[Git]]
-- **Utilisé par** : [[Node.js]], [[npm]], [[Docker]]
+- **Utilisé par** : [[Node.js]], [[Gestionnaire de paquets]], [[Docker]]
 - **Commandes** : [[cd]] · [[ls]] · [[mkdir]] · [[Get-ChildItem]]
 - **Approfondir** : [[Shell]] · [[PowerShell]] · [[Bash]] · [[WSL]]
 
@@ -102,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

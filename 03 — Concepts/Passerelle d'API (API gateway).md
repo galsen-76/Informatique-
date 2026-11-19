@@ -17,7 +17,6 @@ related:
   - "[[JWT]]"
   - "[[Authentification]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -42,7 +41,7 @@ Ses rôles habituels :
 - **TLS** : le HTTPS se termine ici
 - **Journalisation et mesures** centralisées
 
-Outils : Kong, Traefik, NGINX, AWS API Gateway. Dans CVAT, **Traefik** joue ce rôle devant le serveur, l'interface et les fonctions.
+Outils : Kong, Traefik, NGINX, AWS API Gateway. Souvent, **Traefik** ou nginx jouent ce rôle devant le serveur, l'interface et les fonctions.
 
 ### Pourquoi ça existe
 Avec plusieurs services, chaque client devrait connaître toutes les adresses, et chaque service réimplémenterait l'authentification et la sécurité.
@@ -76,7 +75,6 @@ Le client appelle seulement `http://localhost:8080/api/export` ; il ignore où t
 
 ### Cas d'utilisation
 - Devant des microservices
-- Devant CVAT (Traefik)
 - Exposer des fonctions serverless
 
 > [!warning] À ne pas confondre
@@ -103,6 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Passerelle d'API (API gateway) au travail]]
 - **Prérequis** : [[Reverse proxy]] · [[API REST]]
 - **Complémentaires** : [[Monolithe et microservices]] · [[JWT]] · [[Authentification]]
 
@@ -110,7 +109,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

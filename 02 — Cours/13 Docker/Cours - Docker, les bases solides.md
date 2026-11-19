@@ -71,7 +71,7 @@ docker system prune       # supprime ce qui ne sert plus (demande confirmation)
 > - Utiliser le tag `latest` en pensant avoir une version fixe
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Docker]] · [[Démon Docker]] · [[Image Docker]] · [[Dockerfile]] · [[Conteneur]] · [[Volume Docker]] · [[Registre Docker]] · [[Docker Compose]]

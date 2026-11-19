@@ -65,7 +65,7 @@ flowchart TD
 > - Croire que `const` rend un tableau non modifiable
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[JavaScript]] · [[Variables et types]] · [[Liste et dictionnaire]] · [[Fonction fléchée et callback]] · [[Méthodes de tableau (map, filter, reduce)]]

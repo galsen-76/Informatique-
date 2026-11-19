@@ -34,7 +34,7 @@ flowchart TD
 ```
 
 ## 4. Autre chose que des tables
-[[Base NoSQL]] : Redis pour le cache et les sessions, MongoDB pour des documents. CVAT combine PostgreSQL et Redis.
+[[Base NoSQL]] : Redis pour le cache et les sessions, MongoDB pour des documents. Beaucoup d'applis combinent PostgreSQL et Redis.
 
 ## Mise en pratique
 - Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
@@ -45,7 +45,7 @@ flowchart TD
 > - Choisir NoSQL pour des données très reliées
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[ORM]] · [[Migration de base de données]] · [[Base NoSQL]]

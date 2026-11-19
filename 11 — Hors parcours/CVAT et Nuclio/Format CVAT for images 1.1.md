@@ -11,7 +11,6 @@ parents: []
 related:
   - "[[XML en Python (ElementTree)]]"
 next_review: 
-method: []
 tags:
   - concept
   - python

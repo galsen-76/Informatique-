@@ -17,7 +17,6 @@ related:
   - "[[Architecture en couches]]"
   - "[[Reverse proxy]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -40,8 +39,8 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 | Base | souvent une seule | une par service |
 | Complexité | dans le code | dans l'infrastructure (réseau, supervision, versions) |
 | Bon pour | la plupart des projets, petites équipes | grandes organisations, parties à faire évoluer séparément |
-Entre les deux : le **monolithe modulaire** (une application, mais des modules bien séparés). Et les **fonctions serverless** (Nuclio, AWS Lambda) : de petits traitements déclenchés à la demande.
-CVAT est un **monolithe Django** entouré de quelques services (frontend, workers, Redis, base, Traefik, et les **fonctions Nuclio** pour l'annotation automatique).
+Entre les deux : le **monolithe modulaire** (une application, mais des modules bien séparés). Et les **fonctions serverless** (AWS Lambda, Cloud Functions) : de petits traitements déclenchés à la demande.
+Beaucoup d'applications réelles sont un **monolithe** entouré de quelques services (frontend, workers, Redis, base, reverse proxy, fonctions serverless).
 
 ### Pourquoi ça existe
 Quand une application et l'équipe grandissent, tout livrer ensemble devient lent ; mais découper trop tôt coûte cher.
@@ -69,10 +68,9 @@ services:
   redis:   { image: redis:7 }
   proxy:   { image: traefik:v3 }
 ```
-Ta fonction Nuclio est un service séparé : CVAT l'appelle par HTTP, elle a son propre déploiement et ses propres dépendances.
+Une fonction serverless est un service séparé : l'appli l'appelle par HTTP, elle a son propre déploiement et ses propres dépendances.
 
 ### Cas d'utilisation
-- Comprendre l'architecture de CVAT
 - Décider de découper (ou non) une application
 - Fonctions serverless
 
@@ -100,6 +98,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Monolithe et microservices au travail]]
 - **Prérequis** : [[API REST]] · [[Docker Compose]]
 - **Complémentaires** : [[Architecture en couches]] · [[Reverse proxy]]
 
@@ -107,7 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

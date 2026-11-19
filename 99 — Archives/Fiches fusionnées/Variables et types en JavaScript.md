@@ -16,7 +16,6 @@ parents:
 related:
   - "[[Tableau et objet JavaScript]]"
 next_review: 
-method: []
 tags:
   - concept
   - javascript

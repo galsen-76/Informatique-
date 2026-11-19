@@ -51,7 +51,7 @@ F12 → onglet *Styles* : les règles appliquées, les règles écrasées (barr�
 > - Oublier `box-sizing: border-box` et s'étonner des tailles
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[CSS]] · [[Sélecteur CSS]] · [[Modèle de boîte]]

@@ -53,7 +53,7 @@ Le code dit ce qu'il fait ; le commentaire explique **pourquoi** on l'a fait ain
 ```python
 # non : incrémente i
 i += 1
-# oui : CVAT compte les images à partir de 1, pas de 0
+# oui : l'API compte les pages à partir de 1, pas de 0
 numero = index + 1
 ```
 

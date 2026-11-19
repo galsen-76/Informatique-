@@ -17,7 +17,6 @@ related:
   - "[[API REST]]"
   - "[[Express]]"
 next_review: 
-method: []
 tags:
   - concept
   - backend
@@ -66,12 +65,11 @@ curl -X POST https://jsonplaceholder.typicode.com/todos \
      -H "Content-Type: application/json" \
      -d '{"title":"exporter","completed":false}'
 ```
-Dans CVAT : `GET /api/tasks/{id}/annotations` renvoie les annotations d'une tâche.
+Dans une API de projets : `GET /api/tasks/{id}/comments` renvoie les commentaires d'une tâche.
 
 ### Cas d'utilisation
 - Lire la documentation d'une API
 - Écrire une route Express
-- Configurer le bouton qui appelle ta fonction Nuclio
 
 > [!warning] À ne pas confondre
 > Le **chemin** (`/taches/12`) et le **paramètre de requête** (`?page=2`) : le chemin identifie une ressource, la requête filtre ou pagine.
@@ -97,6 +95,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Endpoint au travail]]
 - **Prérequis** : [[API]] · [[Méthode HTTP]]
 - **Complémentaires** : [[API REST]] · [[Express]]
 
@@ -104,7 +103,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

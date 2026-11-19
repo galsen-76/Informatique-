@@ -55,7 +55,7 @@ flowchart TD
 > - Chercher systemd dans un conteneur Docker
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Service (systemd)]] · [[Journaux système]] · [[Tâche planifiée (cron)]]

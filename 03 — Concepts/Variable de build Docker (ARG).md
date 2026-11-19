@@ -13,9 +13,7 @@ prerequisites:
 parents:
   - "[[Dockerfile]]"
 related:
-  - "[[Nexus]]"
 next_review: 
-method: []
 tags:
   - concept
   - devops
@@ -65,7 +63,6 @@ docker build --build-arg PYTHON_VERSION=3.12 --build-arg APP_VERSION=1.4.0 -t mo
 
 ### Cas d'utilisation
 - Choisir une version ou un registre d'image de base au moment du build
-- Projet CVAT : partie 1 (reprendre CVAT sur GitLab, construire ses images en CI via le Nexus)
 
 > [!warning] À ne pas confondre
 > `ARG` (build seulement) et `ENV` (aussi dans le conteneur qui tourne). Et un `ARG` déclaré **avant** `FROM` n'existe plus **après** : il faut le redéclarer.
@@ -100,9 +97,9 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## 4 · Relier
+- **Au travail** : [[Variable de build Docker (ARG) au travail]]
 - **Prérequis** : [[Dockerfile]]
 - **Notion parente** : [[Dockerfile]]
-- **Complémentaires** : [[Nexus]]
 - **Utilisé par** : [[Construire une image dans la CI]]
 - **Commandes** : [[docker build]]
 
@@ -110,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

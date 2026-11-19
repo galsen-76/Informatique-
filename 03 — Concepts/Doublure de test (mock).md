@@ -15,7 +15,6 @@ parents:
 related:
   - "[[Service et injection de dépendances]]"
 next_review: 
-method: []
 tags:
   - concept
   - tests
@@ -49,7 +48,7 @@ with patch("monmodule.requests.get") as get:
 Le plus simple reste souvent d'**injecter** la dépendance en paramètre ([[Service et injection de dépendances|injection de dépendances]]) : le test passe alors une fausse version.
 
 ### Pourquoi ça existe
-Un test qui appelle la vraie API de CVAT est lent, dépend du réseau et peut modifier des données.
+Un test qui appelle une vraie API est lent, dépend du réseau et peut modifier des données.
 
 ### Le problème résolu
 Tester rapidement et de façon reproductible, y compris les cas d'erreur difficiles à provoquer (500, délai dépassé).
@@ -114,7 +113,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

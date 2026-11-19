@@ -29,13 +29,13 @@ Une seule phrase, qui se termine par un point d'interrogation. Si tu ne peux pas
 Quand la date arrive, tu conclus avec ce que tu as. Sans date, un POC devient un projet à moitié fini que personne n'a décidé de lancer.
 
 ### 4. Attaquer le plus risqué en premier
-Dans ton projet : la CI avec le Nexus et la communication Nuclio vers CVAT avant le style du bouton. Si le plus risqué échoue, tu le sais tôt.
+Par exemple : la connexion au service externe et la construction dans la CI avant le style du bouton. Si le plus risqué échoue, tu le sais tôt.
 
 ### 5. Prendre le chemin le plus court, et noter chaque raccourci
 Valeurs en dur, pas de tests, erreurs ignorées : c'est permis. Mais chaque raccourci reçoit un commentaire `# DETTE :` pour qu'on le retrouve. Voir [[Dette technique]].
 
 ### 6. Travailler avec de vraies conditions
-Le vrai réseau de l'entreprise, le vrai Nexus, de vraies tâches CVAT. Un POC qui marche seulement sur ta machine ne prouve rien pour la production.
+Le vrai réseau, les vrais outils de l'équipe, de vraies données. Un POC qui marche seulement sur ta machine ne prouve rien pour la production.
 
 ### 7. Montrer tôt et souvent
 Une démonstration de 5 minutes à mi-parcours à ton responsable vaut mieux qu'un rapport parfait à la fin : il peut réorienter la question.

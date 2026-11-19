@@ -16,7 +16,6 @@ related:
   - "[[JSON]]"
   - "[[Méthodes de tableau (map, filter, reduce)]]"
 next_review: 
-method: []
 tags:
   - concept
   - javascript

@@ -15,7 +15,6 @@ related:
   - "[[Convention de commit]]"
   - "[[Tag Git]]"
 next_review: 
-method: []
 tags:
   - concept
   - git
@@ -55,10 +54,9 @@ flowchart TD
 ### Fixed
 - Nom d'archive incorrect quand le dossier contient des espaces
 ```
-Certains projets (CVAT en fait partie) demandent d'ajouter un petit fichier de changelog **dans chaque contribution** ; un outil les assemble à la sortie de version.
+Certains projets open source demandent d'ajouter un petit fichier de changelog **dans chaque contribution** ; un outil les assemble à la sortie de version.
 
 ### Cas d'utilisation
-- Avant de monter de version CVAT : lire le changelog entre ta version et la nouvelle
 - Documenter les évolutions de ton script
 
 > [!warning] À ne pas confondre
@@ -85,6 +83,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Changelog au travail]]
 - **Prérequis** : [[Commit]]
 - **Complémentaires** : [[Convention de commit]] · [[Tag Git]]
 
@@ -92,7 +91,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

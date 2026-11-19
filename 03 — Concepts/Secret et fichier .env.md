@@ -17,7 +17,6 @@ related:
   - "[[Variables CI-CD GitLab]]"
   - "[[Docker Compose]]"
 next_review: 
-method: []
 tags:
   - concept
   - securite
@@ -37,13 +36,13 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 # .env  (jamais commité : il est dans .gitignore)
 DATABASE_URL=postgresql://postgres:dev@localhost:5432/notes
 JWT_SECRET=4f8c…long-et-aléatoire
-CVAT_TOKEN=…
+API_TOKEN=…
 ```
 ```bash
 # .env.example  (commité : la liste des variables, sans les valeurs)
 DATABASE_URL=
 JWT_SECRET=
-CVAT_TOKEN=
+API_TOKEN=
 ```
 - Lecture : `process.env.JWT_SECRET` (Node 20+ : `node --env-file=.env app.js`), `os.environ["JWT_SECRET"]` (Python, après `load_dotenv()` : voir [[Charger un fichier .env (python-dotenv)]]), `env_file:` dans [[Docker Compose]].
 - En CI : [[Variables CI-CD GitLab]] **masquées** et **protégées**.
@@ -78,8 +77,6 @@ Les outils comme **gitleaks** le vérifient automatiquement dans la CI.
 
 ### Cas d'utilisation
 - Configurer une application en local
-- La pipeline GitLab qui pousse dans Nexus (identifiants du registre)
-- Le jeton CVAT de ta fonction Nuclio
 
 > [!warning] À ne pas confondre
 > Mettre un secret dans un `ARG` ou un `ENV` de [[Dockerfile]] : il reste lisible dans l'image (`docker history`). Et `.env` n'est pas chiffré : il protège seulement contre le partage par Git.
@@ -105,6 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 07 - Tout lancer avec compose]]
 
 ## 4 · Relier
+- **Au travail** : [[Secret et fichier .env au travail]]
 - **Prérequis** : [[Variable d'environnement]] · [[Ignorer des fichiers (gitignore)]]
 - **Complémentaires** : [[Variables CI-CD GitLab]] · [[Docker Compose]] · [[Charger un fichier .env (python-dotenv)]]
 
@@ -112,7 +110,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

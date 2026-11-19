@@ -17,7 +17,6 @@ related:
   - "[[Principes DRY, KISS et YAGNI]]"
   - "[[Dette technique]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -59,7 +58,7 @@ flowchart TD
 
 ### Exemple concret
 ```text
-MVP de l'export CVAT
+MVP de l'appli de dépenses
 Dans le MVP :
 - un bouton « Export PNG » sur une tâche
 - un PNG avec les tracés des annotations
@@ -69,7 +68,6 @@ Plus tard (selon les retours) :
 ```
 
 ### Cas d'utilisation
-- Première version de l'export CVAT livrée à l'équipe après le POC
 - Lancer une application avec une seule fonction phare
 
 > [!warning] À ne pas confondre
@@ -96,6 +94,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[MVP (produit minimum viable) au travail]]
 - **Prérequis** : [[Preuve de concept (POC)]]
 - **Complémentaires** : [[Prototype]] · [[Backlog et priorisation]] · [[Principes DRY, KISS et YAGNI]] · [[Dette technique]]
 
@@ -103,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

@@ -8,7 +8,7 @@ tags:
 # Projet - Envoyer un zip ou une image en Python
 
 > [!info] Le principe
-> Un script qui échange des fichiers avec un serveur : il lui envoie un zip et une image, de trois façons, puis il en reçoit. C'est exactement ce que fera ta fonction Nuclio du POC CVAT.
+> Un script qui échange des fichiers avec un serveur : il lui envoie un zip et une image, de trois façons, puis il en reçoit. C'est ce que font beaucoup de services web d'import et d'export.
 > Le but n'est pas l'outil : c'est de **vérifier que tu as compris chaque notion** du [[Cours - Envoyer et recevoir des fichiers par HTTP]], en tombant sur les vraies erreurs et en les corrigeant. Le serveur est **fourni** : tu écris seulement `envoi.py`.
 
 ```mermaid
@@ -50,7 +50,7 @@ Dans un **deuxième terminal**, au même endroit, tu écris et lances ton script
 | `POST /brut` | le fichier seul dans le corps, avec son `Content-Type` | du JSON |
 | `POST /json-image` | du JSON : `{"image": "<texte base64>"}` | du JSON |
 | `GET /image.png` | rien | une image PNG |
-| `GET /export.zip` | rien | un zip qui ressemble à un export CVAT |
+| `GET /export.zip` | rien | un zip d'export (un fichier XML et une image) |
 
 > [!tip] Si une requête vers localhost renvoie 407 ou une page HTML du proxy
 > Au travail, la variable `HTTP_PROXY` envoie aussi tes appels locaux au proxy. Fais `export NO_PROXY=localhost,127.0.0.1` dans le terminal du script. Voir [[Proxy]].
@@ -85,7 +85,7 @@ def fabriquer_png(largeur=40, hauteur=20):
 
 
 def fabriquer_export_zip():
-    """Un zip qui ressemble à un export CVAT : annotations.xml + une image."""
+    """Un zip d'export : annotations.xml + une image."""
     tampon = io.BytesIO()
     with zipfile.ZipFile(tampon, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("annotations.xml", '<annotations><image name="plan.png">'

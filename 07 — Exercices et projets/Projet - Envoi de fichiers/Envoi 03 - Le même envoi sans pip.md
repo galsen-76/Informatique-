@@ -3,7 +3,7 @@ type: exercise
 status: a-faire
 difficulty: moyen
 concepts:
-  - "[[Appeler une API sans pip (urllib.request)]]"
+  - "[[Appeler une API HTTP]]"
 tags:
   - exercice
   - mini-projet
@@ -14,7 +14,7 @@ tags:
 > **Projet :** [[Projet - Envoyer un zip ou une image en Python]]
 > **Étape précédente :** [[Envoi 02 - Envoyer le zip avec requests]] (ou [[Envoi 01 - Un zip sans toucher au disque]] si pip est bloqué)
 > **Cours à avoir lu :** [[Cours - Envoyer et recevoir des fichiers par HTTP]]
-> **Notions validées par cette étape :** [[Appeler une API sans pip (urllib.request)]]
+> **Notions validées par cette étape :** [[Appeler une API HTTP]]
 
 ## Le but
 Faire un script `envoi_sans_pip.py` qui envoie le même zip **sans requests**, seulement avec la bibliothèque standard, sur `POST /brut` (le fichier seul dans le corps). C'est ce que tu pourras faire au travail sans rien installer.

@@ -16,7 +16,6 @@ related:
   - "[[Changelog]]"
   - "[[Convention de commit]]"
 next_review: 
-method: []
 tags:
   - concept
   - git
@@ -60,7 +59,6 @@ git describe --tags                      # le tag le plus proche du commit actue
 ```
 
 ### Cas d'utilisation
-- Partir de la **version de CVAT que tu utilises** (son tag), pas de `develop`
 - Déclencher une pipeline de publication sur un tag (`$CI_COMMIT_TAG`)
 - Tagger l'image Docker avec la même version
 
@@ -88,6 +86,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 04 - Ranger le projet dans Git]]
 
 ## 4 · Relier
+- **Au travail** : [[Tag Git au travail]]
 - **Prérequis** : [[Commit]] · [[Branche Git]]
 - **Complémentaires** : [[Changelog]] · [[Convention de commit]]
 - **Commandes** : [[git tag]] · [[git diff]]
@@ -96,7 +95,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

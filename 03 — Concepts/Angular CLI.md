@@ -10,13 +10,12 @@ exercice_visuel: false
 fil_rouge: false
 prerequisites:
   - "[[Angular]]"
-  - "[[npm]]"
+  - "[[Gestionnaire de paquets]]"
 parents:
   - "[[Angular]]"
 related:
   - "[[Outil de build front (Vite)]]"
 next_review: 
-method: []
 tags:
   - concept
   - frontend
@@ -101,14 +100,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 10 - Angular, afficher la liste]]
 
 ## 4 · Relier
-- **Prérequis** : [[Angular]] · [[npm]]
+- **Prérequis** : [[Angular]] · [[Gestionnaire de paquets]]
 - **Complémentaires** : [[Outil de build front (Vite)]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

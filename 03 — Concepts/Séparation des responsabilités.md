@@ -16,7 +16,6 @@ related:
   - "[[Architecture en couches]]"
   - "[[Principes SOLID]]"
 next_review: 
-method: []
 tags:
   - concept
   - architecture
@@ -36,7 +35,6 @@ Signes qu'une fonction fait trop : un nom avec « et » (`lireEtZipperEtEnvoyer`
 On découpe selon les **raisons de changer** :
 - la **présentation** (HTML, ligne de commande, format JSON de l'API) ;
 - les **règles métier** (quels fichiers zipper, comment nommer l'archive) ;
-- l'**accès aux données et à l'extérieur** (disque, base, API CVAT).
 Chaque morceau ne connaît que ce dont il a besoin.
 
 ### Pourquoi ça existe
@@ -104,6 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Séparation des responsabilités au travail]]
 - **Prérequis** : [[Fonction]] · [[Module et import]]
 - **Complémentaires** : [[Architecture en couches]] · [[Principes SOLID]]
 - **Utilisé par** : [[Architecture en couches]]
@@ -112,7 +111,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

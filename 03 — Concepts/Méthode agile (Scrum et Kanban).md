@@ -17,7 +17,6 @@ related:
   - "[[Intégration et déploiement continus (CI-CD)]]"
   - "[[Cahier des charges]]"
 next_review: 
-method: []
 tags:
   - concept
   - projet
@@ -67,16 +66,15 @@ flowchart TD
 
 ### Exemple concret
 ```text
-Tableau Kanban du projet CVAT
+Tableau Kanban de l'appli de dépenses
 À faire              | En cours (max 2)        | En revue           | Terminé
 ---------------------|-------------------------|--------------------|-------------------
-Bouton React export  | Fonction Nuclio export  | CI GitLab + Nexus  | POC Nuclio -> CVAT
+Export PDF           | Total par catégorie     | CI GitLab          | Liste des dépenses
 Journaliser exports  |                         |                    |
 Tests de bout en bout|                         |                    |
 ```
 
 ### Cas d'utilisation
-- Organiser ton projet CVAT dans un tableau GitLab
 - Comprendre les réunions d'une équipe qui travaille en Scrum
 
 > [!warning] À ne pas confondre
@@ -103,13 +101,14 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[Méthode agile (Scrum et Kanban) au travail]]
 - **Complémentaires** : [[Backlog et priorisation]] · [[User story]] · [[Définition de terminé]] · [[Intégration et déploiement continus (CI-CD)]] · [[Cahier des charges]]
 
 ## 5 · Réviser
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

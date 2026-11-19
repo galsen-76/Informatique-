@@ -18,7 +18,6 @@ related:
   - "[[SDK]]"
   - "[[CORS]]"
 next_review: 
-method: []
 tags:
   - concept
   - backend
@@ -35,12 +34,11 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ## 1 · Comprendre
 ### Définition
 **API** (*Application Programming Interface*) : l'ensemble des opérations qu'un logiciel met à disposition des autres, avec leurs entrées et leurs sorties.
-- Une **API web** est appelée par le réseau, en [[HTTP]], et répond souvent en [[JSON]]. CVAT expose une API web : son interface l'utilise, ton script Python ou ta fonction Nuclio aussi.
 - Une bibliothèque a aussi une API : les fonctions qu'elle exporte (`zipfile.ZipFile`, `fetch`).
 Le **contrat** est souvent décrit dans un document [[OpenAPI]], et parfois livré sous forme de [[SDK]].
 
 ### Pourquoi ça existe
-Les programmes doivent collaborer (une interface et son serveur, deux services, ton script et CVAT) sans dépendre de leurs détails internes.
+Les programmes doivent collaborer (une interface et son serveur, deux services, ton script et une API externe) sans dépendre de leurs détails internes.
 
 ### Le problème résolu
 Chacun peut évoluer de son côté tant que le contrat est respecté ; on peut utiliser un service sans l'avoir écrit.
@@ -63,10 +61,9 @@ import requests
 rep = requests.get("https://cvat.exemple.com/api/tasks", headers={"Authorization": "Token …"})
 print(rep.status_code, rep.json()["count"])
 ```
-Même API, trois clients possibles : curl, Python, le frontend React de CVAT.
+Même API, trois clients possibles : curl, Python, une interface web en React.
 
 ### Cas d'utilisation
-- Récupérer les annotations d'une tâche CVAT
 - Un frontend qui parle à son backend
 - Brancher un service tiers (paiement, carte, e-mail)
 
@@ -90,7 +87,7 @@ flowchart TD
 | C'est quoi | Un contrat entre programmes | Un style précis d'API web |
 | Passe par | Appel de fonction, réseau, fichier… | [[HTTP]] uniquement |
 | Organisation | Libre | Des **ressources** (`/notes/42`) + des [[Méthode HTTP\|méthodes HTTP]] |
-| Exemple | `zipfile.ZipFile(...)` en Python | `GET /api/tasks/12` sur CVAT |
+| Exemple | `zipfile.ZipFile(...)` en Python | `GET /api/tasks/12` sur une API web |
 
 Une API web **non REST** : `POST /api` avec `{"action": "supprimerNote", "id": 42}`. Ça marche, c'est une API, mais ce n'est pas REST (le verbe est dans le corps, pas dans la méthode HTTP).
 
@@ -117,6 +114,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
+- **Au travail** : [[API au travail]]
 - **Prérequis** : [[Client-serveur]] · [[HTTP]]
 - **Complémentaires** : [[API REST]] · [[OpenAPI]] · [[SDK]] · [[CORS]]
 - **Utilisé par** : [[Endpoint]]
@@ -125,7 +123,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > [!question] Me faire interroger
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
-### Validation de la maîtrise
+### Validation (compris, puis maîtrisé)
 Trois cases à cocher dans les propriétés de la fiche :
 - `schema` : mon dessin du concept est dans « Mon schéma » ;
 - `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;

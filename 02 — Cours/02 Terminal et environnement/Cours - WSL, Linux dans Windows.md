@@ -67,7 +67,7 @@ Un serveur lancé dans WSL (`python -m http.server 8000`) est joignable depuis l
 > - Oublier le mot de passe Ubuntu : il sert à chaque `sudo`
 
 ## Résumé
-En 3 phrases, avec mes mots.
+Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[WSL]] · [[Système d'exploitation et noyau]] · [[Bash]] · [[Fichiers entre Windows et Linux]]

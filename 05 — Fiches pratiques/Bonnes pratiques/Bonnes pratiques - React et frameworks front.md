@@ -3,8 +3,8 @@ type: bonnes-pratiques
 sujet: "React et frameworks front"
 concepts:
   - "[[React]]"
-  - "[[Composant React]]"
-  - "[[État React (useState)]]"
+  - "[[Composant d'interface]]"
+  - "[[État et réactivité]]"
   - "[[Effet React (useEffect)]]"
   - "[[Liste et clé en React]]"
   - "[[Vue.js]]"
@@ -21,7 +21,7 @@ tags:
 ## À faire
 
 ### 1. Des petits composants qui font une chose
-Un composant de plus de 150 lignes cache souvent trois composants. Voir [[Composant React]].
+Un composant de plus de 150 lignes cache souvent trois composants. Voir [[Composant d'interface]].
 
 ### 2. Garder l'état au plus près de ceux qui l'utilisent
 Le remonter dans le parent seulement s'il est partagé ; un store (Pinia, Redux, service Angular) seulement pour l'état vraiment global.
@@ -34,7 +34,7 @@ const visibles = taches.filter((t) => t.nom.includes(recherche));
 ```
 
 ### 4. Ne jamais modifier l'état en place
-Toujours une nouvelle valeur. Voir [[État React (useState)]].
+Toujours une nouvelle valeur. Voir [[État et réactivité]].
 
 ### 5. Des clés stables dans les listes
 `key={t.id}`, pas l'indice. Voir [[Liste et clé en React]].
@@ -83,4 +83,4 @@ Bonnes balises (`button`, `label`), texte alternatif, navigation au clavier. Voi
 - [ ] Les tests passent
 
 ## Notions liées
-[[React]] · [[Composant React]] · [[État React (useState)]] · [[Effet React (useEffect)]] · [[Liste et clé en React]] · [[Vue.js]] · [[Angular]]
+[[React]] · [[Composant d'interface]] · [[État et réactivité]] · [[Effet React (useEffect)]] · [[Liste et clé en React]] · [[Vue.js]] · [[Angular]]
