@@ -4,7 +4,7 @@ domain: architecture
 module: "[[Module 15 - Architecture logicielle]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 5
+niveau: 0
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -99,7 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Refactorisation » et je l'intègre ici avec `![[Schéma - Refactorisation.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[Dépenses 04 - Ranger en fonctions]]
 
 ## 4 · Relier
 - **Prérequis** : [[Test unitaire]] · [[Commit]]

@@ -5,6 +5,8 @@ niveau: 0
 difficulty: moyen
 concepts:
   - "[[Fonction]]"
+  - "[[Séparation des responsabilités]]"
+  - "[[Refactorisation]]"
 tags:
   - exercice
   - mini-projet
@@ -14,8 +16,8 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Suivre ses dépenses en Python]] · **Étape du parcours :** 1 · Python, les bases
 > **Étape précédente :** [[Dépenses 03 - Totaux par catégorie]]
-> **Cours à avoir lus :** [[Cours - Python, premiers pas]] · [[Cours - Fonctions, modules et erreurs]]
-> **Notions validées par cette étape :** [[Fonction]]
+> **Cours à avoir lus :** [[Cours - Programmer dans n'importe quel langage]] · [[Cours - Python, premiers pas]] · [[Cours - Fonctions, modules et erreurs]]
+> **Notions validées par cette étape :** [[Fonction]] · [[Séparation des responsabilités]] · [[Refactorisation]]
 
 ## Le but
 Le script marche, mais tout est mélangé. Le **découper en fonctions** qui ont chacune un seul travail, pour pouvoir les relire, les tester et les réutiliser.

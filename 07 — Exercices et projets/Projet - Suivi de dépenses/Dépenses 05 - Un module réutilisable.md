@@ -5,6 +5,7 @@ niveau: 0
 difficulty: moyen
 concepts:
   - "[[Module et import]]"
+  - "[[Principes DRY, KISS et YAGNI]]"
 tags:
   - exercice
   - mini-projet
@@ -14,8 +15,8 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - Suivre ses dépenses en Python]] · **Étape du parcours :** 1 · Python, les bases
 > **Étape précédente :** [[Dépenses 04 - Ranger en fonctions]]
-> **Cours à avoir lus :** [[Cours - Python, premiers pas]] · [[Cours - Fonctions, modules et erreurs]]
-> **Notions validées par cette étape :** [[Module et import]]
+> **Cours à avoir lus :** [[Cours - Programmer dans n'importe quel langage]] · [[Cours - Python, premiers pas]] · [[Cours - Fonctions, modules et erreurs]]
+> **Notions validées par cette étape :** [[Module et import]] · [[Principes DRY, KISS et YAGNI]]
 
 ## Le but
 Ranger le projet en **plusieurs fichiers** : les données d'un côté, les calculs de l'autre, et le programme qui les assemble. Un autre script pourrait alors réutiliser les calculs sans lancer tout le programme.

@@ -12,6 +12,7 @@ tags:
 | --- | --- |
 | ce que je fais maintenant | [[Dashboard]] et [[Focus]] (niveau actuel, notion en cours) |
 | ma progression, niveau par niveau | [[Niveaux]] |
+| les bases de la programmation, quel que soit le langage | [[Cours - Programmer dans n'importe quel langage]] |
 | une notion (ce que c'est, pourquoi, comment) | **03 — Concepts**, une fiche par notion, quel que soit le langage ; la syntaxe est dans l'encadré replié « Comment ça s'écrit » |
 | une commande précise (docker, git, pip…) | **04 — Commandes**, un sous-dossier par outil |
 | une procédure ou les bonnes pratiques d'un outil | **05 — Fiches pratiques** |
