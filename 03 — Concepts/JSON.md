@@ -4,7 +4,7 @@ domain: web
 module: "[[Module 05 - JavaScript]]"
 status: a-decouvrir
 level: debutant
-niveau: 2
+niveau: 1
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -87,7 +87,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - JSON » et je l'intègre ici avec `![[Schéma - JSON.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 03 - Un client Python pour l'API]]
 
 ## 4 · Relier
 - **Complémentaires** : [[HTTP]] (le transport), [[API REST]] (l'usage principal)

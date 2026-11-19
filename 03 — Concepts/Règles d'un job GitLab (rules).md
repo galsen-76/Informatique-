@@ -98,8 +98,10 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Règles d'un job GitLab (rules) » et je l'intègre ici avec `![[Schéma - Règles d'un job GitLab (rules).excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 08 - La CI de l'API]]
-- [[MesDépenses 14 - La CI du front Angular]]
+- [[MesDépenses Front 11 - La CI du front Angular]]
+- [[MesDépenses 09 - La CI de l'API]]
+- [[MesDépenses 10 - Sortir une version]]
+- [[MesDépenses 14 - Déployer depuis la CI]]
 - [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Relier

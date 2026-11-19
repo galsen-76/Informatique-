@@ -8,7 +8,7 @@ concepts:
   - "[[Tâche planifiée (cron)]]"
 tags:
   - cours
-niveau: 3
+niveau: 4
 ---
 # Cours - Services, journaux et tâches planifiées
 

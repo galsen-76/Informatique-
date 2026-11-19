@@ -95,7 +95,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 09 - Un vrai outil en ligne de commande]]
-- [[MesDépenses 07 - Tout lancer avec compose]]
+- [[MesDépenses Front 05 - Tout lancer avec compose]]
+- [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
 
 ## 4 · Relier
 - **Prérequis** : [[Terminal]]

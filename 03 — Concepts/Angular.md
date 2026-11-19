@@ -4,7 +4,7 @@ domain: frontend
 module: "[[Module 20 - Angular]]"
 status: a-decouvrir
 level: debutant
-niveau: 4
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -97,7 +97,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Angular » et je l'intègre ici avec `![[Schéma - Angular.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 10 - Angular, afficher la liste]]
+- [[MesDépenses Front 07 - Angular, afficher la liste]]
 
 ## 4 · Relier
 - **Prérequis** : [[TypeScript]] · [[HTML]] · [[Module et import]]

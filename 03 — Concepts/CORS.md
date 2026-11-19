@@ -4,7 +4,7 @@ domain: backend
 module: "[[Module 08 - Backend et API REST]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 2
+niveau: 4
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -118,9 +118,10 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - CORS » et je l'intègre ici avec `![[Schéma - CORS.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 04 - Régler CORS]]
-- [[MesDépenses 05 - Vue, ajouter et supprimer]]
-- [[MesDépenses 13 - Angular dans compose]]
+- [[MesDépenses Front 02 - Régler CORS]]
+- [[MesDépenses Front 03 - Vue, ajouter et supprimer]]
+- [[MesDépenses Front 10 - Angular dans compose]]
+- [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 
 ## 4 · Relier
 - **Au travail** : [[CORS au travail]]

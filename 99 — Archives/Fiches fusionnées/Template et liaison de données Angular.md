@@ -101,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Template et liaison de données Angular » et je l'intègre ici avec `![[Schéma - Template et liaison de données Angular.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 11 - Angular, ajouter et supprimer]]
+- [[MesDépenses Front 08 - Angular, ajouter et supprimer]]
 
 ## 4 · Relier
 - **Prérequis** : [[Composant Angular]] · [[Formulaire HTML]]

@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Gestion des erreurs d'une API » et je l'intègre ici avec `![[Schéma - Gestion des erreurs d'une API.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 01 - Prendre l'API en main]]
 
 ## 4 · Relier
 - **Au travail** : [[Gestion des erreurs d'une API au travail]]

@@ -16,17 +16,16 @@ tags:
 # MesDépenses 08 - La CI de l'API
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 07 - Tout lancer avec compose]]
+> **Projet :** [[Projet - MesDépenses]] · **Niveau :** 3 · **Étape précédente :** [[MesDépenses 08 - Tester l'API]]
 > **Cours :** [[Cours - Maîtriser le fichier de pipeline GitLab]] · [[Cours - Construire et publier les images d'un projet avec GitLab CI]]
 > **Notions :** [[Pipeline GitLab CI]] · [[Runner GitLab]] · [[Construire une image dans la CI]] · [[Kaniko]] · [[Registre Docker]] · [[Variables CI-CD GitLab]] · [[Règles d'un job GitLab (rules)]]
 > **Fiches :** [[Fiche - Réflexes pour déboguer une pipeline]] · [[Bonnes pratiques - CI GitLab]]
 
 ## Le but
-À chaque push, GitLab lance les tests de l'API, puis construit et publie son image. Rien ne se lance pour l'API si tu n'as touché qu'au front.
+À chaque push, GitLab lance les tests de l'API, puis construit et publie son image. Rien ne se lance pour l'API si tu n'as touché qu'à la documentation.
 
 ## Ce que tu fais
-- [ ] Pousse le dépôt sur le GitLab de l'entreprise
-- [ ] Écris un `.gitlab-ci.yml` avec un job `test-api` qui lance les tests `unittest` de l'API. Fais-le échouer exprès (casse un test), regarde la pipeline, puis répare
+- [ ] Écris un `.gitlab-ci.yml` avec un job `test-api` qui lance les tests de l'étape 08 et le linter. Fais-le échouer exprès (casse un test), regarde la pipeline, puis répare
 - [ ] Ajoute un job `build-api` qui construit l'image de l'API et la publie, avec le SHA du commit comme tag
 - [ ] Le build ne doit se lancer que si les tests passent
 - [ ] Les deux jobs ne se lancent que si un fichier de `api/` a changé. Vérifie avec un commit qui ne touche que le README de la racine

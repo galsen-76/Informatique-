@@ -88,7 +88,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Lancer une commande (subprocess) » et je l'intègre ici avec `![[Schéma - Lancer une commande (subprocess).excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 13 - Sauvegarder la base avec un script]]
 
 ## 4 · Relier
 - **Prérequis** : [[Fonction]] · [[Code de sortie]] · [[Processus]]

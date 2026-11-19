@@ -126,6 +126,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 09 - Un vrai outil en ligne de commande]]
+- [[MesDépenses 03 - Un client Python pour l'API]]
 
 ## 4 · Relier
 - **Prérequis** : [[Fonction]] · [[Code de sortie]]

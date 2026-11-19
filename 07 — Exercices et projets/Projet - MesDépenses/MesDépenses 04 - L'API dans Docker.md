@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 1
+niveau: 2
 difficulty: moyen
 concepts:
   - "[[Dockerfile]]"
@@ -16,7 +16,7 @@ tags:
 # MesDépenses 02 - L'API dans Docker
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 01 - Prendre l'API en main]]
+> **Projet :** [[Projet - MesDépenses]] · **Niveau :** 2 · **Étape précédente :** [[MesDépenses 03 - Un client Python pour l'API]]
 > **Cours :** [[Cours - Faire tourner un script Python dans Docker]] · [[Cours - Docker, les bases solides]]
 > **Notions :** [[Dockerfile]] · [[Image Docker]] · [[Conteneur]] · [[Python dans Docker]] · [[Port]] · [[Volume Docker]] · [[Variable de build Docker (ARG)]] · [[Nexus]] · [[Proxy]]
 > **Fiches :** [[Fiche - Images Docker au travail via le Nexus]] · [[Bonnes pratiques - Docker]]

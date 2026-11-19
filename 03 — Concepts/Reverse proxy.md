@@ -4,7 +4,7 @@ domain: reseau
 module: "[[Module 14 - DevOps et déploiement]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 2
+niveau: 4
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -113,7 +113,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Reverse proxy » et je l'intègre ici avec `![[Schéma - Reverse proxy.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 
 ## 4 · Relier
 - **Au travail** : [[Reverse proxy au travail]]

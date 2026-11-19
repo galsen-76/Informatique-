@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 2
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Docker Compose]]"
@@ -16,7 +16,7 @@ tags:
 # MesDépenses 07 - Tout lancer avec compose
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 06 - Le front Vue dans Docker]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 04 - Le front Vue dans Docker]]
 > **Cours :** [[Cours - Docker, les bases solides]]
 > **Notions :** [[Docker Compose]] · [[Volume Docker]] · [[DNS]] · [[Variable d'environnement]] · [[Secret et fichier .env]] · [[Base de données relationnelle]] · [[Reverse proxy]]
 > **Fiches :** [[Fiche - Lancer PostgreSQL avec Docker]] · [[Bonnes pratiques - Docker]]

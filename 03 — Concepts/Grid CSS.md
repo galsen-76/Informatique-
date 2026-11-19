@@ -4,7 +4,7 @@ domain: web
 module: "[[Module 04 - HTML et CSS]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 2
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false

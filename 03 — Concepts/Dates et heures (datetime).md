@@ -103,6 +103,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 08 - Lire un vrai fichier]]
+- [[MesDépenses 13 - Sauvegarder la base avec un script]]
 
 ## 4 · Relier
 - **Prérequis** : [[Variables et types]]

@@ -95,7 +95,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Couverture de code » et je l'intègre ici avec `![[Schéma - Couverture de code.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 08 - Tester l'API]]
 
 ## 4 · Relier
 - **Prérequis** : [[Test unitaire]]

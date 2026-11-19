@@ -4,7 +4,7 @@ domain: frontend
 module: "[[Module 19 - Vue.js]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 2
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false

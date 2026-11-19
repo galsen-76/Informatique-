@@ -4,12 +4,11 @@ status: a-faire
 difficulty: moyen
 concepts:
   - "[[API REST]]"
-  - "[[CORS]]"
-  - "[[Vue.js]]"
-  - "[[Angular]]"
   - "[[Dockerfile]]"
   - "[[Docker Compose]]"
   - "[[Pipeline GitLab CI]]"
+  - "[[SSH]]"
+  - "[[Reverse proxy]]"
 tags:
   - projet
   - fil-rouge
@@ -17,17 +16,19 @@ tags:
 # Projet - MesDépenses
 
 > [!info] Le principe
-> Une seule application, qui grandit avec tes cours : un suivi de dépenses. Une **API** (fournie, en Python) et **deux fronts** que tu codes toi-même, d'abord en **Vue**, puis en **Angular**. Chaque partie, tu la mets dans Docker et dans la CI GitLab : tu le fais plusieurs fois exprès, pour que ça devienne un réflexe.
-> Pour chaque concept : tu fais d'abord ton dessin Excalidraw (section « Mon schéma » de la fiche), Claude le valide, puis tu l'appliques ici.
+> Une seule application, un suivi de dépenses, qui sert de terrain d'entraînement pour **ce que tu fais au travail** : diagnostiquer le réseau, écrire un script qui parle à une API, mettre une appli dans Docker, la dépanner, la tester, la faire passer en CI, l'installer sur un serveur et la déployer. L'API est fournie en Python : tu ne codes pas l'application, tu la **fais tourner**.
+> Pour chaque concept : fiche, dessin Excalidraw, exercices visuels, puis tout de suite l'étape qui l'utilise.
 
 ## Le but final
-Ouvrir le navigateur, voir ses dépenses, en ajouter, en supprimer, depuis le front Vue **ou** le front Angular. Le tout lancé par un seul `docker compose up`, et GitLab qui teste et construit chaque image tout seul.
+Pousser un tag Git, et voir la nouvelle version arriver toute seule sur un serveur Linux, derrière nginx en HTTPS, avec sa base PostgreSQL sauvegardée chaque nuit. Et savoir revenir en arrière si elle est cassée.
 
 ## L'architecture
 ```mermaid
-flowchart TD
-  V[Front Vue] --> A[API Python]
-  N[Front Angular] --> A
+flowchart TB
+  G[GitLab CI] --> R[Registre]
+  R --> S[Serveur]
+  S --> N[nginx]
+  N --> A[API Python]
   A --> P[PostgreSQL]
 ```
 
@@ -35,17 +36,12 @@ Un seul dépôt `mes-depenses` :
 ```
 mes-depenses/
 ├── api/             l'API (fournie)
-├── front-vue/       ton front Vue
-├── front-angular/   ton front Angular
+├── client/          ton client Python en ligne de commande
+├── outils/          tes scripts d'exploitation (sauvegarde)
+├── nginx/           la configuration du reverse proxy
 ├── compose.yml      tout lancer ensemble
-└── .gitlab-ci.yml   la CI de toutes les parties
+└── .gitlab-ci.yml   tests, image, version, déploiement
 ```
-
-| Partie | En dev | Dans compose |
-| --- | --- | --- |
-| API | http://localhost:8000 | `api:8000` |
-| Front Vue | http://localhost:5173 | http://localhost:8080 |
-| Front Angular | http://localhost:4200 | http://localhost:8081 |
 
 ## L'API est fournie
 Tu ne l'écris pas : elle est dans les fichiers du projet Claude, dossier **`mes-depenses/api/`**. Copie tout ce dossier dans `~/projets/mes-depenses/api/` (côté WSL, pas dans `/mnt/c`). Son `README.md` liste les routes, avec des exemples curl et une collection Bruno.
@@ -53,28 +49,36 @@ Tu ne l'écris pas : elle est dans les fichiers du projet Claude, dossier **`mes
 Ce qu'il faut savoir d'elle :
 - FastAPI, base SQLite par défaut, PostgreSQL en changeant **une seule** variable : `DATABASE_URL` ;
 - routes `/depenses` (CRUD), `/totaux`, `/categories`, `/health` ;
-- **CORS n'est pas configuré** : c'est voulu, tu vas rencontrer la vraie erreur. L'endroit où l'ajouter est marqué dans `app/main.py` ;
+- **CORS n'est pas configuré** : c'est voulu, tu rencontreras la vraie erreur à l'étape 12. L'endroit où l'ajouter est marqué dans `app/main.py` ;
 - des tests en `unittest` sont déjà là (tu t'en serviras dans la CI).
 
 ## Les étapes
-| # | Étape | Ce que tu pratiques |
+| # | Étape | Ce qui te servira au travail |
 | --- | --- | --- |
-| 1 | [[MesDépenses 01 - Prendre l'API en main]] | lancer une API Python, routes, codes HTTP |
-| 2 | [[MesDépenses 02 - L'API dans Docker]] | Dockerfile, Nexus, proxy, port, volume |
-| 3 | [[MesDépenses 03 - Vue, afficher la liste]] | projet Vite, composant, `fetch` |
-| 4 | [[MesDépenses 04 - Régler CORS]] | lire l'erreur, origine, preflight |
-| 5 | [[MesDépenses 05 - Vue, ajouter et supprimer]] | formulaire, POST, DELETE, rafraîchir |
-| 6 | [[MesDépenses 06 - Le front Vue dans Docker]] | build en deux étapes, nginx |
-| 7 | [[MesDépenses 07 - Tout lancer avec compose]] | services, PostgreSQL, réseau, volume |
-| 8 | [[MesDépenses 08 - La CI de l'API]] | tests et image dans GitLab |
-| 9 | [[MesDépenses 09 - La CI du front Vue]] | build front, image, `extends` |
-| 10 | [[MesDépenses 10 - Angular, afficher la liste]] | CLI, composant, service, HttpClient |
-| 11 | [[MesDépenses 11 - Angular, ajouter et supprimer]] | formulaire Angular, Observable |
-| 12 | [[MesDépenses 12 - Le front Angular dans Docker]] | même chose qu'en 06, seul |
-| 13 | [[MesDépenses 13 - Angular dans compose]] | un service de plus |
-| 14 | [[MesDépenses 14 - La CI du front Angular]] | réutiliser sans copier |
+| **Niveau 1 · Réseau et API** | | |
+| 1 | [[MesDépenses 01 - Prendre l'API en main]] | lancer une API, lire ses routes et ses codes HTTP |
+| 2 | [[MesDépenses 02 - Suivre une requête sur le réseau]] | dire où ça bloque : nom, port, certificat, proxy |
+| 3 | [[MesDépenses 03 - Un client Python pour l'API]] | un script qui automatise une API, erreurs gérées |
+| **Niveau 2 · Docker** | | |
+| 4 | [[MesDépenses 04 - L'API dans Docker]] | Dockerfile, registre, port, volume |
+| 5 | [[MesDépenses 05 - L'API et PostgreSQL avec compose]] | compose, base de données, secrets |
+| 6 | [[MesDépenses 06 - Dépanner un conteneur]] | retrouver une panne seul, ta fiche de dépannage |
+| **Niveau 3 · CI et équipe** | | |
+| 7 | [[MesDépenses 07 - Travailler en branche]] | branche, conflit, merge request, annuler |
+| 8 | [[MesDépenses 08 - Tester l'API]] | tests, doublures, couverture, linter |
+| 9 | [[MesDépenses 09 - La CI de l'API]] | pipeline, image dans la CI, rules |
+| 10 | [[MesDépenses 10 - Sortir une version]] | tag, changelog, image numérotée |
+| **Niveau 4 · Serveur et déploiement** | | |
+| 11 | [[MesDépenses 11 - Installer l'API sur un serveur]] | SSH, utilisateurs, redémarrage, journaux |
+| 12 | [[MesDépenses 12 - Derrière nginx, avec une petite page]] | reverse proxy, HTTPS, CORS |
+| 13 | [[MesDépenses 13 - Sauvegarder la base avec un script]] | script d'exploitation, cron, restauration |
+| 14 | [[MesDépenses 14 - Déployer depuis la CI]] | déploiement continu, retour arrière |
 
-De l'étape 12 à la 14, tu refais ce que tu as déjà fait pour Vue : essaie sans relire tes notes d'abord.
+**Niveau 5** (se perfectionner) : à créer quand tu y seras, par exemple les comptes utilisateurs et une refonte propre.
+
+> [!note]- Le front, à la demande (niveau 6)
+> Les anciennes étapes Vue et Angular sont gardées dans le dossier « Front (à la demande) », à faire seulement si un projet te le demande :
+> [[MesDépenses Front 01 - Vue, afficher la liste]] · [[MesDépenses Front 02 - Régler CORS]] · [[MesDépenses Front 03 - Vue, ajouter et supprimer]] · [[MesDépenses Front 04 - Le front Vue dans Docker]] · [[MesDépenses Front 05 - Tout lancer avec compose]] · [[MesDépenses Front 06 - La CI du front Vue]] · [[MesDépenses Front 07 - Angular, afficher la liste]] · [[MesDépenses Front 08 - Angular, ajouter et supprimer]] · [[MesDépenses Front 09 - Le front Angular dans Docker]] · [[MesDépenses Front 10 - Angular dans compose]] · [[MesDépenses Front 11 - La CI du front Angular]]
 
 ## Environnement de l'entreprise
 - Images Docker : toujours par le Nexus, `vortex-nexus.assystem.com:5000/library/...` ([[Fiche - Images Docker au travail via le Nexus]]).
@@ -83,3 +87,4 @@ De l'étape 12 à la 14, tu refais ce que tu as déjà fait pour Vue : essaie sa
 
 ## Journal du projet
 - 19/11 — Projet créé, API fournie.
+- 19/11 — Étapes refaites pour coller au travail : réseau, Docker, CI, serveur. Le front passe à la demande.

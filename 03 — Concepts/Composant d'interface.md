@@ -4,7 +4,7 @@ domain: frontend
 module: "[[Module 19 - Vue.js]]"
 status: a-decouvrir
 level: debutant
-niveau: 2
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -138,8 +138,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Composant d'interface » et je l'intègre ici avec `![[Schéma - Composant d'interface.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 03 - Vue, afficher la liste]]
-- [[MesDépenses 10 - Angular, afficher la liste]]
+- [[MesDépenses Front 01 - Vue, afficher la liste]]
+- [[MesDépenses Front 07 - Angular, afficher la liste]]
 
 ## 4 · Relier
 - **Prérequis** : [[Vue.js]] · [[CSS]]

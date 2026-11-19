@@ -7,7 +7,7 @@ concepts:
   - "[[Événement JavaScript]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - JavaScript dans la page, DOM et événements
 

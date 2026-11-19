@@ -10,7 +10,7 @@ concepts:
   - "[[Méthodes de tableau (map, filter, reduce)]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - Les bases de JavaScript
 

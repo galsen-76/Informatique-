@@ -7,7 +7,7 @@ const moduleFiles = app.vault.getMarkdownFiles()
 const mod = (await tp.system.suggester(["— Aucun module —", ...moduleFiles], ["", ...moduleFiles], false, "Module du parcours")) || "";
 const domain = ((await tp.system.prompt("Domaine (git, web, backend, database, devops…)", "")) || "general").toLowerCase();
 const level = (await tp.system.suggester(["Débutant", "Intermédiaire", "Avancé"], ["debutant", "intermediaire", "avance"], false, "Difficulté")) || "debutant";
-const niveau = (await tp.system.suggester(["0 · Bases du poste", "1 · Une appli qui tourne", "2 · Web complet", "3 · Travail en équipe", "4 · Changer de contexte", "5 · Concevoir"], [0, 1, 2, 3, 4, 5], false, "Niveau du parcours")) ?? 0;
+const niveau = (await tp.system.suggester(["0 · Bases du poste", "1 · Réseau et API", "2 · Docker", "3 · CI et équipe", "4 · Serveur et déploiement", "5 · Se perfectionner", "6 · Front, à la demande"], [0, 1, 2, 3, 4, 5, 6], false, "Niveau du parcours")) ?? 0;
 await tp.file.move("03 — Concepts/" + title);
 -%>
 ---

@@ -9,7 +9,7 @@ concepts:
   - "[[Template et liaison de données]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - Vue.js, composants, réactivité et directives
 

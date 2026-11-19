@@ -4,7 +4,7 @@ domain: backend
 module: "[[Module 07 - Node.js]]"
 status: a-decouvrir
 level: debutant
-niveau: 2
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false

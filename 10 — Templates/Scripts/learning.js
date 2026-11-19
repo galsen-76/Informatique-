@@ -25,11 +25,12 @@ const CFG = {
 };
 const LEVELS = [
   "Les bases du poste",
-  "Une appli qui tourne",
-  "Le web complet",
-  "Le travail en équipe",
-  "Changer de contexte",
-  "Concevoir",
+  "Réseau et API",
+  "Docker",
+  "CI et travail en équipe",
+  "Serveur et déploiement",
+  "Se perfectionner",
+  "Le front, à la demande",
 ];
 
 const STATUS = {

@@ -4,7 +4,7 @@ domain: database
 module: "[[Module 09 - Bases de données et SQL]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 2
+niveau: 5
 schema: false
 exercice_visuel: false
 fil_rouge: false

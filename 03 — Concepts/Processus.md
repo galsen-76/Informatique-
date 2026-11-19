@@ -89,6 +89,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 00 - Découvrir son poste]]
+- [[MesDépenses 06 - Dépanner un conteneur]]
 
 ## 4 · Relier
 - **Prérequis** : [[Bash]]

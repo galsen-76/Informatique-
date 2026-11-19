@@ -7,7 +7,7 @@ concepts:
   - "[[Module et import]]"
 tags:
   - cours
-niveau: 2
+niveau: 0
 ---
 # Cours - Portée, closures et modules
 

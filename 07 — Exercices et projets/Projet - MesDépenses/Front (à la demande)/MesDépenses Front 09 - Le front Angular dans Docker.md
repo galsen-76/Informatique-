@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 4
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Dockerfile]]"
@@ -14,8 +14,8 @@ tags:
 # MesDépenses 12 - Le front Angular dans Docker
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 11 - Angular, ajouter et supprimer]]
-> **Déjà fait une fois :** [[MesDépenses 06 - Le front Vue dans Docker]] · essaie d'abord **sans** le relire
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 08 - Angular, ajouter et supprimer]]
+> **Déjà fait une fois :** [[MesDépenses Front 04 - Le front Vue dans Docker]] · essaie d'abord **sans** le relire
 > **Notions :** [[Dockerfile]] · [[Image Docker]] · [[Application monopage et routage]] · [[Nexus]]
 
 ## Le but

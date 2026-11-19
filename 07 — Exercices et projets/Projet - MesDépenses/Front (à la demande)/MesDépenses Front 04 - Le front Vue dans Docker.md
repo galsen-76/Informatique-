@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 2
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Dockerfile]]"
@@ -15,7 +15,7 @@ tags:
 # MesDépenses 06 - Le front Vue dans Docker
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 05 - Vue, ajouter et supprimer]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 03 - Vue, ajouter et supprimer]]
 > **Cours :** [[Cours - Docker, les bases solides]]
 > **Notions :** [[Dockerfile]] · [[Image Docker]] · [[Outil de build front (Vite)]] · [[Variable de build Docker (ARG)]] · [[Application monopage et routage]] · [[Nexus]]
 > **Fiches :** [[Fiche - Images Docker au travail via le Nexus]] · [[Bonnes pratiques - Docker]]

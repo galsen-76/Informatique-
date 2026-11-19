@@ -107,8 +107,10 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Docker Compose » et je l'intègre ici avec `![[Schéma - Docker Compose.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 07 - Tout lancer avec compose]]
-- [[MesDépenses 13 - Angular dans compose]]
+- [[MesDépenses Front 05 - Tout lancer avec compose]]
+- [[MesDépenses Front 10 - Angular dans compose]]
+- [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
+- [[MesDépenses 06 - Dépanner un conteneur]]
 - [[Fil rouge 03 - Une page web pour le rapport]]
 
 ## 4 · Relier

@@ -91,7 +91,9 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - DNS » et je l'intègre ici avec `![[Schéma - DNS.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 07 - Tout lancer avec compose]]
+- [[MesDépenses Front 05 - Tout lancer avec compose]]
+- [[MesDépenses 02 - Suivre une requête sur le réseau]]
+- [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
 
 ## 4 · Relier
 - **Au travail** : [[DNS au travail]]

@@ -8,7 +8,7 @@ concepts:
   - "[[Modèle de boîte]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - CSS, mettre en forme
 

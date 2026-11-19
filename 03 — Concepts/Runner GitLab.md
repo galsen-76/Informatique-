@@ -165,7 +165,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Runner GitLab » et je l'intègre ici avec `![[Schéma - Runner GitLab.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 08 - La CI de l'API]]
+- [[MesDépenses 09 - La CI de l'API]]
 - [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Relier

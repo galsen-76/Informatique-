@@ -83,6 +83,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Tag Git » et je l'intègre ici avec `![[Schéma - Tag Git.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
+- [[MesDépenses 10 - Sortir une version]]
 - [[Fil rouge 04 - Ranger le projet dans Git]]
 
 ## 4 · Relier

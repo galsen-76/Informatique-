@@ -10,7 +10,7 @@ concepts:
   - "[[JSON]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - L'asynchrone avec Promesses, async, await et fetch
 

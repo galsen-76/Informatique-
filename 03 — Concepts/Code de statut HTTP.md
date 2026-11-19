@@ -106,6 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ### Appliquer dans le fil rouge
 - [[MesDépenses 01 - Prendre l'API en main]]
+- [[MesDépenses 03 - Un client Python pour l'API]]
 
 ## 4 · Relier
 - **Prérequis** : [[HTTP]]

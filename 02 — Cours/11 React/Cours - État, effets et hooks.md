@@ -8,7 +8,7 @@ concepts:
   - "[[Hook React]]"
 tags:
   - cours
-niveau: 4
+niveau: 6
 ---
 # Cours - État, effets et hooks
 

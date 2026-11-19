@@ -8,7 +8,7 @@ concepts:
   - "[[Responsive design]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - Mise en page avec Flexbox, Grid et responsive
 

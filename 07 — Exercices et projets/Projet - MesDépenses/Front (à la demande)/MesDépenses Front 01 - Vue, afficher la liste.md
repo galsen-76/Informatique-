@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 2
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Vue.js]]"
@@ -16,7 +16,7 @@ tags:
 # MesDépenses 03 - Vue, afficher la liste
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 02 - L'API dans Docker]]
+> **Projet :** [[Projet - MesDépenses]] · **Niveau :** 6, le front à la demande · **À faire après :** [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
 > **Cours :** [[Cours - Vue.js, composants, réactivité et directives]]
 > **Notions :** [[Vue.js]] · [[Composant d'interface]] · [[État et réactivité]] · [[Template et liaison de données]] · [[Outil de build front (Vite)]] · [[Gestionnaire de paquets]] · [[Appeler une API HTTP]]
 > **Fiches :** [[Fiche - Utiliser les outils de développement du navigateur]] · [[Bonnes pratiques - React et frameworks front]]

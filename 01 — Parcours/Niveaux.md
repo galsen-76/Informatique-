@@ -19,14 +19,18 @@ tags:
 > 3. Tout de suite après, je fais le morceau du fil rouge qui l'utilise (lien « Appliquer dans le fil rouge » de la fiche).
 > 4. Je coche les trois cases : la notion est comprise. « Maîtrisé », je le mets quand je le sens.
 
+> [!info] Opérationnel au travail d'abord, puis se perfectionner
+> Les niveaux 1 à 4 suivent ce qui sert tous les jours au travail : terminal, réseau, Docker, CI, serveur. Le niveau 5 sert à aller plus loin. Le front (HTML, CSS, JavaScript, Vue, Angular) est au niveau 6 : à ouvrir seulement quand un projet le demande. Chaque niveau commence par les petites marches dont il a besoin (processus et variables avant Docker, YAML et Git en équipe avant la CI, SSH avant le serveur).
+
 | Niveau | Ce que je sais faire à la fin | Fil rouge qui le valide |
 | --- | --- | --- |
-| 0 · Les bases du poste | Terminal, fichiers, WSL, Python de base, Git simple | [[Projet - Suivre ses dépenses en Python]] (étapes 00 à 11) |
-| 1 · Une appli qui tourne | HTTP, API REST, JSON, Docker, proxy, registre | MesDépenses 01 et 02 : l'API en main (curl, Bruno), puis dans Docker |
-| 2 · Le web complet | HTML, CSS, JavaScript, Vue, CORS, nginx, compose, PostgreSQL | MesDépenses 03 à 07 : le front Vue, CORS, tout dans compose |
-| 3 · Le travail en équipe | Tests, GitLab CI, branches et merge requests, journaux | MesDépenses 08 et 09 : la CI de l'API et du front |
-| 4 · Changer de contexte | Angular, TypeScript, un autre framework ou langage | MesDépenses 10 à 14 : le front Angular |
-| 5 · Concevoir | Architecture, design patterns, sécurité, performance | À créer : comptes utilisateurs et refonte de MesDépenses |
+| 0 · Les bases du poste | Terminal, fichiers, processus, permissions, variables, WSL, Python de base, Git simple | [[Projet - Suivre ses dépenses en Python]] (étapes 00 à 11) |
+| 1 · Réseau et API | IP, DNS, ports, TLS, proxy, HTTP, API REST, JSON, un script Python qui appelle une API | [[Projet - MesDépenses]] étapes 01 à 03 |
+| 2 · Docker | Image, conteneur, Dockerfile, volume, registre, compose, YAML, PostgreSQL, dépannage | MesDépenses 04 à 06 |
+| 3 · CI et travail en équipe | Branches, merge request, conflits, tests, GitLab CI, versions | MesDépenses 07 à 10 |
+| 4 · Serveur et déploiement | SSH, services et journaux Linux, reverse proxy, HTTPS, CORS, scripts d'exploitation, déploiement continu | MesDépenses 11 à 14 |
+| 5 · Se perfectionner | Architecture, design patterns, algorithmique, sécurité, SQL avancé, gestion de projet | À créer : comptes utilisateurs et refonte de MesDépenses |
+| 6 · Le front, à la demande | HTML, CSS, JavaScript, TypeScript, Vue, React, Angular | MesDépenses Front 01 à 11 (dossier « Front (à la demande) ») |
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "niveaux" })

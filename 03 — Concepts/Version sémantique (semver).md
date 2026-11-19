@@ -4,7 +4,7 @@ domain: backend
 module: "[[Module 07 - Node.js]]"
 status: a-decouvrir
 level: debutant
-niveau: 2
+niveau: 3
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -99,7 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Version sémantique (semver) » et je l'intègre ici avec `![[Schéma - Version sémantique (semver).excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 10 - Sortir une version]]
 
 ## 4 · Relier
 - **Au travail** : [[Version sémantique (semver) au travail]]

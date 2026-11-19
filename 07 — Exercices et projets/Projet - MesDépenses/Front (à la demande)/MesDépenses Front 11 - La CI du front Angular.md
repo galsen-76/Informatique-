@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 4
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Pipeline GitLab CI]]"
@@ -14,8 +14,8 @@ tags:
 # MesDépenses 14 - La CI du front Angular
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 13 - Angular dans compose]]
-> **Déjà fait :** [[MesDépenses 08 - La CI de l'API]] · [[MesDépenses 09 - La CI du front Vue]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 10 - Angular dans compose]]
+> **Déjà fait :** [[MesDépenses 09 - La CI de l'API]] · [[MesDépenses Front 06 - La CI du front Vue]]
 > **Notions :** [[Pipeline GitLab CI]] · [[extends GitLab CI]] · [[Règles d'un job GitLab (rules)]] · [[Principes DRY, KISS et YAGNI]]
 
 ## Le but

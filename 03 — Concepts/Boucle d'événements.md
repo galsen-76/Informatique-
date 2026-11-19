@@ -4,7 +4,7 @@ domain: javascript
 module: "[[Module 05 - JavaScript]]"
 status: a-decouvrir
 level: avance
-niveau: 2
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false

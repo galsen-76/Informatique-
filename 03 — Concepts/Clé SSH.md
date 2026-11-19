@@ -4,7 +4,7 @@ domain: reseau
 module: "[[Module 17 - Réseau]]"
 status: a-decouvrir
 level: debutant
-niveau: 3
+niveau: 4
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -87,7 +87,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Clé SSH » et je l'intègre ici avec `![[Schéma - Clé SSH.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 11 - Installer l'API sur un serveur]]
+- [[MesDépenses 14 - Déployer depuis la CI]]
 
 ## 4 · Relier
 - **Prérequis** : [[SSH]]

@@ -9,7 +9,7 @@ concepts:
   - "[[Accessibilité web]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - HTML, la structure d'une page
 

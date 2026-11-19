@@ -9,6 +9,12 @@ concepts:
   - "[[Code de statut HTTP]]"
   - "[[Environnement virtuel Python]]"
   - "[[OpenAPI]]"
+  - "[[API]]"
+  - "[[Client-serveur]]"
+  - "[[HTTP]]"
+  - "[[Endpoint]]"
+  - "[[Validation des données]]"
+  - "[[Gestion des erreurs d'une API]]"
 tags:
   - exercice
   - mini-projet
@@ -18,7 +24,7 @@ tags:
 > [!info] Où tu en es
 > **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** rien, c'est le début
 > **Cours :** [[Cours - Qu'est-ce qu'une API et comment HTTP la porte]]
-> **Notions :** [[API REST]] · [[Méthode HTTP]] · [[Code de statut HTTP]] · [[JSON]] · [[Environnement virtuel Python]] · [[Gestionnaire de paquets]] · [[OpenAPI]]
+> **Notions :** [[API REST]] · [[Méthode HTTP]] · [[Code de statut HTTP]] · [[JSON]] · [[Environnement virtuel Python]] · [[Gestionnaire de paquets]] · [[OpenAPI]] · [[API]] · [[Client-serveur]] · [[HTTP]] · [[Endpoint]] · [[Validation des données]] · [[Gestion des erreurs d'une API]]
 > **À créer :** fiche Bruno (client HTTP)
 
 ## Le but

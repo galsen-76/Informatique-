@@ -4,7 +4,7 @@ domain: frontend
 module: "[[Module 20 - Angular]]"
 status: a-decouvrir
 level: avance
-niveau: 4
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -106,8 +106,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Observable et RxJS » et je l'intègre ici avec `![[Schéma - Observable et RxJS.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 10 - Angular, afficher la liste]]
-- [[MesDépenses 11 - Angular, ajouter et supprimer]]
+- [[MesDépenses Front 07 - Angular, afficher la liste]]
+- [[MesDépenses Front 08 - Angular, ajouter et supprimer]]
 
 ## 4 · Relier
 - **Prérequis** : [[Asynchrone et Promesse]] · [[Service et injection de dépendances]]

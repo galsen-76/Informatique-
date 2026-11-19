@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 2
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Template et liaison de données]]"
@@ -15,7 +15,7 @@ tags:
 # MesDépenses 05 - Vue, ajouter et supprimer
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 04 - Régler CORS]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 02 - Régler CORS]]
 > **Cours :** [[Cours - Vue.js, composants, réactivité et directives]]
 > **Notions :** [[Template et liaison de données]] · [[État et réactivité]] · [[Formulaire HTML]] · [[Appeler une API HTTP]] · [[Code de statut HTTP]] · [[CORS]]
 > **À créer :** props et événements entre composants Vue

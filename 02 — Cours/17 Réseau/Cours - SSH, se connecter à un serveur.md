@@ -7,7 +7,7 @@ concepts:
   - "[[Clé SSH]]"
 tags:
   - cours
-niveau: 3
+niveau: 4
 ---
 # Cours - SSH, se connecter à un serveur
 

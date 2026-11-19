@@ -112,8 +112,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Appeler une API avec fetch » et je l'intègre ici avec `![[Schéma - Appeler une API avec fetch.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 03 - Vue, afficher la liste]]
-- [[MesDépenses 05 - Vue, ajouter et supprimer]]
+- [[MesDépenses Front 01 - Vue, afficher la liste]]
+- [[MesDépenses Front 03 - Vue, ajouter et supprimer]]
 
 ## 4 · Relier
 - **Au travail** : [[Appeler une API avec fetch au travail]]

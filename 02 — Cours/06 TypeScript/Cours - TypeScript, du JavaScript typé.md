@@ -8,7 +8,7 @@ concepts:
   - "[[Union et type littéral]]"
 tags:
   - cours
-niveau: 4
+niveau: 6
 ---
 # Cours - TypeScript, du JavaScript typé
 

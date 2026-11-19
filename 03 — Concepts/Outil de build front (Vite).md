@@ -4,7 +4,7 @@ domain: frontend
 module: "[[Module 11 - React]]"
 status: a-decouvrir
 level: debutant
-niveau: 2
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -90,7 +90,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Outil de build front (Vite) » et je l'intègre ici avec `![[Schéma - Outil de build front (Vite).excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 06 - Le front Vue dans Docker]]
+- [[MesDépenses Front 04 - Le front Vue dans Docker]]
 
 ## 4 · Relier
 - **Au travail** : [[Outil de build front (Vite) au travail]]

@@ -98,6 +98,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Convention de commit » et je l'intègre ici avec `![[Schéma - Convention de commit.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
+- [[MesDépenses 07 - Travailler en branche]]
 - [[Fil rouge 04 - Ranger le projet dans Git]]
 
 ## 4 · Relier

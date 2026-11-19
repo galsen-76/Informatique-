@@ -103,6 +103,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 09 - Un vrai outil en ligne de commande]]
+- [[MesDépenses 11 - Installer l'API sur un serveur]]
 
 ## 4 · Relier
 - **Prérequis** : [[Bash]] · [[Système de fichiers]]

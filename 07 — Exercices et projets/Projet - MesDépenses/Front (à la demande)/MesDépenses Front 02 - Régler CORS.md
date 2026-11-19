@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 2
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[CORS]]"
@@ -13,7 +13,7 @@ tags:
 # MesDépenses 04 - Régler CORS
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 03 - Vue, afficher la liste]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 01 - Vue, afficher la liste]]
 > **Cours :** [[Cours - Une API robuste, validation, erreurs et CORS]]
 > **Notions :** [[CORS]] · [[En-tête HTTP]] · [[Méthode HTTP]] · [[Port]]
 > **Fiches :** [[Fiche - Lire un message d'erreur]] · [[Fiche - Utiliser les outils de développement du navigateur]]

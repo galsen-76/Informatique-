@@ -4,7 +4,7 @@ domain: devops
 module: "[[Module 13 - Docker]]"
 status: en-cours
 level: intermediaire
-niveau: 1
+niveau: 2
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -88,6 +88,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Démon Docker » et je l'intègre ici avec `![[Schéma - Démon Docker.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
+- [[MesDépenses 06 - Dépanner un conteneur]]
 - [[Fil rouge 01 - Lancer l'application dans un conteneur]]
 
 ## 4 · Relier

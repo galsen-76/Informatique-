@@ -7,7 +7,7 @@ concepts:
   - "[[Transaction]]"
 tags:
   - cours
-niveau: 2
+niveau: 5
 ---
 # Cours - Performance et cohérence, index et transactions
 

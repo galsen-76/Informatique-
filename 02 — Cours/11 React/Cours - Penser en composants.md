@@ -10,7 +10,7 @@ concepts:
   - "[[Outil de build front (Vite)]]"
 tags:
   - cours
-niveau: 4
+niveau: 6
 ---
 # Cours - Penser en composants
 

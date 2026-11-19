@@ -4,7 +4,7 @@ domain: python
 module: "[[Module 16 - Python]]"
 status: a-decouvrir
 level: debutant
-niveau: 4
+niveau: 5
 schema: false
 exercice_visuel: false
 fil_rouge: false

@@ -100,7 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Construire une image dans la CI » et je l'intègre ici avec `![[Schéma - Construire une image dans la CI.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 08 - La CI de l'API]]
+- [[MesDépenses 09 - La CI de l'API]]
 - [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Relier

@@ -8,7 +8,7 @@ concepts:
   - "[[Application monopage et routage]]"
 tags:
   - cours
-niveau: 4
+niveau: 6
 ---
 # Cours - Services, RxJS et routeur Angular
 

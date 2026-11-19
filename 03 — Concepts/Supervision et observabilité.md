@@ -4,7 +4,7 @@ domain: devops
 module: "[[Module 14 - DevOps et déploiement]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 5
+niveau: 4
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -101,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Supervision et observabilité » et je l'intègre ici avec `![[Schéma - Supervision et observabilité.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 14 - Déployer depuis la CI]]
 
 ## 4 · Relier
 - **Au travail** : [[Supervision et observabilité au travail]]

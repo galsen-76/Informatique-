@@ -4,7 +4,7 @@ domain: backend
 module: "[[Module 08 - Backend et API REST]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 4
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false

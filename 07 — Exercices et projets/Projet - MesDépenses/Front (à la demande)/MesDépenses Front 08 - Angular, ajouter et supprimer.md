@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 4
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Template et liaison de données]]"
@@ -14,7 +14,7 @@ tags:
 # MesDépenses 11 - Angular, ajouter et supprimer
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 10 - Angular, afficher la liste]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 07 - Angular, afficher la liste]]
 > **Cours :** [[Cours - Angular, composants et templates]] · [[Cours - Services, RxJS et routeur Angular]]
 > **Notions :** [[Template et liaison de données]] · [[Composant d'interface]] · [[Observable et RxJS]] · [[Formulaire HTML]] · [[Code de statut HTTP]]
 > **À créer :** formulaires réactifs Angular · `@Input` et `@Output`

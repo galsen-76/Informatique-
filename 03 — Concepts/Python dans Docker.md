@@ -4,7 +4,7 @@ domain: devops
 module: "[[Module 13 - Docker]]"
 status: en-cours
 level: debutant
-niveau: 1
+niveau: 2
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -97,7 +97,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Python dans Docker » et je l'intègre ici avec `![[Schéma - Python dans Docker.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 02 - L'API dans Docker]]
+- [[MesDépenses 04 - L'API dans Docker]]
 - [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## 4 · Relier

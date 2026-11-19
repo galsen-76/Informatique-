@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 3
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Pipeline GitLab CI]]"
@@ -15,7 +15,7 @@ tags:
 # MesDépenses 09 - La CI du front Vue
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 08 - La CI de l'API]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 09 - La CI de l'API]]
 > **Cours :** [[Cours - Construire et publier les images d'un projet avec GitLab CI]]
 > **Notions :** [[Pipeline GitLab CI]] · [[extends GitLab CI]] · [[Artefacts GitLab CI]] · [[Tester l'image, pas le dépôt]] · [[Principes DRY, KISS et YAGNI]]
 > **Fiches :** [[Fiche - Réflexes pour déboguer une pipeline]] · [[Bonnes pratiques - CI GitLab]]

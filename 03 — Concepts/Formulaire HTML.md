@@ -4,7 +4,7 @@ domain: web
 module: "[[Module 04 - HTML et CSS]]"
 status: a-decouvrir
 level: debutant
-niveau: 2
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -90,8 +90,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Formulaire HTML » et je l'intègre ici avec `![[Schéma - Formulaire HTML.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 05 - Vue, ajouter et supprimer]]
-- [[MesDépenses 11 - Angular, ajouter et supprimer]]
+- [[MesDépenses Front 03 - Vue, ajouter et supprimer]]
+- [[MesDépenses Front 08 - Angular, ajouter et supprimer]]
 
 ## 4 · Relier
 - **Prérequis** : [[Élément et attribut HTML]]

@@ -6,7 +6,7 @@ concepts:
   - "[[Application monopage et routage]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - Une application React complète
 

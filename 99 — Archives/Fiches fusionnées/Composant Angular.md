@@ -104,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Composant Angular » et je l'intègre ici avec `![[Schéma - Composant Angular.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 10 - Angular, afficher la liste]]
+- [[MesDépenses Front 07 - Angular, afficher la liste]]
 
 ## 4 · Relier
 - **Prérequis** : [[Angular]] · [[Type et interface TypeScript]]

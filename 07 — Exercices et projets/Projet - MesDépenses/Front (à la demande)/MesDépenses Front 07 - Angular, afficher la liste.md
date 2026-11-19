@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 4
+niveau: 6
 difficulty: moyen
 concepts:
   - "[[Angular]]"
@@ -16,7 +16,7 @@ tags:
 # MesDépenses 10 - Angular, afficher la liste
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 09 - La CI du front Vue]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 06 - La CI du front Vue]]
 > **Cours :** [[Cours - Angular, composants et templates]] · [[Cours - Services, RxJS et routeur Angular]]
 > **Notions :** [[Angular]] · [[Angular CLI]] · [[Composant d'interface]] · [[Template et liaison de données]] · [[Service et injection de dépendances]] · [[Observable et RxJS]] · [[Type et interface TypeScript]]
 > **Commande :** [[ng]]

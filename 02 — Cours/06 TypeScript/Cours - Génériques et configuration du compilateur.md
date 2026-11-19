@@ -7,7 +7,7 @@ concepts:
   - "[[Compilation TypeScript (tsc et tsconfig)]]"
 tags:
   - cours
-niveau: 4
+niveau: 6
 ---
 # Cours - Génériques et configuration du compilateur
 

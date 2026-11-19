@@ -84,6 +84,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 
 ### Appliquer dans le fil rouge
 - [[Dépenses 11 - Sauvegarder ses données]]
+- [[MesDépenses 11 - Installer l'API sur un serveur]]
 
 ## 4 · Relier
 - **Prérequis** : [[Permissions Linux]]

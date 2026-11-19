@@ -7,7 +7,7 @@ concepts:
   - "[[Pinia]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - Une application Vue, routeur et store
 

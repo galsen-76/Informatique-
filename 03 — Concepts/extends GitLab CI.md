@@ -92,8 +92,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - extends GitLab CI » et je l'intègre ici avec `![[Schéma - extends GitLab CI.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 09 - La CI du front Vue]]
-- [[MesDépenses 14 - La CI du front Angular]]
+- [[MesDépenses Front 06 - La CI du front Vue]]
+- [[MesDépenses Front 11 - La CI du front Angular]]
 - [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Relier

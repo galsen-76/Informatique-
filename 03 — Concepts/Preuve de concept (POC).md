@@ -4,7 +4,7 @@ domain: projet
 module: "[[Module 23 - Gestion de projet]]"
 status: a-decouvrir
 level: debutant
-niveau: 3
+niveau: 5
 schema: false
 exercice_visuel: false
 fil_rouge: false

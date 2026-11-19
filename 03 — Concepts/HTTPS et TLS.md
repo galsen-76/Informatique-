@@ -83,7 +83,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - HTTPS et TLS » et je l'intègre ici avec `![[Schéma - HTTPS et TLS.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 02 - Suivre une requête sur le réseau]]
+- [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 
 ## 4 · Relier
 - **Au travail** : [[HTTPS et TLS au travail]]

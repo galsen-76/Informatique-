@@ -102,7 +102,9 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Port » et je l'intègre ici avec `![[Schéma - Port.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 02 - L'API dans Docker]]
+- [[MesDépenses 02 - Suivre une requête sur le réseau]]
+- [[MesDépenses 04 - L'API dans Docker]]
+- [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 - [[Fil rouge 03 - Une page web pour le rapport]]
 
 ## 4 · Relier

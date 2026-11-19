@@ -4,7 +4,7 @@ domain: securite
 module: "[[Module 10 - Authentification et sécurité]]"
 status: a-decouvrir
 level: debutant
-niveau: 2
+niveau: 1
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -99,7 +99,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Secret et fichier .env » et je l'intègre ici avec `![[Schéma - Secret et fichier .env.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 07 - Tout lancer avec compose]]
+- [[MesDépenses Front 05 - Tout lancer avec compose]]
+- [[MesDépenses 03 - Un client Python pour l'API]]
 
 ## 4 · Relier
 - **Au travail** : [[Secret et fichier .env au travail]]

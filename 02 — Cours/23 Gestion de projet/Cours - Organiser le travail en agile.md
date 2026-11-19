@@ -8,7 +8,7 @@ concepts:
   - "[[Définition de terminé]]"
 tags:
   - cours
-niveau: 3
+niveau: 5
 ---
 # Cours - Organiser le travail en agile
 

@@ -4,7 +4,7 @@ domain: devops
 module: "[[Module 13 - Docker]]"
 status: en-cours
 level: intermediaire
-niveau: 1
+niveau: 2
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -92,8 +92,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Variable de build Docker (ARG) » et je l'intègre ici avec `![[Schéma - Variable de build Docker (ARG).excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 02 - L'API dans Docker]]
-- [[MesDépenses 06 - Le front Vue dans Docker]]
+- [[MesDépenses Front 04 - Le front Vue dans Docker]]
+- [[MesDépenses 04 - L'API dans Docker]]
 - [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## 4 · Relier

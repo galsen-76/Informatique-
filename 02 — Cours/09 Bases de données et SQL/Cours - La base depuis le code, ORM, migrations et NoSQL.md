@@ -8,7 +8,7 @@ concepts:
   - "[[Base NoSQL]]"
 tags:
   - cours
-niveau: 2
+niveau: 5
 ---
 # Cours - La base depuis le code, ORM, migrations et NoSQL
 

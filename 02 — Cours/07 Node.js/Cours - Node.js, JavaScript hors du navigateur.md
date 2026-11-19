@@ -9,7 +9,7 @@ concepts:
   - "[[Gestionnaire de versions de Node (nvm)]]"
 tags:
   - cours
-niveau: 2
+niveau: 6
 ---
 # Cours - Node.js, JavaScript hors du navigateur
 

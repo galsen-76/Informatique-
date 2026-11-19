@@ -4,7 +4,7 @@ domain: devops
 module: "[[Module 13 - Docker]]"
 status: en-cours
 level: intermediaire
-niveau: 1
+niveau: 2
 schema: false
 exercice_visuel: false
 fil_rouge: false

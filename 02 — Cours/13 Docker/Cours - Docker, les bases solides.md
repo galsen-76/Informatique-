@@ -13,7 +13,7 @@ concepts:
   - "[[Docker Compose]]"
 tags:
   - cours
-niveau: 1
+niveau: 2
 ---
 # Cours - Docker, les bases solides
 

@@ -4,7 +4,7 @@ domain: linux
 module: "[[Module 18 - Linux et serveurs]]"
 status: a-decouvrir
 level: debutant
-niveau: 3
+niveau: 4
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -84,7 +84,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Journaux système » et je l'intègre ici avec `![[Schéma - Journaux système.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 11 - Installer l'API sur un serveur]]
 
 ## 4 · Relier
 - **Prérequis** : [[Service (systemd)]] · [[Arborescence Linux]]

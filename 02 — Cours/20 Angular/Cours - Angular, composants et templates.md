@@ -9,7 +9,7 @@ concepts:
   - "[[Template et liaison de données]]"
 tags:
   - cours
-niveau: 4
+niveau: 6
 ---
 # Cours - Angular, composants et templates
 

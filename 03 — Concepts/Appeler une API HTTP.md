@@ -140,8 +140,9 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Appeler une API HTTP » et je l'intègre ici avec `![[Schéma - Appeler une API HTTP.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 03 - Vue, afficher la liste]]
-- [[MesDépenses 05 - Vue, ajouter et supprimer]]
+- [[MesDépenses Front 01 - Vue, afficher la liste]]
+- [[MesDépenses Front 03 - Vue, ajouter et supprimer]]
+- [[MesDépenses 03 - Un client Python pour l'API]]
 - [[Envoi 03 - Le même envoi sans pip]]
 
 ## 4 · Relier

@@ -96,7 +96,9 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - En-tête HTTP » et je l'intègre ici avec `![[Schéma - En-tête HTTP.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 04 - Régler CORS]]
+- [[MesDépenses Front 02 - Régler CORS]]
+- [[MesDépenses 02 - Suivre une requête sur le réseau]]
+- [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 
 ## 4 · Relier
 - **Prérequis** : [[HTTP]]

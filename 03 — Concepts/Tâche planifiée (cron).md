@@ -4,7 +4,7 @@ domain: linux
 module: "[[Module 18 - Linux et serveurs]]"
 status: a-decouvrir
 level: debutant
-niveau: 3
+niveau: 4
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -94,7 +94,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Tâche planifiée (cron) » et je l'intègre ici avec `![[Schéma - Tâche planifiée (cron).excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
+- [[MesDépenses 13 - Sauvegarder la base avec un script]]
 
 ## 4 · Relier
 - **Prérequis** : [[Script shell]] · [[Redirection et pipe]]

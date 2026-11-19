@@ -1,7 +1,7 @@
 ---
 type: exercise
 status: a-faire
-niveau: 4
+niveau: 6
 difficulty: facile
 concepts:
   - "[[Docker Compose]]"
@@ -13,8 +13,8 @@ tags:
 # MesDépenses 13 - Angular dans compose
 
 > [!info] Où tu en es
-> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses 12 - Le front Angular dans Docker]]
-> **Déjà fait une fois :** [[MesDépenses 07 - Tout lancer avec compose]]
+> **Projet :** [[Projet - MesDépenses]] · **Étape précédente :** [[MesDépenses Front 09 - Le front Angular dans Docker]]
+> **Déjà fait une fois :** [[MesDépenses Front 05 - Tout lancer avec compose]]
 > **Notions :** [[Docker Compose]] · [[CORS]] · [[Variable d'environnement]]
 
 ## Le but

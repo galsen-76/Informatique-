@@ -4,7 +4,7 @@ domain: frontend
 module: "[[Module 11 - React]]"
 status: a-decouvrir
 level: intermediaire
-niveau: 2
+niveau: 6
 schema: false
 exercice_visuel: false
 fil_rouge: false
@@ -123,8 +123,8 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 > _Je crée le dessin « Schéma - Application monopage et routage » et je l'intègre ici avec `![[Schéma - Application monopage et routage.excalidraw]]`, puis je coche `schema`._
 
 ### Appliquer dans le fil rouge
-- [[MesDépenses 06 - Le front Vue dans Docker]]
-- [[MesDépenses 12 - Le front Angular dans Docker]]
+- [[MesDépenses Front 04 - Le front Vue dans Docker]]
+- [[MesDépenses Front 09 - Le front Angular dans Docker]]
 
 ## 4 · Relier
 - **Au travail** : [[Application monopage et routage au travail]]
