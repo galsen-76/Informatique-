@@ -69,11 +69,28 @@ CVAT publie son schéma : `http://localhost:8080/api/schema/` et la doc interact
 > **OpenAPI** (la description de l'API) et l'**API** elle-même. Et OpenAPI (le standard) et Swagger (le nom de l'ancienne version et d'outils autour).
 
 ## 3 · Pratiquer
-- Ouvre `/api/docs/` sur ton CVAT local et trouve la route qui renvoie les annotations d'une tâche.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine comment la page `/docs` de FastAPI apparaît : le code des routes, le fichier OpenAPI généré, la page qui le lit.
+
+> [!example] 🔄 Change de contexte
+> Redessine le même circuit pour l'API CVAT et son SDK Python généré. Qui produit quoi à partir du fichier OpenAPI ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - OpenAPI » et je l'intègre ici avec `![[Schéma - OpenAPI.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 01 - Prendre l'API en main]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[API REST]] · [[Endpoint]] · [[YAML]]
@@ -84,7 +101,12 @@ CVAT publie son schéma : `http://localhost:8080/api/schema/` et la doc interact
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

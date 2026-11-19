@@ -76,12 +76,28 @@ python zipper.py --help            # aide générée
 > Argument de ligne de commande (`python s.py photos`) et [[Variable d'environnement]] (`DOSSIER=photos`). Les arguments disent **quoi traiter**, les variables d'environnement règlent plutôt **la configuration** (adresse d'un serveur, secret).
 
 ## 3 · Pratiquer
-- Ajoute `argparse` à un de tes scripts avec un argument positionnel et une option, puis lance `--help`.
-- Lance-le sans argument et lis le message d'erreur et le code de sortie.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine `python zipper.py photos --sortie export.zip` : comment chaque morceau arrive dans `sys.argv`, puis dans argparse.
+
+> [!example] 🔄 Change de contexte
+> Redessine-le pour une commande lancée par un job de CI. Qui écrit les arguments cette fois ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Arguments de ligne de commande » et je l'intègre ici avec `![[Schéma - Arguments de ligne de commande.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Fonction]] · [[Code de sortie]]
@@ -93,7 +109,12 @@ python zipper.py --help            # aide générée
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

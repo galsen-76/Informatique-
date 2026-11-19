@@ -94,11 +94,28 @@ except urllib.error.URLError as e:               # pas de réponse du tout
 > - urllib suit les variables `HTTP_PROXY` / `HTTPS_PROXY`, comme requests. Si elles sont définies, ajoute `NO_PROXY=localhost,127.0.0.1` pour que tes appels locaux ne partent pas vers le [[Proxy]].
 
 ## 3 · Pratiquer
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] ⚖️ Avant / après
+> Avant / après : le même appel à l'API MesDépenses avec requests, puis avec urllib.request. Dessine les étapes en plus que tu fais toi-même.
+
+> [!example] 🔄 Change de contexte
+> Redessine-le dans un conteneur où pip est bloqué par le proxy. Pourquoi urllib passe-t-il quand même ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Appeler une API sans pip (urllib.request) » et je l'intègre ici avec `![[Schéma - Appeler une API sans pip (urllib.request).excalidraw]]`._
+
+### Appliquer dans le fil rouge
 - [[Envoi 03 - Le même envoi sans pip]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[HTTP]] · [[Exception]] · [[Binaire et octet]]
@@ -110,7 +127,12 @@ except urllib.error.URLError as e:               # pas de réponse du tout
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

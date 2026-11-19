@@ -85,11 +85,28 @@ Un projet open source peut publier ses images sur **plusieurs** registres (Docke
 > `latest` n'est **pas** une version : c'est juste le tag par défaut. Préférer un tag précis (`1.2.0`, ou l'identifiant du commit).
 
 ## 3 · Pratiquer
-- Décompose le nom `nexus.mon-entreprise.com:8082/library/nginx:1.27` : quel est le registre, le chemin, le nom, le tag ?
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine le trajet d'une image construite dans la CI : build, tag, push vers le registre, pull sur le serveur.
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine Docker Hub, le Nexus de l'entreprise et le registre GitLab. Place qui peut lire et écrire dans chacun depuis le réseau Assystem.
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Registre Docker » et je l'intègre ici avec `![[Schéma - Registre Docker.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Image Docker]]
@@ -103,7 +120,12 @@ Un projet open source peut publier ses images sur **plusieurs** registres (Docke
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

@@ -76,11 +76,29 @@ CVAT est une SPA : `/tasks/12/jobs/34` est géré par son routeur React.
 > `<a href>` recharge toute la page ; dans une SPA, utilise le composant `Link` du routeur. Et une SPA n'est pas idéale pour le référencement : les frameworks comme Next.js ou Nuxt génèrent le HTML côté serveur (SSR).
 
 ## 3 · Pratiquer
-- Ajoute trois routes à une application Vite, dont une avec paramètre, puis recharge la page sur cette route avec `vite preview` et observe
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] ⚖️ Avant / après
+> Avant / après : un site classique qui recharge une page par adresse, puis une SPA. Dessine ce que le serveur envoie dans chaque cas.
+
+> [!example] 🛣️ Suis le trajet
+> Dessine ce qui arrive quand tu recharges `/depenses/3` sur le front Vue servi par nginx. Où faut-il une règle pour renvoyer `index.html` ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Application monopage et routage » et je l'intègre ici avec `![[Schéma - Application monopage et routage.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 06 - Le front Vue dans Docker]]
+- [[MesDépenses 12 - Le front Angular dans Docker]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Composant React]] · [[Client-serveur]] · [[HTTP]]
@@ -91,7 +109,12 @@ CVAT est une SPA : `/tasks/12/jobs/34` est géré par son routeur React.
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

@@ -78,12 +78,28 @@ Utilise `textContent` pour du texte ; `innerHTML` interprète du HTML et ouvre l
 > Le **DOM** n'est pas le **fichier HTML** : c'est sa version vivante en mémoire. Après une modification en JS, « Afficher le code source » montre l'ancien HTML, l'onglet Éléments montre le DOM actuel.
 
 ## 3 · Pratiquer
-- Dans la console d'une page, change le texte du titre et ajoute une classe
-- Génère une liste `<li>` à partir d'un tableau
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine l'arbre DOM de la liste des dépenses (ul, li, bouton supprimer). Montre ce qui change dans l'arbre quand on supprime une ligne.
+
+> [!example] ⚖️ Avant / après
+> Avant / après : modifier le DOM à la main avec `document.querySelector`, puis laisser Vue le faire. Dessine qui touche à l'arbre dans chaque cas.
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - DOM » et je l'intègre ici avec `![[Schéma - DOM.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[HTML]] · [[Sélecteur CSS]] · [[JavaScript]]
@@ -95,7 +111,12 @@ Utilise `textContent` pour du texte ; `innerHTML` interprète du HTML et ouvre l
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

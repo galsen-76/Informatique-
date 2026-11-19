@@ -73,11 +73,28 @@ print(octets_retrouves == octets)                   # True
 > - Quand on peut envoyer le fichier tel quel (corps brut ou multipart), c'est plus léger que base64.
 
 ## 3 · Pratiquer
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] ⚖️ Avant / après
+> Avant / après : les octets d'un PNG, puis le même PNG en Base64 dans un JSON. Dessine la taille et ce qu'on peut faire de chaque forme.
+
+> [!example] 🛣️ Suis le trajet
+> Suis le PNG produit par ta fonction Nuclio jusqu'au navigateur si tu le renvoies dans du JSON : encodage, envoi, décodage, affichage.
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Base64 » et je l'intègre ici avec `![[Schéma - Base64.excalidraw]]`._
+
+### Appliquer dans le fil rouge
 - [[Envoi 05 - Une image dans du JSON]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Binaire et octet]] · [[JSON]]
@@ -89,7 +106,12 @@ print(octets_retrouves == octets)                   # True
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

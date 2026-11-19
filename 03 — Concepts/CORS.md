@@ -137,13 +137,30 @@ Nuclio répond lui-même au preflight (ta fonction ne voit **plus jamais** de `O
 > L'[[API]] (REST ou non) est ce qu'on appelle. CORS ne change rien à l'API : c'est le **navigateur** qui vérifie si la page a le droit de lire sa réponse. Une API REST parfaite peut quand même être bloquée par CORS si elle n'envoie pas `Access-Control-Allow-Origin`.
 
 ## 3 · Pratiquer
-- [[Exercice - Une page qui appelle un autre serveur]]
-- [[Exercice - Distinguer API, API REST et CORS]]
-- [[Exercice - Rendre une API robuste]]
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Ton front Vue (5173) appelle l'API MesDépenses (8000) et se fait bloquer. Dessine la requête, le preflight OPTIONS, la réponse, et l'endroit où le navigateur bloque.
+
+> [!example] 🔄 Change de contexte
+> Redessine le même trajet quand le front et l'API passent par un même nginx (même origine). Où est passé le problème ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - CORS » et je l'intègre ici avec `![[Schéma - CORS.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 04 - Régler CORS]]
+- [[MesDépenses 05 - Vue, ajouter et supprimer]]
+- [[MesDépenses 13 - Angular dans compose]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[En-tête HTTP]] · [[Appeler une API avec fetch]]
@@ -154,7 +171,12 @@ Nuclio répond lui-même au preflight (ta fonction ne voit **plus jamais** de `O
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

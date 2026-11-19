@@ -68,12 +68,29 @@ Conséquences :
 > Le dossier du dépôt sur le runner (`$CI_PROJECT_DIR`) et le système de fichiers **de l'image**. Et un test qu'on « débloque » en le désactivant ne prouve plus rien : lis d'abord ce qu'il vérifie.
 
 ## 3 · Pratiquer
-- Dans la CI de CVAT, trouve un job de test et note **quelle image** il utilise.
-- Avec ton image de script, supprime volontairement un fichier de la ligne `COPY`, et observe un test échouer alors que le fichier est dans le dépôt.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] ⚖️ Avant / après
+> Avant / après : des tests lancés sur le code du dépôt, puis dans l'image construite. Dessine un bug qui passe dans le premier cas et qui est attrapé dans le second.
+
+> [!example] 🛣️ Suis le trajet
+> Dessine la pipeline : build de l'image, tests dans cette image, push seulement si les tests passent.
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Tester l'image, pas le dépôt » et je l'intègre ici avec `![[Schéma - Tester l'image, pas le dépôt.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 09 - La CI du front Vue]]
+- [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Image Docker]] · [[pytest]] · [[Pipeline GitLab CI]]
@@ -85,7 +102,12 @@ Conséquences :
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

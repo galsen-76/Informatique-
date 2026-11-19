@@ -82,13 +82,28 @@ code .
 > **WSL** (un vrai Linux) et **Git Bash** (quelques outils Linux compilés pour Windows, sur le disque Windows). Et un projet ouvert depuis `C:\` dans VS Code Windows avec le **même** projet dans `~/projets` : ce sont deux copies différentes.
 
 ## 3 · Pratiquer
-- Vérifie avec `wsl -l -v` que ta distribution est en version 2.
-- Crée un fichier depuis Ubuntu dans `~`, puis retrouve-le depuis l'Explorateur Windows via `\wsl$`.
-- Compare `which git` dans Ubuntu et `Get-Command git` dans PowerShell.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine ton PC : Windows, la petite machine virtuelle de WSL, Ubuntu dedans. Place `C:\`, `/mnt/c` et `~/projets`.
+
+> [!example] 🛣️ Suis le trajet
+> Suis le trajet d'un `git push` lancé depuis WSL vers vortex-gitlab : WSL, le certificat Assystem, le réseau de l'entreprise, le serveur.
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - WSL » et je l'intègre ici avec `![[Schéma - WSL.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Système d'exploitation et noyau]] · [[Shell]]
@@ -101,7 +116,12 @@ code .
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

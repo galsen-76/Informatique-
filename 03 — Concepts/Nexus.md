@@ -71,12 +71,28 @@ docker pull nexus.mon-entreprise.com:8082/library/python:3.11-slim
 > Un dépôt **proxy** (on y lit) et un dépôt **hosted** (on y pousse) : un `push` vers un proxy est refusé.
 
 ## 3 · Pratiquer
-- Demande à ton équipe et note ici : l'adresse du dépôt Docker proxy ou group, le dépôt où pousser, le compte de service pour la CI, et s'il existe des proxys pip, npm et apt.
-- Récupère une image officielle via le Nexus avec `docker pull`.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine un `docker pull python:3.12-slim` au travail : ton PC, le proxy, le Nexus, Docker Hub. Montre où l'image est gardée en copie.
+
+> [!example] 🔄 Change de contexte
+> Tu as dessiné le Nexus pour Docker. Redessine-le pour `pip install` et `npm install`. Qu'est-ce qui change ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Nexus » et je l'intègre ici avec `![[Schéma - Nexus.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Registre Docker]]
@@ -91,7 +107,12 @@ docker pull nexus.mon-entreprise.com:8082/library/python:3.11-slim
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

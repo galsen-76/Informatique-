@@ -86,11 +86,28 @@ Dans les tests, on passe une `SourceFichier` ou un faux objet : le cœur est tes
 > L'hexagonale n'impose pas six côtés ni beaucoup de dossiers. Pour un script de 50 lignes, c'est de la sur-ingénierie : commence par séparer les responsabilités, et passe aux ports quand une dépendance technique gêne les tests.
 
 ## 3 · Pratiquer
-- Dessine les ports et adaptateurs de ta fonction Nuclio d'export
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine ta fonction Nuclio d'export en hexagone : le cœur (graphe → PNG) au centre, les ports, et les adaptateurs (HTTP Nuclio, API CVAT) autour.
+
+> [!example] 🔄 Change de contexte
+> Remplace l'adaptateur HTTP Nuclio par une ligne de commande. Redessine : qu'est-ce qui change dans le cœur ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Architecture hexagonale » et je l'intègre ici avec `![[Schéma - Architecture hexagonale.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Architecture en couches]] · [[Interface et polymorphisme]]
@@ -101,7 +118,12 @@ Dans les tests, on passe une `SourceFichier` ou un faux objet : le cœur est tes
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

@@ -83,11 +83,28 @@ Ne pas confondre avec le [[Hachage de mot de passe]] : même idée de fonction d
 > Une table de hachage **ne garde pas d'ordre de tri** (Python garde l'ordre d'insertion, mais pas un ordre trié). Et utiliser un objet modifiable comme clé : `TypeError: unhashable type: 'list'` (utilise un tuple).
 
 ## 3 · Pratiquer
-- Réécris en O(n) avec un dict ou un set : trouver les doublons, le premier caractère non répété d'une chaîne, et l'intersection de deux listes
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine une table de hachage : la clé « tuyau », la fonction de hachage, la case, la valeur (l'id du label).
+
+> [!example] 🔄 Change de contexte
+> Redessine-la pour un dictionnaire Python et un objet JavaScript. Pourquoi l'accès est-il aussi rapide dans les deux ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Table de hachage » et je l'intègre ici avec `![[Schéma - Table de hachage.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Liste et dictionnaire]] · [[Complexité (notation grand O)]]
@@ -98,7 +115,12 @@ Ne pas confondre avec le [[Hachage de mot de passe]] : même idée de fonction d
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

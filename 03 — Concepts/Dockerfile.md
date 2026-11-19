@@ -84,11 +84,38 @@ Un Dockerfile peut contenir **plusieurs `FROM`** (*multi-stage build*) : une ét
 > `RUN` (pendant le build) et `CMD` (au démarrage du conteneur). Et le **Dockerfile** (la recette) avec l'**image** (le résultat).
 
 ## 3 · Pratiquer
-- Dans le dépôt CVAT, ouvre chaque Dockerfile et note ses lignes `FROM` : quelles images de départ sont utilisées ?
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine la construction de l'image de l'API étage par étage : chaque instruction (FROM, COPY, RUN, CMD) ajoute une couche. Marque celles qui sont réutilisées au build suivant.
+
+> [!example] 🔍 Trouve l'erreur
+> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
+>
+> ```mermaid
+> flowchart TD
+>   F[FROM python] --> C[COPY tout]
+>   C --> R[pip install]
+>   R --> M[CMD uvicorn]
+> ```
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Dockerfile » et je l'intègre ici avec `![[Schéma - Dockerfile.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 02 - L'API dans Docker]]
+- [[MesDépenses 06 - Le front Vue dans Docker]]
+- [[MesDépenses 12 - Le front Angular dans Docker]]
+- [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Docker]]
@@ -102,7 +129,12 @@ Un Dockerfile peut contenir **plusieurs `FROM`** (*multi-stage build*) : une ét
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

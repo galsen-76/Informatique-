@@ -80,11 +80,35 @@ resultats$ = this.recherche.valueChanges.pipe(
 > Oublier le `subscribe` (ou le pipe `async`) : **aucune requête n'est envoyée**. Et s'abonner à la main sans se désabonner crée des fuites de mémoire (`takeUntilDestroyed()` ou le pipe `async` règlent ça).
 
 ## 3 · Pratiquer
-- Écris une recherche pendant la frappe avec debounceTime et switchMap, et observe dans l'onglet Réseau les requêtes annulées
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine `this.service.lister().subscribe(...)` comme un tuyau dans le temps : l'abonnement, la valeur qui arrive, la fin du flux.
+
+> [!example] 🔍 Trouve l'erreur
+> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
+>
+> ```mermaid
+> flowchart TD
+>   G[http.get] --> R[Requête envoyée]
+>   R --> S[subscribe après]
+> ```
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Observable et RxJS » et je l'intègre ici avec `![[Schéma - Observable et RxJS.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 10 - Angular, afficher la liste]]
+- [[MesDépenses 11 - Angular, ajouter et supprimer]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Asynchrone et Promesse]] · [[Service et injection de dépendances]]
@@ -95,7 +119,12 @@ resultats$ = this.recherche.valueChanges.pipe(
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

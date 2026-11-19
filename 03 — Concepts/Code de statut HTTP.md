@@ -79,11 +79,34 @@ En Python : `rep.raise_for_status()` lève une exception pour 4xx et 5xx. En JS 
 > **401** (qui es-tu ? connecte-toi) et **403** (je sais qui tu es, mais c'est non). Et **502** (le proxy n'a pas eu de réponse valide de l'application) n'est pas **500** (l'application a planté en répondant).
 
 ## 3 · Pratiquer
-- Provoque avec curl un 200, un 201, un 404 et un 401 sur des API publiques
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine cinq tiroirs 1xx à 5xx et range dedans 200, 201, 204, 400, 404, 422, 500 avec un exemple tiré de MesDépenses.
+
+> [!example] 🔍 Trouve l'erreur
+> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
+>
+> ```mermaid
+> flowchart TD
+>   D[Dépense absente] --> R[200 avec null]
+>   M[Montant négatif] --> S[500]
+> ```
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Code de statut HTTP » et je l'intègre ici avec `![[Schéma - Code de statut HTTP.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 01 - Prendre l'API en main]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[HTTP]]
@@ -94,7 +117,12 @@ En Python : `rep.raise_for_status()` lève une exception pour 4xx et 5xx. En JS 
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

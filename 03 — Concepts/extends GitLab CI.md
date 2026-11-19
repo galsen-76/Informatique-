@@ -72,11 +72,30 @@ Les **dictionnaires** (`variables:`) sont fusionnés ; les **listes** (`script:`
 > `extends:` (héritage propre à GitLab, lisible) et les **ancres YAML** `&nom` / `<<: *nom` (mécanisme du YAML lui-même, qui ne marche pas entre fichiers inclus). Et redéfinir `script:` dans le job **remplace** celui du modèle, il ne s'y ajoute pas.
 
 ## 3 · Pratiquer
-- Factorise deux jobs qui se ressemblent avec un job caché, puis vérifie le résultat fusionné dans le pipeline editor.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] ⚖️ Avant / après
+> Avant / après : trois jobs de build qui répètent la même configuration, puis les mêmes qui héritent d'un modèle `.build`. Dessine ce qui a été factorisé.
+
+> [!example] 🛣️ Suis le trajet
+> Dessine comment GitLab fusionne `.build` et le job `build-api` : ce qui vient du modèle, ce qui est remplacé.
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - extends GitLab CI » et je l'intègre ici avec `![[Schéma - extends GitLab CI.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 09 - La CI du front Vue]]
+- [[MesDépenses 14 - La CI du front Angular]]
+- [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Pipeline GitLab CI]] · [[YAML]]
@@ -87,7 +106,12 @@ Les **dictionnaires** (`variables:`) sont fusionnés ; les **listes** (`script:`
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

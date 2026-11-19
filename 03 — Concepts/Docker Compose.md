@@ -82,12 +82,36 @@ Plusieurs fichiers peuvent se superposer : `docker compose -f docker-compose.yml
 > `docker compose` (v2, une sous-commande, à utiliser) et `docker-compose` (l'ancien outil séparé). Et `depends_on` attend que le conteneur **démarre**, pas que le service soit **prêt**.
 
 ## 3 · Pratiquer
-- Lis le `docker-compose.yml` de CVAT : liste les services, leurs images et les ports publiés.
-- Écris un compose avec `postgres` et un conteneur `python:3.12-slim` qui fait `sleep infinity`, puis vérifie depuis le second que `db` répond à son nom (`getent hosts db`).
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine le `docker-compose.yml` de MesDépenses en image : les services api, front-vue, front-angular, leurs ports, le volume, le réseau commun.
+
+> [!example] 🔍 Trouve l'erreur
+> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
+>
+> ```mermaid
+> flowchart TD
+>   V[front-vue] --> L[localhost:8000]
+>   L --> A[api]
+> ```
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Docker Compose » et je l'intègre ici avec `![[Schéma - Docker Compose.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 07 - Tout lancer avec compose]]
+- [[MesDépenses 13 - Angular dans compose]]
+- [[Fil rouge 03 - Une page web pour le rapport]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Conteneur]] · [[YAML]] · [[Volume Docker]] · [[Port]]
@@ -99,7 +123,12 @@ Plusieurs fichiers peuvent se superposer : `docker compose -f docker-compose.yml
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

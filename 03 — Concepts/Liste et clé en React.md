@@ -83,11 +83,28 @@ Attention : `sort` modifie le tableau ; sur un état, trie une copie (`[...tache
 > La `key` n'est pas une prop lisible par l'enfant : si l'enfant a besoin de l'id, passe-le aussi en prop. Et React affiche un avertissement *Each child in a list should have a unique "key" prop* : ne l'ignore pas.
 
 ## 3 · Pratiquer
-- Affiche une liste avec un champ texte par ligne, utilise `key={i}`, insère un élément au début et observe le bug ; corrige avec un id
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine une liste de trois dépenses, puis la suppression de celle du milieu. Montre comment React retrouve les lignes grâce à leur `key`.
+
+> [!example] ⚖️ Avant / après
+> Avant / après : `key={index}` puis `key={depense.id}`. Dessine ce qui se mélange dans le premier cas.
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Liste et clé en React » et je l'intègre ici avec `![[Schéma - Liste et clé en React.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Composant React]] · [[Méthodes de tableau (map, filter, reduce)]]
@@ -98,7 +115,12 @@ Attention : `sort` modifie le tableau ; sur un état, trie une copie (`[...tache
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

@@ -83,11 +83,28 @@ except ZeroDivisionError:
 > `print` (sortie du programme, pour l'utilisateur) et `logging` (journal, sur stderr par défaut). Et ne journalise jamais un mot de passe ou un jeton.
 
 ## 3 · Pratiquer
-- Remplace tous les `print` de débogage d'un de tes scripts par `logging`, et règle le niveau avec une variable d'environnement.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine un message `logger.warning(...)` : le logger, le niveau, le handler, l'endroit où il est affiché (console Nuclio).
+
+> [!example] ⚖️ Avant / après
+> Avant / après : des `print` partout, puis des messages `logging`. Dessine ce que tu peux filtrer et retrouver dans le second cas.
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Journaliser avec logging » et je l'intègre ici avec `![[Schéma - Journaliser avec logging.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[Réannoter 08 - Ranger le script]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Module et import Python]] · [[Variable d'environnement]]
@@ -98,7 +115,12 @@ except ZeroDivisionError:
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

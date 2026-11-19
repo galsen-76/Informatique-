@@ -106,12 +106,38 @@ test-server:
 > GitLab CI (`.gitlab-ci.yml`) et GitHub Actions (`.github/workflows/`) : un projet repris de GitHub garde sa CI GitHub, que GitLab **ignore**.
 
 ## 3 · Pratiquer
-- Écris un `.gitlab-ci.yml` avec un seul job qui affiche `docker version`, et fais-le passer au vert.
-- Vérifie la syntaxe dans *Build > Pipeline editor* avant de pousser.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine la pipeline de l'API MesDépenses : les stages, les jobs dans chaque stage, l'ordre d'exécution.
+
+> [!example] 🔍 Trouve l'erreur
+> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
+>
+> ```mermaid
+> flowchart TD
+>   B[Build image] --> T[Tests]
+>   T --> P[Push image]
+>   B --> P
+> ```
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Pipeline GitLab CI » et je l'intègre ici avec `![[Schéma - Pipeline GitLab CI.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 08 - La CI de l'API]]
+- [[MesDépenses 09 - La CI du front Vue]]
+- [[MesDépenses 14 - La CI du front Angular]]
+- [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Git]]
@@ -124,7 +150,12 @@ test-server:
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

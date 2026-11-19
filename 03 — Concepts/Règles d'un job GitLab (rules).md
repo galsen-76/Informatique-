@@ -79,12 +79,30 @@ Un job **manuel** sans `allow_failure: true` **bloque** les stages suivants jusq
 > `when: never` / aucune règle (le job **n'existe pas** dans la pipeline) et `skipped` (le job existe mais n'a pas été lancé). Et l'ancien `only:` / `except:` : même rôle, à ne pas mélanger avec `rules:` dans un même job.
 
 ## 3 · Pratiquer
-- Écris un job qui tourne automatiquement sur `main` et en manuel ailleurs, et vérifie son comportement sur deux branches.
-- Dans la CI de CVAT, trouve un job `allow_failure` et un job `manual`, et explique pourquoi ils le sont.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🧠 Dessine de mémoire
+> Dessine trois situations (push sur une branche, merge request, tag) et, pour chacune, les jobs de MesDépenses qui se lancent.
+
+> [!example] 🔄 Change de contexte
+> Redessine-les pour un dépôt avec trois dossiers (api, front-vue, front-angular) : comment ne lancer que les jobs de la partie modifiée ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Règles d'un job GitLab (rules) » et je l'intègre ici avec `![[Schéma - Règles d'un job GitLab (rules).excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 08 - La CI de l'API]]
+- [[MesDépenses 14 - La CI du front Angular]]
+- [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Variables CI-CD GitLab]] · [[YAML]]
@@ -95,7 +113,12 @@ Un job **manuel** sans `allow_failure: true` **bloque** les stages suivants jusq
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

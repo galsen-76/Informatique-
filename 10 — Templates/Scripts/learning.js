@@ -18,6 +18,7 @@ const CFG = {
   commands: "04 — Commandes",
   errors: "06 — Erreurs et solutions",
   exercises: "07 — Exercices et projets",
+  archives: "99 — Archives/Anciens exercices",
 };
 
 const STATUS = {
@@ -85,12 +86,24 @@ const modules = () => dv.pages(`"${CFG.modules}"`).where((p) => p.type === "modu
 const exercises = () => dv.pages(`"${CFG.exercises}"`).where((p) => p.type === "exercise" || p.type === "project").array();
 const pageOf = (path) => dv.page(path);
 
-// Exercices (type « exercise ») qui citent la notion dans leur propriété « concepts »
+// Étapes du fil rouge (type « exercise » dans « 07 ») qui citent la notion dans leur propriété « concepts »
 const exercisesOf = (page) => exercises().filter((e) => e.type === "exercise" && linkPaths(e.concepts).includes(page.file.path));
+// Anciens exercices archivés : ceux réussis restent des preuves
+const oldProofs = (page) => dv.pages(`"${CFG.archives}"`).where((e) => e.status === "reussi" && linkPaths(e.concepts).includes(page.file.path)).array();
+// Mon schéma : la fiche intègre un dessin Excalidraw (fichier *.excalidraw ou *.excalidraw.md)
+const hasSchema = (page) => arr(page.file.outlinks).some((l) => /\.excalidraw(\.md)?$/.test(resolve(l.path)));
 function mastery(page) {
-  // La maîtrise est validée quand tous les exercices liés à la notion sont réussis
+  // Preuve « appliquer » : les étapes du fil rouge qui utilisent la notion
   const ex = exercisesOf(page);
   return { done: ex.filter((e) => e.status === "reussi").length, total: ex.length, ex };
+}
+// Preuve « expliquer » : la section 4 n'a plus le texte d'aide, et j'y ai écrit quelque chose
+async function hasExplanation(page) {
+  const text = (await dv.io.load(page.file.path)) || "";
+  const m = text.match(/## 4 · Expliquer\n([\s\S]*?)(?=\n## |$)/);
+  if (!m) return false;
+  const body = m[1].split("\n").filter((l) => !/^>\s*\[!/.test(l) && !/^>\s*_.*_\s*$/.test(l)).join(" ").replace(/[>\s]/g, "");
+  return body.length > 20;
 }
 function progress(list) {
   if (!list.length) return 0;
@@ -167,7 +180,7 @@ function vDashboard() {
     const ex = linking(current.file.path, exercises());
     if (ex.length) lines.push("Pratiquer : " + ex.map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`).join(" · "));
     const m = mastery(current);
-    if (m.total) lines.push(`Validation de la maîtrise : ${m.done}/${m.total} exercices réussis`);
+    lines.push(`Mon schéma : ${hasSchema(current) ? "fait" : "à dessiner"}` + (m.total ? ` · fil rouge : ${m.done}/${m.total} étapes réussies` : ""));
     bullets(f, lines);
     if (!r.ready) md(f, `> [!warning] Prérequis à consolider\n> ${r.missing.map((p) => wiki(p.file.path)).join(", ")} ${r.missing.length > 1 ? "ne sont" : "n'est"} pas encore compris : reviens-y avant d'aller plus loin.`);
   }
@@ -188,15 +201,21 @@ function vDashboard() {
   // Révisions
   const rv = panel(grid, "À réviser", "orange");
   const due = all.filter((c) => c.next_review && toM(c.next_review).isSameOrBefore(today, "day")).sort((a, b) => toM(a.next_review) - toM(b.next_review));
-  const toConfirm = all.filter((c) => c.status === "maitrise" && (() => { const m = mastery(c); return m.total && m.done < m.total; })());
+  const toConfirm = all.filter((c) => c.status === "maitrise" && !hasSchema(c));
   bullets(rv, [
     ...due.map((c) => `${wiki(c.file.path)} ${sbadge(c.status)} · prévue le ${toM(c.next_review).format("DD/MM")}`),
-    ...toConfirm.map((c) => `${wiki(c.file.path)} · maîtrise à confirmer (${mastery(c).done}/${mastery(c).total} exercices réussis)`),
+    ...toConfirm.map((c) => `${wiki(c.file.path)} · maîtrisée, mais pas encore dessinée`),
   ], "Rien à réviser aujourd'hui");
 
-  // Exercices
-  const xp = panel(grid, "Exercices et projets en cours", "green");
-  bullets(xp, exercises().filter((e) => e.status !== "reussi").map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`), "Aucun exercice en cours");
+  // Exercices visuels : notions travaillées dont le schéma n'est pas encore fait
+  const vx = panel(grid, "Exercices visuels à faire", "blue");
+  const toDraw = all.filter((c) => (c.status === "en-cours" || c.status === "compris") && !hasSchema(c));
+  bullets(vx, toDraw.slice(0, 8).map((c) => `${wiki(c.file.path)} ${sbadge(c.status)}`).concat(toDraw.length > 8 ? [`… et ${toDraw.length - 8} autres, voir [[Révisions]]`] : []),
+    "Toutes les notions en cours ont leur schéma");
+
+  // Fil rouge et projets
+  const xp = panel(grid, "Fil rouge et projets en cours", "green");
+  bullets(xp, exercises().filter((e) => e.type === "project" && e.status !== "reussi").map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`), "Aucun projet en cours");
 
   // Erreurs récentes
   const er = panel(grid, "Erreurs récentes", "red");
@@ -262,28 +281,32 @@ function vConcept() {
   const usedBy = concepts().filter((c) => linkPaths(c.prerequisites).includes(cur.file.path) || linkPaths(c.parents).includes(cur.file.path));
   if (usedBy.length) lines.push("**Mène à** : " + usedBy.map((c) => wiki(c.file.path)).join(" · "));
   const ex = linking(cur.file.path, exercises());
-  if (ex.length) lines.push("**Exercices** : " + ex.map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`).join(" · "));
+  if (ex.length) lines.push("**Fil rouge** : " + ex.map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`).join(" · "));
   const cmds = linking(cur.file.path, dv.pages(`"${CFG.commands}"`).where((p) => p.type === "command").array());
   if (cmds.length) lines.push("**Commandes** : " + cmds.map((c) => wiki(c.file.path)).join(" · "));
-  const m = mastery(cur);
-  if (!m.total) lines.push("**Maîtrise** : aucun exercice lié pour l'instant");
-  else lines.push(`**Maîtrise** : ${m.done}/${m.total} exercices réussis` +
-    (cur.status === "maitrise" && m.done < m.total ? " — statut « Maîtrisé » à confirmer" : "") +
-    (m.done === m.total && cur.status !== "maitrise" ? " — tu peux passer en « Maîtrisé »" : ""));
+  lines.push(`**Mon schéma** : ${hasSchema(cur) ? "fait" : "à dessiner (section 3)"}`);
   if (cur.next_review) lines.push(`**Prochaine révision** : ${toM(cur.next_review).format("DD/MM/YYYY")}`);
   bullets(box, lines);
 }
 
-function vMaitrise() {
+async function vMaitrise() {
+  // Trois preuves : expliquer (section 4), adapter (interrogation dans le chat), appliquer (fil rouge)
   const m = mastery(cur);
-  if (!m.total) return empty(root, "Aucun exercice lié pour l'instant : la maîtrise ne peut pas encore être validée.");
-  bullets(root, m.ex.map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`));
-  if (m.done === m.total) {
-    md(root, cur.status === "maitrise" ? "> [!success] Maîtrise validée\n> Tous les exercices liés sont réussis."
-      : "> [!success] Maîtrise validée\n> Tous les exercices liés sont réussis : tu peux passer le statut en « Maîtrisé ».");
-  } else {
-    md(root, `> [!todo] Pas encore validée\n> ${m.done}/${m.total} exercice${m.total > 1 ? "s" : ""} réussi${m.done > 1 ? "s" : ""}.`);
-  }
+  const explained = await hasExplanation(cur);
+  const drawn = hasSchema(cur);
+  const applied = m.total > 0 && m.done > 0;
+  const ok = (b) => (b ? "✅" : "⬜");
+  const lines = [
+    `${ok(drawn)} **Mon schéma** : ${drawn ? "dessiné" : "pas encore dessiné (section 3)"}`,
+    `${ok(explained)} **Je l'explique** : ${explained ? "écrit dans la section 4" : "section 4 encore vide"}`,
+    `⬜ **Je l'adapte** : à vérifier en demandant à Claude de m'interroger sur un autre contexte`,
+    `${ok(applied)} **Je l'applique** : ` + (m.total ? m.ex.map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`).join(" · ") : "pas encore d'étape du fil rouge pour cette notion"),
+  ];
+  const old = oldProofs(cur);
+  if (old.length) lines.push(`Anciennes preuves : ${old.map((e) => wiki(e.file.path)).join(" · ")}`);
+  bullets(root, lines);
+  if (cur.status === "maitrise") md(root, "> [!success] Notion marquée « Maîtrisé »");
+  else if (drawn && explained && applied) md(root, "> [!tip] Presque\n> Schéma, explication et pratique sont là : demande à Claude de t'interroger sur un autre contexte, puis passe le statut en « Maîtrisé ».");
 }
 
 function vRevisions() {
@@ -297,11 +320,11 @@ function vRevisions() {
   bullets(soon, all.filter((c) => c.next_review && toM(c.next_review).isAfter(today, "day") && toM(c.next_review).isSameOrBefore(today.clone().add(7, "days"), "day"))
     .sort((a, b) => toM(a.next_review) - toM(b.next_review))
     .map((c) => `**${toM(c.next_review).clone().locale("fr").format("ddd DD/MM")}** ${wiki(c.file.path)}`), "Rien cette semaine");
-  const conf = panel(grid, "Maîtrise à confirmer", "red");
-  bullets(conf, all.filter((c) => c.status === "maitrise").filter((c) => { const m = mastery(c); return m.total && m.done < m.total; })
-    .map((c) => `${wiki(c.file.path)} · ${mastery(c).done}/${mastery(c).total} exercices réussis`), "Toutes les maîtrises sont validées");
-  const up = panel(grid, "Prêtes à passer en « Maîtrisé »", "green");
-  bullets(up, all.filter((c) => c.status !== "maitrise").filter((c) => { const m = mastery(c); return m.total && m.done === m.total; })
+  const draw = panel(grid, "Exercices visuels à faire (notions travaillées sans schéma)", "red");
+  bullets(draw, all.filter((c) => c.status !== "a-decouvrir" && !hasSchema(c))
+    .map((c) => `${wiki(c.file.path)} ${sbadge(c.status)}`), "Toutes les notions travaillées ont leur schéma");
+  const up = panel(grid, "À faire interroger (schéma fait et fil rouge réussi)", "green");
+  bullets(up, all.filter((c) => c.status !== "maitrise" && hasSchema(c)).filter((c) => { const m = mastery(c); return m.total && m.done === m.total; })
     .map((c) => wiki(c.file.path)), "Aucune pour l'instant");
   const never = panel(grid, "Comprises mais sans révision prévue", "grey");
   bullets(never, all.filter((c) => (c.status === "compris" || c.status === "maitrise") && !c.next_review).map((c) => wiki(c.file.path)), "—");

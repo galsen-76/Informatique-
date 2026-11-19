@@ -73,12 +73,36 @@ Rapport de tests affiché dans GitLab : `pytest --junitxml=rapport.xml` et `arti
 > **Artefacts** (résultats d'un job, transmis aux suivants) et **cache** (`cache:`, accélère des jobs en gardant par exemple les téléchargements pip, sans garantie). Et une **image Docker** ne passe pas par les artefacts : elle passe par un [[Registre Docker]].
 
 ## 3 · Pratiquer
-- Crée un job qui génère un fichier texte en artefact, et un second job qui l'affiche.
-- Télécharge l'artefact depuis l'interface de GitLab.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine deux jobs : le premier produit `dist/`, le garde en artefact ; le second le récupère. Montre le chemin du dossier entre les deux.
+
+> [!example] 🔍 Trouve l'erreur
+> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
+>
+> ```mermaid
+> flowchart TD
+>   J1[Job build] --> D[dist créé]
+>   D --> J2[Job suivant]
+>   J2 --> V[dist présent]
+> ```
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Artefacts GitLab CI » et je l'intègre ici avec `![[Schéma - Artefacts GitLab CI.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 09 - La CI du front Vue]]
+- [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Pipeline GitLab CI]]
@@ -89,7 +113,12 @@ Rapport de tests affiché dans GitLab : `pytest --junitxml=rapport.xml` et `arti
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

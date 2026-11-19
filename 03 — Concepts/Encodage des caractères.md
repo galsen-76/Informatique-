@@ -62,11 +62,35 @@ iconv -f latin1 -t utf-8 ancien.txt > nouveau.txt
 > **Encodage** (UTF-8, Latin-1 : comment stocker les caractères) et **fins de ligne** (CRLF / LF : comment terminer une ligne, voir [[Fichiers entre Windows et Linux]]). Et un fichier binaire (image) n'a pas d'encodage de texte.
 
 ## 3 · Pratiquer
-- Enregistre un texte accentué en UTF-8, relis-le en Latin-1 en Python, puis répare-le.
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine le trajet du mot « été » : tu le tapes dans un fichier sous Windows, il est enregistré en octets, puis lu sous Linux. Marque l'endroit où il peut devenir « Ã©tÃ© ».
+
+> [!example] 🔍 Trouve l'erreur
+> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
+>
+> ```mermaid
+> flowchart TD
+>   T[Texte été] --> U[Octets UTF-8]
+>   U --> L[Lu en UTF-8]
+>   L --> X[Ã©tÃ© affiché]
+> ```
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Encodage des caractères » et je l'intègre ici avec `![[Schéma - Encodage des caractères.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- Pas encore d'étape du fil rouge pour cette notion : je l'applique dans mon travail (CVAT, Nuclio) ou je demande une étape à Claude.
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Binaire et octet]]
@@ -77,7 +101,12 @@ iconv -f latin1 -t utf-8 ancien.txt > nouveau.txt
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })

@@ -151,13 +151,29 @@ Ne confonds pas non plus le **jeton du runner** (`glrt-…`, qui l'enregistre au
 Avec l'exécuteur **shell**, les jobs tournent directement sur la machine, avec ses fichiers : un job peut laisser des restes qui faussent le suivant, et un script malveillant agit sur la machine. Préfère l'exécuteur docker.
 
 ## 3 · Pratiquer
-- Ouvre le journal d'un job de ta pipeline et repère : le nom du runner, l'exécuteur, l'image, le clone et le début de ton script
-- Dans *Settings → CI/CD → Runners* de ton projet, note les runners disponibles et leurs tags
-- Fais l'étape [[Fil rouge 05 - Première pipeline, les tests]] du projet fil rouge
+
+### Exercice visuel
+
+Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin avec mes mots (section 4).
+
+> [!example] 🛣️ Suis le trajet
+> Dessine ce qui se passe quand GitLab a un job à lancer : le serveur GitLab, le runner qui demande du travail, le conteneur du job, le résultat.
+
+> [!example] 🔄 Change de contexte
+> Redessine-le pour le runner de l'entreprise, sans accès direct à Internet. Par où passent les images et les paquets ?
+
+### Mon schéma
+
+> [!tip] Mon dessin Excalidraw
+> _Je crée le dessin « Schéma - Runner GitLab » et je l'intègre ici avec `![[Schéma - Runner GitLab.excalidraw]]`._
+
+### Appliquer dans le fil rouge
+- [[MesDépenses 08 - La CI de l'API]]
+- [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Expliquer
 > [!quote] Mon résumé, avec mes mots
-> _À écrire sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
+> _J'explique mon schéma avec mes mots, sans regarder la fiche. Si je bloque, je ne l'ai pas encore compris._
 
 ## 5 · Relier
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Docker]] · [[Conteneur]]
@@ -169,7 +185,12 @@ Avec l'exécuteur **shell**, les jobs tournent directement sur la machine, avec 
 > Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
 
 ### Validation de la maîtrise
-La notion est maîtrisée quand j'ai réussi **tous les exercices** qui l'utilisent (statut `reussi` dans l'exercice).
+La notion est maîtrisée quand je sais :
+1. **l'expliquer** de façon fluide, à partir de mon schéma (section 4) ;
+2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
+3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
+
+Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
 
 ```dataviewjs
 await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
