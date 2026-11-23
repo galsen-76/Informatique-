@@ -70,6 +70,23 @@ Tache.objects.filter(projet__nom="Chantier").count()
 ```
 Piège classique : le **problème N+1**. Charger 100 tâches puis, dans une boucle, leur projet un par un, fait 101 requêtes. Solution : demander la jointure (`include`, `select_related`).
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change. Les exemples plus haut sont en Python ou en JavaScript.
+>
+> **C# (.NET)**
+> ```csharp
+> public class AppDb : DbContext
+> {
+>     public AppDb(DbContextOptions<AppDb> options) : base(options) { }
+>     public DbSet<Depense> Depenses => Set<Depense>();   // une table
+> }
+>
+> var grosses = await db.Depenses.Where(d => d.Montant > 100).ToListAsync();
+> db.Depenses.Add(new Depense("Loyer", 600m));
+> await db.SaveChangesAsync();
+> ```
+> L'ORM de .NET est **Entity Framework Core**. Le `Where` est traduit en SQL. Les migrations : `dotnet ef migrations add Init` puis `dotnet ef database update`.
+
 ### Cas d'utilisation
 - Le backend d'une application web
 - Prototyper vite

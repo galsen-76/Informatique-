@@ -107,6 +107,22 @@ FileNotFoundError: [Errno 2] No such file or directory: 'donnees/config.json'
 > cp a.txt b/ || { echo "copie ratée" >&2; exit 1; }
 > ```
 > Bash n'a pas d'exceptions : il a des [[Code de sortie|codes de sortie]], qu'on teste avec `||`, `&&` ou `if`.
+>
+> **C# (.NET)**
+> ```csharp
+> try
+> {
+>     var n = int.Parse(texte);
+> }
+> catch (FormatException ex)
+> {
+>     logger.LogWarning(ex, "Invalid number: {Text}", texte);
+> }
+> finally { /* toujours exécuté */ }
+>
+> throw new ArgumentException("Amount must be positive");
+> ```
+> Attrape le type d'exception précis, jamais un `catch (Exception)` vide. `throw;` seul relance l'exception en gardant son origine.
 
 ### Cas d'utilisation
 - Gérer un fichier absent ou un dossier non accessible

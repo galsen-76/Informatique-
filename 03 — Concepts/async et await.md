@@ -75,6 +75,20 @@ async function exporter(ids) {
 }
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change. Les exemples plus haut sont en Python ou en JavaScript.
+>
+> **C# (.NET)**
+> ```csharp
+> public async Task<string> LireAsync(string url)
+> {
+>     var reponse = await http.GetAsync(url);
+>     reponse.EnsureSuccessStatusCode();
+>     return await reponse.Content.ReadAsStringAsync();
+> }
+> ```
+> `Task<T>` joue le rôle de la promesse. Par convention le nom finit par `Async`. Ne jamais bloquer avec `.Result` ou `.Wait()` : `await` jusqu'en haut.
+
 ### Cas d'utilisation
 - Appels d'API dans les composants et services
 - Scripts Node qui lisent des fichiers

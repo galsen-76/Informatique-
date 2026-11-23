@@ -34,6 +34,7 @@ flowchart TD
   M21["Module 21 - Algorithmique"]
   M22["Module 22 - Design patterns"]
   M23["Module 23 - Gestion de projet"]
+  M24["Module 24 - .NET"]
   M1 --> M2
   M2 --> M3
   M1 --> M4
@@ -75,6 +76,8 @@ flowchart TD
   M15 --> M22
   M16 --> M22
   M1 --> M23
+  M8 --> M24
+  M16 --> M24
   class M1 internal-link;
   class M2 internal-link;
   class M3 internal-link;
@@ -98,6 +101,7 @@ flowchart TD
   class M21 internal-link;
   class M22 internal-link;
   class M23 internal-link;
+  class M24 internal-link;
 ```
 
 ## Ordre conseillé

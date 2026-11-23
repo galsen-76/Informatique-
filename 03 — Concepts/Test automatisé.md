@@ -87,6 +87,21 @@ Outils : [[Test automatisé]] (Python), [[Test automatisé]] (JavaScript), Playw
 > // lancer : npx vitest run
 > ```
 > Les deux outils trouvent les tests tout seuls (`test_*.py`, `*.test.js`) et rendent un code de sortie : 0 si tout passe, ce que lit la CI.
+>
+> **C# (.NET)**
+> ```csharp
+> public class CalculTests
+> {
+>     [Fact]
+>     public void Total_additionne_les_montants()
+>     {
+>         var total = Calcul.Total(new() { 2m, 3m });
+>         Assert.Equal(5m, total);
+>     }
+> }
+> // lancer : dotnet test
+> ```
+> Avec **xUnit**, le plus courant (NUnit et MSTest se ressemblent). Les tests vivent dans un projet à part de la solution ; `[Theory]` + `[InlineData(…)]` lance le même test avec plusieurs valeurs. Voir [[dotnet test]].
 
 ### Cas d'utilisation
 - Le job `test` de la pipeline GitLab

@@ -68,6 +68,19 @@ nom = os.environ.get("NOM", "inconnu")   # "inconnu" si la variable n'existe pas
 docker run -e NOM=Oumar mon-image   # la donner à un conteneur
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change. Les exemples plus haut sont en Python ou en JavaScript.
+>
+> **C# (.NET)**
+> ```csharp
+> // appsettings.json : { "Api": { "Url": "http://localhost:8000" } }
+> var url = builder.Configuration["Api:Url"];
+>
+> // lue directement :
+> var cle = Environment.GetEnvironmentVariable("API_KEY");
+> ```
+> ASP.NET Core lit `appsettings.json`, puis les variables d'environnement, qui **écrasent** le fichier : `Api__Url` (deux `_`) remplace `Api:Url`. `ASPNETCORE_ENVIRONMENT=Development` charge en plus `appsettings.Development.json`.
+
 ### Cas d'utilisation
 - Configurer un script Python ou un conteneur (`-e` avec Docker)
 - Les variables d'une pipeline : [[Variables CI-CD GitLab]]

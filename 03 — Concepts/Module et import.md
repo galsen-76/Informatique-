@@ -98,6 +98,18 @@ if __name__ == "__main__":
 > source ./outils.sh      # ou : . ./outils.sh
 > mafonction              # définie dans outils.sh
 > ```
+>
+> **C# (.NET)**
+> ```csharp
+> // Depense.cs, dans le projet Core
+> namespace MesDepenses.Core;
+> public class Depense { /* … */ }
+>
+> // Program.cs, dans un autre projet
+> using MesDepenses.Core;
+> var d = new Depense();
+> ```
+> Un **namespace** range les classes (comme un dossier de noms), `using` dit lesquelles on utilise. Entre deux projets il faut aussi une référence : voir [[Projet et solution .NET]].
 
 ### Cas d'utilisation
 - `import zipfile, shutil, os, sys` pour ton script

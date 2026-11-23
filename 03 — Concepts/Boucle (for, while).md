@@ -99,6 +99,17 @@ while essais < 3:
 >   echo "$ligne"
 > done < depenses.csv
 > ```
+>
+> **C# (.NET)**
+> ```csharp
+> foreach (var d in depenses)
+> {
+>     Console.WriteLine(d.Libelle);
+> }
+> for (int i = 0; i < 10; i++) { }
+> while (!fini) { }
+> ```
+> `foreach` est le plus courant, comme le `for … in` de Python. Pour filtrer ou transformer une liste, on utilise plutôt LINQ (voir [[Motifs de boucle]]).
 
 ### Cas d'utilisation
 - Parcourir les fichiers d'un dossier (`for f in dossier.iterdir():`, voir [[Chemin de fichier]])

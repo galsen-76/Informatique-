@@ -67,6 +67,21 @@ curl -X POST https://jsonplaceholder.typicode.com/todos \
 ```
 Dans une API de projets : `GET /api/tasks/{id}/comments` renvoie les commentaires d'une tâche.
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change. Les exemples plus haut sont en Python ou en JavaScript.
+>
+> **C# (.NET)**
+> ```csharp
+> app.MapGet("/depenses", () => depenses);
+> app.MapGet("/depenses/{id:int}", (int id) =>
+> {
+>     var d = depenses.FirstOrDefault(x => x.Id == id);
+>     return d is null ? Results.NotFound() : Results.Ok(d);
+> });
+> app.MapPost("/depenses", (Depense d) => Results.Created($"/depenses/{d.Id}", d));
+> ```
+> ASP.NET Core, style « API minimale ». `{id:int}` lit un paramètre dans l'adresse ; un objet en paramètre est lu dans le corps JSON. `Results` choisit le code de statut. L'autre style, avec des classes `Controller`, fait la même chose.
+
 ### Cas d'utilisation
 - Lire la documentation d'une API
 - Écrire une route Express

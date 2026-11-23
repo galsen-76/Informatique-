@@ -78,6 +78,19 @@ export const jetonInterceptor: HttpInterceptorFn = (req, next) =>
 ng generate service taches
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change. Les exemples plus haut sont en Python ou en JavaScript.
+>
+> **C# (.NET)**
+> ```csharp
+> // Program.cs : j'enregistre le service
+> builder.Services.AddScoped<IStockage, StockageSql>();
+>
+> // le framework le fournit à la route qui le demande
+> app.MapGet("/depenses", (IStockage stockage) => stockage.Lister());
+> ```
+> ASP.NET Core a l'injection intégrée. Trois durées de vie : `AddSingleton` (un seul pour toute l'application), `AddScoped` (un par requête HTTP), `AddTransient` (un nouveau à chaque demande).
+
 ### Cas d'utilisation
 - Appels d'API
 - État partagé (utilisateur connecté)

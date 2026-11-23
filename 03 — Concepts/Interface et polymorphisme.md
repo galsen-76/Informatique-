@@ -83,6 +83,24 @@ class SourceFactice:                    # pour les tests
 ```
 Ta fonction peut recevoir l'une ou l'autre : elle ne voit que l'interface.
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change. Les exemples plus haut sont en Python ou en JavaScript.
+>
+> **C# (.NET)**
+> ```csharp
+> public interface IStockage
+> {
+>     void Sauver(Depense d);
+>     List<Depense> Lister();
+> }
+>
+> public class StockageMemoire : IStockage { /* … */ }
+> public class StockageSql : IStockage { /* … */ }
+>
+> IStockage stockage = new StockageMemoire();   // le reste du code ne connaît que IStockage
+> ```
+> Par convention le nom d'une interface commence par `I`. Le compilateur refuse une classe qui oublie une méthode de l'interface.
+
 ### Cas d'utilisation
 - Injection de dépendances (Angular, NestJS)
 - Tests avec des doublures

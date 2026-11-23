@@ -95,6 +95,16 @@ for nom, taille in tailles.items():
 > echo "${tache[id]}"
 > ```
 > Possible, mais dès que les données ont une structure, passe à Python ou à un fichier JSON.
+>
+> **C# (.NET)**
+> ```csharp
+> var noms = new List<string> { "a.png", "b.png" };
+> noms.Add("c.png");
+> var prix = new Dictionary<string, decimal> { ["café"] = 2.5m };
+> prix["pain"] = 1.2m;
+> if (prix.TryGetValue("thé", out var p)) { /* la clé existe */ }
+> ```
+> Le type des éléments est fixé entre `< >` : une `List<string>` n'accepte que du texte. `prix["thé"]` sur une clé absente lève une exception, d'où `TryGetValue`.
 
 ### Cas d'utilisation
 - Liste des fichiers trouvés dans un dossier

@@ -103,6 +103,36 @@ class Annotation:
     y: float
 ```
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change. Les exemples plus haut sont en Python ou en JavaScript.
+>
+> **C# (.NET)**
+> ```csharp
+> public class Depense
+> {
+>     public string Libelle { get; }               // propriété en lecture seule
+>     public decimal Montant { get; private set; } // modifiable seulement ici
+>
+>     public Depense(string libelle, decimal montant)   // constructeur
+>     {
+>         Libelle = libelle;
+>         Montant = montant;
+>     }
+>
+>     public void Corriger(decimal montant)
+>     {
+>         if (montant <= 0) throw new ArgumentException("Amount must be positive");
+>         Montant = montant;
+>     }
+> }
+>
+> var d = new Depense("Pain", 1.2m);
+>
+> // données simples, sans comportement (comme une dataclass) :
+> public record Categorie(string Nom, string Couleur);
+> ```
+> `public` et `private` disent qui peut voir quoi : l'encapsulation est vérifiée par le compilateur. `this` joue le rôle de `self`.
+
 ### Cas d'utilisation
 - Un SDK d'API (`client.users.get(12)` renvoie un objet utilisateur)
 - Les composants Angular et les services

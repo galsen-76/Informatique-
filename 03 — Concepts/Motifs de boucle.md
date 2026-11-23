@@ -87,6 +87,21 @@ def palindrome(s):
 ```
 En Python et en JavaScript, plusieurs motifs ont une écriture courte : `sum`, `max(key=…)`, compréhensions, `filter`, `map`, `reduce`. Comprends d'abord la boucle, puis utilise le raccourci.
 
+> [!abstract]- Comment ça s'écrit (référence à chercher, pas à apprendre par cœur)
+> L'idée est la même partout ; seule l'écriture change. Les exemples plus haut sont en Python ou en JavaScript.
+>
+> **C# (.NET)**
+> ```csharp
+> var grosses   = depenses.Where(d => d.Montant > 100);          // filtrer
+> var libelles  = depenses.Select(d => d.Libelle);               // transformer
+> var total     = depenses.Sum(d => d.Montant);                  // accumuler
+> var premiere  = depenses.FirstOrDefault(d => d.Categorie == "loisirs"); // chercher
+> var existe    = depenses.Any(d => d.Montant < 0);              // vérifier
+> var parCat    = depenses.GroupBy(d => d.Categorie);            // regrouper
+> var liste     = grosses.OrderBy(d => d.Date).ToList();         // trier puis figer
+> ```
+> C'est **LINQ** : chaque motif de boucle a sa méthode. Le résultat n'est calculé qu'au moment où on le parcourt ou qu'on appelle `ToList()`.
+
 ### Cas d'utilisation
 - La majorité des boucles de tes scripts
 - Exercices d'algorithmique

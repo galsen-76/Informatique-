@@ -96,6 +96,14 @@ winget install Python.Python.3.12    # sous Windows
 > npm run dev              # lance un script de package.json
 > ```
 > Les paquets vont dans `node_modules/` du projet ; la liste est dans [[package.json]].
+>
+> **C# (.NET)**
+> ```bash
+> dotnet add package Serilog          # ajoute au .csproj et télécharge
+> dotnet restore                      # télécharge tout ce que liste le .csproj
+> dotnet list package --outdated      # les paquets à mettre à jour
+> ```
+> Le gestionnaire s'appelle **NuGet**. Les paquets sont listés dans le `.csproj` (`<PackageReference>`) et viennent de nuget.org, ou d'un miroir interne déclaré dans un fichier `nuget.config`. Voir [[dotnet add]].
 
 ### Cas d'utilisation
 - Installer des outils dans WSL (`zip`, `tree`, `jq`)

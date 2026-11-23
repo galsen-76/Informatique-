@@ -101,6 +101,18 @@ print(len(nom))             # 11
 > TOTAL=$((TOTAL + 1)) # calcul entier
 > ```
 > En Bash tout est du texte ; les guillemets autour de `"$NOM"` évitent les surprises avec les espaces.
+>
+> **C# (.NET)**
+> ```csharp
+> string nom = "photos";
+> int total = 0;
+> decimal montant = 12.50m;   // m : un decimal, pour l'argent
+> bool actif = true;
+> var date = DateTime.Now;    // var : type deviné, mais fixé pour toujours
+> string? rien = null;        // ? : cette variable a le droit d'être null
+> const int Max = 100;
+> ```
+> Typage **statique** : le type est vérifié à la compilation, `total = "abc"` ne compile pas. Compare avec `==`.
 
 ### Cas d'utilisation
 - Retenir le dossier à traiter, le nom de l'archive, un compteur

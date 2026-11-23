@@ -13,6 +13,7 @@ tags:
 | ce que je fais maintenant | [[Dashboard]] et [[Focus]] (niveau actuel, notion en cours) |
 | ma progression, niveau par niveau | [[Niveaux]] |
 | les bases de la programmation, quel que soit le langage | [[Cours - Programmer dans n'importe quel langage]] |
+| .NET et C# (cours, mini-projet, bonnes pratiques) | [[Module 24 - .NET]] et [[Projet - Découvrir .NET]] |
 | une notion (ce que c'est, pourquoi, comment) | **03 — Concepts**, une fiche par notion, quel que soit le langage ; la syntaxe est dans l'encadré replié « Comment ça s'écrit » |
 | une commande précise (docker, git, pip…) | **04 — Commandes**, un sous-dossier par outil |
 | une procédure ou les bonnes pratiques d'un outil | **05 — Fiches pratiques** |
@@ -28,7 +29,7 @@ tags:
 | Dossier | Contient | Modèle |
 | --- | --- | --- |
 | 00 — Dashboard | [[Dashboard]], [[Focus]], [[Révisions]], [[Suivi des acquis]], ce guide | — |
-| 01 — Parcours | [[Niveaux]], [[Référence travail]], [[Parcours]] (les 23 modules, pour retrouver par thème), [[Méthode d'apprentissage]] | Module |
+| 01 — Parcours | [[Niveaux]], [[Référence travail]], [[Parcours]] (les 24 modules, pour retrouver par thème), [[Méthode d'apprentissage]] | Module |
 | 02 — Cours | Un dossier par module, un cours par chapitre | Cours |
 | 03 — Concepts | Une fiche par notion : comprendre, explorer, pratiquer (exercices visuels, mon schéma, fil rouge), relier, réviser | Concept |
 | 04 — Commandes | Un sous-dossier par outil | Commande |

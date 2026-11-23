@@ -96,6 +96,17 @@ Les `: str` et `-> bool` sont des **annotations de type** : facultatives, elles 
 > resultat="$(total courses)"   # on récupère ce qui est affiché
 > ```
 > En Bash, une fonction **affiche** son résultat ; `return` ne renvoie qu'un code de sortie (0 à 255).
+>
+> **C# (.NET)**
+> ```csharp
+> static decimal Total(List<decimal> montants)
+> {
+>     return montants.Sum();
+> }
+>
+> static int Double(int x) => x * 2;   // version courte
+> ```
+> Les types des paramètres et du retour sont obligatoires (`void` si rien n'est renvoyé). En C#, une fonction vit toujours dans une classe : on parle de **méthode** ; `static` veut dire qu'on l'appelle sans créer d'objet.
 
 ### Cas d'utilisation
 - Découper ton script : lire les arguments, lister, zipper, nettoyer

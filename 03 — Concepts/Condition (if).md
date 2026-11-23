@@ -102,6 +102,21 @@ else:
 > fi
 > ```
 > Espaces obligatoires dans `[ … ]` ; `-gt`, `-lt`, `-eq` pour les nombres, `=` pour le texte. `if` teste en fait le **code de sortie** d'une commande.
+>
+> **C# (.NET)**
+> ```csharp
+> if (montant > 100) { /* … */ }
+> else if (montant > 0) { /* … */ }
+> else { /* … */ }
+>
+> var libelle = categorie switch
+> {
+>     "loisirs" => "Fun",
+>     "courses" => "Maison",
+>     _ => "Autre",          // _ : tous les autres cas
+> };
+> ```
+> Parenthèses autour de la condition et accolades pour le bloc, comme en JavaScript.
 
 ### Cas d'utilisation
 - Ne traiter que certains types de fichiers
