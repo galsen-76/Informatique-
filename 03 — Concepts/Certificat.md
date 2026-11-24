@@ -1,19 +1,8 @@
 ---
 type: concept
-domain: reseau
 module: "[[Module 17 - Réseau]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[HTTPS et TLS]]"
-parents: []
 related:
   - "[[Proxy]]"
-next_review: 
 tags:
   - concept
   - reseau
@@ -22,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Une carte d'identité numérique d'un serveur, signée par une autorité de certification, qui lie un nom (gitlab.com) à une clé publique.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -78,45 +63,8 @@ openssl x509 -in cert.pem -noout -subject -issuer -dates     # lire un certifica
 > [!warning] À ne pas confondre
 > **Ajouter la bonne CA** (solution) et **désactiver la vérification** (`verify=False`, `-k`, `sslVerify false`) : cette dernière supprime toute protection, à ne faire que pour un test ponctuel. Et la **clé publique** (dans le certificat, partagée) et la **clé privée** (secrète, jamais dans Git).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine la vérification d'un certificat quand tu ouvres un site en HTTPS : le serveur montre son certificat, ton système cherche l'autorité qui l'a signé.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un système qui ne connaît pas l'autorité d'un certificat interne, puis après l'ajout du certificat racine. Dessine où se trouve le fichier ajouté et ce qui change.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Certificat » et je l'intègre ici avec `![[Schéma - Certificat.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 02 - Suivre une requête sur le réseau]]
-- [[MesDépenses 12 - Derrière nginx, avec une petite page]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Certificat au travail](obsidian://open?vault=Travail&file=Certificat%20au%20travail)
 - **Prérequis** : [[HTTPS et TLS]]
 - **Complémentaires** : [[Proxy]] · [[Clé SSH]]
 - **Commandes** : [[openssl]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 22 - Design patterns]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Fonction]]"
-  - "[[Liste et dictionnaire]]"
-parents: []
 related:
   - "[[Héritage et composition]]"
   - "[[Interface et polymorphisme]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Une classe est un plan qui décrit un type de chose (ses données et ce qu'elle sait faire) ; un objet est une chose concrète fabriquée à partir de ce plan.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -141,43 +125,7 @@ class Annotation:
 > [!warning] À ne pas confondre
 > La **classe** (le plan, écrit une fois) et l'**objet** (une instance, il peut y en avoir des milliers). Et une classe n'est pas obligatoire : pour un petit script, des fonctions suffisent souvent.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine la classe `Depense` comme un plan (attributs, méthodes) et trois objets construits avec, chacun avec ses valeurs.
-
-> [!example] 🔄 Change de contexte
-> Redessine-la avec le modèle SQLAlchemy de l'API. Qu'est-ce qu'une ligne de la table pour Python ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Classe et objet » et je l'intègre ici avec `![[Schéma - Classe et objet.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 08 - Lire un vrai fichier]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Fonction]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[Héritage et composition]] · [[Interface et polymorphisme]]
 - **Utilisé par** : [[Design pattern]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

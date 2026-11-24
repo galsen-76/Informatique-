@@ -8,7 +8,6 @@ concepts:
   - "[[Commit]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Git, les bases
 
@@ -46,17 +45,11 @@ node_modules/
 .env
 ```
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- [[Fiche - Publier un dépôt sur GitHub]]
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Committer sans `git add` (« nothing to commit »)
 > - Mettre des secrets (`.env`) dans l'historique
 > - Des commits géants avec le message « update »
-
-## Résumé
-Git enregistre des photos ([[Commit|commits]]) de ce que tu as placé dans l'index. Petit commit, message clair, `git status` tout le temps.
 
 ## Concepts du cours
 [[Git]] · [[Dépôt Git]] · [[Commit]]

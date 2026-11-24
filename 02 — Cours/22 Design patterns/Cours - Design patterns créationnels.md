@@ -9,7 +9,6 @@ concepts:
   - "[[Patron Singleton]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Design patterns créationnels
 
@@ -47,16 +46,11 @@ flowchart TD
 ## 6. La règle d'or
 On part du **problème**, jamais du patron. Un patron appliqué sans besoin rend le code plus compliqué.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Chercher où placer un patron au lieu de partir du problème
 > - Un singleton modifiable partout
 > - Un monteur pour trois paramètres
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Design pattern]] · [[Patron Fabrique (Factory)]] · [[Patron Monteur (Builder)]] · [[Patron Singleton]]

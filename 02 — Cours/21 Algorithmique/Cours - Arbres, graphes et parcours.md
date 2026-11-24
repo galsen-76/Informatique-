@@ -7,7 +7,6 @@ concepts:
   - "[[Parcours en largeur et en profondeur]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Arbres, graphes et parcours
 
@@ -36,15 +35,10 @@ flowchart TD
 ## 4. Ce que tu sais maintenant faire
 Avec les cours précédents, tu as les briques de presque tous les problèmes classiques : boucles et motifs, recherche, tri, récursivité, pile, file, dictionnaire, graphe. Le reste est surtout de l'entraînement à **reconnaître** quelle brique utiliser.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Oublier l'ensemble `vus`
 > - Pile au lieu de file pour un plus court chemin
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Arbre et graphe]] · [[Parcours en largeur et en profondeur]]

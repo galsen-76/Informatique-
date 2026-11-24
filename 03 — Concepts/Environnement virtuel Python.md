@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Python]]"
-  - "[[Terminal]]"
-parents: []
 related:
   - "[[Gestionnaire de paquets]]"
-next_review: 
 tags:
   - concept
   - python
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Un dossier (souvent .venv) qui contient un Python et ses paquets à part, propres à un projet, pour ne pas mélanger les dépendances des projets.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -68,44 +52,7 @@ Le nom `(.venv)` apparaît au début de l'invite quand il est actif.
 > [!warning] À ne pas confondre
 > Le dossier `.venv` **ne se commite pas** (ajoute-le au `.gitignore`) : on commite `requirements.txt`, et chacun recrée son venv. Si PowerShell refuse d'activer, c'est sa politique d'exécution : `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : deux projets qui partagent le Python du système, puis chacun avec son `.venv`. Dessine où va chaque paquet installé.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine ce qui se passe quand tu fais `source .venv/bin/activate` puis `python` : quel dossier le PATH regarde en premier ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Environnement virtuel Python » et je l'intègre ici avec `![[Schéma - Environnement virtuel Python.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 10 - Un environnement propre]]
-- [[MesDépenses 01 - Prendre l'API en main]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Python]] · [[Terminal]]
 - **Complémentaires** : [[Gestionnaire de paquets]]
 - **Utilisé par** : [[Test automatisé]] · [[Python dans Docker]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

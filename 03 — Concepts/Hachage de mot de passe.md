@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: securite
 module: "[[Module 10 - Authentification et sécurité]]"
-status: a-decouvrir
-level: debutant
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Authentification]]"
-parents:
-  - "[[Authentification]]"
 related:
   - "[[Session et cookie]]"
-next_review: 
 tags:
   - concept
   - securite
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > On ne stocke jamais un mot de passe : on stocke son empreinte calculée par une fonction lente et salée (bcrypt, argon2), et on compare les empreintes à la connexion.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -74,42 +58,6 @@ ph.verify(h, "MonMotDePasse!")
 > [!warning] À ne pas confondre
 > Un message « mot de passe incorrect » et « utilisateur inconnu » différents permettent de deviner qui a un compte : réponds pareil dans les deux cas.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le trajet d'un mot de passe à l'inscription puis à la connexion : sel, fonction de hachage, empreinte stockée, comparaison.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : une base qui stocke les mots de passe en clair, puis hachés. Dessine ce que voit un pirate qui la vole.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Hachage de mot de passe » et je l'intègre ici avec `![[Schéma - Hachage de mot de passe.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Authentification]]
 - **Complémentaires** : [[Session et cookie]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

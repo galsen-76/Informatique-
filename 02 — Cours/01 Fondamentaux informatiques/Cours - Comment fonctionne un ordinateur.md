@@ -10,7 +10,6 @@ concepts:
   - "[[Noyau (kernel)]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Comment fonctionne un ordinateur
 
@@ -42,16 +41,11 @@ Le [[Système d'exploitation et noyau|système d'exploitation]] partage le maté
 ## 5. Le texte
 Un caractère devient des octets selon un [[Encodage des caractères|encodage]]. Règle d'or : **UTF-8 partout**, et toujours préciser l'encodage quand on lit ou écrit un fichier.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Confondre mémoire (RAM) et stockage (disque)
 > - Confondre Mb (bits) et Mo (octets)
 > - Laisser l'encodage par défaut et récupérer des `Ã©`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Binaire et octet]] · [[Processeur, mémoire et disque]] · [[Encodage des caractères]] · [[Système d'exploitation et noyau]] · [[Noyau (kernel)]]

@@ -8,7 +8,6 @@ concepts:
   - "[[Conflit de merge]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Branches et fusion
 
@@ -48,15 +47,10 @@ Si `main` n'a pas bougé, Git avance simplement le pointeur ; sinon il crée un 
 ## 4. Le conflit
 Quand les deux branches ont modifié les mêmes lignes, Git s'arrête et te demande de choisir : voir [[Conflit de merge]] et [[Erreur - CONFLICT lors d'un git merge]].
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Fusionner dans le mauvais sens (vérifier la branche courante avec `git status`)
 > - Changer de branche avec des modifications non commitées
-
-## Résumé
-On développe chaque fonctionnalité sur sa branche, on revient sur `main`, on fusionne. Un conflit n'est pas une erreur : c'est Git qui demande un arbitrage.
 
 ## Concepts du cours
 [[Branche Git]] · [[Merge]] · [[Conflit de merge]]

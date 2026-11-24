@@ -1,21 +1,8 @@
 ---
 type: concept
-domain: algorithmique
 module: "[[Module 21 - Algorithmique]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Complexité (notation grand O)]]"
-  - "[[Motifs de boucle]]"
-parents:
-  - "[[Algorithme]]"
 related:
   - "[[Récursivité]]"
-next_review: 
 tags:
   - concept
   - algorithmique
@@ -24,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Trier, c'est ranger des éléments selon un ordre ; les tris simples (sélection, insertion) sont en O(n²), les tris efficaces (fusion, rapide, et celui de Python) en O(n log n).
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -93,42 +76,6 @@ taches = sorted(taches, key=lambda t: (t["statut"], t["nom"]))     # par statut 
 > [!warning] À ne pas confondre
 > En JavaScript, `[10, 9, 1].sort()` trie comme du **texte** (`[1, 10, 9]`) : passe une fonction `(a, b) => a - b`. Et `list.sort()` modifie la liste et renvoie `None`, alors que `sorted()` renvoie une nouvelle liste.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Trace à la main le tri par insertion sur `[5, 2, 4, 1]` : dessine le tableau après chaque tour.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : trier 10 dépenses puis 10 000 avec un tri en O(n²) et un tri en O(n log n). Dessine comment grandit le travail.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Algorithmes de tri » et je l'intègre ici avec `![[Schéma - Algorithmes de tri.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Complexité (notation grand O)]] · [[Motifs de boucle]]
 - **Complémentaires** : [[Récursivité]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

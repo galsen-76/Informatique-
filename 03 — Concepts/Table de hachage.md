@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: algorithmique
 module: "[[Module 21 - Algorithmique]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Liste et dictionnaire]]"
-  - "[[Complexité (notation grand O)]]"
-parents:
-  - "[[Algorithme]]"
 related:
   - "[[Base NoSQL]]"
   - "[[Index de base de données]]"
-next_review: 
 tags:
   - concept
   - algorithmique
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Une table de hachage associe des clés à des valeurs et retrouve une valeur à partir de sa clé en temps constant (O(1)) en moyenne ; c'est ce qu'il y a derrière dict et set en Python, Object, Map et Set en JavaScript.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -85,42 +68,6 @@ Ne pas confondre avec le [[Hachage de mot de passe]] : même idée de fonction d
 > [!warning] À ne pas confondre
 > Une table de hachage **ne garde pas d'ordre de tri** (Python garde l'ordre d'insertion, mais pas un ordre trié). Et utiliser un objet modifiable comme clé : `TypeError: unhashable type: 'list'` (utilise un tuple).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine une table de hachage : la clé « tuyau », la fonction de hachage, la case, la valeur (l'id du label).
-
-> [!example] 🔄 Change de contexte
-> Redessine-la pour un dictionnaire Python et un objet JavaScript. Pourquoi l'accès est-il aussi rapide dans les deux ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Table de hachage » et je l'intègre ici avec `![[Schéma - Table de hachage.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Liste et dictionnaire]] · [[Complexité (notation grand O)]]
 - **Complémentaires** : [[Base NoSQL]] · [[Index de base de données]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

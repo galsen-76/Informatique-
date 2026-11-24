@@ -9,7 +9,6 @@ concepts:
   - "[[Gestionnaire de paquets]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Administrer un serveur Linux
 
@@ -50,16 +49,11 @@ docker system df # place prise par Docker
 - Garder une session SSH ouverte quand on touche à SSH ou au pare-feu, pour ne pas s'enfermer dehors.
 - Noter ce qu'on fait (dans ton coffre !).
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Couper l'accès SSH par mot de passe avant d'avoir testé la clé : on se retrouve enfermé dehors
 > - Activer le pare-feu sans autoriser le port 22 sur une machine distante
 > - Tout faire en root
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Utilisateur et groupe]] · [[SSH]] · [[Pare-feu]] · [[Gestionnaire de paquets]]

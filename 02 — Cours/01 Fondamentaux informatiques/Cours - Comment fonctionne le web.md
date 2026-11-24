@@ -9,7 +9,6 @@ concepts:
   - "[[JSON]]"
 tags:
   - cours
-niveau: 1
 ---
 # Cours - Comment fonctionne le web
 
@@ -44,15 +43,10 @@ curl -i https://api.github.com/users/octocat
 ```
 L'option `-i` affiche les en-têtes de la réponse : repère le code `200` et `Content-Type: application/json`.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Confondre HTTP (le protocole) et HTML (le contenu d'une page)
 > - Croire que le serveur « se souvient » de toi : HTTP est sans état
-
-## Résumé
-Une page web, c'est une conversation client-serveur : une requête HTTP part, une réponse revient avec un code de statut et un contenu (HTML, JSON…).
 
 ## Concepts du cours
 [[Internet]] · [[Client-serveur]] · [[HTTP]] · [[JSON]]

@@ -1,20 +1,9 @@
 ---
 type: concept
-domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: a-decouvrir
-level: debutant
-niveau: 2
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[JSON]]"
-parents: []
 related:
   - "[[Pipeline GitLab CI]]"
   - "[[Docker Compose]]"
-next_review: 
 tags:
   - concept
   - terminal
@@ -23,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un format de fichier texte pour écrire de la configuration lisible, où l'indentation donne la structure.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -74,50 +59,7 @@ Le même contenu en JSON :
 > [!warning] À ne pas confondre
 > Un décalage d'indentation change le sens : une clé mal alignée devient enfant d'une autre ou provoque une erreur. Et `3.10` sans guillemets est lu comme le nombre 3.1 : mettre les versions entre guillemets.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine un petit `docker-compose.yml` comme un arbre : chaque niveau d'indentation est une branche. Montre où est une liste et où est un dictionnaire.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   S[services] --> A[api]
->   S --> P[ports au même niveau]
->   A --> I[image]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - YAML » et je l'intègre ici avec `![[Schéma - YAML.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [YAML au travail](obsidian://open?vault=Travail&file=YAML%20au%20travail)
 - **Prérequis** : [[JSON]]
 - **Utilisé par** : [[Pipeline GitLab CI]] · [[Docker Compose]] · [[Règles d'un job GitLab (rules)]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

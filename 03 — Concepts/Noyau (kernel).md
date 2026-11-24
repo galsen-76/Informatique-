@@ -1,22 +1,10 @@
 ---
 type: concept
-domain: systeme
 module: "[[Module 01 - Fondamentaux informatiques]]"
-status: en-cours
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Processeur, mémoire et disque]]"
-parents:
-  - "[[Système d'exploitation et noyau]]"
 related:
   - "[[Système d'exploitation et noyau]]"
   - "[[Processus]]"
   - "[[Shell]]"
-next_review: 
 tags:
   - concept
   - systeme
@@ -25,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Le noyau est le programme central du système d'exploitation : il est le seul à avoir le droit de toucher au matériel, et tous les autres programmes doivent passer par lui pour lire un fichier, utiliser la mémoire ou envoyer quelque chose sur le réseau.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### D'abord, le décor
@@ -140,46 +124,11 @@ sudo dmesg | tail     # le journal du noyau (matériel, pilotes, erreurs)
 **Noyau** et **[[Shell]]** : le shell (Bash, PowerShell) n'est **pas** le noyau. C'est un programme ordinaire, en mode utilisateur, qui lit tes commandes et lance d'autres programmes ; eux demandent ensuite au noyau.
 **Conteneur** et **machine virtuelle** : une machine virtuelle a **son propre noyau** ; un conteneur **partage** celui de la machine.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine trois étages : les programmes, le noyau, le matériel. Place une flèche pour « Python lit un fichier » et montre par où elle passe.
-
-> [!example] 🔄 Change de contexte
-> Refais le dessin avec deux conteneurs Docker sur le même PC. Combien de noyaux y a-t-il ? Où se trouvent-ils ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Noyau (kernel) » et je l'intègre ici avec `![[Schéma - Noyau (kernel).excalidraw]]`, puis je coche `schema`._
-
-> [!note] Ce que j'avais écrit avec mes mots
-> Le noyau fait le lien entre les logiciels et le matériel : c'est par lui que tout passe. Même quand le shell crée un fichier, il le demande au noyau. Il gère aussi les permissions (est-ce que j'ai le droit d'écrire ici ?) et partage les ressources entre les programmes.
-
-### Appliquer dans le fil rouge
-- [[Dépenses 00 - Découvrir son poste]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Processeur, mémoire et disque]]
 - **Complémentaires** : [[Système d'exploitation et noyau]] · [[Processus]] · [[Shell]]
 - **Utilisé par** : [[WSL]] · [[Docker]] · [[Conteneur]]
 
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```
+## Mes mots
+> [!note] Ce que j'avais écrit avec mes mots
+> Le noyau fait le lien entre les logiciels et le matériel : c'est par lui que tout passe. Même quand le shell crée un fichier, il le demande au noyau. Il gère aussi les permissions (est-ce que j'ai le droit d'écrire ici ?) et partage les ressources entre les programmes.

@@ -1,19 +1,8 @@
 ---
 type: concept
-domain: reseau
 module: "[[Module 17 - Réseau]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Adresse IP]]"
-parents: []
 related:
   - "[[Reverse proxy]]"
-next_review: 
 tags:
   - concept
   - reseau
@@ -22,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > L'annuaire d'Internet : il traduit un nom (gitlab.com) en adresse IP.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -73,46 +58,8 @@ Dans un réseau Docker (compose), un DNS interne résout les **noms de services*
 > [!warning] À ne pas confondre
 > « le nom ne se résout pas » (DNS) et « le serveur ne répond pas » (réseau, pare-feu, service arrêté). Teste d'abord `nslookup`, puis la connexion.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine la résolution de `gitlab.com` depuis ton PC : le cache, le serveur DNS, la réponse.
-
-> [!example] 🔄 Change de contexte
-> Redessine-le dans le réseau de compose : comment le front trouve le service `api` par son nom ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - DNS » et je l'intègre ici avec `![[Schéma - DNS.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 05 - Tout lancer avec compose]]
-- [[MesDépenses 02 - Suivre une requête sur le réseau]]
-- [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [DNS au travail](obsidian://open?vault=Travail&file=DNS%20au%20travail)
 - **Prérequis** : [[Adresse IP]]
 - **Complémentaires** : [[Reverse proxy]] · [[HTTPS et TLS]]
 - **Commandes** : [[nslookup]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

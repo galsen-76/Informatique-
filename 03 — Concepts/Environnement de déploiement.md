@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 14 - DevOps et déploiement]]"
-status: a-decouvrir
-level: debutant
-niveau: 4
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Image Docker]]"
-  - "[[Variable d'environnement]]"
-parents:
-  - "[[Intégration et déploiement continus (CI-CD)]]"
 related:
   - "[[Tag Git]]"
   - "[[Variables CI-CD GitLab]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un environnement est une copie de l'application qui tourne pour un usage précis : développement, test, préproduction (staging), production ; même image, configuration différente.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -78,43 +61,7 @@ Dans GitLab, le mot-clé `environment:` affiche les déploiements de chaque envi
 > [!warning] À ne pas confondre
 > Reconstruire l'image pour chaque environnement : ce qui part en production n'est alors plus ce qui a été testé. On construit **une fois**, on déploie partout.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine trois copies de ton application : dev (ton PC), recette, production. Pour chacune, sa base et sa configuration.
-
-> [!example] 🛣️ Suis le trajet
-> Suis une version de l'API depuis le merge jusqu'à la production, en passant par chaque environnement.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Environnement de déploiement » et je l'intègre ici avec `![[Schéma - Environnement de déploiement.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 14 - Déployer depuis la CI]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Environnement de déploiement au travail](obsidian://open?vault=Travail&file=Environnement%20de%20d%C3%A9ploiement%20au%20travail)
 - **Prérequis** : [[Image Docker]] · [[Variable d'environnement]]
 - **Complémentaires** : [[Tag Git]] · [[Variables CI-CD GitLab]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

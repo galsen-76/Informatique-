@@ -1,18 +1,9 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 14 - DevOps et déploiement]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 1
-prerequisites:
-  - "[[Registre Docker]]"
-parents:
-  - "[[Registre Docker]]"
 related:
   - "[[Variable de build Docker (ARG)]]"
   - "[[Variables CI-CD GitLab]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -21,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > L'entrepôt interne de l'entreprise : il garde une copie des images de Docker Hub (proxy) et stocke les images de l'équipe (hosted).
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -70,46 +57,10 @@ docker pull nexus.mon-entreprise.com:8082/library/python:3.11-slim
 > [!warning] À ne pas confondre
 > Un dépôt **proxy** (on y lit) et un dépôt **hosted** (on y pousse) : un `push` vers un proxy est refusé.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine un `docker pull python:3.12-slim` sur un réseau qui passe par Nexus : ton PC, le Nexus, Docker Hub. Montre où l'image est gardée en copie.
-
-> [!example] 🔄 Change de contexte
-> Tu as dessiné le Nexus pour Docker. Redessine-le pour `pip install` et `npm install`. Qu'est-ce qui change ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Nexus » et je l'intègre ici avec `![[Schéma - Nexus.excalidraw]]`._
-
-### Appliquer dans le fil rouge
-- [[Fil rouge 06 - Construire l'image dans la CI]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Registre Docker]]
 - **Notion parente** : [[Registre Docker]]
 - **Complémentaires** : [[Variable de build Docker (ARG)]] · [[Variables CI-CD GitLab]]
 - **Utilisé par** : [[Construire une image dans la CI]] · [[Kaniko]]
 - **Commandes** : [[docker login]] · [[docker push]]
 - **Au travail** : [[Fiche - Images Docker au travail via le Nexus]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation de la maîtrise
-La notion est maîtrisée quand je sais :
-1. **l'expliquer** de façon fluide, à partir de mon schéma (à voix haute ou à Claude dans le chat) ;
-2. **l'adapter** à un autre contexte (consigne « Change de contexte », ou Claude m'interroge sur un autre cas) ;
-3. **l'appliquer** pour de vrai dans le fil rouge (section 3).
-
-Réussir un exercice ne suffit pas. C'est moi qui passe le statut en `maitrise`.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -9,7 +9,6 @@ concepts:
   - "[[Secret et fichier .env]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Les failles web les plus courantes
 
@@ -39,16 +38,11 @@ flowchart TD
 ## 4. La référence
 Le **Top 10 OWASP** liste les failles les plus fréquentes ; le contrôle d'accès cassé ([[Autorisation et rôles]]) est en tête.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Concaténer des valeurs dans du SQL
 > - `innerHTML` avec du contenu d'utilisateur
 > - Un secret commité « juste pour tester »
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Injection SQL]] · [[XSS]] · [[CSRF]] · [[Secret et fichier .env]]

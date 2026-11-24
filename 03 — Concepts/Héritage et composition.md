@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 22 - Design patterns]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Classe et objet]]"
-parents:
-  - "[[Classe et objet]]"
 related:
   - "[[Interface et polymorphisme]]"
   - "[[Principes SOLID]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > L'héritage crée une classe à partir d'une autre (« est un ») ; la composition construit un objet en y plaçant d'autres objets (« a un ») ; la règle des patrons est de préférer la composition.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -88,48 +72,6 @@ class ExporteurCsvAvecEntete(ExporteurCsv):
 > [!warning] À ne pas confondre
 > Utiliser l'héritage seulement pour partager du code (« une Tache hérite de Liste parce qu'elle contient des éléments ») : si la phrase « X **est un** Y » est fausse, c'est de la composition qu'il faut.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un export PNG et un export PDF faits par héritage, puis par composition. Dessine ce qu'il faut toucher pour ajouter un export SVG.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   V[Voiture] --> M[hérite Moteur]
->   M --> R[Relation est un]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Héritage et composition » et je l'intègre ici avec `![[Schéma - Héritage et composition.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Classe et objet]]
 - **Complémentaires** : [[Interface et polymorphisme]] · [[Principes SOLID]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

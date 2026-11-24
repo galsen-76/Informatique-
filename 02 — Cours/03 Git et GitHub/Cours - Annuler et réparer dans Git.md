@@ -9,7 +9,6 @@ concepts:
   - "[[Index Git (staging)]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Annuler et réparer dans Git
 
@@ -45,16 +44,11 @@ Voir le tableau de [[Annuler dans Git]] et la zone d'[[Index Git (staging)|index
 ## 6. Le filet de sécurité
 `git reflog` liste tout ce que tu as fait : même après un mauvais `reset`, tu peux revenir en arrière tant que le commit a existé.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - `git reset --hard` avec des modifications non commitées : perdues
 > - Rebase ou amend sur une branche déjà partagée
 > - Oublier un stash
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Annuler dans Git]] · [[Stash]] · [[Rebase]] · [[Index Git (staging)]]

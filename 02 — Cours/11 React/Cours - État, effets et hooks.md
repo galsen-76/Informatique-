@@ -8,7 +8,6 @@ concepts:
   - "[[Hook React]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - État, effets et hooks
 
@@ -38,16 +37,11 @@ flowchart TD
 ## 4. Réutiliser
 [[Hook React]] : `useContext`, `useRef`, `useMemo`, et tes propres `useQuelqueChose`.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Modifier l'état en place
 > - Effet sans dépendances (boucle infinie)
 > - Hook dans un `if`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[État et réactivité]] · [[Effet React (useEffect)]] · [[Hook React]]

@@ -8,7 +8,6 @@ concepts:
   - "[[Responsive design]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Mise en page avec Flexbox, Grid et responsive
 
@@ -40,16 +39,11 @@ flowchart TD
 ## 5. Responsive
 [[Responsive design]] : viewport, tailles fluides, media queries « mobile d'abord ». Teste avec le mode appareil de F12.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Positionner avec des marges négatives ou `position: absolute` ce que Flexbox ferait proprement
 > - Largeurs fixes en `px` qui débordent sur mobile
 > - Oublier la balise viewport
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Flexbox]] · [[Grid CSS]] · [[Responsive design]]

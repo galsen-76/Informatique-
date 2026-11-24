@@ -1,20 +1,9 @@
 ---
 type: concept
-domain: reseau
 module: "[[Module 17 - Réseau]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Internet]]"
-parents: []
 related:
   - "[[DNS]]"
   - "[[Port]]"
-next_review: 
 tags:
   - concept
   - reseau
@@ -23,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Le numéro qui identifie une machine sur un réseau, comme une adresse postale.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -72,43 +57,7 @@ ipconfig         # Windows
 > [!warning] À ne pas confondre
 > `localhost` dans un conteneur = **le conteneur lui-même**, pas ta machine. Et WSL a sa propre adresse, différente de celle de Windows.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine ton PC avec ses adresses : celle sur le réseau local, celle de WSL, `127.0.0.1`. Relie qui peut joindre qui.
-
-> [!example] 🔄 Change de contexte
-> Redessine-le avec un conteneur Docker. Quelle adresse a-t-il, et comment ton navigateur l'atteint-il ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Adresse IP » et je l'intègre ici avec `![[Schéma - Adresse IP.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 02 - Suivre une requête sur le réseau]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Internet]]
 - **Complémentaires** : [[DNS]] · [[Routage et NAT]] · [[Port]]
 - **Commandes** : [[ip]] · [[ipconfig]] · [[ping]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

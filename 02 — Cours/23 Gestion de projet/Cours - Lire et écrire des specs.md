@@ -12,7 +12,6 @@ concepts:
   - "[[Décision d'architecture (ADR)]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Lire et écrire des specs
 
@@ -67,18 +66,13 @@ Le modèle complet et les règles sont dans [[Bonnes pratiques - Specs]].
 ## 6. Lire des specs qu'on te donne
 Lire une spec, c'est surtout **chercher ce qui manque** : un cas d'erreur non décrit, un mot flou (« rapide », « simple », « etc. »), une exigence impossible à tester, une contradiction. Chaque trou devient une question à poser **avant** de coder.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Décrire la solution (« utiliser Redis ») au lieu du besoin (« répondre en moins de 1 s »)
 > - Oublier les exigences non fonctionnelles et les cas d'erreur
 > - Des mots flous impossibles à tester
 > - Oublier le « hors périmètre », et voir le projet grossir sans fin
 > - Ne pas mettre à jour la spec quand la décision change
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Spécification (specs)]] · [[Exigences fonctionnelles et non fonctionnelles]] · [[Cahier des charges]] · [[User story]] · [[Critères d'acceptation]] · [[Spécification technique]] · [[Décision d'architecture (ADR)]]

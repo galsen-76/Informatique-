@@ -1,22 +1,11 @@
 ---
 type: concept
-domain: projet
 module: "[[Module 23 - Gestion de projet]]"
-status: a-decouvrir
-level: debutant
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Spécification (specs)]]"
-parents: []
 related:
   - "[[Critères d'acceptation]]"
   - "[[Backlog et priorisation]]"
   - "[[Méthode agile (Scrum et Kanban)]]"
   - "[[Définition de terminé]]"
-next_review: 
 tags:
   - concept
   - projet
@@ -25,10 +14,6 @@ tags:
 
 > [!info] En une phrase
 > Une user story (récit utilisateur) est une **demande courte, écrite du point de vue de l'utilisateur**, qui dit qui veut quoi et pourquoi : « En tant que…, je veux…, afin de… ». C'est l'unité de travail des méthodes agiles.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -79,49 +64,7 @@ afin de protéger les plans confidentiels.
 > [!warning] À ne pas confondre
 > Une user story n'est pas une spécification complète : c'est un **rappel de conversation**. Les détails viennent dans la discussion et les critères d'acceptation. Et « En tant que développeur, je veux une base de données » n'est pas une vraie story : il n'y a pas d'utilisateur ni de valeur.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Écris et dessine trois user stories de ton application (« En tant que… je veux… afin de… »), chacune avec son utilisateur.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   U[User story] --> T[Créer table SQL]
->   T --> A[Ajouter index]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - User story » et je l'intègre ici avec `![[Schéma - User story.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 07 - Travailler en branche]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [User story au travail](obsidian://open?vault=Travail&file=User%20story%20au%20travail)
 - **Prérequis** : [[Spécification (specs)]]
 - **Complémentaires** : [[Critères d'acceptation]] · [[Backlog et priorisation]] · [[Méthode agile (Scrum et Kanban)]] · [[Définition de terminé]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

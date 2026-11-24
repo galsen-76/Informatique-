@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 22 - Design patterns]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Héritage et composition]]"
-  - "[[Type et interface TypeScript]]"
-parents:
-  - "[[Classe et objet]]"
 related:
   - "[[Principes SOLID]]"
   - "[[Doublure de test (mock)]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Une interface décrit ce qu'un objet sait faire sans dire comment ; le polymorphisme permet d'utiliser de la même façon des objets différents qui respectent cette interface.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -108,43 +91,7 @@ Ta fonction peut recevoir l'une ou l'autre : elle ne voit que l'interface.
 > [!warning] À ne pas confondre
 > Une **interface** (le contrat, sans code) n'est pas une **classe parent** (qui contient du code partagé). Et créer une interface pour une seule implémentation qui n'en aura jamais d'autre : c'est du travail pour rien (YAGNI).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine une interface `Exporteur` avec une méthode `exporter()`, et trois classes qui la respectent. Montre le code appelant qui ne sait pas laquelle il a.
-
-> [!example] 🔄 Change de contexte
-> Redessine la même idée avec un `Protocol` Python (un export PNG ou JSON).
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Interface et polymorphisme » et je l'intègre ici avec `![[Schéma - Interface et polymorphisme.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Interface et polymorphisme au travail](obsidian://open?vault=Travail&file=Interface%20et%20polymorphisme%20au%20travail)
 - **Prérequis** : [[Héritage et composition]] · [[Type et interface TypeScript]]
 - **Complémentaires** : [[Principes SOLID]] · [[Doublure de test (mock)]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

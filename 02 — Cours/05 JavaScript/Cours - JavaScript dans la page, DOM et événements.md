@@ -7,7 +7,6 @@ concepts:
   - "[[Événement JavaScript]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - JavaScript dans la page, DOM et événements
 
@@ -38,16 +37,11 @@ flowchart TD
 ## 5. Pourquoi les frameworks
 Faire tout ça à la main devient vite pénible quand la page grossit. [[React]], [[Vue.js]] et [[Angular]] le font pour toi : tu décris l'état, ils mettent le DOM à jour. Comprendre le DOM t'aide à comprendre ce qu'ils font.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Script chargé avant le HTML (`null` au lieu de l'élément) : mets le `<script>` en bas ou ajoute `defer`
 > - `innerHTML` avec du texte d'utilisateur (faille XSS)
 > - Oublier `preventDefault()` sur `submit`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[DOM]] · [[Événement JavaScript]]

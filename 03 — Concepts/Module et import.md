@@ -1,20 +1,9 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Fonction]]"
-parents: []
 related:
   - "[[Gestionnaire de paquets]]"
   - "[[Environnement virtuel Python]]"
-next_review: 
 tags:
   - concept
   - python
@@ -23,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un module est un fichier .py dont on importe le contenu ; import permet d'utiliser le code d'un autre fichier ou d'une bibliothèque.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -118,43 +103,7 @@ if __name__ == "__main__":
 > [!warning] À ne pas confondre
 > `ModuleNotFoundError` a deux causes : le paquet n'est pas installé **dans l'environnement utilisé** (voir [[Environnement virtuel Python]]), ou tu n'es pas dans le bon dossier. Et ne nomme jamais ton fichier comme un module existant (`zipfile.py`) : il cacherait le vrai.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine trois fichiers de ton projet (main.py, function.py, un module d'outils) et les flèches `import` entre eux.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine ce que fait Python quand il lit `from app.models import Depense` : où il cherche, ce qu'il exécute, ce qu'il garde.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Module et import » et je l'intègre ici avec `![[Schéma - Module et import.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 05 - Un module réutilisable]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Fonction]]
 - **Complémentaires** : [[Gestionnaire de paquets]] · [[Environnement virtuel Python]]
 - **Utilisé par** : [[Archive zip (zipfile)]] · [[Copier et déplacer des fichiers (shutil)]] · [[Test automatisé]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

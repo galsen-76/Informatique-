@@ -12,7 +12,6 @@ concepts:
   - "[[Variable PATH]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Terminal, shell et système
 
@@ -63,16 +62,11 @@ Quand tu tapes `git`, le shell cherche un fichier `git` dans les dossiers listé
 
 Règle simple : **un projet = un côté**. Si le projet vit dans WSL, ouvre-le, lance-le et commite-le depuis WSL.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Coller une commande Bash d'un tutoriel dans PowerShell sans regarder l'invite
 > - Croire que `ls` dans PowerShell est le même programme que `ls` sous Linux
 > - Mélanger les côtés : cloner sous Windows, lancer sous WSL, commiter sous Windows
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Terminal]] · [[Shell]] · [[PowerShell]] · [[Bash]] · [[Système d'exploitation et noyau]]

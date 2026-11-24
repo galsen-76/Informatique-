@@ -9,7 +9,6 @@ concepts:
   - "[[Gestionnaire de versions de Node (nvm)]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Node.js, JavaScript hors du navigateur
 
@@ -41,16 +40,11 @@ flowchart TD
 ## 5. Un seul fil, beaucoup de clients
 La [[Boucle d'événements]] : tant que ton code ne fait pas de gros calcul synchrone, Node sert des milliers de requêtes en parallèle. C'est pour ça qu'il est populaire pour les API.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Utiliser `readFileSync` dans un serveur (bloque tout le monde)
 > - Chemins relatifs qui dépendent du dossier courant
 > - Installer Node avec apt et nvm en même temps
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Node.js]] · [[Lire et écrire un fichier]] · [[Boucle d'événements]] · [[Gestionnaire de versions de Node (nvm)]]

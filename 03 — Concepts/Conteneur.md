@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 13 - Docker]]"
-status: en-cours
-level: intermediaire
-niveau: 2
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Image Docker]]"
-parents:
-  - "[[Docker]]"
 related:
   - "[[Volume Docker]]"
   - "[[Démon Docker]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Une instance isolée et jetable d'une image Docker, en cours d'exécution : un processus dans sa bulle.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -81,45 +65,8 @@ docker stop web && docker rm web   # arrêter puis supprimer
 > [!warning] À ne pas confondre
 > `docker run` (crée un **nouveau** conteneur) et `docker exec` (entre dans un conteneur **qui tourne déjà**). Et un conteneur arrêté n'est pas supprimé : `docker ps -a` le montre encore.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine ce qui se passe quand tu tapes `docker run -p 8080:80 nginx` : ton PC, le conteneur, les ports, l'image, le registre d'où elle vient.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un conteneur avec des données écrites dedans, puis après `docker rm`. Dessine ce qui reste et ce qui a disparu.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Conteneur » et je l'intègre ici avec `![[Schéma - Conteneur.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 06 - Dépanner un conteneur]]
-- [[Fil rouge 01 - Lancer l'application dans un conteneur]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Image Docker]]
 - **Complémentaires** : [[Volume Docker]] · [[Port]] · [[Variable d'environnement]]
 - **Utilisé par** : [[Python dans Docker]] · [[Docker Compose]]
 - **Commandes** : [[docker run]] · [[docker ps]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -1,24 +1,10 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 14 - DevOps et déploiement]]"
-status: a-decouvrir
-level: debutant
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Pipeline GitLab CI]]"
-  - "[[Docker]]"
-  - "[[Conteneur]]"
-parents:
-  - "[[Pipeline GitLab CI]]"
 related:
   - "[[Kaniko]]"
   - "[[Construire une image dans la CI]]"
   - "[[Variables CI-CD GitLab]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -27,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Un runner est le programme, installé sur une machine, qui exécute réellement les jobs d'une pipeline : GitLab décide quoi faire, le runner le fait.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### D'abord, qui fait quoi
@@ -147,45 +129,8 @@ concurrent = 4                      # jobs en parallèle au maximum sur cette ma
 Ne confonds pas non plus le **jeton du runner** (`glrt-…`, qui l'enregistre auprès de GitLab : un secret à protéger) et le **jeton du job** (`CI_JOB_TOKEN`, temporaire, donné à chaque job).
 Avec l'exécuteur **shell**, les jobs tournent directement sur la machine, avec ses fichiers : un job peut laisser des restes qui faussent le suivant, et un script malveillant agit sur la machine. Préfère l'exécuteur docker.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine ce qui se passe quand GitLab a un job à lancer : le serveur GitLab, le runner qui demande du travail, le conteneur du job, le résultat.
-
-> [!example] 🔄 Change de contexte
-> Redessine-le pour un runner sans accès direct à Internet. Par où passent les images et les paquets ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Runner GitLab » et je l'intègre ici avec `![[Schéma - Runner GitLab.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 09 - La CI de l'API]]
-- [[Fil rouge 05 - Première pipeline, les tests]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Runner GitLab au travail](obsidian://open?vault=Travail&file=Runner%20GitLab%20au%20travail)
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Docker]] · [[Conteneur]]
 - **Complémentaires** : [[Kaniko]] · [[Construire une image dans la CI]] · [[Variables CI-CD GitLab]]
 - **Utilisé par** : [[Intégration et déploiement continus (CI-CD)]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

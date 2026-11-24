@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: frontend
 module: "[[Module 11 - React]]"
-status: a-decouvrir
-level: debutant
-niveau: 6
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[JavaScript]]"
-  - "[[DOM]]"
-  - "[[Module et import]]"
-parents: []
 related:
   - "[[Vue.js]]"
   - "[[Angular]]"
-next_review: 
 tags:
   - concept
   - frontend
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > React est une bibliothèque JavaScript pour construire des interfaces en composants : tu décris ce que l'écran doit afficher selon l'état, et React met le DOM à jour quand l'état change.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -71,44 +54,8 @@ Compare avec une page qui modifie le [[DOM]] à la main : ici, aucune manipulati
 > [!warning] À ne pas confondre
 > **React** (une bibliothèque pour l'affichage) n'est pas un framework complet comme [[Angular]] : le routage, les appels d'API ou l'état global viennent d'autres bibliothèques. Et **React** n'est pas **Next.js** (un framework construit sur React).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine la formule « écran = f(état) » : l'état, le composant, l'affichage, et la flèche qui relance quand l'état change.
-
-> [!example] 🔄 Change de contexte
-> Place React, Vue et Angular sur un même dessin. Qu'est-ce qu'ils partagent, qu'est-ce qui les distingue ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - React » et je l'intègre ici avec `![[Schéma - React.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [React au travail](obsidian://open?vault=Travail&file=React%20au%20travail)
 - **Prérequis** : [[JavaScript]] · [[DOM]] · [[Module et import]]
 - **Complémentaires** : [[Vue.js]] · [[Angular]]
 - **Utilisé par** : [[Composant d'interface]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

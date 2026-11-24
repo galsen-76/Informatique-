@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: frontend
 module: "[[Module 19 - Vue.js]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 6
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[État et réactivité]]"
-parents:
-  - "[[Vue.js]]"
 related:
   - "[[Application monopage et routage]]"
   - "[[Service et injection de dépendances]]"
-next_review: 
 tags:
   - concept
   - frontend
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Pinia est le store officiel de Vue : un endroit central qui garde un état partagé par plusieurs composants (utilisateur connecté, panier, filtres), avec ses actions.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -86,42 +70,6 @@ onMounted(store.charger);
 > [!warning] À ne pas confondre
 > Tout mettre dans le store : l'état propre à un seul composant (un champ saisi, une fenêtre ouverte) reste local. Et déstructurer le store sans `storeToRefs` casse la réactivité.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : trois composants qui se passent la liste des dépenses de parent en enfant, puis un store Pinia. Dessine le chemin de la donnée dans chaque cas.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine ce qui se passe quand un composant ajoute une dépense dans le store : l'action, l'état, les autres composants qui se mettent à jour.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Pinia » et je l'intègre ici avec `![[Schéma - Pinia.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[État et réactivité]]
 - **Complémentaires** : [[Application monopage et routage]] · [[Service et injection de dépendances]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

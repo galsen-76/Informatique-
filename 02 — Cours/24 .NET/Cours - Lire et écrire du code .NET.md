@@ -14,7 +14,6 @@ concepts:
   - "[[Module et import]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Lire et écrire du code .NET
 
@@ -58,19 +57,13 @@ Très utilisées en .NET : on écrit le code contre une interface (`IStockage`) 
 ## 8. L'asynchrone
 Tout ce qui attend (réseau, fichier, base de données) existe en version `…Async` qui renvoie une `Task`. On l'appelle avec `await`, dans une méthode marquée `async`. Fiche : [[async et await]].
 
-## Mise en pratique
-- Pour chaque notion : déplie l'encadré « Comment ça s'écrit », puis fais les **exercices visuels** de la fiche.
-- Puis [[Découvrir .NET 02 - Une solution en deux projets]].
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Oublier un `;` ou une `}` : le compilateur pointe souvent la ligne **suivante**
 > - Comparer deux textes sans faire attention à la casse : `string.Equals(a, b, StringComparison.OrdinalIgnoreCase)`
 > - Écrire une boucle `foreach` avec un `if` et un compteur là où un `Where(...).Count()` suffit
 > - Ignorer les avertissements jaunes de nullabilité (`CS8602`) : ce sont les futurs `NullReferenceException`
 > - Bloquer avec `.Result` sur une `Task` au lieu d'utiliser `await`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Variables et types]] · [[Fonction]] · [[Classe et objet]] · [[Liste et dictionnaire]] · [[Motifs de boucle]] · [[Exception]] · [[Interface et polymorphisme]] · [[async et await]] · [[Module et import]]

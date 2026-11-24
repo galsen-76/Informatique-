@@ -9,7 +9,6 @@ concepts:
   - "[[Template et liaison de données]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Angular, composants et templates
 
@@ -48,16 +47,11 @@ flowchart TD
 | `{x && …}` | `v-if` | `@if` |
 | `map` | `v-for` | `@for … track` |
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Suivre un tutoriel AngularJS
 > - Oublier d'importer un composant ou `FormsModule`
 > - Oublier `track` dans `@for`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Angular]] · [[Angular CLI]] · [[Composant d'interface]] · [[Template et liaison de données]]

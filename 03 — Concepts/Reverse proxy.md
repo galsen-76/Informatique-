@@ -1,23 +1,10 @@
 ---
 type: concept
-domain: reseau
 module: "[[Module 14 - DevOps et déploiement]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 4
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Port]]"
-  - "[[HTTP]]"
-  - "[[Docker Compose]]"
-parents: []
 related:
   - "[[Proxy]]"
   - "[[HTTPS et TLS]]"
   - "[[Passerelle d'API (API gateway)]]"
-next_review: 
 tags:
   - concept
   - reseau
@@ -26,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Un serveur placé **devant les services**, qui reçoit toutes les requêtes des visiteurs et envoie chacune au bon service.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -88,52 +71,9 @@ server {
 > - Un reverse proxy **n'est pas une API** : il ne produit aucune donnée et ne décide pas de la réponse, il **transmet** la requête au service qui, lui, répond. Une [[Passerelle d'API (API gateway)]] est un reverse proxy spécialisé pour les API, mais ce n'est pas non plus elle qui contient la logique.
 > - Un **404 de Traefik ou de nginx** (aucune règle ne correspond) n'est pas un 404 de l'application. Un **502** veut dire que le service derrière ne répond pas.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine nginx devant ton application : les requêtes `/` vont au front, `/api` va à l'API. Suis une requête de chaque sorte.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   U[Navigateur] --> A[API]
->   A --> N[nginx]
->   N --> F[Front Vue]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Reverse proxy » et je l'intègre ici avec `![[Schéma - Reverse proxy.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 12 - Derrière nginx, avec une petite page]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Reverse proxy au travail](obsidian://open?vault=Travail&file=Reverse%20proxy%20au%20travail)
 - **Prérequis** : [[Port]] · [[HTTP]] · [[Docker Compose]]
 - **Complémentaires** : [[Proxy]] · [[HTTPS et TLS]] · [[Variable d'environnement]]
 - **Va plus loin** : [[Passerelle d'API (API gateway)]]
 - **Même idée en code** : [[Patron Proxy]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

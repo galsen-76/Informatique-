@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 15 - Architecture logicielle]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[API REST]]"
-  - "[[Docker Compose]]"
-parents:
-  - "[[Séparation des responsabilités]]"
 related:
   - "[[Architecture en couches]]"
   - "[[Reverse proxy]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un monolithe est une seule application qui fait tout ; une architecture en microservices découpe en petits services indépendants qui communiquent par le réseau, chacun déployé séparément.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -77,43 +60,7 @@ Une fonction serverless est un service séparé : l'appli l'appelle par HTTP, el
 > [!warning] À ne pas confondre
 > Croire que les microservices sont « plus modernes » donc mieux : un mauvais découpage crée un monolithe distribué, avec tous les inconvénients des deux. Commence en monolithe bien organisé.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : ton application en un seul bloc, puis découpée en trois services. Dessine ce qu'il faut ajouter entre les services.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine une application connue faite de plusieurs conteneurs (serveur, interface, base, file de tâches). Est-ce un monolithe, des microservices, ou entre les deux ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Monolithe et microservices » et je l'intègre ici avec `![[Schéma - Monolithe et microservices.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Monolithe et microservices au travail](obsidian://open?vault=Travail&file=Monolithe%20et%20microservices%20au%20travail)
 - **Prérequis** : [[API REST]] · [[Docker Compose]]
 - **Complémentaires** : [[Architecture en couches]] · [[Reverse proxy]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

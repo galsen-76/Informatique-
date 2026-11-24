@@ -1,22 +1,8 @@
 ---
 type: concept
-domain: backend
 module: "[[Module 08 - Backend et API REST]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Code de statut HTTP]]"
-  - "[[Middleware]]"
-  - "[[Exception]]"
-parents:
-  - "[[API REST]]"
 related:
   - "[[Journaliser avec logging]]"
-next_review: 
 tags:
   - concept
   - backend
@@ -25,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Une API bien faite renvoie, pour chaque problème, le bon code de statut et un corps d'erreur clair et toujours de la même forme, sans révéler de détails internes.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -84,43 +66,7 @@ app.use((err, req, res, next) => {
 > [!warning] À ne pas confondre
 > Renvoyer **200 avec `{"ok": false}`** : le client, les proxys et la supervision croient que tout va bien. Utilise les codes de statut.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine ce qui arrive quand on demande `GET /depenses/999` : la route, l'erreur levée, le code renvoyé, le corps JSON, ce qu'affiche le front.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : une API qui renvoie 500 avec une page HTML, puis une qui renvoie 404 avec `{"detail": …}`. Dessine ce que le front peut en faire.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Gestion des erreurs d'une API » et je l'intègre ici avec `![[Schéma - Gestion des erreurs d'une API.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 01 - Prendre l'API en main]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Gestion des erreurs d'une API au travail](obsidian://open?vault=Travail&file=Gestion%20des%20erreurs%20d%27une%20API%20au%20travail)
 - **Prérequis** : [[Code de statut HTTP]] · [[Middleware]] · [[Exception]]
 - **Complémentaires** : [[Journaliser avec logging]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

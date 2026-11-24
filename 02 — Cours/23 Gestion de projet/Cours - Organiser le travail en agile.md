@@ -8,7 +8,6 @@ concepts:
   - "[[Définition de terminé]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Organiser le travail en agile
 
@@ -47,17 +46,12 @@ Deux listes complémentaires :
 ## 5. Le lien avec ce que tu sais déjà
 Une story = un ticket GitLab = une branche = une [[Merge request]]. La pipeline de CI vérifie une partie de la définition de terminé à ta place.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Tout mettre en « Must »
 > - Commencer dix tâches et n'en finir aucune
 > - Déclarer « fini » ce qui marche seulement sur sa machine
 > - Croire qu'agile veut dire sans plan ni documentation
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Méthode agile (Scrum et Kanban)]] · [[Backlog et priorisation]] · [[Définition de terminé]]

@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: reseau
 module: "[[Module 17 - Réseau]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[HTTP]]"
-  - "[[TCP et UDP]]"
-parents: []
 related:
   - "[[Certificat]]"
-next_review: 
 tags:
   - concept
   - reseau
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > HTTPS, c'est HTTP transporté dans un tunnel TLS : les échanges sont chiffrés et le serveur prouve son identité avec un certificat.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -65,45 +49,8 @@ openssl s_client -connect gitlab.com:443 -servername gitlab.com </dev/null | hea
 > [!warning] À ne pas confondre
 > **Chiffré** ne veut pas dire **sûr** : un site malveillant peut avoir un HTTPS valide. Le cadenas garantit seulement que tu parles au propriétaire du nom affiché.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine une connexion HTTPS : la poignée de main TLS, le certificat vérifié, puis la requête HTTP chiffrée dans le tunnel.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : la même requête de connexion en HTTP puis en HTTPS. Dessine ce que voit quelqu'un sur le réseau dans chaque cas.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - HTTPS et TLS » et je l'intègre ici avec `![[Schéma - HTTPS et TLS.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 02 - Suivre une requête sur le réseau]]
-- [[MesDépenses 12 - Derrière nginx, avec une petite page]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [HTTPS et TLS au travail](obsidian://open?vault=Travail&file=HTTPS%20et%20TLS%20au%20travail)
 - **Prérequis** : [[HTTP]] · [[TCP et UDP]]
 - **Complémentaires** : [[Certificat]]
 - **Commandes** : [[curl]] · [[openssl]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -9,7 +9,6 @@ concepts:
   - "[[Gestionnaire de paquets]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - .NET, premiers pas
 
@@ -63,18 +62,12 @@ Dès qu'il y a plus d'un morceau (une bibliothèque, une API, des tests), on cr�
 ## 7. Les paquets : NuGet
 Comme pip pour Python ou npm pour JavaScript, **NuGet** installe des bibliothèques externes : `dotnet add package <nom>`. La liste est dans le `.csproj`. Voir [[Gestionnaire de paquets]] et [[dotnet add]].
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3).
-- Puis [[Découvrir .NET 01 - Un premier programme console]] et [[Découvrir .NET 02 - Une solution en deux projets]].
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Installer le runtime au lieu du SDK : `dotnet new` et `dotnet build` n'existent pas
 > - Lancer `dotnet run` à la racine d'une solution : il faut `--project`
 > - Commiter `bin/` et `obj/` : lance `dotnet new gitignore` dès le début
 > - Confondre .NET Framework (ancien, Windows seulement) et .NET (moderne) en lisant un tutoriel ou une réponse en ligne : regarde la date et la version
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Plateforme .NET]] · [[Langage compilé et interprété]] · [[Projet et solution .NET]] · [[Gestionnaire de paquets]]

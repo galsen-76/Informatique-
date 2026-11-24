@@ -10,7 +10,6 @@ concepts:
   - "[[Tester l'image, pas le dépôt]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Faire tourner un script Python dans Docker
 
@@ -56,17 +55,12 @@ Lance pytest **dans l'image** : `docker run --rm --entrypoint pytest mon-zipper 
 ## 7. En entreprise
 Derrière un proxy, `FROM` et `pip install` passent souvent par un registre ou un miroir interne : préfixe l'image de base et donne `PIP_INDEX_URL` au build (`ARG` ou variable de CI).
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Donner un chemin Windows (`C:\...`) au script dans le conteneur au lieu du chemin monté (`/data`)
 > - Oublier de reconstruire l'image après avoir modifié le script
 > - Écrire le résultat ailleurs que dans un dossier monté : il disparaît avec le conteneur
 > - Ne pas voir les `print` à temps : oubli de `PYTHONUNBUFFERED=1`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Python dans Docker]] · [[Volume Docker]] · [[Arguments de ligne de commande]] · [[Variable d'environnement]] · [[Tester l'image, pas le dépôt]]

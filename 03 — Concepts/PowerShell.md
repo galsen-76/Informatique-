@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: en-cours
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Shell]]"
-parents:
-  - "[[Shell]]"
 related:
   - "[[Bash]]"
-next_review: 
 tags:
   - concept
   - terminal
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Le shell moderne de Windows : ses commandes s'écrivent Verbe-Nom et se passent des objets, pas du texte.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -72,43 +56,7 @@ $env:PATH -split ";"                             # le PATH, un dossier par ligne
 > [!warning] À ne pas confondre
 > **Windows PowerShell 5.1** (bleu, installé d'office) et **PowerShell 7** (`pwsh`, à installer, plus moderne). Et l'alias `ls` de PowerShell avec le vrai `ls` de Linux.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : la même tâche « lister les fichiers » en Bash puis en PowerShell. Dessine ce qui passe dans le pipe : du texte d'un côté, des objets de l'autre.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine ton poste : Windows avec PowerShell, et WSL avec Bash. Place chaque outil (git, docker, python) du côté où tu l'utilises.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - PowerShell » et je l'intègre ici avec `![[Schéma - PowerShell.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 00 - Découvrir son poste]]
-
-## 4 · Relier
+## 3 · Relier
 - **Notion parente** : [[Shell]]
 - **Complémentaires** : [[Bash]]
 - **Commandes** : [[Get-ChildItem]] · [[wsl.exe]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

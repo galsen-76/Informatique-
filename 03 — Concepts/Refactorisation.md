@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 15 - Architecture logicielle]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Test unitaire]]"
-  - "[[Commit]]"
-parents:
-  - "[[Séparation des responsabilités]]"
 related:
   - "[[Principes DRY, KISS et YAGNI]]"
   - "[[Convention de commit]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Refactoriser, c'est améliorer la structure du code sans changer son comportement, par petites étapes vérifiées par les tests ; c'est ainsi qu'on rembourse la dette technique.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -81,42 +64,6 @@ def traiter(fichier):
 > [!warning] À ne pas confondre
 > **Refactoriser** (même comportement, meilleure structure) n'est pas **réécrire** (tout jeter et recommencer, très risqué). Et sans tests, ce n'est plus une refactorisation mais un pari.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un script en un seul bloc, puis découpé en fonctions. Dessine les morceaux et ce qui garantit que le comportement n'a pas changé.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine une refactorisation en petites étapes : un changement, les tests, un commit, et ainsi de suite.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Refactorisation » et je l'intègre ici avec `![[Schéma - Refactorisation.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 04 - Ranger en fonctions]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Test unitaire]] · [[Commit]]
 - **Complémentaires** : [[Principes DRY, KISS et YAGNI]] · [[Convention de commit]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

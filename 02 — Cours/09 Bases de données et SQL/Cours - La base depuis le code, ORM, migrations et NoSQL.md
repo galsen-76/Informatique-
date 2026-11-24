@@ -8,7 +8,6 @@ concepts:
   - "[[Base NoSQL]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - La base depuis le code, ORM, migrations et NoSQL
 
@@ -36,16 +35,11 @@ flowchart TD
 ## 4. Autre chose que des tables
 [[Base NoSQL]] : Redis pour le cache et les sessions, MongoDB pour des documents. Beaucoup d'applis combinent PostgreSQL et Redis.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Modifier une migration déjà appliquée
 > - Croire qu'un ORM dispense de SQL
 > - Choisir NoSQL pour des données très reliées
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[ORM]] · [[Migration de base de données]] · [[Base NoSQL]]

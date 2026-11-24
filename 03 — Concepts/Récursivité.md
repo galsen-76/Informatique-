@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: algorithmique
 module: "[[Module 21 - Algorithmique]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Fonction]]"
-  - "[[Pseudo-code et trace d'exécution]]"
-parents:
-  - "[[Algorithme]]"
 related:
   - "[[Pile et file]]"
   - "[[Arbre et graphe]]"
-next_review: 
 tags:
   - concept
   - algorithmique
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Une fonction récursive s'appelle elle-même sur une version plus petite du problème, jusqu'à un cas de base qu'on sait résoudre directement.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -90,42 +73,6 @@ Tout algorithme récursif peut s'écrire avec une boucle et une [[Pile et file|p
 > [!warning] À ne pas confondre
 > Oublier le cas de base, ou un cas récursif qui ne rapproche pas du cas de base : récursion infinie. Et la récursivité naïve qui recalcule les mêmes choses (Fibonacci) explose en temps : garder les résultats déjà calculés (*mémoïsation*, `functools.cache`).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine les appels de `somme([3, 5, 2])` écrite en récursif : chaque appel, le cas de base, les valeurs qui remontent.
-
-> [!example] 🔄 Change de contexte
-> Redessine-la pour parcourir un dossier et ses sous-dossiers. Quel est le cas de base ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Récursivité » et je l'intègre ici avec `![[Schéma - Récursivité.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Fonction]] · [[Pseudo-code et trace d'exécution]]
 - **Complémentaires** : [[Pile et file]] · [[Arbre et graphe]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

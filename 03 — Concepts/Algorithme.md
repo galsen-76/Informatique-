@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: algorithmique
 module: "[[Module 21 - Algorithmique]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Condition (if)]]"
-  - "[[Boucle (for, while)]]"
-parents: []
 related:
   - "[[Décomposer un problème]]"
   - "[[Pseudo-code et trace d'exécution]]"
-next_review: 
 tags:
   - concept
   - algorithmique
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un algorithme est une suite finie d'étapes précises qui, à partir de données d'entrée, produit un résultat ; c'est la solution d'un problème, indépendamment du langage dans lequel on l'écrit.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -86,43 +70,7 @@ Et en JavaScript, en Bash… l'idée reste la même.
 > [!warning] À ne pas confondre
 > Un **algorithme** (la méthode) n'est pas un **programme** (la méthode écrite dans un langage précis). Et « ça marche sur mon exemple » ne veut pas dire que l'algorithme est juste : il doit marcher pour **toutes** les entrées, y compris vides ou bizarres.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine en boîtes l'algorithme « calculer le total par catégorie » : entrées, étapes, sortie.
-
-> [!example] 🔄 Change de contexte
-> Redessine le même algorithme pour « trouver la plus grosse dépense ». Quelles étapes changent ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Algorithme » et je l'intègre ici avec `![[Schéma - Algorithme.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 02 - Classer les dépenses]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Condition (if)]] · [[Boucle (for, while)]]
 - **Complémentaires** : [[Décomposer un problème]] · [[Pseudo-code et trace d'exécution]]
 - **Utilisé par** : [[Complexité (notation grand O)]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

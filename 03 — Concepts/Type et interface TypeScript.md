@@ -1,21 +1,8 @@
 ---
 type: concept
-domain: typescript
 module: "[[Module 06 - TypeScript]]"
-status: a-decouvrir
-level: debutant
-niveau: 6
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[TypeScript]]"
-  - "[[Liste et dictionnaire]]"
-parents:
-  - "[[TypeScript]]"
 related:
   - "[[Union et type littéral]]"
-next_review: 
 tags:
   - concept
   - typescript
@@ -24,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > On décrit la forme d'un objet avec une interface ou un alias type, puis TypeScript vérifie que chaque objet la respecte.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -82,43 +65,7 @@ r.annotations[0].lable;   // ❌ Property 'lable' does not exist. Did you mean '
 > [!warning] À ne pas confondre
 > `interface` et `type` se ressemblent : `interface` pour la forme d'un objet (extensible avec `extends`), `type` pour tout le reste (unions, alias). Et `any` n'est pas une solution : il éteint TypeScript ; préfère `unknown`.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine l'interface `Depense` (id, libelle, montant, categorie) comme un moule, et deux objets : un qui rentre, un qui ne rentre pas.
-
-> [!example] 🔄 Change de contexte
-> Le même modèle existe côté API en Python (schéma Pydantic). Dessine les deux moules côte à côte et ce qui les relie.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Type et interface TypeScript » et je l'intègre ici avec `![[Schéma - Type et interface TypeScript.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[TypeScript]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[Union et type littéral]]
 - **Utilisé par** : [[Générique TypeScript]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

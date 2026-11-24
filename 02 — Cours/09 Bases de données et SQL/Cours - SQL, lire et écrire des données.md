@@ -7,7 +7,6 @@ concepts:
   - "[[SQL]]"
 tags:
   - cours
-niveau: 2
 ---
 # Cours - SQL, lire et écrire des données
 
@@ -40,16 +39,11 @@ Une table = des colonnes typées et des lignes. Chaque ligne a un identifiant un
 ## 6. L'outil
 [[psql]] dans le terminal, ou un client graphique (DBeaver). La [[Fiche - Lancer PostgreSQL avec Docker]] te donne une base en une commande.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - `UPDATE` ou `DELETE` sans `WHERE`
 > - Guillemets doubles pour les chaînes (en SQL : apostrophes)
 > - Oublier le `;` dans psql
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Base de données relationnelle]] · [[SQL]]

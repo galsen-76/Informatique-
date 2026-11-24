@@ -1,23 +1,12 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 14 - DevOps et déploiement]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Git]]"
-parents: []
 related:
   - "[[Règles d'un job GitLab (rules)]]"
   - "[[Artefacts GitLab CI]]"
   - "[[extends GitLab CI]]"
   - "[[Variables CI-CD GitLab]]"
   - "[[Construire une image dans la CI]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -26,10 +15,6 @@ tags:
 
 > [!info] En une phrase
 > Une suite de tâches automatiques (tester, construire, publier) que GitLab lance à chaque push, décrite dans .gitlab-ci.yml.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -107,55 +92,9 @@ test-server:
 > [!warning] À ne pas confondre
 > GitLab CI (`.gitlab-ci.yml`) et GitHub Actions (`.github/workflows/`) : un projet repris de GitHub garde sa CI GitHub, que GitLab **ignore**.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine la pipeline de ton API : les stages, les jobs dans chaque stage, l'ordre d'exécution.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   B[Build image] --> T[Tests]
->   T --> P[Push image]
->   B --> P
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Pipeline GitLab CI » et je l'intègre ici avec `![[Schéma - Pipeline GitLab CI.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 06 - La CI du front Vue]]
-- [[MesDépenses Front 11 - La CI du front Angular]]
-- [[MesDépenses 09 - La CI de l'API]]
-- [[Fil rouge 05 - Première pipeline, les tests]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Pipeline GitLab CI au travail](obsidian://open?vault=Travail&file=Pipeline%20GitLab%20CI%20au%20travail)
 - **Prérequis** : [[Git]]
 - **Complémentaires** : [[Variables CI-CD GitLab]] · [[YAML]]
 - **Approfondir** : [[Règles d'un job GitLab (rules)]] · [[Artefacts GitLab CI]] · [[extends GitLab CI]]
 - **Utilisé par** : [[Construire une image dans la CI]] · [[Kaniko]] · [[Tester l'image, pas le dépôt]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

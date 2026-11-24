@@ -10,7 +10,6 @@ concepts:
   - "[[Design pattern]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Organiser son code
 
@@ -42,16 +41,11 @@ flowchart TD
 ## 5. Pour aller plus loin
 [[Principes SOLID]] (surtout l'inversion des dépendances) et les [[Design pattern|design patterns]] courants : stratégie, adaptateur, observateur, dépôt.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Abstraire trop tôt
 > - Refactoriser sans tests
 > - Mélanger refactorisation et nouvelle fonctionnalité dans un commit
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Séparation des responsabilités]] · [[Principes DRY, KISS et YAGNI]] · [[Refactorisation]] · [[Principes SOLID]] · [[Design pattern]]

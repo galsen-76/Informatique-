@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: algorithmique
 module: "[[Module 21 - Algorithmique]]"
-status: a-decouvrir
-level: debutant
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Complexité (notation grand O)]]"
-  - "[[Motifs de boucle]]"
-parents:
-  - "[[Algorithme]]"
 related:
   - "[[Algorithmes de tri]]"
   - "[[Index de base de données]]"
-next_review: 
 tags:
   - concept
   - algorithmique
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > La recherche linéaire regarde les éléments un par un (O(n)) ; la recherche dichotomique, possible seulement sur des données triées, coupe l'intervalle en deux à chaque étape (O(log n)).
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -80,48 +63,6 @@ En pratique : le module `bisect` de Python, ou un `set`/`dict` si on n'a pas bes
 > [!warning] À ne pas confondre
 > Utiliser la dichotomie sur des données **non triées** : le résultat est faux sans erreur visible. Et les bornes (`<=`, `+ 1`, `- 1`) : une erreur et la boucle ne s'arrête jamais ou rate la cible ; fais la trace.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine la recherche de 42 dans une liste triée de 16 nombres, case par case puis par moitiés. Compte les étapes.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   L[Liste non triée] --> D[Dichotomie]
->   D --> T[Trouvé vite]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Recherche linéaire et dichotomique » et je l'intègre ici avec `![[Schéma - Recherche linéaire et dichotomique.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Complexité (notation grand O)]] · [[Motifs de boucle]]
 - **Complémentaires** : [[Algorithmes de tri]] · [[Index de base de données]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

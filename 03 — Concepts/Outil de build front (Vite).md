@@ -1,23 +1,9 @@
 ---
 type: concept
-domain: frontend
 module: "[[Module 11 - React]]"
-status: a-decouvrir
-level: debutant
-niveau: 6
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Gestionnaire de paquets]]"
-  - "[[package.json]]"
-  - "[[Module et import]]"
-parents:
-  - "[[React]]"
 related:
   - "[[Compilation TypeScript (tsc et tsconfig)]]"
   - "[[Dockerfile]]"
-next_review: 
 tags:
   - concept
   - frontend
@@ -26,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Vite est l'outil qui lance un serveur de développement rapide et, pour la production, transforme ton code (JSX, TypeScript, imports) en quelques fichiers optimisés que le navigateur sait lire.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -72,43 +54,7 @@ Dans un Dockerfile, on fait souvent un **multi-étapes** : une étape Node qui l
 > [!warning] À ne pas confondre
 > Une variable `VITE_…` est **écrite dans le JavaScript livré** : jamais de secret dedans. Et `npm run dev` n'est pas fait pour la production : on sert le résultat de `npm run build`.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : `npm run dev` (serveur de développement) puis `npm run build` (dossier `dist`). Dessine ce qui sort de chaque commande.
-
-> [!example] 🔄 Change de contexte
-> Redessine le build dans le Dockerfile du front Vue : quel étage fait le build, quel étage sert le résultat ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Outil de build front (Vite) » et je l'intègre ici avec `![[Schéma - Outil de build front (Vite).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 04 - Le front Vue dans Docker]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Outil de build front (Vite) au travail](obsidian://open?vault=Travail&file=Outil%20de%20build%20front%20%28Vite%29%20au%20travail)
 - **Prérequis** : [[Gestionnaire de paquets]] · [[package.json]] · [[Module et import]]
 - **Complémentaires** : [[Compilation TypeScript (tsc et tsconfig)]] · [[Dockerfile]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

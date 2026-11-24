@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 13 - Docker]]"
-status: en-cours
-level: intermediaire
-niveau: 2
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Docker]]"
-parents:
-  - "[[Image Docker]]"
 related:
   - "[[Variable de build Docker (ARG)]]"
   - "[[Registre Docker]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > La recette écrite d'une image : une liste d'instructions que Docker exécute dans l'ordre pour la construire.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -85,56 +69,10 @@ Un Dockerfile peut contenir **plusieurs `FROM`** (*multi-stage build*) : une ét
 > [!warning] À ne pas confondre
 > `RUN` (pendant le build) et `CMD` (au démarrage du conteneur). Et le **Dockerfile** (la recette) avec l'**image** (le résultat).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine la construction de l'image de l'API étage par étage : chaque instruction (FROM, COPY, RUN, CMD) ajoute une couche. Marque celles qui sont réutilisées au build suivant.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   F[FROM python] --> C[COPY tout]
->   C --> R[pip install]
->   R --> M[CMD uvicorn]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Dockerfile » et je l'intègre ici avec `![[Schéma - Dockerfile.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 04 - Le front Vue dans Docker]]
-- [[MesDépenses Front 09 - Le front Angular dans Docker]]
-- [[MesDépenses 04 - L'API dans Docker]]
-- [[Fil rouge 02 - Écrire le Dockerfile]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Dockerfile au travail](obsidian://open?vault=Travail&file=Dockerfile%20au%20travail)
 - **Prérequis** : [[Docker]]
 - **Notion parente** : [[Image Docker]]
 - **Complémentaires** : [[Variable de build Docker (ARG)]] · [[Registre Docker]]
 - **Utilisé par** : [[Construire une image dans la CI]]
 - **Commandes** : [[docker build]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

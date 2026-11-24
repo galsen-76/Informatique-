@@ -8,7 +8,6 @@ concepts:
   - "[[Tâche planifiée (cron)]]"
 tags:
   - cours
-niveau: 4
 ---
 # Cours - Services, journaux et tâches planifiées
 
@@ -46,16 +45,11 @@ flowchart TD
 3. La configuration dans `/etc/...` : modifiée récemment ?
 4. Le port : `ss -tlnp`
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Faire `start` sans `enable` : le service ne revient pas après redémarrage
 > - Une tâche cron qui « ne marche pas » parce qu'elle n'a pas le même PATH que ton terminal
 > - Chercher systemd dans un conteneur Docker
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Service (systemd)]] · [[Journaux système]] · [[Tâche planifiée (cron)]]

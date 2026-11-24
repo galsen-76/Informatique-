@@ -17,7 +17,6 @@ concepts:
   - "[[Refactorisation]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Programmer dans n'importe quel langage
 
@@ -127,17 +126,6 @@ flowchart TB
   F --> M[Modules]
   M --> R[Refactoriser]
 ```
-
-## Mise en pratique
-Tout ce cours s'applique dans le fil rouge du niveau 0 :
-- [[Dépenses 04 - Ranger en fonctions]] : découper, nommer, séparer lire, traiter et afficher ;
-- [[Dépenses 05 - Un module réutilisable]] : modules, une règle à un seul endroit ;
-- [[Dépenses 06 - Un script qui ne plante pas]] : échouer clairement.
-
-Les patterns servent plus tard, quand MesDépenses grossit (niveau 5).
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Décomposer un problème]] · [[Variables et types]] · [[Condition (if)]] · [[Boucle (for, while)]] · [[Liste et dictionnaire]] · [[Fonction]] · [[Module et import]] · [[Exception]] · [[Classe et objet]] · [[Séparation des responsabilités]] · [[Principes DRY, KISS et YAGNI]] · [[Refactorisation]]

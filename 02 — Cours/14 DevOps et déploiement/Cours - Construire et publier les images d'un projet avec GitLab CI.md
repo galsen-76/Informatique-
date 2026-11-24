@@ -14,7 +14,6 @@ concepts:
   - "[[Kaniko]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Construire et publier les images d'un projet avec GitLab CI
 
@@ -58,17 +57,12 @@ Commandes : [[docker login]] · [[docker build]] · [[docker tag]] · [[docker p
 - Proxys Nexus pour pip, npm et apt (les Dockerfile installent des paquets)
 - Docker-in-Docker autorisé, ou Kaniko à utiliser
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Changer le `FROM` mais oublier que l'`image:` des jobs vient aussi de Docker Hub
 > - Oublier `library/` dans le chemin d'une image officielle via Nexus
 > - Écrire un mot de passe dans le `.gitlab-ci.yml`
 > - Pousser vers un dépôt proxy au lieu d'un dépôt hosted
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Dépôt upstream]] · [[Dockerfile]] · [[Registre Docker]] · [[Nexus]] · [[Variable de build Docker (ARG)]] · [[Pipeline GitLab CI]] · [[Variables CI-CD GitLab]] · [[Construire une image dans la CI]] · [[Kaniko]]

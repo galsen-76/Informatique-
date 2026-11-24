@@ -9,7 +9,6 @@ concepts:
   - "[[Supervision et observabilité]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Livrer en continu, environnements et supervision
 
@@ -45,16 +44,11 @@ flowchart TD
 ## 5. Après la mise en ligne
 [[Supervision et observabilité]] : logs, métriques, `/health`, alertes. Un déploiement n'est fini que quand on a vérifié qu'il va bien.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Reconstruire l'image par environnement
 > - Déployer `latest` (impossible de revenir en arrière proprement)
 > - Pas de `/health` : on découvre les pannes par les utilisateurs
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Intégration et déploiement continus (CI-CD)]] · [[Linter et formateur]] · [[Environnement de déploiement]] · [[Supervision et observabilité]]

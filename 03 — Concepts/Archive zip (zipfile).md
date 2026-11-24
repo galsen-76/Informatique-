@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 4
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Chemin de fichier]]"
-  - "[[Boucle (for, while)]]"
-parents: []
 related:
   - "[[Copier et déplacer des fichiers (shutil)]]"
-next_review: 
 tags:
   - concept
   - python
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > zipfile crée, lit et extrait des archives .zip fichier par fichier, en choisissant le nom de chaque fichier dans l'archive.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -77,44 +61,8 @@ with zipfile.ZipFile("images.zip") as z:
 > [!warning] À ne pas confondre
 > Sans `arcname`, l'archive garde le chemin complet du disque (`C:/Users/...` ou `/data/...`). Sans `ZIP_DEFLATED`, les fichiers sont seulement **stockés**, pas compressés. Et ne crée pas l'archive **dans** le dossier que tu zippes : elle finirait par s'inclure elle-même.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine une archive zip comme une boîte avec des fichiers dedans, chacun avec son nom dans l'archive et sa taille compressée.
-
-> [!example] 🛣️ Suis le trajet
-> Suis un dossier de trois images jusqu'au zip : la boucle, `writestr` ou `write`, le nom choisi, l'archive finale.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Archive zip (zipfile) » et je l'intègre ici avec `![[Schéma - Archive zip (zipfile).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 13 - Sauvegarder la base avec un script]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Archive zip (zipfile) au travail](obsidian://open?vault=Travail&file=Archive%20zip%20%28zipfile%29%20au%20travail)
 - **Prérequis** : [[Chemin de fichier]] · [[Boucle (for, while)]]
 - **Complémentaires** : [[Copier et déplacer des fichiers (shutil)]] · [[Exception]]
 - **Utilisé par** : [[Cours - Manipuler des fichiers et des archives]] · [[Fichier en mémoire (io.BytesIO)]] (un zip sans fichier) · [[Cours - Envoyer et recevoir des fichiers par HTTP]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

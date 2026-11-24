@@ -8,7 +8,6 @@ concepts:
   - "[[CORS]]"
 tags:
   - cours
-niveau: 1
 ---
 # Cours - Une API robuste, validation, erreurs et CORS
 
@@ -38,16 +37,11 @@ flowchart TD
 ## 4. Le navigateur et les autres origines
 [[CORS]] : réglé **sur le serveur** (ou évité avec un proxy), jamais en désactivant la sécurité du navigateur.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Valider seulement côté navigateur
 > - Renvoyer la trace d'erreur au client
 > - `Access-Control-Allow-Origin: *` avec des cookies
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Validation des données]] · [[Gestion des erreurs d'une API]] · [[CORS]]

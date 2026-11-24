@@ -1,21 +1,10 @@
 ---
 type: concept
-domain: projet
 module: "[[Module 23 - Gestion de projet]]"
-status: a-decouvrir
-level: debutant
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Spécification (specs)]]"
-parents: []
 related:
   - "[[Exigences fonctionnelles et non fonctionnelles]]"
   - "[[Spécification technique]]"
   - "[[Méthode agile (Scrum et Kanban)]]"
-next_review: 
 tags:
   - concept
   - projet
@@ -24,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Le cahier des charges est le **document de référence écrit par le demandeur** (client, service métier) pour décrire son besoin, ses contraintes et ses attentes, avant qu'un prestataire ou une équipe ne construise la solution. Très utilisé en France, surtout dans les appels d'offres.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -79,42 +64,6 @@ flowchart TD
 > [!warning] À ne pas confondre
 > Le cahier des charges exprime le **besoin du demandeur** ; la spécification (fonctionnelle et technique) décrit **la solution** qu'on va construire. En pratique les deux mots sont souvent mélangés : demande toujours qui a écrit le document et dans quel but.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine les rubriques d'un cahier des charges (contexte, besoins, contraintes, délais) pour une petite appli, avec qui l'écrit.
-
-> [!example] 🔄 Change de contexte
-> Redessine-le à côté d'une spécification. Qui écrit quoi, dans quel ordre ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Cahier des charges » et je l'intègre ici avec `![[Schéma - Cahier des charges.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Spécification (specs)]]
 - **Complémentaires** : [[Exigences fonctionnelles et non fonctionnelles]] · [[Spécification technique]] · [[Méthode agile (Scrum et Kanban)]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

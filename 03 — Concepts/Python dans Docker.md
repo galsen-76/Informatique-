@@ -1,21 +1,8 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 13 - Docker]]"
-status: en-cours
-level: debutant
-niveau: 2
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Dockerfile]]"
-  - "[[Volume Docker]]"
-  - "[[Gestionnaire de paquets]]"
-parents: []
 related:
   - "[[Arguments de ligne de commande]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -24,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Emballer un script Python et ses dépendances dans une image, puis le lancer dans un conteneur sur des fichiers montés.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -79,46 +62,9 @@ Ajoute un `.dockerignore` (`.venv`, `__pycache__`, `.git`, données de test) pou
 > [!warning] À ne pas confondre
 > `ENTRYPOINT` (ce qu'on lance toujours) et `CMD` (valeurs par défaut, remplaçables). Et les chemins : dans le conteneur, c'est `/data`, pas `C:\...`. Derrière un proxy, `FROM` et `pip install` passent souvent par un registre ou un miroir interne.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le conteneur de l'API : le code copié dans `/app`, les paquets installés, uvicorn lancé, le port publié vers ton PC.
-
-> [!example] 🔄 Change de contexte
-> Tu as dessiné une API lancée par uvicorn. Redessine-le pour un script qui tourne une fois puis s'arrête : qu'est-ce qui change dans le conteneur ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Python dans Docker » et je l'intègre ici avec `![[Schéma - Python dans Docker.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 04 - L'API dans Docker]]
-- [[Fil rouge 02 - Écrire le Dockerfile]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Python dans Docker au travail](obsidian://open?vault=Travail&file=Python%20dans%20Docker%20au%20travail)
 - **Prérequis** : [[Dockerfile]] · [[Volume Docker]] · [[Gestionnaire de paquets]]
 - **Complémentaires** : [[Arguments de ligne de commande]]
 - **Utilisé par** : [[Tester l'image, pas le dépôt]]
 - **Commandes** : [[docker build]] · [[docker run]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -7,7 +7,6 @@ concepts:
   - "[[Module et import]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Portée, closures et modules
 
@@ -34,16 +33,11 @@ flowchart TD
 ## 4. Les modules
 [[Module et import]] : un fichier par responsabilité, `export` ce qu'on partage, `import` ce qu'on utilise. Tu rencontreras aussi l'ancien `require()` de Node (CommonJS).
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Variable globale utilisée partout
 > - Mélanger `import` et `require`
 > - Oublier l'extension `.js` dans un import pour le navigateur
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Portée et closure]] · [[Module et import]]

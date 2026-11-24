@@ -9,7 +9,6 @@ concepts:
   - "[[Clé SSH]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Travailler avec un dépôt distant
 
@@ -49,16 +48,11 @@ On ne pousse pas sur `main` directement : on ouvre une [[Merge request]], la CI 
 ## 6. Deux remotes
 Pour un projet open source repris : `origin` = ton GitLab, `upstream` = le projet d'origine. Voir [[Dépôt upstream]].
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Travailler directement sur `main`
 > - Faire `git push --force` pour « régler » un rejet
 > - Oublier `git pull` avant de commencer à travailler
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Dépôt distant (remote)]] · [[Merge request]] · [[Dépôt upstream]] · [[Clé SSH]]

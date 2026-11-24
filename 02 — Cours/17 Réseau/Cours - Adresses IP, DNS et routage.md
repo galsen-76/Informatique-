@@ -8,7 +8,6 @@ concepts:
   - "[[Routage et NAT]]"
 tags:
   - cours
-niveau: 1
 ---
 # Cours - Adresses IP, DNS et routage
 
@@ -44,16 +43,11 @@ La passerelle (la box) envoie tout ce qui n'est pas local vers Internet ; le NAT
 4. Le port est-il ouvert ? (`Test-NetConnection`, `nc -zv`)
 5. Le service répond-il ? (`curl -v`)
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Conclure « le serveur est en panne » alors que c'est le DNS qui ne résout pas
 > - Croire qu'un `ping` qui échoue veut dire que le serveur est éteint (le ping est souvent bloqué)
 > - Utiliser `localhost` dans un conteneur pour joindre ta machine
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Adresse IP]] · [[DNS]] · [[Routage et NAT]]

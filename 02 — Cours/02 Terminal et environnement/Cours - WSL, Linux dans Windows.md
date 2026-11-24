@@ -9,7 +9,6 @@ concepts:
   - "[[Fichiers entre Windows et Linux]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - WSL, Linux dans Windows
 
@@ -57,17 +56,12 @@ Docker Desktop tourne **sur** WSL 2. Active *Settings > Resources > WSL integrat
 ## 7. Le réseau
 Un serveur lancé dans WSL (`python -m http.server 8000`) est joignable depuis le navigateur Windows sur `http://localhost:8000`. En entreprise, WSL peut avoir besoin du [[Proxy]] (variables `HTTPS_PROXY` dans `~/.bashrc`).
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Travailler dans `/mnt/c/...` depuis WSL : lent, et problèmes de droits et de fins de ligne
 > - Modifier des fichiers Linux avec un outil Windows qui ne passe pas par `\\wsl$` (ou l'extension VS Code)
 > - Croire que le Git ou le Python de Windows est disponible dans Ubuntu
 > - Oublier le mot de passe Ubuntu : il sert à chaque `sudo`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[WSL]] · [[Système d'exploitation et noyau]] · [[Bash]] · [[Fichiers entre Windows et Linux]]

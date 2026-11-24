@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: en-cours
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Bash]]"
-  - "[[Système de fichiers]]"
-parents: []
 related:
   - "[[Fichiers entre Windows et Linux]]"
   - "[[Script shell]]"
-next_review: 
 tags:
   - concept
   - terminal
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Sous Linux, chaque fichier appartient à un utilisateur et dit qui peut le lire (r), l'écrire (w) ou l'exécuter (x) ; root peut tout, sudo permet d'agir en root.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -78,50 +62,7 @@ whoami                      # qui suis-je ?
 > [!warning] À ne pas confondre
 > `sudo` pour **une** commande d'administration, et tout faire en `sudo` « pour que ça marche » : les fichiers créés appartiennent alors à root et tu ne peux plus les modifier normalement. Et `chmod 777` (tout le monde peut tout) n'est jamais une vraie solution.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine un fichier avec ses trois groupes de droits (propriétaire, groupe, autres) et les lettres r, w, x. Écris à côté le sens de `-rwxr-x---`.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   F[script.sh] --> D[droits rw-]
->   D --> L[./script.sh marche]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Permissions Linux » et je l'intègre ici avec `![[Schéma - Permissions Linux.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 09 - Un vrai outil en ligne de commande]]
-- [[MesDépenses 11 - Installer l'API sur un serveur]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Bash]] · [[Système de fichiers]]
 - **Complémentaires** : [[Fichiers entre Windows et Linux]] · [[Script shell]]
 - **Commandes** : [[chmod]] · [[sudo]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 13 - Docker]]"
-status: en-cours
-level: intermediaire
-niveau: 2
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Terminal]]"
-  - "[[Node.js]]"
-parents: []
 related:
   - "[[Conteneur]]"
   - "[[Image Docker]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un outil qui emballe une application avec tout ce dont elle a besoin pour qu'elle tourne pareil partout.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -74,46 +58,7 @@ docker run -p 3000:3000 api-notes
 > [!warning] À ne pas confondre
 > **Image** (le modèle, en lecture seule) et **conteneur** (une instance qui tourne). Et **Docker** ≠ **machine virtuelle** : pas de système d'exploitation complet par conteneur.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : ton application sans Docker (Python, Node, versions à installer sur chaque PC), puis avec Docker. Dessine ce que la notion change.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine le cycle complet : Dockerfile, build, image, run, conteneur, et où intervient le registre.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Docker » et je l'intègre ici avec `![[Schéma - Docker.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Fil rouge 01 - Lancer l'application dans un conteneur]]
-
-Pour m'aider :
-- [[Projet - API Notes]] (étape bonus : conteneuriser l'API)
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Terminal]], [[Node.js]] (pour conteneuriser une app que tu sais déjà lancer)
 - **Notions clés** : [[Image Docker]], [[Conteneur]]
 - **Commandes** : [[docker build]] · [[docker run]] · [[docker ps]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 13 - Docker]]"
-status: en-cours
-level: intermediaire
-niveau: 2
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Docker]]"
-parents:
-  - "[[Docker]]"
 related:
   - "[[Construire une image dans la CI]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Le programme de fond qui fait vraiment le travail de Docker ; la commande docker n'est qu'un client qui lui envoie des ordres.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -70,44 +54,7 @@ Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docke
 > [!warning] À ne pas confondre
 > Le **client** peut marcher alors que le **démon** est absent : `docker version` affiche la partie Client puis une erreur pour Server. Et c'est le démon qui télécharge les images : un proxy défini seulement dans ton terminal ne lui sert pas.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine ce qui se passe quand tu tapes `docker ps` : le client, la socket, le démon, la réponse.
-
-> [!example] 🔄 Change de contexte
-> Redessine-le pour un job de CI qui construit une image : où est le démon cette fois ? Pourquoi est-ce un problème ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Démon Docker » et je l'intègre ici avec `![[Schéma - Démon Docker.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 06 - Dépanner un conteneur]]
-- [[Fil rouge 01 - Lancer l'application dans un conteneur]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Docker]]
 - **Complémentaires** : [[Proxy]] · [[Registre Docker]]
 - **Utilisé par** : [[Construire une image dans la CI]] · [[Kaniko]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

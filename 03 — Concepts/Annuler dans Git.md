@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: git
 module: "[[Module 03 - Git et GitHub]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Commit]]"
-  - "[[Index Git (staging)]]"
-parents: []
 related:
   - "[[Stash]]"
   - "[[Rebase]]"
-next_review: 
 tags:
   - concept
   - git
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Selon ce qu'on veut défaire (un fichier modifié, un git add, un commit local, un commit déjà poussé), on utilise restore, reset ou revert.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -71,43 +55,7 @@ git reset --hard HEAD@{2}             # revenir à un état d'avant (à manier a
 > [!warning] À ne pas confondre
 > `reset` (déplace la branche, réécrit) et `revert` (ajoute un commit qui annule, sans réécrire). Et `--hard` efface les modifications non commitées **sans retour possible**.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine les quatre zones (fichiers, index, commits locaux, dépôt distant). Pour chacune, place la commande qui annule ce qui s'y trouve.
-
-> [!example] 🔄 Change de contexte
-> Tu as poussé un commit cassé sur la branche partagée. Redessine le schéma : pourquoi l'outil n'est plus le même qu'en local ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Annuler dans Git » et je l'intègre ici avec `![[Schéma - Annuler dans Git.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 07 - Travailler en branche]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Commit]] · [[Index Git (staging)]]
 - **Complémentaires** : [[Stash]] · [[Rebase]]
 - **Commandes** : [[git restore]] · [[git reset]] · [[git revert]] · [[git log]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

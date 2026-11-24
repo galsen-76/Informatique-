@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 13 - Docker]]"
-status: en-cours
-level: debutant
-niveau: 2
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Conteneur]]"
-  - "[[Système de fichiers]]"
-parents: []
 related:
   - "[[Python dans Docker]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Un moyen de brancher un dossier dans un conteneur, pour qu'il lise tes fichiers ou garde ses données après sa suppression.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -77,48 +61,8 @@ docker volume rm pg-data  # supprime (définitif)
 > - Le chemin côté conteneur doit être **celui où le programme écrit** (`SORTIE=/sortie`). Sinon, rien n'apparaît sur le PC, et avec `--rm` le fichier disparaît avec le conteneur.
 > - Côté PC, créer les dossiers soi-même (`mkdir`) pour qu'ils ne soient pas à `root`.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : ton API avec sa base SQLite dans le conteneur, puis dans un volume. Dessine ce qui arrive à tes dépenses après `docker compose down` puis `up`.
-
-> [!example] 🔄 Change de contexte
-> Redessine la même idée avec un dossier monté (bind mount) pour développer : où est le fichier réel ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Volume Docker » et je l'intègre ici avec `![[Schéma - Volume Docker.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 05 - Tout lancer avec compose]]
-- [[MesDépenses 04 - L'API dans Docker]]
-- [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
-- [[MesDépenses 06 - Dépanner un conteneur]]
-- [[Fil rouge 01 - Lancer l'application dans un conteneur]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Volume Docker au travail](obsidian://open?vault=Travail&file=Volume%20Docker%20au%20travail)
 - **Prérequis** : [[Conteneur]] · [[Système de fichiers]]
 - **Utilisé par** : [[Python dans Docker]] · [[Docker Compose]]
 - **Commandes** : [[docker run]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

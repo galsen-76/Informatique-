@@ -9,7 +9,6 @@ concepts:
   - "[[Appeler une API HTTP]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Installer des dépendances et tester
 
@@ -51,17 +50,12 @@ def test_zip_ne_contient_que_les_png(tmp_path):
 ## 6. Une bibliothèque externe : requests
 [[Appeler une API HTTP|requests]] appelle des API web en quelques lignes. C'est le paquet externe le plus installé de Python ; il sert à récupérer les données de n'importe quelle API. La suite des usages courants est dans [[Cours - Python au quotidien]].
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Installer les paquets sans activer le venv : ils partent dans le Python de la machine
 > - Commiter le dossier `.venv`
 > - Oublier de mettre à jour `requirements.txt` après un `pip install` : l'image Docker n'aura pas le paquet
 > - Croire qu'un test `skipped` est un test réussi
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Environnement virtuel Python]] · [[Gestionnaire de paquets]] · [[Test automatisé]] · [[Appeler une API HTTP]]

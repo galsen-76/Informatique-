@@ -8,7 +8,6 @@ concepts:
   - "[[Pare-feu]]"
 tags:
   - cours
-niveau: 1
 ---
 # Cours - TCP, UDP, ports et pare-feu
 
@@ -41,15 +40,10 @@ flowchart TD
 ## 5. Le pare-feu
 Il autorise ou bloque par port et par sens. Sur un serveur Ubuntu : `ufw`. En entreprise, des pare-feu réseau filtrent aussi entre les zones (poste, serveurs, Internet).
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Faire écouter un serveur sur `127.0.0.1` et s'étonner qu'il soit injoignable depuis une autre machine
 > - Ouvrir tous les ports « pour tester » et oublier de les refermer
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[TCP et UDP]] · [[Port]] · [[Pare-feu]]

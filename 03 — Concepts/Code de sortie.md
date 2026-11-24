@@ -1,20 +1,9 @@
 ---
 type: concept
-domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: en-cours
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Terminal]]"
-parents: []
 related:
   - "[[Exception]]"
   - "[[Pipeline GitLab CI]]"
-next_review: 
 tags:
   - concept
   - terminal
@@ -23,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Le nombre qu'un programme renvoie en se terminant : 0 veut dire « tout va bien », autre chose veut dire « échec ».
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -71,50 +56,7 @@ Un script Python qui plante sur une exception non attrapée sort avec le code **
 > [!warning] À ne pas confondre
 > Un programme qui **affiche** « erreur » mais sort avec 0 est vu comme un succès par la CI. À l'inverse, un avertissement affiché n'est pas un échec tant que le code vaut 0.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine un job de CI qui lance `pytest`. Suis le code de sortie : d'où il part, qui le lit, et ce qui arrive au job selon qu'il vaut 0 ou 1.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   S[Script] --> C[Code 1]
->   C --> J[Job vert]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Code de sortie » et je l'intègre ici avec `![[Schéma - Code de sortie.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 06 - Un script qui ne plante pas]]
-- [[MesDépenses 06 - Dépanner un conteneur]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Terminal]]
 - **Complémentaires** : [[Exception]] · [[Variable d'environnement]]
 - **Utilisé par** : [[Pipeline GitLab CI]] · [[Conteneur]] · [[Test automatisé]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

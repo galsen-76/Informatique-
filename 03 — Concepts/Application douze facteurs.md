@@ -1,22 +1,10 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 15 - Architecture logicielle]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Variable d'environnement]]"
-  - "[[Docker]]"
-parents: []
 related:
   - "[[Image Docker]]"
   - "[[Pipeline GitLab CI]]"
   - "[[Journaliser avec logging]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -25,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > La méthode des douze facteurs (twelve-factor app) est une liste de règles pour écrire une application facile à déployer, à configurer et à faire tourner en plusieurs copies, notamment dans Docker et le cloud.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -82,42 +66,6 @@ logging.basicConfig(stream=sys.stdout)      # logs sur la sortie standard
 > [!warning] À ne pas confondre
 > Ce n'est pas une norme à cocher à 100 % : ce sont des règles de bon sens. Le facteur le plus violé par les débutants est le 3 (secrets dans le code et dans Git).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Choisis quatre facteurs (configuration, dépendances, logs, processus jetables) et dessine pour chacun comment ton application le respecte ou non.
-
-> [!example] 🔄 Change de contexte
-> Redessine-les pour un autre programme que tu as écrit (un script, une fonction). Lesquels sont déjà respectés, lesquels non ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Application douze facteurs » et je l'intègre ici avec `![[Schéma - Application douze facteurs.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Variable d'environnement]] · [[Docker]]
 - **Complémentaires** : [[Image Docker]] · [[Pipeline GitLab CI]] · [[Journaliser avec logging]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

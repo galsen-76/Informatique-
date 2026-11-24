@@ -8,7 +8,6 @@ concepts:
   - "[[Union et type littéral]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - TypeScript, du JavaScript typé
 
@@ -42,16 +41,11 @@ flowchart TD
 ## 6. La limite
 Les types disparaissent à l'exécution : les données qui viennent de l'extérieur (API, formulaire, fichier) doivent être vérifiées par le code.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Mettre `any` partout pour faire taire les erreurs
 > - Croire que TypeScript vérifie les réponses d'API
 > - Annoter ce qui est déjà inféré (code lourd pour rien)
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[TypeScript]] · [[Type et interface TypeScript]] · [[Union et type littéral]]

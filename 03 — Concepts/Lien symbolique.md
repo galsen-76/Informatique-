@@ -1,18 +1,7 @@
 ---
 type: concept
-domain: linux
 module: "[[Module 18 - Linux et serveurs]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Arborescence Linux]]"
-parents: []
 related: []
-next_review: 
 tags:
   - concept
   - linux
@@ -21,10 +10,6 @@ tags:
 
 > [!info] En une phrase
 > Un raccourci vers un autre fichier ou dossier : on l'utilise comme l'original.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -59,42 +44,6 @@ ls -l /usr/bin/python3             # souvent un lien vers python3.12
 > [!warning] À ne pas confondre
 > Lien **symbolique** (`ln -s`, un chemin, peut être cassé) et lien **physique** (`ln`, un second nom pour les mêmes données). Supprimer le lien (`rm lien`) ne supprime pas la cible.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine un lien symbolique qui pointe vers un fichier, puis ce qui arrive au lien quand on supprime le fichier.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un lien symbolique, puis une copie. Dessine ce qui se passe quand tu modifies l'original.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Lien symbolique » et je l'intègre ici avec `![[Schéma - Lien symbolique.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 11 - Sauvegarder ses données]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Arborescence Linux]]
 - **Commandes** : [[ln]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

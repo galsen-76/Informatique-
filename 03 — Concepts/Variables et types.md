@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Python]]"
-parents:
-  - "[[Python]]"
 related:
   - "[[Liste et dictionnaire]]"
-next_review: 
 tags:
   - concept
   - python
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Une variable est un nom posé sur une valeur ; le type de la valeur (texte, nombre, booléen…) dit ce qu'on peut en faire.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -121,49 +105,7 @@ print(len(nom))             # 11
 > [!warning] À ne pas confondre
 > `=` (je range une valeur) et `==` (je compare deux valeurs). Et `"42"` (texte) ≠ `42` (nombre) : ce que tu lis dans un fichier ou une variable d'environnement est **toujours du texte**.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine des étiquettes (noms) posées sur des valeurs : un `int`, un `str`, une `list`. Montre ce qui arrive quand deux noms pointent la même liste.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   I[input 42] --> N[Nombre 42]
->   N --> A[Addition OK]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Variables et types » et je l'intègre ici avec `![[Schéma - Variables et types.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 01 - Lire les dépenses]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Python]]
 - **Complémentaires** : [[Liste et dictionnaire]]
 - **Utilisé par** : [[Condition (if)]] · [[Boucle (for, while)]] · [[Fonction]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

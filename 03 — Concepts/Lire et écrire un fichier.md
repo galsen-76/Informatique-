@@ -1,20 +1,9 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Chemin de fichier]]"
-parents: []
 related:
   - "[[JSON]]"
   - "[[Exception]]"
-next_review: 
 tags:
   - concept
   - python
@@ -23,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Ouvrir un fichier pour en lire ou écrire le contenu, en mode texte (avec un encodage) ou en mode binaire (octets bruts).
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -111,49 +96,7 @@ print(len(octets), "octets")
 > [!warning] À ne pas confondre
 > Mode `"w"` (efface le fichier puis écrit) et `"a"` (ajoute à la fin). Et **texte** vs **binaire** : ouvrir une image en mode texte provoque `UnicodeDecodeError`. Préciser `encoding="utf-8"` évite les accents cassés sous Windows.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un fichier ouvert en mode `"w"` puis en mode `"a"`. Dessine son contenu après deux écritures dans chaque cas.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   O[open rb] --> L[read]
->   L --> S[Texte str]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Lire et écrire un fichier » et je l'intègre ici avec `![[Schéma - Lire et écrire un fichier.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 08 - Lire un vrai fichier]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Chemin de fichier]]
 - **Complémentaires** : [[JSON]] · [[Exception]]
 - **Utilisé par** : [[Archive zip (zipfile)]] · [[Lire et écrire du CSV]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

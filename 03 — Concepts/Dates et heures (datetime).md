@@ -1,19 +1,8 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Variables et types]]"
-parents: []
 related:
   - "[[Journaliser avec logging]]"
-next_review: 
 tags:
   - concept
   - python
@@ -22,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Le module datetime représente des dates et des heures, calcule des écarts et les convertit en texte et inversement.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -78,49 +63,6 @@ print(datetime.now(timezone.utc).isoformat())
 > [!warning] À ne pas confondre
 > Une date **avec** fuseau horaire et une date **sans** : les comparer provoque une erreur. Dans les API et les serveurs, travaille en UTC. Et `%m` (mois) ≠ `%M` (minutes).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine une frise avec deux dates de dépenses et l'écart entre elles (`timedelta`). Écris les mêmes dates en texte avec `strftime`.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   T[Texte 2026-11-19] --> C[Comparaison directe]
->   C --> D[datetime OK]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Dates et heures (datetime) » et je l'intègre ici avec `![[Schéma - Dates et heures (datetime).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 08 - Lire un vrai fichier]]
-- [[MesDépenses 13 - Sauvegarder la base avec un script]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Variables et types]]
 - **Complémentaires** : [[Journaliser avec logging]] · [[Chemin de fichier]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

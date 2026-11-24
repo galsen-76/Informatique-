@@ -7,7 +7,6 @@ concepts:
   - "[[OAuth 2 et OpenID Connect]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Droits et connexion déléguée, rôles, OAuth 2 et OpenID Connect
 
@@ -36,16 +35,11 @@ flowchart TD
 ## 4. Dans la vraie vie
 « Se connecter avec GitLab », SSO d'entreprise avec Keycloak, jetons d'accès personnels avec des *scopes* limités.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Cacher un bouton au lieu de vérifier sur le serveur
 > - Oublier la vérification de propriété
 > - Ignorer le paramètre `state`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Autorisation et rôles]] · [[OAuth 2 et OpenID Connect]]

@@ -1,22 +1,8 @@
 ---
 type: concept
-domain: frontend
 module: "[[Module 11 - React]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 6
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Composant d'interface]]"
-  - "[[Client-serveur]]"
-  - "[[HTTP]]"
-parents:
-  - "[[React]]"
 related:
   - "[[Reverse proxy]]"
-next_review: 
 tags:
   - concept
   - frontend
@@ -25,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Une application monopage (SPA) charge une seule page HTML puis change l'affichage en JavaScript ; le routage côté client associe chaque adresse (/taches/12) à un composant sans recharger la page.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -105,44 +87,7 @@ Gmail ou GitLab sont des SPA : l'adresse change sans recharger la page, c'est le
 > [!warning] À ne pas confondre
 > `<a href>` recharge toute la page ; dans une SPA, utilise le composant `Link` du routeur. Et une SPA n'est pas idéale pour le référencement : les frameworks comme Next.js ou Nuxt génèrent le HTML côté serveur (SSR).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un site classique qui recharge une page par adresse, puis une SPA. Dessine ce que le serveur envoie dans chaque cas.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine ce qui arrive quand tu recharges `/depenses/3` sur le front Vue servi par nginx. Où faut-il une règle pour renvoyer `index.html` ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Application monopage et routage » et je l'intègre ici avec `![[Schéma - Application monopage et routage.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 04 - Le front Vue dans Docker]]
-- [[MesDépenses Front 09 - Le front Angular dans Docker]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Application monopage et routage au travail](obsidian://open?vault=Travail&file=Application%20monopage%20et%20routage%20au%20travail)
 - **Prérequis** : [[Composant d'interface]] · [[Client-serveur]] · [[HTTP]]
 - **Complémentaires** : [[Reverse proxy]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

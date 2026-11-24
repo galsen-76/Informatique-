@@ -7,7 +7,7 @@ tags:
 Un dessin Excalidraw par ligne : les concepts d'une ligne vont ensemble. Je coche quand Claude a vu le dessin et qu'on en a discuté.
 
 **Mon poste**
-- [ ] [[Terminal]], [[Shell]], [[WSL]], commandes de base et pipe
+- [ ] [[Terminal]], [[Shell]], [[WSL]], [[Redirection et pipe]] (cours : [[Cours - Bash, les commandes essentielles]])
 - [ ] [[Chemin de fichier]], [[Permissions Linux]]
 - [ ] [[Processus]], [[Variable d'environnement]], [[Variable PATH]]
 
@@ -36,3 +36,7 @@ Un dessin Excalidraw par ligne : les concepts d'une ligne vont ensemble. Je coch
 2. Un dessin Excalidraw qui relie ces concepts, sans regarder.
 3. Claude regarde le dessin, puis questions de situation réelle.
 4. Revoir à J+7 et J+30.
+
+## Parking
+Ce qui m'attire mais n'est pas la ligne en cours.
+-

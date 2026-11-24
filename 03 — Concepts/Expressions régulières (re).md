@@ -1,19 +1,8 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 4
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Variables et types]]"
-parents: []
 related:
   - "[[grep]]"
-next_review: 
 tags:
   - concept
   - python
@@ -22,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Un petit langage pour décrire un motif de texte (une date, un e-mail, un numéro) et le chercher, l'extraire ou le remplacer.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -79,42 +64,6 @@ print(re.sub(r"\s+", "_", "rapport final  v2.pdf"))          # rapport_final_v2.
 > [!warning] À ne pas confondre
 > `re.match` (seulement au **début** du texte) et `re.search` (n'importe où). Et une regex trop maligne devient illisible : si une simple méthode de texte suffit (`startswith`, `split`), utilise-la.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine le motif d'une date `\d{4}-\d{2}-\d{2}` morceau par morceau, et souligne ce qu'il attrape dans une phrase.
-
-> [!example] 🔄 Change de contexte
-> Redessine le même découpage pour un motif qui trouve les noms de fichiers `.png` dans une liste. Quelles pièces changent ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Expressions régulières (re) » et je l'intègre ici avec `![[Schéma - Expressions régulières (re).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 13 - Sauvegarder la base avec un script]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Variables et types]]
 - **Complémentaires** : [[grep]] · [[Journaliser avec logging]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

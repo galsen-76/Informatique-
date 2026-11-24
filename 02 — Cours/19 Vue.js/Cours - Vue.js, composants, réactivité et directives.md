@@ -9,7 +9,6 @@ concepts:
   - "[[Template et liaison de données]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Vue.js, composants, réactivité et directives
 
@@ -48,16 +47,11 @@ flowchart TD
 ## 5. Les directives
 [[Template et liaison de données]] : `v-if`, `v-for` avec `:key`, `v-model`, `:attr`, `@événement`.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Oublier `.value`
 > - `v-if` et `v-for` sur le même élément
 > - Suivre un tutoriel Vue 2 sans le savoir
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Vue.js]] · [[Composant d'interface]] · [[État et réactivité]] · [[Template et liaison de données]]

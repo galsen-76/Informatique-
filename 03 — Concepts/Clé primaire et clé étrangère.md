@@ -1,21 +1,8 @@
 ---
 type: concept
-domain: database
 module: "[[Module 09 - Bases de données et SQL]]"
-status: a-decouvrir
-level: debutant
-niveau: 2
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Base de données relationnelle]]"
-  - "[[SQL]]"
-parents:
-  - "[[Base de données relationnelle]]"
 related:
   - "[[Jointure SQL]]"
-next_review: 
 tags:
   - concept
   - database
@@ -24,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > La clé primaire identifie chaque ligne d'une table de façon unique ; la clé étrangère est une colonne qui pointe vers la clé primaire d'une autre table, ce qui relie les tables.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -80,49 +63,7 @@ Une appli de gestion de projets stocke ainsi projets, tâches et commentaires, r
 > [!warning] À ne pas confondre
 > Une **clé étrangère** n'est pas un **index** : PostgreSQL ne crée pas d'index automatiquement sur la colonne `projet_id`, il faut souvent l'ajouter.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine deux tables `categories` et `depenses`. Entoure la clé primaire de chacune et relie la clé étrangère à ce qu'elle désigne.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   C[categories id] --> D[depenses id]
->   D --> L[même valeur]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Clé primaire et clé étrangère » et je l'intègre ici avec `![[Schéma - Clé primaire et clé étrangère.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Base de données relationnelle]] · [[SQL]]
 - **Complémentaires** : [[Jointure SQL]]
 - **Utilisé par** : [[ORM]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

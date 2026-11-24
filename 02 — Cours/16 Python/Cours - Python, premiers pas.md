@@ -10,7 +10,6 @@ concepts:
   - "[[Liste et dictionnaire]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Python, premiers pas
 
@@ -82,17 +81,12 @@ for ext, nb in compte.items():
 ```
 Lis-le ligne par ligne et dis à voix haute ce que fait chacune avant de le lancer.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Oublier les deux-points `:` à la fin d'un `if`, `for` ou `def`
 > - Indenter avec un mélange d'espaces et de tabulations
 > - Confondre `=` (affecter) et `==` (comparer)
 > - Compter les positions d'une liste à partir de 1 au lieu de 0
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Python]] · [[Variables et types]] · [[Condition (if)]] · [[Boucle (for, while)]] · [[Liste et dictionnaire]]

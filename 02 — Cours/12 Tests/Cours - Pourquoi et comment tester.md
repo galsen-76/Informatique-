@@ -7,7 +7,6 @@ concepts:
   - "[[Test unitaire]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Pourquoi et comment tester
 
@@ -40,16 +39,11 @@ Des fonctions qui prennent leurs entrées en paramètres et renvoient un résult
 ## 6. Le réflexe bug
 Avant de corriger un bug, écris le test qui le reproduit. Il échoue ; corrige ; il passe, et le bug ne reviendra pas sans qu'on le sache.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Tester l'implémentation au lieu du comportement
 > - Tests qui dépendent les uns des autres
 > - Oublier les cas d'erreur
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Test automatisé]] · [[Test unitaire]] · [[Test automatisé]] · [[Test automatisé]]

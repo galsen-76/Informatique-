@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: tests
 module: "[[Module 12 - Tests]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Test unitaire]]"
-parents:
-  - "[[Test automatisé]]"
 related:
   - "[[Service et injection de dépendances]]"
-next_review: 
 tags:
   - concept
   - tests
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Une doublure remplace pendant un test une dépendance lente ou imprévisible (API, base, horloge, disque) par une fausse version contrôlée, pour tester son code seul.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -85,42 +69,6 @@ it("compte les tâches", async () => {
 > [!warning] À ne pas confondre
 > Tout simuler : un test où tout est faux ne vérifie plus rien de réel. Simule les **frontières** (réseau, horloge), garde la logique réelle, et complète avec des [[Test d'intégration|tests d'intégration]].
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un test d'une fonction qui appelle une vraie API, puis le même avec une doublure. Dessine ce qui est remplacé.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le trajet d'un appel `requests.get` dans un test : ton code, le mock, la fausse réponse, l'assert.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Doublure de test (mock) » et je l'intègre ici avec `![[Schéma - Doublure de test (mock).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 08 - Tester l'API]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Test unitaire]]
 - **Complémentaires** : [[Service et injection de dépendances]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

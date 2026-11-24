@@ -9,7 +9,6 @@ concepts:
   - "[[Base64]]"
 tags:
   - cours
-niveau: 1
 ---
 # Cours - Envoyer et recevoir des fichiers par HTTP
 
@@ -87,9 +86,7 @@ Détails : [[Envoyer et recevoir un fichier en HTTP]].
 ## 7. Le piège du proxy sur localhost
 Si `HTTP_PROXY` ou `HTTPS_PROXY` sont définis (fréquent au travail), requests et urllib envoient **aussi** tes appels à `localhost` vers le proxy. Tu obtiens alors un 407 ou une page HTML du proxy au lieu de ton serveur. Solution : `export NO_PROXY=localhost,127.0.0.1`. Voir [[Proxy]].
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Ouvrir un zip ou une image en `"r"` au lieu de `"rb"`
 > - Utiliser `r.text` au lieu de `r.content` pour une image
@@ -97,9 +94,6 @@ Si `HTTP_PROXY` ou `HTTPS_PROXY` sont définis (fréquent au travail), requests 
 > - Envoyer `data=octets` à un serveur qui attend un formulaire multipart
 > - Oublier `.decode("ascii")` après `base64.b64encode`
 > - Avec urllib, oublier qu'une réponse 4xx ou 5xx devient une exception
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Fichier en mémoire (io.BytesIO)]] · [[Envoyer et recevoir un fichier en HTTP]] · [[Appeler une API HTTP]] · [[Base64]]

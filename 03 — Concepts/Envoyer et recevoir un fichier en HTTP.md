@@ -1,23 +1,10 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Appeler une API HTTP]]"
-  - "[[En-tête HTTP]]"
-  - "[[Fichier en mémoire (io.BytesIO)]]"
-parents: []
 related:
   - "[[Formulaire HTML]]"
   - "[[Appeler une API HTTP]]"
   - "[[Base64]]"
-next_review: 
 tags:
   - concept
   - python
@@ -27,10 +14,6 @@ tags:
 
 > [!info] En une phrase
 > Un fichier voyage dans le **corps** d'une requête ou d'une réponse HTTP, soit seul (corps brut), soit rangé dans un formulaire `multipart/form-data`, et l'en-tête `Content-Type` dit ce que c'est.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -97,45 +80,8 @@ Pour un très gros fichier : `requests.get(url, stream=True)` puis `for morceau 
 > - `r.text` sur une image donne des caractères illisibles : pour un fichier, c'est toujours `r.content`.
 > - Ouvre le fichier en `"rb"` : en `"r"`, Python essaie de le lire comme du texte.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine l'envoi d'un zip en `multipart/form-data` : le corps découpé en parties, les en-têtes de chaque partie, le serveur qui le reçoit.
-
-> [!example] 🔄 Change de contexte
-> Redessine-le quand le fichier part seul dans le corps (`Content-Type: application/zip`). Qu'est-ce qui disparaît ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Envoyer et recevoir un fichier en HTTP » et je l'intègre ici avec `![[Schéma - Envoyer et recevoir un fichier en HTTP.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Envoi 02 - Envoyer le zip avec requests]]
-- [[Envoi 04 - Recevoir une image et un zip]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Envoyer et recevoir un fichier en HTTP au travail](obsidian://open?vault=Travail&file=Envoyer%20et%20recevoir%20un%20fichier%20en%20HTTP%20au%20travail)
 - **Prérequis** : [[Appeler une API HTTP]] · [[En-tête HTTP]] · [[Fichier en mémoire (io.BytesIO)]]
 - **Complémentaires** : [[Appeler une API HTTP]] · [[Base64]] · [[Formulaire HTML]] · [[Méthode HTTP]] · [[Code de statut HTTP]]
 - **Utilisé par** : [[Cours - Envoyer et recevoir des fichiers par HTTP]] · [[Serverless et FaaS]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

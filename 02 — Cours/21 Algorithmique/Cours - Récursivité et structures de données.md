@@ -8,7 +8,6 @@ concepts:
   - "[[Table de hachage]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Récursivité et structures de données
 
@@ -41,16 +40,11 @@ flowchart TD
 ## 5. Choisir sa structure
 Bien choisir la structure de données, c'est souvent la moitié de l'algorithme : une liste pour l'ordre, un dictionnaire pour retrouver, un ensemble pour l'unicité, une file pour attendre.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Récursion sans cas de base
 > - `pop(0)` sur une grande liste
 > - Liste comme clé de dictionnaire
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Récursivité]] · [[Pile et file]] · [[Table de hachage]]

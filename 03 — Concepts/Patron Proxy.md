@@ -1,22 +1,10 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 22 - Design patterns]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Interface et polymorphisme]]"
-parents:
-  - "[[Design pattern]]"
 related:
   - "[[Patron Décorateur (Decorator)]]"
   - "[[Proxy]]"
   - "[[Reverse proxy]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -25,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Le proxy est un objet intermédiaire qui a la même interface que l'objet réel et contrôle l'accès à celui-ci : chargement différé, cache, droits, appel à distance.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -78,42 +62,6 @@ Proxies que tu connais déjà, au niveau réseau : le [[Proxy]] d'entreprise et 
 > [!warning] À ne pas confondre
 > Le **proxy** (contrôle l'accès, souvent sans que l'appelant le sache) et le **décorateur** (ajoute un comportement) se ressemblent beaucoup ; la différence est l'intention. Et ce patron n'est pas le **proxy réseau**, même si l'idée est la même.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine un proxy devant un objet réel (le client d'une API) : même interface, il contrôle, met en cache ou journalise.
-
-> [!example] 🔄 Change de contexte
-> Compare sur le même dessin le patron Proxy et un proxy réseau. Qu'ont-ils en commun ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Patron Proxy » et je l'intègre ici avec `![[Schéma - Patron Proxy.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Décorateur (Decorator)]] · [[Proxy]] · [[Reverse proxy]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -7,7 +7,6 @@ concepts:
   - "[[Jointure SQL]]"
 tags:
   - cours
-niveau: 2
 ---
 # Cours - Concevoir des tables reliées
 
@@ -39,16 +38,11 @@ flowchart TD
 ## 5. Pratiquer sans rien installer
 La [[Fiche - Lancer PostgreSQL avec Docker]] te donne une base en une commande, et [[psql]] pour lui parler.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Recopier les mêmes informations dans plusieurs tables
 > - Oublier la clé étrangère (rien ne protège la cohérence)
 > - `INNER JOIN` qui fait disparaître des lignes
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Clé primaire et clé étrangère]] · [[Jointure SQL]]

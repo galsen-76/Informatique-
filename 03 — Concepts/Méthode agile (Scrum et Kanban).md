@@ -1,22 +1,12 @@
 ---
 type: concept
-domain: projet
 module: "[[Module 23 - Gestion de projet]]"
-status: a-decouvrir
-level: debutant
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites: []
-parents: []
 related:
   - "[[Backlog et priorisation]]"
   - "[[User story]]"
   - "[[Définition de terminé]]"
   - "[[Intégration et déploiement continus (CI-CD)]]"
   - "[[Cahier des charges]]"
-next_review: 
 tags:
   - concept
   - projet
@@ -25,10 +15,6 @@ tags:
 
 > [!info] En une phrase
 > Les méthodes agiles organisent un projet en **petits cycles courts** : on livre souvent quelque chose qui marche, on montre, on récolte les retours, on ajuste. Scrum et Kanban sont les deux façons les plus répandues de le faire.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -80,42 +66,6 @@ Tests de bout en bout|                         |                    |
 > [!warning] À ne pas confondre
 > Agile ne veut pas dire « sans documentation ni plan » : on documente et on planifie **juste ce qu'il faut**, et on le fait plus souvent. Et faire des réunions Scrum ne rend pas une équipe agile si elle ne livre jamais.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine un tableau Kanban de ton application (À faire, En cours, Terminé) et le cycle d'un sprint Scrum à côté.
-
-> [!example] 🔄 Change de contexte
-> Redessine le tableau pour une équipe de deux personnes qui livre chaque semaine. Quelle méthode correspond le mieux ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Méthode agile (Scrum et Kanban) » et je l'intègre ici avec `![[Schéma - Méthode agile (Scrum et Kanban).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Méthode agile (Scrum et Kanban) au travail](obsidian://open?vault=Travail&file=M%C3%A9thode%20agile%20%28Scrum%20et%20Kanban%29%20au%20travail)
 - **Complémentaires** : [[Backlog et priorisation]] · [[User story]] · [[Définition de terminé]] · [[Intégration et déploiement continus (CI-CD)]] · [[Cahier des charges]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

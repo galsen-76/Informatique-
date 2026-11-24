@@ -9,7 +9,6 @@ concepts:
   - "[[Variable d'environnement]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - PowerShell et Bash côte à côte
 
@@ -64,16 +63,11 @@ flowchart TD
 ## 5. Le bon réflexe
 Lis l'invite, puis demande-toi : « cette commande est-elle un **programme** (identique partout) ou une **commande du shell** (à traduire) ? »
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Utiliser les options Linux avec les alias PowerShell (`ls -la`, `rm -rf`)
 > - Utiliser `\` comme séparateur dans WSL
 > - Couper une longue commande avec `\` dans PowerShell (il faut l'accent grave)
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[PowerShell]] · [[Bash]] · [[Shell]] · [[Variable d'environnement]]

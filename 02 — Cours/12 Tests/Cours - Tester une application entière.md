@@ -9,7 +9,6 @@ concepts:
   - "[[Couverture de code]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Tester une application entière
 
@@ -43,16 +42,11 @@ flowchart TD
 ## 5. Mesurer
 [[Couverture de code]] : pour trouver les trous, pas comme un objectif en soi.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Tout simuler
 > - Des tests E2E pour tout
 > - Viser 100 % de couverture à tout prix
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Doublure de test (mock)]] · [[Test d'intégration]] · [[Test de bout en bout]] · [[Couverture de code]]

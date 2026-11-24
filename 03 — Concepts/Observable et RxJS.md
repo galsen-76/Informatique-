@@ -1,21 +1,8 @@
 ---
 type: concept
-domain: frontend
 module: "[[Module 20 - Angular]]"
-status: a-decouvrir
-level: avance
-niveau: 6
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Asynchrone et Promesse]]"
-  - "[[Service et injection de dépendances]]"
-parents:
-  - "[[Angular]]"
 related:
   - "[[async et await]]"
-next_review: 
 tags:
   - concept
   - frontend
@@ -24,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Un Observable est un flux de valeurs dans le temps (réponses HTTP, saisies, minuteries) ; RxJS fournit les opérateurs pour le transformer, et Angular l'utilise partout.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -82,49 +65,6 @@ resultats$ = this.recherche.valueChanges.pipe(
 > [!warning] À ne pas confondre
 > Oublier le `subscribe` (ou le pipe `async`) : **aucune requête n'est envoyée**. Et s'abonner à la main sans se désabonner crée des fuites de mémoire (`takeUntilDestroyed()` ou le pipe `async` règlent ça).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine `this.service.lister().subscribe(...)` comme un tuyau dans le temps : l'abonnement, la valeur qui arrive, la fin du flux.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   G[http.get] --> R[Requête envoyée]
->   R --> S[subscribe après]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Observable et RxJS » et je l'intègre ici avec `![[Schéma - Observable et RxJS.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 07 - Angular, afficher la liste]]
-- [[MesDépenses Front 08 - Angular, ajouter et supprimer]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Asynchrone et Promesse]] · [[Service et injection de dépendances]]
 - **Complémentaires** : [[async et await]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Système de fichiers]]"
-  - "[[Boucle (for, while)]]"
-parents: []
 related:
   - "[[Lire et écrire un fichier]]"
   - "[[Archive zip (zipfile)]]"
-next_review: 
 tags:
   - concept
   - python
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > pathlib représente un chemin comme un objet Path : on le construit avec /, on teste s'il existe, on liste un dossier, sans se soucier de Windows ou Linux.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -108,43 +92,7 @@ for fichier in source.rglob("*.png"):
 > [!warning] À ne pas confondre
 > Un chemin **relatif** (`Path("donnees")`) dépend du dossier depuis lequel tu **lances** le script, pas de l'endroit où se trouve le fichier `.py`. Pour partir du script : `Path(__file__).parent / "donnees"`. Dans Docker, c'est le `WORKDIR`.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine `Path("data") / "graph.json"` : les morceaux, l'objet obtenu, et ce que donnent `.name`, `.suffix`, `.parent`.
-
-> [!example] 🔄 Change de contexte
-> Redessine le même chemin dans un conteneur Docker où le dossier est monté en `/data`. Qu'est-ce qui change ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Chemin de fichier » et je l'intègre ici avec `![[Schéma - Chemin de fichier.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 08 - Lire un vrai fichier]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Système de fichiers]] · [[Boucle (for, while)]]
 - **Complémentaires** : [[Lire et écrire un fichier]] · [[Copier et déplacer des fichiers (shutil)]]
 - **Utilisé par** : [[Archive zip (zipfile)]] · [[Volume Docker]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

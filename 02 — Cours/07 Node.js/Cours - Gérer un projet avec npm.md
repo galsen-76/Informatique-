@@ -8,7 +8,6 @@ concepts:
   - "[[Version sémantique (semver)]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Gérer un projet avec npm
 
@@ -39,16 +38,11 @@ flowchart TD
 ## 5. Sécurité
 `npm audit` liste les failles connues. Chaque dépendance est du code d'un inconnu qui tourne chez toi : n'en ajoute pas pour trois lignes.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Versionner `node_modules`
 > - Supprimer le lock pour « réparer » une installation
 > - Mettre une outil de test dans `dependencies` au lieu de `devDependencies`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Gestionnaire de paquets]] · [[package.json]] · [[Version sémantique (semver)]]

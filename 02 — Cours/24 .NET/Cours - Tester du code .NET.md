@@ -9,7 +9,6 @@ concepts:
   - "[[Doublure de test (mock)]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Tester du code .NET
 
@@ -73,18 +72,12 @@ public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
 ```
 Avec l'API minimale, ajoute `public partial class Program { }` à la fin de `Program.cs` pour que les tests voient la classe `Program`.
 
-## Mise en pratique
-- Pour chaque notion : les **exercices visuels** de sa fiche.
-- Puis [[Découvrir .NET 04 - Tester avec xUnit]].
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Oublier la référence du projet de tests vers le projet testé : les classes « n'existent pas »
 > - Un test qui dépend d'un autre (ordre, données partagées) : chaque test prépare ses propres données
 > - Tester avec la vraie date ou le vrai réseau : le test passe aujourd'hui et échoue demain
 > - Un test async écrit en `void` au lieu de `async Task` : xUnit ne l'attend pas
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Test automatisé]] · [[Test unitaire]] · [[Test d'intégration]] · [[Doublure de test (mock)]]

@@ -10,7 +10,6 @@ concepts:
   - "[[Patron Dépôt (Repository)]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Design patterns structurels
 
@@ -59,16 +58,11 @@ flowchart TD
 | Proxy | identique | contrôler l'accès |
 | Façade | nouvelle, plus simple | cacher la complexité |
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Façade qui devient un objet qui fait tout
 > - Décorateurs empilés sans `functools.wraps`
 > - Dépôt qui renvoie des objets de l'ORM
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Patron Adaptateur (Adapter)]] · [[Patron Décorateur (Decorator)]] · [[Patron Façade (Facade)]] · [[Patron Proxy]] · [[Patron Dépôt (Repository)]]

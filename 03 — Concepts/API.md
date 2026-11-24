@@ -1,23 +1,11 @@
 ---
 type: concept
-domain: backend
 module: "[[Module 08 - Backend et API REST]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Client-serveur]]"
-  - "[[HTTP]]"
-parents: []
 related:
   - "[[API REST]]"
   - "[[OpenAPI]]"
   - "[[SDK]]"
   - "[[CORS]]"
-next_review: 
 tags:
   - concept
   - backend
@@ -26,10 +14,6 @@ tags:
 
 > [!info] En une phrase
 > Une API est un contrat qui permet à un programme d'utiliser les services d'un autre, sans connaître son code : on envoie une demande dans un format convenu, on reçoit une réponse.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -93,44 +77,8 @@ Une API web **non REST** : `POST /api` avec `{"action": "supprimerNote", "id": 4
 
 Et [[CORS]] n'est **ni l'un ni l'autre** : c'est une règle du navigateur qui décide si une page a le droit de lire la réponse d'une API située sur une autre origine.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine une API comme un guichet : qui demande, ce qui est affiché sur le guichet (le contrat), ce qui reste caché derrière.
-
-> [!example] 🔄 Change de contexte
-> Redessine le guichet pour trois API différentes : une API web REST, une API publique comme celle de GitHub, une bibliothèque Python. Qu'est-ce qui change, qu'est-ce qui reste ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - API » et je l'intègre ici avec `![[Schéma - API.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 01 - Prendre l'API en main]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [API au travail](obsidian://open?vault=Travail&file=API%20au%20travail)
 - **Prérequis** : [[Client-serveur]] · [[HTTP]]
 - **Complémentaires** : [[API REST]] · [[OpenAPI]] · [[SDK]] · [[CORS]]
 - **Utilisé par** : [[Endpoint]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

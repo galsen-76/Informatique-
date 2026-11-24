@@ -9,7 +9,6 @@ concepts:
   - "[[Dette technique]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - POC, prototype et MVP
 
@@ -56,18 +55,13 @@ Dans un POC, on code vite exprès : jeton en dur, pas de gestion d'erreur, pas d
 ## 5. Et après le POC ?
 Si la réponse est oui, on écrit les [[Spécification (specs)|specs]] du vrai produit (cours suivant), on prépare le [[MVP (produit minimum viable)|MVP]], et on réécrit proprement ce qui doit l'être.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Commencer à coder sans avoir écrit la question ni les critères de succès
 > - Un POC sans date de fin, qui devient un projet à moitié fini
 > - Peaufiner l'interface ou le code d'un POC alors que la question est technique
 > - Mettre le code du POC en production sans le reprendre
 > - Appeler « MVP » une démo qui ne tient pas en production
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Preuve de concept (POC)]] · [[Prototype]] · [[MVP (produit minimum viable)]] · [[Dette technique]]

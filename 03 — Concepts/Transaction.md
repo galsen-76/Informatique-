@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: database
 module: "[[Module 09 - Bases de données et SQL]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[SQL]]"
-parents:
-  - "[[Base de données relationnelle]]"
 related:
   - "[[Clé primaire et clé étrangère]]"
   - "[[Migration de base de données]]"
-next_review: 
 tags:
   - concept
   - database
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Une transaction regroupe plusieurs opérations qui réussissent toutes ensemble ou sont toutes annulées : la base ne reste jamais à moitié modifiée.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -81,49 +65,6 @@ Les ORM et les outils de [[Migration de base de données|migration]] utilisent a
 > [!warning] À ne pas confondre
 > Sans `BEGIN`, chaque instruction est sa propre transaction (*autocommit*) : une erreur à la 3ᵉ laisse les deux premières enregistrées.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine un virement entre deux comptes en deux opérations, et une panne entre les deux. Montre l'état de la base avec et sans transaction.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   B[Début] --> O1[Débit OK]
->   O1 --> P[Panne]
->   P --> F[Débit gardé]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Transaction » et je l'intègre ici avec `![[Schéma - Transaction.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[SQL]]
 - **Complémentaires** : [[Clé primaire et clé étrangère]] · [[Migration de base de données]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

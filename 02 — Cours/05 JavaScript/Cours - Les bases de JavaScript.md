@@ -10,7 +10,6 @@ concepts:
   - "[[Méthodes de tableau (map, filter, reduce)]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Les bases de JavaScript
 
@@ -56,16 +55,11 @@ flowchart TD
 ## 6. Transformer des listes
 [[Méthodes de tableau (map, filter, reduce)]] : à connaître par cœur, React s'en sert partout.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - `==` au lieu de `===`
 > - Passer `f()` au lieu de `f` en callback
 > - Croire que `const` rend un tableau non modifiable
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[JavaScript]] · [[Variables et types]] · [[Liste et dictionnaire]] · [[Fonction fléchée et callback]] · [[Méthodes de tableau (map, filter, reduce)]]

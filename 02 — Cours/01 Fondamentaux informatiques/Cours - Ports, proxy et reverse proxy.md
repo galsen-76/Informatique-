@@ -8,7 +8,6 @@ concepts:
   - "[[Reverse proxy]]"
 tags:
   - cours
-niveau: 1
 ---
 # Cours - Ports, proxy et reverse proxy
 
@@ -47,16 +46,11 @@ Une application faite de plusieurs conteneurs a besoin d'une porte d'entrée uni
 - Entre conteneurs d'un même compose : nom du service + port **interne** (`cvat_db:5432`).
 - Dans un conteneur, un serveur doit écouter sur `0.0.0.0`, pas `127.0.0.1`.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Inverser les deux côtés de `-p`
 > - Appeler une appli avec un autre nom d'hôte que celui configuré et croire qu'elle est cassée
 > - Régler le proxy dans le terminal et s'étonner que `docker pull` ne passe pas (c'est le démon qui télécharge)
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Port]] · [[Proxy]] · [[Reverse proxy]]

@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: frontend
 module: "[[Module 20 - Angular]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 6
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Composant d'interface]]"
-  - "[[Appeler une API HTTP]]"
-parents:
-  - "[[Angular]]"
 related:
   - "[[Observable et RxJS]]"
   - "[[Pinia]]"
-next_review: 
 tags:
   - concept
   - frontend
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un service Angular est une classe qui contient la logique partagée (appels d'API, état) ; l'injection de dépendances le fournit automatiquement aux composants qui le demandent.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -99,42 +82,6 @@ ng generate service taches
 > [!warning] À ne pas confondre
 > Fournir un service dans `providers` d'un composant crée une **nouvelle instance** pour ce composant : l'état n'est plus partagé. `providedIn: "root"` pour un service unique.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine `DepensesService` et deux composants qui le reçoivent par injection. Montre qui crée le service et combien d'exemplaires existent.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un composant qui fait `new DepensesService()` lui-même, puis par injection. Dessine ce qui devient plus simple à tester.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Service et injection de dépendances » et je l'intègre ici avec `![[Schéma - Service et injection de dépendances.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 07 - Angular, afficher la liste]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Composant d'interface]] · [[Appeler une API HTTP]]
 - **Complémentaires** : [[Observable et RxJS]] · [[Pinia]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

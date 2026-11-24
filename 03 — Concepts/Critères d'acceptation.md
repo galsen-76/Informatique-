@@ -1,22 +1,11 @@
 ---
 type: concept
-domain: projet
 module: "[[Module 23 - Gestion de projet]]"
-status: a-decouvrir
-level: debutant
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[User story]]"
-parents: []
 related:
   - "[[Exigences fonctionnelles et non fonctionnelles]]"
   - "[[Définition de terminé]]"
   - "[[Test de bout en bout]]"
   - "[[Test automatisé]]"
-next_review: 
 tags:
   - concept
   - projet
@@ -25,10 +14,6 @@ tags:
 
 > [!info] En une phrase
 > Les critères d'acceptation sont les **conditions précises et vérifiables** qu'une fonctionnalité doit remplir pour être acceptée. Ils transforment une demande floue en une liste de cas qu'on peut tester un par un.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -84,42 +69,6 @@ Fonctionnalité : Export PNG d'une tâche
 > [!warning] À ne pas confondre
 > Un critère d'acceptation décrit un **résultat observable**, pas une implémentation (« alors un PNG se télécharge », pas « alors la fonction appelle Pillow »).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Prends la user story « ajouter une dépense » et dessine trois critères Étant donné / Quand / Alors, chacun relié à un test.
-
-> [!example] 🔄 Change de contexte
-> Redessine-les quand ces critères deviennent des scénarios de test automatiques (Gherkin). Qu'est-ce qui passe d'un côté à l'autre ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Critères d'acceptation » et je l'intègre ici avec `![[Schéma - Critères d'acceptation.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 07 - Travailler en branche]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[User story]]
 - **Complémentaires** : [[Exigences fonctionnelles et non fonctionnelles]] · [[Définition de terminé]] · [[Test de bout en bout]] · [[Test automatisé]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

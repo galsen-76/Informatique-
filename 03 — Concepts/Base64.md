@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Binaire et octet]]"
-  - "[[JSON]]"
-parents: []
 related:
   - "[[Encodage des caractères]]"
   - "[[Envoyer et recevoir un fichier en HTTP]]"
-next_review: 
 tags:
   - concept
   - python
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Base64 transforme n'importe quels octets (une image, un zip) en texte simple, pour pouvoir les mettre là où seul du texte est accepté, comme dans du JSON.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -74,44 +58,8 @@ print(octets_retrouves == octets)                   # True
 > - Base64 ne cache rien : ce n'est pas une protection (une authentification « Basic » ([[Authentification]]) en base64 se lit en une commande).
 > - Quand on peut envoyer le fichier tel quel (corps brut ou multipart), c'est plus léger que base64.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : les octets d'un PNG, puis le même PNG en Base64 dans un JSON. Dessine la taille et ce qu'on peut faire de chaque forme.
-
-> [!example] 🛣️ Suis le trajet
-> Suis une image renvoyée dans du JSON par une API jusqu'au navigateur : encodage, envoi, décodage, affichage.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Base64 » et je l'intègre ici avec `![[Schéma - Base64.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Envoi 05 - Une image dans du JSON]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Base64 au travail](obsidian://open?vault=Travail&file=Base64%20au%20travail)
 - **Prérequis** : [[Binaire et octet]] · [[JSON]]
 - **Complémentaires** : [[Encodage des caractères]] · [[Envoyer et recevoir un fichier en HTTP]] · [[Fichier en mémoire (io.BytesIO)]]
 - **Utilisé par** : [[Cours - Envoyer et recevoir des fichiers par HTTP]] · [[Serverless et FaaS]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Gestionnaire de paquets]]"
-  - "[[HTTP]]"
-  - "[[JSON]]"
-parents: []
 related:
   - "[[SDK]]"
   - "[[API REST]]"
-next_review: 
 tags:
   - concept
   - python
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un programme envoie une requête HTTP (GET, POST…) à une API et lit la réponse, souvent en JSON ; chaque langage a son outil (requests ou urllib en Python, fetch en JavaScript, curl dans le terminal).
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -116,52 +99,7 @@ print(r.status_code, r.json()["json"])
 > [!warning] À ne pas confondre
 > Un code 404 ou 500 **ne lève pas** d'exception tout seul : appelle `raise_for_status()` ou teste `status_code`. Et ne mets jamais un jeton en dur dans le code : lis-le dans une [[Variable d'environnement]].
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine `requests.get(url, params=…)` puis `requests.post(url, json=…)` : où vont les données dans chaque requête (adresse ou corps) ?
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   G[GET labels] --> P[json job_id]
->   P --> C[Corps envoyé]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Appeler une API HTTP » et je l'intègre ici avec `![[Schéma - Appeler une API HTTP.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 01 - Vue, afficher la liste]]
-- [[MesDépenses Front 03 - Vue, ajouter et supprimer]]
-- [[MesDépenses 03 - Un client Python pour l'API]]
-- [[Envoi 03 - Le même envoi sans pip]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Appeler une API HTTP (requests) au travail](obsidian://open?vault=Travail&file=Appeler%20une%20API%20HTTP%20%28requests%29%20au%20travail)
 - **Prérequis** : [[Gestionnaire de paquets]] · [[HTTP]] · [[JSON]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[SDK]] · [[API REST]] · [[Envoyer et recevoir un fichier en HTTP]] (envoyer un zip ou une image) · [[Appeler une API HTTP]] (quand pip est bloqué)
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

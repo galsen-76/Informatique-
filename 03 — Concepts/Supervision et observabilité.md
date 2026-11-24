@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 14 - DevOps et déploiement]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 4
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Journaliser avec logging]]"
-  - "[[Docker]]"
-parents:
-  - "[[Intégration et déploiement continus (CI-CD)]]"
 related:
   - "[[Journaux système]]"
   - "[[Code de statut HTTP]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > La supervision surveille une application en production grâce à ses journaux, ses métriques et des contrôles de santé, et déclenche des alertes avant que les utilisateurs ne se plaignent.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -83,43 +66,7 @@ docker stats
 > [!warning] À ne pas confondre
 > **Logs** (des événements, en texte) et **métriques** (des nombres agrégés dans le temps) : on ne compte pas les erreurs en lisant des logs à la main. Et ne journalise jamais de mots de passe ni de jetons.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine les trois sources d'information sur l'API en production : journaux, métriques, traces. Écris une question à laquelle chacune répond.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le trajet d'une erreur 500 en production : l'API écrit un log, il est collecté, tu le retrouves, tu remontes à la cause.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Supervision et observabilité » et je l'intègre ici avec `![[Schéma - Supervision et observabilité.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 14 - Déployer depuis la CI]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Supervision et observabilité au travail](obsidian://open?vault=Travail&file=Supervision%20et%20observabilit%C3%A9%20au%20travail)
 - **Prérequis** : [[Journaliser avec logging]] · [[Docker]]
 - **Complémentaires** : [[Journaux système]] · [[Code de statut HTTP]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

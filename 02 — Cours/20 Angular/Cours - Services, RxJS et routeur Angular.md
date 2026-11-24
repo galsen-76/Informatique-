@@ -8,7 +8,6 @@ concepts:
   - "[[Application monopage et routage]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Services, RxJS et routeur Angular
 
@@ -40,16 +39,11 @@ flowchart TD
 ## 5. En production
 `ng build`, puis `dist/` servi par Nginx avec repli vers `index.html`, comme toute SPA.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Appeler `http.get` sans s'abonner
 > - Fournir un service par composant sans le vouloir
 > - S'abonner à la main sans se désabonner
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Service et injection de dépendances]] · [[Observable et RxJS]] · [[Application monopage et routage]]

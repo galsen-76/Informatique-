@@ -9,7 +9,6 @@ concepts:
   - "[[Fichiers entre Windows et Linux]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Git propre dans un vrai projet
 
@@ -50,17 +49,12 @@ Le droit d'exécution et la casse des noms ne se voient pas sous Windows mais ca
 ## 7. Versions et journal
 Les [[Tag Git|tags]] marquent les versions ; le [[Changelog]] explique ce qui change entre elles.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Committer « tout ce qui a changé » sans relire le diff
 > - Mélanger un correctif de code et un changement de CI dans le même commit
 > - Lire la documentation de la dernière version d'un outil alors que le projet utilise une version plus ancienne
 > - Oublier `git push origin <tag>` : les tags ne partent pas tout seuls
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Convention de commit]] · [[Tag Git]] · [[Changelog]] · [[Fichiers entre Windows et Linux]]

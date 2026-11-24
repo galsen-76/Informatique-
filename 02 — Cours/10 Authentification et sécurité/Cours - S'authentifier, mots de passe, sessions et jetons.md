@@ -9,7 +9,6 @@ concepts:
   - "[[JWT]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - S'authentifier, mots de passe, sessions et jetons
 
@@ -41,16 +40,11 @@ flowchart TD
 ## 5. Les jetons
 [[JWT]] : l'état dans le jeton signé, court, dans `Authorization`. Pratique pour les API et les services.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Stocker des mots de passe en clair ou en SHA-256
 > - Mettre un JWT dans `localStorage` sans réfléchir au XSS
 > - Utiliser `jwt.decode` au lieu de `jwt.verify`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Authentification]] · [[Hachage de mot de passe]] · [[Session et cookie]] · [[JWT]]

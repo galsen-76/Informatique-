@@ -9,7 +9,6 @@ concepts:
   - "[[Processus]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Bash, les commandes essentielles
 
@@ -121,17 +120,12 @@ Voir [[Redirection et pipe]] et [[Code de sortie]].
 ## 9. S'aider soi-même
 `commande --help`, `man commande`, `type commande` (intégrée ou programme ?), `which commande` (où est le programme).
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - `rm -rf` lancé dans le mauvais dossier : toujours `pwd` avant, et jamais `rm -rf /` ou `rm -rf ~`
 > - Oublier les guillemets autour d'un nom qui contient des espaces
 > - Taper les noms au lieu d'utiliser `Tab` : fautes de frappe et de casse
 > - Rester bloqué dans `less` ou `man` : `q` pour sortir
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Bash]] · [[Système de fichiers]] · [[Redirection et pipe]] · [[Processus]]

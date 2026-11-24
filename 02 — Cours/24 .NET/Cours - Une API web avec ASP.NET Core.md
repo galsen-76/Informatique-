@@ -12,7 +12,6 @@ concepts:
   - "[[OpenAPI]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Une API web avec ASP.NET Core
 
@@ -90,19 +89,13 @@ ENTRYPOINT ["dotnet", "MesDepenses.Api.dll"]
 ```
 Voir [[Dockerfile]] et [[dotnet publish]]. Si le réseau bloque le registre `mcr.microsoft.com` ou nuget.org, il faut passer par un miroir interne.
 
-## Mise en pratique
-- Pour chaque notion : les **exercices visuels** de sa fiche.
-- Puis [[Découvrir .NET 03 - Une API minimale]] et, quand tu es à l'aise avec Docker, [[Découvrir .NET 05 - L'API dans Docker]].
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Enregistrer un service **après** `builder.Build()` : trop tard, l'application est figée
 > - Oublier d'enregistrer un service : `Unable to resolve service for type 'IStockage'` au premier appel
 > - Renvoyer `null` au lieu de `Results.NotFound()` : le client reçoit un 200 vide (ou un 204) au lieu d'un 404
 > - Écrire un mot de passe dans `appsettings.json` commité : passer par une variable d'environnement ou les « user secrets » (`dotnet user-secrets`)
 > - Chercher l'API sur le port 5000 : le port est affiché au démarrage et réglé dans `Properties/launchSettings.json`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Framework web]] · [[Endpoint]] · [[Service et injection de dépendances]] · [[Variable d'environnement]] · [[Middleware]] · [[ORM]] · [[OpenAPI]]

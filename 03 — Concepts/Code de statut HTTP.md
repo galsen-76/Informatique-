@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: backend
 module: "[[Module 08 - Backend et API REST]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[HTTP]]"
-parents:
-  - "[[HTTP]]"
 related:
   - "[[Méthode HTTP]]"
   - "[[Gestion des erreurs d'une API]]"
-next_review: 
 tags:
   - concept
   - backend
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Le nombre à trois chiffres en tête d'une réponse HTTP dit comment ça s'est passé : 2xx succès, 3xx redirection, 4xx erreur du client, 5xx erreur du serveur.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -81,49 +65,6 @@ En Python : `rep.raise_for_status()` lève une exception pour 4xx et 5xx. En JS 
 > [!warning] À ne pas confondre
 > **401** (qui es-tu ? connecte-toi) et **403** (je sais qui tu es, mais c'est non). Et **502** (le proxy n'a pas eu de réponse valide de l'application) n'est pas **500** (l'application a planté en répondant).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine cinq tiroirs 1xx à 5xx et range dedans 200, 201, 204, 400, 404, 422, 500 avec un exemple tiré de ton application.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   D[Dépense absente] --> R[200 avec null]
->   M[Montant négatif] --> S[500]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Code de statut HTTP » et je l'intègre ici avec `![[Schéma - Code de statut HTTP.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 01 - Prendre l'API en main]]
-- [[MesDépenses 03 - Un client Python pour l'API]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[HTTP]]
 - **Complémentaires** : [[Méthode HTTP]] · [[Gestion des erreurs d'une API]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -9,7 +9,6 @@ concepts:
   - "[[Permissions Linux]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Écrire un script shell
 
@@ -71,17 +70,12 @@ Le script renvoie le [[Code de sortie]] de sa dernière commande, ou celui de `e
 - **Shell** : enchaîner quelques commandes existantes (`git`, `docker`, `zip`).
 - **Python** : dès qu'il y a de la logique (filtres, calculs, JSON, gestion d'erreurs fine). Ton script de zip est un bon candidat pour Python.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Mettre des espaces autour du `=` : `NOM = x` est lu comme une commande `NOM`
 > - Oublier les guillemets autour de `$VAR`
 > - Oublier `set -e` : le script continue après une erreur et « réussit »
 > - Un script écrit sous Windows avec des fins de ligne CRLF : `bad interpreter`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Script shell]] · [[Code de sortie]] · [[Variable d'environnement]] · [[Permissions Linux]]

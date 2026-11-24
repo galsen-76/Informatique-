@@ -1,22 +1,10 @@
 ---
 type: concept
-domain: backend
 module: "[[Module 08 - Backend et API REST]]"
-status: a-decouvrir
-level: debutant
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[HTTP]]"
-  - "[[API REST]]"
-parents: []
 related:
   - "[[Endpoint]]"
   - "[[Middleware]]"
   - "[[Service et injection de dépendances]]"
-next_review: 
 tags:
   - concept
   - backend
@@ -25,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Un **framework web** est une base de code qui reçoit les requêtes HTTP à ta place et appelle **ta** fonction selon l'adresse et la méthode : tu écris seulement ce que fait chaque route.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -93,43 +77,7 @@ La même route dans deux frameworks : `GET /depenses` renvoie la liste en JSON.
 > [!warning] À ne pas confondre
 > **Framework** (il appelle ton code, il impose une structure) et **bibliothèque** (tu l'appelles quand tu veux, comme `requests`). Et **framework web** (côté serveur) et **framework front** (Vue, React, Angular : côté navigateur).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine le trajet d'une requête `POST /depenses` : ce que fait le framework avant ta fonction, ta fonction, ce que fait le framework après. Colorie en vert la seule partie que tu écris.
-
-> [!example] 🔄 Change de contexte
-> Refais le même dessin pour l'API Python de MesDépenses puis pour une API en C# : quelles cases changent de nom, lesquelles restent identiques ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Framework web » et je l'intègre ici avec `![[Schéma - Framework web.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Découvrir .NET 03 - Une API minimale]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[HTTP]] · [[API REST]]
 - **Complémentaires** : [[Endpoint]] · [[Middleware]] · [[Service et injection de dépendances]] · [[OpenAPI]]
 - **Utilisé par** : [[Cours - Une API web avec ASP.NET Core]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

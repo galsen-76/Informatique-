@@ -1,19 +1,8 @@
 ---
 type: concept
-domain: linux
 module: "[[Module 18 - Linux et serveurs]]"
-status: a-decouvrir
-level: debutant
-niveau: 4
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Script shell]]"
-parents: []
 related:
   - "[[Service (systemd)]]"
-next_review: 
 tags:
   - concept
   - linux
@@ -22,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > cron lance automatiquement une commande à heures fixes (chaque nuit, chaque lundi, toutes les 5 minutes).
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -76,43 +61,7 @@ Vérifie une expression sur crontab.guru.
 > [!warning] À ne pas confondre
 > cron lance la commande avec un environnement **minimal** (peu de variables, `PATH` court, dossier `~`) : utilise des **chemins absolus** et redirige la sortie vers un fichier, sinon les erreurs disparaissent.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine une ligne crontab en cinq cases (minute, heure, jour, mois, jour de la semaine) et une commande. Écris « chaque nuit à 2 h ».
-
-> [!example] 🔄 Change de contexte
-> Redessine la même tâche comme une pipeline planifiée dans GitLab. Qu'est-ce qui remplace la crontab ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Tâche planifiée (cron) » et je l'intègre ici avec `![[Schéma - Tâche planifiée (cron).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 13 - Sauvegarder la base avec un script]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Script shell]] · [[Redirection et pipe]]
 - **Complémentaires** : [[Service (systemd)]]
 - **Commandes** : [[crontab]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

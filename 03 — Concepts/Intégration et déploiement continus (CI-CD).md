@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 14 - DevOps et déploiement]]"
-status: a-decouvrir
-level: debutant
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Pipeline GitLab CI]]"
-  - "[[Test automatisé]]"
-parents: []
 related:
   - "[[Environnement de déploiement]]"
   - "[[Construire une image dans la CI]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > L'intégration continue vérifie automatiquement chaque modification (build, lint, tests) ; le déploiement continu la met ensuite en ligne automatiquement si tout est vert.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -81,44 +65,8 @@ prod:
 > [!warning] À ne pas confondre
 > La **CI** (vérifier) et la **CD** (livrer) : beaucoup d'équipes ont une CI sans déploiement automatique, et c'est très bien. Et une pipeline lente (30 minutes) n'est plus utilisée : garde-la rapide (cache, jobs en parallèle).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine ce qui se passe après ton `git push` sur ton API : tests, build de l'image, push, déploiement.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : livrer à la main (tests oubliés, image construite sur ton PC), puis avec une CI-CD. Dessine les étapes devenues automatiques.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Intégration et déploiement continus (CI-CD) » et je l'intègre ici avec `![[Schéma - Intégration et déploiement continus (CI-CD).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 14 - Déployer depuis la CI]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Intégration et déploiement continus (CI-CD) au travail](obsidian://open?vault=Travail&file=Int%C3%A9gration%20et%20d%C3%A9ploiement%20continus%20%28CI-CD%29%20au%20travail)
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Test automatisé]]
 - **Complémentaires** : [[Environnement de déploiement]] · [[Construire une image dans la CI]]
 - **Utilisé par** : [[Supervision et observabilité]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

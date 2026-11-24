@@ -8,7 +8,6 @@ concepts:
   - "[[Algorithmes de tri]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Efficacité, recherche et tri
 
@@ -41,16 +40,11 @@ flowchart TD
 ## 5. Le lien avec le reste
 Un index SQL, `git bisect`, un `set` Python : ce sont ces idées, déjà écrites pour toi. Savoir pourquoi ils sont rapides t'aide à les utiliser au bon moment.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - `x in liste` dans une boucle (O(n²) caché)
 > - Dichotomie sur des données non triées
 > - Optimiser sans avoir mesuré
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Complexité (notation grand O)]] · [[Recherche linéaire et dichotomique]] · [[Algorithmes de tri]]

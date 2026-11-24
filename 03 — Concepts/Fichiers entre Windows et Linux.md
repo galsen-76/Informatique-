@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: a-decouvrir
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Système de fichiers]]"
-  - "[[Git]]"
-parents: []
 related:
   - "[[Dockerfile]]"
-next_review: 
 tags:
   - concept
   - terminal
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Un même fichier ne se comporte pas pareil sous Windows et sous Linux : droits d'exécution, majuscules dans les noms et fins de ligne diffèrent.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -70,43 +54,7 @@ Dans VS Code, en bas à droite : `CRLF` ou `LF`, cliquable pour changer.
 > [!warning] À ne pas confondre
 > `chmod +x` sur ton disque Windows ne sert à rien : c'est **Git** qui doit enregistrer le droit, d'où `git update-index --chmod=+x`.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un script `.sh` écrit sous Windows, puis le même ouvert sous WSL. Dessine les fins de ligne et les droits d'exécution des deux côtés.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le trajet d'un fichier cloné dans `/mnt/c` puis lancé dans WSL. Marque les endroits où ça peut casser.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Fichiers entre Windows et Linux » et je l'intègre ici avec `![[Schéma - Fichiers entre Windows et Linux.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 08 - Lire un vrai fichier]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Système de fichiers]] · [[Git]]
 - **Complémentaires** : [[Commit]]
 - **Utilisé par** : [[Dockerfile]] · [[Pipeline GitLab CI]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

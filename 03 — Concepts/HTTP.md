@@ -1,22 +1,10 @@
 ---
 type: concept
-domain: web
 module: "[[Module 01 - Fondamentaux informatiques]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Client-serveur]]"
-parents:
-  - "[[Internet]]"
 related:
   - "[[JSON]]"
   - "[[API]]"
   - "[[API REST]]"
-next_review: 
 tags:
   - concept
   - web
@@ -25,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Le protocole (les règles de conversation) qu'utilisent un client et un serveur web pour échanger des requêtes et des réponses.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -84,45 +68,9 @@ Content-Type: application/json
 > [!warning] À ne pas confondre
 > **HTTP** (le protocole de dialogue) et **HTML** (le langage d'une page). HTTP peut transporter du HTML, du [[JSON]], une image…
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine de mémoire une requête HTTP et sa réponse comme deux enveloppes : ce qui est écrit sur la première ligne, les en-têtes, le corps.
-
-> [!example] 🛣️ Suis le trajet
-> Suis le trajet de `GET /depenses` dans ton application : du navigateur jusqu'à l'API et retour, avec le code de statut sur la réponse.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - HTTP » et je l'intègre ici avec `![[Schéma - HTTP.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 01 - Prendre l'API en main]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Client-serveur]]
 - **Notion parente** : [[Internet]]
 - **Complémentaires** : [[JSON]] (le format le plus courant dans le corps), [[Authentification]]
 - **Utilisé par** : [[API]], [[API REST]], [[Express]]
 - **Cours** : [[Cours - Comment fonctionne le web]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

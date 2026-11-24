@@ -10,7 +10,6 @@ concepts:
   - "[[JSON]]"
 tags:
   - cours
-niveau: 1
 ---
 # Cours - Construire une API REST avec Express
 
@@ -67,17 +66,11 @@ Chaque `app.use()` ajoute un [[Middleware]] ; ils s'exécutent dans l'ordre de d
 ## 6. Répondre correctement
 `res.status(201).json(note)` après une création, `res.status(404).json({ error: 'Note introuvable' })` si l'id n'existe pas, `res.sendStatus(204)` après une suppression.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-- [[Projet - API Notes]]
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Oublier `express.json()` → `req.body` vaut `undefined`
 > - `req.params.id` est une **chaîne** : comparer avec `Number(req.params.id)`
 > - Port déjà utilisé : [[Erreur - EADDRINUSE port déjà utilisé]]
-
-## Résumé
-Express associe des couples méthode + route à des fonctions. Les middlewares préparent la requête, les handlers répondent en JSON avec le bon code de statut.
 
 ## Concepts du cours
 [[API REST]] · [[Endpoint]] · [[Express]] · [[Middleware]] · [[JSON]]

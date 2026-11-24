@@ -1,21 +1,9 @@
 ---
 type: concept
-domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: en-cours
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Terminal]]"
-parents:
-  - "[[Terminal]]"
 related:
   - "[[PowerShell]]"
   - "[[Bash]]"
-next_review: 
 tags:
   - concept
   - terminal
@@ -24,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Le programme qui lit ce que tu tapes dans le terminal, le comprend et lance les commandes. PowerShell, Bash et cmd sont trois shells différents.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -77,46 +61,11 @@ Windows Terminal peut ouvrir des onglets PowerShell, cmd et Ubuntu (WSL) côte �
 > [!warning] À ne pas confondre
 > Une commande trouvée sur Internet est écrite pour **un** shell. Une commande Bash collée dans PowerShell peut échouer… ou pire, faire autre chose. Regarde l'invite avant de coller.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine le terminal (la fenêtre) et le shell (le programme dedans) comme deux choses séparées. Place PowerShell, Bash et cmd.
-
-> [!example] 🔄 Change de contexte
-> Redessine-le pour un `docker exec -it api sh` : quelle fenêtre, quel shell, sur quelle machine ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Shell » et je l'intègre ici avec `![[Schéma - Shell.excalidraw]]`, puis je coche `schema`._
-
-> [!note] Ce que j'avais écrit avec mes mots
-> Le shell comprend les commandes si j'utilise son langage, et il les exécute. Une même commande peut être différente selon le shell : dans PowerShell `ls` est un alias de `Get-ChildItem`, alors que dans Bash c'est un vrai programme Linux. `git`, lui, est un programme à part que le shell trouve grâce au PATH, donc il marche pareil dans les deux.
-
-### Appliquer dans le fil rouge
-- [[Dépenses 00 - Découvrir son poste]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Terminal]]
 - **Les shells** : [[PowerShell]] · [[Bash]]
 - **Complémentaires** : [[Variable d'environnement]] · [[Système d'exploitation et noyau]]
 
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```
+## Mes mots
+> [!note] Ce que j'avais écrit avec mes mots
+> Le shell comprend les commandes si j'utilise son langage, et il les exécute. Une même commande peut être différente selon le shell : dans PowerShell `ls` est un alias de `Get-ChildItem`, alors que dans Bash c'est un vrai programme Linux. `git`, lui, est un programme à part que le shell trouve grâce au PATH, donc il marche pareil dans les deux.

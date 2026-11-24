@@ -12,7 +12,6 @@ concepts:
   - "[[Charger un fichier .env (python-dotenv)]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Python au quotidien
 
@@ -59,17 +58,12 @@ flowchart TD
 ## 9. Lire sa configuration
 Un script qui parle à un service (une API, une base) a besoin d'une adresse et d'identifiants. Ils ne vont pas dans le code : le code lit `os.environ`, et en local, [[Charger un fichier .env (python-dotenv)]] remplit `os.environ` depuis un fichier `.env` ignoré par Git ([[Secret et fichier .env]]).
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Oublier `timeout=` dans requests : le script peut attendre indéfiniment
 > - Lire un CSV et oublier que toutes les valeurs sont du texte
 > - Comparer une date avec fuseau horaire et une date sans
 > - Utiliser `shell=True` avec des données venant de l'extérieur
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Appeler une API HTTP]] · [[Lire et écrire du CSV]] · [[Dates et heures (datetime)]] · [[Journaliser avec logging]] · [[Lancer une commande (subprocess)]] · [[Expressions régulières (re)]] · [[Charger un fichier .env (python-dotenv)]]

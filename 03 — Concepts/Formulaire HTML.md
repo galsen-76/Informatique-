@@ -1,19 +1,8 @@
 ---
 type: concept
-domain: web
 module: "[[Module 04 - HTML et CSS]]"
-status: a-decouvrir
-level: debutant
-niveau: 6
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Élément et attribut HTML]]"
-parents: []
 related:
   - "[[Accessibilité web]]"
-next_review: 
 tags:
   - concept
   - web
@@ -22,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > L'élément form et ses champs (input, select, textarea, button) permettent à l'utilisateur de saisir des données et de les envoyer.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -72,43 +57,6 @@ Types utiles : `text`, `email`, `password`, `number`, `date`, `file`, `checkbox`
 > [!warning] À ne pas confondre
 > La validation **dans le navigateur** (confort) et la validation **sur le serveur** (obligatoire) : n'importe qui peut contourner la première. Et chaque champ doit avoir un `<label>` relié par `for`/`id`.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le trajet d'une dépense saisie dans le formulaire : les champs, le bouton, l'événement submit, la requête POST vers l'API.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un formulaire HTML qui recharge la page, puis le même géré par Vue. Dessine où part la donnée dans chaque cas.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Formulaire HTML » et je l'intègre ici avec `![[Schéma - Formulaire HTML.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses Front 03 - Vue, ajouter et supprimer]]
-- [[MesDépenses Front 08 - Angular, ajouter et supprimer]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Élément et attribut HTML]]
 - **Complémentaires** : [[Accessibilité web]] · [[Événement JavaScript]] · [[Validation des données]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

@@ -1,23 +1,10 @@
 ---
 type: concept
-domain: python
 module: "[[Module 16 - Python]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Variable d'environnement]]"
-  - "[[Secret et fichier .env]]"
-parents:
-  - "[[Secret et fichier .env]]"
 related:
   - "[[Environnement virtuel Python]]"
   - "[[Serverless et FaaS]]"
   - "[[Docker Compose]]"
-next_review: 
 tags:
   - concept
   - python
@@ -26,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Python ne lit pas le fichier `.env` tout seul : `load_dotenv()`, de la bibliothèque `python-dotenv`, copie ses lignes dans les variables d'environnement du programme, et le code les lit ensuite avec `os.environ`, comme si elles venaient du terminal.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -88,43 +71,7 @@ if manquantes:
 > - **`.env` et déploiement** : une appli déployée n'a pas de `.env` (il n'est pas copié dans l'image, et ne doit pas l'être). Elle reçoit ses variables par la plateforme (Docker, CI, serverless). Garde `load_dotenv()` seulement pour les essais en local.
 > - **`os.environ["X"]` et `os.environ.get("X")`** : le premier plante si `X` manque (utile pour un secret obligatoire), le second renvoie `None` sans prévenir.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le trajet de `API_PASSWORD` : le fichier `.env`, `load_dotenv()`, `os.environ`, ton code.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un script sans `load_dotenv()` puis avec. Dessine ce que le script voit dans `os.environ` dans chaque cas.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Charger un fichier .env (python-dotenv) » et je l'intègre ici avec `![[Schéma - Charger un fichier .env (python-dotenv).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 03 - Un client Python pour l'API]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Charger un fichier .env (python-dotenv) au travail](obsidian://open?vault=Travail&file=Charger%20un%20fichier%20.env%20%28python-dotenv%29%20au%20travail)
 - **Prérequis** : [[Variable d'environnement]] · [[Secret et fichier .env]]
 - **Complémentaires** : [[Environnement virtuel Python]] · [[Serverless et FaaS]] · [[Docker Compose]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

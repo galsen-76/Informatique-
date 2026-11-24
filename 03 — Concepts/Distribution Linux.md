@@ -1,23 +1,12 @@
 ---
 type: concept
-domain: terminal
 module: "[[Module 02 - Terminal et environnement]]"
-status: en-cours
-level: debutant
-niveau: 0
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Système d'exploitation et noyau]]"
-parents: []
 related:
   - "[[Noyau (kernel)]]"
   - "[[WSL]]"
   - "[[Gestionnaire de paquets]]"
   - "[[Image Docker]]"
   - "[[Conteneur]]"
-next_review: 
 tags:
   - concept
   - terminal
@@ -26,10 +15,6 @@ tags:
 
 > [!info] En une phrase
 > Une distribution Linux (Ubuntu, Debian, Alpine…) est un système complet construit autour du noyau Linux : le noyau, plus les outils de base, plus un gestionnaire de paquets pour installer des logiciels.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -87,42 +72,6 @@ docker run --rm alpine cat /etc/os-release # mais distribution Alpine
 > [!warning] À ne pas confondre
 > **Linux** (le noyau) et **Ubuntu** (une distribution). Et sur Alpine, `apt` et `bash` n'existent pas par défaut : c'est `apk` et `sh`.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine trois boîtes Ubuntu, Debian et Alpine. Montre ce qu'elles ont en commun et ce qui les distingue (gestionnaire de paquets, taille).
-
-> [!example] 🔄 Change de contexte
-> Redessine le même schéma pour une image Docker `python:3.12-slim` et une image Alpine. Quelle distribution est dans chaque image ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Distribution Linux » et je l'intègre ici avec `![[Schéma - Distribution Linux.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[Dépenses 00 - Découvrir son poste]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Système d'exploitation et noyau]]
 - **Complémentaires** : [[Noyau (kernel)]] · [[WSL]] · [[Gestionnaire de paquets]] · [[Image Docker]] · [[Conteneur]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

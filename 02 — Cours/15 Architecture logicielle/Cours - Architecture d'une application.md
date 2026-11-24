@@ -8,7 +8,6 @@ concepts:
   - "[[Monolithe et microservices]]"
 tags:
   - cours
-niveau: 5
 ---
 # Cours - Architecture d'une application
 
@@ -39,15 +38,10 @@ flowchart TD
 ## 4. Un seul bloc ou plusieurs services
 [[Monolithe et microservices]] : commencer simple, découper seulement quand une partie doit vraiment vivre à part (comme une fonction serverless).
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Découper en microservices dès le départ
 > - Couches vides qui ne font que transmettre
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Architecture en couches]] · [[MVC]] · [[Monolithe et microservices]]

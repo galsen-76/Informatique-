@@ -9,7 +9,6 @@ concepts:
   - "[[Fichiers entre Windows et Linux]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Ce que tout programme reçoit et renvoie
 
@@ -51,16 +50,11 @@ La CI GitLab et docker compose se décrivent en [[YAML]]. Deux règles suffisent
 ## 6. Écrire sous Windows, lancer sous Linux
 Ton code tourne dans des conteneurs Linux. Les [[Fichiers entre Windows et Linux]] diffèrent sur trois points : le droit d'exécution, les majuscules dans les noms et les fins de ligne.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Oublier `export` en Bash : la variable n'est pas transmise au programme
 > - Croire qu'un job CI a réussi parce que le log affiche un message rassurant : seul le code de sortie compte
 > - Mélanger tabulations et espaces dans un YAML
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Variable d'environnement]] · [[Code de sortie]] · [[YAML]] · [[Fichiers entre Windows et Linux]]

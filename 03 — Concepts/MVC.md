@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 15 - Architecture logicielle]]"
-status: a-decouvrir
-level: debutant
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Séparation des responsabilités]]"
-parents:
-  - "[[Séparation des responsabilités]]"
 related:
   - "[[Architecture en couches]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > MVC (Modèle, Vue, Contrôleur) sépare les données et leurs règles (modèle), l'affichage (vue) et ce qui reçoit les actions et relie les deux (contrôleur).
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -72,43 +56,7 @@ def liste(request):
 > [!warning] À ne pas confondre
 > Le mot **vue** n'a pas le même sens partout : dans Django, la *view* est le contrôleur ; dans MVC, la vue est l'affichage. Regarde le rôle, pas le nom.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine le Modèle, la Vue et le Contrôleur, et la flèche que suit un clic sur « Supprimer » jusqu'au nouvel affichage.
-
-> [!example] 🔄 Change de contexte
-> Redessine-le pour ton application (API + front Vue). Où est chaque lettre ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - MVC » et je l'intègre ici avec `![[Schéma - MVC.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [MVC au travail](obsidian://open?vault=Travail&file=MVC%20au%20travail)
 - **Prérequis** : [[Séparation des responsabilités]]
 - **Complémentaires** : [[Architecture en couches]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

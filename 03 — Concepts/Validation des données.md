@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: backend
 module: "[[Module 08 - Backend et API REST]]"
-status: a-decouvrir
-level: debutant
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[JSON]]"
-  - "[[Endpoint]]"
-parents:
-  - "[[API REST]]"
 related:
   - "[[Code de statut HTTP]]"
   - "[[Injection SQL]]"
-next_review: 
 tags:
   - concept
   - backend
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Vérifier que les données reçues (corps, paramètres, fichiers) ont la bonne forme et des valeurs acceptables avant de les utiliser, et répondre 400 sinon.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -80,42 +63,6 @@ En Python, Pydantic fait la même chose (et FastAPI l'utilise automatiquement).
 > [!warning] À ne pas confondre
 > **Valider** (refuser ce qui ne va pas) et **assainir / échapper** (rendre une valeur sûre pour un contexte, comme le HTML ou le SQL). Les deux sont nécessaires.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le trajet d'une dépense avec un montant négatif : elle arrive, Pydantic la vérifie, l'API répond. Marque l'endroit où elle est arrêtée.
-
-> [!example] 🔄 Change de contexte
-> Redessine la même vérification côté front Vue. Pourquoi faut-il quand même garder celle de l'API ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Validation des données » et je l'intègre ici avec `![[Schéma - Validation des données.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 01 - Prendre l'API en main]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[JSON]] · [[Endpoint]]
 - **Complémentaires** : [[Code de statut HTTP]] · [[Injection SQL]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

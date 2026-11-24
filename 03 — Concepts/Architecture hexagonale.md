@@ -1,22 +1,10 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 15 - Architecture logicielle]]"
-status: a-decouvrir
-level: avance
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Architecture en couches]]"
-  - "[[Interface et polymorphisme]]"
-parents: []
 related:
   - "[[Patron Adaptateur (Adapter)]]"
   - "[[Doublure de test (mock)]]"
   - "[[Principes SOLID]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -25,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > L'architecture hexagonale (ports et adaptateurs) met le cœur métier au centre, sans aucune dépendance technique, et branche autour de lui la base, l'API, un service externe ou les fichiers par des adaptateurs interchangeables.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -87,43 +71,7 @@ Dans les tests, on passe une `SourceFichier` ou un faux objet : le cœur est tes
 > [!warning] À ne pas confondre
 > L'hexagonale n'impose pas six côtés ni beaucoup de dossiers. Pour un script de 50 lignes, c'est de la sur-ingénierie : commence par séparer les responsabilités, et passe aux ports quand une dépendance technique gêne les tests.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine une petite application en hexagone : le cœur métier au centre, les ports, et les adaptateurs (HTTP, base de données, API externe) autour.
-
-> [!example] 🔄 Change de contexte
-> Remplace l'adaptateur HTTP par une ligne de commande. Redessine : qu'est-ce qui change dans le cœur ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Architecture hexagonale » et je l'intègre ici avec `![[Schéma - Architecture hexagonale.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Architecture hexagonale au travail](obsidian://open?vault=Travail&file=Architecture%20hexagonale%20au%20travail)
 - **Prérequis** : [[Architecture en couches]] · [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Adaptateur (Adapter)]] · [[Doublure de test (mock)]] · [[Principes SOLID]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

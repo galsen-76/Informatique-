@@ -10,7 +10,6 @@ concepts:
   - "[[Arguments de ligne de commande]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Manipuler des fichiers et des archives
 
@@ -63,17 +62,12 @@ La notion clé est `arcname` : le chemin **dans** l'archive, en général `f.rel
 ## 7. Ce que tu vas assembler toi-même
 Ton script de projet combine ces briques. Avant de coder, écris en français (en commentaires) les étapes de **ton** besoin : quels fichiers, quels filtres, quel nom d'archive, que faire des originaux, que faire en cas d'erreur. Chaque commentaire deviendra une fonction.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Écrire les chemins avec des `\` en dur : le script casse dans un conteneur Linux
 > - Oublier `arcname` : l'archive contient le chemin complet du disque
 > - Créer l'archive dans le dossier qu'on zippe
 > - Supprimer les originaux avant d'avoir vérifié que l'archive est correcte
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Chemin de fichier]] · [[Lire et écrire un fichier]] · [[Copier et déplacer des fichiers (shutil)]] · [[Archive zip (zipfile)]] · [[Arguments de ligne de commande]]

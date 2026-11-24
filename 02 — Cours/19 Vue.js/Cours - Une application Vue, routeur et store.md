@@ -7,7 +7,6 @@ concepts:
   - "[[Pinia]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Une application Vue, routeur et store
 
@@ -37,15 +36,10 @@ flowchart TD
 ## 4. En production
 Comme React : `npm run build`, `dist/` servi par Nginx avec repli vers `index.html`.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Croire qu'une garde de route protège les données
 > - Mettre tout l'état dans le store
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Application monopage et routage]] · [[Pinia]]

@@ -13,7 +13,6 @@ concepts:
   - "[[Docker Compose]]"
 tags:
   - cours
-niveau: 2
 ---
 # Cours - Docker, les bases solides
 
@@ -61,17 +60,12 @@ docker system df          # place occupée
 docker system prune       # supprime ce qui ne sert plus (demande confirmation)
 ```
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Modifier un fichier dans un conteneur en pensant modifier l'image
 > - Oublier `--rm` et accumuler des dizaines de conteneurs arrêtés
 > - Mettre `COPY . .` avant `pip install` : tout le cache saute à chaque modification du code
 > - Utiliser le tag `latest` en pensant avoir une version fixe
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Docker]] · [[Démon Docker]] · [[Image Docker]] · [[Dockerfile]] · [[Conteneur]] · [[Volume Docker]] · [[Registre Docker]] · [[Docker Compose]]

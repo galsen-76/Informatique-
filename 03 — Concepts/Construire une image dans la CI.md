@@ -1,23 +1,9 @@
 ---
 type: concept
-domain: devops
 module: "[[Module 14 - DevOps et déploiement]]"
-status: a-decouvrir
-level: avance
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Pipeline GitLab CI]]"
-  - "[[Dockerfile]]"
-  - "[[Registre Docker]]"
-parents:
-  - "[[Pipeline GitLab CI]]"
 related:
   - "[[Démon Docker]]"
   - "[[Kaniko]]"
-next_review: 
 tags:
   - concept
   - devops
@@ -26,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Un job tourne déjà dans un conteneur : pour y construire une image, on lance un démon Docker à côté (Docker-in-Docker) ou on utilise un outil sans démon (Kaniko).
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -82,46 +64,9 @@ Un projet avec plusieurs Dockerfile demande un `docker build -f` par image, souv
 > [!warning] À ne pas confondre
 > `image:` (le conteneur où tourne le job) et `services:` (des conteneurs annexes à côté du job, ici le démon Docker).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine un job `build-image` : le conteneur du job, le service Docker-in-Docker à côté, le push vers le registre.
-
-> [!example] 🔄 Change de contexte
-> Redessine le même job avec Kaniko. Qu'est-ce qui disparaît du dessin ?
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Construire une image dans la CI » et je l'intègre ici avec `![[Schéma - Construire une image dans la CI.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 09 - La CI de l'API]]
-- [[Fil rouge 06 - Construire l'image dans la CI]]
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Construire une image dans la CI au travail](obsidian://open?vault=Travail&file=Construire%20une%20image%20dans%20la%20CI%20au%20travail)
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Dockerfile]] · [[Registre Docker]]
 - **Notion parente** : [[Pipeline GitLab CI]]
 - **Complémentaires** : [[Kaniko]] · [[Variables CI-CD GitLab]]
 - **Commandes** : [[docker build]] · [[docker login]] · [[docker push]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

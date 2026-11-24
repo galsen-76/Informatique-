@@ -9,7 +9,6 @@ concepts:
   - "[[Code de sortie]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Fonctions, modules et erreurs
 
@@ -73,17 +72,12 @@ if __name__ == "__main__":
 ```
 Ce squelette (`main()` qui renvoie un code, `sys.exit(main())`) est une bonne base pour tous tes scripts.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Afficher un résultat avec `print` dans la fonction au lieu de le renvoyer avec `return`
 > - Écrire `except Exception: pass` : l'erreur disparaît et le script ne fait rien
 > - Appeler son fichier `zipfile.py` ou `shutil.py` : il cache le module de Python
 > - Lire un traceback par le haut au lieu de partir de la dernière ligne
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Fonction]] · [[Module et import]] · [[Exception]] · [[Code de sortie]]

@@ -12,7 +12,6 @@ concepts:
   - "[[Tester l'image, pas le dépôt]]"
 tags:
   - cours
-niveau: 3
 ---
 # Cours - Maîtriser le fichier de pipeline GitLab
 
@@ -56,17 +55,12 @@ Construire une image demande un démon Docker : Docker-in-Docker ou Kaniko ([[Co
 4. Pour un job précis : son `image:`, ses `rules:`, son `script:`.
 5. En cas de doute : *Build > Pipeline editor > Full configuration* montre la version fusionnée.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Croire qu'un fichier créé dans un job existe dans le suivant sans artefact
 > - Ajouter `allow_failure: true` pour « faire passer » un job au vert sans comprendre pourquoi il échoue
 > - Redéfinir `script:` dans un job qui `extends` en pensant ajouter des lignes
 > - Corriger un test dans le dépôt sans reconstruire l'image dans laquelle il tourne
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Pipeline GitLab CI]] · [[Règles d'un job GitLab (rules)]] · [[Artefacts GitLab CI]] · [[extends GitLab CI]] · [[Construire une image dans la CI]] · [[Tester l'image, pas le dépôt]]

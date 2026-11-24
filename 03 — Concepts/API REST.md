@@ -1,24 +1,10 @@
 ---
 type: concept
-domain: backend
 module: "[[Module 08 - Backend et API REST]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 1
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[HTTP]]"
-  - "[[API]]"
-  - "[[JSON]]"
-parents:
-  - "[[API]]"
 related:
   - "[[Endpoint]]"
   - "[[Express]]"
   - "[[CORS]]"
-next_review: 
 tags:
   - concept
   - backend
@@ -27,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > Une façon d'organiser une API web autour de ressources (notes, utilisateurs…) manipulées avec les méthodes HTTP.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -74,54 +56,9 @@ curl -X POST http://localhost:3000/notes \
 > [!warning] À ne pas confondre
 > **REST** (un style, des conventions) et **HTTP** (le protocole). Une API peut utiliser HTTP sans être REST (ex. une API qui n'a que `POST /action`). Et **PUT** remplace toute la ressource, **PATCH** n'en modifie qu'une partie.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine la ressource `depenses` de ton application et les cinq routes CRUD autour : méthode, adresse, ce qu'elles font.
-
-> [!example] 🔍 Trouve l'erreur
-> Ce schéma est faux. Corrige-le en rouge et explique l'erreur.
->
-> ```mermaid
-> flowchart TD
->   G[GET /supprimer/3] --> S[Supprime 3]
->   P[POST /depenses/liste] --> L[Liste]
-> ```
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - API REST » et je l'intègre ici avec `![[Schéma - API REST.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 01 - Prendre l'API en main]]
-
-Pour m'aider :
-- [[Projet - API Notes]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[HTTP]], [[API]], [[JSON]]
 - **Notion parente** : [[API]]
 - **Mène à** : [[Endpoint]] → [[Express]] → [[Middleware]]
 - **Complémentaires** : [[Authentification]], [[SQL]] (où stocker les ressources)
 - **Cours** : [[Cours - Construire une API REST avec Express]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

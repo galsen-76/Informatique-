@@ -1,22 +1,10 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 22 - Design patterns]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Interface et polymorphisme]]"
-parents:
-  - "[[Design pattern]]"
 related:
   - "[[Patron Fabrique (Factory)]]"
   - "[[Patron État (State)]]"
   - "[[Principes SOLID]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -25,10 +13,6 @@ tags:
 
 > [!info] En une phrase
 > La stratégie met chaque variante d'un algorithme (un format, un calcul, une règle) dans son propre objet ou sa propre fonction, interchangeable à l'exécution.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -83,43 +67,7 @@ En Python et en JavaScript, une **fonction** suffit souvent comme stratégie ; u
 > [!warning] À ne pas confondre
 > La **stratégie** (le client choisit la variante) n'est pas l'**état** (l'objet change lui-même de comportement quand son état change).
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : un gros `if format == ...` dans l'export, puis une stratégie par format. Dessine ce qu'il faut ajouter pour un nouveau format.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine le code appelant qui reçoit une stratégie et l'utilise sans savoir laquelle c'est.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Patron Stratégie (Strategy) » et je l'intègre ici avec `![[Schéma - Patron Stratégie (Strategy).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Au travail** : [Patron Stratégie (Strategy) au travail](obsidian://open?vault=Travail&file=Patron%20Strat%C3%A9gie%20%28Strategy%29%20au%20travail)
 - **Prérequis** : [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Fabrique (Factory)]] · [[Patron État (State)]] · [[Principes SOLID]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

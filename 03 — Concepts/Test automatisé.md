@@ -1,20 +1,8 @@
 ---
 type: concept
-domain: tests
 module: "[[Module 12 - Tests]]"
-status: a-decouvrir
-level: debutant
-niveau: 3
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Fonction]]"
-  - "[[Code de sortie]]"
-parents: []
 related:
   - "[[Test automatisé]]"
-next_review: 
 tags:
   - concept
   - tests
@@ -23,10 +11,6 @@ tags:
 
 > [!info] En une phrase
 > Un test automatisé est du code qui exécute ton code avec des entrées connues et vérifie le résultat ; on les lance tous en une commande, à chaque modification et dans la CI.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -111,43 +95,7 @@ Outils : [[Test automatisé]] (Python), [[Test automatisé]] (JavaScript), Playw
 > [!warning] À ne pas confondre
 > Un test qui passe ne prouve pas que le code est juste : il prouve seulement que **ce cas** marche. Et un test qui dépend de l'ordre, de l'heure ou du réseau échoue au hasard (*flaky*) : on finit par l'ignorer.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] 🧠 Dessine de mémoire
-> Dessine un test comme une machine : entrée connue, ton code, résultat attendu, verdict.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine où tournent les tests de ton API : sur ton PC, puis dans la CI à chaque push.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Test automatisé » et je l'intègre ici avec `![[Schéma - Test automatisé.excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- [[MesDépenses 08 - Tester l'API]]
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Fonction]] · [[Code de sortie]]
 - **Complémentaires** : [[Test automatisé]] · [[Test automatisé]]
 - **Utilisé par** : [[Pipeline GitLab CI]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```

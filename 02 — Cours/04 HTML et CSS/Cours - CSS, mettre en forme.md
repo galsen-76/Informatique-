@@ -8,7 +8,6 @@ concepts:
   - "[[Modèle de boîte]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - CSS, mettre en forme
 
@@ -42,16 +41,11 @@ flowchart TD
 ## 6. Déboguer
 F12 → onglet *Styles* : les règles appliquées, les règles écrasées (barrées), et la possibilité de tester une valeur en direct.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Utiliser des `id` pour le style : spécificité trop forte, difficile à surcharger
 > - Abuser de `!important`
 > - Oublier `box-sizing: border-box` et s'étonner des tailles
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[CSS]] · [[Sélecteur CSS]] · [[Modèle de boîte]]

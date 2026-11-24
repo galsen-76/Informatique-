@@ -10,7 +10,6 @@ concepts:
   - "[[Outil de build front (Vite)]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Penser en composants
 
@@ -46,16 +45,11 @@ flowchart TD
 ## 6. Les listes
 [[Liste et clé en React]] : `map` et une `key` stable.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - `class` au lieu de `className`
 > - Modifier une prop
 > - `key={index}` dans une liste qui change
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[React]] · [[Composant d'interface]] · [[Props React]] · [[Liste et clé en React]] · [[Outil de build front (Vite)]]

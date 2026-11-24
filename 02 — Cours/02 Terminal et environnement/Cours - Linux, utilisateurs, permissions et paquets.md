@@ -8,7 +8,6 @@ concepts:
   - "[[Fichiers entre Windows et Linux]]"
 tags:
   - cours
-niveau: 0
 ---
 # Cours - Linux, utilisateurs, permissions et paquets
 
@@ -55,16 +54,11 @@ Voir [[Gestionnaire de paquets]] et [[apt]]. Ce sont les mêmes commandes que da
 - `~/.bashrc` : lu à chaque nouveau terminal Bash. On y met ses alias, son `PATH`, son proxy. Après modification : `source ~/.bashrc`.
 - Les fichiers qui commencent par `.` sont cachés : `ls -a` pour les voir.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - Tout lancer avec `sudo` « pour que ça passe »
 > - `chmod 777` pour régler un problème de droits
 > - Modifier `~/.bashrc` sans le recharger, et croire que ça n'a pas marché
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Permissions Linux]] · [[Gestionnaire de paquets]] · [[Fichiers entre Windows et Linux]]

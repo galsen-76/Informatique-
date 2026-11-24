@@ -6,7 +6,6 @@ concepts:
   - "[[Application monopage et routage]]"
 tags:
   - cours
-niveau: 6
 ---
 # Cours - Une application React complète
 
@@ -40,16 +39,11 @@ Un module `api.ts` avec des fonctions typées ; le jeton dans `Authorization` ; 
 ## 6. Dans une vraie appli
 Les grosses interfaces React suivent exactement ce schéma ; ajouter un bouton, c'est ajouter un composant qui appelle une API.
 
-## Mise en pratique
-- Pour chaque notion du cours : les **exercices visuels** de sa fiche (section 3), puis le fil rouge de son niveau ([[Niveaux]]).
-
+## Pièges
 > [!warning] Erreurs fréquentes
 > - `<a href>` au lieu de `Link`
 > - Oublier le repli vers `index.html` sur le serveur
 > - Mettre un secret dans une variable `VITE_`
-
-## Résumé
-Pas de résumé à écrire : si tu veux, fais un dessin Excalidraw qui relie les notions ci-dessous.
 
 ## Concepts du cours
 [[Application monopage et routage]]

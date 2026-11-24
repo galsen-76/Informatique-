@@ -1,22 +1,9 @@
 ---
 type: concept
-domain: architecture
 module: "[[Module 22 - Design patterns]]"
-status: a-decouvrir
-level: intermediaire
-niveau: 5
-schema: false
-exercice_visuel: false
-fil_rouge: false
-prerequisites:
-  - "[[Fonction]]"
-  - "[[Portée et closure]]"
-parents:
-  - "[[Design pattern]]"
 related:
   - "[[Middleware]]"
   - "[[Patron Proxy]]"
-next_review: 
 tags:
   - concept
   - architecture
@@ -25,10 +12,6 @@ tags:
 
 > [!info] En une phrase
 > Le décorateur enveloppe un objet ou une fonction pour lui ajouter un comportement (journalisation, cache, nouvel essai, mesure du temps) sans modifier son code.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
-```
 
 ## 1 · Comprendre
 ### Définition
@@ -88,42 +71,6 @@ Décorateurs que tu croiseras : `@functools.cache`, `@property`, `@app.get("/")`
 > [!warning] À ne pas confondre
 > Empiler beaucoup de décorateurs rend le débogage difficile (la trace d'erreur traverse toutes les enveloppes) ; et sans `functools.wraps`, la fonction décorée perd son nom et sa documentation.
 
-## 3 · Pratiquer
-
-### Exercice visuel
-
-Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je corrige en rouge ce qui était faux, et j'explique mon dessin à voix haute ou à Claude dans le chat.
-
-> [!example] ⚖️ Avant / après
-> Avant / après : une fonction `appeler_cvat`, puis la même enveloppée par un décorateur qui journalise et réessaie. Dessine les couches.
-
-> [!example] 🛣️ Suis le trajet
-> Dessine un appel qui traverse deux décorateurs empilés : dans quel ordre ils s'exécutent à l'aller et au retour.
-
-### Mon schéma
-
-> [!tip] Mon dessin Excalidraw
-> _Je crée le dessin « Schéma - Patron Décorateur (Decorator) » et je l'intègre ici avec `![[Schéma - Patron Décorateur (Decorator).excalidraw]]`, puis je coche `schema`._
-
-### Appliquer dans le fil rouge
-- Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
-
-## 4 · Relier
+## 3 · Relier
 - **Prérequis** : [[Fonction]] · [[Portée et closure]]
 - **Complémentaires** : [[Middleware]] · [[Patron Proxy]]
-
-## 5 · Réviser
-> [!question] Me faire interroger
-> Je demande à Claude de m'interroger sur cette notion pour vérifier que je l'ai comprise.
-
-### Validation (compris, puis maîtrisé)
-Trois cases à cocher dans les propriétés de la fiche :
-- `schema` : mon dessin du concept est dans « Mon schéma » ;
-- `exercice_visuel` : j'ai fait et corrigé les exercices visuels de la section 3 ;
-- `fil_rouge` : je l'ai appliqué dans le fil rouge (coché tout seul quand une étape qui l'utilise est réussie).
-
-Les trois cochées : la notion compte comme **comprise**. **Maîtrisé** : c'est moi qui le mets dans `status`, quand je le sens.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "maitrise" })
-```
