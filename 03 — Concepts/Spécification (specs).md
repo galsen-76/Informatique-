@@ -104,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Spécification (specs) au travail]]
+- **Au travail** : [Spécification (specs) au travail](obsidian://open?vault=Travail&file=Sp%C3%A9cification%20%28specs%29%20au%20travail)
 - **Complémentaires** : [[Exigences fonctionnelles et non fonctionnelles]] · [[Cahier des charges]] · [[Spécification technique]] · [[User story]] · [[Critères d'acceptation]]
 
 ## 5 · Réviser

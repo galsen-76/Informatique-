@@ -91,7 +91,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Relier
-- **Au travail** : [[Tester l'image, pas le dépôt au travail]]
+- **Au travail** : [Tester l'image, pas le dépôt au travail](obsidian://open?vault=Travail&file=Tester%20l%27image%2C%20pas%20le%20d%C3%A9p%C3%B4t%20au%20travail)
 - **Prérequis** : [[Image Docker]] · [[Test automatisé]] · [[Pipeline GitLab CI]]
 - **Complémentaires** : [[Construire une image dans la CI]]
 - **Utilisé par** : [[Fiche - Réflexes pour déboguer une pipeline]]

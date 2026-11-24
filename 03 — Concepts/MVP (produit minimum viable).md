@@ -94,7 +94,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[MVP (produit minimum viable) au travail]]
+- **Au travail** : [MVP (produit minimum viable) au travail](obsidian://open?vault=Travail&file=MVP%20%28produit%20minimum%20viable%29%20au%20travail)
 - **Prérequis** : [[Preuve de concept (POC)]]
 - **Complémentaires** : [[Prototype]] · [[Backlog et priorisation]] · [[Principes DRY, KISS et YAGNI]] · [[Dette technique]]
 

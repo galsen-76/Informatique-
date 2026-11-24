@@ -108,7 +108,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 03 - Une page web pour le rapport]]
 
 ## 4 · Relier
-- **Au travail** : [[Port au travail]]
+- **Au travail** : [Port au travail](obsidian://open?vault=Travail&file=Port%20au%20travail)
 - **Prérequis** : [[Client-serveur]] · [[Internet]]
 - **Complémentaires** : [[Proxy]]
 - **Utilisé par** : [[Reverse proxy]] · [[Docker Compose]] · [[Conteneur]]

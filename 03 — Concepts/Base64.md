@@ -95,7 +95,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Envoi 05 - Une image dans du JSON]]
 
 ## 4 · Relier
-- **Au travail** : [[Base64 au travail]]
+- **Au travail** : [Base64 au travail](obsidian://open?vault=Travail&file=Base64%20au%20travail)
 - **Prérequis** : [[Binaire et octet]] · [[JSON]]
 - **Complémentaires** : [[Encodage des caractères]] · [[Envoyer et recevoir un fichier en HTTP]] · [[Fichier en mémoire (io.BytesIO)]]
 - **Utilisé par** : [[Cours - Envoyer et recevoir des fichiers par HTTP]] · [[Serverless et FaaS]]

@@ -19,7 +19,7 @@ tags:
 | une procédure ou les bonnes pratiques d'un outil | **05 — Fiches pratiques** |
 | une erreur déjà rencontrée | **06 — Erreurs et solutions** (et [[Fiche - Aide-mémoire des erreurs fréquentes]]) |
 | le fil rouge de mon niveau | **07 — Exercices et projets** |
-| mon travail (CVAT, Nuclio, réseau de l'entreprise, mémoire) | **11 — Hors parcours**, et [[Référence travail]] pour tout ce qui est hors de mon niveau |
+| mon travail (CVAT, Nuclio, mémoire) | [le coffre Travail](obsidian://open?vault=Travail&file=Aujourd%27hui), et [[Référence travail]] pour les notions hors de mon niveau |
 | une vieille fiche ou un ancien exercice | **99 — Archives** |
 
 > [!tip] Le plus rapide : la recherche
@@ -38,7 +38,6 @@ tags:
 | 07 — Exercices et projets | Les fils rouges (niveau 0 : [[Projet - Suivre ses dépenses en Python]], puis [[Projet - MesDépenses]]) | Exercice · Projet |
 | 08 — Ressources | Liens et exemples utiles, images | — |
 | 10 — Templates | Modèles et le script des vues (`Scripts/learning.js`) | — |
-| 11 — Hors parcours | Travail : CVAT et Nuclio (projets, notes, erreurs, « … au travail »), Environnement entreprise, Mémoire tests Playwright | — |
 | 99 — Archives | Anciens exercices, fiches fusionnées, contenus terminés | — |
 
 ## Installation

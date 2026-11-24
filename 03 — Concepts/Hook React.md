@@ -106,7 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Hook React au travail]]
+- **Au travail** : [Hook React au travail](obsidian://open?vault=Travail&file=Hook%20React%20au%20travail)
 - **Prérequis** : [[État et réactivité]] · [[Effet React (useEffect)]] · [[Portée et closure]]
 - **Complémentaires** : [[Générique TypeScript]]
 

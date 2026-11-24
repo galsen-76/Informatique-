@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 14 - Déployer depuis la CI]]
 
 ## 4 · Relier
-- **Au travail** : [[Intégration et déploiement continus (CI-CD) au travail]]
+- **Au travail** : [Intégration et déploiement continus (CI-CD) au travail](obsidian://open?vault=Travail&file=Int%C3%A9gration%20et%20d%C3%A9ploiement%20continus%20%28CI-CD%29%20au%20travail)
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Test automatisé]]
 - **Complémentaires** : [[Environnement de déploiement]] · [[Construire une image dans la CI]]
 - **Utilisé par** : [[Supervision et observabilité]]

@@ -96,7 +96,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
 
 ## 4 · Relier
-- **Au travail** : [[DNS au travail]]
+- **Au travail** : [DNS au travail](obsidian://open?vault=Travail&file=DNS%20au%20travail)
 - **Prérequis** : [[Adresse IP]]
 - **Complémentaires** : [[Reverse proxy]] · [[HTTPS et TLS]]
 - **Commandes** : [[nslookup]]

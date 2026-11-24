@@ -99,7 +99,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 14 - Déployer depuis la CI]]
 
 ## 4 · Relier
-- **Au travail** : [[Environnement de déploiement au travail]]
+- **Au travail** : [Environnement de déploiement au travail](obsidian://open?vault=Travail&file=Environnement%20de%20d%C3%A9ploiement%20au%20travail)
 - **Prérequis** : [[Image Docker]] · [[Variable d'environnement]]
 - **Complémentaires** : [[Tag Git]] · [[Variables CI-CD GitLab]]
 

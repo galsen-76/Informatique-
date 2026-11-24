@@ -103,7 +103,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[pytest au travail]]
+- **Au travail** : [pytest au travail](obsidian://open?vault=Travail&file=pytest%20au%20travail)
 - **Prérequis** : [[Fonction]] · [[Module et import]]
 - **Complémentaires** : [[Code de sortie]]
 - **Utilisé par** : [[Pipeline GitLab CI]] · [[Tester l'image, pas le dépôt]]

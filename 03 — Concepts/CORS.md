@@ -124,7 +124,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 
 ## 4 · Relier
-- **Au travail** : [[CORS au travail]]
+- **Au travail** : [CORS au travail](obsidian://open?vault=Travail&file=CORS%20au%20travail)
 - **Prérequis** : [[En-tête HTTP]] · [[Appeler une API HTTP]]
 - **Complémentaires** : [[Reverse proxy]] · [[Middleware]] · [[API]] · [[API REST]] · [[CSRF]] · [[Serverless et FaaS]]
 

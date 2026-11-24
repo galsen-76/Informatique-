@@ -104,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Relier
-- **Au travail** : [[Construire une image dans la CI au travail]]
+- **Au travail** : [Construire une image dans la CI au travail](obsidian://open?vault=Travail&file=Construire%20une%20image%20dans%20la%20CI%20au%20travail)
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Dockerfile]] · [[Registre Docker]]
 - **Notion parente** : [[Pipeline GitLab CI]]
 - **Complémentaires** : [[Kaniko]] · [[Variables CI-CD GitLab]]

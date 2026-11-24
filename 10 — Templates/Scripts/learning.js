@@ -21,7 +21,6 @@ const CFG = {
   errors: "06 — Erreurs et solutions",
   exercises: "07 — Exercices et projets",
   archives: "99 — Archives/Anciens exercices",
-  horsParcours: "11 — Hors parcours",
 };
 const LEVELS = [
   "Les bases du poste",
@@ -431,13 +430,6 @@ function vReference() {
     bullets(p, list.sort((a, b) => lvl(a) - lvl(b) || base(a.file.path).localeCompare(base(b.file.path)))
       .map((c) => `${wiki(c.file.path)} <span class="dw-badge">Niveau ${lvl(c)}</span>`));
   }
-  const hp = dv.pages(`"${CFG.horsParcours}"`).array();
-  const groups = {};
-  hp.forEach((p) => { const g = p.file.folder.split("/")[1] || "Divers"; (groups[g] = groups[g] || []).push(p); });
-  Object.keys(groups).sort().forEach((g) => {
-    const p = panel(grid, `Hors parcours · ${g}`, "orange");
-    bullets(p, groups[g].sort((a, b) => a.file.path.localeCompare(b.file.path)).map((x) => wiki(x.file.path)));
-  });
 }
 
 /* ---------- routage ---------- */

@@ -109,7 +109,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Envoi 04 - Recevoir une image et un zip]]
 
 ## 4 · Relier
-- **Au travail** : [[Fichier en mémoire (io.BytesIO) au travail]]
+- **Au travail** : [Fichier en mémoire (io.BytesIO) au travail](obsidian://open?vault=Travail&file=Fichier%20en%20m%C3%A9moire%20%28io.BytesIO%29%20au%20travail)
 - **Prérequis** : [[Lire et écrire un fichier]] · [[Binaire et octet]]
 - **Complémentaires** : [[Archive zip (zipfile)]] · [[Encodage des caractères]] · [[Base64]]
 - **Utilisé par** : [[Envoyer et recevoir un fichier en HTTP]] · [[Cours - Envoyer et recevoir des fichiers par HTTP]]

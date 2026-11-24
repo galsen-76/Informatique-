@@ -88,7 +88,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 07 - Travailler en branche]]
 
 ## 4 · Relier
-- **Au travail** : [[Dépôt upstream au travail]]
+- **Au travail** : [Dépôt upstream au travail](obsidian://open?vault=Travail&file=D%C3%A9p%C3%B4t%20upstream%20au%20travail)
 - **Prérequis** : [[Dépôt Git]]
 - **Notion parente** : [[Dépôt Git]]
 - **Complémentaires** : [[Merge]] · [[Conflit de merge]]

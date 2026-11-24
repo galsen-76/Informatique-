@@ -127,7 +127,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses Front 09 - Le front Angular dans Docker]]
 
 ## 4 · Relier
-- **Au travail** : [[Application monopage et routage au travail]]
+- **Au travail** : [Application monopage et routage au travail](obsidian://open?vault=Travail&file=Application%20monopage%20et%20routage%20au%20travail)
 - **Prérequis** : [[Composant d'interface]] · [[Client-serveur]] · [[HTTP]]
 - **Complémentaires** : [[Reverse proxy]]
 

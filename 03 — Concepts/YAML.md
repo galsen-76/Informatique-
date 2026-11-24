@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 05 - L'API et PostgreSQL avec compose]]
 
 ## 4 · Relier
-- **Au travail** : [[YAML au travail]]
+- **Au travail** : [YAML au travail](obsidian://open?vault=Travail&file=YAML%20au%20travail)
 - **Prérequis** : [[JSON]]
 - **Utilisé par** : [[Pipeline GitLab CI]] · [[Docker Compose]] · [[Règles d'un job GitLab (rules)]]
 

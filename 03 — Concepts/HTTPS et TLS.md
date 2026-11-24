@@ -87,7 +87,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 
 ## 4 · Relier
-- **Au travail** : [[HTTPS et TLS au travail]]
+- **Au travail** : [HTTPS et TLS au travail](obsidian://open?vault=Travail&file=HTTPS%20et%20TLS%20au%20travail)
 - **Prérequis** : [[HTTP]] · [[TCP et UDP]]
 - **Complémentaires** : [[Certificat]]
 - **Commandes** : [[curl]] · [[openssl]]

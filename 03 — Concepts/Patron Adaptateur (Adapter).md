@@ -100,7 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Patron Adaptateur (Adapter) au travail]]
+- **Au travail** : [Patron Adaptateur (Adapter) au travail](obsidian://open?vault=Travail&file=Patron%20Adaptateur%20%28Adapter%29%20au%20travail)
 - **Prérequis** : [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Façade (Facade)]] · [[Architecture hexagonale]]
 

@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 10 - Sortir une version]]
 
 ## 4 · Relier
-- **Au travail** : [[Version sémantique (semver) au travail]]
+- **Au travail** : [Version sémantique (semver) au travail](obsidian://open?vault=Travail&file=Version%20s%C3%A9mantique%20%28semver%29%20au%20travail)
 - **Prérequis** : [[package.json]]
 - **Complémentaires** : [[Tag Git]] · [[Changelog]]
 

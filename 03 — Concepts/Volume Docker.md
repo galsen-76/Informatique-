@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 01 - Lancer l'application dans un conteneur]]
 
 ## 4 · Relier
-- **Au travail** : [[Volume Docker au travail]]
+- **Au travail** : [Volume Docker au travail](obsidian://open?vault=Travail&file=Volume%20Docker%20au%20travail)
 - **Prérequis** : [[Conteneur]] · [[Système de fichiers]]
 - **Utilisé par** : [[Python dans Docker]] · [[Docker Compose]]
 - **Commandes** : [[docker run]]

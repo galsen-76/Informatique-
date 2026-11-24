@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 08 - Tester l'API]]
 
 ## 4 · Relier
-- **Au travail** : [[Test d'intégration au travail]]
+- **Au travail** : [Test d'intégration au travail](obsidian://open?vault=Travail&file=Test%20d%27int%C3%A9gration%20au%20travail)
 - **Prérequis** : [[Test unitaire]] · [[API REST]] · [[SQL]]
 - **Complémentaires** : [[Test de bout en bout]] · [[Pipeline GitLab CI]]
 

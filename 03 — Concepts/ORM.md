@@ -115,7 +115,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[ORM au travail]]
+- **Au travail** : [ORM au travail](obsidian://open?vault=Travail&file=ORM%20au%20travail)
 - **Prérequis** : [[SQL]] · [[Clé primaire et clé étrangère]]
 - **Complémentaires** : [[Migration de base de données]]
 

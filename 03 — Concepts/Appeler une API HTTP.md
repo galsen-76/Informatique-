@@ -146,7 +146,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Envoi 03 - Le même envoi sans pip]]
 
 ## 4 · Relier
-- **Au travail** : [[Appeler une API HTTP (requests) au travail]]
+- **Au travail** : [Appeler une API HTTP (requests) au travail](obsidian://open?vault=Travail&file=Appeler%20une%20API%20HTTP%20%28requests%29%20au%20travail)
 - **Prérequis** : [[Gestionnaire de paquets]] · [[HTTP]] · [[JSON]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[SDK]] · [[API REST]] · [[Envoyer et recevoir un fichier en HTTP]] (envoyer un zip ou une image) · [[Appeler une API HTTP]] (quand pip est bloqué)
 

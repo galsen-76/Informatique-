@@ -83,7 +83,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 11 - Installer l'API sur un serveur]]
 
 ## 4 · Relier
-- **Au travail** : [[Pare-feu au travail]]
+- **Au travail** : [Pare-feu au travail](obsidian://open?vault=Travail&file=Pare-feu%20au%20travail)
 - **Prérequis** : [[TCP et UDP]] · [[Port]]
 - **Complémentaires** : [[SSH]] · [[Routage et NAT]]
 

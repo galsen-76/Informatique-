@@ -98,7 +98,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 13 - Sauvegarder la base avec un script]]
 
 ## 4 · Relier
-- **Au travail** : [[Archive zip (zipfile) au travail]]
+- **Au travail** : [Archive zip (zipfile) au travail](obsidian://open?vault=Travail&file=Archive%20zip%20%28zipfile%29%20au%20travail)
 - **Prérequis** : [[Chemin de fichier]] · [[Boucle (for, while)]]
 - **Complémentaires** : [[Copier et déplacer des fichiers (shutil)]] · [[Exception]]
 - **Utilisé par** : [[Cours - Manipuler des fichiers et des archives]] · [[Fichier en mémoire (io.BytesIO)]] (un zip sans fichier) · [[Cours - Envoyer et recevoir des fichiers par HTTP]]

@@ -104,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Patron Stratégie (Strategy) au travail]]
+- **Au travail** : [Patron Stratégie (Strategy) au travail](obsidian://open?vault=Travail&file=Patron%20Strat%C3%A9gie%20%28Strategy%29%20au%20travail)
 - **Prérequis** : [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Fabrique (Factory)]] · [[Patron État (State)]] · [[Principes SOLID]]
 

@@ -134,7 +134,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Serverless et FaaS au travail]]
+- **Au travail** : [Serverless et FaaS au travail](obsidian://open?vault=Travail&file=Serverless%20et%20FaaS%20au%20travail)
 - **Prérequis** : [[Conteneur]] · [[Image Docker]]
 - **Complémentaires** : [[Architecture événementielle]] · [[Architecture hexagonale]] · [[Variable d'environnement]] · [[CORS]] · [[Charger un fichier .env (python-dotenv)]]
 

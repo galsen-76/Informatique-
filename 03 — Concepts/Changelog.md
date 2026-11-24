@@ -83,7 +83,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 10 - Sortir une version]]
 
 ## 4 · Relier
-- **Au travail** : [[Changelog au travail]]
+- **Au travail** : [Changelog au travail](obsidian://open?vault=Travail&file=Changelog%20au%20travail)
 - **Prérequis** : [[Commit]]
 - **Complémentaires** : [[Convention de commit]] · [[Tag Git]]
 

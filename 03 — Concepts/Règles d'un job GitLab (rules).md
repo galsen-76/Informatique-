@@ -105,7 +105,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 07 - Tester l'image et ranger la pipeline]]
 
 ## 4 · Relier
-- **Au travail** : [[Règles d'un job GitLab (rules) au travail]]
+- **Au travail** : [Règles d'un job GitLab (rules) au travail](obsidian://open?vault=Travail&file=R%C3%A8gles%20d%27un%20job%20GitLab%20%28rules%29%20au%20travail)
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Variables CI-CD GitLab]] · [[YAML]]
 - **Complémentaires** : [[extends GitLab CI]]
 

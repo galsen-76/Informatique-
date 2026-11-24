@@ -82,7 +82,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 07 - Travailler en branche]]
 
 ## 4 · Relier
-- **Au travail** : [[Merge request au travail]]
+- **Au travail** : [Merge request au travail](obsidian://open?vault=Travail&file=Merge%20request%20au%20travail)
 - **Prérequis** : [[Dépôt distant (remote)]] · [[Branche Git]]
 - **Complémentaires** : [[Pipeline GitLab CI]] · [[Merge]]
 

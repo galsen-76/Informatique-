@@ -116,7 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 
 ## 4 · Relier
-- **Au travail** : [[Reverse proxy au travail]]
+- **Au travail** : [Reverse proxy au travail](obsidian://open?vault=Travail&file=Reverse%20proxy%20au%20travail)
 - **Prérequis** : [[Port]] · [[HTTP]] · [[Docker Compose]]
 - **Complémentaires** : [[Proxy]] · [[HTTPS et TLS]] · [[Variable d'environnement]]
 - **Va plus loin** : [[Passerelle d'API (API gateway)]]

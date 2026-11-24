@@ -101,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## 4 · Relier
-- **Au travail** : [[Python dans Docker au travail]]
+- **Au travail** : [Python dans Docker au travail](obsidian://open?vault=Travail&file=Python%20dans%20Docker%20au%20travail)
 - **Prérequis** : [[Dockerfile]] · [[Volume Docker]] · [[Gestionnaire de paquets]]
 - **Complémentaires** : [[Arguments de ligne de commande]]
 - **Utilisé par** : [[Tester l'image, pas le dépôt]]

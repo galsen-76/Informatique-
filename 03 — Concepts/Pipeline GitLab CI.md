@@ -138,7 +138,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Relier
-- **Au travail** : [[Pipeline GitLab CI au travail]]
+- **Au travail** : [Pipeline GitLab CI au travail](obsidian://open?vault=Travail&file=Pipeline%20GitLab%20CI%20au%20travail)
 - **Prérequis** : [[Git]]
 - **Complémentaires** : [[Variables CI-CD GitLab]] · [[YAML]]
 - **Approfondir** : [[Règles d'un job GitLab (rules)]] · [[Artefacts GitLab CI]] · [[extends GitLab CI]]

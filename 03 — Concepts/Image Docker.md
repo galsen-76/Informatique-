@@ -97,7 +97,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 01 - Lancer l'application dans un conteneur]]
 
 ## 4 · Relier
-- **Au travail** : [[Image Docker au travail]]
+- **Au travail** : [Image Docker au travail](obsidian://open?vault=Travail&file=Image%20Docker%20au%20travail)
 - **Notion parente** : [[Docker]]
 - **Prérequis** : [[Dockerfile]]
 - **Donne naissance à** : [[Conteneur]]

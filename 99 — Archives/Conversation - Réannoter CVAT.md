@@ -10,7 +10,7 @@ date: 2026-11-17
 Historique de la conversation avec Claude du 16 au 17 novembre 2026 (projet graphe JSON → annotations CVAT, fonction Nuclio, plugin). Heures de Paris.
 Les longs contenus collés (JSON, réponses d'API) sont coupés au-delà de 3 000 caractères.
 
-Notes liées : [[Récap - Ce qu'on a fait et pourquoi]], [[Comprendre le script de réannotation]], [[Labels CVAT du projet]].
+Notes liées : [Récap - Ce qu'on a fait et pourquoi](obsidian://open?vault=Travail&file=R%C3%A9cap%20-%20Ce%20qu%27on%20a%20fait%20et%20pourquoi), [Comprendre le script de réannotation](obsidian://open?vault=Travail&file=Comprendre%20le%20script%20de%20r%C3%A9annotation), [Labels CVAT du projet](obsidian://open?vault=Travail&file=Labels%20CVAT%20du%20projet).
 
 ## Décisions finales (17/11 au soir)
 

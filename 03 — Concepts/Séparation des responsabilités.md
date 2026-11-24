@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Dépenses 04 - Ranger en fonctions]]
 
 ## 4 · Relier
-- **Au travail** : [[Séparation des responsabilités au travail]]
+- **Au travail** : [Séparation des responsabilités au travail](obsidian://open?vault=Travail&file=S%C3%A9paration%20des%20responsabilit%C3%A9s%20au%20travail)
 - **Prérequis** : [[Fonction]] · [[Module et import]]
 - **Complémentaires** : [[Architecture en couches]] · [[Principes SOLID]]
 - **Utilisé par** : [[Architecture en couches]]

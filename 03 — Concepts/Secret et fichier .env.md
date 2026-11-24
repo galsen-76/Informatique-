@@ -103,7 +103,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 03 - Un client Python pour l'API]]
 
 ## 4 · Relier
-- **Au travail** : [[Secret et fichier .env au travail]]
+- **Au travail** : [Secret et fichier .env au travail](obsidian://open?vault=Travail&file=Secret%20et%20fichier%20.env%20au%20travail)
 - **Prérequis** : [[Variable d'environnement]] · [[Ignorer des fichiers (gitignore)]]
 - **Complémentaires** : [[Variables CI-CD GitLab]] · [[Docker Compose]] · [[Charger un fichier .env (python-dotenv)]]
 

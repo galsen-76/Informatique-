@@ -119,7 +119,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Envoi 03 - Le même envoi sans pip]]
 
 ## 4 · Relier
-- **Au travail** : [[Appeler une API sans pip (urllib.request) au travail]]
+- **Au travail** : [Appeler une API sans pip (urllib.request) au travail](obsidian://open?vault=Travail&file=Appeler%20une%20API%20sans%20pip%20%28urllib.request%29%20au%20travail)
 - **Prérequis** : [[HTTP]] · [[Exception]] · [[Binaire et octet]]
 - **Complémentaires** : [[Appeler une API HTTP (requests)]] · [[Envoyer et recevoir un fichier en HTTP]] · [[Proxy]]
 - **Utilisé par** : [[Cours - Envoyer et recevoir des fichiers par HTTP]]

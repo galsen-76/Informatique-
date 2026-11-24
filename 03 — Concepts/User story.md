@@ -106,7 +106,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 07 - Travailler en branche]]
 
 ## 4 · Relier
-- **Au travail** : [[User story au travail]]
+- **Au travail** : [User story au travail](obsidian://open?vault=Travail&file=User%20story%20au%20travail)
 - **Prérequis** : [[Spécification (specs)]]
 - **Complémentaires** : [[Critères d'acceptation]] · [[Backlog et priorisation]] · [[Méthode agile (Scrum et Kanban)]] · [[Définition de terminé]]
 

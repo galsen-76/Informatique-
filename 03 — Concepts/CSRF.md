@@ -101,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[CSRF au travail]]
+- **Au travail** : [CSRF au travail](obsidian://open?vault=Travail&file=CSRF%20au%20travail)
 - **Prérequis** : [[Session et cookie]] · [[Formulaire HTML]]
 - **Complémentaires** : [[XSS]] · [[CORS]]
 

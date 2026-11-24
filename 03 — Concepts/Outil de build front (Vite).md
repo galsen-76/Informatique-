@@ -93,7 +93,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses Front 04 - Le front Vue dans Docker]]
 
 ## 4 · Relier
-- **Au travail** : [[Outil de build front (Vite) au travail]]
+- **Au travail** : [Outil de build front (Vite) au travail](obsidian://open?vault=Travail&file=Outil%20de%20build%20front%20%28Vite%29%20au%20travail)
 - **Prérequis** : [[Gestionnaire de paquets]] · [[package.json]] · [[Module et import]]
 - **Complémentaires** : [[Compilation TypeScript (tsc et tsconfig)]] · [[Dockerfile]]
 

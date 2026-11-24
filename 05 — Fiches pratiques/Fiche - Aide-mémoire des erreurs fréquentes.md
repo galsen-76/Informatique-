@@ -68,4 +68,4 @@ tags:
 [[Fiche - Lire un message d'erreur]] · [[Erreurs et solutions]] · [[Exception]] · [[Gestion des erreurs d'une API]]
 
 > [!info] Au travail
-> Les erreurs Nuclio (`nuctl`) sont dans [[Erreurs Nuclio, aide-mémoire]].
+> Les erreurs Nuclio (`nuctl`) sont dans [Erreurs Nuclio, aide-mémoire](obsidian://open?vault=Travail&file=Erreurs%20Nuclio%2C%20aide-m%C3%A9moire).

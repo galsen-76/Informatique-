@@ -105,7 +105,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Relier
-- **Au travail** : [[Variables CI-CD GitLab au travail]]
+- **Au travail** : [Variables CI-CD GitLab au travail](obsidian://open?vault=Travail&file=Variables%20CI-CD%20GitLab%20au%20travail)
 - **Prérequis** : [[Pipeline GitLab CI]]
 - **Notion parente** : [[Pipeline GitLab CI]]
 - **Utilisé par** : [[Construire une image dans la CI]] · [[Kaniko]]

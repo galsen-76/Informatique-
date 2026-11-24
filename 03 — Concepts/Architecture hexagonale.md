@@ -108,7 +108,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Architecture hexagonale au travail]]
+- **Au travail** : [Architecture hexagonale au travail](obsidian://open?vault=Travail&file=Architecture%20hexagonale%20au%20travail)
 - **Prérequis** : [[Architecture en couches]] · [[Interface et polymorphisme]]
 - **Complémentaires** : [[Patron Adaptateur (Adapter)]] · [[Doublure de test (mock)]] · [[Principes SOLID]]
 

@@ -120,7 +120,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 02 - Suivre une requête sur le réseau]]
 
 ## 4 · Relier
-- **Au travail** : [[Proxy au travail]]
+- **Au travail** : [Proxy au travail](obsidian://open?vault=Travail&file=Proxy%20au%20travail)
 - **Prérequis** : [[Variable d'environnement]] · [[HTTP]]
 - **Complémentaires** : [[Port]] · [[Certificat]] · [[Reverse proxy]]
 - **Utilisé par** : [[Gestionnaire de paquets]] · [[Démon Docker]]

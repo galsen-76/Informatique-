@@ -169,7 +169,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 05 - Première pipeline, les tests]]
 
 ## 4 · Relier
-- **Au travail** : [[Runner GitLab au travail]]
+- **Au travail** : [Runner GitLab au travail](obsidian://open?vault=Travail&file=Runner%20GitLab%20au%20travail)
 - **Prérequis** : [[Pipeline GitLab CI]] · [[Docker]] · [[Conteneur]]
 - **Complémentaires** : [[Kaniko]] · [[Construire une image dans la CI]] · [[Variables CI-CD GitLab]]
 - **Utilisé par** : [[Intégration et déploiement continus (CI-CD)]]

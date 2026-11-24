@@ -109,7 +109,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 03 - Un client Python pour l'API]]
 
 ## 4 · Relier
-- **Au travail** : [[Charger un fichier .env (python-dotenv) au travail]]
+- **Au travail** : [Charger un fichier .env (python-dotenv) au travail](obsidian://open?vault=Travail&file=Charger%20un%20fichier%20.env%20%28python-dotenv%29%20au%20travail)
 - **Prérequis** : [[Variable d'environnement]] · [[Secret et fichier .env]]
 - **Complémentaires** : [[Environnement virtuel Python]] · [[Serverless et FaaS]] · [[Docker Compose]]
 

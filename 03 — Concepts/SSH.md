@@ -90,7 +90,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 11 - Installer l'API sur un serveur]]
 
 ## 4 · Relier
-- **Au travail** : [[SSH au travail]]
+- **Au travail** : [SSH au travail](obsidian://open?vault=Travail&file=SSH%20au%20travail)
 - **Prérequis** : [[Terminal]] · [[TCP et UDP]]
 - **Complémentaires** : [[Clé SSH]] · [[Pare-feu]]
 - **Commandes** : [[ssh user@hôte]] · [[scp]]

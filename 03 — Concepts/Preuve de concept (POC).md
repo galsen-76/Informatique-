@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Preuve de concept (POC) au travail]]
+- **Au travail** : [Preuve de concept (POC) au travail](obsidian://open?vault=Travail&file=Preuve%20de%20concept%20%28POC%29%20au%20travail)
 - **Complémentaires** : [[Prototype]] · [[MVP (produit minimum viable)]] · [[Dette technique]] · [[Décision d'architecture (ADR)]] · [[Critères d'acceptation]]
 
 ## 5 · Réviser

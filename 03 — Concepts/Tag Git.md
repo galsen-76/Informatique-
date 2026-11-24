@@ -87,7 +87,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 04 - Ranger le projet dans Git]]
 
 ## 4 · Relier
-- **Au travail** : [[Tag Git au travail]]
+- **Au travail** : [Tag Git au travail](obsidian://open?vault=Travail&file=Tag%20Git%20au%20travail)
 - **Prérequis** : [[Commit]] · [[Branche Git]]
 - **Complémentaires** : [[Changelog]] · [[Convention de commit]]
 - **Commandes** : [[git tag]] · [[git diff]]

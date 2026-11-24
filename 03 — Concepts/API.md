@@ -114,7 +114,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 01 - Prendre l'API en main]]
 
 ## 4 · Relier
-- **Au travail** : [[API au travail]]
+- **Au travail** : [API au travail](obsidian://open?vault=Travail&file=API%20au%20travail)
 - **Prérequis** : [[Client-serveur]] · [[HTTP]]
 - **Complémentaires** : [[API REST]] · [[OpenAPI]] · [[SDK]] · [[CORS]]
 - **Utilisé par** : [[Endpoint]]

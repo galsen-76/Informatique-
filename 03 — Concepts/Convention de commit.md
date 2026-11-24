@@ -102,7 +102,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 04 - Ranger le projet dans Git]]
 
 ## 4 · Relier
-- **Au travail** : [[Convention de commit au travail]]
+- **Au travail** : [Convention de commit au travail](obsidian://open?vault=Travail&file=Convention%20de%20commit%20au%20travail)
 - **Prérequis** : [[Commit]]
 - **Complémentaires** : [[Changelog]] · [[Tag Git]]
 - **Commandes** : [[git commit]] · [[git diff]]

@@ -116,11 +116,11 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[XML en Python (ElementTree) au travail]]
+- **Au travail** : [XML en Python (ElementTree) au travail](obsidian://open?vault=Travail&file=XML%20en%20Python%20%28ElementTree%29%20au%20travail)
 - **Prérequis** : [[XML]], [[Liste et dictionnaire]]
 - **Notion parente** :
 - **Complémentaires** : [[JSON]], [[Lire et écrire un fichier]]
-- **Au travail** : [[Format CVAT for images 1.1]]
+- **Au travail** : [Format CVAT for images 1.1](obsidian://open?vault=Travail&file=Format%20CVAT%20for%20images%201.1)
 - **Commandes** :
 
 ## 5 · Réviser

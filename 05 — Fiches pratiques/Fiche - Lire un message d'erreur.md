@@ -89,10 +89,10 @@ L'endroit où l'erreur **apparaît** n'est pas toujours l'endroit où il faut **
 
 | Situation | Où corriger | Exemple vécu |
 |---|---|---|
-| Ton code a une faute | ton fichier `.py` | [[Erreur - NameError après un collage dans un .py]] |
-| Ton code est juste, mais l'environnement n'a pas ce qu'il attend | `requirements.txt`, image Docker, `--env` | [[Erreur - ModuleNotFoundError dans une fonction Nuclio]], [[Erreur - KeyError sur une variable d'environnement]] |
-| Le message vient d'une bibliothèque | souvent ta **façon de l'utiliser**, ou sa **version** | [[Erreur - SDK CVAT, RqId attendu mais str reçu]] |
-| Le message vient de l'outil (bash, nuctl, docker) | la **commande** que tu as tapée | [[Erreur - bash read, not a valid identifier]], [[Erreur - nuctl, Project label not found]] |
+| Ton code a une faute | ton fichier `.py` | [Erreur - NameError après un collage dans un .py](obsidian://open?vault=Travail&file=Erreur%20-%20NameError%20apr%C3%A8s%20un%20collage%20dans%20un%20.py) |
+| Ton code est juste, mais l'environnement n'a pas ce qu'il attend | `requirements.txt`, image Docker, `--env` | [Erreur - ModuleNotFoundError dans une fonction Nuclio](obsidian://open?vault=Travail&file=Erreur%20-%20ModuleNotFoundError%20dans%20une%20fonction%20Nuclio), [Erreur - KeyError sur une variable d'environnement](obsidian://open?vault=Travail&file=Erreur%20-%20KeyError%20sur%20une%20variable%20d%27environnement) |
+| Le message vient d'une bibliothèque | souvent ta **façon de l'utiliser**, ou sa **version** | [Erreur - SDK CVAT, RqId attendu mais str reçu](obsidian://open?vault=Travail&file=Erreur%20-%20SDK%20CVAT%2C%20RqId%20attendu%20mais%20str%20re%C3%A7u) |
+| Le message vient de l'outil (bash, nuctl, docker) | la **commande** que tu as tapée | [[Erreur - bash read, not a valid identifier]], [Erreur - nuctl, Project label not found](obsidian://open?vault=Travail&file=Erreur%20-%20nuctl%2C%20Project%20label%20not%20found) |
 
 ### 6. Reformuler, puis une seule correction
 Avant de toucher au code, dis-toi la phrase : « **[fichier:ligne]** a cassé parce que **[cause]**, je corrige **[où]** ». Puis **une** correction, et on relance. Si une nouvelle erreur apparaît, c'est souvent un progrès : on est allé plus loin.

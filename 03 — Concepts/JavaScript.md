@@ -93,7 +93,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[JavaScript au travail]]
+- **Au travail** : [JavaScript au travail](obsidian://open?vault=Travail&file=JavaScript%20au%20travail)
 - **Prérequis** : [[HTML]] · [[Fonction]]
 - **Complémentaires** : [[Node.js]] · [[DOM]]
 - **Utilisé par** : [[TypeScript]] · [[React]]

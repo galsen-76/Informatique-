@@ -107,7 +107,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Relier
-- **Au travail** : [[Registre Docker au travail]]
+- **Au travail** : [Registre Docker au travail](obsidian://open?vault=Travail&file=Registre%20Docker%20au%20travail)
 - **Prérequis** : [[Image Docker]]
 - **Notion parente** : [[Docker]]
 - **Complémentaires** : [[Dockerfile]]

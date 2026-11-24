@@ -105,7 +105,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Session et cookie au travail]]
+- **Au travail** : [Session et cookie au travail](obsidian://open?vault=Travail&file=Session%20et%20cookie%20au%20travail)
 - **Prérequis** : [[Authentification]] · [[En-tête HTTP]]
 - **Complémentaires** : [[JWT]] · [[CSRF]]
 

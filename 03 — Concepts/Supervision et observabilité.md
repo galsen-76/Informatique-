@@ -104,7 +104,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 14 - Déployer depuis la CI]]
 
 ## 4 · Relier
-- **Au travail** : [[Supervision et observabilité au travail]]
+- **Au travail** : [Supervision et observabilité au travail](obsidian://open?vault=Travail&file=Supervision%20et%20observabilit%C3%A9%20au%20travail)
 - **Prérequis** : [[Journaliser avec logging]] · [[Docker]]
 - **Complémentaires** : [[Journaux système]] · [[Code de statut HTTP]]
 

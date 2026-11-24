@@ -108,7 +108,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Architecture en couches au travail]]
+- **Au travail** : [Architecture en couches au travail](obsidian://open?vault=Travail&file=Architecture%20en%20couches%20au%20travail)
 - **Prérequis** : [[Séparation des responsabilités]] · [[API REST]]
 - **Complémentaires** : [[MVC]] · [[Doublure de test (mock)]]
 

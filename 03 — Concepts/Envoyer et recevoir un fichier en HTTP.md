@@ -119,7 +119,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Envoi 04 - Recevoir une image et un zip]]
 
 ## 4 · Relier
-- **Au travail** : [[Envoyer et recevoir un fichier en HTTP au travail]]
+- **Au travail** : [Envoyer et recevoir un fichier en HTTP au travail](obsidian://open?vault=Travail&file=Envoyer%20et%20recevoir%20un%20fichier%20en%20HTTP%20au%20travail)
 - **Prérequis** : [[Appeler une API HTTP]] · [[En-tête HTTP]] · [[Fichier en mémoire (io.BytesIO)]]
 - **Complémentaires** : [[Appeler une API HTTP]] · [[Base64]] · [[Formulaire HTML]] · [[Méthode HTTP]] · [[Code de statut HTTP]]
 - **Utilisé par** : [[Cours - Envoyer et recevoir des fichiers par HTTP]] · [[Serverless et FaaS]]

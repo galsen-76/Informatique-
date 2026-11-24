@@ -115,7 +115,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Composant React au travail]]
+- **Au travail** : [Composant React au travail](obsidian://open?vault=Travail&file=Composant%20React%20au%20travail)
 - **Prérequis** : [[React]] · [[HTML]] · [[Fonction fléchée et callback]]
 - **Complémentaires** : [[Props React]]
 

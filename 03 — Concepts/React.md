@@ -92,7 +92,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[React au travail]]
+- **Au travail** : [React au travail](obsidian://open?vault=Travail&file=React%20au%20travail)
 - **Prérequis** : [[JavaScript]] · [[DOM]] · [[Module et import]]
 - **Complémentaires** : [[Vue.js]] · [[Angular]]
 - **Utilisé par** : [[Composant d'interface]]

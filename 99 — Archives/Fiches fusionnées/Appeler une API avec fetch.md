@@ -116,7 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses Front 03 - Vue, ajouter et supprimer]]
 
 ## 4 · Relier
-- **Au travail** : [[Appeler une API avec fetch au travail]]
+- **Au travail** : [Appeler une API avec fetch au travail](obsidian://open?vault=Travail&file=Appeler%20une%20API%20avec%20fetch%20au%20travail)
 - **Prérequis** : [[async et await]] · [[HTTP]] · [[JSON]]
 - **Complémentaires** : [[Appeler une API HTTP (requests)]] · [[Code de statut HTTP]]
 - **Utilisé par** : [[React]]

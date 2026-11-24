@@ -90,7 +90,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 03 - Un client Python pour l'API]]
 
 ## 4 · Relier
-- **Au travail** : [[SDK au travail]]
+- **Au travail** : [SDK au travail](obsidian://open?vault=Travail&file=SDK%20au%20travail)
 - **Prérequis** : [[API REST]] · [[Gestionnaire de paquets]] · [[Liste et dictionnaire]]
 - **Complémentaires** : [[OpenAPI]] · [[JSON]]
 - **Complémentaires** : [[Appeler une API HTTP]] (le même appel, sans SDK)

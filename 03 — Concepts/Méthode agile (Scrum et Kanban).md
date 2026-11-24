@@ -101,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Méthode agile (Scrum et Kanban) au travail]]
+- **Au travail** : [Méthode agile (Scrum et Kanban) au travail](obsidian://open?vault=Travail&file=M%C3%A9thode%20agile%20%28Scrum%20et%20Kanban%29%20au%20travail)
 - **Complémentaires** : [[Backlog et priorisation]] · [[User story]] · [[Définition de terminé]] · [[Intégration et déploiement continus (CI-CD)]] · [[Cahier des charges]]
 
 ## 5 · Réviser

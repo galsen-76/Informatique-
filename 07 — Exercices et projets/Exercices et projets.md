@@ -6,7 +6,7 @@ tags:
 
 Statuts : `a-faire` · `en-cours` · `reussi` (templates **Exercice** et **Projet**).
 
-Les exercices écrits sont archivés (« 99 — Archives/Anciens exercices »). On pratique maintenant avec les **exercices visuels** de chaque fiche (section 3) et le **fil rouge** de son niveau ([[Niveaux]]). Les projets de travail (CVAT) sont dans [[Hors parcours]].
+Les exercices écrits sont archivés (« 99 — Archives/Anciens exercices »). On pratique maintenant avec les **exercices visuels** de chaque fiche (section 3) et le **fil rouge** de son niveau ([[Niveaux]]). Les projets de travail (CVAT, DeepCompliance, mémoire) sont dans [le coffre Travail](obsidian://open?vault=Travail&file=Aujourd%27hui).
 
 ## Fil rouge, par niveau
 ```dataview

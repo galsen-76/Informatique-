@@ -114,7 +114,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 03 - Une page web pour le rapport]]
 
 ## 4 · Relier
-- **Au travail** : [[Docker Compose au travail]]
+- **Au travail** : [Docker Compose au travail](obsidian://open?vault=Travail&file=Docker%20Compose%20au%20travail)
 - **Prérequis** : [[Conteneur]] · [[YAML]] · [[Volume Docker]] · [[Port]]
 - **Complémentaires** : [[Reverse proxy]]
 - **Commandes** : [[docker compose up]]

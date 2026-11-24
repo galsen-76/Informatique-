@@ -100,7 +100,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 12 - Derrière nginx, avec une petite page]]
 
 ## 4 · Relier
-- **Au travail** : [[Certificat au travail]]
+- **Au travail** : [Certificat au travail](obsidian://open?vault=Travail&file=Certificat%20au%20travail)
 - **Prérequis** : [[HTTPS et TLS]]
 - **Complémentaires** : [[Proxy]] · [[Clé SSH]]
 - **Commandes** : [[openssl]]

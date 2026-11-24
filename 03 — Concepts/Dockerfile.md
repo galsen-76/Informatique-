@@ -116,7 +116,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 02 - Écrire le Dockerfile]]
 
 ## 4 · Relier
-- **Au travail** : [[Dockerfile au travail]]
+- **Au travail** : [Dockerfile au travail](obsidian://open?vault=Travail&file=Dockerfile%20au%20travail)
 - **Prérequis** : [[Docker]]
 - **Notion parente** : [[Image Docker]]
 - **Complémentaires** : [[Variable de build Docker (ARG)]] · [[Registre Docker]]

@@ -98,7 +98,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Monolithe et microservices au travail]]
+- **Au travail** : [Monolithe et microservices au travail](obsidian://open?vault=Travail&file=Monolithe%20et%20microservices%20au%20travail)
 - **Prérequis** : [[API REST]] · [[Docker Compose]]
 - **Complémentaires** : [[Architecture en couches]] · [[Reverse proxy]]
 

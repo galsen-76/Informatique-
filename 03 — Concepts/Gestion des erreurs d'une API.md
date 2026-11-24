@@ -105,7 +105,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[MesDépenses 01 - Prendre l'API en main]]
 
 ## 4 · Relier
-- **Au travail** : [[Gestion des erreurs d'une API au travail]]
+- **Au travail** : [Gestion des erreurs d'une API au travail](obsidian://open?vault=Travail&file=Gestion%20des%20erreurs%20d%27une%20API%20au%20travail)
 - **Prérequis** : [[Code de statut HTTP]] · [[Middleware]] · [[Exception]]
 - **Complémentaires** : [[Journaliser avec logging]]
 

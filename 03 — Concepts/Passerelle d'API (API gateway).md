@@ -101,7 +101,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Passerelle d'API (API gateway) au travail]]
+- **Au travail** : [Passerelle d'API (API gateway) au travail](obsidian://open?vault=Travail&file=Passerelle%20d%27API%20%28API%20gateway%29%20au%20travail)
 - **Prérequis** : [[Reverse proxy]] · [[API REST]]
 - **Complémentaires** : [[Monolithe et microservices]] · [[JWT]] · [[Authentification]]
 

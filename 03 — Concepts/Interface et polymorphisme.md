@@ -129,7 +129,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - Pas encore d'étape du fil rouge pour cette notion : elle sera pratiquée dans le fil rouge de son niveau (voir [[Niveaux]]).
 
 ## 4 · Relier
-- **Au travail** : [[Interface et polymorphisme au travail]]
+- **Au travail** : [Interface et polymorphisme au travail](obsidian://open?vault=Travail&file=Interface%20et%20polymorphisme%20au%20travail)
 - **Prérequis** : [[Héritage et composition]] · [[Type et interface TypeScript]]
 - **Complémentaires** : [[Principes SOLID]] · [[Doublure de test (mock)]]
 

@@ -91,7 +91,7 @@ Sur Excalidraw, **sans regarder la fiche**. Puis je compare avec la fiche, je co
 - [[Fil rouge 06 - Construire l'image dans la CI]]
 
 ## 4 · Relier
-- **Au travail** : [[Kaniko au travail]]
+- **Au travail** : [Kaniko au travail](obsidian://open?vault=Travail&file=Kaniko%20au%20travail)
 - **Prérequis** : [[Construire une image dans la CI]]
 - **Notion parente** : [[Construire une image dans la CI]]
 - **Complémentaires** : [[Registre Docker]] · [[Variable de build Docker (ARG)]]
