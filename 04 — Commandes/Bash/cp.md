@@ -26,6 +26,7 @@ cp [options] source destination
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-r` | copie un dossier et tout son contenu |

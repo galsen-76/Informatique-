@@ -51,6 +51,7 @@ L'[[Application douze facteurs]] résume les règles d'une appli « prête pour 
 Un [[Cache applicatif]] évite de refaire un calcul ou un appel coûteux. La vraie difficulté est de savoir **quand l'effacer**.
 
 ## Choisir sans en faire trop
+
 | Situation | Ce qui aide |
 | --- | --- |
 | Métier difficile à tester à cause d'un SDK | hexagonale (au moins un adaptateur) |

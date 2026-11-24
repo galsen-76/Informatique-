@@ -29,6 +29,7 @@ Exemple : `docker compose up -d` = programme `docker`, sous-commande `compose up
 Le terminal travaille toujours **dans un dossier** (le dossier courant) : `pwd` le montre.
 
 **Les commandes de base**
+
 | Je veux… | Commande |
 | --- | --- |
 | savoir où je suis | `pwd` |

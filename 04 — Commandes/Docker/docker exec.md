@@ -25,6 +25,7 @@ docker exec [options] conteneur commande
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-it` | interactif avec terminal (pour un shell) |

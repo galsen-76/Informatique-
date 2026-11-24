@@ -14,6 +14,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | | Profondeur (DFS) | Largeur (BFS) |
 | --- | --- | --- |
 | Idée | suivre un chemin jusqu'au bout, puis revenir en arrière | visiter tous les voisins, puis les voisins des voisins |

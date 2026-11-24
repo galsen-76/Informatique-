@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Code | Sens | Quand |
 | --- | --- | --- |
 | **200** OK | succès | GET, PATCH réussis |

@@ -26,6 +26,7 @@ git restore [--staged] fichier
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `fichier` | revient à la version du dernier commit (perd les modifications) |

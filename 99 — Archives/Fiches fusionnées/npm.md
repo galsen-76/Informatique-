@@ -36,6 +36,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 ## 1 · Comprendre
 ### Définition
 **npm** lit [[package.json]], télécharge les paquets depuis le registre npmjs.com dans le dossier `node_modules`, et écrit les versions exactes dans `package-lock.json`.
+
 | Commande | Rôle |
 | --- | --- |
 | `npm install` | installe tout ce que déclare `package.json` |

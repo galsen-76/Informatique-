@@ -25,6 +25,7 @@ npx tsc [options]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (seul) | compile selon `tsconfig.json` |

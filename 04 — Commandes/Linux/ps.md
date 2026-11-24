@@ -25,6 +25,7 @@ ps aux
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `aux` | tous les processus, avec utilisateur, CPU, mémoire |

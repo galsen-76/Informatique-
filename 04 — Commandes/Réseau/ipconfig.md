@@ -25,6 +25,7 @@ ipconfig [/all]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (seul) | IP, masque, passerelle par interface |

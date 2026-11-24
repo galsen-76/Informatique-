@@ -25,6 +25,7 @@ docker ps [-a]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-a` | Inclut aussi les conteneurs arrêtés |

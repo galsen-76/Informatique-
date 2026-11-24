@@ -25,6 +25,7 @@ nano fichier
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `fichier` | ouvert s'il existe, **créé à l'enregistrement** sinon |

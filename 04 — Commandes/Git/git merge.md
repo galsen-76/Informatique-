@@ -29,6 +29,7 @@ git merge <branche>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `branche` | La branche dont on veut récupérer le travail |

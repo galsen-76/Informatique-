@@ -41,6 +41,7 @@ Get-Command git                                  # où est le programme git
 Get-Help Copy-Item -Examples                     # aide avec exemples
 $env:PATH -split ";"                             # le PATH, un dossier par ligne
 ```
+
 | Bash | PowerShell (vrai nom) | Piège |
 | --- | --- | --- |
 | `ls -la` | `Get-ChildItem -Force` | `ls -la` échoue : l'option `-la` n'existe pas |

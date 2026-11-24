@@ -27,6 +27,7 @@ New-Item fichier -Value "texte"
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-ItemType File` | un fichier (par défaut) |

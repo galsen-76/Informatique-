@@ -14,6 +14,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Sélecteur | Vise |
 | --- | --- |
 | `p` | toutes les balises `p` |

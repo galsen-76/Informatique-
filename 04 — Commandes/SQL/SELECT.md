@@ -30,6 +30,7 @@ LIMIT n;
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `colonnes` | Colonnes à renvoyer (`*` pour toutes) |

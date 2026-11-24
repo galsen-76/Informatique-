@@ -25,6 +25,7 @@ git reset [--soft | --mixed | --hard] commit
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `--soft` | défait les commits, garde les changements indexés |

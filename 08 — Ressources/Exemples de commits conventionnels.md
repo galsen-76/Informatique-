@@ -147,6 +147,7 @@ Refs: #31
 ```
 
 ## 5. Mauvais et bons messages
+
 | ❌ À éviter | Pourquoi | ✅ Mieux |
 | --- | --- | --- |
 | `modif` | ne dit rien | `fix(zip): corrige le chemin de sortie sous Windows` |
@@ -200,6 +201,7 @@ Ensuite `git commit` (sans `-m`) ouvre l'éditeur avec ce modèle ; les lignes e
 **Générer versions et changelog** : [semantic-release](https://semantic-release.gitbook.io/) ou [release-please](https://github.com/googleapis/release-please).
 
 ## 9. Pour aller plus loin
+
 | Ressource | Pour |
 | --- | --- |
 | [Conventional Commits 1.0.0 (en français)](https://www.conventionalcommits.org/fr/v1.0.0/) | la spécification officielle, courte et lisible |

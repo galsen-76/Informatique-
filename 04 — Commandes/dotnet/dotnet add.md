@@ -27,6 +27,7 @@ dotnet add [<projet>] reference <autre projet>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `package` | un paquet NuGet |

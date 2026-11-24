@@ -49,6 +49,7 @@ for f in Path("logs").iterdir():
 d = datetime.fromisoformat("2026-11-06T21:50:00+00:00")   # format ISO des API
 print(datetime.now(timezone.utc).isoformat())
 ```
+
 | Code | Sens |
 | --- | --- |
 | `%Y-%m-%d` | 2026-11-06 |

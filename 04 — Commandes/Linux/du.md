@@ -25,6 +25,7 @@ du -sh chemin
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-s` | total seulement |

@@ -18,6 +18,7 @@ tags:
 Un **proxy** (on dit aussi proxy *sortant* ou *forward proxy*) est un **programme qui tourne sur un serveur** : Squid, ou un service en ligne comme Zscaler. Ton poste ne parle pas directement au site : il envoie sa requête au proxy, et c'est **le proxy qui va chercher la page** sur Internet, puis te la renvoie. Pour le site, c'est le proxy qui l'a appelé, pas toi.
 
 Au passage, le proxy peut :
+
 | Rôle | Exemple |
 | --- | --- |
 | **Filtrer** | bloquer Docker Hub, les réseaux sociaux, les sites dangereux |
@@ -26,6 +27,7 @@ Au passage, le proxy peut :
 | **Authentifier** | exiger ton identité : sinon, erreur `407 Proxy Authentication Required` |
 
 ### Comment le poste sait qu'il doit passer par lui
+
 | Méthode | Comment ça marche |
 | --- | --- |
 | **Réglage manuel** | l'adresse est écrite dans Windows, ou dans `HTTP_PROXY` / `HTTPS_PROXY` pour les outils en ligne de commande |
@@ -34,6 +36,7 @@ Au passage, le proxy peut :
 | **Agent** | un logiciel installé sur le poste (ex. Zscaler Client Connector) envoie le trafic au proxy |
 
 Pour les outils en ligne de commande (pip, curl, apt), on utilise ces variables :
+
 | Variable | Rôle |
 | --- | --- |
 | `HTTP_PROXY` / `HTTPS_PROXY` | adresse du proxy, ex. `http://proxy.entreprise:3128` |

@@ -25,6 +25,7 @@ journalctl [options]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-u service` | un service |

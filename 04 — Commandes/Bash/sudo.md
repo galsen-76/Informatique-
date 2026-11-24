@@ -25,6 +25,7 @@ sudo commande
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `commande` | la commande à lancer en root |

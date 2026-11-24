@@ -30,6 +30,7 @@ flowchart TD
 ```
 
 ## Les étapes
+
 | # | Étape | Notions validées |
 | --- | --- | --- |
 | 0 | [[Dépenses 00 - Découvrir son poste]] | Terminal, Shell, PowerShell, WSL, Bash, système et noyau, matériel, octets, distribution, arborescence, processus |

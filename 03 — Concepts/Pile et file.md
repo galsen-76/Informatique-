@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | | Pile (LIFO) | File (FIFO) |
 | --- | --- | --- |
 | Règle | dernier entré, premier sorti | premier entré, premier sorti |

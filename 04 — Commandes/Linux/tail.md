@@ -25,6 +25,7 @@ tail [options] fichier
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-n 50` | les 50 dernières lignes |

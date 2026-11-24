@@ -25,6 +25,7 @@ dotnet run [--project <chemin>] [-- arguments]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `--project` | le projet à lancer, si on n'est pas dans son dossier |

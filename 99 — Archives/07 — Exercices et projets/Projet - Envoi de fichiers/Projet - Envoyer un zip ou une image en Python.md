@@ -20,6 +20,7 @@ flowchart TD
 ```
 
 ## Les étapes
+
 | # | Étape | Notions validées |
 | --- | --- | --- |
 | 1 | [[Envoi 01 - Un zip sans toucher au disque]] | Fichier en mémoire (io.BytesIO) |

@@ -25,6 +25,7 @@ man commande
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `/mot` | chercher dans la page |

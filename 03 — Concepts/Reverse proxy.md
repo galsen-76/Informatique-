@@ -21,6 +21,7 @@ Un **reverse proxy** est la **porte d'entrée** d'une application. C'est un prog
 C'est l'inverse du [[Proxy]] : le proxy agit **pour les clients** (il sort vers Internet à leur place), le reverse proxy agit **pour les serveurs** (il reçoit à leur place).
 
 Ses trois rôles principaux :
+
 | Rôle | Ce que ça veut dire |
 | --- | --- |
 | **Router** | envoyer `/` à l'interface et `/api/` à l'API, ou `app.local` à l'appli et `docs.local` à la doc, selon le chemin ou le nom d'hôte (`Host`) |

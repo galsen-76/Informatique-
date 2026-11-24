@@ -47,6 +47,7 @@ pour chaque n de la liste :
 renvoyer somme
 ```
 Trace avec la liste `[3, 4, 7, 10]` :
+
 | Étape | n | n pair ? | somme |
 | --- | --- | --- | --- |
 | départ | – | – | 0 |

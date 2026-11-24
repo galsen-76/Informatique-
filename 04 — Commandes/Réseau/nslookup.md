@@ -25,6 +25,7 @@ nslookup nom [serveur_dns]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `nom` | le nom à résoudre |

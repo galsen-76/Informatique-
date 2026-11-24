@@ -26,6 +26,7 @@ which commande
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-a` | toutes les occurrences dans le PATH |

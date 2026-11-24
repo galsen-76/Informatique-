@@ -51,6 +51,7 @@ flowchart TD
 [[Patron Dépôt (Repository)]] : le code métier ne connaît pas la base.
 
 ## 8. Comment les distinguer
+
 | Patron | Interface | Intention |
 | --- | --- | --- |
 | Adaptateur | change | traduire |

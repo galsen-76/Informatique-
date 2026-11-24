@@ -26,6 +26,7 @@ docker stop conteneur
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-t 30` | attendre 30 secondes avant de forcer |

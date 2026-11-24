@@ -25,6 +25,7 @@ git grep [options] "texte" [commit] [-- chemins]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-n` | affiche les numéros de ligne |

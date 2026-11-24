@@ -26,6 +26,7 @@ grep [options] "motif" [fichiers...]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-r` | dans tous les fichiers d'un dossier |

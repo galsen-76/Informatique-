@@ -25,6 +25,7 @@ git tag [-a nom -m "message"] [commit]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (sans option) | liste les tags |

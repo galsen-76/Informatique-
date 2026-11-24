@@ -28,6 +28,7 @@ echo "texte" >> fichier    # ajoute à la fin
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `"texte"` | le texte à afficher ; guillemets conseillés |

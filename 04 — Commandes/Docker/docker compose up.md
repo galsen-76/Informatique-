@@ -26,6 +26,7 @@ docker compose [-f fichier.yml] <sous-commande>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `up -d` | crée et démarre en arrière-plan |

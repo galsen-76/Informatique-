@@ -26,6 +26,7 @@ tar -xzf archive.tar.gz
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `c` / `x` / `t` | créer / extraire / lister |

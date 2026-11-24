@@ -39,6 +39,7 @@ tags:
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 |  |  |

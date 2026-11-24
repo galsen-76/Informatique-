@@ -21,6 +21,7 @@ tags:
 - **Majeure** (**2**.6.0 → **3**.0.0) : change ou retire quelque chose, **peut casser** ton code.
 
 Plages dans `package.json` :
+
 | Écriture | Accepte |
 | --- | --- |
 | `4.19.2` | exactement cette version |

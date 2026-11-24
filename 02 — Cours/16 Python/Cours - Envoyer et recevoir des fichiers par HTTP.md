@@ -39,6 +39,7 @@ flowchart TD
 ```
 
 ## 3. Texte ou octets
+
 | | Texte | Octets |
 | --- | --- | --- |
 | Type Python | `str` | `bytes` |
@@ -70,6 +71,7 @@ Et pour **répondre** avec un fichier (une API ou une fonction serverless) : les
 Détails : [[Envoyer et recevoir un fichier en HTTP]].
 
 ## 6. Quelle bibliothèque ?
+
 | Bibliothèque | Installée avec Python ? | Quand l'utiliser |
 | --- | --- | --- |
 | `urllib.request` | ✅ oui | pip bloqué, fonction sans dépendance, appel simple ([[Appeler une API HTTP]]) |

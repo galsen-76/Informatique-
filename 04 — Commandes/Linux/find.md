@@ -25,6 +25,7 @@ find [dossier] [critères] [action]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-name "*.log"` | par nom (`-iname` : sans casse) |

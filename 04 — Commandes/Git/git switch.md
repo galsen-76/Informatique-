@@ -26,6 +26,7 @@ git switch -c <nouvelle-branche>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `branche` | Branche à rejoindre |

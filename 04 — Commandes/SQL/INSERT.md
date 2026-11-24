@@ -25,6 +25,7 @@ INSERT INTO table (col1, col2) VALUES (v1, v2) [RETURNING col];
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | plusieurs `VALUES` | plusieurs lignes d'un coup |

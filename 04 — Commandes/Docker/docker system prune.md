@@ -26,6 +26,7 @@ docker system prune [options]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-a` | aussi toutes les images non utilisées par un conteneur |

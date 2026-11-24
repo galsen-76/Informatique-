@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Composant | Rôle | Ordre de grandeur |
 | --- | --- | --- |
 | **Processeur** (CPU) | exécute les instructions, avec plusieurs **cœurs** en parallèle | milliards d'opérations / seconde |

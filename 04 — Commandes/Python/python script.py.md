@@ -26,6 +26,7 @@ python [options] script.py [arguments]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `script.py` | le fichier à exécuter |

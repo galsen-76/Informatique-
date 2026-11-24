@@ -26,6 +26,7 @@ commande | less
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `Espace` / `b` | page suivante / précédente |

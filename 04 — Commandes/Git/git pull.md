@@ -25,6 +25,7 @@ git pull [--rebase]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (seul) | fetch + merge |

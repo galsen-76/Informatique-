@@ -8,6 +8,7 @@ tags:
 > Chaque jour : [[Dashboard]] → la prochaine notion de mon niveau → fiche, dessin Excalidraw et exercices visuels → tout de suite l'étape du fil rouge → je coche les cases. Les idées hors sujet vont dans le *Parking* de [[Focus]].
 
 ## Où trouver quoi
+
 | Je cherche… | J'ouvre |
 | --- | --- |
 | ce que je fais maintenant | [[Dashboard]] et [[Focus]] (niveau actuel, notion en cours) |
@@ -26,6 +27,7 @@ tags:
 > `Ctrl+O` ouvre une note par son nom, `Ctrl+Shift+F` cherche dans tout le coffre. Les noms de fichiers disent ce qu'ils contiennent : `Fiche - …`, `Bonnes pratiques - …`, `Erreur - …`, `Cours - …`, `… au travail` pour le spécifique au travail.
 
 ## Comment c'est organisé
+
 | Dossier | Contient | Modèle |
 | --- | --- | --- |
 | 00 — Dashboard | [[Dashboard]], [[Focus]], [[Révisions]], [[Suivi des acquis]], ce guide | — |
@@ -63,6 +65,7 @@ tags:
 - **Me faire interroger** : je demande à Claude dans le chat.
 
 ## Ce qui demande un plugin
+
 | Fonction | Nécessite |
 | --- | --- |
 | Dashboard, niveaux, progression, révisions, bloc « où j'en suis » des fiches | Dataview (+ JavaScript Queries) |

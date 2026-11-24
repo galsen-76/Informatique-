@@ -26,6 +26,7 @@ rm [options] chemin
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-r` | supprime un dossier et son contenu |

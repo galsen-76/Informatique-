@@ -26,6 +26,7 @@ git commit -m "message"
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-m` | Message du commit |

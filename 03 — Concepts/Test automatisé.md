@@ -19,6 +19,7 @@ Un test suit presque toujours trois temps (**AAA**) :
 2. **Agir** (*Act*) : appeler ce qu'on teste.
 3. **Vérifier** (*Assert*) : comparer au résultat attendu.
 La **pyramide des tests** :
+
 | Niveau | Teste | Nombre | Vitesse |
 | --- | --- | --- | --- |
 | [[Test unitaire]] | une fonction isolée | beaucoup | millisecondes |

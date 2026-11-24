@@ -35,6 +35,7 @@ flowchart LR
 ```
 
 ### Exemple concret
+
 | Terme | Définition |
 | --- | --- |
 | **stage** | une étape ; les stages s'exécutent dans l'ordre |
@@ -77,6 +78,7 @@ test-server:
 ```
 
 ### Les états d'un job
+
 | État | Signifie |
 | --- | --- |
 | `passed` | toutes les commandes ont renvoyé 0 |

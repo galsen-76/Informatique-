@@ -14,6 +14,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Directive | Raccourci | Rôle |
 | --- | --- | --- |
 | `v-if` / `v-else-if` / `v-else` | | afficher ou non (l'élément est créé ou retiré) |

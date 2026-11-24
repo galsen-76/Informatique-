@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Je veux annuler… | Commande | Danger |
 | --- | --- | --- |
 | les modifications d'un fichier (non indexées) | `git restore fichier` | perd ces modifications |

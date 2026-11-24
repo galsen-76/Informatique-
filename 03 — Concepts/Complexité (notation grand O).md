@@ -16,6 +16,7 @@ tags:
 ## 1 · Comprendre
 ### Définition
 On ne mesure pas des secondes (elles dépendent de la machine), mais le **nombre d'opérations** en fonction de **n**, la taille de l'entrée, pour de grands n.
+
 | Notation | Nom | n = 1 000 | n = 1 000 000 | Exemple |
 | --- | --- | --- | --- | --- |
 | O(1) | constant | 1 | 1 | lire `liste[5]`, chercher dans un dictionnaire |

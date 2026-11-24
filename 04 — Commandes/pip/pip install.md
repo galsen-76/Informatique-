@@ -27,6 +27,7 @@ pip install -r requirements.txt
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `paquet==1.2.3` | une version précise |

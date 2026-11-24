@@ -28,6 +28,7 @@ Get-Content fichier              # lire
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-Path` | le fichier (premier argument) |

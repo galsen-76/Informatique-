@@ -51,6 +51,7 @@ done
 zip -r "$SORTIE" "$DOSSIER"
 echo "Archive créée : $SORTIE"
 ```
+
 | Élément | Sens |
 | --- | --- |
 | `$1`, `$2` | arguments ; `$@` tous ; `$#` leur nombre |

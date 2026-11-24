@@ -26,6 +26,7 @@ ip addr | ip route
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `addr` (ou `a`) | adresses de chaque interface |

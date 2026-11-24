@@ -26,6 +26,7 @@ dotnet publish [<projet>] -c Release -o <dossier>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-c Release` | compilation optimisée |

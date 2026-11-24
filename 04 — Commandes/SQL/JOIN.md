@@ -25,6 +25,7 @@ SELECT … FROM a JOIN b ON b.a_id = a.id;
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `JOIN` / `INNER JOIN` | seulement les correspondances |

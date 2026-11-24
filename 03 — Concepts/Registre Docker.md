@@ -48,6 +48,7 @@ docker pull registry.gitlab.com/equipe/projet/api:1.2.0   # sur une autre machin
 ```
 
 ### Les registres que tu croiseras
+
 | Registre | Préfixe | Exemple |
 | --- | --- | --- |
 | Docker Hub | rien, ou `docker.io/` | `python:3.12-slim`, `cvat/server` |

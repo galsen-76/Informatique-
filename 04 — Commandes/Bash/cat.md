@@ -26,6 +26,7 @@ cat fichier...
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-n` | numérote les lignes |

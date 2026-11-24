@@ -49,6 +49,7 @@ print(args.dossier, args.sortie, args.extension)
 python zipper.py photos --sortie export.zip
 python zipper.py --help            # aide générée
 ```
+
 | Sorte | Exemple | Obligatoire ? |
 | --- | --- | --- |
 | positionnel | `dossier` | oui |

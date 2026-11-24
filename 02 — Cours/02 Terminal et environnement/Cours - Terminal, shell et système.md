@@ -40,6 +40,7 @@ flowchart TD
 
 ## 3. Où suis-je ?
 Lis l'invite avant chaque commande :
+
 | Invite | Shell | Système |
 | --- | --- | --- |
 | `PS C:\Users\oumar>` | PowerShell | Windows |

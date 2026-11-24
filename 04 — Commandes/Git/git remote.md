@@ -26,6 +26,7 @@ git remote [-v | add nom URL | set-url nom URL | remove nom]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-v` | liste avec les URL |

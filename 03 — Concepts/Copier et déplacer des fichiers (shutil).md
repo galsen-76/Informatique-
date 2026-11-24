@@ -31,6 +31,7 @@ flowchart TD
   S --> R[Supprimer]
   S --> A[Archiver]
 ```
+
 | Fonction | Fait |
 | --- | --- |
 | `shutil.copy2(src, dst)` | copie un fichier (avec sa date) |

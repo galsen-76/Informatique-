@@ -23,6 +23,7 @@ flowchart TD
 ```
 
 ## Les étapes
+
 | # | Étape | Quand, dans le parcours | Notions validées |
 | --- | --- | --- | --- |
 | 1 | [[Fil rouge 01 - Lancer l'application dans un conteneur]] | 2 · Docker | Docker, Démon Docker, Image Docker, Conteneur, Volume Docker |

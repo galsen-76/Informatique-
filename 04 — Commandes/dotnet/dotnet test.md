@@ -26,6 +26,7 @@ dotnet test [<solution ou projet>] [--filter <expression>]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `--filter` | ne lance que certains tests (`FullyQualifiedName~Calcul`) |

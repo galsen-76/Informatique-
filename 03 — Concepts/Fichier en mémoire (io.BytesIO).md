@@ -35,6 +35,7 @@ flowchart TD
   B --> Z[zipfile]
   Z --> R[Résultat]
 ```
+
 | Pour… | On écrit |
 | --- | --- |
 | créer un tampon vide | `tampon = io.BytesIO()` |

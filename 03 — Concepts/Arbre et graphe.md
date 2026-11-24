@@ -17,6 +17,7 @@ tags:
 **Graphe** : des **nœuds** (sommets) et des **arêtes** (liens). Les liens peuvent avoir un **sens** (A dépend de B) et un **poids** (une distance, un coût).
 **Arbre** : une **racine**, des **enfants**, des **feuilles** (sans enfant), pas de boucle.
 Tu en manipules déjà partout :
+
 | Arbre | Graphe |
 | --- | --- |
 | le [[Système de fichiers]] (dossiers et fichiers) | les modules de ce parcours et leurs prérequis |

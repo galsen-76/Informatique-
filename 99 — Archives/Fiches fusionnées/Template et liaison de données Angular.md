@@ -34,6 +34,7 @@ await dv.view("10 — Templates/Scripts/learning", { view: "concept" })
 
 ## 1 · Comprendre
 ### Définition
+
 | Syntaxe | Sens | Exemple |
 | --- | --- | --- |
 | `{{ expr }}` | interpolation (échappée) | `{{ tache.nom }}` |

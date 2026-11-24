@@ -22,6 +22,7 @@ Set-Cookie: sid=8f3a…; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=3600
 2. Le navigateur renvoie ensuite `Cookie: sid=8f3a…` à chaque requête vers ce site.
 3. Le serveur retrouve la session et donc l'utilisateur.
 Attributs de sécurité :
+
 | Attribut | Effet |
 | --- | --- |
 | `HttpOnly` | invisible pour JavaScript (protège contre le vol par [[XSS]]) |

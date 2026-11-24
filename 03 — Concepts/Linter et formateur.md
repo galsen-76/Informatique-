@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Outil | Langage | Rôle |
 | --- | --- | --- |
 | **Prettier** | JS, TS, CSS, HTML, JSON, YAML | formateur |

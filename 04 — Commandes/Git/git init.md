@@ -26,6 +26,7 @@ git init [dossier]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `dossier` | Facultatif : crée le dépôt dans ce dossier plutôt que dans le dossier courant |

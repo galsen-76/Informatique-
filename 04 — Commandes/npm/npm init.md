@@ -26,6 +26,7 @@ npm init [-y]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-y` | Accepte toutes les valeurs par défaut sans poser de questions |

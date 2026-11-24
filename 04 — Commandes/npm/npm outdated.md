@@ -25,6 +25,7 @@ npm outdated
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | Current | version installée |

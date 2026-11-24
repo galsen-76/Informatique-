@@ -25,6 +25,7 @@ traceroute hôte
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-n` | pas de résolution des noms (plus rapide) |

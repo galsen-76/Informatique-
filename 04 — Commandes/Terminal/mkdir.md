@@ -25,6 +25,7 @@ mkdir <nom>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `nom` | Nom ou chemin du dossier |

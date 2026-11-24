@@ -25,6 +25,7 @@ sudo apt <action> [paquets]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `update` | rafraîchit la liste des paquets |

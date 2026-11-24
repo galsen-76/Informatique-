@@ -34,6 +34,7 @@ flowchart TD
   S -- SYN-ACK --> C
   C -- ACK --> S
 ```
+
 | Message d'erreur | Sens |
 | --- | --- |
 | `Connection refused` | la machine répond mais **rien n'écoute** sur ce port |

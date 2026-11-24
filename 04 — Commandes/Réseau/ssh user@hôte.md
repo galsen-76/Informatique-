@@ -25,6 +25,7 @@ ssh [options] utilisateur@hôte [commande]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-p 2222` | autre port |

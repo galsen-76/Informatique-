@@ -25,6 +25,7 @@ git rebase branche
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `origin/main` | la base sur laquelle rejouer |

@@ -26,6 +26,7 @@ docker pull registre/nom:tag
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `:tag` | version (sinon `latest`) |

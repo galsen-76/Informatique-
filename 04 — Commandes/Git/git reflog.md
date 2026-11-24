@@ -25,6 +25,7 @@ git reflog
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (seul) | l'historique de HEAD |

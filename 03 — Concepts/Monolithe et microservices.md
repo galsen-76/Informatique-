@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | | Monolithe | Microservices |
 | --- | --- | --- |
 | Déploiement | un seul | un par service |

@@ -32,6 +32,7 @@ flowchart TD
   W --> Z[archive.zip]
   Z --> R[ZipFile r]
 ```
+
 | Pour… | On écrit |
 | --- | --- |
 | créer | `with zipfile.ZipFile("a.zip", "w", zipfile.ZIP_DEFLATED) as z:` |

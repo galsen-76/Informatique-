@@ -26,6 +26,7 @@ docker login <registre>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-u` | nom d'utilisateur |

@@ -25,6 +25,7 @@ kill [-signal] PID
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (seul) | SIGTERM : demande poliment de s'arrêter |

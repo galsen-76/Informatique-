@@ -34,6 +34,7 @@ flowchart LR
 ```
 
 ### Exemple concret
+
 | Type de dépôt | Rôle | On y fait |
 | --- | --- | --- |
 | **proxy** | copie en cache d'un registre externe | `pull` |

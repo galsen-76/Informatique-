@@ -25,6 +25,7 @@ git stash [push -m msg | list | pop | apply | drop]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `push -m "msg"` | mettre de côté avec un nom |

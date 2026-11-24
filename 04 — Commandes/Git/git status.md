@@ -26,6 +26,7 @@ git status [-s]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-s` | Format court : une ligne par fichier (`M` modifié, `A` ajouté, `??` non suivi) |

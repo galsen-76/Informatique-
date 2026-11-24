@@ -26,6 +26,7 @@ curl [options] URL
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-i` | affiche les en-têtes de la réponse |

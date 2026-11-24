@@ -25,6 +25,7 @@ npx <outil> [arguments]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `npx outil` | utilise la version du projet si présente |

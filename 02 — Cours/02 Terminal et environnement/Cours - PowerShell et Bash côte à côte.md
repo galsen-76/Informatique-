@@ -31,6 +31,7 @@ flowchart TD
 ```
 
 ## 3. La table d'équivalences
+
 | Action | Bash (WSL) | PowerShell |
 | --- | --- | --- |
 | Où suis-je | `pwd` | `Get-Location` (`pwd`) |

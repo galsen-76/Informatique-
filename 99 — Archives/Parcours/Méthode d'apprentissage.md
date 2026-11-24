@@ -16,6 +16,7 @@ flowchart TB
 ```
 
 ## Pour chaque notion
+
 | Étape | Ce que je fais | Où |
 | --- | --- | --- |
 | **1 · Comprendre** | Pourquoi la notion existe, quel problème elle résout | Fiche, section 1 |

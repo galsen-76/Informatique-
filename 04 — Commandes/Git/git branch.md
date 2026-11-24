@@ -26,6 +26,7 @@ git branch -d <nom>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `(sans argument)` | Liste les branches ; `*` indique la branche courante |

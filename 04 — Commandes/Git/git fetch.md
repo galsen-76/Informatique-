@@ -25,6 +25,7 @@ git fetch [remote]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (seul) | depuis origin |

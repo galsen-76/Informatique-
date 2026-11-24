@@ -14,6 +14,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Méthode | Renvoie | Exemple |
 | --- | --- | --- |
 | `map(f)` | un nouveau tableau transformé | `noms = taches.map(t => t.nom)` |

@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | En-tête | Sens | Sens de circulation |
 | --- | --- | --- |
 | `Content-Type: application/json` | format du corps | les deux |

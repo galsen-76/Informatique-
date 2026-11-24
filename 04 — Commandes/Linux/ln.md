@@ -25,6 +25,7 @@ ln -s cible nom_du_lien
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-s` | lien symbolique |

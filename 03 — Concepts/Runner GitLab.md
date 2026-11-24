@@ -20,6 +20,7 @@ Quand tu pousses un commit, **GitLab** (le site, le serveur) lit ton `.gitlab-ci
 Les jobs sont exécutés par un **runner** : un programme (`gitlab-runner`) installé sur une machine (un serveur de l'entreprise, une machine virtuelle dans le cloud, ou même ton PC).
 
 ### Une image pour comprendre
+
 | Dans un restaurant | Dans GitLab CI |
 | --- | --- |
 | la salle qui prend les commandes | le serveur GitLab |
@@ -44,6 +45,7 @@ Les jobs ont besoin d'une vraie machine : processeur, mémoire, disque, réseau,
 
 ### Les exécuteurs : où tourne le job
 Le runner lance chaque job grâce à un **exécuteur** (*executor*) :
+
 | Exécuteur | Le job tourne… | Remarque |
 | --- | --- | --- |
 | **docker** | dans un conteneur créé à partir de `image:`, détruit à la fin | le plus courant : chaque job part propre |

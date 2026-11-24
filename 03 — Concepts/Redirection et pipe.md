@@ -35,6 +35,7 @@ flowchart TD
   A[Commande 1] -- pipe --> B[Commande 2]
   B -- redirige --> F[Fichier]
 ```
+
 | Symbole | Effet |
 | --- | --- |
 | `cmd > f.txt` | stdout dans un fichier (**écrase**) |

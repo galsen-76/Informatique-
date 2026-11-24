@@ -31,6 +31,7 @@ flowchart TD
   P --> L[Lister]
   P --> C[Construire]
 ```
+
 | Pour… | On écrit |
 | --- | --- |
 | créer un chemin | `Path("donnees")`, `Path.cwd()` (dossier courant), `Path.home()` |

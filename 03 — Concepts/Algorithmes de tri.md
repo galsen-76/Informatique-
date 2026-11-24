@@ -14,6 +14,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Tri | Idée | Complexité |
 | --- | --- | --- |
 | **Sélection** | chercher le plus petit, le mettre en premier, recommencer sur le reste | O(n²) |

@@ -25,6 +25,7 @@ wsl [options] [commande]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (seul) | entre dans la distribution par défaut |

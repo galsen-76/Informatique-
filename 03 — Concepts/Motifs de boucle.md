@@ -14,6 +14,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Motif | Idée | Variable de départ |
 | --- | --- | --- |
 | **Compter** | combien d'éléments vérifient une condition | `compte = 0` puis `+= 1` |

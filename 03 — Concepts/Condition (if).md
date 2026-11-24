@@ -29,6 +29,7 @@ flowchart TD
   T{Condition ?} -- vrai --> A[Bloc if]
   T -- faux --> B[Bloc else]
 ```
+
 | Opérateur | Sens |
 | --- | --- |
 | `==`, `!=` | égal, différent |

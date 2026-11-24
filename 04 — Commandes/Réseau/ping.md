@@ -26,6 +26,7 @@ ping [options] hôte
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-c 4` | Linux : 4 envois puis arrêt (sinon infini, Ctrl+C) |

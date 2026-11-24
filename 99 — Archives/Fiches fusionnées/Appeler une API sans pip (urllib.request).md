@@ -53,6 +53,7 @@ flowchart TD
   U --> R[read en octets]
   U -->|4xx 5xx| E[HTTPError]
 ```
+
 | Avec requests | Avec urllib.request |
 | --- | --- |
 | `requests.get(url)` | `urlopen(url)` |

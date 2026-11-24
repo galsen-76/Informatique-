@@ -16,6 +16,7 @@ tags:
 ## 1 · Comprendre
 ### Définition
 Les plus utiles à connaître :
+
 | Patron | Problème | Où tu le vois |
 | --- | --- | --- |
 | **Stratégie** | choisir un comportement parmi plusieurs à l'exécution | formats d'export, algorithmes |

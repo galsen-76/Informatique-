@@ -20,6 +20,7 @@ useEffect(() => {
   return () => { /* nettoyage : avant le prochain effet et à la disparition */ };
 }, [dependances]);
 ```
+
 | Dépendances | Quand l'effet s'exécute |
 | --- | --- |
 | `[]` | une fois, à l'apparition du composant |

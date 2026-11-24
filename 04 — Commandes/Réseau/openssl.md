@@ -26,6 +26,7 @@ openssl <sous-commande> [options]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `s_client -connect hôte:443` | ouvre une connexion TLS et montre le certificat |

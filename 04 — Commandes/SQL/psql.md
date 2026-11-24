@@ -26,6 +26,7 @@ psql -h hôte -U utilisateur -d base
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `\l` | liste les bases |

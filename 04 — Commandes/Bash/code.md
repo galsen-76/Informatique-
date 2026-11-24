@@ -26,6 +26,7 @@ code fichier      # un fichier, créé s'il n'existe pas
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `.` | le dossier courant |

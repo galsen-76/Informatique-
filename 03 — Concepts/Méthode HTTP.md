@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Méthode | Sens | Corps | Sûre | Idempotente |
 | --- | --- | --- | --- | --- |
 | `GET` | lire | non | oui | oui |

@@ -25,6 +25,7 @@ ssh-keygen -t ed25519 -C "commentaire"
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-t ed25519` | type de clé moderne conseillé |

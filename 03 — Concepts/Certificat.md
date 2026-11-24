@@ -35,6 +35,7 @@ flowchart TD
 
 ### Exemple concret
 Erreurs fréquentes :
+
 | Message | Cause |
 | --- | --- |
 | `certificate has expired` | date dépassée |

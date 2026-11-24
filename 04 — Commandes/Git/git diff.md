@@ -26,6 +26,7 @@ git diff [--staged] [commit1] [commit2] [-- chemin]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | (sans option) | modifié mais **pas encore** ajouté avec `git add` |

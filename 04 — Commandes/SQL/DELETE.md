@@ -26,6 +26,7 @@ DELETE FROM table WHERE condition;
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `WHERE` | quelles lignes (sans lui : TOUTES) |

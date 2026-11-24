@@ -45,6 +45,7 @@ EV[Événement] --> PL[Plateforme]
 ```
 
 ### `function.yaml`, ce qui compte
+
 | Clé | Rôle |
 |---|---|
 | `metadata.name` | nom de la fonction (minuscules et tirets) |

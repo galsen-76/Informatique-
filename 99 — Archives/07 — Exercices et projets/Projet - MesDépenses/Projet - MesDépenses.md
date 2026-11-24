@@ -53,6 +53,7 @@ Ce qu'il faut savoir d'elle :
 - des tests en `unittest` sont déjà là (tu t'en serviras dans la CI).
 
 ## Les étapes
+
 | # | Étape | Ce qui te servira au travail |
 | --- | --- | --- |
 | **Niveau 1 · Réseau et API** | | |

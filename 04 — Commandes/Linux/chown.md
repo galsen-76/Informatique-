@@ -26,6 +26,7 @@ sudo chown utilisateur[:groupe] chemin
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-R` | récursif (tout le dossier) |

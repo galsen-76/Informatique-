@@ -26,6 +26,7 @@ npm ci [--omit=dev]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `--omit=dev` | sans les devDependencies (image de production) |

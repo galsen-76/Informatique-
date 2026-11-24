@@ -17,6 +17,7 @@ tags:
 ### Définition
 **Endpoint** = **méthode** + **chemin**. `GET /notes` (lister) et `POST /notes` (créer) sont deux endpoints différents sur la même route.
 Ce qu'un endpoint peut recevoir :
+
 | Où | Exemple | En Express | En Python (requests) |
 | --- | --- | --- | --- |
 | Paramètre de chemin | `/taches/12` | `req.params.id` | dans l'URL |

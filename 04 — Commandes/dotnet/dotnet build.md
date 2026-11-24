@@ -27,6 +27,7 @@ dotnet build [<projet ou solution>] [-c Debug|Release]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-c Release` | compilation optimisée |

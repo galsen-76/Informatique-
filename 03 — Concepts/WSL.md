@@ -34,6 +34,7 @@ flowchart TD
   K --> U[Ubuntu]
 ```
 **Deux systèmes de fichiers, qui se voient l'un l'autre :**
+
 | Depuis | Pour aller dans | Chemin |
 | --- | --- | --- |
 | Linux (WSL) | le disque Windows | `/mnt/c/Users/oumar/...` |

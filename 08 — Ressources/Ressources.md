@@ -8,6 +8,7 @@ tags:
 > La documentation officielle d'abord : elle est à jour et précise. Les tutoriels ensuite, pour un autre angle.
 
 ## Documentation officielle
+
 | Ressource | Pour |
 | --- | --- |
 | [MDN Web Docs](https://developer.mozilla.org/fr/) | HTML, CSS, JavaScript, [[HTTP]] |
@@ -22,11 +23,13 @@ tags:
 | [The Twelve-Factor App (en français)](https://12factor.net/fr/) | [[Application douze facteurs]] |
 
 ## Mes fiches de ressources
+
 | Ressource | Pour |
 | --- | --- |
 | [[Exemples de commits conventionnels]] | écrire un bon message de commit (feat, fix, docs…) |
 
 ## Pratiquer
+
 | Ressource | Pour |
 | --- | --- |
 | [Learn Git Branching](https://learngitbranching.js.org/?locale=fr_FR) | Visualiser les branches et les merges |
@@ -34,6 +37,7 @@ tags:
 | [Exercism](https://exercism.org/) | Exercices de code corrigés |
 
 ## Vue d'ensemble
+
 | Ressource | Pour |
 | --- | --- |
 | [roadmap.sh](https://roadmap.sh/) | Situer une notion dans un parcours |

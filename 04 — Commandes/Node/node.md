@@ -26,6 +26,7 @@ node --watch <fichier.js>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `fichier.js` | Le point d'entrée du programme |

@@ -50,6 +50,7 @@ cookie: { httpOnly: true, secure: true, sameSite: "lax" }
 Dans Django : `{% csrf_token %}` dans chaque formulaire, et l'en-tête `X-CSRFToken` pour les appels `fetch`.
 
 ### CSRF ou CORS
+
 | | [[CORS]] | CSRF |
 |---|---|---|
 | C'est… | une **règle du navigateur** | une **attaque** (et la protection qui va avec) |

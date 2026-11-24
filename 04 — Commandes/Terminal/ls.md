@@ -26,6 +26,7 @@ ls [options] [dossier]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-l` | Format long : droits, taille, date (Bash) |

@@ -31,6 +31,7 @@ flowchart LR
 ```
 
 ### Exemple concret
+
 | Variable prédéfinie | Contient |
 | --- | --- |
 | `$CI_COMMIT_SHORT_SHA` | l'identifiant court du commit (pratique comme tag) |

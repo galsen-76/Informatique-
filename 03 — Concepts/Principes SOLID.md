@@ -15,6 +15,7 @@ tags:
 
 ## 1 · Comprendre
 ### Définition
+
 | Lettre | Principe | En une phrase |
 | --- | --- | --- |
 | **S** | Responsabilité unique | une classe ou un module n'a qu'une raison de changer |

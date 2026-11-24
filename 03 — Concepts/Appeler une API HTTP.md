@@ -47,6 +47,7 @@ r = requests.post("https://httpbin.org/post",
                   timeout=10)
 print(r.status_code, r.json()["json"])
 ```
+
 | Élément | Rôle |
 | --- | --- |
 | `params={"page": 2}` | ajoute `?page=2` à l'URL |

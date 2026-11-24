@@ -16,6 +16,7 @@ tags:
 ## 1 · Comprendre
 ### Définition
 Les trois piliers de l'**observabilité** :
+
 | Pilier | Question | Exemple d'outils |
 | --- | --- | --- |
 | **Logs** (journaux) | que s'est-il passé ? | `docker logs`, [[Journaux système|journalctl]], Loki, ELK |

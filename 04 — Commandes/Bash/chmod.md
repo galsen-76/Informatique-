@@ -27,6 +27,7 @@ chmod 755 fichier
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `+x` | ajoute l'exécution pour tous |

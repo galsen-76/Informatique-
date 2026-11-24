@@ -26,6 +26,7 @@ npm install [paquet] [-D]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `(sans argument)` | Installe tout ce qui est listé dans `package.json` |

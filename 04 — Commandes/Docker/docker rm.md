@@ -25,6 +25,7 @@ docker rm conteneur
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-f` | force (arrête puis supprime) |

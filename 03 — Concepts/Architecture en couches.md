@@ -16,6 +16,7 @@ tags:
 ## 1 · Comprendre
 ### Définition
 Pour une API classique :
+
 | Couche | Rôle | Exemple |
 | --- | --- | --- |
 | **Routes / contrôleurs** | HTTP : lire la requête, valider, appeler le service, répondre | `routes/taches.js` |

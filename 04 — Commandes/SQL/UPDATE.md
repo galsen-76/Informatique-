@@ -26,6 +26,7 @@ UPDATE table SET col = valeur WHERE condition;
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `WHERE` | quelles lignes (sans lui : TOUTES) |

@@ -26,6 +26,7 @@ git add <fichier|dossier|.>
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `fichier` | Un fichier précis |

@@ -25,6 +25,7 @@ systemctl <action> service
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `status` | état et dernières lignes de log |

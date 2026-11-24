@@ -25,6 +25,7 @@ docker compose down [options]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-v` | supprime aussi les volumes (données) |

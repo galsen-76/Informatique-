@@ -24,6 +24,7 @@ Question : qui décide quel programme utilise le processeur maintenant ? Qui emp
 
 ### Une image pour comprendre
 Imagine un immeuble de bureaux :
+
 | Dans l'immeuble | Dans l'ordinateur |
 | --- | --- |
 | les bureaux, l'électricité, l'ascenseur, la salle des archives | le matériel |
@@ -86,6 +87,7 @@ strace -e trace=openat,read python3 -c 'open("/etc/hostname").read()' 2>&1 | tai
 ```
 
 ### Les noyaux que tu rencontres
+
 | Système | Noyau |
 | --- | --- |
 | Linux (Ubuntu, Debian, Alpine…), Android | **Linux** |
@@ -95,6 +97,7 @@ strace -e trace=openat,read python3 -c 'open("/etc/hostname").read()' 2>&1 | tai
 Le noyau Linux est un logiciel libre, créé en 1991 par Linus Torvalds, écrit surtout en C, mis à jour en permanence par des milliers de développeurs.
 
 ### Pourquoi ça compte pour toi
+
 | Situation | Le noyau derrière |
 | --- | --- |
 | Un programme Linux ne tourne pas dans PowerShell | il fait des appels système **Linux**, que le noyau Windows ne comprend pas |

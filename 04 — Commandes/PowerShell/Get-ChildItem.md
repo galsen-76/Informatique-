@@ -26,6 +26,7 @@ Get-ChildItem [-Path <dossier>] [-Force] [-Recurse] [-Filter <motif>]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-Force` | Affiche les fichiers cachés |

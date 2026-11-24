@@ -25,6 +25,7 @@ git revert commit
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `commit` | le hash du commit à annuler |

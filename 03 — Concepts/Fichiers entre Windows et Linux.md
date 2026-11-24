@@ -32,6 +32,7 @@ flowchart TD
   W[Windows] --> G[Git]
   G --> L[Linux / CI]
 ```
+
 | Problème | Symptôme sous Linux | Solution |
 | --- | --- | --- |
 | Droit d'exécution absent | `Permission denied` en lançant `./entrypoint.sh` | `git update-index --chmod=+x entrypoint.sh` puis commit |

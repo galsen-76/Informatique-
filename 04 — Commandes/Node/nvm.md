@@ -25,6 +25,7 @@ nvm <commande> [version]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `install 22` / `--lts` | installe |

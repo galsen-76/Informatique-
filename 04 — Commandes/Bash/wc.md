@@ -25,6 +25,7 @@ wc [-l|-w|-c] [fichier]
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `-l` | nombre de lignes |

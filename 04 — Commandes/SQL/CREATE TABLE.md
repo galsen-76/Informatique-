@@ -27,6 +27,7 @@ CREATE TABLE nom (colonne TYPE contraintes, …);
 ```
 
 ## Paramètres
+
 | Élément | Rôle |
 | --- | --- |
 | `SERIAL PRIMARY KEY` | identifiant auto-incrémenté |

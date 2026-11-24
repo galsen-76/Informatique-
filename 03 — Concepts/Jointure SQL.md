@@ -19,6 +19,7 @@ SELECT t.nom AS tache, p.nom AS projet
 FROM tache t
 JOIN projet p ON p.id = t.projet_id;
 ```
+
 | Jointure | Garde |
 | --- | --- |
 | `INNER JOIN` (ou `JOIN`) | seulement les lignes qui ont une correspondance des deux côtés |
