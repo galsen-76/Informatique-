@@ -84,5 +84,5 @@ for livre in racine.iter("livre"):       # tous les <livre>, à toute profondeur
 - **Prérequis** : [[XML]], [[Liste et dictionnaire]]
 - **Notion parente** :
 - **Complémentaires** : [[JSON]], [[Lire et écrire un fichier]]
-- **Au travail** : [Format CVAT for images 1.1](obsidian://open?vault=Travail&file=Format%20CVAT%20for%20images%201.1)
+- **Au travail** : [Format CVAT for images 1.1](obsidian://open?vault=Travail&file=API%20CVAT%20-%20format%20CVAT%20for%20images%201.1)
 - **Commandes** :
