@@ -2,7 +2,7 @@
 const safeName = (s) => s.replace(/[\\/:*?"<>|#^\[\]]/g, "-").replace(/\s+/g, " ").trim().slice(0, 90);
 const title = safeName((await tp.system.prompt("Titre du cours (ex. Les promesses en JavaScript)")) || tp.file.title);
 const moduleFiles = app.vault.getMarkdownFiles()
-  .filter(f => f.path.startsWith("01 — Parcours/Modules/"))
+  .filter(f => f.path.startsWith("99 — Archives/Modules/"))
   .map(f => f.basename).sort();
 const mod = (await tp.system.suggester(["— Aucun module —", ...moduleFiles], ["", ...moduleFiles], false, "Module du parcours")) || "";const conceptFiles = app.vault.getMarkdownFiles()
   .filter(f => f.path.startsWith("03 — Concepts/") && f.basename !== "Concepts")

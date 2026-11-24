@@ -2,7 +2,7 @@
 const num = parseInt((await tp.system.prompt("Numéro du module (ex. 16)")) || "16", 10);
 const title = ((await tp.system.prompt("Titre du module")) || "Nouveau module").trim();
 const why = ((await tp.system.prompt("Pourquoi ce module vient à cette place ?", "")) || "").replace(/"/g, "'");
-await tp.file.move("01 — Parcours/Modules/Module " + String(num).padStart(2, "0") + " - " + title);
+await tp.file.move("99 — Archives/Modules/Module " + String(num).padStart(2, "0") + " - " + title);
 -%>
 ---
 type: module

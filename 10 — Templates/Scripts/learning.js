@@ -14,12 +14,12 @@
 const CFG = {
   dashboard: "00 — Dashboard",
   focus: "00 — Dashboard/Focus",
-  modules: "01 — Parcours/Modules",
+  modules: "99 — Archives/Modules",
   courses: "02 — Cours",
   concepts: "03 — Concepts",
   commands: "04 — Commandes",
   errors: "06 — Erreurs et solutions",
-  exercises: "07 — Exercices et projets",
+  exercises: "99 — Archives/07 — Exercices et projets",
   archives: "99 — Archives/Anciens exercices",
 };
 const LEVELS = [
@@ -114,8 +114,8 @@ function cases(page) {
   const m = mastery(page);
   return {
     schema: page.schema === true || hasSchema(page),
-    visuel: page.exercice_visuel === true,
-    filRouge: page.fil_rouge === true || m.done > 0,
+    visuel: page.explique === true || page.exercice_visuel === true,
+    filRouge: page.utilise === true || page.fil_rouge === true || m.done > 0,
   };
 }
 const allCases = (page) => { const c = cases(page); return c.schema && c.visuel && c.filRouge; };
@@ -128,7 +128,7 @@ function eff(page) {
   return "en-cours";
 }
 const caseLine = (page) => { const c = cases(page); const k = (b) => (b ? "☑" : "☐");
-  return `${k(c.schema)} schéma · ${k(c.visuel)} exercices visuels · ${k(c.filRouge)} fil rouge`; };
+  return `${k(c.schema)} dessin · ${k(c.visuel)} expliqué · ${k(c.filRouge)} utilisé au travail`; };
 function mastery(page) {
   // Preuve « appliquer » : les étapes du fil rouge qui utilisent la notion
   const ex = exercisesOf(page);
@@ -169,7 +169,7 @@ function methodStrip(parent, page) {
   // Les trois cases de la notion : dessin, exercices visuels, fil rouge
   const c = cases(page);
   const strip = parent.createDiv({ cls: "dl-steps" });
-  [["Schéma", c.schema], ["Exercices visuels", c.visuel], ["Fil rouge", c.filRouge]].forEach(([s, ok], i) => {
+  [["Dessin Excalidraw", c.schema], ["Expliqué sans regarder", c.visuel], ["Utilisé au travail", c.filRouge]].forEach(([s, ok], i) => {
     strip.createSpan({ cls: "dl-step" + (ok ? " is-done" : ""), text: `${i + 1} ${s}` });
   });
 }
@@ -360,9 +360,9 @@ function vMaitrise() {
   const m = mastery(cur);
   const ok = (b) => (b ? "✅" : "⬜");
   const lines = [
-    `${ok(c.schema)} **Mon schéma du concept** : ${c.schema ? "fait" : "à dessiner, puis cocher « schema » dans les propriétés"}`,
-    `${ok(c.visuel)} **Exercices visuels réussis** : ${c.visuel ? "oui" : "cocher « exercice_visuel » quand ils sont faits et corrigés"}`,
-    `${ok(c.filRouge)} **Appliqué dans le fil rouge** : ` + (m.total ? m.ex.map((e) => `${wiki(e.file.path)} ${exbadge(e.status)}`).join(" · ") : "cocher « fil_rouge » quand je l'ai appliqué"),
+    `${ok(c.schema)} **Mon dessin des points clés** (Excalidraw) : ${c.schema ? "fait" : "à dessiner sans regarder, puis comparer avec la fiche (ou cocher « schema »)"}`,
+    `${ok(c.visuel)} **Expliqué sans regarder** : ${c.visuel ? "oui" : "Claude m'interroge ; cocher « explique » quand j'ai su répondre"}`,
+    `${ok(c.filRouge)} **Utilisé au travail** : ` + (c.filRouge ? "oui" : "cocher « utilise » quand je m'en suis servi dans un ticket"),
   ];
   const old = oldProofs(cur);
   if (old.length) lines.push(`Anciennes preuves : ${old.map((e) => wiki(e.file.path)).join(" · ")}`);

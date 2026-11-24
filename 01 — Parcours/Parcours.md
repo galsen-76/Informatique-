@@ -1,115 +1,45 @@
 ---
-cssclasses:
-  - dw-wide
 tags:
   - index
 ---
 # Parcours
 
-> [!info] Comment lire ce parcours
-> Chaque module dépend de ceux qui le précèdent sur le schéma. La progression d'un module est calculée à partir du statut de ses notions : *à découvrir* 0 · *en cours* 1/3 · *compris* 2/3 · *maîtrisé* 3/3. Clique sur un module pour l'ouvrir.
+Seulement l'utile au travail, dans l'ordre, une notion à la fois. Le reste du coffre sert de dictionnaire.
 
-```mermaid
-flowchart TD
-  M1["Module 01 - Fondamentaux informatiques"]
-  M2["Module 02 - Terminal et environnement"]
-  M3["Module 03 - Git et GitHub"]
-  M4["Module 04 - HTML et CSS"]
-  M5["Module 05 - JavaScript"]
-  M6["Module 06 - TypeScript"]
-  M7["Module 07 - Node.js"]
-  M8["Module 08 - Backend et API REST"]
-  M9["Module 09 - Bases de données et SQL"]
-  M10["Module 10 - Authentification et sécurité"]
-  M11["Module 11 - React"]
-  M12["Module 12 - Tests"]
-  M13["Module 13 - Docker"]
-  M14["Module 14 - DevOps et déploiement"]
-  M15["Module 15 - Architecture logicielle"]
-  M16["Module 16 - Python"]
-  M17["Module 17 - Réseau"]
-  M18["Module 18 - Linux et serveurs"]
-  M19["Module 19 - Vue.js"]
-  M20["Module 20 - Angular"]
-  M21["Module 21 - Algorithmique"]
-  M22["Module 22 - Design patterns"]
-  M23["Module 23 - Gestion de projet"]
-  M24["Module 24 - .NET"]
-  M1 --> M2
-  M2 --> M3
-  M1 --> M4
-  M4 --> M5
-  M5 --> M6
-  M2 --> M7
-  M5 --> M7
-  M1 --> M8
-  M7 --> M8
-  M8 --> M9
-  M8 --> M10
-  M9 --> M10
-  M5 --> M11
-  M6 --> M11
-  M7 --> M12
-  M8 --> M12
-  M2 --> M13
-  M7 --> M13
-  M3 --> M14
-  M12 --> M14
-  M13 --> M14
-  M8 --> M15
-  M9 --> M15
-  M12 --> M15
-  M1 --> M16
-  M2 --> M16
-  M16 --> M13
-  M1 --> M17
-  M2 --> M17
-  M2 --> M18
-  M17 --> M18
-  M5 --> M19
-  M6 --> M19
-  M6 --> M20
-  M11 --> M20
-  M1 --> M21
-  M16 --> M21
-  M21 --> M15
-  M15 --> M22
-  M16 --> M22
-  M1 --> M23
-  M8 --> M24
-  M16 --> M24
-  class M1 internal-link;
-  class M2 internal-link;
-  class M3 internal-link;
-  class M4 internal-link;
-  class M5 internal-link;
-  class M6 internal-link;
-  class M7 internal-link;
-  class M8 internal-link;
-  class M9 internal-link;
-  class M10 internal-link;
-  class M11 internal-link;
-  class M12 internal-link;
-  class M13 internal-link;
-  class M14 internal-link;
-  class M15 internal-link;
-  class M16 internal-link;
-  class M17 internal-link;
-  class M18 internal-link;
-  class M19 internal-link;
-  class M20 internal-link;
-  class M21 internal-link;
-  class M22 internal-link;
-  class M23 internal-link;
-  class M24 internal-link;
+## Les 13 fondamentaux
+**Mon poste**
+1. [[Terminal]], [[Chemin de fichier]]
+2. [[Variable d'environnement]]
+3. [[Git]], [[Branche Git]], [[Merge request]]
+
+**Python**
+4. [[Variables et types]], [[Condition (if)]], [[Boucle (for, while)]]
+5. [[Fonction]], [[Module et import]], [[Environnement virtuel Python]]
+6. [[Liste et dictionnaire]], [[JSON]]
+7. [[Exception]], [[Fiche - Lire un message d'erreur]]
+
+**Réseau et API**
+8. [[HTTP]], [[Code de statut HTTP]]
+9. [[API]], [[Appeler une API HTTP]]
+10. [[Port]], [[Proxy]], [[CORS]]
+
+**Livrer**
+11. [[Image Docker]], [[Conteneur]], [[Dockerfile]]
+12. [[Docker Compose]]
+13. [[Pipeline GitLab CI]]
+
+## Méthode
+1. Lire « En une phrase » et « Comprendre ».
+2. Dessiner les points clés dans Excalidraw, sans regarder. Comparer, corriger.
+3. Expliquer en 3 phrases, puis Claude m'interroge.
+4. Utiliser dans mes tickets.
+5. Revoir : J+1, J+7, J+30.
+
+Finie = `schema`, `explique` et `utilise` cochés dans la fiche.
+
+## Où j'en suis
+```dataview
+TABLE WITHOUT ID file.link AS "Notion", choice(schema, "oui", "") AS "Dessin", choice(explique, "oui", "") AS "Expliqué", choice(utilise, "oui", "") AS "Utilisé"
+FROM outgoing([[Parcours]])
+WHERE type = "concept"
 ```
-
-## Ordre conseillé
-> [!tip] Le parcours suit les niveaux
-> L'ordre est donné par les **niveaux** : [[Niveaux]]. Je travaille seulement les notions de mon niveau actuel, dans l'ordre de son fil rouge : pour chaque notion, la fiche, puis le dessin et les exercices visuels, puis tout de suite l'étape du fil rouge. Les modules ci-dessous servent à **retrouver** une notion par thème.
-
-```dataviewjs
-await dv.view("10 — Templates/Scripts/learning", { view: "parcours" })
-```
-
-Voir aussi : [[Parcours - Python, Docker et CI]] · [[Méthode d'apprentissage]] · [[Chemins de compréhension]] · [[Suivi des acquis]]

@@ -18,8 +18,8 @@ tags:
 | une commande précise (docker, git, pip…) | **04 — Commandes**, un sous-dossier par outil |
 | une procédure ou les bonnes pratiques d'un outil | **05 — Fiches pratiques** |
 | une erreur déjà rencontrée | **06 — Erreurs et solutions** (et [[Fiche - Aide-mémoire des erreurs fréquentes]]) |
-| le fil rouge de mon niveau | **07 — Exercices et projets** |
-| mon travail (CVAT, Nuclio, mémoire) | [le coffre Travail](obsidian://open?vault=Travail&file=Aujourd%27hui), et [[Référence travail]] pour les notions hors de mon niveau |
+| quoi apprendre | [[Parcours]] |
+| mon travail (CVAT, Nuclio, mémoire) | [le coffre Travail](obsidian://open?vault=Travail&file=Aujourd%27hui) |
 | une vieille fiche ou un ancien exercice | **99 — Archives** |
 
 > [!tip] Le plus rapide : la recherche
@@ -29,13 +29,12 @@ tags:
 | Dossier | Contient | Modèle |
 | --- | --- | --- |
 | 00 — Dashboard | [[Dashboard]], [[Focus]], [[Révisions]], [[Suivi des acquis]], ce guide | — |
-| 01 — Parcours | [[Niveaux]], [[Référence travail]], [[Parcours]] (les 24 modules, pour retrouver par thème), [[Méthode d'apprentissage]] | Module |
+| 01 — Parcours | [[Parcours]] : les 13 fondamentaux et la méthode | — |
 | 02 — Cours | Un dossier par module, un cours par chapitre | Cours |
 | 03 — Concepts | Une fiche par notion : comprendre, explorer, pratiquer (exercices visuels, mon schéma, fil rouge), relier, réviser | Concept |
 | 04 — Commandes | Un sous-dossier par outil | Commande |
 | 05 — Fiches pratiques | Procédures pas à pas, et [[Bonnes pratiques]] par outil | Fiche pratique · Bonnes pratiques |
 | 06 — Erreurs et solutions | Erreurs rencontrées et résolues (neutres) | Erreur |
-| 07 — Exercices et projets | Les fils rouges (niveau 0 : [[Projet - Suivre ses dépenses en Python]], puis [[Projet - MesDépenses]]) | Exercice · Projet |
 | 08 — Ressources | Liens et exemples utiles, images | — |
 | 10 — Templates | Modèles et le script des vues (`Scripts/learning.js`) | — |
 | 99 — Archives | Anciens exercices, fiches fusionnées, contenus terminés | — |
