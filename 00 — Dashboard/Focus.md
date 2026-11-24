@@ -1,11 +1,10 @@
 ---
 niveau_actuel: 0
-current: "[[Python]]"
-goal: "Niveau 0 : écrire un petit script Python dans WSL et le ranger dans Git (fil rouge « Suivre ses dépenses en Python »)"
+current: "[[Terminal]]"
+goal: "Fondamentaux 1 à 3 : me déplacer dans WSL, régler une variable d'environnement, ranger mon travail dans Git"
 next:
-  - "[[Variables et types]]"
-  - "[[Condition (if)]]"
-  - "[[Boucle (for, while)]]"
+  - "[[Chemin de fichier]]"
+  - "[[Variable d'environnement]]"
 tags:
   - focus
 ---
@@ -19,26 +18,42 @@ tags:
 >
 > Le [[Dashboard]] lit ces propriétés et vérifie que les prérequis sont compris.
 
-## Les fondamentaux (dans l'ordre)
-La base sans laquelle le reste ne tient pas. Je les fais dans l'ordre, un à la fois.
+## Les fondamentaux utiles (dans l'ordre)
+Seulement ce que j'utilise vraiment au travail. Une notion à la fois, je ne passe à la suivante que quand elle est **finie**.
 
-1. [[Terminal]] et [[Chemin de fichier]]
-2. [[Variable d'environnement]]
-3. [[Git]], [[Commit]], [[Branche Git]]
-4. [[Variables et types]]
-5. [[Condition (if)]] et [[Boucle (for, while)]]
-6. [[Fonction]] et [[Module et import]]
-7. [[Liste et dictionnaire]] et [[JSON]]
-8. [[Exception]] et [[Fiche - Lire un message d'erreur]]
-9. [[HTTP]], [[Code de statut HTTP]], [[API]]
-10. [[Appeler une API HTTP]]
-11. [[Port]] et [[Proxy]]
-12. [[Image Docker]], [[Conteneur]], [[Dockerfile]]
+**Mon poste**
+1. [[Terminal]] et [[Chemin de fichier]] (WSL)
+2. [[Variable d'environnement]] (proxy, fichier .env)
+3. [[Git]], [[Branche Git]], [[Merge request]]
+
+**Python**
+4. [[Variables et types]], [[Condition (if)]], [[Boucle (for, while)]]
+5. [[Fonction]], [[Module et import]], [[Environnement virtuel Python]]
+6. [[Liste et dictionnaire]] et [[JSON]]
+7. [[Exception]] et [[Fiche - Lire un message d'erreur]]
+
+**Réseau et API**
+8. [[HTTP]] et [[Code de statut HTTP]]
+9. [[API]] et [[Appeler une API HTTP]]
+10. [[Port]], [[Proxy]], [[CORS]]
+
+**Livrer**
+11. [[Image Docker]], [[Conteneur]], [[Dockerfile]]
+12. [[Docker Compose]]
+13. [[Pipeline GitLab CI]]
+
+## Ma méthode pour une notion (environ 1 h)
+1. **Comprendre (10 min)** : je lis seulement « En une phrase » et « 1 · Comprendre ». Pas toute la fiche.
+2. **Dessiner (15 min)** : sans regarder, je dessine le mécanisme dans Excalidraw (qui parle à qui, dans quel ordre). Je compare avec la fiche et je corrige.
+3. **Faire (20 min)** : je l'utilise pour de vrai, sur mon travail ou sur MesDépenses. Je laisse les erreurs arriver et je les corrige.
+4. **Expliquer (5 min)** : 3 phrases avec mes mots dans « 4 · Expliquer », puis je demande à Claude de m'interroger.
+5. **Revoir** : le lendemain, puis 1 semaine après, puis 1 mois après (3 questions, sans regarder).
+
+Une notion est **finie** quand j'ai le dessin, que je l'ai utilisée et que je sais l'expliquer sans regarder.
+Si une notion en demande une autre : je lis seulement « En une phrase » de l'autre, je la note dans Parking, et je reviens.
 
 ## Ensuite : les notions de mes projets
-Après les fondamentaux, j'apprends ce que je rencontre au travail. Chaque note projet du [coffre Travail](obsidian://open?vault=Travail&file=Aujourd%27hui) a une section « Concepts utilisés » : c'est ma liste. Quand un ticket me fait croiser une notion, je l'ajoute là-bas, j'ouvre sa fiche ici et je l'écris avec mes mots.
-
-Le reste du coffre est un dictionnaire : je l'ouvre quand j'en ai besoin.
+Après les fondamentaux, j'apprends ce que je rencontre au travail. Chaque note projet du [coffre Travail](obsidian://open?vault=Travail&file=Aujourd%27hui) a une section « Concepts utilisés » : c'est ma liste. Le reste de ce coffre est un dictionnaire, je l'ouvre seulement quand j'en ai besoin.
 
 ## Parking (idées pour plus tard)
 Tout ce qui attire mon attention mais n'est **pas** le sujet actuel. Je le note ici, et je reviens au sujet.
