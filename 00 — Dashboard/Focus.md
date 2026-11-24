@@ -1,10 +1,10 @@
 ---
 niveau_actuel: 0
 current: "[[Terminal]]"
-goal: "Fondamentaux 1 à 3 : me déplacer dans WSL, régler une variable d'environnement, ranger mon travail dans Git"
+goal: "Comprendre où je tape mes commandes et connaître les commandes de base"
 next:
-  - "[[Chemin de fichier]]"
-  - "[[Variable d'environnement]]"
+  - "[[Shell]]"
+  - "[[WSL]]"
 tags:
   - focus
 ---

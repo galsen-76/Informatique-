@@ -4,29 +4,36 @@ tags:
 ---
 # Parcours
 
-Seulement l'utile au travail, dans l'ordre, une notion à la fois. Le reste du coffre sert de dictionnaire.
+Les concepts pour comprendre ce que je fais au travail. Pas de syntaxe : elle se cherche.
 
-## Les 13 fondamentaux
+## Les 16 concepts
 **Mon poste**
-1. [[Terminal]], [[Chemin de fichier]]
-2. [[Variable d'environnement]]
-3. [[Git]], [[Branche Git]], [[Merge request]]
+1. [[Terminal]], [[Shell]], [[WSL]] : où je tape, et les commandes de base (`04 — Commandes/Terminal`)
+2. [[Chemin de fichier]], [[Permissions Linux]] : où sont mes fichiers, qui peut y toucher
+3. [[Processus]], [[Variable d'environnement]], [[Variable PATH]] : ce qui tourne, et avec quels réglages
 
-**Python**
-4. [[Variables et types]], [[Condition (if)]], [[Boucle (for, while)]]
-5. [[Fonction]], [[Module et import]], [[Environnement virtuel Python]]
-6. [[Liste et dictionnaire]], [[JSON]]
-7. [[Exception]], [[Fiche - Lire un message d'erreur]]
+**Travailler en équipe**
+4. [[Git]], [[Branche Git]], [[Merge]] : l'historique et les versions parallèles
+5. [[Merge request]], [[Conflit de merge]] : faire relire et fusionner
 
-**Réseau et API**
-8. [[HTTP]], [[Code de statut HTTP]]
-9. [[API]], [[Appeler une API HTTP]]
-10. [[Port]], [[Proxy]], [[CORS]]
+**Le réseau**
+6. [[Client-serveur]], [[HTTP]], [[Code de statut HTTP]] : qui demande, qui répond, et comment
+7. [[Adresse IP]], [[Port]], [[DNS]] : comment on trouve une machine et un service
+8. [[Proxy]], [[Reverse proxy]], [[CORS]] : les intermédiaires et les blocages
+9. [[API REST]], [[JSON]], [[Authentification]] : parler à une application
+
+**Docker**
+10. [[Image Docker]], [[Conteneur]], [[Dockerfile]] : emballer et lancer une application
+11. [[Docker Compose]], [[Volume Docker]] : plusieurs conteneurs et leurs données
+12. [[Registre Docker]], [[Nexus]] : où vont les images, et le passage obligé au travail
 
 **Livrer**
-11. [[Image Docker]], [[Conteneur]], [[Dockerfile]]
-12. [[Docker Compose]]
-13. [[Pipeline GitLab CI]]
+13. [[Intégration et déploiement continus (CI-CD)]], [[Pipeline GitLab CI]], [[Runner GitLab]] : tester et construire à chaque push
+14. [[Environnement de déploiement]], [[Secret et fichier .env]] : dev, staging, prod, et les mots de passe hors du code
+
+**Quand ça casse**
+15. [[Gestionnaire de paquets]], [[Environnement virtuel Python]] : les dépendances
+16. [[Fiche - Lire un message d'erreur]], [[Journaliser avec logging]], [[Test unitaire]], [[Test de bout en bout]] : trouver et prévenir les erreurs
 
 ## Méthode
 1. Lire « En une phrase » et « Comprendre ».
