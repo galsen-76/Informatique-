@@ -8,29 +8,29 @@ tags:
 
 ## À faire
 
-| Règle | Pourquoi |
+| Règle | Sinon… |
 | --- | --- |
-| Version LTS (8, 10…) fixée dans `global.json` | Même SDK pour l'équipe et la CI |
-| `PascalCase` (classes, méthodes), `camelCase` (variables), `I` devant une interface | Le code se lit comme celui des bibliothèques |
-| `dotnet format` + `.editorconfig` | Les revues parlent du fond, pas des espaces |
-| Nullabilité activée, avertissements traités | Un avertissement aujourd'hui = un crash en prod demain |
-| Cœur, API et tests dans 3 projets séparés | Le cœur se teste sans HTTP |
-| Injection de dépendances, pas de `new` partout | On remplace une pièce sans tout toucher |
-| `async` + `await` jusqu'en haut | `.Result` et `.Wait()` peuvent figer l'appli |
-| `decimal` pour l'argent | `double` arrondit mal |
-| Réglages dans `appsettings.json`, secrets hors du dépôt | Aucun mot de passe dans Git |
-| `ILogger` avec des messages structurés | On filtre les logs par champ |
+| Utiliser une version LTS (8, 10…) et l'écrire dans `global.json` | Ton collègue ou la CI utilisent une autre version, et ça ne compile pas pareil |
+| Nommer comme tout le monde : `PascalCase` pour les classes et méthodes, `camelCase` pour les variables | Ton code est plus dur à lire pour les autres |
+| Lancer `dotnet format` avant de commiter | La relecture de ta merge request parle d'espaces au lieu du vrai code |
+| Corriger les avertissements jaunes du compilateur | L'avertissement d'aujourd'hui devient un plantage en production |
+| Mettre le code métier, l'API et les tests dans 3 projets séparés | Pour tester une petite règle, tu dois lancer toute l'API |
+| Demander ce dont une classe a besoin dans son constructeur, au lieu de le créer avec `new` | Impossible de remplacer une pièce (la base, un service) par une fausse dans un test |
+| Si une méthode appelle du `…Async`, la marquer `async` et mettre `await` | L'application peut se figer |
+| Utiliser `decimal` pour l'argent | `0.1 + 0.2` ne donne pas exactement `0.3`, les totaux sont faux |
+| Mettre les réglages dans `appsettings.json` et les mots de passe hors du dépôt | Un mot de passe se retrouve dans Git, visible par tous |
+| Écrire les logs avec `ILogger`, pas `Console.WriteLine` | Impossible de filtrer les erreurs dans les logs du serveur |
 
 ## À éviter
 
 | Au lieu de… | Fais plutôt |
 | --- | --- |
-| `catch (Exception) { }` vide | Attraper le type précis, laisser remonter le reste |
-| Commiter `bin/` et `obj/` | `dotnet new gitignore` dès le début |
-| Modifier le `.csproj` à la main | `dotnet add package`, `dotnet add reference` |
-| Suivre un tuto .NET Framework | Vérifier que c'est .NET 6+ ou ASP.NET **Core** |
-| Du `static` partout, une classe qui fait tout | Petites classes, une responsabilité chacune |
-| `.ToList().Where(...)` | `.Where(...).ToList()` : le filtre part en SQL |
+| Un `catch` vide qui avale l'erreur | Attraper seulement l'erreur que tu sais gérer, laisser remonter les autres |
+| Commiter les dossiers `bin/` et `obj/` | `dotnet new gitignore` dès le début du projet |
+| Modifier le fichier `.csproj` à la main | `dotnet add package NomDuPaquet` |
+| Suivre un tuto « .NET Framework » (vieux) | Chercher un tuto « .NET 8 » ou « ASP.NET Core » |
+| Une énorme classe qui fait tout | Plusieurs petites classes, chacune avec un seul rôle |
+| `.ToList().Where(...)` (charge toute la table puis filtre) | `.Where(...).ToList()` (la base filtre avant d'envoyer) |
 
 ## Avant de valider
 - [ ] `dotnet build -warnaserror` passe
