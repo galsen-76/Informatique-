@@ -2,9 +2,8 @@
 type: concept
 module: "[[Module 02 - Terminal et environnement]]"
 related:
-  - "[[Système de fichiers]]"
-  - "[[Git]]"
-  - "[[Node.js]]"
+  - "[[Shell]]"
+  - "[[WSL]]"
 tags:
   - concept
   - terminal
@@ -12,52 +11,42 @@ tags:
 # Terminal
 
 > [!info] En une phrase
-> Une fenêtre où l'on pilote l'ordinateur en tapant des commandes texte plutôt qu'en cliquant.
+> La fenêtre où je pilote l'ordinateur en tapant des commandes au lieu de cliquer.
 
 ## 1 · Comprendre
-### Définition
-Le **terminal** est l'application (Windows Terminal, iTerm…) ; il fait tourner un **shell** (PowerShell, Bash, Zsh) qui lit tes commandes, les exécute et affiche le résultat. On dit aussi « ligne de commande » ou CLI.
+Le **terminal** est la fenêtre (Windows Terminal). À l'intérieur tourne un [[Shell]] (Bash dans [[WSL]]) : c'est lui qui comprend tes commandes et les lance.
 
-### Pourquoi ça existe
-Beaucoup d'outils de développement n'ont pas d'interface graphique (Git, npm, Docker) ou sont plus rapides et automatisables en commandes. Une commande peut être rejouée, enchaînée, mise dans un script.
-
-### Le problème résolu
-Répéter des actions à la souris est lent et impossible à automatiser. Une commande écrite une fois peut être relancée, documentée et partagée.
+Pourquoi l'utiliser : Git, Docker, Python, nuctl, la CI… presque tous les outils de dev se pilotent en commandes. Une commande se rejoue, s'enchaîne et se met dans un script.
 
 ## 2 · Explorer
-### Comment ça fonctionne
 ```mermaid
 flowchart LR
-  A[Commande] --> B[Shell]
-  B --> C[Programme]
-  C --> D[Résultat]
+  T[Terminal] --> S[Shell] --> P[Programme] --> R[Résultat]
 ```
-Une commande suit presque toujours la forme : `programme sous-commande --option argument`
-- `git commit -m "message"` → programme `git`, sous-commande `commit`, option `-m`, argument `"message"`.
-- Le terminal travaille toujours **dans un dossier courant** : c'est le lien direct avec le [[Système de fichiers]].
+Une commande se lit toujours pareil : `programme sous-commande --option argument`.
+Exemple : `docker compose up -d` = programme `docker`, sous-commande `compose up`, option `-d`.
 
-### Exemple concret
-```powershell
-cd Documents\projets      # aller dans un dossier
-mkdir api-notes          # créer un dossier
-cd api-notes
-node --version           # vérifier qu'un outil est installé
-```
+Le terminal travaille toujours **dans un dossier** (le dossier courant) : `pwd` le montre.
 
-### Cas d'utilisation
-- Lancer un serveur ([[Node.js]])
-- Versionner du code ([[Git]])
-- Installer des paquets ([[Gestionnaire de paquets]])
-- Gérer des conteneurs ([[Docker]])
+**Les commandes de base**
+| Je veux… | Commande |
+| --- | --- |
+| savoir où je suis | `pwd` |
+| voir le contenu | `ls -la` |
+| me déplacer | `cd dossier`, `cd ..`, `cd ~` |
+| créer | `mkdir dossier`, `touch fichier` |
+| copier, déplacer, supprimer | `cp`, `mv`, `rm` |
+| lire un fichier | `cat`, `less` |
+| chercher dans un texte | `grep` |
+| de l'aide | `commande --help` |
 
 > [!warning] À ne pas confondre
-> **Terminal** (la fenêtre) et **shell** (le programme qui comprend les commandes). Sous Windows, PowerShell et Bash (WSL, Git Bash) n'ont pas exactement les mêmes commandes : `ls` existe dans les deux, mais les options diffèrent.
+> **Terminal** (la fenêtre) et **shell** (le programme qui comprend). Avant de coller une commande d'un tutoriel, regarde l'invite : `PS C:\>` = PowerShell, `oumar@pc:~$` = Bash.
 
 ## 3 · Relier
-- **Mène à** : [[Système de fichiers]] → [[Git]]
-- **Utilisé par** : [[Node.js]], [[Gestionnaire de paquets]], [[Docker]]
-- **Commandes** : [[cd]] · [[ls]] · [[mkdir]] · [[Get-ChildItem]]
-- **Approfondir** : [[Shell]] · [[PowerShell]] · [[Bash]] · [[WSL]]
+- **Ensemble** : [[Shell]] · [[WSL]] · [[Redirection et pipe]]
+- **Ensuite** : [[Chemin de fichier]] · [[Processus]]
+- **Cours** : [[Cours - Bash, les commandes essentielles]]
 
 ## Mes mots
 > [!note] Ce que j'avais écrit avec mes mots
