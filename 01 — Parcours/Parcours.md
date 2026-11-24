@@ -4,49 +4,35 @@ tags:
 ---
 # Parcours
 
-Les concepts pour comprendre ce que je fais au travail. Pas de syntaxe : elle se cherche.
+Un dessin Excalidraw par ligne : les concepts d'une ligne vont ensemble. Je coche quand Claude a vu le dessin et qu'on en a discuté.
 
-## Les 16 concepts
 **Mon poste**
-1. [[Terminal]], [[Shell]], [[WSL]] : où je tape, et les commandes de base (`04 — Commandes/Terminal`)
-2. [[Chemin de fichier]], [[Permissions Linux]] : où sont mes fichiers, qui peut y toucher
-3. [[Processus]], [[Variable d'environnement]], [[Variable PATH]] : ce qui tourne, et avec quels réglages
+- [ ] [[Terminal]], [[Shell]], [[WSL]], commandes de base et pipe
+- [ ] [[Chemin de fichier]], [[Permissions Linux]]
+- [ ] [[Processus]], [[Variable d'environnement]], [[Variable PATH]]
 
-**Travailler en équipe**
-4. [[Git]], [[Branche Git]], [[Merge]] : l'historique et les versions parallèles
-5. [[Merge request]], [[Conflit de merge]] : faire relire et fusionner
+**En équipe**
+- [ ] [[Git]], [[Branche Git]], [[Merge]], [[Merge request]], [[Conflit de merge]]
 
-**Le réseau**
-6. [[Client-serveur]], [[HTTP]], [[Code de statut HTTP]] : qui demande, qui répond, et comment
-7. [[Adresse IP]], [[Port]], [[DNS]] : comment on trouve une machine et un service
-8. [[Proxy]], [[Reverse proxy]], [[CORS]] : les intermédiaires et les blocages
-9. [[API REST]], [[JSON]], [[Authentification]] : parler à une application
+**Réseau**
+- [ ] [[Client-serveur]], [[HTTP]], [[Code de statut HTTP]], [[API REST]], [[JSON]]
+- [ ] [[Adresse IP]], [[Port]], [[DNS]]
+- [ ] [[Proxy]], [[Reverse proxy]], [[CORS]], [[Authentification]]
 
 **Docker**
-10. [[Image Docker]], [[Conteneur]], [[Dockerfile]] : emballer et lancer une application
-11. [[Docker Compose]], [[Volume Docker]] : plusieurs conteneurs et leurs données
-12. [[Registre Docker]], [[Nexus]] : où vont les images, et le passage obligé au travail
+- [ ] [[Image Docker]], [[Conteneur]], [[Dockerfile]], [[Registre Docker]], [[Nexus]]
+- [ ] [[Docker Compose]], [[Volume Docker]]
 
 **Livrer**
-13. [[Intégration et déploiement continus (CI-CD)]], [[Pipeline GitLab CI]], [[Runner GitLab]] : tester et construire à chaque push
-14. [[Environnement de déploiement]], [[Secret et fichier .env]] : dev, staging, prod, et les mots de passe hors du code
+- [ ] [[Intégration et déploiement continus (CI-CD)]], [[Pipeline GitLab CI]], [[Runner GitLab]]
+- [ ] [[Environnement de déploiement]], [[Secret et fichier .env]]
 
 **Quand ça casse**
-15. [[Gestionnaire de paquets]], [[Environnement virtuel Python]] : les dépendances
-16. [[Fiche - Lire un message d'erreur]], [[Journaliser avec logging]], [[Test unitaire]], [[Test de bout en bout]] : trouver et prévenir les erreurs
+- [ ] [[Gestionnaire de paquets]], [[Environnement virtuel Python]]
+- [ ] [[Fiche - Lire un message d'erreur]], [[Journaliser avec logging]], [[Test unitaire]], [[Test de bout en bout]]
 
 ## Méthode
-1. Lire « En une phrase » et « Comprendre ».
-2. Dessiner les points clés dans Excalidraw, sans regarder.
-3. Envoyer le dessin à Claude : il le regarde, puis on discute du concept avec des questions de situation réelle (« pourquoi ça bloque ? », « que se passe-t-il si… »).
-4. Utiliser dans mes tickets.
-5. Revoir : J+1, J+7, J+30.
-
-Finie = `schema`, `explique` (j'ai tenu la discussion) et `utilise` cochés dans la fiche.
-
-## Où j'en suis
-```dataview
-TABLE WITHOUT ID file.link AS "Notion", choice(schema, "oui", "") AS "Dessin", choice(explique, "oui", "") AS "Expliqué", choice(utilise, "oui", "") AS "Utilisé"
-FROM outgoing([[Parcours]])
-WHERE type = "concept"
-```
+1. Lire l'essentiel des fiches de la ligne.
+2. Un dessin Excalidraw qui relie ces concepts, sans regarder.
+3. Claude regarde le dessin, puis questions de situation réelle.
+4. Revoir à J+7 et J+30.
