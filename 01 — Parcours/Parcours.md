@@ -37,12 +37,12 @@ Les concepts pour comprendre ce que je fais au travail. Pas de syntaxe : elle se
 
 ## Méthode
 1. Lire « En une phrase » et « Comprendre ».
-2. Dessiner les points clés dans Excalidraw, sans regarder. Comparer, corriger.
-3. Expliquer en 3 phrases, puis Claude m'interroge.
+2. Dessiner les points clés dans Excalidraw, sans regarder.
+3. Envoyer le dessin à Claude : il le regarde, puis on discute du concept avec des questions de situation réelle (« pourquoi ça bloque ? », « que se passe-t-il si… »).
 4. Utiliser dans mes tickets.
 5. Revoir : J+1, J+7, J+30.
 
-Finie = `schema`, `explique` et `utilise` cochés dans la fiche.
+Finie = `schema`, `explique` (j'ai tenu la discussion) et `utilise` cochés dans la fiche.
 
 ## Où j'en suis
 ```dataview
