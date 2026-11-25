@@ -65,5 +65,8 @@ Tout ce qui attend (réseau, fichier, base de données) existe en version `…As
 > - Ignorer les avertissements jaunes de nullabilité (`CS8602`) : ce sont les futurs `NullReferenceException`
 > - Bloquer avec `.Result` sur une `Task` au lieu d'utiliser `await`
 
+## Aide-mémoire
+Toute la syntaxe en tableaux : [[Fiche - Syntaxe C# en un coup d'œil]].
+
 ## Concepts du cours
 [[Variables et types]] · [[Fonction]] · [[Classe et objet]] · [[Liste et dictionnaire]] · [[Motifs de boucle]] · [[Exception]] · [[Interface et polymorphisme]] · [[async et await]] · [[Module et import]]
