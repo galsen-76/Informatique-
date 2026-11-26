@@ -66,3 +66,4 @@ En Python, Pydantic fait la même chose (et FastAPI l'utilise automatiquement).
 ## 3 · Relier
 - **Prérequis** : [[JSON]] · [[Endpoint]]
 - **Complémentaires** : [[Code de statut HTTP]] · [[Injection SQL]]
+- **Outil** : [[Fiche - Zod, valider les données en TypeScript]]
