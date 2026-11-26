@@ -11,6 +11,7 @@ concepts:
   - "[[Authentification]]"
   - "[[JWT]]"
   - "[[Middleware]]"
+  - "[[Migration de base de données]]"
 tags:
   - cours
 ---
@@ -261,8 +262,22 @@ Pour ajouter une route : ouvrir un controller **qui existe**, et suivre ses appe
 > - Modifier des données sans `SaveChangesAsync()` : rien n'est enregistré
 > - Faire `.ToList()` avant `.Where()` : toute la table est chargée en mémoire
 
-## Pour lancer le projet
-[[Cours - Prendre en main un backend .NET existant]] (SDK, NuGet, configuration, migrations).
+## 8. Lancer un backend qu'on ne connaît pas
+
+Lire d'abord : README, `global.json`, `.csproj`, compose, CI (elle fait déjà tout ce qu'il faut).
+
+| Je veux… | Je regarde / je tape |
+|---|---|
+| la bonne version du SDK | `global.json`, puis `dotnet --list-sdks` |
+| télécharger les paquets | `dotnet restore` (erreur NU1301 = source injoignable, NU1101 = paquet privé introuvable) |
+| les sources de paquets | `dotnet nuget list source` |
+| mes mots de passe en local | `dotnet user-secrets set "Cle" "valeur"` (dans le projet API) |
+| lancer | `dotnet run --project <Projet.Api>` (ou `dotnet watch run`) |
+| les ports | `Properties/launchSettings.json`, et la ligne `Now listening on…` |
+| tester les routes | `/swagger` |
+| créer une migration | `dotnet ef migrations add <Nom> --project <Infra> --startup-project <Api>` |
+
+Configuration : `appsettings.json` < `appsettings.Development.json` < User Secrets < variables d'environnement (la dernière gagne). `Section:Cle` s'écrit `Section__Cle` en variable d'environnement.
 
 ## Concepts du cours
 [[Endpoint]] · [[Service et injection de dépendances]] · [[Architecture en couches]] · [[Patron Dépôt (Repository)]] · [[ORM]] · [[Authentification]] · [[JWT]] · [[Middleware]]
