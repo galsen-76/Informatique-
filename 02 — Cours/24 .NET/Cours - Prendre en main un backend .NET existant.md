@@ -1,6 +1,6 @@
 ---
 type: course
-order: 5
+order: 6
 module: "[[Module 24 - .NET]]"
 concepts:
   - "[[Projet et solution .NET]]"
