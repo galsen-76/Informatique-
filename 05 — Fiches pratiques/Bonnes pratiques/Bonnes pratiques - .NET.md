@@ -32,12 +32,43 @@ tags:
 | Une énorme classe qui fait tout | Plusieurs petites classes, chacune avec un seul rôle |
 | `.ToList().Where(...)` (charge toute la table puis filtre) | `.Where(...).ToList()` (la base filtre avant d'envoyer) |
 
+## Architecture en couches
+
+```mermaid
+flowchart TB
+    C[Controller] --> S[Service]
+    S --> R[Repository]
+    R --> B[(Base)]
+```
+
+Chaque couche n'appelle **que celle juste en dessous**.
+
+| Règle | Sinon… |
+| --- | --- |
+| Le controller ne fait que recevoir, valider, appeler le service, renvoyer le code HTTP | La règle métier est coincée dans HTTP : impossible de la réutiliser ou de la tester seule |
+| Toute la logique métier va dans le service | La même règle est recopiée dans 3 controllers, et un jour elles ne disent plus la même chose |
+| Seul le repository parle à la base (`DbContext`) | Des requêtes SQL partout : changer une table oblige à fouiller tout le code |
+| Le controller n'appelle jamais le repository directement | On saute la logique métier : une donnée invalide arrive en base |
+| Chaque couche reçoit la suivante par une **interface** dans son constructeur | Impossible de remplacer la base par une fausse dans un test |
+| Le controller renvoie un **DTO**, pas l'entité de la base | Un champ interne (mot de passe, id technique) part dans la réponse JSON |
+| Une nouvelle fonctionnalité suit le même chemin qu'une existante | Chacun range à sa façon, plus personne ne s'y retrouve |
+
+| Au lieu de… | Fais plutôt |
+| --- | --- |
+| `new MonService()` dans le controller | le demander dans le constructeur, l'enregistrer dans `Program.cs` |
+| `_context.Users.Where(...)` dans le controller | une méthode du repository, appelée par le service |
+| `return StatusCode(...)` dans le service | le service lève une exception ou renvoie un résultat ; le controller choisit le code |
+| un service « fourre-tout » | un service par sujet (`OrderService`, `InvoiceService`) |
+
+Le détail : [[Architecture en couches]] · [[Patron Dépôt (Repository)]] · [[Cours - Prendre en main un backend .NET existant]]
+
 ## Avant de valider
 - [ ] `dotnet build -warnaserror` passe
 - [ ] `dotnet test` passe
 - [ ] `dotnet format --verify-no-changes` ne trouve rien
 - [ ] Aucun secret dans le code ni dans `appsettings.json`
 - [ ] Les erreurs renvoient 400 ou 404, pas 500
+- [ ] Pas de `DbContext` dans un controller, pas de code HTTP dans un service
 
 ## Voir aussi
 [[Plateforme .NET]] · [[Projet et solution .NET]] · [[Service et injection de dépendances]] · [[async et await]] · [[Exception]]
