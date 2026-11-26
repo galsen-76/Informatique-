@@ -77,7 +77,7 @@ const user = r.data;               // propre et typé
 | **formulaire** | mêmes règles affichées à l'utilisateur et envoyées au back |
 | **configuration** (`config.js`, variables d'env) | une variable manquante est vue au démarrage |
 
-Le même rôle côté .NET : les attributs `[Required]`, `[StringLength]` sur les DTO (voir [[Cours - Lire le code d'un backend ASP.NET Core]]).
+Le même rôle côté .NET : les attributs `[Required]`, `[StringLength]` sur les DTO (voir [[Cours - .NET 10 - DTO et validation]]).
 
 > [!warning] Pièges
 > - `.optional()` accepte `undefined`, **pas** `null` : un back qui renvoie `null` fait échouer `parse`. Utiliser `.nullable()` (ou `.nullish()` pour les deux).

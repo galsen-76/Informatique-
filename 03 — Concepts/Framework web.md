@@ -80,4 +80,4 @@ La même route dans deux frameworks : `GET /depenses` renvoie la liste en JSON.
 ## 3 · Relier
 - **Prérequis** : [[HTTP]] · [[API REST]]
 - **Complémentaires** : [[Endpoint]] · [[Middleware]] · [[Service et injection de dépendances]] · [[OpenAPI]]
-- **Utilisé par** : [[Cours - Une API web avec ASP.NET Core]]
+- **Utilisé par** : [[Cours - .NET 09 - Controllers, routes et attributs]]

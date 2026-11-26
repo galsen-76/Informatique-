@@ -60,7 +60,7 @@ Chaque couche n'appelle **que celle juste en dessous**.
 | `return StatusCode(...)` dans le service | le service lève une exception ou renvoie un résultat ; le controller choisit le code |
 | un service « fourre-tout » | un service par sujet (`OrderService`, `InvoiceService`) |
 
-Le détail : [[Architecture en couches]] · [[Patron Dépôt (Repository)]] · [[Cours - Lire le code d'un backend ASP.NET Core]]
+Le détail : [[Architecture en couches]] · [[Patron Dépôt (Repository)]] · [[Cours - .NET 12 - Les couches, controller, service, repository]]
 
 ## Avant de valider
 - [ ] `dotnet build -warnaserror` passe

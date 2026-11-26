@@ -12,7 +12,7 @@ tags:
   - fiche-pratique
   - dotnet
 ---
-# Fiche - Syntaxe C# en un coup d'œil
+# Fiche - Syntaxe CSharp en un coup d'œil
 
 > [!info] En deux phrases
 > La syntaxe C# dont on a besoin pour lire et écrire une méthode, en tableaux « je veux → ça s'écrit ». Les exemples sont volontairement génériques (des fruits, des prix) : à toi de les transposer.
@@ -129,4 +129,4 @@ Une **lambda** = une petite fonction sans nom : `x => x > 10` (« pour chaque x,
 > - Comparer du texte avec majuscules : `"Pomme" == "pomme"` vaut `false`.
 
 ## Liens
-[[Cours - Lire et écrire du code .NET]] · [[Bonnes pratiques - .NET]] · [[async et await]] · [[Condition (if)]]
+[[Cours - .NET - le plan]] · [[Bonnes pratiques - .NET]] · [[async et await]] · [[Condition (if)]]
