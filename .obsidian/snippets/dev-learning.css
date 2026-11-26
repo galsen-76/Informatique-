@@ -232,3 +232,9 @@ body { --checkbox-radius: 5px; --checklist-done-decoration: line-through; }
 .dl-current { font-size: 1.05em; margin-bottom: 2px; }
 .dl-concept { background: var(--dw-surface); border-radius: 14px; padding: 12px 16px; margin: 8px 0 18px; }
 .dl-concept .dw-list ul { columns: 1; }
+
+/* Code en ligne (`...`) : texte cyan doux */
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian span.cm-inline-code:not(.cm-formatting-code) {
+  color: #7fd3e6;
+}
