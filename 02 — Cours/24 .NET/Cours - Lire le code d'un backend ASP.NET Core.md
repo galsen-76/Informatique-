@@ -254,14 +254,6 @@ public class OrderRepository : IOrderRepository
 
 Pour ajouter une route : ouvrir un controller **qui existe**, et suivre ses appels avec **F12** (aller à la définition) jusqu'à la base. Faire le même chemin.
 
-## Pièges
-> [!warning] Erreurs fréquentes
-> - Oublier `await` devant un `…Async` : la méthode continue sans attendre le résultat
-> - Mettre `[Authorize]` mais oublier `UseAuthentication()` : tout le monde a un 401
-> - Renvoyer l'entité au lieu d'un DTO : des champs internes partent dans le JSON
-> - Modifier des données sans `SaveChangesAsync()` : rien n'est enregistré
-> - Faire `.ToList()` avant `.Where()` : toute la table est chargée en mémoire
-
 ## 8. Lancer un backend qu'on ne connaît pas
 
 Lire d'abord : README, `global.json`, `.csproj`, compose, CI (elle fait déjà tout ce qu'il faut).
@@ -278,6 +270,14 @@ Lire d'abord : README, `global.json`, `.csproj`, compose, CI (elle fait déjà t
 | créer une migration | `dotnet ef migrations add <Nom> --project <Infra> --startup-project <Api>` |
 
 Configuration : `appsettings.json` < `appsettings.Development.json` < User Secrets < variables d'environnement (la dernière gagne). `Section:Cle` s'écrit `Section__Cle` en variable d'environnement.
+
+## Pièges
+> [!warning] Erreurs fréquentes
+> - Oublier `await` devant un `…Async` : la méthode continue sans attendre le résultat
+> - Mettre `[Authorize]` mais oublier `UseAuthentication()` : tout le monde a un 401
+> - Renvoyer l'entité au lieu d'un DTO : des champs internes partent dans le JSON
+> - Modifier des données sans `SaveChangesAsync()` : rien n'est enregistré
+> - Faire `.ToList()` avant `.Where()` : toute la table est chargée en mémoire
 
 ## Concepts du cours
 [[Endpoint]] · [[Service et injection de dépendances]] · [[Architecture en couches]] · [[Patron Dépôt (Repository)]] · [[ORM]] · [[Authentification]] · [[JWT]] · [[Middleware]]
