@@ -14,18 +14,30 @@ Ce coffre sert à **apprendre des concepts**. Pour retrouver vite une commande o
 
 ## Les étapes
 
+Un seul cours par étape. Je ne lis que le cours ; les concepts ne servent que si un mot me bloque.
+
 - [ ] 1. Terminal Linux : [[Cours - Terminal Linux, l'essentiel]]
-- [ ] 2. IP, port, DNS : [[Adresse IP]], [[Port]], [[DNS]]
-- [ ] 3. HTTP et API REST : [[HTTP]], [[API REST]], [[JSON]]
-- [ ] 4. Proxy, reverse proxy, load balancer : [[Proxy]], [[Reverse proxy]], [[CORS]]
-- [ ] 5. Docker : [[Image Docker]], [[Conteneur]]
-- [ ] 6. Nexus (registre) : [[Registre Docker]], [[Nexus]]
-- [ ] 7. CI : [[Intégration et déploiement continus (CI-CD)]]
+- [ ] 2. IP, port, DNS
+- [ ] 3. HTTP et API REST
+- [ ] 4. Proxy, reverse proxy, load balancer
+- [ ] 5. Docker
+- [ ] 6. Nexus (registre)
+- [ ] 7. CI
 - [ ] 8. Orchestrateur (Kubernetes)
-- [ ] 9. DTO : [[Cours - .NET 10 - DTO et validation]]
-- [ ] 10. Authentification : [[Authentification]], [[JWT]]
-- [ ] 11. SQL de base : [[SQL]]
-- [ ] 12. Migrations .NET vers la base : [[Migration de base de données]], [[Cours - .NET 11 - EF Core, la base de données]]
+- [ ] 9. DTO
+- [ ] 10. Authentification
+- [ ] 11. SQL de base
+- [ ] 12. Migrations .NET vers la base
+
+Le cours de chaque étape arrive quand j'y suis.
+
+## Cours ou concept ?
+
+| | Cours | Concept |
+| --- | --- | --- |
+| C'est quoi | une leçon complète, à lire du début à la fin | la définition d'un seul mot |
+| Quand | une étape du Parcours | un mot du cours que je ne comprends pas |
+| Où | 02 — Cours | 03 — Concepts (comme un dictionnaire) |
 
 Git : déjà à l'aise, pas dans le parcours.
 
