@@ -14,10 +14,15 @@ Ces schémas complètent le cours principal. Lis-les dans l’ordre : une notion
 
 **À retenir :** chaque instruction du Dockerfile ajoute une couche. Docker réutilise le cache lorsque l’instruction et ses entrées n’ont pas changé.
 
+## 3. Lancer et inspecter un conteneur
+
+![Lancer et inspecter un conteneur](Conteneur-lancer-inspecter.svg)
+
+**À retenir :** `docker run` crée et démarre un conteneur ; `docker ps` montre ceux qui tournent ; `docker logs` affiche les messages du programme.
+
 ## Suite du parcours
 
 Les prochaines fiches détailleront séparément :
-- Lancer et inspecter un conteneur
 - Les volumes : conserver les données hors du conteneur
 - Docker Compose : faire fonctionner plusieurs services ensemble
 - Les registres : publier et télécharger des images
