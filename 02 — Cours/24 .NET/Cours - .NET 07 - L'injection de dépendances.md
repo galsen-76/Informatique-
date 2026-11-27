@@ -74,6 +74,8 @@ Même chose, écrit plus court : tu le verras dans les projets récents.
 
 ## 5. Comment .NET trouve le bon objet
 
+![[Injection - qui reçoit quoi.png]]
+
 Au démarrage, `Program.cs` remplit une sorte de **dictionnaire** : « type demandé → classe à créer ».
 
 | Demandé (clé) | Créé (valeur) |
@@ -96,6 +98,9 @@ const l: Logger = new ConsoleLogger();   // pas new Logger()
 ```
 
 Dans la classe qui reçoit, on n'importe (`using`) que l'**interface** : la vraie classe n'apparaît que dans `Program.cs`.
+
+> [!tip] « 0 usage » dans Rider
+> Sur `ProductService.CreateAsync`, Rider affiche souvent **0 usage** : personne n'appelle la classe, tout le monde appelle l'**interface**. Pour voir les vrais appels : ouvrir `IProductService` (ou l'icône ↑ dans la marge), puis **Alt+F7**. Même chose pour les actions de controller : c'est ASP.NET qui les appelle via la route.
 
 ## 6. Deux façons d'enregistrer
 

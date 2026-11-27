@@ -98,7 +98,25 @@ Les majuscules suivent la convention de chaque langage (camelCase en TS, PascalC
 | type différent (`"abc"` pour un nombre) | **400** |
 | seulement la majuscule | ✅ marche |
 
-Vérifier : Swagger montre le JSON attendu, F12 → Réseau → Charge utile montre ce que le front envoie.
+Vérifier : Swagger montre le JSON attendu, F12 → Réseau → Charge utile montre ce que le front envoie, et l'onglet **Réponse** ce que le back renvoie.
+
+> [!example] Vu en vrai
+> Front : `isUploaded`, back : `IsUpload` (sans « ed »). Aucune erreur, mais `IsUpload` vaut **toujours `false`** côté back. Même nom des deux côtés, seule la majuscule peut changer.
+
+## 4. Le DTO de réponse
+
+Le controller ne renvoie pas l'entité : il renvoie un petit DTO avec ce dont le front a besoin.
+
+```csharp
+var activity = await _service.Add(...);                 // entité, avec son Id
+return Ok(new ActivityResponseDto(activity.Id, activity.Message));   // pas Ok(activity)
+```
+
+| Renvoyer l'entité | Renvoyer un DTO |
+|---|---|
+| les propriétés de navigation partent aussi (`user: null`, ou boucle JSON) | seulement les champs utiles |
+| les noms suivent la base (`message`) | les noms que le front attend (`fileName`) |
+| un champ interne ajouté demain part chez le client | rien ne change sans qu'on le décide |
 
 ## À retenir
 - Entité = la base, DTO = ce qui voyage en JSON.

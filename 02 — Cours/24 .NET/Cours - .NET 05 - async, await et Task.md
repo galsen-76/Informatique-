@@ -38,6 +38,26 @@ var product = await _repository.GetByIdAsync(12);   // dans une méthode async
 
 Dès qu'on appelle un `…Async`, la méthode appelante devient `async` aussi : ça remonte jusqu'au controller.
 
+### Dans un controller
+
+```csharp
+[HttpPost]
+public async Task<ActionResult> Create([FromBody] CreateProductDto dto)   // Task<…> obligatoire avec async
+{
+    var created = await _service.CreateAsync(dto);   // la réponse part APRÈS l'INSERT
+    return Ok(created);
+}
+```
+
+| Écrit | Résultat |
+|---|---|
+| `async ActionResult Create(...)` | ne compile pas (CS1983) : une méthode `async` retourne une `Task` |
+| `_service.CreateAsync(dto);` sans `await` | le `200` part **avant** l'INSERT ; s'il échoue, le front ne le sait pas |
+| `await _service.CreateAsync(dto);` | l'erreur remonte : le front reçoit une `500` |
+
+> [!tip] Indice dans les logs
+> `responded 200` **puis** `Failed executing DbCommand` : il manque un `await` quelque part.
+
 ## 3. Lancer plusieurs choses en même temps
 
 ```csharp

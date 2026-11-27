@@ -69,6 +69,28 @@ const user = r.data;               // propre et typé
 | un schéma qui se contient lui-même (arbre) | `z.lazy(() => …)` |
 | réutiliser un schéma | `.extend({ … })` `.pick({ id: true })` `.omit({ … })` `.partial()` |
 
+## Dans un service d'API : il vérifie la réponse
+
+![[Zod - valider la réponse.png]]
+
+Dans beaucoup de projets, une classe de base (`AbstractService<T>`) envoie la requête puis fait `Schema.parse(response.data)`. Le schéma du service décrit donc **ce que le back renvoie**, pas ce que tu envoies.
+
+```ts
+// le corps envoyé est libre : pas d'id pour une création
+await workflowService.PostWithData(`${buId}/${tagId}`, { WorkflowName: name });
+
+// le schéma décrit la RÉPONSE (le workflow créé, avec son id)
+export const WorkflowSchema = z.object({ id: z.string(), name: z.string() /* … */ });
+```
+
+| Erreur Zod | Cause probable |
+|---|---|
+| `id: Required, received undefined` | le back renvoie `Ok()` vide, ou un objet sans id |
+| `fileName: Required` alors que le back l'a | le back l'appelle autrement (`message`) : renvoyer un DTO de réponse |
+| tous les champs `undefined` | le schéma décrit le corps envoyé au lieu de la réponse |
+
+Vérifier : F12 → Réseau → la requête → onglet **Réponse**, et comparer au schéma.
+
 ## Où on l'utilise dans un front
 
 | Endroit | Pourquoi |

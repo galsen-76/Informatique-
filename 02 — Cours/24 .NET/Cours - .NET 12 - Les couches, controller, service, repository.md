@@ -15,6 +15,8 @@ tags:
 
 ## 1. Le chemin
 
+![[Couches .NET - aller et retour.png]]
+
 ```mermaid
 flowchart TB
     C[Controller] --> S[Service]
@@ -103,6 +105,19 @@ public async Task<ActionResult<ProductDto>> Create([FromBody] CreateProductDto d
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 ```
+
+> [!tip] L'Id vient d'en bas
+> Le repository de base fait souvent :
+> ```csharp
+> public async Task<T?> AddAsync(T entity)
+> {
+>     if (entity.Id == Guid.Empty) entity.Id = Guid.NewGuid();   // l'Id est créé ici
+>     await _context.AddAsync(entity);
+>     await _context.SaveChangesAsync();
+>     return entity;                                            // et renvoyé
+> }
+> ```
+> Pour que le controller l'ait, chaque couche doit **retourner** ce qu'elle reçoit : `return await repository.AddAsync(...)` dans le service (type `Task<Product?>`, dans l'interface **et** la classe), `var created = await service...` dans le controller. Les appels existants qui ignorent le résultat ne cassent pas. Le front n'envoie jamais d'id pour une création.
 
 ## 3. Les projets de la solution
 
