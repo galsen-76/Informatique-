@@ -68,6 +68,38 @@ Avec `[ApiController]`, si une règle échoue : **400 automatique**, la méthode
 
 Certaines équipes utilisent **FluentValidation** (règles écrites en code dans une classe `…Validator`) : même rôle.
 
+## 3. Un DTO en front, un DTO en back
+
+Le front (TS) et le back (C#) ne partagent pas de code : chacun décrit le même **JSON**.
+
+```mermaid
+flowchart TB
+    A[DTO TypeScript] --> J[JSON]
+    J --> B[DTO C#]
+```
+
+```ts
+type CreateProductDto = { name: string; price: number };   // front
+```
+```json
+{ "name": "Clavier", "price": 29.9 }
+```
+```csharp
+public record CreateProductDto(string Name, decimal Price);  // back
+```
+
+Les majuscules suivent la convention de chaque langage (camelCase en TS, PascalCase en C#). ASP.NET Core **convertit tout seul** : il lit le JSON sans tenir compte des majuscules, et écrit ses réponses en camelCase. Si le nom diffère vraiment : `[JsonPropertyName("file_name")]`.
+
+| Différence entre les deux DTO | Côté back |
+|---|---|
+| champ en plus dans le front | ignoré |
+| champ manquant | valeur par défaut (`null`, `0`), ou **400** s'il est obligatoire |
+| nom différent | comme un champ manquant : valeur vide, **sans erreur** |
+| type différent (`"abc"` pour un nombre) | **400** |
+| seulement la majuscule | ✅ marche |
+
+Vérifier : Swagger montre le JSON attendu, F12 → Réseau → Charge utile montre ce que le front envoie.
+
 ## À retenir
 - Entité = la base, DTO = ce qui voyage en JSON.
 - Un DTO par usage : lecture, création, modification.

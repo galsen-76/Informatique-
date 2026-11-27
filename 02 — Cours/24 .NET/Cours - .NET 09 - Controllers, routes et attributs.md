@@ -91,6 +91,39 @@ Sans attribut, `[ApiController]` devine : type simple → adresse ou `?`, objet 
 
 `ActionResult<T>` = « soit un `T` (200), soit un autre code ». `IActionResult` = n'importe quel code, sans type.
 
+## 5. `IActionResult` ou `ActionResult<T>` ?
+
+Une **action** = une méthode publique du controller qui répond à une route.
+
+| | Annonce le type des données ? | Typique |
+|---|---|---|
+| `IActionResult` | non : « une réponse HTTP » | `Delete`, `Update`, un log → `NoContent()`, `Ok()` |
+| `ActionResult<T>` | oui : « un `T`, ou une autre réponse » | `Get`, `Create` → des données |
+
+`IActionResult` est une **interface** : `Ok()`, `NotFound()`, `NoContent()` renvoient chacun une classe qui la remplit (`OkObjectResult`, `NotFoundResult`…). C'est pour ça qu'une même action peut renvoyer l'un ou l'autre.
+
+`ActionResult<T>` est une **classe** : une boîte qui contient **soit** le `T` (propriété `Value`), **soit** une réponse (propriété `Result`). Pas besoin de la fabriquer : C# convertit tout seul.
+
+```csharp
+public async Task<ActionResult<ProductDto>> GetById(int id)
+{
+    if (...) return NotFound();   // mis tout seul dans la boîte
+    return product;               // aussi (200 + JSON, pas besoin de Ok())
+}
+```
+
+Dans un test, on ouvre la boîte :
+
+```csharp
+var r = await controller.GetById(12);
+Assert.NotNull(r.Value);                    // des données
+Assert.IsType<NotFoundResult>(r.Result);    // ou un 404
+```
+
+## 6. Swagger
+
+Une **page web générée à partir des controllers**, souvent sur `/swagger` : la liste de toutes les routes, et un bouton **Try it out** pour les appeler (un Postman intégré). Avec `ActionResult<T>`, Swagger affiche la forme exacte des données renvoyées ; avec `IActionResult`, il ne le sait pas (sauf avec `[ProducesResponseType]`).
+
 ## À retenir
 - Le controller ne fait que : recevoir → appeler le service → renvoyer un code.
 - Les attributs disent l'adresse et d'où viennent les données.

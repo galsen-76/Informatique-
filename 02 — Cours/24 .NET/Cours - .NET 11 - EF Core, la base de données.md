@@ -97,6 +97,31 @@ dotnet ef database update \
 
 La table `__EFMigrationsHistory` garde la liste des migrations déjà appliquées. Beaucoup d'API les appliquent au démarrage (`context.Database.Migrate()` dans `Program.cs`).
 
+## 6. `dotnet-ef` : quand en a-t-on besoin ?
+
+`dotnet-ef` lit tes **entités** et le `DbContext`, les compare à l'état de la dernière migration, et écrit un fichier de migration avec **la différence**. Comme `prisma migrate` en JS.
+
+```mermaid
+flowchart TB
+    A[Entité C#] --> B[dotnet ef migrations add]
+    B --> C[Fichier de migration]
+    C --> D[(Table créée)]
+```
+
+| Je veux… | `dotnet-ef` ? |
+|---|---|
+| ajouter des **lignes** dans une table qui existe (`Add` + `SaveChangesAsync`) | ❌ non |
+| créer une **table**, ajouter une **colonne** | ✅ oui |
+
+Une entité n'est vue que si elle a son `DbSet` dans le `DbContext`. Deux écritures, même sens :
+
+```csharp
+public DbSet<Product> Products { get; set; }
+public DbSet<Product> Products => Set<Product>();
+```
+
+Rider propose « install dotnet-ef as a global tool » dès qu'il voit EF Core : global = installé une fois pour la machine (`dotnet tool install --global dotnet-ef`, même version majeure que le projet).
+
 ## À retenir
 - Entité = table, `DbSet` = accès à la table, `DbContext` = la base.
 - `SaveChangesAsync()` enregistre, les `…Async()` de lecture exécutent.
