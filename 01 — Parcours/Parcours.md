@@ -14,7 +14,7 @@ Ce coffre sert à **apprendre des concepts**. Pour retrouver vite une commande o
 
 ## Les étapes
 
-Un seul cours par étape. Je ne lis que le cours ; les concepts ne servent que si un mot me bloque.
+Une seule note par étape : le cours. Les mots importants sont expliqués en haut du cours, dans « Les mots du cours ».
 
 - [ ] 1. Terminal Linux : [[Cours - Terminal Linux, l'essentiel]]
 - [ ] 2. IP, port, DNS
@@ -30,14 +30,6 @@ Un seul cours par étape. Je ne lis que le cours ; les concepts ne servent que s
 - [ ] 12. Migrations .NET vers la base
 
 Le cours de chaque étape arrive quand j'y suis.
-
-## Cours ou concept ?
-
-| | Cours | Concept |
-| --- | --- | --- |
-| C'est quoi | une leçon complète, à lire du début à la fin | la définition d'un seul mot |
-| Quand | une étape du Parcours | un mot du cours que je ne comprends pas |
-| Où | 02 — Cours | 03 — Concepts (comme un dictionnaire) |
 
 Git : déjà à l'aise, pas dans le parcours.
 

@@ -2,17 +2,6 @@
 type: course
 order: 0
 module: "[[Parcours]]"
-concepts:
-  - "[[Terminal]]"
-  - "[[Shell]]"
-  - "[[Système de fichiers]]"
-  - "[[Chemin de fichier]]"
-  - "[[Permissions Linux]]"
-  - "[[Processus]]"
-  - "[[Variable d'environnement]]"
-  - "[[Variable PATH]]"
-  - "[[Redirection et pipe]]"
-  - "[[Code de sortie]]"
 tags:
   - cours
   - linux
@@ -20,6 +9,21 @@ tags:
 # Cours - Terminal Linux, l'essentiel
 
 Étape 1 du [[Parcours]]. But : être à l'aise dans un terminal Linux (WSL, un conteneur Docker, un serveur, un job de CI : c'est le même Linux partout).
+
+## Les mots du cours
+
+| Mot | En une phrase |
+| --- | --- |
+| Terminal | la fenêtre où je tape des commandes ; elle affiche seulement |
+| Shell (Bash) | le programme qui lit ma commande et lance le bon programme |
+| Système de fichiers | l'arbre des dossiers, qui part de `/` sous Linux |
+| Chemin | l'adresse d'un fichier : absolu (part de `/`) ou relatif (part d'où je suis) |
+| Permissions | qui a le droit de lire (r), écrire (w), exécuter (x) un fichier |
+| Processus | un programme en train de tourner, avec un numéro (PID) |
+| Variable d'environnement | une valeur donnée à chaque programme au démarrage, hors du code |
+| PATH | la liste des dossiers où le shell cherche les programmes |
+| Pipe et redirection | envoyer une sortie dans un autre programme (`\|`) ou un fichier (`>`) |
+| Code de sortie | le nombre renvoyé à la fin : 0 = réussi, autre = échec |
 
 ## 1. Ce qui se passe quand tu tapes une commande
 
