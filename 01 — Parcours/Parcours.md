@@ -4,39 +4,31 @@ tags:
 ---
 # Parcours
 
-Un dessin Excalidraw par ligne : les concepts d'une ligne vont ensemble. Je coche quand Claude a vu le dessin et qu'on en a discuté.
-
-**Mon poste**
-- [ ] [[Terminal]], [[Shell]], [[WSL]], [[Redirection et pipe]] (cours : [[Cours - Bash, les commandes essentielles]])
-- [ ] [[Chemin de fichier]], [[Permissions Linux]]
-- [ ] [[Processus]], [[Variable d'environnement]], [[Variable PATH]]
-
-**En équipe**
-- [ ] [[Git]], [[Branche Git]], [[Merge]], [[Merge request]], [[Conflit de merge]]
-
-**Réseau**
-- [ ] [[Client-serveur]], [[HTTP]], [[Code de statut HTTP]], [[API REST]], [[JSON]]
-- [ ] [[Adresse IP]], [[Port]], [[DNS]]
-- [ ] [[Proxy]], [[Reverse proxy]], [[CORS]], [[Authentification]]
-
-**Docker**
-- [ ] [[Image Docker]], [[Conteneur]], [[Dockerfile]], [[Registre Docker]], [[Nexus]]
-- [ ] [[Docker Compose]], [[Volume Docker]]
-
-**Livrer**
-- [ ] [[Intégration et déploiement continus (CI-CD)]], [[Pipeline GitLab CI]], [[Runner GitLab]]
-- [ ] [[Environnement de déploiement]], [[Secret et fichier .env]]
-
-**Quand ça casse**
-- [ ] [[Gestionnaire de paquets]], [[Environnement virtuel Python]]
-- [ ] [[Fiche - Lire un message d'erreur]], [[Journaliser avec logging]], [[Test unitaire]], [[Test de bout en bout]]
+Ce coffre sert à **apprendre des concepts**. Pour retrouver vite une commande ou une erreur : coffre Dev-Toolbox.
 
 ## Méthode
-1. Lire l'essentiel des fiches de la ligne.
-2. Un dessin Excalidraw qui relie ces concepts, sans regarder.
-3. Claude regarde le dessin, puis questions de situation réelle.
-4. Revoir à J+7 et J+30.
+1. Claude fait le cours de l'étape.
+2. Je le lis, puis je dessine au stylet (Excalidraw), sans regarder.
+3. J'envoie la photo à Claude : il me dit ce qui est juste et ce qui est faux.
+4. Je corrige mon dessin. Je coche l'étape.
+
+## Les étapes
+
+- [ ] 1. Terminal Linux : [[Cours - Terminal Linux, l'essentiel]]
+- [ ] 2. IP, port, DNS : [[Adresse IP]], [[Port]], [[DNS]]
+- [ ] 3. HTTP et API REST : [[HTTP]], [[API REST]], [[JSON]]
+- [ ] 4. Proxy, reverse proxy, load balancer : [[Proxy]], [[Reverse proxy]], [[CORS]]
+- [ ] 5. Docker : [[Image Docker]], [[Conteneur]]
+- [ ] 6. Nexus (registre) : [[Registre Docker]], [[Nexus]]
+- [ ] 7. CI : [[Intégration et déploiement continus (CI-CD)]]
+- [ ] 8. Orchestrateur (Kubernetes)
+- [ ] 9. DTO : [[Cours - .NET 10 - DTO et validation]]
+- [ ] 10. Authentification : [[Authentification]], [[JWT]]
+- [ ] 11. SQL de base : [[SQL]]
+- [ ] 12. Migrations .NET vers la base : [[Migration de base de données]], [[Cours - .NET 11 - EF Core, la base de données]]
+
+Git : déjà à l'aise, pas dans le parcours.
 
 ## Parking
-Ce qui m'attire mais n'est pas la ligne en cours.
+Ce qui m'attire mais n'est pas l'étape en cours.
 -
