@@ -71,7 +71,8 @@ const user = r.data;               // propre et typé
 
 ## Dans un service d'API : il vérifie la réponse
 
-![[Zod - valider la réponse.png]]
+> [!todo] Mon schéma
+> le front envoie, le back répond, Zod vérifie la réponse avant le reste du code.
 
 Dans beaucoup de projets, une classe de base (`AbstractService<T>`) envoie la requête puis fait `Schema.parse(response.data)`. Le schéma du service décrit donc **ce que le back renvoie**, pas ce que tu envoies.
 

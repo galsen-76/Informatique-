@@ -15,7 +15,8 @@ tags:
 
 ## 1. Le chemin
 
-![[Couches .NET - aller et retour.png]]
+> [!todo] Mon schéma
+> Front → Controller → Service → Repository → base, puis le retour avec l'Id.
 
 ```mermaid
 flowchart TB

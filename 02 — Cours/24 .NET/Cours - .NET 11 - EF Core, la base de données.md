@@ -70,7 +70,8 @@ _context.Products.Remove(product);                         // supprimer
 await _context.SaveChangesAsync();                         // ← ICI le SQL part
 ```
 
-![[Entité et table.png]]
+> [!todo] Mon schéma
+> l'entité C# à gauche, la table à droite, une flèche par colonne ; User barré (pas une colonne) ; UserId → Users.
 
 > [!tip] Propriété de navigation
 > `Category Category` n'est pas une colonne : EF s'en sert pour faire le lien avec `CategoryId` et te laisse écrire `product.Category.Name`. Seul `CategoryId` existe en base.
@@ -89,7 +90,8 @@ await _context.SaveChangesAsync();                         // ← ICI le SQL par
 
 ## 5. Les migrations
 
-![[Migration EF Core - de ton code à la base.png]]
+> [!todo] Mon schéma
+> ton code → dossier Migrations/ (3 fichiers) → base et __EFMigrationsHistory.
 
 ```shell
 dotnet ef migrations add AddProductStock \
@@ -148,7 +150,8 @@ Le collègue qui fait `git pull` n'a besoin de rien : sa base se met à jour au 
 
 ### Annuler une migration
 
-![[Migration EF Core - annuler.png]]
+> [!todo] Mon schéma
+> l'historique avant/après database update, puis migrations remove qui supprime le fichier.
 
 ```shell
 # 1. Seulement si l'API a tourné : revenir à la migration d'avant (exécute Down())

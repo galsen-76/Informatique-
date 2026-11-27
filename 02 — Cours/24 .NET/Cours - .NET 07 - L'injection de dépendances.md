@@ -74,7 +74,8 @@ Même chose, écrit plus court : tu le verras dans les projets récents.
 
 ## 5. Comment .NET trouve le bon objet
 
-![[Injection - qui reçoit quoi.png]]
+> [!todo] Mon schéma
+> le controller demande l'interface → Program.cs (le dictionnaire) → la classe créée et donnée.
 
 Au démarrage, `Program.cs` remplit une sorte de **dictionnaire** : « type demandé → classe à créer ».
 
